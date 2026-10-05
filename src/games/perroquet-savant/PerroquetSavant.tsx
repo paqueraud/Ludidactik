@@ -255,8 +255,16 @@ export default function PerroquetSavant({
         style={{ background: 'linear-gradient(180deg,#C9F0D3 0%,#E8FAEA 60%,#BFE8C5 100%)' }}
         aria-label="Le perroquet"
       >
-        <svg viewBox="0 0 300 60" className="absolute inset-x-0 top-0 h-12 w-full" preserveAspectRatio="none" aria-hidden>
-          <path d="M0 0 H300 V20 Q270 50 240 24 Q210 52 180 22 Q150 50 120 24 Q90 52 60 22 Q30 50 0 24 Z" fill="#7BD389" />
+        <svg
+          viewBox="0 0 300 60"
+          className="absolute inset-x-0 top-0 h-12 w-full"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <path
+            d="M0 0 H300 V20 Q270 50 240 24 Q210 52 180 22 Q150 50 120 24 Q90 52 60 22 Q30 50 0 24 Z"
+            fill="#7BD389"
+          />
         </svg>
         <div className="relative flex h-[200px] items-end justify-center pb-2 sm:h-[300px]">
           <Perroquet humeur={humeur} reduite={reduite} />
@@ -330,7 +338,12 @@ export default function PerroquetSavant({
               </>
             ) : (
               <>
-                <Button variant="grape" size="lg" icon={<Check aria-hidden />} onClick={() => void jeLaiDit()}>
+                <Button
+                  variant="grape"
+                  size="lg"
+                  icon={<Check aria-hidden />}
+                  onClick={() => void jeLaiDit()}
+                >
                   Je l’ai dit !
                 </Button>
                 <p className="max-w-sm text-center text-sm font-bold text-ink-soft">
@@ -341,7 +354,11 @@ export default function PerroquetSavant({
               </>
             )}
             {modeleDispo && (
-              <Button variant="sun" icon={<Volume2 aria-hidden />} onClick={() => void speech.speak(q.reponse)}>
+              <Button
+                variant="sun"
+                icon={<Volume2 aria-hidden />}
+                onClick={() => void speech.speak(q.reponse)}
+              >
                 Écouter le modèle
               </Button>
             )}
@@ -365,15 +382,23 @@ export default function PerroquetSavant({
         )}
         {etat === 'pasCompris' && (
           <p className="text-center font-bold" role="status">
-            Presque&nbsp;! {entendu ? <>J’ai entendu « {entendu} ». </> : null}On réessaie ? ({maxEssais - essais} essai
+            Presque&nbsp;! {entendu ? <>J’ai entendu « {entendu} ». </> : null}On réessaie ? (
+            {maxEssais - essais} essai
             {maxEssais - essais > 1 ? 's' : ''})
           </p>
         )}
 
         {/* Auto-évaluation */}
         {etat === 'autoEval' && (
-          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex w-full flex-col items-center gap-3 rounded-2xl bg-sky/10 p-4 text-center" role="status">
-            <p className="font-titre text-xl font-extrabold">Le perroquet dit : « {q.reponse} ». As-tu lu pareil&nbsp;?</p>
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex w-full flex-col items-center gap-3 rounded-2xl bg-sky/10 p-4 text-center"
+            role="status"
+          >
+            <p className="font-titre text-xl font-extrabold">
+              Le perroquet dit : « {q.reponse} ». As-tu lu pareil&nbsp;?
+            </p>
             <div className="flex flex-wrap justify-center gap-2">
               <Button variant="grass" icon={<Check aria-hidden />} onClick={() => autoEvaluer(true)}>
                 J’ai bien lu
@@ -381,7 +406,11 @@ export default function PerroquetSavant({
               <Button variant="blanc" icon={<RotateCcw aria-hidden />} onClick={() => autoEvaluer(false)}>
                 {essais + 1 >= maxEssais ? 'Pas tout à fait' : 'Je réessaie'}
               </Button>
-              <Button variant="sun" icon={<Volume2 aria-hidden />} onClick={() => void speech.speak(q.reponse)}>
+              <Button
+                variant="sun"
+                icon={<Volume2 aria-hidden />}
+                onClick={() => void speech.speak(q.reponse)}
+              >
                 Réécouter
               </Button>
             </div>

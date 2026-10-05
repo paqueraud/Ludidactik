@@ -12,7 +12,11 @@ export { tirerItem };
  * Collecte jusqu'à `max` items distincts (par id) qui conviennent, dans l'ordre du flux
  * (les items à revoir arrivent d'abord). S'arrête quand le flux boucle.
  */
-export function collecterItems<T extends Item>(stream: ItemStream, ok: (it: Item) => it is T, max: number): T[];
+export function collecterItems<T extends Item>(
+  stream: ItemStream,
+  ok: (it: Item) => it is T,
+  max: number,
+): T[];
 export function collecterItems(stream: ItemStream, ok: (it: Item) => boolean, max: number): Item[];
 export function collecterItems(stream: ItemStream, ok: (it: Item) => boolean, max: number): Item[] {
   const vus = new Map<string, Item>();

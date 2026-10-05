@@ -66,7 +66,10 @@ export interface PhraseTexte {
 /** Découpe un texte en phrases (après . ! ? … suivis d'un espace et d'une majuscule, d'un tiret ou d'un guillemet). */
 export function decouperPhrases(texte: string): PhraseTexte[] {
   // On garde la typographie d'origine (apostrophes courbes, espaces avant : ; ! ?) pour l'affichage.
-  const t = texte.normalize('NFC').replace(/[ \t\r\n]+/g, ' ').trim();
+  const t = texte
+    .normalize('NFC')
+    .replace(/[ \t\r\n]+/g, ' ')
+    .trim();
   const morceaux = t.split(/(?<=[.!?…]["»”)]?)\s+(?=[\p{Lu}«"—–-])/u);
   return morceaux
     .map((m) => m.trim())
@@ -75,12 +78,7 @@ export function decouperPhrases(texte: string): PhraseTexte[] {
 }
 
 /** Clé de comparaison d'une phrase entière (mots normalisés joints par des espaces). */
-const clePhrase = (s: string) =>
-  normalizeText(s)
-    .split(' ')
-    .map(cleMot)
-    .filter(Boolean)
-    .join(' ');
+const clePhrase = (s: string) => normalizeText(s).split(' ').map(cleMot).filter(Boolean).join(' ');
 
 /**
  * Index de la phrase du texte qui contient la preuve (citation exacte ou fragment).

@@ -10,13 +10,27 @@
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Eye } from 'lucide-react';
-import { type KeyboardEvent, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import {
+  type KeyboardEvent,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Button, SpeakButton } from '@/components/ui';
 import type { Level, PairingItem } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
 import { parNiveau, useGameSession } from '../_kit/session';
 import { Hud } from '../_kit/ui';
-import { type CarteMemory, type Paire, collecterPaires, colonnesMemory, preparerMemory } from '../_langue-commun/paires';
+import {
+  type CarteMemory,
+  type Paire,
+  collecterPaires,
+  colonnesMemory,
+  preparerMemory,
+} from '../_langue-commun/paires';
 import { collecterItems } from '../_langue-commun/tirage';
 import { PasDExercice } from '../_langue-commun/ui';
 import { useRng } from '../_nombres-commun/outils';
@@ -36,14 +50,28 @@ function Dos() {
   return (
     <svg viewBox="0 0 100 100" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden>
       <defs>
-        <pattern id="memo-motif" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <pattern
+          id="memo-motif"
+          width="20"
+          height="20"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
           <rect width="20" height="20" fill="#8E7CFF" />
           <rect width="10" height="20" fill="#7A67F0" />
         </pattern>
       </defs>
       <rect width="100" height="100" fill="url(#memo-motif)" />
       <circle cx="50" cy="50" r="22" fill="#FFD45C" stroke="#fff" strokeWidth="4" />
-      <text x="50" y="61" textAnchor="middle" fontSize="30" fontWeight="800" fill="#24304A" fontFamily="Baloo 2, sans-serif">
+      <text
+        x="50"
+        y="61"
+        textAnchor="middle"
+        fontSize="30"
+        fontWeight="800"
+        fill="#24304A"
+        fontFamily="Baloo 2, sans-serif"
+      >
         ?
       </text>
     </svg>
@@ -60,12 +88,21 @@ export default function MemoryFamilles({ level, stream, paused, onAnswer, onEnd,
 
   // Réservoir de paires (sans texte en double) puis les grilles de la partie
   const grilles = useMemo(() => {
-    const items = collecterItems(stream, (x): x is PairingItem => x.kind === 'pairing' && x.pairs.length >= 3, 10);
+    const items = collecterItems(
+      stream,
+      (x): x is PairingItem => x.kind === 'pairing' && x.pairs.length >= 3,
+      10,
+    );
     // une seule relation si elle suffit (contraires OU familles…), sinon tout le réservoir
     const parRelation = new Map<string, PairingItem[]>();
-    for (const it of items) parRelation.set(it.relation ?? it.prompt, [...(parRelation.get(it.relation ?? it.prompt) ?? []), it]);
-    const groupes = [...parRelation.values()].map((g) => collecterPaires(rng.shuffle(g), 70)).sort((a, b) => b.length - a.length);
-    const pool = rng.shuffle((groupes[0]?.length ?? 0) >= nbPaires ? groupes[0]! : collecterPaires(rng.shuffle(items), 70));
+    for (const it of items)
+      parRelation.set(it.relation ?? it.prompt, [...(parRelation.get(it.relation ?? it.prompt) ?? []), it]);
+    const groupes = [...parRelation.values()]
+      .map((g) => collecterPaires(rng.shuffle(g), 70))
+      .sort((a, b) => b.length - a.length);
+    const pool = rng.shuffle(
+      (groupes[0]?.length ?? 0) >= nbPaires ? groupes[0]! : collecterPaires(rng.shuffle(items), 70),
+    );
     const out: Paire[][] = [];
     for (let g = 0; g < GRILLES && pool.length >= 2; g++) {
       const debut = (g * nbPaires) % pool.length;
@@ -245,7 +282,11 @@ export default function MemoryFamilles({ level, stream, paused, onAnswer, onEnd,
         <SpeakButton text={consigne} label="Écouter la consigne" size={40} />
         <p className="font-titre text-lg font-bold sm:text-xl">
           {consigne}
-          {relation && <span className="ml-2 rounded-full bg-grape/15 px-2 py-0.5 text-sm text-grape-dark">{relation}</span>}
+          {relation && (
+            <span className="ml-2 rounded-full bg-grape/15 px-2 py-0.5 text-sm text-grape-dark">
+              {relation}
+            </span>
+          )}
         </p>
       </div>
 
@@ -261,7 +302,11 @@ export default function MemoryFamilles({ level, stream, paused, onAnswer, onEnd,
           const visible = apercu || trouvee || retournees.includes(c.id);
           const enConfusion = confusion && (confusion.a.id === c.id || confusion.b.id === c.id);
           return (
-            <div key={`${iGrille}-${c.id}`} role="gridcell" className="aspect-[4/3] [perspective:900px] sm:aspect-[5/4]">
+            <div
+              key={`${iGrille}-${c.id}`}
+              role="gridcell"
+              className="aspect-[4/3] [perspective:900px] sm:aspect-[5/4]"
+            >
               <motion.button
                 ref={(el) => {
                   boutons.current[i] = el;
@@ -277,7 +322,11 @@ export default function MemoryFamilles({ level, stream, paused, onAnswer, onEnd,
                 initial={false}
                 animate={reduite ? { rotateY: 0 } : { rotateY: visible ? 180 : 0 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                aria-label={visible ? `Carte : ${c.texte}${trouvee ? ' (paire trouvée)' : ''}` : `Carte ${i + 1}, face cachée`}
+                aria-label={
+                  visible
+                    ? `Carte : ${c.texte}${trouvee ? ' (paire trouvée)' : ''}`
+                    : `Carte ${i + 1}, face cachée`
+                }
               >
                 {/* dos */}
                 <motion.span
@@ -307,7 +356,9 @@ export default function MemoryFamilles({ level, stream, paused, onAnswer, onEnd,
                       aria-hidden
                     />
                   )}
-                  <span className={`font-titre font-extrabold leading-tight [overflow-wrap:anywhere] ${taille(c.texte)}`}>
+                  <span
+                    className={`font-titre font-extrabold leading-tight [overflow-wrap:anywhere] ${taille(c.texte)}`}
+                  >
                     {c.texte}
                   </span>
                   {trouvee && (

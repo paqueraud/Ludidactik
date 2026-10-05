@@ -17,7 +17,9 @@ const jeu: GameModule = {
   minItems: 1,
   // Des paires de mots courts (pas les longues questions/réponses)
   filterItem: (item) =>
-    item.kind === 'pairing' && item.pairs.length >= 3 && item.pairs.every((p) => p.left.length <= 24 && p.right.length <= 24),
+    item.kind === 'pairing' &&
+    item.pairs.length >= 3 &&
+    item.pairs.every((p) => p.left.length <= 24 && p.right.length <= 24),
   component: lazy(() => import('./DobbleMots')),
 };
 

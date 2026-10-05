@@ -20,7 +20,8 @@ export function regrouper(items: McqItem[]): Dossier[] {
     if (!texte) continue;
     let d = parTexte.get(texte);
     if (!d) {
-      const titre = typeof item.meta?.titre === 'string' && item.meta.titre.trim() ? item.meta.titre.trim() : 'Le texte';
+      const titre =
+        typeof item.meta?.titre === 'string' && item.meta.titre.trim() ? item.meta.titre.trim() : 'Le texte';
       d = { titre, texte, phrases: decouperPhrases(texte), questions: [] };
       parTexte.set(texte, d);
     }

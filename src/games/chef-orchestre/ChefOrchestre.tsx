@@ -49,7 +49,13 @@ function Chef({ joue, reduite }: { joue: boolean; reduite: boolean }) {
       <path d="M27 36 Q30 16 45 18 Q62 16 63 36 Q58 26 45 27 Q32 26 27 36 Z" fill="#B8C0D0" />
       <circle cx="39" cy="38" r="2.5" fill="#24304A" />
       <circle cx="51" cy="38" r="2.5" fill="#24304A" />
-      <path d={joue ? 'M38 45 Q45 52 52 45' : 'M39 47 Q45 49 51 47'} stroke="#24304A" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+      <path
+        d={joue ? 'M38 45 Q45 52 52 45' : 'M39 47 Q45 49 51 47'}
+        stroke="#24304A"
+        strokeWidth="2.5"
+        fill="none"
+        strokeLinecap="round"
+      />
       <motion.g
         style={{ transformOrigin: '64px 66px' }}
         animate={joue && !reduite ? { rotate: [0, -40, 10, -30, 0] } : { rotate: 0 }}
@@ -79,7 +85,11 @@ export default function ChefOrchestre({
 
   // La partition : les mots de plusieurs items, morceau par morceau (chaque item a ses pupitres)
   const notes = useMemo(() => {
-    const items = collecterItems(stream, (x: Item): x is ClassificationItem => x.kind === 'classification' && pourChef(x), 8);
+    const items = collecterItems(
+      stream,
+      (x: Item): x is ClassificationItem => x.kind === 'classification' && pourChef(x),
+      8,
+    );
     const out: Note[] = [];
     const max = parNiveau(level, MOTS);
     for (const item of rng.shuffle(items)) {
@@ -177,7 +187,9 @@ export default function ChefOrchestre({
       const reussi = justes >= Math.ceil(total * 0.6);
       session.end({
         won: reussi,
-        headline: reussi ? 'Bravo maestro ! L’orchestre a joué juste ! 🎼' : `${justes} notes bien rangées sur ${total} !`,
+        headline: reussi
+          ? 'Bravo maestro ! L’orchestre a joué juste ! 🎼'
+          : `${justes} notes bien rangées sur ${total} !`,
         delayMs: 900,
       });
       return;
@@ -236,8 +248,16 @@ export default function ChefOrchestre({
         aria-label="La scène de l’orchestre"
       >
         {/* rideau */}
-        <svg viewBox="0 0 400 40" preserveAspectRatio="none" className="absolute inset-x-0 top-0 h-8 w-full" aria-hidden>
-          <path d="M0 0 H400 V18 Q380 34 360 18 Q340 34 320 18 Q300 34 280 18 Q260 34 240 18 Q220 34 200 18 Q180 34 160 18 Q140 34 120 18 Q100 34 80 18 Q60 34 40 18 Q20 34 0 18 Z" fill="#D9475A" />
+        <svg
+          viewBox="0 0 400 40"
+          preserveAspectRatio="none"
+          className="absolute inset-x-0 top-0 h-8 w-full"
+          aria-hidden
+        >
+          <path
+            d="M0 0 H400 V18 Q380 34 360 18 Q340 34 320 18 Q300 34 280 18 Q260 34 240 18 Q220 34 200 18 Q180 34 160 18 Q140 34 120 18 Q100 34 80 18 Q60 34 40 18 Q20 34 0 18 Z"
+            fill="#D9475A"
+          />
         </svg>
 
         {/* Zone de chute */}

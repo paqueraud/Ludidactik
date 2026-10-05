@@ -30,7 +30,9 @@ export interface EcouteContinue {
 }
 
 export function recoDisponible(): boolean {
-  return typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window);
+  return (
+    typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)
+  );
 }
 
 export function ecouterEnContinu({

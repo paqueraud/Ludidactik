@@ -34,11 +34,11 @@ const bas = (s: string) => s.toLocaleLowerCase('fr');
  */
 const MOTS_OUTILS = new Set(
   (
-    "le la les l un une des du de d au aux ce cet cette ces mon ma mes ton ta tes son sa ses notre nos votre vos leur leurs " +
-    "je j tu il elle on nous vous ils elles chaque tout toute tous toutes quelques plusieurs aucun aucune " +
-    "dans sur sous avec sans pendant depuis après avant à en par pour chez vers devant derrière entre près loin " +
-    "hier demain aujourd soudain ensuite puis enfin alors parfois souvent toujours jamais autrefois maintenant " +
-    "tôt tard ici là quand lorsque comme parce puisque mais et ou donc car dès cela ceci celui celle ceux celles"
+    'le la les l un une des du de d au aux ce cet cette ces mon ma mes ton ta tes son sa ses notre nos votre vos leur leurs ' +
+    'je j tu il elle on nous vous ils elles chaque tout toute tous toutes quelques plusieurs aucun aucune ' +
+    'dans sur sous avec sans pendant depuis après avant à en par pour chez vers devant derrière entre près loin ' +
+    'hier demain aujourd soudain ensuite puis enfin alors parfois souvent toujours jamais autrefois maintenant ' +
+    'tôt tard ici là quand lorsque comme parce puisque mais et ou donc car dès cela ceci celui celle ceux celles'
   ).split(' '),
 );
 
@@ -48,7 +48,9 @@ function premierMot(s: string): string {
 
 /** Retire la majuscule d'un groupe déplacé (sauf nom propre probable). */
 export function minusculeSiOutil(groupe: string): string {
-  return MOTS_OUTILS.has(premierMot(groupe)) ? groupe.charAt(0).toLocaleLowerCase('fr') + groupe.slice(1) : groupe;
+  return MOTS_OUTILS.has(premierMot(groupe))
+    ? groupe.charAt(0).toLocaleLowerCase('fr') + groupe.slice(1)
+    : groupe;
 }
 
 /** Recolle des morceaux de phrase proprement (espaces, virgules orphelines). */
@@ -75,7 +77,8 @@ export function versLabo(item: Item): PhraseLabo | null {
   // Position de chaque groupe (premier emplacement libre, sur des limites de mots)
   const plages: { debut: number; fin: number; groupe: number }[] = [];
   const libre = (d: number, f: number) => plages.every((p) => f <= p.debut || d >= p.fin);
-  const limite = (i: number) => i <= 0 || i >= phrase.length || /[\s,;:'’()«»"-]/.test(phrase[i - 1]! + phrase[i]!);
+  const limite = (i: number) =>
+    i <= 0 || i >= phrase.length || /[\s,;:'’()«»"-]/.test(phrase[i - 1]! + phrase[i]!);
   for (let g = 0; g < item.elements.length; g++) {
     const label = bas(normalizeText(item.elements[g]!.label));
     let depuis = 0;
@@ -133,7 +136,8 @@ export function astuceFonction(categorie: string): string | null {
     return 'Le COD suit le verbe sans préposition : on ne peut pas le déplacer en tête de phrase.';
   if (/cc|circonstanciel/.test(c))
     return 'Le complément circonstanciel se déplace et se supprime : la phrase reste correcte.';
-  if (/verbe/.test(c)) return 'Le verbe change de forme quand on change le temps de la phrase (hier, demain).';
+  if (/verbe/.test(c))
+    return 'Le verbe change de forme quand on change le temps de la phrase (hier, demain).';
   return null;
 }
 
@@ -165,7 +169,10 @@ export function manipuler(p: PhraseLabo, g: number, manip: Manipulation): string
       const reste = p.segments.filter((_, i) => i !== idx).map((s) => s.texte);
       if (idx === 0) {
         // le groupe en tête part à la fin
-        return `${majuscule(recoller(reste))} ${minusculeSiOutil(groupe)}${p.finale}`.replace(/\s+([.!?…])$/, '$1');
+        return `${majuscule(recoller(reste))} ${minusculeSiOutil(groupe)}${p.finale}`.replace(
+          /\s+([.!?…])$/,
+          '$1',
+        );
       }
       const debut = reste.map((t, i) => (i === 0 ? minusculeSiOutil(t) : t));
       return `${majuscule(groupe)}, ${recoller(debut)}${p.finale}`;

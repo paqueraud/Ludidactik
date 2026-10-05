@@ -46,8 +46,20 @@ const OUTILS: { id: Manipulation; touche: string; libelle: string; icone: ReactN
 function Fiole({ couleur, pleine }: { couleur: string; pleine: boolean }) {
   return (
     <svg viewBox="0 0 40 52" className="h-11 w-9" aria-hidden>
-      <path d="M14 3 H26 V17 L37 44 Q39 50 32 50 H8 Q1 50 3 44 L14 17 Z" fill="#fff" stroke="#24304A" strokeWidth="2.5" />
-      <path d={pleine ? 'M10.5 26 H29.5 L35 44 Q36 47 32 47 H8 Q4 47 5 44 Z' : 'M7 38 H33 L35 44 Q36 47 32 47 H8 Q4 47 5 44 Z'} fill={couleur} />
+      <path
+        d="M14 3 H26 V17 L37 44 Q39 50 32 50 H8 Q1 50 3 44 L14 17 Z"
+        fill="#fff"
+        stroke="#24304A"
+        strokeWidth="2.5"
+      />
+      <path
+        d={
+          pleine
+            ? 'M10.5 26 H29.5 L35 44 Q36 47 32 47 H8 Q4 47 5 44 Z'
+            : 'M7 38 H33 L35 44 Q36 47 32 47 H8 Q4 47 5 44 Z'
+        }
+        fill={couleur}
+      />
       <circle cx="16" cy="40" r="2" fill="#fff" opacity="0.8" />
       <circle cx="23" cy="34" r="1.5" fill="#fff" opacity="0.8" />
       <rect x="12" y="1" width="16" height="4" rx="2" fill="#24304A" />
@@ -162,7 +174,9 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
       const reussi = justes >= Math.ceil(total * 0.6);
       session.end({
         won: reussi,
-        headline: reussi ? 'Expériences réussies, chercheur ! 🧪' : `${justes} fonctions trouvées sur ${total}`,
+        headline: reussi
+          ? 'Expériences réussies, chercheur ! 🧪'
+          : `${justes} fonctions trouvées sur ${total}`,
         delayMs: 900,
       });
       return;
@@ -264,8 +278,14 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
                 );
               }
               return (
-                <span key={i} className={`relative inline-flex flex-col items-center ${s.texte === ',' ? '-ml-2' : ''}`}>
-                  <span className={fait ? 'rounded-lg px-1' : ''} style={fait ? { background: `${LIQUIDES[cat! % LIQUIDES.length]}55` } : undefined}>
+                <span
+                  key={i}
+                  className={`relative inline-flex flex-col items-center ${s.texte === ',' ? '-ml-2' : ''}`}
+                >
+                  <span
+                    className={fait ? 'rounded-lg px-1' : ''}
+                    style={fait ? { background: `${LIQUIDES[cat! % LIQUIDES.length]}55` } : undefined}
+                  >
                     {s.texte}
                   </span>
                   {fait && (
@@ -281,7 +301,8 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
         </div>
         {enJeu && (
           <p className="mt-2 text-center text-sm text-ink-soft">
-            Glisse le groupe jaune vers le haut pour le supprimer, sur le côté pour le déplacer… ou utilise les outils.
+            Glisse le groupe jaune vers le haut pour le supprimer, sur le côté pour le déplacer… ou utilise
+            les outils.
           </p>
         )}
 
@@ -302,7 +323,12 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
               </Button>
             ))}
             {manip && (
-              <Button variant="fantome" icon={<RotateCcw aria-hidden />} onClick={() => setManip(null)} className="!min-h-[52px] text-base">
+              <Button
+                variant="fantome"
+                icon={<RotateCcw aria-hidden />}
+                onClick={() => setManip(null)}
+                className="!min-h-[52px] text-base"
+              >
                 Remettre
               </Button>
             )}
@@ -337,7 +363,11 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
           <p className="flex items-center gap-2 font-bold">
             <Lightbulb className="shrink-0 text-sun-dark" aria-hidden />
             Le carnet du chercheur
-            <SpeakButton text={carnet.map((c) => `${c.fonction} : ${c.astuce}`).join(' ')} label="Écouter le carnet" size={36} />
+            <SpeakButton
+              text={carnet.map((c) => `${c.fonction} : ${c.astuce}`).join(' ')}
+              label="Écouter le carnet"
+              size={36}
+            />
           </p>
           <ul className="mt-1 space-y-1 text-sm sm:text-base">
             {carnet.map((c) => (
@@ -365,10 +395,16 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
           Presque&nbsp;! Fais une autre expérience, puis réessaie.
         </p>
       )}
-      {Number.isFinite(CHRONO_MS[level]) && enJeu && <BarreTemps reste={restant} label="Temps de l’expérience" />}
+      {Number.isFinite(CHRONO_MS[level]) && enJeu && (
+        <BarreTemps reste={restant} label="Temps de l’expérience" />
+      )}
 
       {/* Les fioles : les fonctions */}
-      <div className="flex w-full flex-wrap justify-center gap-2" role="group" aria-label="Les fioles des fonctions">
+      <div
+        className="flex w-full flex-wrap justify-center gap-2"
+        role="group"
+        aria-label="Les fioles des fonctions"
+      >
         {p.item.categories.map((c, i) => {
           const bon = (etat === 'faux' || etat === 'juste') && i === el.category;
           const rate = (etat === 'faux' || etat === 'reessai') && i === choisi;

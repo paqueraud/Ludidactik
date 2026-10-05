@@ -25,7 +25,11 @@ export function versLecture(it: Item): ALire | null {
   let consigne = prompt;
   if (contient) {
     const i = prompt.toLowerCase().lastIndexOf(rep.toLowerCase());
-    consigne = prompt.slice(0, i).replace(/[\s:«»"]+$/u, '').trim() || 'Lis à voix haute';
+    consigne =
+      prompt
+        .slice(0, i)
+        .replace(/[\s:«»"]+$/u, '')
+        .trim() || 'Lis à voix haute';
   }
   return {
     item: it,

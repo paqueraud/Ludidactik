@@ -16,7 +16,14 @@ import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
 import { Feedback, Hud } from '../_kit/ui';
-import { type Puzzle, SIGNES, type Signe, assembler, premiereErreur, versPuzzle } from '../_langue-commun/phrases';
+import {
+  type Puzzle,
+  SIGNES,
+  type Signe,
+  assembler,
+  premiereErreur,
+  versPuzzle,
+} from '../_langue-commun/phrases';
 import { tirerItem } from '../_langue-commun/tirage';
 import { PasDExercice, Touche, useTouches } from '../_langue-commun/ui';
 import { useRng } from '../_nombres-commun/outils';
@@ -26,7 +33,11 @@ import { useCompteARebours, useVoixEnPause } from '../_orthographe-commun/hooks'
 const MANCHES: Record<Level, number> = { facile: 6, normal: 8, plus_loin: 9 };
 const ESSAIS: Record<Level, number> = { facile: 2, normal: 2, plus_loin: 1 };
 const COULEURS = ['#4FC3F7', '#FF7A6B', '#FFD45C', '#7BD389', '#8E7CFF', '#E0A458', '#3CC8B4', '#F78FB3'];
-const NOMS_SIGNES: Record<Signe, string> = { '.': 'point', '?': 'point d’interrogation', '!': 'point d’exclamation' };
+const NOMS_SIGNES: Record<Signe, string> = {
+  '.': 'point',
+  '?': 'point d’interrogation',
+  '!': 'point d’exclamation',
+};
 
 /** Le tableau à dévoiler : un paysage original, recouvert de pièces de puzzle. */
 function Tableau({ pieces, total, reduite }: { pieces: number; total: number; reduite: boolean }) {
@@ -47,7 +58,10 @@ function Tableau({ pieces, total, reduite }: { pieces: number; total: number; re
       <path d="M0 120 L60 70 L110 115 L170 55 L240 120 L300 90 V200 H0 Z" fill="#8E7CFF" opacity="0.55" />
       <path d="M150 62 L170 55 L180 66 Z" fill="#fff" />
       <path d="M0 140 Q80 110 160 135 T300 130 V200 H0 Z" fill="#7BD389" />
-      <path d="M120 200 Q150 160 210 150 Q250 145 300 152 V170 Q250 165 215 172 Q170 182 160 200 Z" fill="#4FC3F7" />
+      <path
+        d="M120 200 Q150 160 210 150 Q250 145 300 152 V170 Q250 165 215 172 Q170 182 160 200 Z"
+        fill="#4FC3F7"
+      />
       <rect x="46" y="118" width="44" height="34" fill="#FFF8EC" />
       <path d="M40 120 L68 96 L96 120 Z" fill="#FF7A6B" />
       <rect x="62" y="132" width="12" height="20" fill="#E0A458" />
@@ -66,7 +80,14 @@ function Tableau({ pieces, total, reduite }: { pieces: number; total: number; re
             transition={{ duration: reduite ? 0.15 : 0.6 }}
             style={{ transformOrigin: `${x + w / 2}px ${y + h / 2}px` }}
           >
-            <rect x={x + 1} y={y + 1} width={w - 2} height={h - 2} rx="8" fill={COULEURS[i % COULEURS.length]} />
+            <rect
+              x={x + 1}
+              y={y + 1}
+              width={w - 2}
+              height={h - 2}
+              rx="8"
+              fill={COULEURS[i % COULEURS.length]}
+            />
             <circle cx={x + w / 2} cy={y + 3} r="7" fill={COULEURS[i % COULEURS.length]} />
             <text
               x={x + w / 2}
@@ -169,12 +190,7 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
         setErreurA(err === -1 ? attendu.length : err);
         return;
       }
-      session.answer(
-        pz.item,
-        juste,
-        assembler(propose, signe),
-        assembler(attendu, pz.ponctuation),
-      );
+      session.answer(pz.item, juste, assembler(propose, signe), assembler(attendu, pz.ponctuation));
       if (juste) {
         sfx.play('juste');
         setPieces((p) => p + 1);
@@ -215,7 +231,9 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
       session.end({
         won: pieces >= Math.ceil(total * 0.6),
         headline:
-          pieces >= total ? 'Tableau complet ! Bravo ! 🧩' : `${pieces} pièce${pieces > 1 ? 's' : ''} du tableau dévoilée${pieces > 1 ? 's' : ''} !`,
+          pieces >= total
+            ? 'Tableau complet ! Bravo ! 🧩'
+            : `${pieces} pièce${pieces > 1 ? 's' : ''} du tableau dévoilée${pieces > 1 ? 's' : ''} !`,
         delayMs: 900,
       });
       return;
@@ -339,7 +357,10 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
 
           {erreurA !== null && etat === 'jeu' && (
             <p className="text-center font-bold text-coral-dark" role="status">
-              Presque&nbsp;! {erreurA >= attendu.length ? 'Vérifie la ponctuation.' : 'Regarde à partir de l’étiquette en jaune.'}{' '}
+              Presque&nbsp;!{' '}
+              {erreurA >= attendu.length
+                ? 'Vérifie la ponctuation.'
+                : 'Regarde à partir de l’étiquette en jaune.'}{' '}
               On réessaie ?
             </p>
           )}
@@ -387,7 +408,13 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
                   {s}
                 </button>
               ))}
-            <Button variant="blanc" icon={<Undo2 aria-hidden />} onClick={() => enlever(pose.length - 1)} disabled={pose.length <= fixe || paused} aria-label="Enlever le dernier mot">
+            <Button
+              variant="blanc"
+              icon={<Undo2 aria-hidden />}
+              onClick={() => enlever(pose.length - 1)}
+              disabled={pose.length <= fixe || paused}
+              aria-label="Enlever le dernier mot"
+            >
               <span className="hidden sm:inline">Enlever</span>
             </Button>
             {indice > 0 && (
@@ -395,7 +422,12 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
                 Indice
               </Button>
             )}
-            <Button variant="grass" icon={<Check aria-hidden />} onClick={() => verifier()} disabled={!complet || paused}>
+            <Button
+              variant="grass"
+              icon={<Check aria-hidden />}
+              onClick={() => verifier()}
+              disabled={!complet || paused}
+            >
               Vérifier
             </Button>
           </div>
@@ -403,7 +435,11 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
 
         <AnimatePresence>
           {etat !== 'jeu' && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex w-full flex-col items-center gap-2">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex w-full flex-col items-center gap-2"
+            >
               {etat === 'juste' && (
                 <div className="flex items-center gap-2">
                   <SpeakButton text={lu} label="Écouter la phrase" size={40} />

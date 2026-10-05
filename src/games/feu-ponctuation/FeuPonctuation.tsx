@@ -250,7 +250,10 @@ export default function FeuPonctuation({ level, stream, paused, onAnswer, onEnd,
                 : ''}
             </Button>
           )}
-          <div className="min-h-[3.5rem] w-full rounded-2xl bg-cream px-4 py-3 text-center" aria-live="polite">
+          <div
+            className="min-h-[3.5rem] w-full rounded-2xl bg-cream px-4 py-3 text-center"
+            aria-live="polite"
+          >
             {texteVisible ? (
               <p className="font-titre text-2xl font-extrabold leading-snug sm:text-3xl">
                 {q.phrase}
@@ -319,7 +322,9 @@ export default function FeuPonctuation({ level, stream, paused, onAnswer, onEnd,
                 <Touche>{i + 1}</Touche>
                 <span>
                   <span className="block font-bold leading-tight">{LAMPES[s].nom}</span>
-                  {level === 'facile' && <span className="block text-sm text-ink-soft">{LAMPES[s].aide}</span>}
+                  {level === 'facile' && (
+                    <span className="block text-sm text-ink-soft">{LAMPES[s].aide}</span>
+                  )}
                 </span>
               </li>
             ))}

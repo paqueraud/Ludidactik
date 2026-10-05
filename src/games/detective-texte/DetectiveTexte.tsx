@@ -181,13 +181,15 @@ export default function DetectiveTexte({
     <div className="mx-auto flex max-w-6xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6 lg:flex-row lg:items-start">
       {/* Le dossier : le texte */}
       <section
-        className="relative rounded-card border-4 border-white bg-[#FFF3D6] p-4 shadow-soft lg:w-[48%] sm:p-5"
+        className="relative rounded-card border-4 border-white bg-[#FFF3D6] p-4 shadow-soft sm:p-5 lg:w-[48%]"
         aria-label={`Texte : ${dossier.titre}`}
       >
         <div className="absolute -top-3 left-6 h-6 w-20 rounded-t-xl bg-[#F2D9A6]" aria-hidden />
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <SpeakButton text={texteLu} label="Écouter tout le texte" />
-          <h2 className="min-w-[9rem] flex-1 font-titre text-2xl font-extrabold leading-tight">{dossier.titre}</h2>
+          <h2 className="min-w-[9rem] flex-1 font-titre text-2xl font-extrabold leading-tight">
+            {dossier.titre}
+          </h2>
           <Button
             variant={ecoute ? 'grape' : 'blanc'}
             icon={ecoute ? <EarOff aria-hidden /> : <span aria-hidden>🎧</span>}
@@ -319,7 +321,11 @@ export default function DetectiveTexte({
               ) : (
                 <Feedback
                   state="juste"
-                  message={phraseTouchee === q.preuve && phraseTouchee !== null ? 'Preuve trouvée, bravo détective ! 🔎' : 'Bravo !'}
+                  message={
+                    phraseTouchee === q.preuve && phraseTouchee !== null
+                      ? 'Preuve trouvée, bravo détective ! 🔎'
+                      : 'Bravo !'
+                  }
                 />
               )}
             </motion.div>
@@ -330,7 +336,9 @@ export default function DetectiveTexte({
                 state="faux"
                 expected={choix.liste[choix.bonne]}
                 explication={
-                  q.preuve >= 0 ? `${q.item.explication} Relis la phrase en jaune dans le texte.` : q.item.explication
+                  q.preuve >= 0
+                    ? `${q.item.explication} Relis la phrase en jaune dans le texte.`
+                    : q.item.explication
                 }
                 onContinue={suivant}
                 message="Presque !"

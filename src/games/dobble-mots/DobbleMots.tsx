@@ -14,7 +14,13 @@ import { createRng } from '@/engine/rng';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
 import { Hud } from '../_kit/ui';
-import { type MancheDobble, collecterPaires, dispositionCarte, estLaPaire, genererMancheDobble } from '../_langue-commun/paires';
+import {
+  type MancheDobble,
+  collecterPaires,
+  dispositionCarte,
+  estLaPaire,
+  genererMancheDobble,
+} from '../_langue-commun/paires';
 import { collecterItems } from '../_langue-commun/tirage';
 import { PasDExercice, useTouches } from '../_langue-commun/ui';
 import { useRng } from '../_nombres-commun/outils';
@@ -81,7 +87,13 @@ function Carte({
               onClick={() => onPick(m)}
               disabled={disabled}
               className={`flex items-center gap-1 rounded-2xl px-2.5 py-1.5 font-titre font-extrabold leading-tight shadow-pop-sm focus-visible:outline focus-visible:outline-4 focus-visible:outline-sun ${
-                estBon ? 'bg-grass ring-4 ring-grass/40' : estRate ? 'bg-coral/30' : choisi ? 'bg-sun ring-4 ring-sun-dark' : 'bg-white'
+                estBon
+                  ? 'bg-grass ring-4 ring-grass/40'
+                  : estRate
+                    ? 'bg-coral/30'
+                    : choisi
+                      ? 'bg-sun ring-4 ring-sun-dark'
+                      : 'bg-white'
               }`}
               style={{
                 rotate: p.rot,
@@ -93,7 +105,10 @@ function Carte({
               aria-label={`${m} (touche ${touche})`}
               aria-pressed={choisi}
             >
-              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-ink/80 px-1 text-[0.65rem] text-white" aria-hidden>
+              <span
+                className="flex h-5 min-w-5 items-center justify-center rounded-full bg-ink/80 px-1 text-[0.65rem] text-white"
+                aria-hidden
+              >
                 {touche}
               </span>
               <span
@@ -121,7 +136,8 @@ export default function DobbleMots({ level, stream, paused, onAnswer, onEnd, spe
   const pool = useMemo(() => {
     const items = collecterItems(
       stream,
-      (x): x is PairingItem => x.kind === 'pairing' && x.pairs.every((p) => p.left.length <= 24 && p.right.length <= 24),
+      (x): x is PairingItem =>
+        x.kind === 'pairing' && x.pairs.every((p) => p.left.length <= 24 && p.right.length <= 24),
       8,
     );
     const parRelation = new Map<string, PairingItem[]>();
@@ -284,7 +300,11 @@ export default function DobbleMots({ level, stream, paused, onAnswer, onEnd, spe
         />
         <p className="font-titre text-xl font-bold">
           Trouve les deux mots qui vont ensemble
-          {lien && <span className="ml-2 rounded-full bg-grape/15 px-2 py-0.5 text-base text-grape-dark">lien : {lien}</span>}
+          {lien && (
+            <span className="ml-2 rounded-full bg-grape/15 px-2 py-0.5 text-base text-grape-dark">
+              lien : {lien}
+            </span>
+          )}
         </p>
       </div>
       {Number.isFinite(CHRONO_MS[level]) && etat === 'jeu' && <BarreTemps reste={restant} label="Sablier" />}

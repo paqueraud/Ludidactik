@@ -6,7 +6,8 @@ const jeu: GameModule = {
   id: 'labo-fonctions',
   numero: 41,
   titre: 'Le Labo des fonctions',
-  description: 'Fais des expériences sur la phrase : supprime, déplace, encadre un groupe… puis trouve sa fonction !',
+  description:
+    'Fais des expériences sur la phrase : supprime, déplace, encadre un groupe… puis trouve sa fonction !',
   consigne:
     'Le groupe en couleur est à analyser. Fais des expériences : supprime-le, déplace-le, encadre-le par « c’est… qui ». Regarde si la phrase reste correcte. Puis verse-le dans la bonne fiole : sujet, complément, attribut…',
   icone: '🧪',

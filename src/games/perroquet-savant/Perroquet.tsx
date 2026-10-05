@@ -5,10 +5,14 @@ export type HumeurPerroquet = 'repos' | 'ecoute' | 'parle' | 'perplexe' | 'conte
 
 export function Perroquet({ humeur, reduite }: { humeur: HumeurPerroquet; reduite: boolean }) {
   const bec = humeur === 'parle' || humeur === 'content';
-  const tete =
-    humeur === 'ecoute' ? { rotate: -14 } : humeur === 'perplexe' ? { rotate: 12 } : { rotate: 0 };
+  const tete = humeur === 'ecoute' ? { rotate: -14 } : humeur === 'perplexe' ? { rotate: 12 } : { rotate: 0 };
   return (
-    <svg viewBox="0 0 200 220" className="h-full w-auto" role="img" aria-label={`Le perroquet ${LIBELLES[humeur]}`}>
+    <svg
+      viewBox="0 0 200 220"
+      className="h-full w-auto"
+      role="img"
+      aria-label={`Le perroquet ${LIBELLES[humeur]}`}
+    >
       {/* perchoir */}
       <rect x="10" y="176" width="180" height="12" rx="6" fill="#8A5A3B" />
       <path d="M150 182 q14 4 18 18" stroke="#3E9E5A" strokeWidth="5" fill="none" strokeLinecap="round" />
@@ -35,7 +39,11 @@ export function Perroquet({ humeur, reduite }: { humeur: HumeurPerroquet; reduit
         {/* pattes */}
         <path d="M88 174 v8 M112 174 v8" stroke="#E0A458" strokeWidth="6" strokeLinecap="round" />
         {/* tête */}
-        <motion.g style={{ transformOrigin: '100px 90px' }} animate={tete} transition={{ type: 'spring', stiffness: 200, damping: 14 }}>
+        <motion.g
+          style={{ transformOrigin: '100px 90px' }}
+          animate={tete}
+          transition={{ type: 'spring', stiffness: 200, damping: 14 }}
+        >
           <circle cx="100" cy="66" r="34" fill="#FF7A6B" />
           <path d="M84 34 Q88 14 100 20 Q98 6 112 12 Q108 26 104 34 Z" fill="#FFD45C" />
           <circle cx="112" cy="60" r="14" fill="#fff" />

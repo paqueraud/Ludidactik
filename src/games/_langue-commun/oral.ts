@@ -24,12 +24,25 @@ export function phonetiser(mot: string): string {
   // finales muettes et terminaisons fréquentes
   x = x.replace(/ent$/, (m) => (x.length > 4 ? 'e' : m));
   x = x.replace(/(er|ez|et|ai|ais|ait|aient|é|ée|és|ées)$/, 'É');
-  x = x.replace(/[éèêë]/g, 'É').replace(/[àâ]/g, 'a').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o');
+  x = x
+    .replace(/[éèêë]/g, 'É')
+    .replace(/[àâ]/g, 'a')
+    .replace(/[îï]/g, 'i')
+    .replace(/[ôö]/g, 'o');
   x = x.replace(/[ûüù]/g, 'u');
   x = x.replace(/eaux?|aux?|au/g, 'o');
-  x = x.replace(/ph/g, 'f').replace(/th/g, 't').replace(/sch|sh|ch/g, 'S');
-  x = x.replace(/qu|ck|k/g, 'K').replace(/c(?![eiyÉ])/g, 'K').replace(/c/g, 's');
-  x = x.replace(/gu(?=[eiyÉ])/g, 'G').replace(/ge(?=[aou])/g, 'J').replace(/g(?=[eiyÉ])/g, 'J');
+  x = x
+    .replace(/ph/g, 'f')
+    .replace(/th/g, 't')
+    .replace(/sch|sh|ch/g, 'S');
+  x = x
+    .replace(/qu|ck|k/g, 'K')
+    .replace(/c(?![eiyÉ])/g, 'K')
+    .replace(/c/g, 's');
+  x = x
+    .replace(/gu(?=[eiyÉ])/g, 'G')
+    .replace(/ge(?=[aou])/g, 'J')
+    .replace(/g(?=[eiyÉ])/g, 'J');
   x = x.replace(/gn/g, 'N').replace(/g/g, 'G');
   x = x.replace(new RegExp(`([${V}])ill`, 'g'), '$1Y').replace(/ill/g, 'iY');
   x = x.replace(/oi/g, 'wa').replace(/ou/g, 'U').replace(/eu/g, 'E');
@@ -84,7 +97,9 @@ export function comparerOral(alternatives: string[], acceptes: string[]): Verdic
   const alts = alternatives.map((a) => normalizeText(a)).filter(Boolean);
   for (const alt of alts) {
     for (const acc of acceptes) {
-      const motsAcc = normalizeText(acc).split(' ').filter((m) => cleMot(m));
+      const motsAcc = normalizeText(acc)
+        .split(' ')
+        .filter((m) => cleMot(m));
       const motsAlt = alt
         .split(' ')
         .flatMap(variantesNombres)

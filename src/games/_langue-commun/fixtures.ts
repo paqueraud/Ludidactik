@@ -74,7 +74,8 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       question: 'Que ressentent les marins quand ils voient la lumière du phare pendant la tempête ?',
       choices: ['du soulagement', 'de la colère', 'de l’ennui'],
       answerIndex: 0,
-      explication: 'Les marins guettent la lumière « avec soulagement » : elle leur montre que le port est proche.',
+      explication:
+        'Les marins guettent la lumière « avec soulagement » : elle leur montre que le port est proche.',
       guillotine: false,
       meta: {
         titre: 'Le phare',
@@ -162,7 +163,8 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'à sa grand-mère', category: 1 },
         { label: 'dans le jardin', category: 2 },
       ],
-      explication: 'Le COI est introduit par une préposition (à, de) et ne se supprime pas ici sans changer le sens.',
+      explication:
+        'Le COI est introduit par une préposition (à, de) et ne se supprime pas ici sans changer le sens.',
       meta: {
         phrase: 'Malo parle à sa grand-mère dans le jardin.',
         remplacements: {
@@ -182,7 +184,8 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'Mon frère', category: 0 },
         { label: 'fatigué', category: 2 },
       ],
-      explication: 'Après un verbe d’état (être, sembler, devenir…), le groupe qui dit comment est le sujet est un attribut.',
+      explication:
+        'Après un verbe d’état (être, sembler, devenir…), le groupe qui dit comment est le sujet est un attribut.',
       meta: { phrase: 'Mon frère semble fatigué.' },
     },
     {

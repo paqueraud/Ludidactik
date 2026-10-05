@@ -13,13 +13,7 @@ import {
   rythmeCible,
 } from './lecture';
 import { comparerOral, motsProches, phonetiser } from './oral';
-import {
-  collecterPaires,
-  colonnesMemory,
-  estLaPaire,
-  genererMancheDobble,
-  preparerMemory,
-} from './paires';
+import { collecterPaires, colonnesMemory, estLaPaire, genererMancheDobble, preparerMemory } from './paires';
 import { assembler, premiereErreur, versFeu, versPuzzle } from './phrases';
 import { decouperMots, decouperPhrases, indexPreuve } from './texte';
 
@@ -38,7 +32,15 @@ describe('exemples des jeux de langue', () => {
 describe('texte', () => {
   it('découpe les mots en rattachant la ponctuation isolée', () => {
     const m = decouperMots('Soudain, la ficelle casse ! Léna est triste.');
-    expect(m.map((x) => x.affiche)).toEqual(['Soudain,', 'la', 'ficelle', 'casse !', 'Léna', 'est', 'triste.']);
+    expect(m.map((x) => x.affiche)).toEqual([
+      'Soudain,',
+      'la',
+      'ficelle',
+      'casse !',
+      'Léna',
+      'est',
+      'triste.',
+    ]);
     expect(m[0]!.pause).toBe(true);
     expect(m[3]!.finPhrase).toBe(true);
     expect(m[4]!.phrase).toBe(1);
@@ -129,7 +131,8 @@ describe('paires : Dobble et Memory', () => {
       let liens = 0;
       for (const a of m.carteA)
         for (const b of m.carteB)
-          if (pool.some((p) => (p.gauche === a && p.droite === b) || (p.gauche === b && p.droite === a))) liens++;
+          if (pool.some((p) => (p.gauche === a && p.droite === b) || (p.gauche === b && p.droite === a)))
+            liens++;
       expect(liens).toBe(1);
       expect(estLaPaire(m, m.motA, m.motB)).toBe(true);
       expect(estLaPaire(m, m.motB, m.motA)).toBe(true);
@@ -201,7 +204,13 @@ describe('Labo des fonctions : manipulations', () => {
   const fn = (id: string) => versLabo((LANGUE_FIXTURES.classification ?? []).find((i) => i.id === id)!)!;
   it('découpe la phrase en groupes', () => {
     const p = fn('fn1');
-    expect(p.segments.map((s) => s.texte)).toEqual(['Ce matin', ',', 'les enfants', 'préparent', 'un gâteau']);
+    expect(p.segments.map((s) => s.texte)).toEqual([
+      'Ce matin',
+      ',',
+      'les enfants',
+      'préparent',
+      'un gâteau',
+    ]);
     expect(phraseInitiale(p)).toBe('Ce matin, les enfants préparent un gâteau.');
   });
   it('supprime, déplace, encadre', () => {

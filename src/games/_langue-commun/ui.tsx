@@ -9,7 +9,10 @@ import { Button } from '@/components/ui';
  */
 export function PasDExercice({ texte, onFin }: { texte: string; onFin: () => void }) {
   return (
-    <div className="carte mx-3 mt-4 flex max-w-md flex-col sm:mx-auto items-center gap-4 p-6 text-center" role="status">
+    <div
+      className="carte mx-3 mt-4 flex max-w-md flex-col items-center gap-4 p-6 text-center sm:mx-auto"
+      role="status"
+    >
       <span className="text-5xl" aria-hidden>
         🧺
       </span>

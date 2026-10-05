@@ -3,11 +3,14 @@ import { LIBELLE_ROLE, type Morceau, type Role } from '../_langue-commun/conjuga
 
 const STYLE: Record<Role, string> = {
   radical: 'text-ink',
-  temps: 'rounded bg-grape/20 px-0.5 text-grape-dark underline decoration-grape decoration-4 underline-offset-4',
-  personne: 'rounded bg-coral/20 px-0.5 text-coral-dark underline decoration-coral decoration-4 underline-offset-4',
+  temps:
+    'rounded bg-grape/20 px-0.5 text-grape-dark underline decoration-grape decoration-4 underline-offset-4',
+  personne:
+    'rounded bg-coral/20 px-0.5 text-coral-dark underline decoration-coral decoration-4 underline-offset-4',
   terminaison: 'rounded bg-coral/20 px-0.5 text-coral-dark',
   auxiliaire: 'rounded bg-sky/25 px-1 text-ink underline decoration-sky decoration-4 underline-offset-4',
-  participe: 'rounded bg-grass/25 px-1 text-grass-dark underline decoration-grass decoration-4 underline-offset-4',
+  participe:
+    'rounded bg-grass/25 px-1 text-grass-dark underline decoration-grass decoration-4 underline-offset-4',
 };
 
 export function FormeColoree({ morceaux, sujet }: { morceaux: Morceau[]; sujet: string }) {

@@ -90,7 +90,9 @@ function verifier(q: QuestionForge, donne: string): { juste: boolean; message: s
   }
   return {
     juste: false,
-    message: accent ? 'Presque ! Toutes les lettres sont là, mais attention à l’accent.' : 'Presque ! Regarde bien la forme.',
+    message: accent
+      ? 'Presque ! Toutes les lettres sont là, mais attention à l’accent.'
+      : 'Presque ! Regarde bien la forme.',
   };
 }
 
@@ -188,7 +190,9 @@ export default function ForgeVerbe({
       const v = verifier(q, valeur);
       session.answer(q.item, v.juste, valeur || '(temps écoulé)', q.reponse);
       setDonne(valeur);
-      setMessage(tempsEcoule && !valeur.trim() ? 'Le métal a refroidi ! On réessaie au prochain tour.' : v.message);
+      setMessage(
+        tempsEcoule && !valeur.trim() ? 'Le métal a refroidi ! On réessaie au prochain tour.' : v.message,
+      );
       if (v.juste) {
         sfx.play('piece');
         setPieces((p) => p + 1);
@@ -265,7 +269,10 @@ export default function ForgeVerbe({
       {/* La forge et le chevalier */}
       <section
         className="relative overflow-hidden rounded-card border-4 border-white shadow-soft lg:w-[36%] lg:self-start"
-        style={{ background: 'radial-gradient(circle at 70% 85%, #FFB46B 0%, #E0A458 25%, #6B4A3A 70%, #3E2C26 100%)' }}
+        style={{
+          background:
+            'radial-gradient(circle at 70% 85%, #FFB46B 0%, #E0A458 25%, #6B4A3A 70%, #3E2C26 100%)',
+        }}
         aria-label="La forge du chevalier"
       >
         <div className="flex h-[200px] items-end justify-center gap-4 pb-3 pt-10 sm:h-[300px]">
@@ -288,7 +295,14 @@ export default function ForgeVerbe({
         <div className="relative w-full max-w-xl rounded-[1.75rem] bg-gradient-to-b from-[#8A5A3B] to-[#5A3D2B] p-3 pr-10 shadow-pop">
           <div className="flex gap-2">
             {ROULEAUX.map((t, i) => (
-              <Rouleau key={t} titre={t} valeur={valeursRouleaux[i]!} tourne={tourne[i]!} pool={pools[i]!} reduite={reduite} />
+              <Rouleau
+                key={t}
+                titre={t}
+                valeur={valeursRouleaux[i]!}
+                tourne={tourne[i]!}
+                pool={pools[i]!}
+                reduite={reduite}
+              />
             ))}
           </div>
           <motion.div
@@ -306,7 +320,10 @@ export default function ForgeVerbe({
         {/* La phrase */}
         <div className="flex items-start justify-center gap-3">
           {aLire && <SpeakButton text={aLire} label="Écouter la phrase" />}
-          <p className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl" aria-live="polite">
+          <p
+            className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl"
+            aria-live="polite"
+          >
             {q.avant}
             <span
               className={`mx-1 inline-block min-w-[4ch] rounded-lg border-b-4 px-1 text-center ${
@@ -323,7 +340,9 @@ export default function ForgeVerbe({
           </p>
         </div>
 
-        {level === 'plus_loin' && etat === 'jeu' && pret && <BarreTemps reste={restant} label="Le métal refroidit" />}
+        {level === 'plus_loin' && etat === 'jeu' && pret && (
+          <BarreTemps reste={restant} label="Le métal refroidit" />
+        )}
 
         {etat === 'jeu' && pret && (
           <>
@@ -334,7 +353,12 @@ export default function ForgeVerbe({
               </p>
             ) : (
               level === 'normal' && (
-                <Button variant="sun" icon={<Lightbulb aria-hidden />} onClick={() => setIndice(true)} disabled={paused}>
+                <Button
+                  variant="sun"
+                  icon={<Lightbulb aria-hidden />}
+                  onClick={() => setIndice(true)}
+                  disabled={paused}
+                >
                   Indice
                 </Button>
               )
@@ -354,9 +378,17 @@ export default function ForgeVerbe({
 
         <AnimatePresence>
           {etat === 'juste' && (
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center gap-2" role="status">
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col items-center gap-2"
+              role="status"
+            >
               <p className="font-titre text-2xl font-extrabold text-grass-dark">
-                Forgé&nbsp;! {pieces <= PIECES.length ? `Nouvelle pièce : ${PIECES[pieces - 1]} 🛡️` : 'Ton chevalier brille ! ✨'}
+                Forgé&nbsp;!{' '}
+                {pieces <= PIECES.length
+                  ? `Nouvelle pièce : ${PIECES[pieces - 1]} 🛡️`
+                  : 'Ton chevalier brille ! ✨'}
               </p>
               {couleurs && morceaux && <FormeColoree morceaux={morceaux} sujet={q.sujet} />}
             </motion.div>
@@ -364,7 +396,13 @@ export default function ForgeVerbe({
           {etat === 'faux' && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full">
               {choixFacile ? (
-                <Feedback state="faux" expected={q.reponse} explication={q.item.explication} onContinue={suivant} message={message} />
+                <Feedback
+                  state="faux"
+                  expected={q.reponse}
+                  explication={q.item.explication}
+                  onContinue={suivant}
+                  message={message}
+                />
               ) : (
                 <CorrectionMot
                   donne={donne}

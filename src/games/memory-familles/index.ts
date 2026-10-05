@@ -5,7 +5,8 @@ const jeu: GameModule = {
   id: 'memory-familles',
   numero: 48,
   titre: 'Memory des familles & affixes',
-  description: 'Retourne les cartes deux par deux et retrouve les paires : mot et mot de sa famille, préfixe et sens…',
+  description:
+    'Retourne les cartes deux par deux et retrouve les paires : mot et mot de sa famille, préfixe et sens…',
   consigne:
     'Retourne deux cartes. Si elles vont ensemble, elles restent visibles. Sinon, mémorise-les : elles se retournent. Retrouve toutes les paires en un minimum de coups !',
   icone: '🃏',

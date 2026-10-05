@@ -6,7 +6,8 @@ const jeu: GameModule = {
   id: 'feu-ponctuation',
   numero: 43,
   titre: 'Le Feu tricolore de la ponctuation',
-  description: 'Écoute la phrase : la voix descend, monte ou s’exclame ? Allume le bon feu : point, point d’interrogation ou point d’exclamation !',
+  description:
+    'Écoute la phrase : la voix descend, monte ou s’exclame ? Allume le bon feu : point, point d’interrogation ou point d’exclamation !',
   consigne:
     'Écoute bien la phrase. Si la voix descend, on met un point. Si elle monte pour poser une question, un point d’interrogation. Si elle s’exclame, un point d’exclamation. Touche le bon feu pour faire passer la voiture !',
   icone: '🚦',

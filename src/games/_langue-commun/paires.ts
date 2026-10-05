@@ -92,7 +92,10 @@ export function estLaPaire(m: MancheDobble, a: string, b: string): boolean {
  * Position des mots sur une carte ronde (coordonnées en % du diamètre, rotation en degrés) :
  * un mot au centre et les autres en couronne, légèrement tournés comme au Dobble.
  */
-export function dispositionCarte(n: number, rng: Rng): { x: number; y: number; rot: number; taille: number }[] {
+export function dispositionCarte(
+  n: number,
+  rng: Rng,
+): { x: number; y: number; rot: number; taille: number }[] {
   const out: { x: number; y: number; rot: number; taille: number }[] = [];
   if (n <= 0) return out;
   const centre = n >= 4;

@@ -43,7 +43,15 @@ export function Courbe({ scores, objectif }: { scores: number[]; objectif: numbe
         aria-label={`Tes dernières lectures : ${pts.join(', ')} mots par minute. Meilleur score : ${meilleur}. Objectif : ${objectif}.`}
       >
         <rect width={W} height={H} rx="14" fill="rgb(var(--c-cream))" />
-        <line x1="10" x2={W - 10} y1={y(objectif)} y2={y(objectif)} stroke="#7BD389" strokeWidth="2" strokeDasharray="6 5" />
+        <line
+          x1="10"
+          x2={W - 10}
+          y1={y(objectif)}
+          y2={y(objectif)}
+          stroke="#7BD389"
+          strokeWidth="2"
+          strokeDasharray="6 5"
+        />
         <text x={W - 12} y={y(objectif) - 5} textAnchor="end" fontSize="11" fill="#3E9E5A" fontWeight="700">
           objectif {objectif}
         </text>
@@ -59,7 +67,14 @@ export function Courbe({ scores, objectif }: { scores: number[]; objectif: numbe
         )}
         {pts.map((v, i) => (
           <g key={i}>
-            <circle cx={x(i)} cy={y(v)} r={v === meilleur ? 6 : 4.5} fill={v === meilleur ? '#FFD45C' : '#8E7CFF'} stroke="#fff" strokeWidth="2" />
+            <circle
+              cx={x(i)}
+              cy={y(v)}
+              r={v === meilleur ? 6 : 4.5}
+              fill={v === meilleur ? '#FFD45C' : '#8E7CFF'}
+              stroke="#fff"
+              strokeWidth="2"
+            />
             {(i === pts.length - 1 || v === meilleur) && (
               <text x={x(i)} y={y(v) - 9} textAnchor="middle" fontSize="11" fontWeight="800" fill="#24304A">
                 {v}

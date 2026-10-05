@@ -154,7 +154,8 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
     return () => clearTimeout(t);
   }, [toutLu, mode]);
   // sécurité : on ne lit pas indéfiniment (micro qui n'entend plus rien)
-  const tropLong = phase === 'lecture' && mode === 'micro' && ecoule > Math.max(120_000, horaire.dureeTotale * 3);
+  const tropLong =
+    phase === 'lecture' && mode === 'micro' && ecoule > Math.max(120_000, horaire.dureeTotale * 3);
   useEffect(() => {
     if (tropLong) terminerRef.current();
   }, [tropLong]);
@@ -263,7 +264,10 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
   };
 
   const texteAffiche = (
-    <p className="relative font-texte text-2xl leading-[2.4] sm:text-3xl sm:leading-[2.3]" aria-label={item.text}>
+    <p
+      className="relative font-texte text-2xl leading-[2.4] sm:text-3xl sm:leading-[2.3]"
+      aria-label={item.text}
+    >
       {mots.map((m, i) => {
         const contenu = (
           <>
@@ -324,12 +328,8 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
   return (
     <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-3 pb-6 pt-2 sm:px-6">
       <div className="flex w-full flex-wrap items-center justify-between gap-2">
-        <Hud>
-          🎤 {mode === 'micro' ? 'Micro' : 'Métronome'}
-        </Hud>
-        <Hud>
-          🎯 {objectif} mots/min
-        </Hud>
+        <Hud>🎤 {mode === 'micro' ? 'Micro' : 'Métronome'}</Hud>
+        <Hud>🎯 {objectif} mots/min</Hud>
       </div>
 
       <section className="relative w-full overflow-hidden rounded-card border-4 border-white bg-card shadow-soft">
@@ -339,9 +339,14 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
           style={{ background: 'linear-gradient(90deg,#8E7CFF 0%,#FF7A6B 100%)' }}
         >
           <SpeakButton text={item.title} label="Écouter le titre" size={40} />
-          <h2 className="min-w-0 flex-1 font-titre text-2xl font-extrabold [text-shadow:0_2px_0_rgb(0_0_0/0.15)]">{item.title}</h2>
+          <h2 className="min-w-0 flex-1 font-titre text-2xl font-extrabold [text-shadow:0_2px_0_rgb(0_0_0/0.15)]">
+            {item.title}
+          </h2>
           {enLecture && (
-            <span className="rounded-full bg-white/25 px-3 py-1 font-titre font-bold tabular-nums" aria-label="Temps de lecture">
+            <span
+              className="rounded-full bg-white/25 px-3 py-1 font-titre font-bold tabular-nums"
+              aria-label="Temps de lecture"
+            >
               ⏱ {Math.floor(ecoule / 1000)} s
             </span>
           )}
@@ -350,7 +355,16 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
         <div className="max-h-[52vh] overflow-y-auto px-4 py-4 sm:px-8">
           {phase === 'accueil' || phase === 'decompte' ? (
             <div className="relative">
-              <div className={phase === 'decompte' ? 'opacity-30 blur-[2px]' : level === 'plus_loin' ? 'opacity-0' : 'opacity-30 blur-[3px]'} aria-hidden>
+              <div
+                className={
+                  phase === 'decompte'
+                    ? 'opacity-30 blur-[2px]'
+                    : level === 'plus_loin'
+                      ? 'opacity-0'
+                      : 'opacity-30 blur-[3px]'
+                }
+                aria-hidden
+              >
                 {texteAffiche}
               </div>
               <AnimatePresence>
@@ -376,7 +390,11 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
 
       {/* Accueil : choix du mode */}
       {phase === 'accueil' && (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="carte flex w-full flex-col items-center gap-3 p-4 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="carte flex w-full flex-col items-center gap-3 p-4 text-center"
+        >
           <p className="text-lg font-bold">
             Objectif : <span className="text-grape-dark">{objectif} mots par minute</span>{' '}
             <span className="text-sm font-normal text-ink-soft">({LIBELLE_NIVEAU[level]})</span>
@@ -388,7 +406,13 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
           )}
           <div className="flex flex-wrap justify-center gap-2">
             {microDispo && (
-              <Button variant="grape" size="lg" icon={<Mic aria-hidden />} onClick={() => commencer('micro')} disabled={paused}>
+              <Button
+                variant="grape"
+                size="lg"
+                icon={<Mic aria-hidden />}
+                onClick={() => commencer('micro')}
+                disabled={paused}
+              >
                 Lire avec le micro
               </Button>
             )}
@@ -402,7 +426,12 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
               Lire avec le métronome
             </Button>
             {level === 'facile' && (
-              <Button variant="sun" icon={<Volume2 aria-hidden />} onClick={() => void speech.speak(item.text)} disabled={paused}>
+              <Button
+                variant="sun"
+                icon={<Volume2 aria-hidden />}
+                onClick={() => void speech.speak(item.text)}
+                disabled={paused}
+              >
                 Écouter le modèle
               </Button>
             )}
@@ -422,7 +451,10 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
       {enLecture && (
         <div className="flex flex-wrap items-center justify-center gap-2">
           {mode === 'micro' && (
-            <span className="flex items-center gap-2 rounded-full bg-coral/15 px-4 py-2 font-bold text-coral-dark" role="status">
+            <span
+              className="flex items-center gap-2 rounded-full bg-coral/15 px-4 py-2 font-bold text-coral-dark"
+              role="status"
+            >
               <motion.span
                 className="inline-block h-3 w-3 rounded-full bg-coral"
                 animate={reduite || paused ? {} : { scale: [1, 1.5, 1] }}
@@ -440,10 +472,17 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
 
       {/* Auto-évaluation (métronome) */}
       {phase === 'auto' && (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="carte flex w-full flex-col items-center gap-3 p-4 text-center" role="status">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="carte flex w-full flex-col items-center gap-3 p-4 text-center"
+          role="status"
+        >
           {etapeAuto === 'suivi' && (
             <>
-              <p className="font-titre text-xl font-extrabold">As-tu réussi à suivre le métronome jusqu’au bout&nbsp;?</p>
+              <p className="font-titre text-xl font-extrabold">
+                As-tu réussi à suivre le métronome jusqu’au bout&nbsp;?
+              </p>
               <div className="flex flex-wrap justify-center gap-2">
                 <Button
                   variant="grass"
@@ -462,7 +501,9 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
           )}
           {etapeAuto === 'dernier' && (
             <>
-              <p className="font-titre text-xl font-extrabold">Touche, dans le texte, le dernier mot que tu as lu.</p>
+              <p className="font-titre text-xl font-extrabold">
+                Touche, dans le texte, le dernier mot que tu as lu.
+              </p>
               <Button variant="grass" onClick={() => setEtapeAuto('erreurs')}>
                 C’est ce mot-là : « {mots[Math.max(0, atteints - 1)]?.affiche} »
               </Button>
@@ -470,10 +511,16 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
           )}
           {etapeAuto === 'erreurs' && (
             <>
-              <p className="font-titre text-xl font-extrabold">Touche les mots que tu as mal lus (ou pas du tout).</p>
-              <p className="text-sm text-ink-soft">Sois honnête : c’est pour voir tes progrès. Un adulte peut t’aider.</p>
+              <p className="font-titre text-xl font-extrabold">
+                Touche les mots que tu as mal lus (ou pas du tout).
+              </p>
+              <p className="text-sm text-ink-soft">
+                Sois honnête : c’est pour voir tes progrès. Un adulte peut t’aider.
+              </p>
               <Button variant="grass" onClick={validerAuto}>
-                {erreurs.size ? `Voilà, ${[...erreurs].filter((i) => i < atteints).length} mot(s) difficile(s)` : 'Aucun mot raté !'}
+                {erreurs.size
+                  ? `Voilà, ${[...erreurs].filter((i) => i < atteints).length} mot(s) difficile(s)`
+                  : 'Aucun mot raté !'}
               </Button>
             </>
           )}
@@ -482,17 +529,29 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
 
       {/* Résultat */}
       {phase === 'resultat' && resultat && (
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="carte flex w-full flex-col items-center gap-3 p-4 text-center" role="status">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="carte flex w-full flex-col items-center gap-3 p-4 text-center"
+          role="status"
+        >
           <p className="font-titre text-2xl font-extrabold">
-            {resultat.mclm >= objectif ? 'Objectif atteint ! 🎉' : etoiles >= 2 ? 'Presque l’objectif, bravo !' : 'Belle lecture ! On progresse à chaque fois.'}
+            {resultat.mclm >= objectif
+              ? 'Objectif atteint ! 🎉'
+              : etoiles >= 2
+                ? 'Presque l’objectif, bravo !'
+                : 'Belle lecture ! On progresse à chaque fois.'}
           </p>
           <div className="flex items-end justify-center gap-2">
             <span className="font-titre text-6xl font-extrabold text-grape">{resultat.mclm}</span>
-            <span className="pb-2 font-bold">mots lus par minute{mode === 'metronome' ? ' (environ)' : ''}</span>
+            <span className="pb-2 font-bold">
+              mots lus par minute{mode === 'metronome' ? ' (environ)' : ''}
+            </span>
           </div>
           <Stars value={etoiles} size={30} />
           <p className="text-sm text-ink-soft">
-            {resultat.corrects} mots bien lus en {Math.round(resultat.duree / 1000)} secondes · objectif {objectif}
+            {resultat.corrects} mots bien lus en {Math.round(resultat.duree / 1000)} secondes · objectif{' '}
+            {objectif}
           </p>
           <Courbe scores={scores} objectif={objectif} />
           <div className="flex flex-wrap justify-center gap-2">
