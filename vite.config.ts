@@ -44,7 +44,8 @@ export default defineConfig({
       '@data': fileURLToPath(new URL('./data', import.meta.url)),
     },
   },
-  server: { port: 5173 },
+  // Les copies de travail des agents (.claude/worktrees) ne doivent pas être surveillées
+  server: { port: 5173, watch: { ignored: ['**/.claude/**', '**/maquette_ai_studio/**'] } },
   test: {
     globals: true,
     environment: 'jsdom',
