@@ -204,7 +204,7 @@ export default function DetectiveTexte({
             <span className="text-5xl" aria-hidden>
               🎧
             </span>
-            <p className="font-bold">Le texte est caché : écoute-le avec le haut-parleur jaune !</p>
+            <p className="font-bold">Le texte est caché : écoute-le avec le haut-parleur jaune&nbsp;!</p>
           </div>
         ) : (
           <p className="text-lg leading-relaxed sm:text-xl" aria-live="off">
@@ -298,7 +298,7 @@ export default function DetectiveTexte({
               className="w-full rounded-2xl bg-grass/15 p-4 text-center"
               role="status"
             >
-              <p className="font-titre text-xl font-extrabold text-grass-dark">Bonne réponse !</p>
+              <p className="font-titre text-xl font-extrabold text-grass-dark">Bonne réponse&nbsp;!</p>
               <p className="mt-1 font-bold">
                 Un vrai détective le prouve : touche, dans le texte, la phrase qui donne la réponse.
               </p>

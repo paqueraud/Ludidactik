@@ -362,7 +362,7 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
       )}
       {etat === 'reessai' && (
         <p className="font-bold text-coral-dark" role="status">
-          Presque ! Fais une autre expérience, puis réessaie.
+          Presque&nbsp;! Fais une autre expérience, puis réessaie.
         </p>
       )}
       {Number.isFinite(CHRONO_MS[level]) && enJeu && <BarreTemps reste={restant} label="Temps de l’expérience" />}
@@ -394,7 +394,7 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
 
       {etat === 'juste' && (
         <p className="font-titre text-2xl font-extrabold text-grass-dark" role="status">
-          Bonne fiole ! « {el.label} » : {p.item.categories[el.category]}.
+          Bonne fiole&nbsp;! « {el.label} » : {p.item.categories[el.category]}.
         </p>
       )}
       <Correction

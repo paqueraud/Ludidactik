@@ -274,7 +274,7 @@ export default function ChefOrchestre({
           </div>
           {etat === 'reessai' && (
             <p className="absolute inset-x-0 bottom-1 text-center font-bold text-sun" role="status">
-              Presque ! Essaie un autre pupitre.
+              Presque&nbsp;! Essaie un autre pupitre.
             </p>
           )}
         </div>

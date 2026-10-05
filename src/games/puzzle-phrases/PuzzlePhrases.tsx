@@ -5,7 +5,7 @@
  * les étapes d'une procédure dans l'ordre. Chaque phrase juste dévoile une pièce du tableau.
  * Facile : le premier mot est posé, 2 essais. Normal : 1 indice (pose le mot suivant), 2 essais.
  * Plus loin : chrono, 1 essai, sans indice.
- * Clavier : 1-9 (et 0) = étiquettes, Retour arrière = enlever, . ? ! = ponctuation, Entrée = vérifier.
+ * Clavier : 1-9 (et 0) = étiquettes, Retour arrière = enlever, . ? ! = ponctuation, Entrée = vérifier.
  */
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from 'framer-motion';
 import { Check, Lightbulb, Undo2 } from 'lucide-react';
@@ -339,7 +339,7 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
 
           {erreurA !== null && etat === 'jeu' && (
             <p className="text-center font-bold text-coral-dark" role="status">
-              Presque ! {erreurA >= attendu.length ? 'Vérifie la ponctuation.' : 'Regarde à partir de l’étiquette en jaune.'}{' '}
+              Presque&nbsp;! {erreurA >= attendu.length ? 'Vérifie la ponctuation.' : 'Regarde à partir de l’étiquette en jaune.'}{' '}
               On réessaie ?
             </p>
           )}

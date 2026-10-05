@@ -16,7 +16,7 @@ const jeu: GameModule = {
   classes: ['CE1', 'CE2', 'CM1', 'CM2'],
   dureeCible: 180,
   minItems: 4,
-  // Convention GUIDE §6 : choix . ? ! et meta.phrase (ou phrase entre guillemets dans la question)
+  // Convention GUIDE §6 : choix . ? ! et meta.phrase (ou phrase entre guillemets dans la question)
   filterItem: (item) => versFeu(item) !== null,
   lessons: (l) => l.matiere === 'francais',
   component: lazy(() => import('./FeuPonctuation')),

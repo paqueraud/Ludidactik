@@ -197,7 +197,7 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
     const mclm = mclmMetronome(atteints, nbErreurs, duree);
     setResultat({ mclm, corrects: Math.max(0, atteints - nbErreurs), duree });
     setPhase('resultat');
-  }, [atteints, mots.length, finLecture, horaire.debuts, erreurs]);
+  }, [atteints, mots.length, finLecture, horaire.debuts, horaire.dureeTotale, erreurs]);
 
   // Résultat : on l'enregistre une fois
   const enregistre = useRef<unknown>(null);
@@ -443,7 +443,7 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="carte flex w-full flex-col items-center gap-3 p-4 text-center" role="status">
           {etapeAuto === 'suivi' && (
             <>
-              <p className="font-titre text-xl font-extrabold">As-tu réussi à suivre le métronome jusqu’au bout ?</p>
+              <p className="font-titre text-xl font-extrabold">As-tu réussi à suivre le métronome jusqu’au bout&nbsp;?</p>
               <div className="flex flex-wrap justify-center gap-2">
                 <Button
                   variant="grass"

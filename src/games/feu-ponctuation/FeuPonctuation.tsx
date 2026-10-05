@@ -5,7 +5,7 @@
  * point d'exclamation (elle s'exclame). Une bonne réponse fait passer une voiture.
  * Facile : la phrase est écrite, aide-mémoire sous chaque feu, écoutes illimitées.
  * Normal : on écoute d'abord ; « Voir la phrase » en indice. Plus loin : 2 écoutes, feu chronométré.
- * Clavier : touches . ? ! ou 1 2 3 ; R = réécouter.
+ * Clavier : touches . ? ! ou 1 2 3 ; R = réécouter.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Eye, Volume2 } from 'lucide-react';

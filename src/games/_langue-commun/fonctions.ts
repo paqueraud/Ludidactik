@@ -18,7 +18,7 @@ export interface PhraseLabo {
   item: ClassificationItem;
   phrase: string;
   segments: Segment[];
-  /** Ponctuation finale (« . », « ! »…). */
+  /** Ponctuation finale (« . », « ! »…). */
   finale: string;
   /** Pour chaque groupe (même ordre que `item.elements`) : index du segment dans la phrase. */
   segmentDuGroupe: number[];

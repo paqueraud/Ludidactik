@@ -356,7 +356,7 @@ export default function ForgeVerbe({
           {etat === 'juste' && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center gap-2" role="status">
               <p className="font-titre text-2xl font-extrabold text-grass-dark">
-                Forgé ! {pieces <= PIECES.length ? `Nouvelle pièce : ${PIECES[pieces - 1]} 🛡️` : 'Ton chevalier brille ! ✨'}
+                Forgé&nbsp;! {pieces <= PIECES.length ? `Nouvelle pièce : ${PIECES[pieces - 1]} 🛡️` : 'Ton chevalier brille ! ✨'}
               </p>
               {couleurs && morceaux && <FormeColoree morceaux={morceaux} sujet={q.sujet} />}
             </motion.div>
