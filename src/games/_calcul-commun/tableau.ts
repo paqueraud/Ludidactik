@@ -58,11 +58,12 @@ export function coefficient(t: Tableau): number | null {
   return ks.every((k) => Math.abs(k - ks[0]!) < 1e-9) ? ks[0]! : null;
 }
 
+/** `indice` : la stratégie, sans le résultat ; `texte` : le raisonnement complet (correction). */
 export type Aide =
-  | { type: 'fois'; depuis: number; k: number; texte: string }
-  | { type: 'divise'; depuis: number; k: number; texte: string }
-  | { type: 'somme'; lignes: [number, number]; texte: string }
-  | { type: 'unite'; depuis: number; unite: number; texte: string };
+  | { type: 'fois'; depuis: number; k: number; texte: string; indice: string }
+  | { type: 'divise'; depuis: number; k: number; texte: string; indice: string }
+  | { type: 'somme'; lignes: [number, number]; texte: string; indice: string }
+  | { type: 'unite'; depuis: number; unite: number; texte: string; indice: string };
 
 const entier = (x: number) => Math.abs(x - Math.round(x)) < 1e-9;
 const f = (x: number) => formatNumber(roundTo(x, 3));
@@ -79,7 +80,6 @@ export function aides(t: Tableau): Aide[] {
     .map((l, i) => ({ l, i }))
     .filter(({ l, i }) => i !== ligne && l[0] !== null && l[1] !== null) as { l: [number, number]; i: number }[];
   const out: Aide[] = [];
-  const [hA, hB] = col === 1 ? t.entetes : [t.entetes[1], t.entetes[0]];
   for (const { l, i } of completes) {
     const xi = l[autreCol];
     const yi = l[col];
@@ -91,6 +91,7 @@ export function aides(t: Tableau): Aide[] {
         depuis: i,
         k,
         texte: `${f(x)}, c’est ${f(k)} fois ${f(xi)} : il faut ${f(k)} fois plus. ${f(yi)} × ${f(k)} = ${f(yi * k)}.`,
+        indice: `${f(x)}, c’est ${f(k)} fois ${f(xi)} : il en faut ${f(k)} fois plus que ${f(yi)}.`,
       });
     else if (k < 1 && entier(1 / k))
       out.push({
@@ -98,6 +99,7 @@ export function aides(t: Tableau): Aide[] {
         depuis: i,
         k: Math.round(1 / k),
         texte: `${f(x)}, c’est ${f(xi)} divisé par ${Math.round(1 / k)} : il en faut ${Math.round(1 / k)} fois moins. ${f(yi)} ÷ ${Math.round(1 / k)} = ${f(yi / Math.round(1 / k))}.`,
+        indice: `${f(x)}, c’est ${f(xi)} divisé par ${Math.round(1 / k)} : il en faut ${Math.round(1 / k)} fois moins que ${f(yi)}.`,
       });
   }
   for (let a = 0; a < completes.length; a++)
@@ -109,6 +111,7 @@ export function aides(t: Tableau): Aide[] {
           type: 'somme',
           lignes: [A.i, B.i],
           texte: `${f(x)} = ${f(A.l[autreCol])} + ${f(B.l[autreCol])}, donc on ajoute : ${f(A.l[col])} + ${f(B.l[col])} = ${f(A.l[col] + B.l[col])}.`,
+          indice: `${f(x)} = ${f(A.l[autreCol])} + ${f(B.l[autreCol])} : ajoute les quantités de ces deux lignes.`,
         });
     }
   const premiere = completes[0];
@@ -121,7 +124,8 @@ export function aides(t: Tableau): Aide[] {
         type: 'unite',
         depuis: premiere.i,
         unite: u,
-        texte: `Pour 1 (${hA}) : ${f(yi)} ÷ ${f(xi)} = ${f(u)} (${hB}). Pour ${f(x)} : ${f(u)} × ${f(x)} = ${f(u * x)}.`,
+        texte: `Pour 1 : ${f(yi)} ÷ ${f(xi)} = ${f(u)}. Pour ${f(x)} : ${f(u)} × ${f(x)} = ${f(u * x)}.`,
+        indice: `Cherche d’abord combien il en faut pour 1 : ${f(yi)} ÷ ${f(xi)}.`,
       });
     }
   }
