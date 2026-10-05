@@ -91,3 +91,37 @@ propre dossier. **Aucune nouvelle dépendance npm.**
 npx tsc -b && npm run lint && npm test && npm run validate:content
 E2E_PORT=4174 npx playwright test tests/e2e/jeux/<id>.spec.ts --project=tablette --project=mobile
 ```
+
+## 6. Conventions `meta` partagées entre contenus et jeux
+
+Les jeux spécialisés reconnaissent ces formes d'items ; les modules de contenu les produisent pour les leçons
+concernées. Un jeu doit **ignorer** proprement un item qui n'a pas le `meta` attendu (ou filtrer via `filterItem`).
+
+| Notion | Type d'item | Convention |
+|---|---|---|
+| Comparer (<, =, >) — Crocodiles | `mcq` | `choices = ['<', '=', '>']`, `meta.gauche` / `meta.droite` (écritures affichées, ex. « 3,5 » et « 3,45 ») |
+| Dictée de nombres — Perroquet | `numeric_answer` | `meta.dictee = true` ; `spoken` = nombre à dire ; `prompt` = « Écris le nombre que tu entends » |
+| Nombres en lettres | `fill_blank` ou `mcq` | `meta.lettres = true` (réponse en lettres, graphies de `graphiesNombre` acceptées) |
+| Construire un nombre — Bâtisseur | `numeric_answer` | `meta.construire = true` ; `answer` = nombre à construire (entier ou décimal) |
+| Compléments — Fusée | `numeric_answer` | `meta.complement = { depart, cible }` |
+| ×/÷ 10, 100, 1 000 — Ascenseur de la virgule | `numeric_answer` | `meta.glisse = { nombre, operation: '×' \| '÷', facteur }` |
+| Opération posée — Grand Huit | `numeric_answer` | `meta.posee = { a, b, op: '+' \| '−' \| '×' \| '÷' }` |
+| Programme de calcul — Machine | `numeric_answer` | `meta.programme = { etapes: ['× 3', '+ 5'], entree: number \| null, sortie: number \| null }` (null = inconnue à trouver) |
+| Suite de motifs | `numeric_answer` | `meta.suite = { termes: number[], etape: number }` |
+| Proportionnalité — Pâtissier | `numeric_answer` | `meta.tableau = { entetes: [string, string], lignes: [number \| null, number \| null][] }` |
+| Données — Station météo | `mcq` ou `numeric_answer` | `meta.graphique = { type: 'barres' \| 'tableau' \| 'courbe', titre, etiquettes: string[], valeurs: number[], unite }` |
+| Mesurer — Mesureur | `numeric_answer` | `meta.mesure = { objet: emoji, longueur: number, unite: 'cm' \| 'mm' }` (règle virtuelle) |
+| Probabilités — Roue | `classification` | `categories = ['impossible', 'peu probable', 'probable', 'certain']` |
+| Déplacements — Robot codeur | `geometry_shape` | `shape: 'robot'`, `meta.robot = { cols, rows, depart: [x,y], cible: [x,y], obstacles: [x,y][], relatif: boolean }` |
+| Symétrie — Miroir | `geometry_shape` | `task: 'symetrie'`, `grid` (cases à symétriser, axe) |
+| Lettre muette — Chasse | `fill_blank` | `meta.famille = 'chanter'` (mot de la même famille qui fait entendre la lettre) |
+| Conjugaison — Forge | `fill_blank` | champ `conjugaison = { sujet, verbe, temps }` |
+| Homophones — Pêche | `fill_blank` | `choices` (a/à…) + `hint` (substitution) |
+| Accords — Train | `fill_blank` | `choices` (formes accordées) ; `meta.groupe` = mots du GN |
+| Fonctions — Labo des fonctions | `classification` | `meta.phrase` ; `elements` = groupes de la phrase, `categories` = fonctions |
+| Ponctuation — Feu tricolore | `mcq` | `choices = ['.', '?', '!']`, `meta.phrase` (sans ponctuation finale) ; `spoken` = phrase avec l'intonation |
+| Compréhension — Détective du texte | `mcq` | `meta.texte`, `meta.titre`, `meta.preuve` (phrase qui justifie) |
+| Qui suis-je ? | `mcq` | `hints` : 3 à 5 indices du plus difficile au plus facile |
+| Anglais — Jacques a dit | `pairing` (mot ↔ emoji), `mcq` / `oral_answer` avec `lang: 'en-GB'` | |
+| Frise — Machine à remonter le temps | `ordering` | `mode: 'chrono'`, `labels` = dates |
+| Cartes — Tour de France | `map_point` | `map` ∈ `france-regions`, `france-fleuves`, `france-massifs`, `europe`, `monde` |
