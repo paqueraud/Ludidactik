@@ -10,3 +10,6 @@ test-results/
 Thumbs.db
 # PDF officiels : volumineux, re-téléchargeables via scripts/
 resources/eduscol/*.pdf
+
+# Copies de travail des agents (git worktree)
+.claude/worktrees/
