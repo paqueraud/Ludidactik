@@ -2401,9 +2401,9 @@
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Nombres entiers",
-   "titre": "Lire, écrire, décomposer (classes des unités, mille, millions)",
+   "titre": "Les grands nombres : lire, écrire, décomposer",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres entiers",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les nombres entiers",
    "periodes": [
     1,
     2,
@@ -2412,13 +2412,16 @@
     5
    ],
    "niveaux": {
-    "facile": "≤ 999 999",
+    "facile": "≤ 999 999 (nombres du CM1)",
     "normal": "≤ 999 999 999",
-    "plus_loin": "milliards"
+    "plus_loin": "milliards (6e)"
    },
    "itemKinds": [
+    "fill_blank",
+    "mcq",
     "numeric_answer",
-    "oral_answer"
+    "oral_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "perroquet-nombres",
@@ -2427,18 +2430,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_num_grands"
+    "generator": "maths-cm2/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je découpe le nombre en classes de 3 chiffres à partir de la droite (unités, mille, millions) et je lis chaque classe ; « mille » ne prend jamais de s, « million » oui.",
+   "contenus": "Nombres jusqu’à 999 999 999 : classes des unités, des mille et des millions ; dictée de nombres ; écriture en lettres (million nom variable, mille invariable, accord de cent et vingt) ; décompositions (par classes, par rangs, (4 × 1 000 000) + …) ; valeur d’un chiffre selon son rang ; nombre de milliers, de centaines… en tout. Périodes 1-2 : nombres du CM1 (≤ 6 chiffres). Plus loin : les milliards (6e)."
   },
   {
    "id": "CM2.MA.NUM.COMPARER",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Nombres entiers",
-   "titre": "Comparer, encadrer, intercaler, ranger, droite graduée",
+   "titre": "Comparer et ranger les grands nombres",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres entiers",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les nombres entiers",
    "periodes": [
     1,
     2,
@@ -2449,12 +2453,14 @@
    "niveaux": {
     "facile": "≤ 6 chiffres",
     "normal": "≤ 9 chiffres",
-    "plus_loin": "arrondis"
+    "plus_loin": "arrondis, milliards"
    },
    "itemKinds": [
-    "number_line",
     "mcq",
-    "ordering"
+    "number_line",
+    "numeric_answer",
+    "ordering",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "funambule",
@@ -2463,18 +2469,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_num_comparer"
+    "generator": "maths-cm2/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le nombre qui a le plus de chiffres est le plus grand ; s’ils en ont autant, je compare les chiffres de gauche à droite jusqu’au premier qui est différent.",
+   "contenus": "Comparer avec <, = et > ; ranger dans l’ordre croissant ou décroissant ; encadrer entre deux multiples de 1 000, 10 000… 1 000 000 ; intercaler (nombre au milieu) ; nombre juste avant/après avec passage de classe ; placer sur une demi-droite graduée (pas de 100 000, 1 000 000, 10 000 000). Plus loin : arrondis, milliards."
   },
   {
    "id": "CM2.MA.NUM.DIVISIBILITE",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Nombres entiers",
-   "titre": "Critères 2/5/10, diviseurs, multiples",
+   "titre": "Diviseurs et multiples",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres entiers",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les nombres entiers",
    "periodes": [
     1,
     2,
@@ -2483,13 +2490,16 @@
     5
    ],
    "niveaux": {
-    "facile": "critères",
-    "normal": "diviseurs ≤ 30, communs",
-    "plus_loin": "critères 3/9 (6e)"
+    "facile": "critères par 2, 5 et 10",
+    "normal": "diviseurs (≤ 30), diviseurs communs, multiples communs",
+    "plus_loin": "critères par 3 et 9, plus grand diviseur commun (6e)"
    },
    "itemKinds": [
     "classification",
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "ordering",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "diviseurs-mysteres",
@@ -2497,18 +2507,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_num_divisibilite"
+    "generator": "maths-cm2/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un nombre est divisible par 2 s’il finit par 0, 2, 4, 6 ou 8, par 5 s’il finit par 0 ou 5, par 10 s’il finit par 0 ; sinon, je cherche dans les tables.",
+   "contenus": "Critères de divisibilité par 2, 5 et 10 (seuls au programme) ; un nombre ≤ 10 est-il diviseur d’un nombre (tables) ; des diviseurs d’un nombre ≤ 100 ; tous les diviseurs d’un nombre ≤ 30 ; diviseurs communs à deux nombres ≤ 30 ; multiples communs à deux nombres < 15. Plus loin (6e) : critères par 3 et par 9, plus grand diviseur commun."
   },
   {
    "id": "CM2.MA.FRAC.SENS",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Fractions & décimaux",
-   "titre": "Lire, représenter, fraction > 1 = entier + fraction < 1, encadrer entre 2 entiers",
+   "titre": "Lire et écrire des fractions, même plus grandes que 1",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les fractions",
    "periodes": [
     1,
     2,
@@ -2517,15 +2528,15 @@
     5
    ],
    "niveaux": {
-    "facile": "dénom. ≤ 10",
-    "normal": "≤ 60",
-    "plus_loin": "conversions multiples"
+    "facile": "dénominateurs ≤ 10, fractions < 1",
+    "normal": "dénominateurs ≤ 60, fractions > 1",
+    "plus_loin": "fractions égales, grands entiers"
    },
    "itemKinds": [
-    "visual_fraction",
-    "number_line",
     "mcq",
-    "numeric_answer"
+    "numeric_answer",
+    "pairing",
+    "visual_fraction"
    ],
    "jeuxSuggeres": [
     "pizzaiolo",
@@ -2536,18 +2547,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_frac_sens"
+    "generator": "maths-cm2/fractions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le dénominateur dit en combien de parts égales on partage l’unité, le numérateur combien on en prend ; si on en prend plus que le dénominateur, on dépasse 1 : 7/3 = 2 + 1/3.",
+   "contenus": "Lire, écrire, représenter des fractions (dénominateurs ≤ 60) ; écrire une fraction > 1 comme entier + fraction < 1 et réciproquement (17/5 = 3 + 2/5) ; encadrer une fraction entre deux entiers consécutifs ; fractions égales en « Pour aller plus loin »."
   },
   {
    "id": "CM2.MA.FRAC.DROITE",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Fractions & décimaux",
-   "titre": "Placer/repérer sur demi-droite graduée",
+   "titre": "Les fractions sur la droite graduée",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les fractions",
    "periodes": [
     1,
     2,
@@ -2556,15 +2568,15 @@
     5
    ],
    "niveaux": {
-    "facile": "demis, quarts",
-    "normal": "tous",
-    "plus_loin": "fractions > 1"
+    "facile": "demis et quarts, entre 0 et 2",
+    "normal": "unités partagées en 3, 5, 6, 8, 10, 12",
+    "plus_loin": "fractions > 1 et entier + fraction"
    },
    "itemKinds": [
-    "visual_fraction",
-    "number_line",
     "mcq",
-    "numeric_answer"
+    "number_line",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "pizzaiolo",
@@ -2575,18 +2587,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_frac_droite"
+    "generator": "maths-cm2/fractions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je compte en combien de parts égales l’unité est partagée, puis j’avance d’autant de parts que le numérateur à partir de 0.",
+   "contenus": "Placer une fraction, ou un entier + une fraction, sur une demi-droite graduée ; repérer un point par une fraction ; encadrer entre deux repères entiers ; deux fractions égales désignent le même point."
   },
   {
    "id": "CM2.MA.FRAC.COMPARER",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Fractions & décimaux",
-   "titre": "Comparer des fractions",
+   "titre": "Comparer et ranger des fractions",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les fractions",
    "periodes": [
     1,
     2,
@@ -2595,15 +2608,15 @@
     5
    ],
    "niveaux": {
-    "facile": "même dénom.",
-    "normal": "dénom. multiples",
-    "plus_loin": "quelconques simples"
+    "facile": "même dénominateur, comparer à 1",
+    "normal": "dénominateurs multiples (1/2 et 3/8)",
+    "plus_loin": "même numérateur, dénominateurs quelconques"
    },
    "itemKinds": [
-    "visual_fraction",
-    "number_line",
     "mcq",
-    "numeric_answer"
+    "ordering",
+    "true_false",
+    "visual_fraction"
    ],
    "jeuxSuggeres": [
     "pizzaiolo",
@@ -2614,18 +2627,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_frac_comparer"
+    "generator": "maths-cm2/fractions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Avec le même dénominateur, la plus grande fraction est celle qui a le plus grand numérateur ; sinon, j’écris les deux fractions avec le même dénominateur.",
+   "contenus": "Comparer deux fractions (<, =, >), comparer à 1, ranger dans l’ordre croissant ou décroissant ; même dénominateur, dénominateurs multiples l’un de l’autre (1/2 et 3/8), même numérateur ; dénominateur commun ≤ 60 en « Pour aller plus loin »."
   },
   {
    "id": "CM2.MA.FRAC.OPERATIONS",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Fractions & décimaux",
-   "titre": "+ et − ; entier × fraction ; fraction d'une quantité",
+   "titre": "Calculer avec les fractions",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les fractions",
    "periodes": [
     1,
     2,
@@ -2634,15 +2648,15 @@
     5
    ],
    "niveaux": {
-    "facile": "même dénom.",
-    "normal": "dénom. multiples, 3/4 de 60",
-    "plus_loin": "problèmes"
+    "facile": "même dénominateur, compléter à 1",
+    "normal": "dénominateurs multiples, entier × fraction, 3/4 de 60",
+    "plus_loin": "résultats > 1, problèmes en deux étapes"
    },
    "itemKinds": [
-    "visual_fraction",
-    "number_line",
+    "bar_model",
     "mcq",
-    "numeric_answer"
+    "numeric_answer",
+    "visual_fraction"
    ],
    "jeuxSuggeres": [
     "pizzaiolo",
@@ -2653,18 +2667,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_frac_operations"
+    "generator": "maths-cm2/fractions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour ajouter des fractions, il faut des parts de même taille : j’ajoute les numérateurs et je garde le dénominateur ; pour prendre les 3/4 de 60, je partage 60 en 4 puis je prends 3 parts.",
+   "contenus": "Additionner et soustraire des fractions (même dénominateur, puis dénominateurs multiples) ; compléter à 1 ; produit d’un entier par une fraction (4 × 3/10) ; fraction d’une quantité ou d’une grandeur (3/4 de 60 €, 2/3 de 12 m) ; petits problèmes en une ou deux étapes."
   },
   {
    "id": "CM2.MA.DEC.FRAC_DEC",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Fractions & décimaux",
-   "titre": "Fractions décimales ↔ écriture à virgule (dixièmes, centièmes, millièmes)",
+   "titre": "Des fractions décimales aux nombres à virgule",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les nombres décimaux",
    "periodes": [
     1,
     2,
@@ -2674,14 +2689,15 @@
    ],
    "niveaux": {
     "facile": "dixièmes",
-    "normal": "millièmes",
-    "plus_loin": "somme de fractions décimales"
+    "normal": "jusqu’aux millièmes",
+    "plus_loin": "sommes dans le désordre, regroupements (13/10)"
    },
    "itemKinds": [
-    "visual_fraction",
-    "number_line",
     "mcq",
-    "numeric_answer"
+    "number_line",
+    "numeric_answer",
+    "pairing",
+    "visual_fraction"
    ],
    "jeuxSuggeres": [
     "pizzaiolo",
@@ -2692,18 +2708,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_dec_frac_dec"
+    "generator": "maths-cm2/decimaux"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le dénominateur me dit où s’arrête le dernier chiffre : 10 → dixièmes (1 chiffre après la virgule), 100 → centièmes (2 chiffres), 1 000 → millièmes (3 chiffres) ; 37/100 = 0,37.",
+   "contenus": "Fractions décimales /10, /100, /1 000 ↔ écriture à virgule ; relations entre unités, dixièmes, centièmes et millièmes ; 4107/1000 = 4 + 107/1000 = 4 + 1/10 + 7/1000 = 4,107 ; valeur d’un chiffre selon son rang ; placer une fraction décimale sur la demi-droite graduée."
   },
   {
    "id": "CM2.MA.DEC.COMPARER",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Fractions & décimaux",
-   "titre": "Comparer, ranger, encadrer, intercaler, partie entière, arrondi à l'unité",
+   "titre": "Comparer et ranger les nombres à virgule",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les nombres décimaux",
    "periodes": [
     1,
     2,
@@ -2712,14 +2729,16 @@
     5
    ],
    "niveaux": {
-    "facile": "1 décimale",
-    "normal": "3 décimales (piège 3,5 vs 3,45)",
-    "plus_loin": "arrondi au dixième"
+    "facile": "1 chiffre après la virgule",
+    "normal": "jusqu’aux millièmes (3,5 > 3,45)",
+    "plus_loin": "arrondi au dixième et au centième"
    },
    "itemKinds": [
-    "number_line",
     "mcq",
-    "ordering"
+    "number_line",
+    "numeric_answer",
+    "ordering",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "funambule",
@@ -2728,18 +2747,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_dec_comparer"
+    "generator": "maths-cm2/decimaux"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je compare d’abord les parties entières, puis les dixièmes, les centièmes et les millièmes : 3,5 > 3,45 car 5 dixièmes > 4 dixièmes (plus de chiffres ne veut pas dire plus grand).",
+   "contenus": "Comparer (<, =, >), ranger, encadrer entre deux entiers ou au dixième, intercaler, partie entière, arrondi à l’unité ; demi-droite graduée (zoom au centième, au millième) ; pièges 3,5 / 3,45 / 3,405 et 2,3 = 2,30."
   },
   {
    "id": "CM2.MA.DEC.USUELLES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Fractions & décimaux",
-   "titre": "Écriture décimale des fractions usuelles (1/2 = 0,5 ; 1/4 = 0,25 ; 3/4 = 0,75 ; 1/5 = 0,2 ; 1/10…)",
+   "titre": "Les fractions à connaître en nombres à virgule",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les nombres décimaux",
    "periodes": [
     1,
     2,
@@ -2748,13 +2768,14 @@
     5
    ],
    "niveaux": {
-    "facile": "1/2, 1/10",
-    "normal": "liste",
-    "plus_loin": "1/8 = 0,125"
+    "facile": "1/2, dixièmes, 1/100",
+    "normal": "liste du CM2 (demis, quarts, cinquièmes)",
+    "plus_loin": "1/8 = 0,125 ; 1/20 ; 1/25 ; 1/50 ; 7/4"
    },
    "itemKinds": [
+    "mcq",
     "numeric_answer",
-    "oral_answer",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
@@ -2767,9 +2788,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_dec_usuelles"
+    "generator": "maths-cm2/decimaux"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je connais par cœur 1/2 = 0,5 ; 1/4 = 0,25 ; 3/4 = 0,75 ; 1/5 = 0,2 ; 1/10 = 0,1, et je peux les retrouver avec une fraction décimale : 1/4 = 25/100 = 0,25.",
+   "contenus": "Écriture décimale des fractions usuelles : 1/2 = 0,5 ; 1/4 = 0,25 ; 3/4 = 0,75 ; 1/5 = 0,2 ; 2/5 = 0,4 ; 3/2 = 1,5 ; 5/2 = 2,5 ; 1/10 = 0,1 ; 1/100 = 0,01 ; 1/1000 = 0,001. Pour aller plus loin : huitièmes (1/8 = 0,125), vingtièmes, vingt-cinquièmes, cinquantièmes."
   },
   {
    "id": "CM2.MA.CM.FAITS",
@@ -3160,9 +3182,9 @@
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Opérations posées",
-   "titre": "Estimer un ordre de grandeur",
+   "titre": "Estimer un résultat (ordre de grandeur)",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Opérations posées",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les quatre opérations",
    "periodes": [
     1,
     2,
@@ -3171,12 +3193,15 @@
     5
    ],
    "niveaux": {
-    "facile": "—",
-    "normal": "—",
-    "plus_loin": "—"
+    "facile": "additions et soustractions, arrondi à la centaine",
+    "normal": "multiplications 3 chiffres × 2 chiffres, grands nombres arrondis au millier",
+    "plus_loin": "décimal × entier, divisions"
    },
    "itemKinds": [
-    "numeric_answer"
+    "classification",
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "grand-huit-operations",
@@ -3184,18 +3209,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_op_estimer"
+    "generator": "maths-cm2/operations"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour estimer, j’arrondis chaque nombre à un nombre facile (498 ≈ 500, 21 ≈ 20) puis je calcule : 498 × 21, c’est environ 500 × 20 = 10 000.",
+   "contenus": "Trouver un ordre de grandeur en arrondissant les nombres (à la centaine, à la dizaine, au millier, à l’unité) ; juger si un résultat ou une mesure est plausible (« 4,5 m pour une voiture ? ») ; contrôler un calcul posé. Pas de calculatrice."
   },
   {
    "id": "CM2.MA.OP.PARENTHESES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Opérations posées",
-   "titre": "Calculs avec 1 ou 2 paires de parenthèses",
+   "titre": "Calculer avec des parenthèses",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Opérations posées",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les quatre opérations",
    "periodes": [
     1,
     2,
@@ -3204,12 +3230,15 @@
     5
    ],
    "niveaux": {
-    "facile": "1 paire",
-    "normal": "2 paires",
+    "facile": "une paire de parenthèses",
+    "normal": "deux paires de parenthèses",
     "plus_loin": "priorités sans parenthèses (6e)"
    },
    "itemKinds": [
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "grand-huit-operations",
@@ -3217,32 +3246,35 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_op_parentheses"
+    "generator": "maths-cm2/operations"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je calcule toujours d’abord ce qui est entre parenthèses : (12 + 8) × 3 = 20 × 3 = 60.",
+   "contenus": "Calculs contenant une ou deux paires de parenthèses (on calcule d’abord ce qui est entre parenthèses) ; choisir où placer les parenthèses pour obtenir un résultat ; Plus loin : priorités de la multiplication et de la division sans parenthèses (6e)."
   },
   {
    "id": "CM2.MA.OP.MULT_DEC",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Opérations posées",
-   "titre": "Décimal × entier posé",
+   "titre": "Multiplier un nombre décimal par un nombre entier",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Opérations posées",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les quatre opérations",
    "periodes": [
-    1,
     2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "1 chiffre",
-    "normal": "2 chiffres",
+    "facile": "décimal × nombre à 1 chiffre",
+    "normal": "décimal × nombre à 2 chiffres",
     "plus_loin": "décimal × décimal (6e)"
    },
    "itemKinds": [
-    "numeric_answer"
+    "fill_blank",
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "grand-huit-operations",
@@ -3250,18 +3282,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_op_mult_dec"
+    "generator": "maths-cm2/operations"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je multiplie sans m’occuper de la virgule, puis je place la virgule : 3,45 a 2 chiffres après la virgule, donc 3,45 × 6 = 20,70 = 20,7.",
+   "contenus": "Poser et effectuer la multiplication d’un nombre décimal par un nombre entier : on multiplie sans la virgule, puis on place la virgule (autant de chiffres après la virgule que dans le nombre décimal)."
   },
   {
    "id": "CM2.MA.OP.DIV",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Opérations posées",
-   "titre": "Division euclidienne ; division décimale (dividende entier/décimal, diviseur à 1 chiffre)",
+   "titre": "La division : quotient, reste et division décimale",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Opérations posées",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les quatre opérations",
    "periodes": [
     1,
     2,
@@ -3270,12 +3303,15 @@
     5
    ],
    "niveaux": {
-    "facile": "euclidienne ÷ 1 chiffre",
-    "normal": "décimale ÷ 1 chiffre",
+    "facile": "division euclidienne par un nombre à 1 chiffre",
+    "normal": "division décimale par un nombre à 1 chiffre",
     "plus_loin": "diviseur à 2 chiffres"
    },
    "itemKinds": [
-    "numeric_answer"
+    "fill_blank",
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "grand-huit-operations",
@@ -3283,18 +3319,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_op_div"
+    "generator": "maths-cm2/operations"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Dans une division euclidienne, le reste est toujours plus petit que le diviseur (47 = (6 × 7) + 5) ; s’il reste quelque chose, je peux mettre une virgule au quotient et continuer avec les dixièmes.",
+   "contenus": "Division euclidienne posée (a = (b × q) + r avec r < b) ; divisions décimales posées avec un dividende entier (7 ÷ 4 = 1,75) ou décimal (12,6 ÷ 3 = 4,2) et un diviseur à un chiffre ; vérifier avec une multiplication."
   },
   {
    "id": "CM2.MA.PB.ADDITIFS",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Problèmes & algèbre",
-   "titre": "Additifs 1 ou plusieurs étapes",
+   "titre": "Problèmes d’addition et de soustraction",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — La résolution de problèmes",
    "periodes": [
     1,
     2,
@@ -3303,13 +3340,15 @@
     5
    ],
    "niveaux": {
-    "facile": "entiers",
-    "normal": "décimaux, fractions",
+    "facile": "une étape, entiers ≤ 10 000",
+    "normal": "décimaux et grands nombres, 1 ou 2 étapes",
     "plus_loin": "3 étapes"
    },
    "itemKinds": [
     "bar_model",
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "detective-problemes",
@@ -3318,18 +3357,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_pb_additifs"
+    "generator": "maths-cm2/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je lis l’histoire, je repère ce que je connais et ce que je cherche, je fais un schéma en barre : si je cherche le tout, j’additionne les parties ; si je cherche une partie, je soustrais.",
+   "contenus": "Problèmes additifs en une ou plusieurs étapes : parties-tout, transformations (gagner, perdre, état de départ), comparaisons (« de plus », « de moins », écart) ; entiers, grands nombres, décimaux (longueurs, masses, contenances, prix) ; énoncés pièges où « plus » ou « dépenser » n’indiquent pas l’opération ; schéma en barre, reformulation, contrôle de la réponse."
   },
   {
    "id": "CM2.MA.PB.MULTIPLICATIFS",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Problèmes & algèbre",
-   "titre": "Parties-tout multiplicatifs, comparaison multiplicative (« 3 fois plus »)",
+   "titre": "Problèmes de multiplication et de division",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — La résolution de problèmes",
    "periodes": [
     1,
     2,
@@ -3339,12 +3379,14 @@
    ],
    "niveaux": {
     "facile": "entiers",
-    "normal": "décimaux",
-    "plus_loin": "fois moins"
+    "normal": "décimaux (prix, masses, contenances)",
+    "plus_loin": "« fois moins » et énoncés pièges"
    },
    "itemKinds": [
     "bar_model",
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "detective-problemes",
@@ -3353,18 +3395,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_pb_multiplicatifs"
+    "generator": "maths-cm2/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Quand toutes les parts sont égales, je multiplie pour trouver le tout et je divise pour trouver une part ou le nombre de parts ; « 3 fois plus », c’est × 3, et « 3 fois moins », c’est ÷ 3.",
+   "contenus": "Problèmes multiplicatifs « parties-tout » en une étape : produit (n parts égales), partage (valeur d’une part), groupement (nombre de parts) ; comparaison multiplicative « 3 fois plus », « combien de fois plus », « 3 fois moins » ; prix unitaire × quantité, division décimale par un nombre à un chiffre."
   },
   {
    "id": "CM2.MA.PB.MIXTES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Problèmes & algèbre",
-   "titre": "Mixtes plusieurs étapes",
+   "titre": "Problèmes en plusieurs étapes",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — La résolution de problèmes",
    "periodes": [
     1,
     2,
@@ -3373,13 +3416,15 @@
     5
    ],
    "niveaux": {
-    "facile": "2 étapes",
-    "normal": "3",
-    "plus_loin": "4"
+    "facile": "2 étapes, entiers",
+    "normal": "3 étapes, décimaux",
+    "plus_loin": "4 étapes"
    },
    "itemKinds": [
     "bar_model",
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "detective-problemes",
@@ -3388,18 +3433,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_pb_mixtes"
+    "generator": "maths-cm2/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je découpe le problème en petites questions : je trouve d’abord ce qui me manque, puis je réponds à la grande question, sans oublier de vérifier si le résultat est possible.",
+   "contenus": "Problèmes mixtes (additions, soustractions, multiplications, divisions) en plusieurs étapes : achats et monnaie rendue, lots, partages, cinéma, sortie en car (division avec reste), maraicher ; calcul en une ligne avec parenthèses."
   },
   {
    "id": "CM2.MA.PB.PROPORTION",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Problèmes & algèbre",
-   "titre": "Proportionnalité (passage par l'unité, linéarité, recettes, échelles simples)",
+   "titre": "Proportionnalité : recettes, prix et distances",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — La proportionnalité",
    "periodes": [
     1,
     2,
@@ -3408,13 +3454,15 @@
     5
    ],
    "niveaux": {
-    "facile": "×2 ×3",
-    "normal": "règle de trois sans le nom",
-    "plus_loin": "pourcentages simples"
+    "facile": "× 2, × 3, × 10",
+    "normal": "linéarité (× et +), passage par l’unité",
+    "plus_loin": "pourcentages simples, échelles, tableau (6e)"
    },
    "itemKinds": [
     "bar_model",
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "detective-problemes",
@@ -3423,18 +3471,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_pb_proportion"
+    "generator": "maths-cm2/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Si j’achète 3 fois plus de pains, je paie 3 fois plus cher ; et le prix de 4 pains plus le prix de 8 pains, c’est le prix de 12 pains.",
+   "contenus": "Reconnaitre une situation de proportionnalité (âge et taille : non) ; raisonnements de linéarité en langage naturel : « 3 fois plus de pains, 3 fois plus cher », addition de deux quantités connues, passage par l’unité ; uniquement avec des grandeurs. Pas de tableau de proportionnalité, de coefficient ni de produit en croix au cours moyen (BO) ; tableau, pourcentages et échelles réservés au niveau « plus loin » (6e)."
   },
   {
    "id": "CM2.MA.PB.DENOMBRER",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Problèmes & algèbre",
-   "titre": "Dénombrement & optimisation, préparation aux algorithmes",
+   "titre": "Compter toutes les possibilités et trouver la meilleure solution",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — La résolution de problèmes ; Initiation à la pensée informatique",
    "periodes": [
     1,
     2,
@@ -3443,13 +3492,15 @@
     5
    ],
    "niveaux": {
-    "facile": "listes",
-    "normal": "arbres simples",
-    "plus_loin": "combinatoire"
+    "facile": "listes (2 choix)",
+    "normal": "arbres, tableaux, meilleur prix",
+    "plus_loin": "combinatoire (3 étapes, poignées de main)"
    },
    "itemKinds": [
     "bar_model",
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "detective-problemes",
@@ -3458,18 +3509,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_pb_denombrer"
+    "generator": "maths-cm2/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour compter toutes les possibilités sans en oublier ni en compter deux fois, je fais une liste rangée, un arbre ou un tableau.",
+   "contenus": "Dénombrement (listes, arbres, tableaux à double entrée : tenues, menus, glaces, nombres avec des étiquettes, poignées de main, championnat) ; optimisation (nombre minimum de boites, meilleur prix entre lots et unités) ; préparation aux algorithmes (payer une somme avec le moins de billets et de pièces en prenant toujours la plus grande valeur possible)."
   },
   {
    "id": "CM2.MA.ALG.TROUS",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Problèmes & algèbre",
-   "titre": "Égalités à trous (178 − … = 6 × 8), « 2 ciseaux + 3 stylos = 20 € »",
+   "titre": "Les égalités à trous et le nombre mystère",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Algèbre",
    "periodes": [
     1,
     2,
@@ -3478,12 +3530,15 @@
     5
    ],
    "niveaux": {
-    "facile": "1 opération",
-    "normal": "2 membres",
-    "plus_loin": "2 inconnues simples"
+    "facile": "une seule opération (… + 27 = 63)",
+    "normal": "une opération de chaque côté du signe =",
+    "plus_loin": "symboles et deux inconnues simples"
    },
    "itemKinds": [
-    "numeric_answer"
+    "bar_model",
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "machine-programmes",
@@ -3491,32 +3546,35 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_alg_trous"
+    "generator": "maths-cm2/algebre"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le signe = veut dire « a la même valeur que » : dans 178 − … = 6 × 8, je calcule 6 × 8 = 48, puis je cherche ce qu’on enlève à 178 pour obtenir 48.",
+   "contenus": "Trouver le nombre manquant dans une égalité (178 − … = 6 × 8) : le signe = relie deux expressions qui ont la même valeur ; problèmes algébriques (« 2 classeurs et 3 stylos coûtent 20 € ») avec schéma en barre ; nombres inconnus représentés par un symbole."
   },
   {
    "id": "CM2.MA.ALG.PROGRAMMES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Problèmes & algèbre",
-   "titre": "Programmes de calcul (exécuter, inverser)",
+   "titre": "Les programmes de calcul",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Algèbre",
    "periodes": [
-    1,
     2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "exécuter",
-    "normal": "inverser",
-    "plus_loin": "produire"
+    "facile": "exécuter un programme à 2 étapes",
+    "normal": "3 étapes, exécuter ou remonter",
+    "plus_loin": "nombres décimaux, choisir le programme"
    },
    "itemKinds": [
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "ordering",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "machine-programmes",
@@ -3524,18 +3582,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_alg_programmes"
+    "generator": "maths-cm2/algebre"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "J’applique les étapes dans l’ordre ; pour retrouver le nombre de départ, je remonte le programme en faisant l’opération contraire (+ devient −, × devient ÷).",
+   "contenus": "Exécuter un programme de calcul d’au plus trois instructions (choisir un nombre ; ajouter 2 ; multiplier par 4 ; retirer 3) ; retrouver le nombre de départ en remontant le programme ; remettre les étapes dans l’ordre ; choisir un programme qui transforme un nombre en un autre."
   },
   {
    "id": "CM2.MA.ALG.SUITES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Problèmes & algèbre",
-   "titre": "Suites de nombres et de motifs (étape n)",
+   "titre": "Les suites de nombres et de motifs",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Algèbre ; Initiation à la pensée informatique",
    "periodes": [
     1,
     2,
@@ -3544,12 +3603,15 @@
     5
    ],
    "niveaux": {
-    "facile": "prolonger",
-    "normal": "règle",
-    "plus_loin": "étape 100"
+    "facile": "prolonger une suite (+ ou −)",
+    "normal": "trouver la règle, l’étape 10",
+    "plus_loin": "étape 50 ou 100, décimaux"
    },
    "itemKinds": [
-    "numeric_answer"
+    "fill_blank",
+    "mcq",
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "machine-programmes",
@@ -3557,18 +3619,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_alg_suites"
+    "generator": "maths-cm2/algebre"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je cherche ce qui se passe d’un nombre au suivant (on ajoute 3 ? on multiplie par 2 ?) ; pour aller à l’étape 10, j’ajoute 9 fois le même nombre au premier.",
+   "contenus": "Trouver la règle d’une suite de nombres (+ 6, × 2, × 2 puis + 1 : 7 ; 15 ; 31 ; 63 ; 127) et la prolonger ; suites de motifs évolutives (allumettes, tables, jetons) : nombre d’éléments à une étape donnée (étape 10, étape 100)."
   },
   {
    "id": "CM2.MA.GM.LONG_MASSE_CONT",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Grandeurs & mesures",
-   "titre": "Conversions par relations (3,5 m = 350 cm)",
+   "titre": "Convertir des longueurs, des masses et des contenances",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs et mesures — Longueurs, masses et contenances",
    "periodes": [
     1,
     2,
@@ -3577,13 +3640,15 @@
     5
    ],
    "niveaux": {
-    "facile": "m↔cm",
-    "normal": "toutes unités usuelles",
-    "plus_loin": "unités composées"
+    "facile": "m↔cm, cm↔mm, km↔m, kg↔g, L↔cL, L↔mL, nombres entiers",
+    "normal": "toutes les unités usuelles, nombres décimaux, 3 m 5 cm",
+    "plus_loin": "dam, hm, hL, t↔g, km↔cm ; 2 km 50 m = 2,05 km"
    },
    "itemKinds": [
+    "mcq",
     "numeric_answer",
-    "mcq"
+    "ordering",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "mesureur",
@@ -3592,18 +3657,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_gm_long_masse_cont"
+    "generator": "maths-cm2/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour convertir, j’utilise la relation entre les unités : 1 m = 100 cm, donc 3,5 m = 3,5 × 100 cm = 350 cm.",
+   "contenus": "Unités du mm au km, du mg à la tonne, du mL à l’hL ; conversions par relations entre unités, sans tableau (3,5 m = 350 cm car 1 m = 100 cm) ; expressions complexes (3 m 5 cm = 305 cm) ; comparer et ranger des mesures écrites dans des unités différentes ; choisir une unité adaptée, estimer une mesure."
   },
   {
    "id": "CM2.MA.GM.PERIMETRE",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Grandeurs & mesures",
-   "titre": "Périmètres (polygones, carré, rectangle) ; cercle (plus loin)",
+   "titre": "Calculer le périmètre d’une figure",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs et mesures — Longueurs et périmètres",
    "periodes": [
     1,
     2,
@@ -3612,13 +3678,14 @@
     5
    ],
    "niveaux": {
-    "facile": "carré",
-    "normal": "polygones",
-    "plus_loin": "cercle (≈ 3,14 × d)"
+    "facile": "carré et rectangle, nombres entiers",
+    "normal": "polygones, côtés décimaux, unités à convertir, côté manquant",
+    "plus_loin": "cercle (≈ 3,14 × diamètre, 6e)"
    },
    "itemKinds": [
+    "mcq",
     "numeric_answer",
-    "mcq"
+    "true_false"
    ],
    "jeuxSuggeres": [
     "mesureur",
@@ -3627,33 +3694,34 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_gm_perimetre"
+    "generator": "maths-cm2/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le périmètre, c’est la longueur du tour de la figure : j’additionne les longueurs de tous les côtés, écrites dans la même unité.",
+   "contenus": "Périmètre = longueur du tour ; carré, rectangle, polygones aux côtés décimaux, côtés dans des unités différentes ; retrouver un côté manquant connaissant le périmètre. Pas de formule à mémoriser au CM2 (« 4 fois le côté » pour le carré est une règle que l’élève établit). Plus loin (6e) : tour du cercle ≈ 3,14 × diamètre."
   },
   {
    "id": "CM2.MA.GM.AIRES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Grandeurs & mesures",
-   "titre": "Comparer, déterminer des aires ; cm², dm², m² ; carré/rectangle ; conversions",
+   "titre": "Mesurer et comparer des aires",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs et mesures — Les aires",
    "periodes": [
-    1,
     2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "pavage",
-    "normal": "rectangle, conversions",
-    "plus_loin": "figures composées"
+    "facile": "compter les carreaux d’une figure sur quadrillage",
+    "normal": "aire du carré et du rectangle, conversions cm², dm², m²",
+    "plus_loin": "figures composées, demi-carreaux, m² ↔ cm²"
    },
    "itemKinds": [
+    "mcq",
     "numeric_answer",
-    "mcq"
+    "true_false"
    ],
    "jeuxSuggeres": [
     "mesureur",
@@ -3662,33 +3730,35 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_gm_aires"
+    "generator": "maths-cm2/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "L’aire, c’est la place occupée par une surface : je compte combien de carrés de 1 cm² (ou 1 m²) la recouvrent ; pour un rectangle, je compte les rangées.",
+   "contenus": "Comparer des aires ; déterminer une aire en comptant des carreaux ; cm², dm², m² ; aire du carré et du rectangle (rangées de carrés unités) ; conversions 1 dm² = 100 cm², 1 m² = 100 dm² ; même périmètre n’implique pas même aire. Plus loin : figures composées, demi-carreaux, triangle rectangle, 1 m² = 10 000 cm²."
   },
   {
    "id": "CM2.MA.GM.ANGLES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Grandeurs & mesures",
-   "titre": "Lexique, notations, comparer, somme/multiple, moitié par pliage, 90°",
+   "titre": "Les angles : aigu, droit, obtus",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs et mesures — Les angles",
    "periodes": [
-    1,
     2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "droit/aigu/obtus",
-    "normal": "comparer, construire",
-    "plus_loin": "45°, 180°"
+    "facile": "reconnaître un angle aigu, droit ou obtus",
+    "normal": "angle droit = 90°, comparer, somme, multiple, moitié (45°)",
+    "plus_loin": "angle plat (180°), 30° et 60° par partage (6e)"
    },
    "itemKinds": [
+    "classification",
+    "mcq",
     "numeric_answer",
-    "mcq"
+    "true_false"
    ],
    "jeuxSuggeres": [
     "mesureur",
@@ -3697,18 +3767,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_gm_angles"
+    "generator": "maths-cm2/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je compare un angle à l’angle droit de mon équerre (90°) : plus petit, il est aigu ; plus grand, il est obtus ; la longueur des côtés ne change rien.",
+   "contenus": "Lexique (sommet, côtés) ; comparer des angles à l’angle droit de l’équerre ; angle droit = 90° ; somme de deux angles, angle multiple d’un angle, moitié d’un angle par pliage. Pas de rapporteur au CM2, angles saillants seulement ; les notations (angle de sommet A) sont toujours explicitées."
   },
   {
    "id": "CM2.MA.GM.DUREES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Grandeurs & mesures",
-   "titre": "Heure à aiguilles (h, min, s), durées, problèmes multi-étapes",
+   "titre": "Lire l’heure et calculer des durées",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs et mesures — Le repérage dans le temps et les durées",
    "periodes": [
     1,
     2,
@@ -3717,13 +3788,15 @@
     5
    ],
    "niveaux": {
-    "facile": "h/min",
-    "normal": "h/min/s",
-    "plus_loin": "conversions 1,5 h = 1 h 30"
+    "facile": "heures et minutes",
+    "normal": "heures, minutes et secondes, problèmes en plusieurs étapes",
+    "plus_loin": "durées décimales (1,5 h = 1 h 30 min), h min s → s"
    },
    "itemKinds": [
     "clock",
-    "numeric_answer"
+    "mcq",
+    "numeric_answer",
+    "ordering"
    ],
    "jeuxSuggeres": [
     "horloger",
@@ -3731,34 +3804,34 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_gm_durees"
+    "generator": "maths-cm2/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "1 h = 60 min et 1 min = 60 s : quand je dépasse 60 minutes, j’ajoute 1 heure (et 1,5 h, c’est 1 h 30 min, pas 1 h 50 min).",
+   "contenus": "Lire et régler une horloge à aiguilles en heures, minutes et secondes ; calculer l’heure de fin ou une durée (horaires de train, film, course) ; relations 1 h = 60 min, 1 min = 60 s, 1 jour = 24 h, quart d’heure, siècle ; problèmes à une ou plusieurs étapes. Plus loin : 1,5 h = 1 h 30 min, secondes dans une heure."
   },
   {
    "id": "CM2.MA.GEO.VOCAB",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Espace & géométrie",
-   "titre": "Vocabulaire, notations [AB], (AB), [AB) ; perpendiculaires, parallèles",
+   "titre": "Les mots de la géométrie : segment, droite, perpendiculaires, parallèles",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace et géométrie — La géométrie plane",
    "periodes": [
     1,
     2,
-    3,
-    4,
-    5
+    3
    ],
    "niveaux": {
-    "facile": "—",
-    "normal": "—",
-    "plus_loin": "—"
+    "facile": "segment, droite, milieu, sommet ; parallèles ou perpendiculaires (vie courante)",
+    "normal": "demi-droite, diagonale, rayon, diamètre ; parallèles sur quadrillage",
+    "plus_loin": "perpendiculaire sur quadrillage, propriétés (2 perpendiculaires à une même droite), intérieur/extérieur d’un cercle"
    },
    "itemKinds": [
+    "classification",
     "geometry_shape",
     "mcq",
-    "ordering"
+    "true_false"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -3770,34 +3843,35 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_geo_vocab"
+    "generator": "maths-cm2/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Deux droites perpendiculaires se coupent en faisant un angle droit ; deux droites parallèles ne se coupent jamais.",
+   "contenus": "Point, segment, droite, demi-droite, milieu, sommet, côté, diagonale ; cercle (centre, rayon, diamètre, disque) ; droites perpendiculaires et parallèles ; placer un milieu, une parallèle ou une perpendiculaire sur quadrillage. Notations [AB], (AB), [AB) lues dans les consignes mais non exigibles (jamais évaluées seules)."
   },
   {
    "id": "CM2.MA.GEO.FIGURES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Espace & géométrie",
-   "titre": "Triangles (rectangle, isocèle, équilatéral), quadrilatères (carré, rectangle, losange, trapèze, trapèze rectangle), pentagone, hexagone, cercle/disque ; propriétés",
+   "titre": "Reconnaître les figures et leurs propriétés",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace et géométrie — La géométrie plane",
    "periodes": [
     1,
     2,
     3,
-    4,
-    5
+    4
    ],
    "niveaux": {
-    "facile": "nommer",
-    "normal": "propriétés",
-    "plus_loin": "classification inclusive"
+    "facile": "nommer les figures usuelles",
+    "normal": "propriétés (côtés, angles droits, parallélisme)",
+    "plus_loin": "un carré est aussi un rectangle et un losange (classement)"
    },
    "itemKinds": [
+    "classification",
     "geometry_shape",
     "mcq",
-    "ordering"
+    "true_false"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -3809,34 +3883,35 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_geo_figures"
+    "generator": "maths-cm2/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un carré a 4 côtés de même longueur et 4 angles droits : c’est à la fois un rectangle et un losange.",
+   "contenus": "Triangles (rectangle, isocèle, équilatéral), quadrilatères (carré, rectangle, losange, trapèze, trapèze rectangle), pentagone, hexagone ; cercle = points à la même distance du centre ; propriétés : côtés parallèles, côtés de même longueur, angles droits ; « Qui suis-je ? »."
   },
   {
    "id": "CM2.MA.GEO.CONSTRUIRE",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Espace & géométrie",
-   "titre": "Constructions (règle, équerre, compas), programmes de construction",
+   "titre": "Construire avec la règle, l’équerre et le compas",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace et géométrie — La géométrie plane ; Initiation à la pensée informatique",
    "periodes": [
-    1,
     2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "reproduire",
-    "normal": "construire",
-    "plus_loin": "rédiger un programme"
+    "facile": "instruments, programmes de 3 étapes",
+    "normal": "programmes de 4 étapes (carré, rectangle, cercle, triangle rectangle), carré penché sur quadrillage",
+    "plus_loin": "programmes au compas (triangles isocèle et équilatéral), figures composées, étape manquante"
    },
    "itemKinds": [
     "geometry_shape",
     "mcq",
-    "ordering"
+    "ordering",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -3848,34 +3923,34 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_geo_construire"
+    "generator": "maths-cm2/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour tracer un cercle, j’écarte mon compas de la longueur du rayon, la moitié du diamètre.",
+   "contenus": "Choisir l’instrument (règle graduée, équerre, compas) ; écartement du compas = rayon ; programmes de construction (remettre les étapes dans l’ordre, trouver l’étape manquante, deviner la figure obtenue) ; placer le 4e sommet d’un rectangle, d’un carré ou d’un losange sur quadrillage."
   },
   {
    "id": "CM2.MA.GEO.SYMETRIE",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Espace & géométrie",
-   "titre": "Symétrique sur quadrillage (axe vertical, horizontal, diagonal)",
+   "titre": "La symétrie sur quadrillage",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace et géométrie — La géométrie plane",
    "periodes": [
-    1,
     2,
     3,
-    4,
-    5
+    4
    ],
    "niveaux": {
-    "facile": "vertical",
-    "normal": "les 3",
-    "plus_loin": "axe oblique quelconque"
+    "facile": "axe vertical",
+    "normal": "axes vertical, horizontal et diagonal",
+    "plus_loin": "seconde diagonale, figures à cheval sur l’axe, axes des polygones réguliers"
    },
    "itemKinds": [
+    "classification",
     "geometry_shape",
     "mcq",
-    "ordering"
+    "true_false"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -3887,34 +3962,35 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_geo_symetrie"
+    "generator": "maths-cm2/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le symétrique d’un point est de l’autre côté de l’axe, à la même distance, comme dans un miroir.",
+   "contenus": "Construire le symétrique d’une figure sur quadrillage par rapport à un axe vertical, horizontal ou une diagonale du quadrillage ; compléter une figure symétrique ; axes de symétrie des lettres et des figures usuelles."
   },
   {
    "id": "CM2.MA.GEO.SOLIDES",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Espace & géométrie",
-   "titre": "Cube, pavé, boule, cône, pyramide, cylindre, prisme droit ; patrons du cube/pavé ; perspective",
+   "titre": "Les solides et leurs patrons",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace et géométrie — Les solides",
    "periodes": [
-    1,
-    2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "nommer",
-    "normal": "décrire, patrons",
-    "plus_loin": "assemblages de cubes"
+    "facile": "nommer les solides, faces du cube et du pavé",
+    "normal": "décrire (faces, arêtes, sommets), patrons du cube et du pavé",
+    "plus_loin": "autres prismes et pyramides, assemblages de cubes"
    },
    "itemKinds": [
+    "classification",
     "geometry_shape",
     "mcq",
-    "ordering"
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -3926,18 +4002,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_geo_solides"
+    "generator": "maths-cm2/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un cube a 6 faces carrées, 12 arêtes et 8 sommets ; son patron est fait de 6 carrés qui, une fois pliés, ne se superposent pas.",
+   "contenus": "Cube, pavé, boule, cône, pyramide, cylindre, prisme droit ; faces, arêtes, sommets, nature des faces ; reconnaître un solide en perspective (arêtes cachées en pointillés) ; reconnaître et construire (compléter) un patron du cube ; reconnaître un patron du pavé ; plus loin : assemblages de cubes."
   },
   {
    "id": "CM2.MA.GEO.DEPLACEMENTS",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Espace & géométrie",
-   "titre": "Instructions de déplacement, programmation",
+   "titre": "Programmer les déplacements d’un robot",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace et géométrie — Déplacements dans l’espace ; Initiation à la pensée informatique",
    "periodes": [
     1,
     2,
@@ -3946,14 +4023,15 @@
     5
    ],
    "niveaux": {
-    "facile": "absolues",
-    "normal": "relatives",
-    "plus_loin": "boucles"
+    "facile": "flèches (haut, bas, gauche, droite)",
+    "normal": "avancer et quarts de tour, programmes plus longs",
+    "plus_loin": "boucles « répéter … fois »"
    },
    "itemKinds": [
     "geometry_shape",
     "mcq",
-    "ordering"
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -3965,18 +4043,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_geo_deplacements"
+    "generator": "maths-cm2/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un quart de tour fait changer le robot de direction, mais pas de case : seule l’instruction « avancer » le déplace.",
+   "contenus": "Coder et décoder des déplacements sur quadrillage : instructions absolues (flèches) puis relatives (avancer, quart de tour à droite ou à gauche) ; trouver la case d’arrivée ; plus loin : boucles « répéter … fois [ … ] » (pensée informatique, 6e)."
   },
   {
    "id": "CM2.MA.DON.LIRE",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Données & probabilités",
-   "titre": "Tableaux simple/double entrée, diagrammes en barres, courbes ; produire",
+   "titre": "Lire des tableaux, des diagrammes et des courbes",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Données & probabilités",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Organisation et gestion de données et probabilités — Organisation et gestion de données",
    "periodes": [
     1,
     2,
@@ -3985,13 +4064,15 @@
     5
    ],
    "niveaux": {
-    "facile": "lire",
-    "normal": "interpréter, problèmes",
-    "plus_loin": "construire courbe"
+    "facile": "lire une valeur, le plus / le moins",
+    "normal": "interpréter, problèmes en 1 ou 2 étapes, diagramme circulaire",
+    "plus_loin": "repérer une erreur, échelles 20/25/50, retrouver le total d’un diagramme circulaire"
    },
    "itemKinds": [
+    "classification",
     "mcq",
-    "classification"
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "station-meteo",
@@ -4000,33 +4081,35 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_don_lire"
+    "generator": "maths-cm2/donnees"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je lis d’abord le titre et les légendes, puis je cherche la bonne barre, la bonne case ou le bon point avant de calculer.",
+   "contenus": "Lire et interpréter un tableau, un diagramme en barres, un diagramme circulaire (moitié, quart, tiers…) ou une courbe ; problèmes en une ou deux étapes (écart, total, « tous sauf… », évolution) ; produire un diagramme en barres avec une échelle ; données réelles : températures à Paris, banquise arctique, CO₂ dans l’air ; enquêtes et comptages pour la biodiversité."
   },
   {
    "id": "CM2.MA.PROBA",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Données & probabilités",
-   "titre": "Impossible, certain, probable, peu probable ; 1/2 (pile/face, dé pair)",
+   "titre": "Le hasard : impossible, probable ou certain ?",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Données & probabilités",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Organisation et gestion de données et probabilités — Les probabilités",
    "periodes": [
-    1,
     2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "certain/impossible",
-    "normal": "comparer",
-    "plus_loin": "fractions de chance"
+    "facile": "impossible, possible, certain",
+    "normal": "« a chances sur b », comparer, indépendance, deux étapes",
+    "plus_loin": "écriture en fraction (6e), deux dés, trois pièces"
    },
    "itemKinds": [
+    "classification",
     "mcq",
-    "classification"
+    "numeric_answer",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "station-meteo",
@@ -4035,9 +4118,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ma_proba"
+    "generator": "maths-cm2/donnees"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je compte toutes les issues possibles, puis celles qui conviennent : un dé a 3 faces paires sur 6, donc j’ai 3 chances sur 6 d’obtenir un nombre pair.",
+   "contenus": "Vocabulaire impossible / possible / certain / probable / peu probable / une chance sur deux ; issues d’une expérience (dé, pièce, sac de billes, roue, cartes) ; « a chances sur b » quand les issues ont toutes la même chance ; comparer des probabilités ; indépendance (le dé ne se souvient pas) ; deux issues ne veulent pas dire une chance sur deux ; expériences en deux étapes avec un tableau ou un arbre. Pour aller plus loin : écriture en fraction (6e), deux dés, trois pièces."
   }
  ]
 }

@@ -65,7 +65,7 @@ export function eurosDits(cents: number): string {
 }
 
 /** « de images » → « d’images ». */
-export const de = (mot: string) => (/^[aeiouyéèêh]/i.test(mot) ? `d’${mot}` : `de ${mot}`);
+export const de = (mot: string) => (/^[aeiouyéèêœh]/i.test(mot) ? `d’${mot}` : `de ${mot}`);
 /** « que un quart » → « qu’un quart ». */
 export const que = (mot: string) => (/^[aeiouyéèê]/i.test(mot) ? `qu’${mot}` : `que ${mot}`);
 /** Majuscule initiale. */
@@ -108,7 +108,12 @@ export function dire(texte: string): string {
   return texte
     .replace(new RegExp(`… ?(${U})(?![\\p{L}²])`, 'gu'), (_, u: string) => `combien ${de(UNITES_DITES[u]!)}`)
     .replace(/(\d)[  ](?=\d{3}(?!\d))/g, '$1')
-    .replace(/(\d+),(\d+)/g, (_, e: string, d: string) => dit(Number(`${e}.${d}`)))
+    .replace(/(\d+),(\d+)/g, (_, e: string, d: string) => {
+      // On lit les chiffres écrits, zéros compris (« 2,30 » → « 2 virgule 30 », « 3,05 » → « 3 virgule zéro 5 »)
+      const zeros = d.match(/^0+/)?.[0].length ?? 0;
+      const reste = d.slice(zeros);
+      return `${e} virgule ${'zéro '.repeat(zeros)}${reste}`.trim();
+    })
     .replace(
       new RegExp(`(\\d) (${U})(?![\\p{L}²])`, 'gu'),
       (_, d: string, u: string) => `${d} ${UNITES_DITES[u]}`,
