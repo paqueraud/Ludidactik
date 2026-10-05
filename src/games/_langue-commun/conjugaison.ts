@@ -114,7 +114,7 @@ const TERMINAISONS: Record<string, Record<Personne, [string, string][]>> = {
     '2p': [['', 'ez']],
     '3p': [
       ['', 'ent'],
-      ['', 'nt'],
+      ['', 'ont'],
     ],
   },
 };
@@ -124,7 +124,7 @@ function familleTemps(temps: string): string | null {
   if (/imparfait/.test(t)) return 'imparfait';
   if (/conditionnel/.test(t)) return 'conditionnel';
   if (/futur/.test(t) && !/anterieur/.test(t)) return 'futur';
-  if (/^present( de l'indicatif)?$/.test(t)) return 'present';
+  if (/^present( de l['’]indicatif)?$/.test(t)) return 'present';
   if (/passe compose|plus-que-parfait|plus que parfait|anterieur/.test(t)) return 'compose';
   return null;
 }
@@ -151,11 +151,14 @@ export function decomposer(forme: string, temps: string, sujet: string, verbe = 
   if (/\s/.test(f)) return null;
   const table = TERMINAISONS[famille]!;
   const p = personneDe(sujet);
-  const personnes: Personne[] = p ? [p] : ['3s', '3p'];
+  // sujet GN : 3e personne, singulier ou pluriel ; les terminaisons les plus longues d'abord
+  // (« Les enfants chantent » → chant|ent et non chanten|t)
+  const personnes: Personne[] = p ? [p] : ['3p', '3s'];
   const fl = f.toLowerCase();
-  for (const pers of personnes) {
-    // les terminaisons les plus longues d'abord (« ent » avant « nt »)
-    const options = [...table[pers]].sort((a, b) => b[0].length + b[1].length - (a[0].length + a[1].length));
+  const options = personnes
+    .flatMap((pers) => table[pers])
+    .sort((a, b) => b[0].length + b[1].length - (a[0].length + a[1].length));
+  {
     for (const [mt, mp] of options) {
       const fin = mt + mp;
       if (!fl.endsWith(fin)) continue;

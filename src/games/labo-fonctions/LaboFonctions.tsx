@@ -38,7 +38,7 @@ const LIQUIDES = ['#4FC3F7', '#FF7A6B', '#7BD389', '#FFD45C', '#8E7CFF', '#E0A45
 const OUTILS: { id: Manipulation; touche: string; libelle: string; icone: ReactNode }[] = [
   { id: 'supprimer', touche: 'S', libelle: 'Supprimer', icone: <Scissors aria-hidden /> },
   { id: 'deplacer', touche: 'D', libelle: 'Déplacer', icone: <ArrowLeftRight aria-hidden /> },
-  { id: 'encadrer', touche: 'E', libelle: 'C’est… qui', icone: <SquareDashed aria-hidden /> },
+  { id: 'encadrer', touche: 'E', libelle: 'C’est / Ce sont… qui', icone: <SquareDashed aria-hidden /> },
   { id: 'remplacer', touche: 'R', libelle: 'Remplacer', icone: <Replace aria-hidden /> },
 ];
 
@@ -174,9 +174,7 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
       const reussi = justes >= Math.ceil(total * 0.6);
       session.end({
         won: reussi,
-        headline: reussi
-          ? 'Expériences réussies, chercheur ! 🧪'
-          : `${justes} fonctions trouvées sur ${total}`,
+        headline: reussi ? 'Expériences réussies, bravo ! 🧪' : `${justes} fonctions trouvées sur ${total}`,
         delayMs: 900,
       });
       return;
@@ -362,7 +360,7 @@ export default function LaboFonctions({ level, stream, paused, onAnswer, onEnd, 
         <div className="w-full rounded-2xl bg-sun/25 px-4 py-2">
           <p className="flex items-center gap-2 font-bold">
             <Lightbulb className="shrink-0 text-sun-dark" aria-hidden />
-            Le carnet du chercheur
+            Le carnet du labo
             <SpeakButton
               text={carnet.map((c) => `${c.fonction} : ${c.astuce}`).join(' ')}
               label="Écouter le carnet"

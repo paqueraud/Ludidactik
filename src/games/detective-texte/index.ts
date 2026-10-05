@@ -9,7 +9,7 @@ const jeu: GameModule = {
   description:
     'Lis (ou écoute) l’histoire, réponds aux questions… et prouve-le en retrouvant la phrase du texte !',
   consigne:
-    'Lis le texte, ou écoute-le avec le haut-parleur. Réponds à chaque question. Un bon détective prouve ce qu’il dit : retrouve dans le texte la phrase qui donne la réponse. La loupe peut t’aider.',
+    'Lis le texte, ou écoute-le avec le haut-parleur. Réponds à chaque question. Un bon détective prouve ce qu’il dit : retrouve dans le texte la phrase qui t’a mis sur la piste. La loupe peut t’aider.',
   icone: '🔎',
   couleur: 'from-histoire to-coral',
   modalites: ['regarder', 'ecouter'],

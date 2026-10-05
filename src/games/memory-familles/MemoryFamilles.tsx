@@ -101,7 +101,8 @@ export default function MemoryFamilles({ level, stream, paused, onAnswer, onEnd,
       .map((g) => collecterPaires(rng.shuffle(g), 70))
       .sort((a, b) => b.length - a.length);
     const pool = rng.shuffle(
-      (groupes[0]?.length ?? 0) >= nbPaires ? groupes[0]! : collecterPaires(rng.shuffle(items), 70),
+      // une seule relation à la fois (pas de lien imprévu entre deux notions)
+      groupes[0] ?? [],
     );
     const out: Paire[][] = [];
     for (let g = 0; g < GRILLES && pool.length >= 2; g++) {

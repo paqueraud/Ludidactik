@@ -190,9 +190,7 @@ export default function ForgeVerbe({
       const v = verifier(q, valeur);
       session.answer(q.item, v.juste, valeur || '(temps écoulé)', q.reponse);
       setDonne(valeur);
-      setMessage(
-        tempsEcoule && !valeur.trim() ? 'Le métal a refroidi ! On réessaie au prochain tour.' : v.message,
-      );
+      setMessage(tempsEcoule && !valeur.trim() ? 'Le métal a refroidi ! Voici la bonne forme.' : v.message);
       if (v.juste) {
         sfx.play('piece');
         setPieces((p) => p + 1);

@@ -9,7 +9,7 @@ const jeu: GameModule = {
   description:
     'Fais des expériences sur la phrase : supprime, déplace, encadre un groupe… puis trouve sa fonction !',
   consigne:
-    'Le groupe en couleur est à analyser. Fais des expériences : supprime-le, déplace-le, encadre-le par « c’est… qui ». Regarde si la phrase reste correcte. Puis verse-le dans la bonne fiole : sujet, complément, attribut…',
+    'Le groupe en couleur est à analyser. Fais des expériences : supprime-le, déplace-le, encadre-le par « c’est… qui ». Regarde si la phrase reste correcte. Puis verse-le dans la bonne fiole : celle de sa fonction.',
   icone: '🧪',
   couleur: 'from-sciences to-grape',
   modalites: ['manipuler', 'regarder'],

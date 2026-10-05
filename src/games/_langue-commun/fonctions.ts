@@ -123,7 +123,7 @@ export type Manipulation = 'supprimer' | 'deplacer' | 'encadrer' | 'remplacer';
 
 /**
  * Astuce de méthode (manipulations syntaxiques du BO) selon le nom de la fonction à trouver.
- * Ce n'est pas un contenu d'exercice : c'est la « boîte à outils » du chercheur, commune à toutes les phrases.
+ * Ce n'est pas un contenu d'exercice : c'est la « boîte à outils » du labo, commune à toutes les phrases.
  */
 export function astuceFonction(categorie: string): string | null {
   const c = categorie.toLowerCase();
@@ -131,14 +131,50 @@ export function astuceFonction(categorie: string): string | null {
     return 'Après un verbe d’état (être, sembler, devenir, paraître…), le groupe qui dit comment est le sujet est un attribut : on peut remplacer le verbe par « être ».';
   if (/sujet/.test(c)) return 'Le sujet s’encadre par « c’est… qui » et on ne peut pas le supprimer.';
   if (/coi|indirect/.test(c))
-    return 'Le COI est relié au verbe par une préposition (à, de…) : on ne peut ni le déplacer ni, souvent, le supprimer.';
+    return 'Le COI est relié au verbe par une préposition (à, de…) : on ne peut pas le déplacer, et souvent pas le supprimer.';
   if (/cod|direct/.test(c))
-    return 'Le COD suit le verbe sans préposition : on ne peut pas le déplacer en tête de phrase.';
+    return 'Le COD suit le verbe sans préposition : on ne peut pas le déplacer en tête de phrase, mais on peut le remplacer par le, la, les.';
   if (/cc|circonstanciel/.test(c))
-    return 'Le complément circonstanciel se déplace et se supprime : la phrase reste correcte.';
+    return 'Le complément circonstanciel peut souvent se déplacer et se supprimer : la phrase reste correcte.';
+  if (/groupe verbal|\bgv\b/.test(c))
+    return 'Le groupe verbal, c’est le verbe et ses compléments : ce que l’on dit du sujet.';
+  if (/compl[ée]ment/.test(c))
+    return 'Un complément apporte une précision : essaie de le supprimer ou de le déplacer pour voir s’il est indispensable.';
   if (/verbe/.test(c))
     return 'Le verbe change de forme quand on change le temps de la phrase (hier, demain).';
   return null;
+}
+
+/** Pronoms sujets → forme tonique pour l'encadrement (« c'est lui qui »). */
+const TONIQUES: Record<string, string> = {
+  je: 'moi',
+  'j’': 'moi',
+  "j'": 'moi',
+  tu: 'toi',
+  il: 'lui',
+  ils: 'eux',
+};
+const PLURIELS = new Set([
+  'les',
+  'des',
+  'ces',
+  'mes',
+  'tes',
+  'ses',
+  'nos',
+  'vos',
+  'leurs',
+  'plusieurs',
+  'quelques',
+]);
+
+/** « C'est » ou « Ce sont » selon le groupe encadré ; pronom sujet mis à la forme tonique. */
+export function cadre(groupe: string): { intro: string; g2: string } {
+  const mots = groupe.trim().split(/\s+/);
+  const premier = bas(mots[0] ?? '');
+  const g2 = mots.length === 1 && TONIQUES[premier] ? TONIQUES[premier]! : groupe;
+  const pluriel = PLURIELS.has(premier) || bas(g2) === 'eux' || (mots.length === 1 && premier === 'elles');
+  return { intro: pluriel ? 'Ce sont' : 'C’est', g2 };
 }
 
 /** Phrase de départ, telle qu'affichée. */
@@ -167,8 +203,11 @@ export function manipuler(p: PhraseLabo, g: number, manip: Manipulation): string
     }
     case 'deplacer': {
       const reste = p.segments.filter((_, i) => i !== idx).map((s) => s.texte);
-      if (idx === 0) {
-        // le groupe en tête part à la fin
+      const virgule = p.segments.findIndex((s) => s.groupe === null && s.texte.trim() === ',');
+      const dernier = idx === p.segments.length - 1;
+      // en tête → à la fin ; derrière un groupe détaché (« Ce matin, ») → à la fin aussi ;
+      // sinon (groupe en fin de phrase) → en tête
+      if (idx === 0 || (virgule > 0 && virgule < idx && !dernier)) {
         return `${majuscule(recoller(reste))} ${minusculeSiOutil(groupe)}${p.finale}`.replace(
           /\s+([.!?…])$/,
           '$1',
@@ -178,16 +217,15 @@ export function manipuler(p: PhraseLabo, g: number, manip: Manipulation): string
       return `${majuscule(groupe)}, ${recoller(debut)}${p.finale}`;
     }
     case 'encadrer': {
-      // Un groupe détaché en tête (« Ce matin, ») reste devant : « Ce matin, c'est les enfants qui… »
+      const { intro, g2 } = cadre(idx === 0 ? minusculeSiOutil(groupe) : groupe);
+      // Un groupe détaché en tête (« Ce matin, ») reste devant : « Ce matin, ce sont les enfants qui… »
       const virgule = p.segments.findIndex((s) => s.groupe === null && s.texte.trim() === ',');
       if (virgule > 0 && virgule < idx) {
         const tete = recoller(p.segments.slice(0, virgule).map((s) => s.texte));
         const suite = p.segments.filter((_, i) => i > virgule && i !== idx).map((s) => s.texte);
-        return `${tete}, c’est ${groupe} qui ${recoller(suite)}${p.finale}`;
+        return `${tete}, ${intro.toLocaleLowerCase('fr')} ${g2} qui ${recoller(suite)}${p.finale}`;
       }
-      const reste = sansGroupe(p, g);
-      const g2 = idx === 0 ? minusculeSiOutil(groupe) : groupe;
-      return `C’est ${g2} qui ${recoller(reste)}${p.finale}`;
+      return `${intro} ${g2} qui ${recoller(sansGroupe(p, g))}${p.finale}`;
     }
     case 'remplacer':
       return p.remplacements[bas(normalizeText(groupe))] ?? null;

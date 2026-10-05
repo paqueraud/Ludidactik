@@ -188,7 +188,7 @@ export default function ChefOrchestre({
       session.end({
         won: reussi,
         headline: reussi
-          ? 'Bravo maestro ! L’orchestre a joué juste ! 🎼'
+          ? 'Bravo ! L’orchestre a joué juste ! 🎼'
           : `${justes} notes bien rangées sur ${total} !`,
         delayMs: 900,
       });
@@ -225,6 +225,12 @@ export default function ChefOrchestre({
   }
 
   const enJeu = etat === 'chute' || etat === 'reessai';
+  // Contexte facultatif d'un mot (« porte » nom ou verbe ?) : meta.contextes = { mot: 'phrase' }
+  const ctx = item.meta?.contextes;
+  const contexte =
+    ctx && typeof ctx === 'object' && typeof (ctx as Record<string, unknown>)[note.label] === 'string'
+      ? ((ctx as Record<string, string>)[note.label] ?? null)
+      : null;
   const hauteurChute = reduite ? 0 : chute;
 
   return (
@@ -316,7 +322,7 @@ export default function ChefOrchestre({
           aria-label="Les pupitres"
         >
           {item.categories.map((c, i) => {
-            const bon = (etat === 'faux' || indice) && i === note.categorie;
+            const bon = etat === 'faux' && i === note.categorie;
             const rate = (etat === 'faux' || etat === 'reessai') && i === choisi;
             return (
               <motion.button
@@ -370,6 +376,21 @@ export default function ChefOrchestre({
         >
           Indice
         </Button>
+      )}
+      {enJeu && contexte && (
+        <p className="flex max-w-2xl items-start gap-2 rounded-2xl bg-sky/15 px-4 py-2 font-bold">
+          <SpeakButton text={contexte} label="Écouter la phrase" size={36} />
+          Dans la phrase : « {contexte} »
+        </p>
+      )}
+      {enJeu && indice && (
+        <p
+          className="flex max-w-2xl items-start gap-2 rounded-2xl bg-sun/25 px-4 py-2 font-bold"
+          role="status"
+        >
+          <Lightbulb className="mt-0.5 shrink-0 text-sun-dark" aria-hidden />
+          {item.explication}
+        </p>
       )}
 
       <Correction

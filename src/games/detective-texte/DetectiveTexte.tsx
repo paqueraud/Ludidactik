@@ -302,7 +302,7 @@ export default function DetectiveTexte({
             >
               <p className="font-titre text-xl font-extrabold text-grass-dark">Bonne réponse&nbsp;!</p>
               <p className="mt-1 font-bold">
-                Un vrai détective le prouve : touche, dans le texte, la phrase qui donne la réponse.
+                Un vrai détective le prouve : touche, dans le texte, la phrase qui t’a mis sur la piste.
               </p>
               <Button variant="blanc" className="mt-3" onClick={() => setEtat('juste')}>
                 Passer
@@ -312,12 +312,18 @@ export default function DetectiveTexte({
           {etat === 'juste' && (
             <motion.div key="juste" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full">
               {preuveRatee ? (
-                <Feedback
-                  state="faux"
-                  message="Ta réponse est juste ! La preuve était dans la phrase en jaune."
-                  explication={q.item.explication}
-                  onContinue={suivant}
-                />
+                <div className="w-full rounded-2xl bg-grass/10 p-4" role="status">
+                  <p className="text-lg font-bold text-grass-dark">
+                    Ta réponse est juste&nbsp;! L’indice était dans la phrase en jaune.
+                  </p>
+                  <div className="mt-2 flex items-start gap-2">
+                    <SpeakButton text={q.item.explication} size={40} label="Écouter l’explication" />
+                    <p>{q.item.explication}</p>
+                  </div>
+                  <Button variant="grass" className="mt-3 w-full" onClick={suivant} autoFocus>
+                    Continuer
+                  </Button>
+                </div>
               ) : (
                 <Feedback
                   state="juste"

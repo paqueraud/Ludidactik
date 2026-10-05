@@ -76,6 +76,8 @@ export interface Puzzle {
   etiquettes: string[];
   /** Ponctuation finale à choisir (mode phrase), ou null. */
   ponctuation: Signe | null;
+  /** Signes acceptés (la ponctuation attendue + `meta.ponctuationsAcceptees`). */
+  ponctuationsOk: Signe[];
   mode: 'phrase' | 'etapes';
 }
 
@@ -98,7 +100,13 @@ export function versPuzzle(item: Item): Puzzle | null {
     }
   }
   if (etiquettes.length < 2 || new Set(etiquettes).size !== etiquettes.length) return null;
-  return { item, etiquettes, ponctuation, mode: item.mode };
+  // Plusieurs signes possibles (« Ne cours pas dans le couloir. » ou « … ! ») : meta.ponctuationsAcceptees
+  const meta = item.meta?.ponctuationsAcceptees;
+  const autres = Array.isArray(meta)
+    ? meta.filter((s): s is Signe => typeof s === 'string' && estSigne(s))
+    : [];
+  const ponctuationsOk = ponctuation ? [...new Set<Signe>([ponctuation, ...autres])] : [];
+  return { item, etiquettes, ponctuation, ponctuationsOk, mode: item.mode };
 }
 
 /** Assemble des étiquettes-mots en phrase (pas d'espace après une apostrophe). */

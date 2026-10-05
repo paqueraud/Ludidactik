@@ -3,7 +3,7 @@ import { type Item, checkItem } from '@/content/schemas';
 import { createRng } from '@/engine/rng';
 import { decomposer, personneDe, versForge } from './conjugaison';
 import { LANGUE_FIXTURES } from './fixtures';
-import { manipuler, phraseInitiale, versLabo } from './fonctions';
+import { cadre, manipuler, phraseInitiale, versLabo } from './fonctions';
 import {
   alignerLecture,
   calculerMCLM,
@@ -99,7 +99,10 @@ describe('lecture : alignement et MCLM', () => {
     expect(calculerMCLM(0, 30_000)).toBe(0);
     expect(mclmMetronome(60, 5, 60_000)).toBe(55);
     expect(rythmeCible(70, 'normal')).toBe(70);
-    expect(rythmeCible(70, 'facile')).toBe(42);
+    expect(rythmeCible(70, 'facile')).toBe(35);
+    expect(rythmeCible(120, 'facile')).toBe(90);
+    expect(rythmeCible(120, 'plus_loin')).toBe(140);
+    expect(rythmeCible(70, 'normal', { normal: 50 })).toBe(50);
   });
   it('le métronome respecte le rythme moyen et respire aux points', () => {
     const { debuts, dureeTotale } = horaireMetronome(mots, 60);
@@ -217,13 +220,14 @@ describe('Labo des fonctions : manipulations', () => {
     const p = fn('fn1');
     expect(manipuler(p, 0, 'supprimer')).toBe('Les enfants préparent un gâteau.');
     expect(manipuler(p, 0, 'deplacer')).toBe('Les enfants préparent un gâteau ce matin.');
-    expect(manipuler(p, 1, 'encadrer')).toBe('Ce matin, c’est les enfants qui préparent un gâteau.');
+    expect(manipuler(p, 1, 'encadrer')).toBe('Ce matin, ce sont les enfants qui préparent un gâteau.');
+    expect(manipuler(p, 1, 'deplacer')).toBe('Ce matin, préparent un gâteau les enfants.');
     expect(manipuler(p, 0, 'encadrer')).toBe('C’est ce matin qui les enfants préparent un gâteau.');
     expect(manipuler(p, 2, 'deplacer')).toBe('Un gâteau, ce matin, les enfants préparent.');
     const p2 = fn('fn2');
-    expect(manipuler(p2, 0, 'encadrer')).toBe('C’est Malo qui parle à sa grand-mère dans le jardin.');
-    expect(manipuler(p2, 2, 'supprimer')).toBe('Malo parle à sa grand-mère.');
-    expect(manipuler(p2, 1, 'remplacer')).toBe('Malo lui parle dans le jardin.');
+    expect(manipuler(p2, 0, 'encadrer')).toBe('C’est Malo qui obéit à sa grand-mère dans le jardin.');
+    expect(manipuler(p2, 2, 'supprimer')).toBe('Malo obéit à sa grand-mère.');
+    expect(manipuler(p2, 1, 'remplacer')).toBe('Malo lui obéit dans le jardin.');
     expect(manipuler(fn('fn1'), 1, 'remplacer')).toBeNull();
   });
   it('ignore un item sans phrase ou avec un groupe introuvable', () => {
@@ -271,5 +275,9 @@ describe('Forge : décomposition des formes', () => {
     expect(txt('sont', 'présent', 'ils', 'être')).toBeUndefined();
     expect(txt('parlait', 'imparfait', 'Le chat')).toBe('r:parl t:ai p:t');
     expect(personneDe('j’')).toBe('1s');
+    expect(txt('chantent', 'présent', 'Les enfants')).toBe('r:chant p:ent');
+    expect(txt('font', 'présent', 'ils', 'faire')).toBeUndefined();
+    expect(cadre('il')).toEqual({ intro: 'C’est', g2: 'lui' });
+    expect(cadre('ils').intro).toBe('Ce sont');
   });
 });

@@ -5,7 +5,8 @@ const jeu: GameModule = {
   id: 'dobble-mots',
   numero: 47,
   titre: 'Le Dobble des mots',
-  description: 'Deux cartes rondes, plein de mots… un seul couple va ensemble ! Trouve-le avant les autres.',
+  description:
+    'Deux cartes rondes, plein de mots… un seul couple va ensemble ! Trouve-le le plus vite possible.',
   consigne:
     'Regarde les deux cartes rondes. Un mot de la première carte va avec un mot de la deuxième : contraires, synonymes, même famille… Touche ces deux mots le plus vite possible !',
   icone: '🔵',

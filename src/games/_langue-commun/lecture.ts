@@ -57,11 +57,19 @@ export function calculerMCLM(corrects: number, dureeMs: number): number {
   return Math.round(corrects / (dureeMs / 60_000));
 }
 
-/** Rythme du métronome selon le niveau, à partir de l'objectif du texte (attendu de la classe). */
-export const RATIO_RYTHME: Record<Level, number> = { facile: 0.6, normal: 1, plus_loin: 1.2 };
-
-export function rythmeCible(targetMCLM: number, level: Level): number {
-  return Math.max(20, Math.round(targetMCLM * RATIO_RYTHME[level]));
+/**
+ * Objectif de fluence selon le niveau, à partir de l'objectif du texte (attendu de fin d'année de la classe).
+ * Fiches BO du projet : CE1 30-40 / 70 / 90 ; CM2 90 / 120 / 140. Un item peut fixer ses propres
+ * objectifs par niveau (`meta.objectifs = { facile, normal, plus_loin }`).
+ */
+export function rythmeCible(targetMCLM: number, level: Level, objectifs?: unknown): number {
+  if (objectifs && typeof objectifs === 'object') {
+    const v = (objectifs as Record<string, unknown>)[level];
+    if (typeof v === 'number' && v > 0) return Math.round(v);
+  }
+  const t = targetMCLM;
+  const v = level === 'facile' ? t * (t < 100 ? 0.5 : 0.75) : level === 'plus_loin' ? t + 20 : t;
+  return Math.max(20, Math.round(v));
 }
 
 /**

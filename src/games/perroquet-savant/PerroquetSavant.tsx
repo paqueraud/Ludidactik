@@ -4,7 +4,7 @@
  * reconnaissance vocale compare avec tolérance (homophones, pseudo-mots approchés) ; si le perroquet a
  * compris, il répète le mot. Repli sans micro : « Je l'ai dit ! » → le perroquet dit le modèle →
  * auto-évaluation honnête (« J'ai bien lu » / « Je réessaie »).
- * Facile : modèle à écouter avant de lire, 3 essais. Normal : modèle après un premier essai, 2 essais.
+ * Facile : 3 essais. Normal : 2 essais. Le modèle (item.spoken, sinon la réponse) s'écoute après un essai.
  * Plus loin : lecture « flash » (la carte se cache après 3 s), 1 essai.
  * Clavier : M ou Espace = micro / « Je l'ai dit », O = j'ai bien lu, R = je réessaie, Entrée = continuer.
  */
@@ -69,8 +69,8 @@ export default function PerroquetSavant({
   const verrou = useRef(false);
 
   const maxEssais = ESSAIS[level];
-  const modeleAvant = level === 'facile';
-  const modeleDispo = modeleAvant || essais > 0;
+  // Le modèle n'est donné qu'après un premier essai (sinon on répète au lieu de décoder)
+  const modeleDispo = essais > 0;
 
   useEffect(() => {
     session.startQuestion();
@@ -110,7 +110,7 @@ export default function PerroquetSavant({
     if (!q) return;
     setEtat('repete');
     sfx.play('juste');
-    await speech.speak(q.reponse);
+    await speech.speak(q.item.spoken ?? q.reponse);
     conclure(true, entendu || q.reponse);
   }, [q, sfx, speech, conclure, entendu]);
 
@@ -141,7 +141,7 @@ export default function PerroquetSavant({
     const e = essais + 1;
     setEssais(e);
     if (e >= maxEssais) {
-      void speech.speak(q.reponse);
+      void speech.speak(q.item.spoken ?? q.reponse);
       conclure(false, v.entendu);
     } else {
       sfx.play('glisse');
@@ -154,7 +154,7 @@ export default function PerroquetSavant({
     if (!q || paused || fini || (etat !== 'lire' && etat !== 'pasCompris')) return;
     setEtat('autoEval');
     setCache(false);
-    await speech.speak(q.reponse);
+    await speech.speak(q.item.spoken ?? q.reponse);
   }, [q, paused, fini, etat, speech]);
 
   const autoEvaluer = useCallback(
@@ -357,7 +357,7 @@ export default function PerroquetSavant({
               <Button
                 variant="sun"
                 icon={<Volume2 aria-hidden />}
-                onClick={() => void speech.speak(q.reponse)}
+                onClick={() => void speech.speak(q.item.spoken ?? q.reponse)}
               >
                 Écouter le modèle
               </Button>
@@ -409,7 +409,7 @@ export default function PerroquetSavant({
               <Button
                 variant="sun"
                 icon={<Volume2 aria-hidden />}
-                onClick={() => void speech.speak(q.reponse)}
+                onClick={() => void speech.speak(q.item.spoken ?? q.reponse)}
               >
                 Réécouter
               </Button>

@@ -179,7 +179,7 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
       if (!complet && !tempsEcoule) return;
       const propose = pose.map((i) => attendu[i]!);
       const err = premiereErreur(propose, attendu);
-      const ponctOk = !pz.ponctuation || signe === pz.ponctuation;
+      const ponctOk = !pz.ponctuation || (!!signe && pz.ponctuationsOk.includes(signe));
       const juste = err === -1 && ponctOk;
       const nouvelEssai = essais + 1;
       setEssais(nouvelEssai);
@@ -281,8 +281,9 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
   }
 
   const etapes = pz.mode === 'etapes';
-  const solution = etapes ? attendu.join(' → ') : assembler(attendu, pz.ponctuation);
-  const lu = etapes ? attendu.join('. ') : assembler(attendu, pz.ponctuation);
+  const signeFinal = etat === 'juste' && signe ? signe : pz.ponctuation;
+  const solution = etapes ? attendu.join(' → ') : assembler(attendu, signeFinal);
+  const lu = etapes ? attendu.join('. ') : assembler(attendu, signeFinal);
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6 lg:flex-row">

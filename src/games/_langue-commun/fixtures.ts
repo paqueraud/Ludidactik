@@ -16,7 +16,7 @@ const TEXTE_HERISSON =
 
 const TEXTE_PHARE =
   'Au bout de la jetée se dresse un vieux phare blanc et rouge. Autrefois, un gardien y montait chaque soir ' +
-  'pour allumer la grande lampe. Aujourd’hui, la lumière s’allume toute seule, mais les marins la guettent ' +
+  'pour allumer la grande lampe. Aujourd’hui, la lumière s’allume toute seule, mais les marins l’aperçoivent ' +
   'toujours avec soulagement quand la tempête gronde. Pour eux, ce faisceau qui balaie la mer signifie que ' +
   'le port est tout proche.';
 
@@ -64,7 +64,7 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       meta: {
         titre: 'Le visiteur du soir',
         texte: TEXTE_HERISSON,
-        preuve: 'Le lendemain matin, la soucoupe est vide.',
+        preuve: 'Nina sourit : son ami est passé pendant la nuit.',
       },
     },
     {
@@ -75,12 +75,12 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       choices: ['du soulagement', 'de la colère', 'de l’ennui'],
       answerIndex: 0,
       explication:
-        'Les marins guettent la lumière « avec soulagement » : elle leur montre que le port est proche.',
+        'Les marins aperçoivent la lumière « avec soulagement » : elle leur montre que le port est proche.',
       guillotine: false,
       meta: {
         titre: 'Le phare',
         texte: TEXTE_PHARE,
-        preuve: 'les marins la guettent toujours avec soulagement quand la tempête gronde',
+        preuve: 'les marins l’aperçoivent toujours avec soulagement quand la tempête gronde',
       },
     },
     {
@@ -118,7 +118,7 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       question: 'Quel signe termine la phrase ?',
       choices: ['.', '?', '!'],
       answerIndex: 2,
-      explication: 'On crie sa surprise : c’est une phrase exclamative, avec un point d’exclamation.',
+      explication: 'On montre sa surprise : c’est une phrase exclamative, avec un point d’exclamation.',
       guillotine: true,
       spoken: 'Quel magnifique arc-en-ciel !',
       meta: { phrase: 'Quel magnifique arc-en-ciel' },
@@ -166,11 +166,11 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       explication:
         'Le COI est introduit par une préposition (à, de) et ne se supprime pas ici sans changer le sens.',
       meta: {
-        phrase: 'Malo parle à sa grand-mère dans le jardin.',
+        phrase: 'Malo obéit à sa grand-mère dans le jardin.',
         remplacements: {
-          Malo: 'Il parle à sa grand-mère dans le jardin.',
-          'à sa grand-mère': 'Malo lui parle dans le jardin.',
-          'dans le jardin': 'Malo parle à sa grand-mère là-bas.',
+          Malo: 'Il obéit à sa grand-mère dans le jardin.',
+          'à sa grand-mère': 'Malo lui obéit dans le jardin.',
+          'dans le jardin': 'Malo obéit à sa grand-mère là-bas.',
         },
       },
     },
@@ -200,7 +200,7 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'à cause de la pluie', category: 2 },
       ],
       explication: 'Le CC de cause répond à la question « pourquoi ? » ; le CC de lieu à « où ? ».',
-      meta: { phrase: 'Les élèves restent en classe à cause de la pluie.' },
+      meta: { phrase: 'Les élèves jouent en classe à cause de la pluie.' },
     },
     // Chef d'orchestre (CM2)
     {
@@ -218,7 +218,7 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'lui', category: 2 },
       ],
       explication:
-        'La préposition introduit un groupe (dans la boîte) ; la conjonction de subordination introduit une proposition (quand il pleut) ; le pronom remplace un nom.',
+        'La préposition introduit un groupe (dans la boîte) ; la conjonction de subordination introduit une proposition (quand il pleut) ; le pronom personnel désigne une personne (je, tu, nous…) ou remplace un groupe nominal (lui = à Paul).',
     },
   ],
   ordering: [
@@ -238,7 +238,9 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       prompt: 'Remets les mots dans l’ordre.',
       elements: ['Ne', 'cours', 'pas', 'dans', 'le', 'couloir.'],
       mode: 'phrase',
-      explication: 'Phrase impérative à la forme négative : « ne » et « pas » encadrent le verbe.',
+      explication:
+        'Phrase impérative à la forme négative : « ne » et « pas » encadrent le verbe. Elle finit par un point (ou un point d’exclamation).',
+      meta: { ponctuationsAcceptees: ['.', '!'] },
     },
     {
       kind: 'ordering',
@@ -257,7 +259,7 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       lessonId: L,
       title: 'Le phare',
       text: TEXTE_PHARE,
-      nbMots: 58,
+      nbMots: 57,
       targetMCLM: 120,
       explication: 'Respire aux points et fais les liaisons.',
     },
@@ -288,7 +290,7 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       prompt: 'Lis ce mot : grenouille',
       answer: 'grenouille',
       accepted: ['grenouille'],
-      explication: '« ouille » se lit [uj] : gre-nouille.',
+      explication: '« ouille » se lit comme dans « fouille » : gre-nouille.',
     },
     {
       kind: 'oral_answer',
@@ -297,7 +299,7 @@ export const LANGUE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       prompt: 'Lis ce mot : champignon',
       answer: 'champignon',
       accepted: ['champignon', 'champignons'],
-      explication: '« am » fait [ã], « gn » fait [ɲ] : cham-pi-gnon.',
+      explication: '« am » se lit comme dans « jambe », « gn » comme dans « montagne » : cham-pi-gnon.',
     },
   ],
   pairing: [

@@ -4,11 +4,12 @@
  * puis on allume le bon feu : point (la voix descend), point d'interrogation (elle monte),
  * point d'exclamation (elle s'exclame). Une bonne réponse fait passer une voiture.
  * Facile : la phrase est écrite, aide-mémoire sous chaque feu, écoutes illimitées.
- * Normal : on écoute d'abord ; « Voir la phrase » en indice. Plus loin : 2 écoutes, feu chronométré.
+ * Normal : phrase écrite, sans aide-mémoire. Plus loin : 2 écoutes, feu chronométré, phrase cachée
+ * quand elle porte un indice de mots (Quel…, Est-ce que…) — la voix de synthèse ne marque pas toujours « ! ».
  * Clavier : touches . ? ! ou 1 2 3 ; R = réécouter.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Eye, Volume2 } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui';
 import type { Level } from '@/content/schemas';
@@ -32,6 +33,9 @@ const LAMPES: Record<Signe, { couleur: string; nom: string; aide: string }> = {
   '!': { couleur: '#5CC46E', nom: 'Point d’exclamation', aide: 'La voix s’exclame : surprise, joie, ordre…' },
 };
 const ORDRE: Signe[] = ['.', '?', '!'];
+/** Mots qui signalent une question ou une exclamation sans compter sur l'intonation. */
+const INDICE_LEXICAL =
+  /^(est-ce|quel|quelle|quels|quelles|que|qu['’]|qui|où|quand|comment|pourquoi|combien|comme)\b|-(t-)?(je|tu|il|elle|on|nous|vous|ils|elles)\b/i;
 
 /** La route, le petit feu et la voiture qui passe quand la réponse est juste. */
 function Route({ passe, allume, reduite }: { passe: boolean; allume: Signe | null; reduite: boolean }) {
@@ -112,7 +116,11 @@ export default function FeuPonctuation({ level, stream, paused, onAnswer, onEnd,
   const [fini, setFini] = useState(false);
 
   const sansVoix = !speech.ttsAvailable;
-  const texteVisible = level === 'facile' || voirTexte || sansVoix || etat !== 'question';
+  // L'intonation de la synthèse vocale n'est pas toujours fiable (« ! » lu comme « . ») : on ne cache la
+  // phrase (Plus loin) que si elle porte un indice de mots (« Quel… », « Est-ce que… », inversion).
+  const indiceLexical = !!q && INDICE_LEXICAL.test(q.phrase);
+  const texteVisible =
+    level !== 'plus_loin' || !indiceLexical || voirTexte || sansVoix || etat !== 'question';
   const maxEcoutes = ECOUTES[level];
 
   const ecouter = useCallback(() => {
@@ -270,14 +278,9 @@ export default function FeuPonctuation({ level, stream, paused, onAnswer, onEnd,
                 </span>
               </p>
             ) : (
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <p className="font-bold text-ink-soft">Écoute bien la voix à la fin de la phrase…</p>
-                {level === 'normal' && (
-                  <Button variant="blanc" icon={<Eye aria-hidden />} onClick={() => setVoirTexte(true)}>
-                    Voir la phrase
-                  </Button>
-                )}
-              </div>
+              <p className="font-bold text-ink-soft">
+                Écoute bien la phrase : quels mots entends-tu au début ?
+              </p>
             )}
           </div>
         </div>

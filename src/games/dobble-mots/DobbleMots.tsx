@@ -148,7 +148,8 @@ export default function DobbleMots({ level, stream, paused, onAnswer, onEnd, spe
     const groupes = [...parRelation.values()].map((g) => collecterPaires(g, 24));
     groupes.sort((a, b) => b.length - a.length);
     const meilleur = groupes[0] ?? [];
-    return meilleur.length >= 3 ? meilleur : collecterPaires(items, 24);
+    // jamais de mélange de relations (contraires + synonymes…) : un second lien imprévu serait possible
+    return meilleur;
   }, [stream]);
 
   const [manche, setManche] = useState(1);

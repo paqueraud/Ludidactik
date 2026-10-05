@@ -82,8 +82,8 @@ describe('jeux de langue (composants)', () => {
     const p = props(items, { kind: 'classification' });
     await monter(labo.component, p);
     await screen.findByText(/1 \/ 3/);
-    fireEvent.click(screen.getByRole('button', { name: /C’est… qui/ }));
-    expect(screen.getByText(/C’est Malo qui parle à sa grand-mère dans le jardin\./)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Ce sont… qui/ }));
+    expect(screen.getByText(/C’est Malo qui obéit à sa grand-mère dans le jardin./)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Fiole 1 : sujet/ }));
     expect(p.onAnswer).toHaveBeenCalledWith(expect.objectContaining({ correct: true }));
     expect(screen.getByText(/Bonne fiole/)).toBeInTheDocument();

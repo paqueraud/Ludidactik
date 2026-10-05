@@ -9,7 +9,7 @@
  * le modèle avant de lire et la phrase en cours est mise en valeur.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Flag, Mic, Music, RotateCcw, SkipForward, Volume2 } from 'lucide-react';
+import { Flag, Mic, Music, RotateCcw, SkipForward, Timer, Volume2 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, SpeakButton, Stars } from '@/components/ui';
 import type { Item, Level, ReadAloudItem } from '@/content/schemas';
@@ -35,7 +35,8 @@ import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { Courbe, ajouterProgres, lireProgres } from './progres';
 
 type Phase = 'accueil' | 'decompte' | 'lecture' | 'auto' | 'resultat';
-type Mode = 'micro' | 'metronome';
+/** micro = mesure par la reconnaissance vocale ; chrono = lecture libre + auto-évaluation ; métronome = entraînement. */
+type Mode = 'micro' | 'chrono' | 'metronome';
 type EtapeAuto = 'suivi' | 'dernier' | 'erreurs';
 
 const LECTURES_MAX = 3;
@@ -43,7 +44,7 @@ const estTexte = (it: Item): it is ReadAloudItem => it.kind === 'read_aloud';
 const LIBELLE_NIVEAU: Record<Level, string> = {
   facile: 'objectif du jour',
   normal: 'attendu de fin d’année',
-  plus_loin: 'défi : plus vite que l’attendu',
+  plus_loin: 'défi : lire plus vite, en respectant les points',
 };
 
 export default function Karaoke({ level, profile, stream, paused, onAnswer, onEnd, speech, sfx }: GameProps) {
@@ -57,11 +58,11 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
   const [iTexte, setITexte] = useState(0);
   const item = textes[iTexte] ?? null;
   const mots = useMemo(() => (item ? decouperMots(item.text) : []), [item]);
-  const objectif = item ? rythmeCible(item.targetMCLM, level) : 0;
+  const objectif = item ? rythmeCible(item.targetMCLM, level, item.meta?.objectifs) : 0;
   const horaire = useMemo(() => horaireMetronome(mots, Math.max(objectif, 1)), [mots, objectif]);
 
   const [phase, setPhase] = useState<Phase>('accueil');
-  const [mode, setMode] = useState<Mode>(microDispo ? 'micro' : 'metronome');
+  const [mode, setMode] = useState<Mode>(microDispo ? 'micro' : 'chrono');
   const [compte, setCompte] = useState(3);
   const [ecoule, setEcoule] = useState(0);
   const [transcrit, setTranscrit] = useState('');
@@ -70,7 +71,12 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
   const [atteints, setAtteints] = useState(0);
   const [erreurs, setErreurs] = useState<Set<number>>(new Set());
   const [finLecture, setFinLecture] = useState(0);
-  const [resultat, setResultat] = useState<{ mclm: number; corrects: number; duree: number } | null>(null);
+  const [resultat, setResultat] = useState<{
+    mclm: number;
+    corrects: number;
+    duree: number;
+    entrainement?: boolean;
+  } | null>(null);
   const [lectures, setLectures] = useState(0);
   const [meilleur, setMeilleur] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
@@ -88,7 +94,8 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
     [mode, mots, transcrit],
   );
   const courantMetronome = motAuTemps(horaire.debuts, horaire.dureeTotale, ecoule);
-  const courant = mode === 'micro' ? (alignement?.position ?? 0) : courantMetronome;
+  const courant =
+    mode === 'micro' ? (alignement?.position ?? 0) : mode === 'metronome' ? courantMetronome : -1;
 
   /* --------------------------- déroulement --------------------------- */
 
@@ -134,18 +141,21 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
       const mclm = calculerMCLM(a.corrects, ecoule);
       setResultat({ mclm, corrects: a.corrects, duree: ecoule });
       setPhase('resultat');
+    } else if (mode === 'metronome') {
+      // Métronome : un entraînement au rythme, pas une mesure (le score serait celui du métronome)
+      setResultat({ mclm: 0, corrects: 0, duree: ecoule, entrainement: true });
+      setPhase('resultat');
     } else {
-      // Métronome : auto-évaluation
-      const atteint = Math.min(mots.length, Math.max(0, courantMetronome));
-      setAtteints(atteint);
+      // Chrono : l'enfant a lu à son rythme ; auto-évaluation (avec un adulte) puis vrai MCLM
+      setAtteints(mots.length);
       setFinLecture(ecoule);
       setEtapeAuto('suivi');
       setPhase('auto');
     }
-  }, [phase, mode, mots, ecoule, courantMetronome]);
+  }, [phase, mode, mots, ecoule]);
 
   // Fin naturelle : le métronome a tout allumé, ou le micro a entendu le dernier mot
-  const toutLu = phase === 'lecture' && courant >= mots.length;
+  const toutLu = phase === 'lecture' && courant >= 0 && courant >= mots.length;
   const terminerRef = useRef(terminerLecture);
   terminerRef.current = terminerLecture;
   useEffect(() => {
@@ -167,13 +177,13 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
       lang: 'fr-FR',
       onTexte: (t) => setTranscrit(`${prefixe.current} ${t}`.trim()),
       onErreur: () => {
-        setInfo('Le micro ne répond pas : on lit avec le métronome !');
-        commencer('metronome');
+        setInfo('Le micro ne répond pas : on lit au chrono !');
+        commencer('chrono');
       },
     });
     if (!e) {
-      setInfo('La reconnaissance de la voix n’est pas disponible : on lit avec le métronome !');
-      commencer('metronome');
+      setInfo('La reconnaissance de la voix n’est pas disponible : on lit au chrono !');
+      commencer('chrono');
       return;
     }
     return () => {
@@ -189,22 +199,24 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
   }, [courant, phase, reduite]);
 
   const validerAuto = useCallback(() => {
-    // Tout lu : la durée du métronome (ou moins si l'enfant a fini avant) ; sinon l'instant où le mot suivant s'allumait
-    const duree =
-      atteints >= mots.length
-        ? Math.min(finLecture, horaire.dureeTotale)
-        : Math.min(finLecture, horaire.debuts[atteints] ?? finLecture);
+    // Durée réelle de la lecture (chrono), mots atteints moins mots ratés
+    const duree = finLecture;
     const nbErreurs = [...erreurs].filter((i) => i < atteints).length;
     const mclm = mclmMetronome(atteints, nbErreurs, duree);
     setResultat({ mclm, corrects: Math.max(0, atteints - nbErreurs), duree });
     setPhase('resultat');
-  }, [atteints, mots.length, finLecture, horaire.debuts, horaire.dureeTotale, erreurs]);
+  }, [atteints, finLecture, erreurs]);
 
   // Résultat : on l'enregistre une fois
   const enregistre = useRef<unknown>(null);
   useEffect(() => {
     if (phase !== 'resultat' || !resultat || !item || enregistre.current === resultat) return;
     enregistre.current = resultat;
+    if (resultat.entrainement) {
+      setLectures((l) => l + 1);
+      sfx.play('etoile');
+      return;
+    }
     const atteint = resultat.mclm >= objectif;
     session.answer(item, atteint, `${resultat.mclm} mots/min`, `${objectif} mots/min`);
     setScores(ajouterProgres(profile.id, item.id, resultat.mclm));
@@ -236,6 +248,8 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
 
   /* ------------------------------ affichage ------------------------------ */
 
+  const nbDifficiles = [...erreurs].filter((i) => i < atteints).length;
+
   const phraseCourante = mots[Math.min(courant, mots.length - 1)]?.phrase ?? 0;
   const enLecture = phase === 'lecture';
   const choixMots = phase === 'auto' && etapeAuto !== 'suivi';
@@ -250,7 +264,8 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
       return '';
     }
     if (!enLecture) return '';
-    const focus = level === 'facile' && mots[i]!.phrase !== phraseCourante ? 'opacity-40' : '';
+    const focus =
+      level === 'facile' && courant >= 0 && mots[i]!.phrase !== phraseCourante ? 'opacity-40' : '';
     if (mode === 'micro' && alignement) {
       const e = alignement.etats[i];
       if (e === 'lu') return `text-grass-dark ${focus}`;
@@ -328,7 +343,7 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
   return (
     <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-3 pb-6 pt-2 sm:px-6">
       <div className="flex w-full flex-wrap items-center justify-between gap-2">
-        <Hud>🎤 {mode === 'micro' ? 'Micro' : 'Métronome'}</Hud>
+        <Hud>🎤 {mode === 'micro' ? 'Micro' : mode === 'chrono' ? 'Chrono' : 'Métronome'}</Hud>
         <Hud>🎯 {objectif} mots/min</Hud>
       </div>
 
@@ -419,11 +434,19 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
             <Button
               variant={microDispo ? 'blanc' : 'grape'}
               size="lg"
+              icon={<Timer aria-hidden />}
+              onClick={() => commencer('chrono')}
+              disabled={paused}
+            >
+              Lire à mon rythme
+            </Button>
+            <Button
+              variant="blanc"
               icon={<Music aria-hidden />}
               onClick={() => commencer('metronome')}
               disabled={paused}
             >
-              Lire avec le métronome
+              S’entraîner avec le métronome
             </Button>
             {level === 'facile' && (
               <Button
@@ -440,8 +463,9 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
             {microDispo
               ? 'Avec le micro, les mots s’allument quand tu les lis. Lis bien fort !'
               : microAutorise
-                ? 'Le micro n’est pas disponible sur cet appareil : lis avec le métronome, les mots s’allument à ton rythme d’objectif.'
-                : 'Les mots vont s’allumer au rythme de ton objectif : lis chaque mot quand il s’allume. Un adulte peut t’écouter et t’aider à la fin.'}
+                ? 'Le micro n’est pas disponible sur cet appareil : lis à ton rythme, puis touche « J’ai fini ». Un adulte peut t’écouter pour compter les mots mal lus.'
+                : 'Lis à ton rythme, puis touche « J’ai fini ». Un adulte peut t’écouter pour compter les mots mal lus.'}{' '}
+            Avec le métronome, les mots s’allument au rythme de l’objectif : c’est un entraînement.
           </p>
           {scores.length > 0 && <Courbe scores={scores} objectif={objectif} />}
         </motion.div>
@@ -464,13 +488,18 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
               Je t’écoute… {alignement?.corrects ?? 0} mots lus
             </span>
           )}
+          {mode === 'chrono' && (
+            <span className="rounded-full bg-sky/15 px-4 py-2 font-bold" role="status">
+              Lis à voix haute, à ton rythme…
+            </span>
+          )}
           <Button variant="grass" icon={<Flag aria-hidden />} onClick={terminerLecture}>
             J’ai fini
           </Button>
         </div>
       )}
 
-      {/* Auto-évaluation (métronome) */}
+      {/* Auto-évaluation (lecture au chrono) */}
       {phase === 'auto' && (
         <motion.div
           initial={{ opacity: 0, y: 8 }}
@@ -480,9 +509,7 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
         >
           {etapeAuto === 'suivi' && (
             <>
-              <p className="font-titre text-xl font-extrabold">
-                As-tu réussi à suivre le métronome jusqu’au bout&nbsp;?
-              </p>
+              <p className="font-titre text-xl font-extrabold">As-tu lu tout le texte&nbsp;?</p>
               <div className="flex flex-wrap justify-center gap-2">
                 <Button
                   variant="grass"
@@ -491,10 +518,10 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
                     setEtapeAuto('erreurs');
                   }}
                 >
-                  Oui, jusqu’au bout !
+                  Oui, tout le texte&nbsp;!
                 </Button>
                 <Button variant="blanc" onClick={() => setEtapeAuto('dernier')}>
-                  Non, je me suis arrêté avant
+                  Non, pas jusqu’au bout
                 </Button>
               </div>
             </>
@@ -519,7 +546,7 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
               </p>
               <Button variant="grass" onClick={validerAuto}>
                 {erreurs.size
-                  ? `Voilà, ${[...erreurs].filter((i) => i < atteints).length} mot(s) difficile(s)`
+                  ? `Voilà, ${nbDifficiles} mot${nbDifficiles > 1 ? 's' : ''} difficile${nbDifficiles > 1 ? 's' : ''}`
                   : 'Aucun mot raté !'}
               </Button>
             </>
@@ -527,8 +554,37 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
         </motion.div>
       )}
 
+      {/* Résultat d'un entraînement au métronome : pas de mesure */}
+      {phase === 'resultat' && resultat?.entrainement && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="carte flex w-full flex-col items-center gap-3 p-4 text-center"
+          role="status"
+        >
+          <p className="font-titre text-2xl font-extrabold">Bel entraînement&nbsp;! 🎵</p>
+          <p>
+            Tu as lu avec le métronome, au rythme de <strong>{objectif} mots par minute</strong>. Pour mesurer
+            ta vitesse, lis à ton rythme ou avec le micro.
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Button variant="sun" icon={<Volume2 aria-hidden />} onClick={() => void speech.speak(item.text)}>
+              Écouter le modèle
+            </Button>
+            {lectures < LECTURES_MAX && (
+              <Button variant="blanc" icon={<RotateCcw aria-hidden />} onClick={() => setPhase('accueil')}>
+                Relire
+              </Button>
+            )}
+            <Button variant="grass" onClick={finir}>
+              Terminer
+            </Button>
+          </div>
+        </motion.div>
+      )}
+
       {/* Résultat */}
-      {phase === 'resultat' && resultat && (
+      {phase === 'resultat' && resultat && !resultat.entrainement && (
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -544,9 +600,7 @@ export default function Karaoke({ level, profile, stream, paused, onAnswer, onEn
           </p>
           <div className="flex items-end justify-center gap-2">
             <span className="font-titre text-6xl font-extrabold text-grape">{resultat.mclm}</span>
-            <span className="pb-2 font-bold">
-              mots lus par minute{mode === 'metronome' ? ' (environ)' : ''}
-            </span>
+            <span className="pb-2 font-bold">mots lus par minute{mode === 'chrono' ? ' (environ)' : ''}</span>
           </div>
           <Stars value={etoiles} size={30} />
           <p className="text-sm text-ink-soft">
