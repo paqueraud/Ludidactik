@@ -106,3 +106,15 @@ export function propositionsFraction(f: Frac, nb = 3): string[] {
   }
   return out;
 }
+
+/**
+ * Adapte l'énoncé au décor du jeu (« Colorie 3/8 de la tablette. » → « Garnis 3/8 de la pizza. ») :
+ * les nombres et l'opération restent ceux de l'item, seul l'objet change.
+ */
+export function adapterEnonce(prompt: string, decor: 'pizza' | 'tablette'): string {
+  const objet = decor === 'pizza' ? 'pizza' : 'tablette';
+  let s = prompt.replace(/de la (pizza|bande|barre|tablette)/g, `de la ${objet}`);
+  s = s.replace(/la (bande|barre|tablette|pizza) (est|sont)/g, `la ${objet} $2`);
+  if (decor === 'pizza') s = s.replace(/^Colorie /, 'Garnis ').replace(/coloriée/g, 'garnie');
+  return s;
+}
