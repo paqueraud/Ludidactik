@@ -191,24 +191,45 @@ const cent = (k: number) => pl(k, 'centaine', 'centaines');
 const diz = (k: number) => pl(k, 'dizaine', 'dizaines');
 const uni = (k: number) => pl(k, 'unité', 'unités');
 
-type Ecriture = { texte: string; court: string };
+/** Une écriture d'un nombre, avec l'explication qui la suit pas à pas. */
+type Ecriture = { texte: string; court: string; expl: string };
+
+const valeurs = (c: number, d: number, u: number) =>
+  `${cent(c)} = ${c * 100}, ${diz(d)} = ${d * 10} et ${uni(u)} = ${u} : ${c * 100} + ${d * 10} + ${u} = ${fmt(c * 100 + d * 10 + u)}.`;
 
 /** Différentes écritures d'un nombre (BO : 635 = 6 c 3 d 5 u = 63 d 5 u = 600 + 30 + 5 = (6 × 100) + (3 × 10) + 5). */
 function ecritures(n: number, level: Level, rng: Rng): Ecriture[] {
   const c = Math.floor(n / 100);
   const d = Math.floor(n / 10) % 10;
   const u = n % 10;
-  const out: Ecriture[] = [{ texte: `${cent(c)}, ${diz(d)} et ${uni(u)}`, court: `${c} c ${d} d ${u} u` }];
+  const out: Ecriture[] = [
+    { texte: `${cent(c)}, ${diz(d)} et ${uni(u)}`, court: `${c} c ${d} d ${u} u`, expl: valeurs(c, d, u) },
+  ];
   if (level === 'facile') return out;
+  const add = [c * 100, d * 10, u].filter((x) => x).join(' + ') || '0';
   out.push({
-    texte: [c * 100, d * 10, u].filter((x) => x).join(' + ') || '0',
-    court: [c * 100, d * 10, u].filter((x) => x).join(' + ') || '0',
+    texte: add,
+    court: add,
+    expl: `On ajoute les centaines, les dizaines et les unités : ${add} = ${fmt(n)}.`,
   });
   const termes = [c ? `(${c} × 100)` : '', d ? `(${d} × 10)` : '', u ? String(u) : ''].filter(Boolean);
   const mult = termes.length === 1 ? termes[0]!.replace(/^\((.*)\)$/, '$1') : termes.join(' + ');
-  out.push({ texte: mult, court: mult });
-  if (c > 0) out.push({ texte: `${diz(c * 10 + d)} et ${uni(u)}`, court: `${c * 10 + d} d ${u} u` });
-  out.push({ texte: `${uni(u)}, ${cent(c)} et ${diz(d)}`, court: `${u} u ${c} c ${d} d` });
+  out.push({
+    texte: mult,
+    court: mult,
+    expl: `${[c ? `${c} × 100 = ${c * 100}` : '', d ? `${d} × 10 = ${d * 10}` : ''].filter(Boolean).join(' et ')}, donc ${add} = ${fmt(n)}.`,
+  });
+  if (c > 0)
+    out.push({
+      texte: `${diz(c * 10 + d)} et ${uni(u)}`,
+      court: `${c * 10 + d} d ${u} u`,
+      expl: `${diz(c * 10 + d)} = ${(c * 10 + d) * 10}, et ${(c * 10 + d) * 10} + ${u} = ${fmt(n)}.`,
+    });
+  out.push({
+    texte: `${uni(u)}, ${cent(c)} et ${diz(d)}`,
+    court: `${u} u ${c} c ${d} d`,
+    expl: `L’ordre ne compte pas : ${valeurs(c, d, u)}`,
+  });
   if (level === 'plus_loin') {
     // Groupements non canoniques (BO : 2 centaines, 27 dizaines et 14 unités)
     let cc = c;
@@ -228,6 +249,7 @@ function ecritures(n: number, level: Level, rng: Rng): Ecriture[] {
       out.push({
         texte: parts.slice(0, -1).join(', ') + ' et ' + parts[parts.length - 1],
         court: `${cc} c ${dd} d ${uu} u`,
+        expl: `On regroupe : ${valeurs(cc, dd, uu)} (10 unités font 1 dizaine, 10 dizaines font 1 centaine).`,
       });
     }
   }
@@ -254,12 +276,12 @@ const decompNumeric: ItemGen = (level, rng, ctx) => {
       prompt: `${e.texte} = …`,
       spoken: `${e.texte}, ça fait combien ?`,
       answer: n,
-      explication: `${c} centaine${c > 1 ? 's' : ''} = ${c * 100}, ${d} dizaine${d > 1 ? 's' : ''} = ${d * 10} et ${u} unité${u > 1 ? 's' : ''} : ${c * 100} + ${d * 10} + ${u} = ${fmt(n)}.`,
+      explication: e.expl,
       difficulty: clamp01(0.3 + all.indexOf(e) * 0.1 + (level === 'plus_loin' ? 0.3 : 0)),
       meta: { construire: true },
     });
   }
-  if (r < 0.85 || level === 'facile') {
+  if ((r < 0.85 && level !== 'plus_loin') || level === 'facile') {
     const rang = rng.pick(['centaines', 'dizaines', 'unités'] as const);
     const val = rang === 'centaines' ? c : rang === 'dizaines' ? d : u;
     return numeric(ctx, `chiffre-${rang}-${n}`, {
@@ -272,7 +294,7 @@ const decompNumeric: ItemGen = (level, rng, ctx) => {
   return numeric(ctx, `nbdiz-${n}`, {
     prompt: `Combien y a-t-il de dizaines en tout dans ${fmt(n)} ?`,
     answer: Math.floor(n / 10),
-    explication: `${fmt(n)} = ${Math.floor(n / 10)} dizaines et ${u} unité${u > 1 ? 's' : ''} (1 centaine = 10 dizaines).`,
+    explication: `${fmt(n)}, c’est ${cent(c)}, ${diz(d)} et ${uni(u)} ; ${cent(c)} = ${c * 10} dizaines, donc ${c * 10} + ${d} = ${Math.floor(n / 10)} dizaines.`,
     difficulty: 0.7,
   });
 };
@@ -709,6 +731,17 @@ const REGLES_SOMME: [string, boolean, string][] = [
 
 const pariteVraiFaux: ItemGen = (level, rng, ctx) => {
   if (level === 'plus_loin' && rng.chance(0.5)) {
+    const a = rng.int(11, 99);
+    const b = rng.int(11, 99);
+    const ditPair = rng.chance(0.5);
+    return make(ctx, 'true_false', `somme-${a}-${b}-${ditPair}`, {
+      statement: `${a} + ${b} est un nombre ${ditPair ? 'pair' : 'impair'}.`,
+      answer: ditPair === estPair(a + b),
+      explication: `${a} est ${estPair(a) ? 'pair' : 'impair'} et ${b} est ${estPair(b) ? 'pair' : 'impair'} : la somme est ${estPair(a + b) ? 'paire' : 'impaire'} (${a + b}).`,
+      difficulty: 0.7,
+    });
+  }
+  if (level === 'plus_loin') {
     const [s, v, e] = rng.pick(REGLES_SOMME);
     return make(ctx, 'true_false', `regle-${s}`, {
       statement: s,
@@ -807,6 +840,8 @@ export function ordinalEnLettres(n: number): string {
 /** Abréviation : 1er, 2e, 48e. */
 export const ordinalCourt = (n: number) => (n === 1 ? '1er' : `${n}e`);
 
+const FILLES = new Set(['Lucie', 'Inès', 'Jade', 'Zoé', 'Lina', 'Maya']);
+const lui = (qui: string) => (FILLES.has(qui) ? 'elle' : 'lui');
 const PRENOMS = [
   'Léo',
   'Lucie',
@@ -823,7 +858,7 @@ const PRENOMS = [
 ];
 
 const ordinauxNumeric: ItemGen = (level, rng, ctx) => {
-  if (level === 'plus_loin' && rng.chance(0.5)) {
+  if (level === 'plus_loin') {
     // Suites évolutives (BO) : 1, 2, 4, 7, 11, 16… ; 1, 2, 4, 8, 16…
     const forme = rng.int(0, 1);
     const rang = forme === 0 ? rng.int(8, 15) : rng.int(6, 10);
@@ -849,7 +884,7 @@ const ordinauxNumeric: ItemGen = (level, rng, ctx) => {
       prompt: `${qui} est ${ordinalCourt(r)} dans la file. Combien de personnes sont devant ${qui} ?`,
       spoken: `${qui} est ${ordinalEnLettres(r)} dans la file. Combien de personnes sont devant ${qui} ?`,
       answer: r - 1,
-      explication: `Le ${ordinalCourt(r)} a ${r - 1} personne${r > 2 ? 's' : ''} devant lui : on ne se compte pas soi-même.`,
+      explication: `${qui} est ${ordinalCourt(r)} : il y a ${r - 1} personne${r > 2 ? 's' : ''} devant ${lui(qui)}, on ne se compte pas soi-même.`,
       difficulty: 0.3,
     });
   }
@@ -863,7 +898,7 @@ const ordinauxNumeric: ItemGen = (level, rng, ctx) => {
       explication:
         r === 1
           ? `${qui} est arrivé en premier : tous les autres arrivent après, ${total} − 1 = ${total - 1}.`
-          : `${r} enfants sont arrivés jusqu’à ${qui} (${qui} compris) : ${total} − ${r} = ${total - r}.`,
+          : `${qui} et les ${r - 1} enfant${r > 2 ? 's' : ''} arrivé${r > 2 ? 's' : ''} avant, ça fait ${r} enfants ; ${total} − ${r} = ${total - r}.`,
       difficulty: 0.55,
     });
   }
@@ -914,7 +949,7 @@ const ordinauxQcm: ItemGen = (level, rng, ctx) => {
       difficulty: r > 20 ? 0.5 : 0.25,
     });
   }
-  if (level === 'plus_loin' && forme === 1) {
+  if (level === 'plus_loin') {
     // Suite évolutive de symboles (BO) : △ ✕ △ ✕✕ △ ✕✕✕ …
     const seq: string[] = [];
     for (let k = 1; seq.length < 120; k++) seq.push('△', ...Array<string>(k).fill('✕'));
@@ -941,12 +976,27 @@ const ordinauxQcm: ItemGen = (level, rng, ctx) => {
     good,
     wrong: motif.filter((m) => m !== good),
     fixedOrder: motif,
-    explication: `Le motif ${motif.join(' ')} a ${motif.length} éléments et se répète : on compte de ${motif.length} en ${motif.length} jusqu’à ${r}.`,
+    explication:
+      r % motif.length === 0
+        ? `Le motif ${motif.join(' ')} a ${motif.length} éléments : le ${ordinalCourt(r)} élément termine un motif, c’est donc ${good}.`
+        : `Le motif ${motif.join(' ')} a ${motif.length} éléments : le ${ordinalCourt(r - (r % motif.length))} élément termine un motif, donc le ${ordinalCourt(r)} est ${good}.`,
     difficulty: clamp01(0.4 + r / 250 + motif.length * 0.05),
   });
 };
 
 const ordinauxVraiFaux: ItemGen = (level, rng, ctx) => {
+  if (level === 'plus_loin') {
+    const rang = rng.int(6, 10);
+    const vrai = 2 ** (rang - 1);
+    const dit = rng.chance(0.5) ? vrai : rng.pick([vrai / 2, vrai * 2, vrai + 2]);
+    return make(ctx, 'true_false', `evol-${rang}-${dit}`, {
+      statement: `Dans la suite 1, 2, 4, 8, 16…, le ${ordinalCourt(rang)} nombre est ${fmt(dit)}.`,
+      spoken: `Dans la suite 1, 2, 4, 8, 16, et ainsi de suite, le ${ordinalEnLettres(rang)} nombre est ${dit}.`,
+      answer: dit === vrai,
+      explication: `Chaque nombre est le double du précédent : 1, 2, 4, 8, 16, 32, 64… le ${ordinalCourt(rang)} est ${fmt(vrai)}.`,
+      difficulty: 0.85,
+    });
+  }
   const max = level === 'facile' ? 20 : 100;
   const r = rng.int(2, max);
   const qui = rng.pick(PRENOMS);
@@ -955,7 +1005,7 @@ const ordinauxVraiFaux: ItemGen = (level, rng, ctx) => {
     statement: `${qui} est ${ordinalCourt(r)} dans la file : il y a ${dit} personne${dit > 1 ? 's' : ''} devant ${qui}.`,
     spoken: `${qui} est ${ordinalEnLettres(r)} dans la file : il y a ${dit} personnes devant ${qui}.`,
     answer: dit === r - 1,
-    explication: `Le ${ordinalCourt(r)} a ${r - 1} personne${r > 2 ? 's' : ''} devant lui.`,
+    explication: `${qui} est ${ordinalCourt(r)} : il y a ${r - 1} personne${r > 2 ? 's' : ''} devant ${lui(qui)}.`,
     difficulty: 0.4,
   });
 };

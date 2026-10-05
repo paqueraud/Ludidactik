@@ -79,7 +79,7 @@ function versBarModel(ctx: GenContext, rng: Rng, p: Pb): ItemOf<'bar_model'> {
   const [bonne, ...fausses] = p.reformulations;
   return make(ctx, 'bar_model', p.sig, {
     statement: p.statement,
-    spoken: `${p.statement} ${p.question}`,
+    spoken: prixDits(`${p.statement} ${p.question}`),
     structure: p.structure,
     bars: p.bars,
     total: p.total,
@@ -99,13 +99,21 @@ function versBarModel(ctx: GenContext, rng: Rng, p: Pb): ItemOf<'bar_model'> {
 function versNumeric(ctx: GenContext, p: Pb): ItemOf<'numeric_answer'> {
   return numeric(ctx, p.sig, {
     prompt: `${p.statement} ${p.question}`,
-    spoken: `${p.statement} ${p.question}`,
+    spoken: prixDits(`${p.statement} ${p.question}`),
     answer: p.answer,
     unit: p.unit,
     explication: p.explication,
     difficulty: p.difficulty,
   });
 }
+
+/** À l'oral, « 24,65 € » se lit « 24 euros 65 ». */
+const prixDits = (t: string) =>
+  t
+    .replace(/(\d+),(\d{2}) €/g, (_, e: string, c: string) =>
+      `${e} euro${e === '1' || e === '0' ? '' : 's'} ${c === '00' ? '' : c}`.trim(),
+    )
+    .replace(/(\d+) €/g, (_, e: string) => `${e} euro${e === '1' ? '' : 's'}`);
 
 const deuxTypes = (gen: (level: Level, rng: Rng) => Pb): LessonContent => ({
   gens: {
@@ -147,7 +155,7 @@ function pbAdditif(level: Level, rng: Rng, forme = rng.int(0, 6)): Pb {
         answerSentence: `${p.nom} a ___ ${obj} en tout.`,
         reformulations: [
           `On connait les ${obj} de chaque boite et on cherche le nombre total ${de(obj)}.`,
-          `On connait le nombre total ${de(obj)} et on cherche ceux de la boite verte.`,
+          `On connait le nombre total ${de(obj)} et on cherche ${FEM.has(obj) ? 'celles' : 'ceux'} de la boite verte.`,
           `On cherche combien ${de(obj)} la boite rouge a de plus que la verte.`,
         ],
         operation: `${a} + ${b} = ${tout}`,
@@ -387,7 +395,31 @@ function pbComparaison(level: Level, rng: Rng): Pb {
   const grand = rng.int(Math.max(20, Math.floor(max / 3)), max);
   const petit = rng.int(Math.max(5, Math.floor(grand / 4)), grand - 5);
   const ecart = grand - petit;
-  const forme = level === 'plus_loin' ? rng.int(1, 2) : level === 'facile' ? rng.int(0, 1) : rng.int(0, 2);
+  const forme = level === 'plus_loin' ? 3 : level === 'facile' ? rng.int(0, 1) : rng.int(0, 2);
+  if (forme === 3) {
+    // Piège : « de moins » mais il faut ajouter
+    return {
+      sig: `cmp-moins-${petit}-${ecart}-${obj}`,
+      statement: `${q.nom} a ${petit} ${obj}. ${cap(q.il)} en a ${ecart} de moins que ${p.nom}.`,
+      question: `Combien ${de(obj)} ${p.nom} a-t-${p.il} ?`,
+      answer: grand,
+      structure: 'comparaison',
+      bars: [
+        { label: p.nom, segments: [{ value: null, label: '?' }] },
+        { label: q.nom, segments: [{ value: petit }, { value: ecart, label: 'de moins' }] },
+      ],
+      total: null,
+      answerSentence: `${p.nom} a ___ ${obj}.`,
+      reformulations: [
+        `${p.nom} a ${ecart} ${obj} de plus que ${q.nom}.`,
+        `${p.nom} a ${ecart} ${obj} de moins que ${q.nom}.`,
+        `${p.nom} et ${q.nom} ont ${petit} ${obj} ensemble.`,
+      ],
+      operation: `${petit} + ${ecart} = ${grand}`,
+      explication: `Si ${q.nom} en a ${ecart} de moins, ${p.nom} en a ${ecart} de plus : ${petit} + ${ecart} = ${grand} (le mot « moins » ne veut pas toujours dire « − »).`,
+      difficulty: 0.85,
+    };
+  }
   if (forme === 0) {
     // BO : Léo a 188 billes, Lucie en a 75 de plus. Combien Lucie a-t-elle de billes ?
     return {
@@ -442,7 +474,7 @@ function pbComparaison(level: Level, rng: Rng): Pb {
           ]
         : [
             `On compare les ${obj} de ${p.nom} et de ${q.nom} : on cherche l’écart.`,
-            `On cherche combien ${de(obj)} ils ont ensemble.`,
+            `On cherche combien ${de(obj)} ${p.il === 'elle' && q.il === 'elle' ? 'elles' : 'ils'} ont ensemble.`,
             `On cherche combien ${de(obj)} ${q.nom} a de plus que ${p.nom}.`,
           ],
       operation: `${grand} − ${petit} = ${ecart}`,
@@ -631,7 +663,7 @@ function pbMult(level: Level, rng: Rng): Pb {
       level === 'plus_loin'
         ? rng.pick([rng.int(11, 30), 25, 50, rng.int(3, 9) * 10])
         : rng.int(2, level === 'facile' ? 6 : 25);
-    if (n * v <= maxTot) break;
+    if (n * v <= maxTot && (level !== 'plus_loin' || n * v >= 100)) break;
   }
   const t = n * v;
   if (forme === 0)
@@ -645,7 +677,7 @@ function pbMult(level: Level, rng: Rng): Pb {
       total: null,
       answerSentence: `Il y a ___ ${obj} en tout.`,
       reformulations: [
-        `Il y a ${n} ${cont} qui contiennent chacun ${v} ${obj} : on cherche le nombre total ${de(obj)}.`,
+        `Il y a ${n} ${cont} de ${v} ${obj} : on cherche le nombre total ${de(obj)}.`,
         `Il y a ${n} ${obj} en tout : on cherche combien il y a ${de(cont)}.`,
         `On ajoute ${n} ${obj} et ${v} ${obj}.`,
       ],
@@ -753,7 +785,7 @@ function pbMult(level: Level, rng: Rng): Pb {
 
 function pbMixte(level: Level, rng: Rng): Pb {
   const p = rng.pick(PERSOS);
-  const forme = rng.int(0, level === 'plus_loin' ? 3 : 2);
+  const forme = level === 'plus_loin' ? 3 : rng.int(0, 2);
   const petit = level === 'facile';
   if (forme === 0) {
     // BO : Abi achète 7 litres d'huile à 2 € le litre ; elle donne 20 €
@@ -803,13 +835,13 @@ function pbMixte(level: Level, rng: Rng): Pb {
     return {
       sig: `mix-facture-${a}-${b}-${n}`,
       statement: `Un cahier coute ${a} € et un protège-cahier ${b} €. ${p.nom} achète ${n} cahiers et autant de protège-cahiers.`,
-      question: 'Quel sera le montant de la facture ?',
+      question: `Combien ${p.nom} paie-t-${p.il} en tout ?`,
       answer: (a + b) * n,
       unit: '€',
       structure: 'deux-etapes',
       bars: [{ label: `${n} lots`, segments: segmentsParts(n, a + b) }],
       total: null,
-      answerSentence: 'La facture sera de ___ €.',
+      answerSentence: `${p.nom} paie ___ € en tout.`,
       reformulations: [
         `${p.nom} achète ${n} fois un cahier et un protège-cahier : on cherche le prix total.`,
         `On cherche le prix d’un seul cahier.`,
@@ -888,7 +920,11 @@ function pbMixte(level: Level, rng: Rng): Pb {
 
 export const PROBLEMES: Record<string, LessonContent> = {
   'CE1.MA.PB.ADD_PT': deuxTypes((level, rng) =>
-    level === 'plus_loin' && rng.chance(0.4) ? pbDeuxEtapesEntiers('normal', rng) : pbAdditif(level, rng),
+    level === 'plus_loin'
+      ? pbDeuxEtapesEntiers('normal', rng)
+      : level === 'facile'
+        ? pbAdditif(level, rng, rng.pick([0, 2, 3]))
+        : pbAdditif(level, rng),
   ),
   'CE1.MA.PB.COMPAR': deuxTypes(pbComparaison),
   'CE1.MA.PB.2ETAPES': deuxTypes(pb2Etapes),

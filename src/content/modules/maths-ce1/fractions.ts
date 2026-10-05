@@ -50,7 +50,10 @@ function visuel(
     denominator: d,
     shape,
     task,
-    explication: partage(n, d),
+    explication:
+      n > d
+        ? `${frac(n, d)} = ${frac(d, d)} + ${frac(n - d, d)} : une pizza entière et encore ${n - d} part${n - d > 1 ? 's' : ''} de la deuxième.`
+        : partage(n, d),
     difficulty: clamp01(difficulty),
   });
 }
@@ -181,8 +184,8 @@ const unitNumeric: ItemGen = (level, rng, ctx) => {
     const k = rng.int(2, 6);
     const objets = rng.pick(['billes', 'bonbons', 'images', 'perles', 'crayons']);
     return numeric(ctx, `collection-${d}-${k}-${objets}`, {
-      prompt: `${frac(1, d)} de ${d * k} ${objets}, c’est combien ${de(objets)} ?`,
-      spoken: `${fractionEnMots(1, d)} de ${d * k} ${objets}, c’est combien ${de(objets)} ?`,
+      prompt: `${d === 2 ? 'La moitié' : frac(1, d)} de ${d * k} ${objets}, c’est combien ${de(objets)} ?`,
+      spoken: `${d === 2 ? 'La moitié' : fractionEnMots(1, d)} de ${d * k} ${objets}, c’est combien ${de(objets)} ?`,
       answer: k,
       explication: `On partage les ${d * k} ${objets} en ${d} paquets égaux : ${d * k} = ${d} × ${k}, donc chaque paquet a ${k} ${objets}.`,
       difficulty: 0.75,
@@ -204,7 +207,7 @@ const unitNumeric: ItemGen = (level, rng, ctx) => {
 /** Fraction n/d : ≤ 1 (facile, normal) ; jusqu'à 2 (plus loin, CE2). */
 function fracNonUnit(level: Level, rng: Rng): [number, number] {
   const d = rng.pick(denomsNonUnit(level));
-  if (level === 'plus_loin' && rng.chance(0.6)) return [rng.int(d + 1, 2 * d - 1), d];
+  if (level === 'plus_loin') return [rng.int(d + 1, 2 * d - 1), d];
   return [rng.int(2, d), d];
 }
 
@@ -229,8 +232,15 @@ const nonUnitLigne: ItemGen = (level, rng, ctx) => {
 const nonUnitTrou: ItemGen = (level, rng, ctx) => {
   const [n0, d] = fracNonUnit(level, rng);
   let n = n0;
-  if (n > d) n = d; // les égalités ci-dessous restent dans les fractions ≤ 1
   const forme = rng.int(0, 4);
+  if (level === 'plus_loin' && forme === 4)
+    return make(ctx, 'fill_blank', `plus1-${n}-${d}`, {
+      sentence: `${frac(n, d)} = 1 + ___`,
+      answer: frac(n - d, d),
+      accepted: [frac(n - d, d).replace('/', ' / ')],
+      explication: `${frac(d, d)} = 1, donc ${frac(n, d)} = ${frac(d, d)} + ${frac(n - d, d)} = 1 + ${frac(n - d, d)}.`,
+      difficulty: 0.8,
+    });
   const unite = frac(1, d);
   if (forme === 0 && n >= 2 && n <= 5) {
     const termes = Array<string>(n).fill(unite);
@@ -337,7 +347,7 @@ const symb = (a: Fr, b: Fr) => (cmp(a, b) < 0 ? '<' : cmp(a, b) > 0 ? '>' : '=')
 
 /** Paire à comparer : même dénominateur, numérateur 1, ou (plus loin) dénominateurs multiples. */
 function paireFractions(level: Level, rng: Rng, egalOk = false): [Fr, Fr] {
-  const forme = level === 'plus_loin' ? rng.int(0, 2) : rng.int(0, 1);
+  const forme = level === 'plus_loin' ? 2 : rng.int(0, 1);
   if (forme === 0) {
     const d = rng.pick(level === 'facile' ? [3, 4, 5, 6] : DENOMS_CE1.filter((x) => x > 2));
     const [a, b] = rng.shuffle(Array.from({ length: d }, (_, i) => i + 1)).slice(0, 2) as [number, number];
@@ -415,9 +425,9 @@ function expliqueFractions(a: Fr, b: Fr): string {
   if (a[0] === 1 && b[0] === 1)
     return `Plus on partage le tout, plus les parts sont petites : ${fa} ${s} ${fb}.`;
   const grand = Math.max(a[1], b[1]);
-  const ea = frac((a[0] * grand) / a[1], grand);
-  const eb = frac((b[0] * grand) / b[1], grand);
-  return `${fa} = ${ea} et ${fb} = ${eb} : on compare des parts de même taille, donc ${fa} ${s} ${fb}.`;
+  const conv = a[1] === grand ? b : a;
+  const ec = frac((conv[0] * grand) / conv[1], grand);
+  return `${frac(...conv)} = ${ec} : on compare des parts de même taille, donc ${fa} ${s} ${fb}.`;
 }
 
 const comparerVisuel: ItemGen = (level, rng, ctx) => {
@@ -425,7 +435,7 @@ const comparerVisuel: ItemGen = (level, rng, ctx) => {
   const shape = rng.pick(SHAPES);
   return make(ctx, 'visual_fraction', `comparer-${shape}-${frac(...a)}-${frac(...b)}`, {
     prompt: 'Quelle fraction est la plus grande ?',
-    spoken: `Qui est le plus grand : ${fractionEnMots(...a)} ou ${fractionEnMots(...b)} ?`,
+    spoken: `Laquelle est la plus grande : ${fractionEnMots(...a)} ou ${fractionEnMots(...b)} ?`,
     numerator: a[0],
     denominator: a[1],
     shape,
@@ -477,7 +487,7 @@ const comparerQcm: ItemGen = (level, rng, ctx) => {
 
 const comparerRanger: ItemGen = (level, rng, ctx) => {
   let fr: Fr[];
-  const forme = level === 'plus_loin' ? rng.int(0, 2) : level === 'facile' ? 0 : rng.int(0, 1);
+  const forme = level === 'plus_loin' ? 2 : level === 'facile' ? 0 : rng.int(0, 1);
   if (forme === 0) {
     const d = rng.pick(level === 'facile' ? [4, 5, 6] : [5, 6, 8, 10]);
     const ns = rng.shuffle(Array.from({ length: d }, (_, i) => i + 1)).slice(0, level === 'facile' ? 3 : 4);
@@ -554,7 +564,7 @@ type Op = { termes: number[]; signes: ('+' | '−')[]; d: number; res: number; c
 
 function operationFractions(level: Level, rng: Rng): Op {
   const d = rng.pick(level === 'facile' ? [3, 4, 5, 6] : DENOMS_CE1.filter((x) => x > 2));
-  const forme = rng.int(0, level === 'plus_loin' ? 3 : 2);
+  const forme = level === 'plus_loin' ? 3 : rng.int(0, 2);
   if (forme === 0) {
     const a = rng.int(1, d - 1);
     const b = rng.int(1, d - a);

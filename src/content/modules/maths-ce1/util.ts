@@ -125,6 +125,8 @@ export function make<K extends ItemKind>(
   sig: string | number,
   fields: Omit<ItemOf<K>, 'kind' | 'id' | 'lessonId'>,
 ): ItemOf<K> {
+  const f = fields as Record<string, unknown>;
+  if (typeof f.spoken === 'string' && f.spoken) f.spoken = f.spoken[0]!.toUpperCase() + f.spoken.slice(1);
   return {
     kind,
     id: itemId(ctx, kind, sig, fields as Record<string, unknown>),

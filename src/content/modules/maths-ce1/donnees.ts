@@ -13,9 +13,19 @@ import { clamp01, distinctInts, make, mcq, numeric, parNiv } from './util';
 
 type Theme = { titre: string; etiquettes: string[]; unite: string; qui: string; verbe: string; max: number };
 
+/** « 1 élèves » → « 1 élève », « 1 oiseaux » → « 1 oiseau ». */
+const nb = (v: number, unite: string) => `${v} ${v > 1 ? unite : unite.replace(/x$/, '').replace(/s$/, '')}`;
+
+/** Phrase de comparaison naturelle selon le thème. */
+function plusQue(t: Theme, a: string, b: string): string {
+  if (t.unite === 'jours') return `Il a plu plus de jours en ${a} qu’en ${b}.`;
+  if (t.unite === 'élèves') return `Il y a plus de réponses « ${a} » que de réponses « ${b} ».`;
+  return `On a compté plus ${de(a)} que ${/^[aeiouyéèê]/i.test(b) ? 'd’' : 'de '}${b}.`;
+}
+
 const THEMES: Theme[] = [
   {
-    titre: 'Comment les élèves viennent à l’école',
+    titre: 'Comment les élèves de l’école viennent à l’école',
     etiquettes: ['à pied', 'à vélo', 'en voiture', 'en bus', 'en trottinette'],
     unite: 'élèves',
     qui: 'élèves',
@@ -23,7 +33,7 @@ const THEMES: Theme[] = [
     max: 30,
   },
   {
-    titre: 'Le fruit préféré de la classe',
+    titre: 'Le fruit préféré des élèves de l’école',
     etiquettes: ['pomme', 'banane', 'fraise', 'orange', 'poire'],
     unite: 'élèves',
     qui: 'élèves',
@@ -31,7 +41,7 @@ const THEMES: Theme[] = [
     max: 30,
   },
   {
-    titre: 'La couleur préférée de la classe',
+    titre: 'La couleur préférée des élèves de l’école',
     etiquettes: ['rouge', 'bleu', 'vert', 'jaune', 'violet'],
     unite: 'élèves',
     qui: 'élèves',
@@ -121,7 +131,7 @@ const donneesQcm: ItemGen = (level, rng, ctx) => {
     good,
     wrong: d.etiquettes.filter((e) => e !== good),
     max: 6,
-    explication: `${lire(d)} : « ${good} » a ${v} ${d.theme.unite}, c’est ${plus ? 'le plus grand' : 'le plus petit'} nombre.`,
+    explication: `${lire(d)} : « ${good} » a ${nb(v, d.theme.unite)}, c’est ${plus ? 'le plus grand' : 'le plus petit'} nombre.`,
     difficulty: clamp01(0.2 + d.etiquettes.length * 0.05),
     meta: meta(d, q),
   });
@@ -136,7 +146,7 @@ function doubleEntree(rng: Rng) {
 }
 
 const donneesNumeric: ItemGen = (level, rng, ctx) => {
-  const forme = parNiv(level, { facile: 0, normal: rng.int(0, 3), plus_loin: rng.int(1, 4) });
+  const forme = parNiv(level, { facile: 0, normal: rng.int(0, 4), plus_loin: rng.int(1, 4) });
   if (forme === 3) {
     // Produire un diagramme : compter les réponses d'une enquête pour fixer la hauteur d'une barre
     const fruits = ['🍎', '🍌', '🍓'];
@@ -187,7 +197,7 @@ const donneesNumeric: ItemGen = (level, rng, ctx) => {
       spoken: q,
       answer: d.valeurs[k]!,
       unit: d.theme.unite,
-      explication: `${lire(d)} : « ${d.etiquettes[k]} » a ${d.valeurs[k]} ${d.theme.unite}.`,
+      explication: `${lire(d)} : « ${d.etiquettes[k]} » a ${nb(d.valeurs[k]!, d.theme.unite)}.`,
       difficulty: 0.2,
       meta: meta(d, q),
     });
@@ -222,7 +232,7 @@ const donneesNumeric: ItemGen = (level, rng, ctx) => {
 const donneesVraiFaux: ItemGen = (level, rng, ctx) => {
   const d = tirer(level, rng);
   const [a, b] = rng.shuffle(d.etiquettes.map((_, i) => i)).slice(0, 2) as [number, number];
-  const q = `Il y a plus ${de(d.theme.qui)} pour « ${d.etiquettes[a]} » que pour « ${d.etiquettes[b]} ».`;
+  const q = plusQue(d.theme, d.etiquettes[a]!, d.etiquettes[b]!);
   return make(ctx, 'true_false', `vf-${d.theme.titre}-${d.valeurs.join('-')}-${a}-${b}`, {
     statement: `${enClair(d)}\n${q}`,
     spoken: q,

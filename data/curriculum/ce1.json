@@ -1330,7 +1330,7 @@
    "niveaux": {
     "facile": "≤ 20",
     "normal": "≤ 100",
-    "plus_loin": "suites évolutives"
+    "plus_loin": "suites évolutives (1, 2, 4, 7, 11… ; 1, 2, 4, 8…)"
    },
    "itemKinds": [
     "numeric_answer",
@@ -1446,7 +1446,7 @@
    "niveaux": {
     "facile": "visuel",
     "normal": "sans visuel",
-    "plus_loin": "dénominateurs multiples (1/2 vs 3/4)"
+    "plus_loin": "dénominateurs multiples (1/2 et 3/4), égalités 1/2 = 2/4"
    },
    "itemKinds": [
     "visual_fraction",
@@ -1973,8 +1973,8 @@
     5
    ],
    "niveaux": {
-    "facile": "≤ 100",
-    "normal": "≤ 1 000",
+    "facile": "≤ 100, chercher le tout ou l’état final",
+    "normal": "≤ 1 000, toutes les inconnues (état initial, transformation)",
     "plus_loin": "2 étapes"
    },
    "itemKinds": [
@@ -2009,9 +2009,9 @@
     5
    ],
    "niveaux": {
-    "facile": "≤ 100",
-    "normal": "≤ 1 000",
-    "plus_loin": "inconnue sur le petit"
+    "facile": "≤ 100, grand ou écart inconnu",
+    "normal": "≤ 1 000, grand, petit ou écart inconnu (BO : Elsa a 6 € de plus que Noé)",
+    "plus_loin": "énoncés « de moins » où il faut ajouter"
    },
    "itemKinds": [
     "bar_model",

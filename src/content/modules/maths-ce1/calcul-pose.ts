@@ -184,11 +184,21 @@ function explSous(a: number, b: number): string {
   const n = cassages(a, b);
   if (n === 0)
     return `On aligne les chiffres et on soustrait colonne par colonne, en commençant par les unités : ${fmt(a)} − ${fmt(b)} = ${fmt(a - b)}.`;
-  const besoinU = chiffre(a, 0) < chiffre(b, 0);
-  const debut = besoinU
-    ? `Il n’y a pas assez d’unités : on casse une dizaine en 10 unités`
-    : `Il n’y a pas assez de dizaines : on casse une centaine en 10 dizaines`;
-  return `${debut}${n > 1 ? ' (et on recommence au rang suivant si besoin)' : ''}, puis on soustrait colonne par colonne : ${fmt(a)} − ${fmt(b)} = ${fmt(a - b)}.`;
+  // On simule l'algorithme par cassage pour décrire exactement les échanges faits
+  const NOMS = ['unité', 'dizaine', 'centaine', 'millier'];
+  const A = [0, 1, 2, 3].map((k) => chiffre(a, k));
+  const cass: string[] = [];
+  for (let k = 0; k < 3; k++) {
+    if (A[k]! >= chiffre(b, k)) continue;
+    let j = k + 1;
+    while (j < 3 && A[j] === 0) j++;
+    for (let i = j; i > k; i--) {
+      A[i] = A[i]! - 1;
+      A[i - 1] = A[i - 1]! + 10;
+      cass.push(`1 ${NOMS[i]} en 10 ${NOMS[i - 1]}s`);
+    }
+  }
+  return `Il n’y a pas assez en haut : on casse ${cass.join(', puis ')}, puis on soustrait colonne par colonne : ${fmt(a)} − ${fmt(b)} = ${fmt(a - b)}.`;
 }
 
 const sousNumeric: ItemGen = (level, rng, ctx) => {
@@ -237,11 +247,13 @@ const sousVraiFaux: ItemGen = (level, rng, ctx) => {
       difficulty: clamp01(0.3 + cassages(a, b) * 0.15),
     });
   }
-  // Vérifier une soustraction avec une addition
-  return make(ctx, 'true_false', `verif-${a}-${b}-${montre}`, {
-    statement: `${fmt(a)} − ${fmt(b)} = ${fmt(montre)}, car ${fmt(montre)} + ${fmt(b)} = ${fmt(a)}.`,
-    spoken: `${a} moins ${b} égale ${montre}, car ${montre} plus ${b} égale ${a}.`,
-    answer: montre === d,
+  // Vérifier une soustraction avec une addition (la preuve affichée est toujours un calcul juste)
+  const m = montre + b <= maxCP(level) ? montre : d - 1;
+  const qui = rng.pick(['Léo', 'Lucie', 'Inès', 'Malo', 'Jade', 'Sami']);
+  return make(ctx, 'true_false', `verif-${a}-${b}-${m}`, {
+    statement: `${qui} trouve ${fmt(a)} − ${fmt(b)} = ${fmt(m)}. Pour vérifier, ${qui} calcule ${fmt(m)} + ${fmt(b)} = ${fmt(m + b)}. Son résultat est-il juste ?`,
+    spoken: `${qui} trouve ${a} moins ${b} égale ${m}. Pour vérifier, ${qui} calcule ${m} plus ${b} égale ${m + b}. Son résultat est-il juste ?`,
+    answer: m === d,
     explication: `Pour vérifier une soustraction, on fait l’addition : ${fmt(d)} + ${fmt(b)} = ${fmt(a)}, donc ${fmt(a)} − ${fmt(b)} = ${fmt(d)}.`,
     difficulty: 0.5,
   });
@@ -252,6 +264,12 @@ const sousVraiFaux: ItemGen = (level, rng, ctx) => {
 /* ------------------------------------------------------------------ */
 
 function facteurs(level: Level, rng: Rng): [number, number] {
+  const f = facteursBruts(level, rng);
+  // 2 × 2 = 2 + 2 rendrait certains choix ambigus
+  return f[0] === 2 && f[1] === 2 ? [2, 3] : f;
+}
+
+function facteursBruts(level: Level, rng: Rng): [number, number] {
   return parNiv(level, {
     facile: [rng.int(2, 5), rng.int(2, 5)] as [number, number],
     normal: rng.chance(0.5)
@@ -280,8 +298,8 @@ const multNumeric: ItemGen = (level, rng, ctx) => {
     answer: x * y,
     explication:
       b % 10 === 0 && b > 10
-        ? `${a} fois ${b}, c’est ${a} fois ${b / 10} dizaines = ${a * (b / 10)} dizaines = ${fmt(a * b)}.`
-        : `${a} fois ${b}, c’est ${iteree(a, b)} = ${fmt(a * b)} (et ${b} × ${a} donne le même résultat).`,
+        ? `${x} × ${y}, c’est ${x} fois ${y}, et ${a} fois ${b / 10} dizaines = ${a * (b / 10)} dizaines = ${fmt(a * b)}.`
+        : `${x} × ${y}, c’est ${x} fois ${y} : ${iteree(x, y)} = ${fmt(a * b)} (et ${y} × ${x} donne le même résultat).`,
     difficulty: clamp01(0.3 + (a * b) / 600),
   });
 };
@@ -343,7 +361,12 @@ const multQcm: ItemGen = (level, rng, ctx) => {
     return mcq(ctx, rng, `sens-${a}-${b}-${obj}`, {
       question: `${qui} a ${a} ${cont} de ${b} ${obj}. Quelle écriture permet de trouver le nombre de ${obj} ?`,
       good: `${a} × ${fmt(b)}`,
-      wrong: [`${a} + ${fmt(b)}`, `${fmt(b)} − ${a}`, `${a} × ${a}`, `${fmt(b)} + ${fmt(b)}`],
+      wrong: [
+        `${a} + ${fmt(b)}`,
+        `${fmt(b)} − ${a}`,
+        `${a} × ${a}`,
+        a === 2 ? `${a + 1} × ${fmt(b)}` : `${fmt(b)} + ${fmt(b)}`,
+      ],
       explication: `${qui} a ${a} fois ${b} ${obj} : on écrit ${a} × ${b} ${obj}.`,
       difficulty: 0.4,
     });
@@ -355,7 +378,7 @@ const multQcm: ItemGen = (level, rng, ctx) => {
       `${a} + ${fmt(b)}`,
       `${a} × ${a}`,
       `${fmt(b)} + ${a}`,
-      a === b ? `${a} + ${a}` : `${fmt(b)} × ${fmt(b)}`,
+      a === b ? `${a} × ${a + 1}` : `${fmt(b)} × ${fmt(b)}`,
     ],
     explication: `On peut changer l’ordre dans une multiplication : ${a} × ${b} = ${b} × ${a}.`,
     difficulty: 0.35,

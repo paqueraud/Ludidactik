@@ -150,8 +150,7 @@ const longConvertir: ItemGen = (level, rng, ctx) => {
     },
     () => ({ p: '1 m = … dm', a: 10, u: 'dm', e: '1 mètre, c’est 10 décimètres (1 dm = 10 cm).', d: 0.6 }),
   ];
-  const liste =
-    level === 'facile' ? formes.slice(0, 2) : level === 'normal' ? formes : [...formes.slice(2), ...loin];
+  const liste = level === 'facile' ? formes.slice(0, 2) : level === 'normal' ? formes : loin;
   const c = rng.pick(liste)();
   return numeric(ctx, `conv-${c.p}`, {
     prompt: c.p,
@@ -231,7 +230,10 @@ const longQcm: ItemGen = (level, rng, ctx) => {
     good: s,
     wrong: [],
     fixedOrder: ['<', '=', '>'],
-    explication: `On écrit tout en centimètres : ${a} cm ${s} ${b} cm (1 m = 100 cm).`,
+    explication:
+      gauche.includes(' m') || droite.includes(' m')
+        ? `On écrit tout en centimètres : ${a} cm ${s} ${b} cm (1 m = 100 cm).`
+        : `On compare les nombres de centimètres : ${a} cm ${s} ${b} cm.`,
     difficulty: level === 'facile' ? 0.25 : 0.6,
     meta: { gauche, droite },
   });
@@ -306,10 +308,13 @@ const massesBalance: ItemGen = (level, rng, ctx) => {
     const [emoji, nom] = objet;
     return numeric(ctx, `balance-${nom}-${masses.join('+')}`, {
       prompt: `La balance est en équilibre : ${nom} est sur un plateau, et sur l’autre il y a ${masses.map((m) => `${m} g`).join(' + ')}. Combien pèse ${nom} ?`,
-      spoken: `La balance est en équilibre : ${nom} est sur un plateau, et sur l’autre il y a ${masses.map((m) => `${m} grammes`).join(' plus ')}. Combien pèse ${nom} ?`,
+      spoken: `La balance est en équilibre : ${nom} est sur un plateau, et sur l’autre il y a ${masses.map((m) => `${m} gramme${m > 1 ? 's' : ''}`).join(' plus ')}. Combien pèse ${nom} ?`,
       answer: total,
       unit: 'g',
-      explication: `La balance est en équilibre, donc ${nom} pèse autant que les masses : ${masses.join(' + ')} = ${total} g.`,
+      explication:
+        masses.length > 1
+          ? `La balance est en équilibre, donc ${nom} pèse autant que les masses : ${masses.join(' + ')} = ${total} g.`
+          : `La balance est en équilibre, donc ${nom} pèse autant que la masse : ${total} g.`,
       difficulty: clamp01(0.15 + masses.length * 0.08),
       meta: { balance: { masses, unite: 'g', objet: emoji } },
     });
@@ -372,7 +377,7 @@ const massesBalance: ItemGen = (level, rng, ctx) => {
       };
     },
   ];
-  const c = rng.pick(level === 'plus_loin' ? [...normal, ...loin] : normal)();
+  const c = rng.pick(level === 'plus_loin' ? loin : normal)();
   return numeric(ctx, `conv-${c.p}`, {
     prompt: c.p,
     spoken: dire(c.p),
@@ -387,8 +392,9 @@ const ESTIM_MASSES: [string, string, string[], Level][] = [
   ['Un paquet de sucre pèse…', '1 kg', ['1 g', '100 kg'], 'facile'],
   ['Un sachet de levure pèse environ…', '10 g', ['10 kg', '1 kg'], 'normal'],
   ['Une pomme pèse environ…', '150 g', ['150 kg', '15 kg'], 'facile'],
-  ['Un enfant de CE1 pèse environ…', '25 kg', ['25 g', '250 kg'], 'facile'],
-  ['Une plume pèse environ…', '1 g', ['1 kg', '100 g'], 'normal'],
+  ['Un cartable rempli pèse environ…', '3 kg', ['3 g', '300 kg'], 'facile'],
+  ['Un trombone pèse environ…', '1 g', ['1 kg', '100 g'], 'normal'],
+  ['Un chien de taille moyenne pèse environ…', '20 kg', ['20 g', '200 kg'], 'normal'],
   ['Un vélo pèse environ…', '12 kg', ['12 g', '120 kg'], 'normal'],
   ['Une voiture pèse environ…', '1 000 kg', ['1 000 g', '10 kg'], 'plus_loin'],
 ];
@@ -401,7 +407,9 @@ const massesQcm: ItemGen = (level, rng, ctx) => {
       question: q,
       good,
       wrong,
-      explication: `${q.replace(/ (environ)?…$/, '')} ${good} : un paquet de sucre (1 kg) sert de repère.`,
+      explication: /sucre/.test(q)
+        ? 'Un paquet de sucre pèse 1 kg : c’est une masse de référence à retenir.'
+        : `${q.replace(/ (environ)?…$/, '')} environ ${good} ; compare avec un paquet de sucre, qui pèse 1 kg.`,
       difficulty: 0.35,
     });
   }
@@ -521,7 +529,7 @@ const monnaieMoney: ItemGen = (level, rng, ctx) => {
   const optimal = level === 'plus_loin';
   return make(ctx, 'money', `rendre-${prix}-${donne}`, {
     prompt: `Le client achète pour ${euros(prix)} et donne ${euros(donne)}. Rends la monnaie${optimal ? ' avec le moins de pièces et de billets possible' : ''}.`,
-    spoken: `Le client achète pour ${eurosDits(prix)} et donne ${eurosDits(donne)}. Rends la monnaie.`,
+    spoken: `Le client achète pour ${eurosDits(prix)} et donne ${eurosDits(donne)}. Rends la monnaie${optimal ? ' avec le moins de pièces et de billets possible' : ''}.`,
     task: 'rendre',
     priceCents: prix,
     givenCents: donne,
@@ -598,7 +606,34 @@ const monnaieNumeric: ItemGen = (level, rng, ctx) => {
       };
     },
   ];
-  const liste = level === 'facile' ? formes : [...formes, ...normal];
+  const loin: (() => C)[] = [
+    () => {
+      const b = rng.int(1, 4);
+      const k = rng.int(0, 4) * 2 + 1;
+      return {
+        p: `${b} billet${b > 1 ? 's' : ''} de 10 € et ${k} pièce${k > 1 ? 's' : ''} de 5 centimes, ça fait … €`,
+        a: b * 10 + (k * 5) / 100,
+        u: '€',
+        e: `${b} × 10 € = ${b * 10} € et ${k} × 5 c = ${k * 5} c, donc ${euros(b * 1000 + k * 5)}.`,
+        d: 0.8,
+      };
+    },
+    () => {
+      const c = rng.int(2, 9) * 100 + rng.int(1, 9);
+      return {
+        p: `${c} centimes = … €`,
+        a: c / 100,
+        u: '€',
+        e: `${c} c = ${Math.floor(c / 100)} € et ${c % 100} c = ${euros(c)}.`,
+        d: 0.8,
+      };
+    },
+  ];
+  const liste = parNiv(level, {
+    facile: formes,
+    normal: [...formes, ...normal],
+    plus_loin: [...normal, ...loin],
+  });
   const c = rng.pick(liste)();
   return numeric(ctx, `conv-${c.p}`, {
     prompt: c.p,
@@ -691,7 +726,8 @@ const AIGUILLE: Record<number, string> = { 0: 'sur le 12', 15: 'sur le 3', 30: '
 
 function tirerHeure(level: Level, rng: Rng): [number, number, boolean] {
   const apresMidi = level !== 'facile' && rng.chance(0.4);
-  const h = rng.int(1, 11) + (apresMidi ? 12 : 0);
+  // « L'après-midi » : de 13 h à 18 h (après, c'est le soir)
+  const h = apresMidi ? rng.int(13, 18) : rng.int(1, 11);
   const m = parNiv(level, { facile: 0, normal: rng.pick([0, 15, 30, 45]), plus_loin: rng.int(0, 11) * 5 });
   return [h, m, apresMidi];
 }
@@ -915,14 +951,26 @@ const tempsQcm: ItemGen = (level, rng, ctx) => {
     ['1 h 30 min', 90, '100 min', 100],
     ['2 demi-heures', 60, '1 h', 60],
   ];
-  const [a, va, b, vb] = rng.pick(cas);
+  const casLoin: [string, number, string, number][] = [
+    ['1 h 15 min', 75, '80 min', 80],
+    ['100 min', 100, '1 h 30 min', 90],
+    ['3 h', 180, '170 min', 170],
+    ['1 h 45 min', 105, '110 min', 110],
+    ['4 quarts d’heure', 60, '65 min', 65],
+  ];
+  const [a, va, b, vb] = rng.pick(level === 'plus_loin' ? casLoin : cas);
   const good = va === vb ? 'C’est pareil' : va > vb ? a : b;
   return mcq(ctx, rng, `duree-${a}-${b}`, {
     question: `Qu’est-ce qui dure le plus longtemps : ${a} ou ${b} ?`,
     good,
     wrong: [a, b, 'C’est pareil'].filter((x) => x !== good),
     fixedOrder: [a, b, 'C’est pareil'],
-    explication: `${a} = ${va} min et ${b} = ${vb} min (1 h = 60 min).`,
+    explication: `En minutes : ${[
+      [a, va],
+      [b, vb],
+    ]
+      .map(([t, v]) => (t === `${v} min` ? t : `${t} = ${v} min`))
+      .join(' et ')} (1 h = 60 min).`,
     difficulty: 0.6,
   });
 };

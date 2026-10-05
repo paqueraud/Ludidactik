@@ -232,8 +232,7 @@ const figuresClasser: ItemGen = (level, rng, ctx) => {
     prompt: 'Range chaque figure selon son nombre de côtés.',
     categories: cats,
     elements: figs.map((f) => ({ label: f.nom, category: cats.indexOf(f.cotes), image: f.image })),
-    explication:
-      'On compte les côtés : 3 pour un triangle, 4 pour un carré, un rectangle (ou un losange), aucun pour un cercle.',
+    explication: `On compte les côtés : 3 pour un triangle, 4 pour un carré ou un rectangle${figs.some((f) => f.id === 'losange') ? ' (et pour un losange)' : ''}, aucun pour un cercle.`,
     difficulty: level === 'facile' ? 0.25 : 0.45,
   });
 };
@@ -499,7 +498,7 @@ const tracerShape: ItemGen = (level, rng, ctx) => {
       meta: { tracer: { figure: f.id, sommets: f.s, instrument: 'regle', support: 'quadrillage' } },
     });
   }
-  const forme = rng.int(0, 3);
+  const forme = level === 'plus_loin' ? rng.pick([2, 3]) : rng.int(0, 3);
   if (forme === 0) {
     const l = rng.int(3, 15);
     return make(ctx, 'geometry_shape', `segment-${l}`, {
@@ -611,9 +610,8 @@ const ETAPES: { titre: string; etapes: string[]; niv: Level }[] = [
     titre: 'Remets dans l’ordre les étapes pour tracer un cercle.',
     etapes: [
       'Je marque le centre.',
-      'J’écarte le compas de la bonne longueur.',
-      'Je pique la pointe sur le centre.',
-      'Je tourne le compas sans appuyer trop fort.',
+      'J’écarte le compas de la bonne longueur, en m’aidant de la règle.',
+      'Je pique la pointe sur le centre et je tourne le compas sans appuyer trop fort.',
     ],
     niv: 'normal',
   },
@@ -621,9 +619,8 @@ const ETAPES: { titre: string; etapes: string[]; niv: Level }[] = [
     titre: 'Remets dans l’ordre les étapes pour tracer un angle droit.',
     etapes: [
       'Je trace un premier trait à la règle.',
-      'Je place le coin de l’équerre sur le bout du trait.',
-      'Je colle un bord de l’équerre contre le trait.',
-      'Je trace le long de l’autre bord.',
+      'Je place l’équerre : son coin sur le bout du trait et un bord contre le trait.',
+      'Je trace le long de l’autre bord de l’équerre.',
     ],
     niv: 'normal',
   },
@@ -664,7 +661,7 @@ const tracerNumeric: ItemGen = (level, rng, ctx) => {
     const l = parNiv(level, {
       facile: rng.int(1, 5) * 2,
       normal: rng.int(2, 10) * 2,
-      plus_loin: rng.int(3, 15) * 2 + (rng.chance(0.5) ? 1 : 0),
+      plus_loin: rng.int(8, 15) * 2,
     });
     const demi = l / 2;
     return numeric(ctx, `milieu-${l}`, {

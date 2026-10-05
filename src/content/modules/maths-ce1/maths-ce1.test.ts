@@ -169,6 +169,12 @@ describe('maths CE1 — validité de tous les items', () => {
             if (vus.has(item.id)) expect(vus.get(item.id), item.id).toBe(k);
             vus.set(item.id, k);
           }
+          // Vrai / faux équilibrés : la réponse ne doit pas se deviner
+          if (kind === 'true_false') {
+            const vrais = items.filter((x) => x.kind === 'true_false' && x.answer).length / items.length;
+            expect(vrais, 'part de « vrai »').toBeGreaterThan(0.25);
+            expect(vrais, 'part de « vrai »').toBeLessThan(0.75);
+          }
           // De la variété : pas toujours le même item
           expect(new Set(items.map(cle)).size, 'variété').toBeGreaterThan(1);
         });
