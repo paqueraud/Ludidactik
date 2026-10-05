@@ -227,7 +227,8 @@ const nonUnitLigne: ItemGen = (level, rng, ctx) => {
 };
 
 const nonUnitTrou: ItemGen = (level, rng, ctx) => {
-  let [n, d] = fracNonUnit(level, rng);
+  const [n0, d] = fracNonUnit(level, rng);
+  let n = n0;
   if (n > d) n = d; // les égalités ci-dessous restent dans les fractions ≤ 1
   const forme = rng.int(0, 4);
   const unite = frac(1, d);
@@ -273,7 +274,8 @@ const nonUnitTrou: ItemGen = (level, rng, ctx) => {
 };
 
 const nonUnitQcm: ItemGen = (level, rng, ctx) => {
-  let [n, d] = fracNonUnit(level, rng);
+  const [n0, d] = fracNonUnit(level, rng);
+  let n = n0;
   const forme = rng.int(0, 2);
   if (forme === 0)
     return mcq(ctx, rng, `lire-${n}-${d}`, {

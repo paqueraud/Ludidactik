@@ -309,7 +309,8 @@ const multPaires: ItemGen = (level, rng, ctx) => {
   const pairs: { left: string; right: string }[] = [];
   let guard = 0;
   while (pairs.length < (level === 'facile' ? 3 : 4) && guard++ < 60) {
-    let [a, b] = facteurs(level, rng);
+    const [a0, b] = facteurs(level, rng);
+    let a = a0;
     if (a > 5) a = rng.int(2, 5);
     const k = `${a}×${b}`;
     if (vus.has(k) || vus.has(`${b}×${a}`)) continue;
