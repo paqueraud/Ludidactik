@@ -117,7 +117,7 @@ concernées. Un jeu doit **ignorer** proprement un item qui n'a pas le `meta` at
 | Lettre muette — Chasse | `fill_blank` | `meta.famille = 'chanter'` (mot de la même famille qui fait entendre la lettre) |
 | Conjugaison — Forge | `fill_blank` | champ `conjugaison = { sujet, verbe, temps }` |
 | Homophones — Pêche | `fill_blank` | `choices` (a/à…) + `hint` (substitution) |
-| Accords — Train | `fill_blank` | `choices` (formes accordées) ; `meta.groupe` = mots du GN |
+| Accords — Train | `fill_blank` | `choices` (formes accordées) ; `meta.groupe` = mots du GN ; `meta.lemme` = mot de base à accorder (affiché en Plus loin) |
 | Fonctions — Labo des fonctions | `classification` | `meta.phrase` ; `elements` = groupes de la phrase, `categories` = fonctions |
 | Ponctuation — Feu tricolore | `mcq` | `choices = ['.', '?', '!']`, `meta.phrase` (sans ponctuation finale) ; `spoken` = phrase avec l'intonation |
 | Compréhension — Détective du texte | `mcq` | `meta.texte`, `meta.titre`, `meta.preuve` (phrase qui justifie) |
@@ -125,3 +125,4 @@ concernées. Un jeu doit **ignorer** proprement un item qui n'a pas le `meta` at
 | Anglais — Jacques a dit | `pairing` (mot ↔ emoji), `mcq` / `oral_answer` avec `lang: 'en-GB'` | |
 | Frise — Machine à remonter le temps | `ordering` | `mode: 'chrono'`, `labels` = dates |
 | Cartes — Tour de France | `map_point` | `map` ∈ `france-regions`, `france-fleuves`, `france-massifs`, `europe`, `monde` |
+| Mots de dictée (mots croisés, bonhomme de neige) | `spelling_word` | `definition` : courte définition d'enfant, fortement recommandée |
