@@ -13,8 +13,11 @@ for (const niveau of ['facile', 'normal']) {
     const erreurs = surveillerErreurs(page);
     await page.goto(`/labo/attrape-bulles?niveau=${niveau}`);
     await expect(page.getByRole('button', { name: /^Bulle A/ })).toBeAttached();
-    await page.keyboard.press('a');
-    await expect(page.getByText(/\+10|Presque/).first()).toBeVisible();
+    // la bulle A doit d'abord sortir de l'eau (entrer dans l'écran) pour être attrapée
+    await expect(async () => {
+      await page.keyboard.press('a');
+      await expect(page.getByText(/\+10|Presque/).first()).toBeVisible({ timeout: 400 });
+    }).toPass({ timeout: 15_000 });
     expect(erreurs).toEqual([]);
   });
 }

@@ -6,7 +6,7 @@
  * Facile : tir seulement, toutes les étiquettes, 2e tir avec indice. Normal : tir et lecture alternés,
  * 2e tir avec indice. Plus loin : bornes seules, pas de petites graduations, un seul tir.
  */
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, SpeakButton } from '@/components/ui';
 import type { Level, NumberLineItem } from '@/content/schemas';
@@ -262,199 +262,212 @@ export default function BatailleNavale({
       : `Le bateau pirate se cache à ${item.display}.`;
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6">
-      <Bandeau>
-        <Hud>
-          🏴‍☠️ {Math.min(manche, N)} / {N}
-        </Hud>
-        <Hud>🎯 {stats.correct}</Hud>
-        {mode === 'tir' && (
+    <MotionConfig reducedMotion="user">
+      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6">
+        <Bandeau>
           <Hud>
-            {Array.from({ length: TIRS[level] }, (_, i) => (
-              <span
-                key={i}
-                className={i < TIRS[level] - tirs.current ? '' : 'opacity-25 grayscale'}
-                aria-hidden
-              >
-                🎨
-              </span>
-            ))}
-            <span className="sr-only">{TIRS[level] - tirs.current} tirs restants</span>
+            🏴‍☠️ {Math.min(manche, N)} / {N}
           </Hud>
-        )}
-      </Bandeau>
-
-      <div className="carte flex items-center justify-center gap-3 p-3">
-        <SpeakButton
-          text={consigne.replace(item.display, lireValeur(item.display))}
-          label="Écouter la consigne"
-        />
-        <p className="text-center font-titre text-2xl font-extrabold sm:text-3xl" aria-live="polite">
-          {consigne}
-        </p>
-      </div>
-
-      <section className="overflow-hidden rounded-card border-4 border-white shadow-soft" aria-label="La mer">
-        <svg
-          ref={svg}
-          viewBox="0 0 1000 460"
-          className={`block h-auto w-full touch-none select-none ${peutViser ? 'cursor-crosshair' : ''}`}
-          role="img"
-          aria-label={`Ligne graduée de ${ecrire(item, item.min)} à ${ecrire(item, item.max)}`}
-          {...saisie}
-        >
-          <defs>
-            <linearGradient id="bn-mer" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#5CC8F0" />
-              <stop offset="1" stopColor="#1F78B8" />
-            </linearGradient>
-            <linearGradient id="bn-ciel" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#BDEBFF" />
-              <stop offset="1" stopColor="#FFF4DA" />
-            </linearGradient>
-          </defs>
-          <rect width="1000" height="200" fill="url(#bn-ciel)" />
-          <circle cx="880" cy="70" r="40" fill="#FFD45C" />
-          <rect y="180" width="1000" height="280" fill="url(#bn-mer)" />
-          {[230, 280, 430].map((y, i) => (
-            <path
-              key={y}
-              d={`M0 ${y} q 40 -10 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0`}
-              stroke="#fff"
-              strokeWidth="3"
-              fill="none"
-              opacity={0.25 - i * 0.05}
-            />
-          ))}
-          {/* île du canon */}
-          <ellipse cx={CANON.x} cy={CANON.y + 52} rx="80" ry="22" fill="#F4D99B" />
-          <path d={`M${CANON.x - 40} ${CANON.y + 40} q 40 -60 90 0 z`} fill="#7BC96F" />
-          <g transform={`translate(${CANON.x} ${CANON.y + 30})`}>
-            <Canon />
-          </g>
-
-          {/* ligne de bouées graduée */}
-          <DroiteSvg
-            item={item}
-            level={level}
-            y={LIGNE}
-            couleur="#FFFFFF"
-            sousGraduations={level !== 'plus_loin'}
-          />
-
-          {/* bateau pirate */}
-          <AnimatePresence>
-            {bateauVisible && (
-              <motion.g initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                <g transform={`translate(${xBateau} ${LIGNE - 24})`}>
-                  <BateauPirate peint={etat.type === 'touche' && mode === 'tir'} couleur={peinture} />
-                </g>
-              </motion.g>
-            )}
-          </AnimatePresence>
-          {/* brouillard qui cache le bateau */}
-          {!bateauVisible && (
-            <g opacity="0.92">
-              {Array.from({ length: 9 }, (_, i) => (
-                <ellipse
+          <Hud>🎯 {stats.correct}</Hud>
+          {mode === 'tir' && (
+            <Hud>
+              {Array.from({ length: TIRS[level] }, (_, i) => (
+                <span
                   key={i}
-                  cx={60 + i * 112}
-                  cy={LIGNE - 90 + (i % 2) * 18}
-                  rx="90"
-                  ry="44"
-                  fill="#EEF4FA"
-                />
+                  className={i < TIRS[level] - tirs.current ? '' : 'opacity-25 grayscale'}
+                  aria-hidden
+                >
+                  🎨
+                </span>
               ))}
-              <text
-                x="500"
-                y={LIGNE - 84}
-                textAnchor="middle"
-                fontSize="30"
-                fontWeight="800"
-                fill="#8BA0B8"
-                fontFamily="Baloo 2, sans-serif"
-              >
-                ~ brouillard ~
-              </text>
-            </g>
+              <span className="sr-only">{TIRS[level] - tirs.current} tirs restants</span>
+            </Hud>
           )}
+        </Bandeau>
 
-          {/* impacts dans l'eau */}
-          {impacts.map((v, i) => (
-            <g key={i} transform={`translate(${versX(item, v)} ${LIGNE - 22})`}>
-              <Gerbe />
-            </g>
-          ))}
-
-          {/* viseur */}
-          {mode === 'tir' && xVise !== null && etat.type !== 'touche' && etat.type !== 'perdu' && (
-            <g transform={`translate(${xVise} ${LIGNE})`}>
-              <line x1="0" y1="-150" x2="0" y2="-24" stroke="#FF7A6B" strokeWidth="3" strokeDasharray="8 6" />
-              <circle cx="0" cy="0" r="20" fill="none" stroke="#FF7A6B" strokeWidth="5" />
-              <circle cx="0" cy="0" r="5" fill="#FF7A6B" />
-            </g>
-          )}
-          {/* boulet de peinture */}
-          {boulet && (
-            <circle cx={boulet.x} cy={boulet.y} r="14" fill={peinture} stroke="#fff" strokeWidth="4" />
-          )}
-        </svg>
-      </section>
-
-      <div className="carte flex flex-col items-center gap-3 p-4">
-        {mode === 'tir' && (etat.type === 'vise' || etat.type === 'rate' || etat.type === 'vol') && (
-          <>
-            {indice && (
-              <p className="font-titre text-xl font-extrabold text-coral-dark" role="status">
-                Raté de peu ! {indice}
-              </p>
-            )}
-            {level === 'facile' && (
-              <p className="text-center font-bold text-ink-soft">
-                {vise !== null && (
-                  <>
-                    Ton viseur : <span className="font-titre text-xl text-ink">{ecrire(item, vise)}</span>{' '}
-                    ·{' '}
-                  </>
-                )}
-                Chaque petit trait vaut {ecrire({ ...item, display: '' }, sousPas(item))}.
-              </p>
-            )}
-            <p className="text-center text-sm font-bold text-ink-soft">
-              Touche la ligne pour viser, ou utilise les flèches ← → (Maj pour aller plus vite).
-            </p>
-            <Button
-              variant="coral"
-              size="lg"
-              onClick={feu}
-              disabled={vise === null || etat.type === 'vol' || paused}
-            >
-              🎨 Feu !
-            </Button>
-          </>
-        )}
-        {mode === 'lecture' && lecture && etat.type !== 'touche' && (
-          <ChoiceGrid
-            choices={lecture.choix}
-            onPick={lire}
-            reveal={etat.type === 'perdu' ? { correct: lecture.bonne, chosen: choisi } : null}
-            disabled={paused || verrou.current}
+        <div className="carte flex items-center justify-center gap-3 p-3">
+          <SpeakButton
+            text={consigne.replace(item.display, lireValeur(item.display))}
+            label="Écouter la consigne"
           />
-        )}
-        {etat.type === 'touche' && (
-          <p className="text-center font-titre text-2xl font-extrabold text-grass-dark" role="status">
-            {message}
+          <p className="text-center font-titre text-2xl font-extrabold sm:text-3xl" aria-live="polite">
+            {consigne}
           </p>
-        )}
-        <Correction
-          ouvert={etat.type === 'perdu'}
-          titre={mode === 'tir' ? 'Plouf, à côté ! Presque !' : 'Presque !'}
-          bonne={item.display}
-          aDire={`Le bateau était à ${lireValeur(item.display)}. ${item.explication}`}
-          explication={item.explication}
-          onContinuer={suivant}
-        />
+        </div>
+
+        <section
+          className="overflow-hidden rounded-card border-4 border-white shadow-soft"
+          aria-label="La mer"
+        >
+          <svg
+            ref={svg}
+            viewBox="0 0 1000 460"
+            className={`block h-auto w-full touch-none select-none ${peutViser ? 'cursor-crosshair' : ''}`}
+            role="img"
+            aria-label={`Ligne graduée de ${ecrire(item, item.min)} à ${ecrire(item, item.max)}`}
+            {...saisie}
+          >
+            <defs>
+              <linearGradient id="bn-mer" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#5CC8F0" />
+                <stop offset="1" stopColor="#1F78B8" />
+              </linearGradient>
+              <linearGradient id="bn-ciel" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#BDEBFF" />
+                <stop offset="1" stopColor="#FFF4DA" />
+              </linearGradient>
+            </defs>
+            <rect width="1000" height="200" fill="url(#bn-ciel)" />
+            <circle cx="880" cy="70" r="40" fill="#FFD45C" />
+            <rect y="180" width="1000" height="280" fill="url(#bn-mer)" />
+            {[230, 280, 430].map((y, i) => (
+              <path
+                key={y}
+                d={`M0 ${y} q 40 -10 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0 t 80 0`}
+                stroke="#fff"
+                strokeWidth="3"
+                fill="none"
+                opacity={0.25 - i * 0.05}
+              />
+            ))}
+            {/* île du canon */}
+            <ellipse cx={CANON.x} cy={CANON.y + 52} rx="80" ry="22" fill="#F4D99B" />
+            <path d={`M${CANON.x - 40} ${CANON.y + 40} q 40 -60 90 0 z`} fill="#7BC96F" />
+            <g transform={`translate(${CANON.x} ${CANON.y + 30})`}>
+              <Canon />
+            </g>
+
+            {/* ligne de bouées graduée */}
+            <DroiteSvg
+              item={item}
+              level={level}
+              y={LIGNE}
+              couleur="#FFFFFF"
+              sousGraduations={level !== 'plus_loin'}
+            />
+
+            {/* bateau pirate */}
+            <AnimatePresence>
+              {bateauVisible && (
+                <motion.g initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                  <g transform={`translate(${xBateau} ${LIGNE - 24})`}>
+                    <BateauPirate peint={etat.type === 'touche' && mode === 'tir'} couleur={peinture} />
+                  </g>
+                </motion.g>
+              )}
+            </AnimatePresence>
+            {/* brouillard qui cache le bateau */}
+            {!bateauVisible && (
+              <g opacity="0.92">
+                {Array.from({ length: 9 }, (_, i) => (
+                  <ellipse
+                    key={i}
+                    cx={60 + i * 112}
+                    cy={LIGNE - 90 + (i % 2) * 18}
+                    rx="90"
+                    ry="44"
+                    fill="#EEF4FA"
+                  />
+                ))}
+                <text
+                  x="500"
+                  y={LIGNE - 84}
+                  textAnchor="middle"
+                  fontSize="30"
+                  fontWeight="800"
+                  fill="#8BA0B8"
+                  fontFamily="Baloo 2, sans-serif"
+                >
+                  ~ brouillard ~
+                </text>
+              </g>
+            )}
+
+            {/* impacts dans l'eau */}
+            {impacts.map((v, i) => (
+              <g key={i} transform={`translate(${versX(item, v)} ${LIGNE - 22})`}>
+                <Gerbe />
+              </g>
+            ))}
+
+            {/* viseur */}
+            {mode === 'tir' && xVise !== null && etat.type !== 'touche' && etat.type !== 'perdu' && (
+              <g transform={`translate(${xVise} ${LIGNE})`}>
+                <line
+                  x1="0"
+                  y1="-150"
+                  x2="0"
+                  y2="-24"
+                  stroke="#FF7A6B"
+                  strokeWidth="3"
+                  strokeDasharray="8 6"
+                />
+                <circle cx="0" cy="0" r="20" fill="none" stroke="#FF7A6B" strokeWidth="5" />
+                <circle cx="0" cy="0" r="5" fill="#FF7A6B" />
+              </g>
+            )}
+            {/* boulet de peinture */}
+            {boulet && (
+              <circle cx={boulet.x} cy={boulet.y} r="14" fill={peinture} stroke="#fff" strokeWidth="4" />
+            )}
+          </svg>
+        </section>
+
+        <div className="carte flex flex-col items-center gap-3 p-4">
+          {mode === 'tir' && (etat.type === 'vise' || etat.type === 'rate' || etat.type === 'vol') && (
+            <>
+              {indice && (
+                <p className="font-titre text-xl font-extrabold text-coral-dark" role="status">
+                  Raté de peu ! {indice}
+                </p>
+              )}
+              {level === 'facile' && (
+                <p className="text-center font-bold text-ink-soft">
+                  {vise !== null && (
+                    <>
+                      Ton viseur : <span className="font-titre text-xl text-ink">{ecrire(item, vise)}</span>{' '}
+                      ·{' '}
+                    </>
+                  )}
+                  Chaque petit trait vaut {ecrire({ ...item, display: '' }, sousPas(item))}.
+                </p>
+              )}
+              <p className="text-center text-sm font-bold text-ink-soft">
+                Touche la ligne pour viser, ou utilise les flèches ← → (Maj pour aller plus vite).
+              </p>
+              <Button
+                variant="coral"
+                size="lg"
+                onClick={feu}
+                disabled={vise === null || etat.type === 'vol' || paused}
+              >
+                🎨 Feu !
+              </Button>
+            </>
+          )}
+          {mode === 'lecture' && lecture && etat.type !== 'touche' && (
+            <ChoiceGrid
+              choices={lecture.choix}
+              onPick={lire}
+              reveal={etat.type === 'perdu' ? { correct: lecture.bonne, chosen: choisi } : null}
+              disabled={paused || verrou.current}
+            />
+          )}
+          {etat.type === 'touche' && (
+            <p className="text-center font-titre text-2xl font-extrabold text-grass-dark" role="status">
+              {message}
+            </p>
+          )}
+          <Correction
+            ouvert={etat.type === 'perdu'}
+            titre={mode === 'tir' ? 'Plouf, à côté ! Presque !' : 'Presque !'}
+            bonne={item.display}
+            aDire={`Le bateau était à ${lireValeur(item.display)}. ${item.explication}`}
+            explication={item.explication}
+            onContinuer={suivant}
+          />
+        </div>
       </div>
-    </div>
+    </MotionConfig>
   );
 }

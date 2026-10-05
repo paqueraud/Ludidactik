@@ -8,7 +8,7 @@
  * Facile : nombre de pièces et total affichés. Normal : nombre de pièces seulement.
  * Plus loin : rien d'affiché, et le chantier commence avec trop de petites pièces (il faut échanger).
  */
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { Minus, Plus } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, SpeakButton } from '@/components/ui';
@@ -224,180 +224,183 @@ export default function Batisseur({
       : `Construis : ${item.prompt.replace(/\s*=\s*(\?|…)\s*$/, '')}`;
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6">
-      <Bandeau>
-        <Hud>
-          🧱 {Math.min(manche, N)} / {N}
-        </Hud>
-        <Hud>✅ {stats.correct}</Hud>
-      </Bandeau>
+    <MotionConfig reducedMotion="user">
+      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6">
+        <Bandeau>
+          <Hud>
+            🧱 {Math.min(manche, N)} / {N}
+          </Hud>
+          <Hud>✅ {stats.correct}</Hud>
+        </Bandeau>
 
-      <div className="carte flex flex-col items-center gap-2 p-4">
-        <div className="flex items-center justify-center gap-3">
-          <SpeakButton text={item.spoken} label="Écouter le nombre" />
-          <p className="text-center font-titre text-2xl font-extrabold sm:text-4xl" aria-live="polite">
-            {consigne}
-          </p>
+        <div className="carte flex flex-col items-center gap-2 p-4">
+          <div className="flex items-center justify-center gap-3">
+            <SpeakButton text={item.spoken} label="Écouter le nombre" />
+            <p className="text-center font-titre text-2xl font-extrabold sm:text-4xl" aria-live="polite">
+              {consigne}
+            </p>
+          </div>
+          {level === 'facile' && (
+            <p className="font-bold text-ink-soft" aria-live="polite">
+              Ta construction vaut :{' '}
+              <span className="font-titre text-2xl text-ink">{formatNumber(total)}</span>
+            </p>
+          )}
         </div>
-        {level === 'facile' && (
-          <p className="font-bold text-ink-soft" aria-live="polite">
-            Ta construction vaut : <span className="font-titre text-2xl text-ink">{formatNumber(total)}</span>
-          </p>
-        )}
-      </div>
 
-      <section
-        className="rounded-card border-4 border-white p-2 shadow-soft sm:p-3"
-        aria-label="Le chantier"
-        style={{ background: 'repeating-linear-gradient(45deg,#FFF3D6 0 18px,#FFEBC2 18px 36px)' }}
-      >
-        <div className="flex flex-col gap-2">
-          {rangs.map((r, i) => {
-            const k = r - lo;
-            const n = comptes[r] ?? 0;
-            const choisie = i === ligne;
-            return (
-              <div
-                key={r}
-                className={`grid grid-cols-[auto_1fr] items-center gap-2 rounded-2xl bg-white/85 p-2 sm:grid-cols-[150px_1fr_auto] ${
-                  choisie ? 'ring-4 ring-sky' : ''
-                }`}
-                onClick={() => setLigne(i)}
-              >
-                {/* réserve : pièce à glisser */}
-                <div className="flex items-center gap-2">
-                  <motion.div
-                    drag={actif}
-                    dragSnapToOrigin
-                    dragMomentum={false}
-                    whileDrag={{ scale: 1.15, zIndex: 50 }}
-                    onDragEnd={(_, info) =>
-                      deposer(r, info.point.x - window.scrollX, info.point.y - window.scrollY)
-                    }
-                    className="flex h-14 w-14 shrink-0 cursor-grab touch-none items-center justify-center rounded-xl bg-cream active:cursor-grabbing"
-                    title="Glisse-moi sur la ligne"
-                    aria-hidden
-                  >
-                    <Piece
-                      k={k}
-                      etiquette={valeurPiece(r)}
-                      taille={k === 1 ? 0.8 : k >= 2 && k <= 3 ? 0.85 : 1.1}
-                    />
-                  </motion.div>
-                  <div className="min-w-0 leading-tight">
-                    <p className="font-titre text-lg font-bold">{nomRang(r, 2)}</p>
-                    <p className="text-sm text-ink-soft">1 pièce = {valeurPiece(r)}</p>
-                  </div>
-                </div>
-
-                {/* pile de pièces */}
+        <section
+          className="rounded-card border-4 border-white p-2 shadow-soft sm:p-3"
+          aria-label="Le chantier"
+          style={{ background: 'repeating-linear-gradient(45deg,#FFF3D6 0 18px,#FFEBC2 18px 36px)' }}
+        >
+          <div className="flex flex-col gap-2">
+            {rangs.map((r, i) => {
+              const k = r - lo;
+              const n = comptes[r] ?? 0;
+              const choisie = i === ligne;
+              return (
                 <div
-                  ref={(el) => {
-                    zones.current[r] = el;
-                  }}
-                  className="col-span-2 flex min-h-[64px] flex-wrap items-end gap-1 rounded-xl border-2 border-dashed border-ink/15 p-1 sm:col-span-1"
-                  aria-label={`${level === 'plus_loin' ? 'des' : n} ${nomRang(r, n)}`}
+                  key={r}
+                  className={`grid grid-cols-[auto_1fr] items-center gap-2 rounded-2xl bg-white/85 p-2 sm:grid-cols-[150px_1fr_auto] ${
+                    choisie ? 'ring-4 ring-sky' : ''
+                  }`}
+                  onClick={() => setLigne(i)}
                 >
-                  <AnimatePresence initial={false}>
-                    {Array.from({ length: n }, (_, j) => (
-                      <motion.span
-                        key={j}
-                        initial={{ scale: 0, y: echange?.vers === r ? -30 : 10 }}
-                        animate={{ scale: 1, y: 0 }}
-                        exit={{ scale: 0, y: echange?.de === r ? -30 : 10, opacity: 0 }}
-                        transition={{ type: 'spring', stiffness: 380, damping: 22 }}
-                        className="inline-flex"
-                      >
-                        <Piece k={k} etiquette={valeurPiece(r)} taille={k >= 2 && k <= 3 ? 0.75 : 1} />
-                      </motion.span>
-                    ))}
-                  </AnimatePresence>
-                </div>
+                  {/* réserve : pièce à glisser */}
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      drag={actif}
+                      dragSnapToOrigin
+                      dragMomentum={false}
+                      whileDrag={{ scale: 1.15, zIndex: 50 }}
+                      onDragEnd={(_, info) =>
+                        deposer(r, info.point.x - window.scrollX, info.point.y - window.scrollY)
+                      }
+                      className="flex h-14 w-14 shrink-0 cursor-grab touch-none items-center justify-center rounded-xl bg-cream active:cursor-grabbing"
+                      title="Glisse-moi sur la ligne"
+                      aria-hidden
+                    >
+                      <Piece
+                        k={k}
+                        etiquette={valeurPiece(r)}
+                        taille={k === 1 ? 0.8 : k >= 2 && k <= 3 ? 0.85 : 1.1}
+                      />
+                    </motion.div>
+                    <div className="min-w-0 leading-tight">
+                      <p className="font-titre text-lg font-bold">{nomRang(r, 2)}</p>
+                      <p className="text-sm text-ink-soft">1 pièce = {valeurPiece(r)}</p>
+                    </div>
+                  </div>
 
-                {/* commandes */}
-                <div className="col-span-2 flex flex-wrap items-center justify-end gap-2 sm:col-span-1">
-                  <button
-                    type="button"
-                    className="btn-3d flex h-12 w-12 items-center justify-center bg-coral/20"
-                    onClick={() => modifier(r, -1)}
-                    disabled={!actif || n === 0}
-                    aria-label={`Enlever 1 ${nomRang(r, 1)}`}
+                  {/* pile de pièces */}
+                  <div
+                    ref={(el) => {
+                      zones.current[r] = el;
+                    }}
+                    className="col-span-2 flex min-h-[64px] flex-wrap items-end gap-1 rounded-xl border-2 border-dashed border-ink/15 p-1 sm:col-span-1"
+                    aria-label={`${level === 'plus_loin' ? 'des' : n} ${nomRang(r, n)}`}
                   >
-                    <Minus aria-hidden />
-                  </button>
-                  {level !== 'plus_loin' && (
-                    <span className="w-8 text-center font-titre text-2xl font-extrabold" aria-hidden>
-                      {n}
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    className="btn-3d flex h-12 w-12 items-center justify-center bg-grass/30"
-                    onClick={() => modifier(r, 1)}
-                    disabled={!actif || n >= MAX_PIECES}
-                    aria-label={`Ajouter 1 ${nomRang(r, 1)}`}
-                  >
-                    <Plus aria-hidden />
-                  </button>
-                  {n >= 10 && rangs.includes(r + 1) && (
+                    <AnimatePresence initial={false}>
+                      {Array.from({ length: n }, (_, j) => (
+                        <motion.span
+                          key={j}
+                          initial={{ scale: 0, y: echange?.vers === r ? -30 : 10 }}
+                          animate={{ scale: 1, y: 0 }}
+                          exit={{ scale: 0, y: echange?.de === r ? -30 : 10, opacity: 0 }}
+                          transition={{ type: 'spring', stiffness: 380, damping: 22 }}
+                          className="inline-flex"
+                        >
+                          <Piece k={k} etiquette={valeurPiece(r)} taille={k >= 2 && k <= 3 ? 0.75 : 1} />
+                        </motion.span>
+                      ))}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* commandes */}
+                  <div className="col-span-2 flex flex-wrap items-center justify-end gap-2 sm:col-span-1">
                     <button
                       type="button"
-                      className="btn-3d min-h-12 bg-sun px-3 text-sm"
-                      onClick={() => echanger(r)}
-                      disabled={!actif}
+                      className="btn-3d flex h-12 w-12 items-center justify-center bg-coral/20"
+                      onClick={() => modifier(r, -1)}
+                      disabled={!actif || n === 0}
+                      aria-label={`Enlever 1 ${nomRang(r, 1)}`}
                     >
-                      10 → 1 {nomRang(r + 1, 1)}
+                      <Minus aria-hidden />
                     </button>
-                  )}
-                  {n >= 1 &&
-                    rangs.includes(r - 1) &&
-                    (comptes[r - 1] ?? 0) + 10 <= MAX_PIECES &&
-                    level !== 'facile' && (
+                    {level !== 'plus_loin' && (
+                      <span className="w-8 text-center font-titre text-2xl font-extrabold" aria-hidden>
+                        {n}
+                      </span>
+                    )}
+                    <button
+                      type="button"
+                      className="btn-3d flex h-12 w-12 items-center justify-center bg-grass/30"
+                      onClick={() => modifier(r, 1)}
+                      disabled={!actif || n >= MAX_PIECES}
+                      aria-label={`Ajouter 1 ${nomRang(r, 1)}`}
+                    >
+                      <Plus aria-hidden />
+                    </button>
+                    {n >= 10 && rangs.includes(r + 1) && (
                       <button
                         type="button"
-                        className="btn-3d min-h-12 bg-card px-3 text-sm"
-                        onClick={() => casser(r)}
+                        className="btn-3d min-h-12 bg-sun px-3 text-sm"
+                        onClick={() => echanger(r)}
                         disabled={!actif}
                       >
-                        Casser en 10
+                        10 → 1 {nomRang(r + 1, 1)}
                       </button>
                     )}
+                    {n >= 1 &&
+                      rangs.includes(r - 1) &&
+                      (comptes[r - 1] ?? 0) + 10 <= MAX_PIECES &&
+                      level !== 'facile' && (
+                        <button
+                          type="button"
+                          className="btn-3d min-h-12 bg-card px-3 text-sm"
+                          onClick={() => casser(r)}
+                          disabled={!actif}
+                        >
+                          Casser en 10
+                        </button>
+                      )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+              );
+            })}
+          </div>
+        </section>
 
-      <div className="carte flex flex-col items-center gap-3 p-4">
-        {etat === 'jeu' && (
-          <>
-            <p className="text-center text-sm font-bold text-ink-soft">
-              Glisse une pièce sur sa ligne ou utilise + et −. Au clavier : ↑ ↓ choisir la ligne, + − ajouter
-              ou enlever, E échanger, C casser, Entrée valider.
+        <div className="carte flex flex-col items-center gap-3 p-4">
+          {etat === 'jeu' && (
+            <>
+              <p className="text-center text-sm font-bold text-ink-soft">
+                Glisse une pièce sur sa ligne ou utilise + et −. Au clavier : ↑ ↓ choisir la ligne, + −
+                ajouter ou enlever, E échanger, C casser, Entrée valider.
+              </p>
+              <Button variant="grass" size="lg" onClick={valider} disabled={paused}>
+                🏗️ C’est construit !
+              </Button>
+            </>
+          )}
+          {etat === 'juste' && (
+            <p className="text-center font-titre text-2xl font-extrabold text-grass-dark" role="status">
+              {message}
             </p>
-            <Button variant="grass" size="lg" onClick={valider} disabled={paused}>
-              🏗️ C’est construit !
-            </Button>
-          </>
-        )}
-        {etat === 'juste' && (
-          <p className="text-center font-titre text-2xl font-extrabold text-grass-dark" role="status">
-            {message}
-          </p>
-        )}
-        <Correction
-          ouvert={etat === 'faux'}
-          bonne={formatNumber(item.answer)}
-          aDire={`Il fallait construire ${direNombre(item.answer)}. ${phraseDecomposition(item.answer, rangs)} ${item.explication}`}
-          explication={`${phraseDecomposition(item.answer, rangs)} ${item.explication}`}
-          onContinuer={suivant}
-        >
-          <p className="mt-1">
-            Ta construction valait <strong>{formatNumber(total)}</strong>.
-          </p>
-        </Correction>
+          )}
+          <Correction
+            ouvert={etat === 'faux'}
+            bonne={formatNumber(item.answer)}
+            aDire={`Il fallait construire ${direNombre(item.answer)}. ${phraseDecomposition(item.answer, rangs)} ${item.explication}`}
+            explication={`${phraseDecomposition(item.answer, rangs)} ${item.explication}`}
+            onContinuer={suivant}
+          >
+            <p className="mt-1">
+              Ta construction valait <strong>{formatNumber(total)}</strong>.
+            </p>
+          </Correction>
+        </div>
       </div>
-    </div>
+    </MotionConfig>
   );
 }

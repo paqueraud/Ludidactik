@@ -7,7 +7,7 @@
  * Plus loin : 5 nombres, les 4 opérations, chrono plus serré.
  * Clavier : 1-9 choisir un nombre, + - * / choisir l'opération, Retour annuler, Échap recommencer.
  */
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { RotateCcw, Undo2 } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Keypad } from '@/components/Keypads';
@@ -302,226 +302,228 @@ export default function CompteEstBon({
     `${formatNumber(e.a)} ${e.op} ${formatNumber(e.b)} = ${formatNumber(e.r)}`;
 
   return (
-    <div className="mx-auto flex max-w-4xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6">
-      <Bandeau>
-        <Hud>
-          🎯 {Math.min(manche, N)} / {N}
-        </Hud>
-        <Hud>✅ {reussies}</Hud>
-        {chrono && phase.type === 'combiner' && <BarreTemps reste={reste} />}
-      </Bandeau>
+    <MotionConfig reducedMotion="user">
+      <div className="mx-auto flex max-w-4xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6">
+        <Bandeau>
+          <Hud>
+            🎯 {Math.min(manche, N)} / {N}
+          </Hud>
+          <Hud>✅ {reussies}</Hud>
+          {chrono && phase.type === 'combiner' && <BarreTemps reste={reste} />}
+        </Bandeau>
 
-      {/* Cible */}
-      <section
-        className="relative flex flex-col items-center gap-2 overflow-hidden rounded-card border-4 border-white p-4 text-white shadow-soft"
-        style={{ background: 'radial-gradient(circle at 50% 0%, #A08CFF 0%, #6A5AE0 55%, #4A3BB8 100%)' }}
-        aria-label="La cible"
-      >
-        <svg
-          className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 opacity-20"
-          viewBox="0 0 100 100"
-          aria-hidden
+        {/* Cible */}
+        <section
+          className="relative flex flex-col items-center gap-2 overflow-hidden rounded-card border-4 border-white p-4 text-white shadow-soft"
+          style={{ background: 'radial-gradient(circle at 50% 0%, #A08CFF 0%, #6A5AE0 55%, #4A3BB8 100%)' }}
+          aria-label="La cible"
         >
-          {[46, 34, 22, 10].map((r, i) => (
-            <circle key={r} cx="50" cy="50" r={r} fill={i % 2 ? '#fff' : '#FF7A6B'} />
-          ))}
-        </svg>
-        {enCombinaison ? (
-          <>
-            <p className="font-bold opacity-90">Atteins la cible :</p>
-            <motion.p
-              key={cible}
-              initial={{ scale: 0.5 }}
-              animate={{ scale: 1 }}
-              className="flex h-20 min-w-[7rem] items-center justify-center rounded-2xl bg-white px-5 font-titre text-5xl font-extrabold text-grape-dark shadow-pop"
-            >
-              {cible}
-            </motion.p>
-            <p className="text-sm opacity-90">
-              ({item.prompt} = {cible})
-            </p>
-          </>
-        ) : (
-          <>
-            <p className="font-bold opacity-90">Étape 1 : calcule la cible</p>
-            <div className="flex items-center gap-3">
-              <SpeakButton text={item.spoken} label="Écouter le calcul" />
-              <p className="font-titre text-4xl font-extrabold sm:text-5xl" aria-live="polite">
-                {item.prompt}
-              </p>
-            </div>
-          </>
-        )}
-      </section>
-
-      <div className="carte flex flex-col items-center gap-3 p-4 sm:p-6">
-        {(phase.type === 'cible' || phase.type === 'cible-faux' || phase.type === 'cible-ok') && (
-          <>
-            <CaseReponse
-              valeur={valeur}
-              etat={phase.type === 'cible-faux' ? 'faux' : phase.type === 'cible-ok' ? 'juste' : null}
-              unite={item.unit}
-            />
-            {info && (
-              <p className="font-titre text-xl font-extrabold text-grass-dark" role="status">
-                {info}
-              </p>
-            )}
-            <Correction
-              ouvert={phase.type === 'cible-faux'}
-              bonne={cible}
-              aDire={`La cible est ${direNombre(item.answer)}. ${item.explication}`}
-              explication={item.explication}
-              onContinuer={() => {
-                if (!lancerCombinaison()) suivant();
-              }}
-              libelle="Continuer avec cette cible"
-            >
-              {phase.type === 'cible-faux' && phase.hint && <p className="mt-1">{phase.hint}</p>}
-            </Correction>
-            {phase.type === 'cible' && (
-              <Keypad {...handlers} decimal={item.decimals > 0 || lesson.classe === 'CM2'} />
-            )}
-          </>
-        )}
-
-        {enCombinaison && (
-          <>
-            <p className="text-center font-bold text-ink-soft">
-              Étape 2 : touche un nombre, une opération, puis un autre nombre.
-            </p>
-            <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Nombres">
-              <AnimatePresence>
-                {libres.map((t, i) => (
-                  <motion.button
-                    key={t.id}
-                    layout
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    type="button"
-                    onClick={() => toucherTuile(t.id)}
-                    disabled={phase.type !== 'combiner' || paused}
-                    className={`btn-3d relative flex h-16 min-w-[4.5rem] items-center justify-center px-3 font-titre text-3xl font-extrabold ${
-                      t.id === sel
-                        ? 'bg-sun ring-4 ring-sun-dark'
-                        : t.v === item.answer && t.resultat
-                          ? 'bg-grass text-white'
-                          : t.resultat
-                            ? 'bg-sky/30'
-                            : 'bg-card'
-                    }`}
-                    aria-pressed={t.id === sel}
-                    aria-label={`Nombre ${formatNumber(t.v)}`}
-                  >
-                    {formatNumber(t.v)}
-                    <span
-                      className="absolute -left-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] text-white"
-                      aria-hidden
-                    >
-                      {i + 1}
-                    </span>
-                  </motion.button>
-                ))}
-              </AnimatePresence>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Opérations">
-              {(['+', '−', '×', '÷'] as Op[]).map((o) => (
-                <button
-                  key={o}
-                  type="button"
-                  onClick={() => choisirOp(o)}
-                  disabled={!ops.includes(o) || sel === null || phase.type !== 'combiner' || paused}
-                  className={`btn-3d flex h-14 w-14 items-center justify-center font-titre text-3xl font-extrabold ${
-                    op === o ? 'bg-grape text-white' : 'bg-card'
-                  } ${!ops.includes(o) ? 'hidden' : ''}`}
-                  aria-label={LIRE_OP[o]}
-                  aria-pressed={op === o}
-                >
-                  {o}
-                </button>
-              ))}
-            </div>
-            {info && (
-              <p className="text-center font-bold text-coral-dark" role="status">
-                {info}
-              </p>
-            )}
-            {etapes.length > 0 && (
-              <ol className="flex flex-col items-center gap-1" aria-label="Tes calculs">
-                {etapes.map((e, i) => (
-                  <li key={i} className="rounded-full bg-cream px-4 py-1 font-titre text-xl font-bold">
-                    {ecrireEtape(e)}
-                  </li>
-                ))}
-              </ol>
-            )}
-            {phase.type === 'combiner' && (
-              <div className="flex flex-wrap justify-center gap-2">
-                <Button
-                  variant="blanc"
-                  onClick={annuler}
-                  disabled={!historique.length}
-                  icon={<Undo2 size={20} aria-hidden />}
-                >
-                  Annuler
-                </Button>
-                <Button
-                  variant="blanc"
-                  onClick={recommencer}
-                  disabled={!historique.length}
-                  icon={<RotateCcw size={20} aria-hidden />}
-                >
-                  Recommencer
-                </Button>
-                <Button variant="fantome" onClick={() => setPhase({ type: 'solution', raison: 'abandon' })}>
-                  🐱 Je donne ma langue au chat
-                </Button>
-              </div>
-            )}
-            {phase.type === 'gagne' && (
+          <svg
+            className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 opacity-20"
+            viewBox="0 0 100 100"
+            aria-hidden
+          >
+            {[46, 34, 22, 10].map((r, i) => (
+              <circle key={r} cx="50" cy="50" r={r} fill={i % 2 ? '#fff' : '#FF7A6B'} />
+            ))}
+          </svg>
+          {enCombinaison ? (
+            <>
+              <p className="font-bold opacity-90">Atteins la cible :</p>
               <motion.p
-                initial={{ scale: 0.6, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="text-center font-titre text-3xl font-extrabold text-grass-dark"
-                role="status"
+                key={cible}
+                initial={{ scale: 0.5 }}
+                animate={{ scale: 1 }}
+                className="flex h-20 min-w-[7rem] items-center justify-center rounded-2xl bg-white px-5 font-titre text-5xl font-extrabold text-grape-dark shadow-pop"
               >
-                Le compte est bon ! {phase.bonus && '🏆 Coup de maître : toutes les opérations !'}
+                {cible}
               </motion.p>
-            )}
-            {phase.type === 'solution' && (
-              <div className="w-full rounded-2xl bg-sky/10 p-4" role="status">
-                <p className="text-lg font-bold">
-                  {phase.raison === 'temps' ? 'Le temps est écoulé ! ' : ''}Voici une façon d’y arriver :
+              <p className="text-sm opacity-90">
+                ({item.prompt} = {cible})
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="font-bold opacity-90">Étape 1 : calcule la cible</p>
+              <div className="flex items-center gap-3">
+                <SpeakButton text={item.spoken} label="Écouter le calcul" />
+                <p className="font-titre text-4xl font-extrabold sm:text-5xl" aria-live="polite">
+                  {item.prompt}
                 </p>
-                <ol className="my-2 flex flex-col items-center gap-1">
-                  {solution.map((e, i) => (
-                    <li key={i} className="font-titre text-xl font-bold">
+              </div>
+            </>
+          )}
+        </section>
+
+        <div className="carte flex flex-col items-center gap-3 p-4 sm:p-6">
+          {(phase.type === 'cible' || phase.type === 'cible-faux' || phase.type === 'cible-ok') && (
+            <>
+              <CaseReponse
+                valeur={valeur}
+                etat={phase.type === 'cible-faux' ? 'faux' : phase.type === 'cible-ok' ? 'juste' : null}
+                unite={item.unit}
+              />
+              {info && (
+                <p className="font-titre text-xl font-extrabold text-grass-dark" role="status">
+                  {info}
+                </p>
+              )}
+              <Correction
+                ouvert={phase.type === 'cible-faux'}
+                bonne={cible}
+                aDire={`La cible est ${direNombre(item.answer)}. ${item.explication}`}
+                explication={item.explication}
+                onContinuer={() => {
+                  if (!lancerCombinaison()) suivant();
+                }}
+                libelle="Continuer avec cette cible"
+              >
+                {phase.type === 'cible-faux' && phase.hint && <p className="mt-1">{phase.hint}</p>}
+              </Correction>
+              {phase.type === 'cible' && (
+                <Keypad {...handlers} decimal={item.decimals > 0 || lesson.classe === 'CM2'} />
+              )}
+            </>
+          )}
+
+          {enCombinaison && (
+            <>
+              <p className="text-center font-bold text-ink-soft">
+                Étape 2 : touche un nombre, une opération, puis un autre nombre.
+              </p>
+              <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Nombres">
+                <AnimatePresence>
+                  {libres.map((t, i) => (
+                    <motion.button
+                      key={t.id}
+                      layout
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      type="button"
+                      onClick={() => toucherTuile(t.id)}
+                      disabled={phase.type !== 'combiner' || paused}
+                      className={`btn-3d relative flex h-16 min-w-[4.5rem] items-center justify-center px-3 font-titre text-3xl font-extrabold ${
+                        t.id === sel
+                          ? 'bg-sun ring-4 ring-sun-dark'
+                          : t.v === item.answer && t.resultat
+                            ? 'bg-grass text-white'
+                            : t.resultat
+                              ? 'bg-sky/30'
+                              : 'bg-card'
+                      }`}
+                      aria-pressed={t.id === sel}
+                      aria-label={`Nombre ${formatNumber(t.v)}`}
+                    >
+                      {formatNumber(t.v)}
+                      <span
+                        className="absolute -left-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-ink text-[10px] text-white"
+                        aria-hidden
+                      >
+                        {i + 1}
+                      </span>
+                    </motion.button>
+                  ))}
+                </AnimatePresence>
+              </div>
+              <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Opérations">
+                {(['+', '−', '×', '÷'] as Op[]).map((o) => (
+                  <button
+                    key={o}
+                    type="button"
+                    onClick={() => choisirOp(o)}
+                    disabled={!ops.includes(o) || sel === null || phase.type !== 'combiner' || paused}
+                    className={`btn-3d flex h-14 w-14 items-center justify-center font-titre text-3xl font-extrabold ${
+                      op === o ? 'bg-grape text-white' : 'bg-card'
+                    } ${!ops.includes(o) ? 'hidden' : ''}`}
+                    aria-label={LIRE_OP[o]}
+                    aria-pressed={op === o}
+                  >
+                    {o}
+                  </button>
+                ))}
+              </div>
+              {info && (
+                <p className="text-center font-bold text-coral-dark" role="status">
+                  {info}
+                </p>
+              )}
+              {etapes.length > 0 && (
+                <ol className="flex flex-col items-center gap-1" aria-label="Tes calculs">
+                  {etapes.map((e, i) => (
+                    <li key={i} className="rounded-full bg-cream px-4 py-1 font-titre text-xl font-bold">
                       {ecrireEtape(e)}
                     </li>
                   ))}
                 </ol>
-                <div className="flex items-center gap-2">
-                  <SpeakButton
-                    text={solution
-                      .map(
-                        (e) =>
-                          `${direNombre(e.a)} ${LIRE_OP[e.op]} ${direNombre(e.b)} égale ${direNombre(e.r)}`,
-                      )
-                      .join('. ')}
-                    size={40}
-                    label="Écouter la solution"
-                  />
-                  <p>Il y a souvent plusieurs chemins : la prochaine fois, ce sera le tien !</p>
+              )}
+              {phase.type === 'combiner' && (
+                <div className="flex flex-wrap justify-center gap-2">
+                  <Button
+                    variant="blanc"
+                    onClick={annuler}
+                    disabled={!historique.length}
+                    icon={<Undo2 size={20} aria-hidden />}
+                  >
+                    Annuler
+                  </Button>
+                  <Button
+                    variant="blanc"
+                    onClick={recommencer}
+                    disabled={!historique.length}
+                    icon={<RotateCcw size={20} aria-hidden />}
+                  >
+                    Recommencer
+                  </Button>
+                  <Button variant="fantome" onClick={() => setPhase({ type: 'solution', raison: 'abandon' })}>
+                    🐱 Je donne ma langue au chat
+                  </Button>
                 </div>
-                <Button variant="grass" className="mt-3 w-full" onClick={suivant} autoFocus>
-                  Continuer
-                </Button>
-              </div>
-            )}
-          </>
-        )}
+              )}
+              {phase.type === 'gagne' && (
+                <motion.p
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="text-center font-titre text-3xl font-extrabold text-grass-dark"
+                  role="status"
+                >
+                  Le compte est bon ! {phase.bonus && '🏆 Coup de maître : toutes les opérations !'}
+                </motion.p>
+              )}
+              {phase.type === 'solution' && (
+                <div className="w-full rounded-2xl bg-sky/10 p-4" role="status">
+                  <p className="text-lg font-bold">
+                    {phase.raison === 'temps' ? 'Le temps est écoulé ! ' : ''}Voici une façon d’y arriver :
+                  </p>
+                  <ol className="my-2 flex flex-col items-center gap-1">
+                    {solution.map((e, i) => (
+                      <li key={i} className="font-titre text-xl font-bold">
+                        {ecrireEtape(e)}
+                      </li>
+                    ))}
+                  </ol>
+                  <div className="flex items-center gap-2">
+                    <SpeakButton
+                      text={solution
+                        .map(
+                          (e) =>
+                            `${direNombre(e.a)} ${LIRE_OP[e.op]} ${direNombre(e.b)} égale ${direNombre(e.r)}`,
+                        )
+                        .join('. ')}
+                      size={40}
+                      label="Écouter la solution"
+                    />
+                    <p>Il y a souvent plusieurs chemins : la prochaine fois, ce sera le tien !</p>
+                  </div>
+                  <Button variant="grass" className="mt-3 w-full" onClick={suivant} autoFocus>
+                    Continuer
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </MotionConfig>
   );
 }

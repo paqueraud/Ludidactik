@@ -100,7 +100,7 @@ function lancerVague(q: Question, rng: Rng, level: Level, idBase: number): Bulle
     id: idBase + i,
     choix: i,
     x: ((c + 0.5) / n) * 84 + 8,
-    y: -0.25 - rng.next() * 0.45 - (i % 2) * 0.12,
+    y: -0.1 - rng.next() * 0.3 - (i % 2) * 0.1,
     vitesse: VITESSE[level] * (0.85 + rng.next() * 0.3),
     phase: rng.next() * Math.PI * 2,
     etat: 'vole',
@@ -251,7 +251,7 @@ export default function AttrapeBulles({
       if (dansUnChamp(e)) return;
       const k = indexTouche(e.key, q.choix.length);
       if (k < 0) return;
-      const b = bulles.find((x) => x.choix === k && x.etat === 'vole');
+      const b = bulles.find((x) => x.choix === k && x.etat === 'vole' && x.y > -0.05);
       if (b) eclater(b);
     };
     window.addEventListener('keydown', h);
