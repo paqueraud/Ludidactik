@@ -13,7 +13,9 @@ import { type Item, type ItemKind, LEVELS, type Lesson, type Level } from '@/con
 import type { GameSummary } from '@/engine/GameModule';
 import { createRng } from '@/engine/rng';
 import { FIXTURES } from '@/games/_kit/fixtures';
-import { GAMES, getGame } from '@/games/registry';
+import { GAMES, gamesForLesson, getGame } from '@/games/registry';
+import { content, getLesson } from '@/content';
+import { createStream } from '@/content/provider';
 import { sfx } from '@/services/sfx';
 import { speech } from '@/services/speech';
 import type { Profile } from '@/services/storage/db';
@@ -71,8 +73,37 @@ export function Labo() {
   const level = (LEVELS as readonly string[]).includes(params.get('niveau') ?? '')
     ? (params.get('niveau') as Level)
     : 'normal';
-  const kind = (params.get('type') as ItemKind | null) ?? game?.accepts[0];
-  const stream = useMemo(() => (kind ? fixtureStream(kind, game?.filterItem) : null), [kind, partie]); // eslint-disable-line react-hooks/exhaustive-deps
+  // ?source=contenu : vrais exercices d'une leçon (?lecon=<id>, sinon la première leçon où le jeu est jouable)
+  const reel = useMemo(() => {
+    if (!game || params.get('source') !== 'contenu') return null;
+    const ctx = { parentLists: [] };
+    const candidates = params.get('lecon')
+      ? [getLesson(params.get('lecon')!)].filter((l) => !!l)
+      : [...content.lessons.values()];
+    for (const l of candidates) {
+      const pg = gamesForLesson(l!, ctx).find((g) => g.game.id === game.id);
+      if (pg) return { lesson: l!, kind: pg.kind, ctx };
+    }
+    return null;
+  }, [game, params]);
+  const kind = reel?.kind ?? (params.get('type') as ItemKind | null) ?? game?.accepts[0];
+  const stream = useMemo(
+    () =>
+      reel
+        ? createStream(
+            content,
+            reel.lesson,
+            reel.kind,
+            level,
+            createRng(Date.now()),
+            reel.ctx,
+            game?.filterItem,
+          )
+        : kind
+          ? fixtureStream(kind, game?.filterItem)
+          : null,
+    [kind, partie, reel, level], // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   if (!game || !kind || !stream) {
     return (
@@ -103,6 +134,7 @@ export function Labo() {
         </Link>
         <span className="font-titre font-bold">
           {game.icone} {game.titre} — {level} — {kind}
+          {reel ? ` — leçon ${reel.lesson.id}` : ''}
         </span>
       </div>
       {fin ? (
@@ -124,9 +156,9 @@ export function Labo() {
         <Suspense fallback={<p className="p-6">Chargement…</p>}>
           <Game
             key={partie}
-            lesson={LECON_LABO}
+            lesson={reel?.lesson ?? LECON_LABO}
             level={level}
-            profile={PROFIL_LABO}
+            profile={reel ? { ...PROFIL_LABO, classe: reel.lesson.classe } : PROFIL_LABO}
             stream={stream}
             kind={kind}
             record={null}
