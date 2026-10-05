@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm install*)",
+      "Bash(npx *)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git log*)",
+      "WebFetch(domain:eduscol.education.gouv.fr)",
+      "WebFetch(domain:www.education.gouv.fr)"
+    ]
+  }
+}

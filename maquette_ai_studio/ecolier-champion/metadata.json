@@ -1,0 +1,6 @@
+{
+  "name": "Écolier Champion - Révisions Ludiques Primaire",
+  "description": "Application ludo-éducative conforme au Bulletin Officiel de l'Éducation Nationale (CE1 & CM2) : calcul mental au galop, ascension orthographique et défis historiques.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

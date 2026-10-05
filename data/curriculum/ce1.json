@@ -1,0 +1,3384 @@
+{
+ "$comment": "Curriculum validé par src/content/schemas.ts (npm run validate:content). source.generator préfixé « TODO: » = pas encore jouable. periodes = périodes scolaires 1 à 5 où la leçon est travaillée.",
+ "classe": "CE1",
+ "anneeScolaire": "2026-2027",
+ "lecons": [
+  {
+   "id": "CE1.FR.LEC.CGP",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Lecture / code",
+   "titre": "Les sons complexes (CGP) : ou, on, an/en, in/ain/ein, oi, eu/œu, au/eau, ch, gn, ill, ail/eil/euil, ph, -tion",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Lecture / code",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "CGP simples du CP",
+    "normal": "toutes CGP complexes, pseudo-mots (« doir, stag, choust, valin, cagnou »)",
+    "plus_loin": "mots rares, lettres muettes multiples"
+   },
+   "itemKinds": [
+    "oral_answer",
+    "spelling_word",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "perroquet-savant",
+    "ascension",
+    "chef-orchestre"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_lec_cgp"
+   },
+   "rappel": "Certains sons s’écrivent avec plusieurs lettres : ou, on, an, oi, ch… Je les repère bien avant d’écrire."
+  },
+  {
+   "id": "CE1.FR.LEC.SC",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Lecture / code",
+   "titre": "s = [s]/[z], c = [k]/[s], g = [g]/[ʒ] (ge, gu, ç)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Lecture / code",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2 valeurs, mots courants",
+    "normal": "classement analogique",
+    "plus_loin": "règles ç/ge/gu en production"
+   },
+   "itemKinds": [
+    "oral_answer",
+    "spelling_word",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "perroquet-savant",
+    "ascension",
+    "chef-orchestre"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_lec_sc"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.LEC.FLUENCE",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Lecture / code",
+   "titre": "Lire à voix haute (Karaoké)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Lecture / code",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "30-40 MCLM",
+    "normal": "70 MCLM, ponctuation respectée",
+    "plus_loin": "90 MCLM + expressivité"
+   },
+   "itemKinds": [
+    "read_aloud"
+   ],
+   "jeuxSuggeres": [
+    "karaoke-lecture"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_lec_fluence"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.LEC.COMP",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Lecture / code",
+   "titre": "Comprendre un texte",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Lecture / code",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "5 lignes, questions explicites",
+    "normal": "~15 lignes, inférences simples, anaphores, justifier",
+    "plus_loin": "textes documentaires/prescriptifs + titre/résumé"
+   },
+   "itemKinds": [
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "detective-texte",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_lec_comp"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.ORTH.MOTS_FREQ",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Orthographe lexicale (dictée)",
+   "titre": "Mots fréquents réguliers puis irréguliers",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots courts réguliers",
+    "normal": "liste CE1 (data/dictees/ce1_mots.json)",
+    "plus_loin": "mots CE2"
+   },
+   "itemKinds": [
+    "spelling_word"
+   ],
+   "jeuxSuggeres": [
+    "ascension",
+    "appareil-photo",
+    "lettres-en-vrac",
+    "bonhomme-de-neige",
+    "wordle",
+    "mots-croises",
+    "dictee-duel"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/dictees/ce1_mots.json",
+    "filter": {
+     "lessonId": "CE1.FR.ORTH.MOTS_FREQ"
+    }
+   },
+   "rappel": "J’écoute bien chaque syllabe, j’écris le mot, puis je le relis lettre par lettre."
+  },
+  {
+   "id": "CE1.FR.ORTH.INVARIABLES",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Orthographe lexicale (dictée)",
+   "titre": "Mots invariables (listes analogiques : tôt/aussitôt/plutôt ; ici/là-bas/loin/près)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "10 mots",
+    "normal": "~40 mots",
+    "plus_loin": "60+ mots"
+   },
+   "itemKinds": [
+    "spelling_word"
+   ],
+   "jeuxSuggeres": [
+    "ascension",
+    "appareil-photo",
+    "lettres-en-vrac",
+    "bonhomme-de-neige",
+    "wordle",
+    "mots-croises",
+    "dictee-duel"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/dictees/ce1_mots.json",
+    "filter": {
+     "lessonId": "CE1.FR.ORTH.INVARIABLES"
+    }
+   },
+   "rappel": "Les mots invariables ne changent jamais : ni au pluriel, ni au féminin. Je les apprends par cœur."
+  },
+  {
+   "id": "CE1.FR.ORTH.MUETTE",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Orthographe lexicale (dictée)",
+   "titre": "Lettre muette finale par mot de la même famille (blanc/blanche, chant/chanter, surpris/surprise)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "choix parmi 2",
+    "normal": "écrire le mot",
+    "plus_loin": "dérivés moins transparents (sang/sanguin)"
+   },
+   "itemKinds": [
+    "spelling_word",
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "chasse-lettres-muettes",
+    "ascension",
+    "appareil-photo"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_orth_muette"
+   },
+   "rappel": "Pour trouver la lettre muette à la fin d’un mot, je cherche un mot de la même famille : chant → chanter."
+  },
+  {
+   "id": "CE1.FR.ORTH.ACCENTS",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Orthographe lexicale (dictée)",
+   "titre": "Accents é/è/ê",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "é/è",
+    "normal": "é/è/ê dans mots fréquents",
+    "plus_loin": "ë, ï, ç"
+   },
+   "itemKinds": [
+    "spelling_word"
+   ],
+   "jeuxSuggeres": [
+    "ascension",
+    "appareil-photo",
+    "lettres-en-vrac",
+    "bonhomme-de-neige",
+    "wordle",
+    "mots-croises",
+    "dictee-duel"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/dictees/ce1_mots.json",
+    "filter": {
+     "lessonId": "CE1.FR.ORTH.ACCENTS"
+    }
+   },
+   "rappel": "é fait « é » comme dans été ; è et ê font « è » comme dans mère et fête."
+  },
+  {
+   "id": "CE1.FR.ORTH.LISTES_PARENTS",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Orthographe lexicale (dictée)",
+   "titre": "Mes mots de la semaine (listes parents)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "—",
+    "normal": "—",
+    "plus_loin": "— (niveaux = aides des jeux)"
+   },
+   "itemKinds": [
+    "spelling_word"
+   ],
+   "jeuxSuggeres": [
+    "ascension",
+    "appareil-photo",
+    "lettres-en-vrac",
+    "bonhomme-de-neige",
+    "wordle",
+    "mots-croises",
+    "dictee-duel"
+   ],
+   "source": {
+    "kind": "parents"
+   },
+   "rappel": "Je regarde le mot, je le photographie dans ma tête, puis je l’écris sans regarder."
+  },
+  {
+   "id": "CE1.FR.GRAM.PHRASE",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Grammaire & orthographe grammaticale",
+   "titre": "La phrase (majuscule, point) & groupes de mots",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repérer majuscule/point",
+    "normal": "identifier groupe sujet, verbe, compléments (sans les distinguer)",
+    "plus_loin": "manipulations : déplacement/suppression"
+   },
+   "itemKinds": [
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "puzzle-phrases",
+    "feu-ponctuation"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_gram_phrase"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.GRAM.TYPES",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Grammaire & orthographe grammaticale",
+   "titre": "Types de phrases : déclarative, interrogative, impérative ; formes négative, exclamative",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "ponctuation ↔ type",
+    "normal": "transformer (négation ne…pas)",
+    "plus_loin": "ne…jamais / ne…plus, interrogation par inversion"
+   },
+   "itemKinds": [
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "puzzle-phrases",
+    "feu-ponctuation"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_gram_types"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.GRAM.CLASSES",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Grammaire & orthographe grammaticale",
+   "titre": "Classes de mots : déterminant, nom commun, nom propre, adjectif, verbe, pronom personnel sujet",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "nom/verbe",
+    "normal": "les 6 classes",
+    "plus_loin": "adverbe, préposition (CE2-CM)"
+   },
+   "itemKinds": [
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "chef-orchestre",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_gram_classes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.GRAM.GN",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Grammaire & orthographe grammaticale",
+   "titre": "Le groupe nominal et la chaîne d'accords (dét. + nom + adj. ; pluriel -s, féminin -e)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "singulier/pluriel du nom",
+    "normal": "accords dans le GN",
+    "plus_loin": "pluriels en -x, féminins irréguliers"
+   },
+   "itemKinds": [
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "train-des-accords",
+    "peche-homophones",
+    "ascension"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_gram_gn"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.GRAM.SV",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Grammaire & orthographe grammaticale",
+   "titre": "Accord sujet-verbe (pluriel -nt)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "il/ils",
+    "normal": "sujet GN ↔ verbe",
+    "plus_loin": "sujet éloigné du verbe"
+   },
+   "itemKinds": [
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "train-des-accords",
+    "peche-homophones",
+    "ascension"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_gram_sv"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.GRAM.SUBST",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Grammaire & orthographe grammaticale",
+   "titre": "Remplacer un GN par un pronom (Elle la raconte / leur)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "il/elle/ils/elles",
+    "normal": "substitutions BO",
+    "plus_loin": "pronoms compléments le/la/leur"
+   },
+   "itemKinds": [
+    "classification",
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "labo-fonctions",
+    "puzzle-phrases",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_gram_subst"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.GRAM.HOMOPHONES",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Grammaire & orthographe grammaticale",
+   "titre": "a/à, et/est, son/sont, on/ont",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "a/à, et/est",
+    "normal": "+ son/sont, on/ont",
+    "plus_loin": "ces/ses, ou/où"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "peche-homophones",
+    "vrai-faux",
+    "ascension"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_gram_homophones"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.CONJ.INFINITIF",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Trouver l'infinitif (radical + terminaison, 1er groupe)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "présent",
+    "normal": "tous temps étudiés (« ils plieront, tu as plié → plier »)",
+    "plus_loin": "2e groupe"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_conj_infinitif"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.CONJ.PRESENT",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Présent : être, avoir, 1er groupe",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "je/tu/il",
+    "normal": "toutes personnes",
+    "plus_loin": "aller, faire, dire (CE2)"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_conj_present"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.CONJ.IMPARFAIT",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Imparfait : être, avoir, 1er groupe",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "3e pers.",
+    "normal": "toutes personnes",
+    "plus_loin": "-ger/-cer (mangeait, commençait)"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_conj_imparfait"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.CONJ.FUTUR",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Futur : être, avoir, 1er groupe",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "3e pers.",
+    "normal": "toutes personnes",
+    "plus_loin": "aller, faire, venir"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_conj_futur"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.CONJ.PASSE_COMPOSE",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Passé composé avec avoir (1er groupe), être/avoir",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "j'ai + PP",
+    "normal": "toutes personnes",
+    "plus_loin": "PP avec être (accord)"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_conj_passe_compose"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.CONJ.TEMPS",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Passé / présent / futur : repérer le temps d'une phrase (« Simon parle / parlait / parlera à Nora »)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "indices temporels (hier, demain)",
+    "normal": "identifier le temps",
+    "plus_loin": "transformer une phrase de temps"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_conj_temps"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.VOC.AFFIXES",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Préfixes et suffixes (para-, multi-, anti-, in-, dé-, re- ; -eur/-euse, -er)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1 affixe connu",
+    "normal": "trier/apparier, déduire le sens",
+    "plus_loin": "créer des mots"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_voc_affixes"
+   },
+   "rappel": "Un préfixe se place avant le radical (re-faire), un suffixe après (jardin-ier)."
+  },
+  {
+   "id": "CE1.FR.VOC.CONTRAIRES",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Contraires (visible/invisible, ranger/déranger) & synonymes",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "images",
+    "normal": "mots + préfixes in-/dé-",
+    "plus_loin": "nuances"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_voc_contraires"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.VOC.GENERIQUE",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Générique/spécifique (aliment > laitage > fromage > gruyère)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2 niveaux",
+    "normal": "3-4 niveaux",
+    "plus_loin": "classements libres"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_voc_generique"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.VOC.EXPRESSIONS",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Sens propre / figuré, expressions (avoir une peur bleue, prendre ses jambes à son cou)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "image ↔ expression",
+    "normal": "sens",
+    "plus_loin": "réemploi en phrase"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_voc_expressions"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.VOC.NIVEAUX",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Niveaux de langue : familier, courant, soutenu",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2 niveaux",
+    "normal": "3 niveaux",
+    "plus_loin": "transformer"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_voc_niveaux"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.VOC.DICO",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Ordre alphabétique & dictionnaire",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1re lettre",
+    "normal": "2e-3e lettre",
+    "plus_loin": "mots-repères"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_voc_dico"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.VOC.THEMES",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Corpus thématiques (émotions, école, corps, maison, nature, métiers…)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "images",
+    "normal": "mots + définitions",
+    "plus_loin": "mots moins fréquents (jaloux, ambitieux)"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_voc_themes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.FR.ORAL.ECOUTE",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Oral",
+   "titre": "Écouter une consigne/recette et l'exécuter",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Oral",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "consigne courte (1 action)",
+    "normal": "consigne à 2-3 actions",
+    "plus_loin": "recette ou consigne longue"
+   },
+   "itemKinds": [
+    "oral_answer",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "perroquet-savant",
+    "detective-texte",
+    "robot-codeur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_oral_ecoute"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "Robot codeur version consignes orales, Détective du texte (écoute)"
+  },
+  {
+   "id": "CE1.FR.ORAL.DIRE",
+   "classe": "CE1",
+   "matiere": "francais",
+   "domaine": "Oral",
+   "titre": "Raconter avec connecteurs (d'abord, ensuite, enfin…)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Oral",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2 images à raconter",
+    "normal": "3-4 étapes avec d’abord, ensuite, enfin",
+    "plus_loin": "récit libre avec connecteurs variés"
+   },
+   "itemKinds": [
+    "oral_answer",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "perroquet-savant",
+    "detective-texte",
+    "robot-codeur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_fr_oral_dire"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "Puzzle de phrases oral, Perroquet"
+  },
+  {
+   "id": "CE1.MA.NUM.ECRIRE",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Nombres",
+   "titre": "Lire/écrire les nombres (chiffres ↔ lettres ↔ dictée)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 100",
+    "normal": "≤ 1 000",
+    "plus_loin": "≤ 10 000"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "perroquet-nombres",
+    "batisseur",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_num_ecrire"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.NUM.DECOMP",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Nombres",
+   "titre": "Centaines, dizaines, unités ; décompositions (635 = 6c 3d 5u = 63d 5u = 600+30+5 = 6×100+3×10+5)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 199",
+    "normal": "≤ 1 000, toutes écritures",
+    "plus_loin": "groupements non canoniques (17 u, 8 d, 2 c)"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "batisseur",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_num_decomp"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.NUM.COMPARER",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Nombres",
+   "titre": "Comparer, ranger (≤ 5 nombres), <, >, =, « compris entre »",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 100",
+    "normal": "≤ 1 000",
+    "plus_loin": "≤ 10 000"
+   },
+   "itemKinds": [
+    "number_line",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "funambule",
+    "bataille-navale",
+    "crocodiles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_num_comparer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.NUM.DROITE",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Nombres",
+   "titre": "Demi-droite graduée (pas 1, 10, 100), intercaler",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "pas 1",
+    "normal": "pas 10/100",
+    "plus_loin": "pas 5/25/50"
+   },
+   "itemKinds": [
+    "number_line",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "funambule",
+    "bataille-navale",
+    "crocodiles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_num_droite"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.NUM.PARITE",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Nombres",
+   "titre": "Pair / impair",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 20",
+    "normal": "≤ 1 000 (« pairs entre 767 et 778 »)",
+    "plus_loin": "règles de somme"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_num_parite"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.NUM.ORDINAUX",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Nombres",
+   "titre": "Ordinaux & suites",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 20",
+    "normal": "≤ 100",
+    "plus_loin": "suites évolutives"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_num_ordinaux"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.FRAC.UNITAIRE",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Fractions",
+   "titre": "1/2, 1/3 … 1/10 (part d'un tout)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Fractions",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1/2, 1/4",
+    "normal": "dénom. 2-10",
+    "plus_loin": "fraction d'une collection"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_frac_unitaire"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.FRAC.NONUNIT",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Fractions",
+   "titre": "3/8 = 1/8+1/8+1/8, vocabulaire numérateur/dénominateur, 5/5 = 1",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Fractions",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "dénom. 2-4",
+    "normal": "dénom. 2-10",
+    "plus_loin": "fractions > 1 (CE2)"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_frac_nonunit"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.FRAC.COMPARER",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Fractions",
+   "titre": "Même dénominateur ; numérateur 1 (1/5 < 1/3)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Fractions",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "visuel",
+    "normal": "sans visuel",
+    "plus_loin": "dénominateurs multiples (1/2 vs 3/4)"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_frac_comparer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.FRAC.ADD",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Fractions",
+   "titre": "1/5 + 2/5 ; 2/3 − 1/3 ; compléter à 1",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Fractions",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "avec visuel",
+    "normal": "sans visuel",
+    "plus_loin": "3 termes"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_frac_add"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.CM.TABLES_ADD",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Tables d'addition",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 10",
+    "normal": "égalités à trous (4 + … = 12) — 12 en 1 min",
+    "plus_loin": "≤ 20 rapides"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.tables_add"
+   },
+   "rappel": "Pour trouver le nombre qui manque, je cherche combien il faut ajouter : 4 + … = 12, c’est 8, car 4 + 8 = 12."
+  },
+  {
+   "id": "CE1.MA.CM.COMPLEMENTS",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Compléments à 10, 100, dizaine sup.",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "à 10",
+    "normal": "à 100 / 1 000",
+    "plus_loin": "à 1 000 avec retenues"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.complements"
+   },
+   "rappel": "Le complément, c’est ce qu’il manque pour arriver au nombre rond : 7 + 3 = 10 et 60 + 40 = 100."
+  },
+  {
+   "id": "CE1.MA.CM.DOUBLES_MOITIES",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Doubles et moitiés (liste BO ci-dessus) + multiples de 25",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 10",
+    "normal": "liste BO",
+    "plus_loin": "moitié de 470 par décomposition"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.doubles_moities"
+   },
+   "rappel": "Le double, c’est 2 fois le nombre ; la moitié, c’est partager en 2 parts égales."
+  },
+  {
+   "id": "CE1.MA.CM.TABLES_MULT",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Tables de multiplication (étalées sur l'année : ×2, ×5, ×10, ×3, ×4 puis ×6-×9)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "×2 ×5 ×10",
+    "normal": "tables étudiées — 8 en 1 min",
+    "plus_loin": "toutes + inverses"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.tables_mult"
+   },
+   "rappel": "4 × 3, c’est 4 fois 3 : 3 + 3 + 3 + 3 = 12. Et 3 × 4 donne le même résultat !"
+  },
+  {
+   "id": "CE1.MA.CM.DIZ_CENT",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Ajouter/soustraire des dizaines et centaines (234+60 ; 765−200 ; 746+80)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "sans retenue",
+    "normal": "avec retenue",
+    "plus_loin": "2 étapes"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.diz_cent"
+   },
+   "rappel": "Pour ajouter des dizaines, je compte les dizaines : 234 + 60 → 3 dizaines + 6 dizaines = 9 dizaines, donc 294."
+  },
+  {
+   "id": "CE1.MA.CM.X10",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Multiplier par 10 (glisse-nombres)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "×10 ≤ 10",
+    "normal": "×10 ≤ 99",
+    "plus_loin": "×100"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "ascenseur-virgule",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.x10"
+   },
+   "rappel": "Multiplier par 10, c’est transformer les unités en dizaines : 23 × 10 = 230."
+  },
+  {
+   "id": "CE1.MA.CM.PLUS9",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "+9, +19, +29 (ajouter 10/20/30 puis −1) ; −9",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "+9",
+    "normal": "+9/+19/+29, −9",
+    "plus_loin": "+99"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.plus9"
+   },
+   "rappel": "Ajouter 9, c’est ajouter 10 puis enlever 1 : 47 + 9 → 57 − 1 = 56."
+  },
+  {
+   "id": "CE1.MA.CM.MOINS_PETIT",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Soustraire < 9 avec passage de dizaine (523 − 7 = 516)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "sans passage",
+    "normal": "avec passage",
+    "plus_loin": "−11, −12"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.moins_petit"
+   },
+   "rappel": "Pour 523 − 7, je descends d’abord à la dizaine : 523 − 3 = 520, puis 520 − 4 = 516."
+  },
+  {
+   "id": "CE1.MA.CM.DISTRIB",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "13 × 7 = 10×7 + 3×7 (11-19 × un chiffre)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "×2",
+    "normal": "11-19 × < 10",
+    "plus_loin": "21-29 × < 10"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "ce1.ma.cm.distrib"
+   },
+   "rappel": "Pour 13 × 7, je calcule 10 × 7 = 70 et 3 × 7 = 21, puis j’ajoute : 70 + 21 = 91."
+  },
+  {
+   "id": "CE1.MA.CP.ADD",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul posé",
+   "titre": "Addition posée (2-3 nombres, ≤ 3 chiffres)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul posé",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "sans retenue",
+    "normal": "avec retenues",
+    "plus_loin": "4 nombres"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "grand-huit-operations",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_cp_add"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.CP.SOUS",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul posé",
+   "titre": "Soustraction posée (cassage ou compensation — réglage parent)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul posé",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "sans retenue",
+    "normal": "avec retenue",
+    "plus_loin": "double retenue / zéros"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "grand-huit-operations",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_cp_sous"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.CP.MULT_SENS",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Calcul posé",
+   "titre": "Sens de × (« 7 fois 20 »), commutativité",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul posé",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "addition itérée",
+    "normal": "× ≤ 10",
+    "plus_loin": "× multiples de 10"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "grand-huit-operations",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_cp_mult_sens"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.PB.ADD_PT",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Problèmes",
+   "titre": "Additifs parties-tout / transformation (1 étape)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 100",
+    "normal": "≤ 1 000",
+    "plus_loin": "2 étapes"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_pb_add_pt"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.PB.COMPAR",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Problèmes",
+   "titre": "Comparaison additive (« 75 de plus »)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 100",
+    "normal": "≤ 1 000",
+    "plus_loin": "inconnue sur le petit"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_pb_compar"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.PB.2ETAPES",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Problèmes",
+   "titre": "Additifs 2 étapes, monnaie (rendu sur 5 €, 50 €)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "entiers",
+    "normal": "décimaux simples (1,15 €)",
+    "plus_loin": "3 étapes"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_pb_2etapes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.PB.MULT",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Problèmes",
+   "titre": "Multiplicatifs (valeur du tout), partage (nb de parts / valeur d'une part)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 30",
+    "normal": "≤ 200",
+    "plus_loin": "reste"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_pb_mult"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.PB.MIXTES",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Problèmes",
+   "titre": "Mixtes (1 additive + 1 multiplicative)",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "—",
+    "normal": "BO",
+    "plus_loin": "3 étapes"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_pb_mixtes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GM.LONGUEURS",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Grandeurs et mesures",
+   "titre": "cm, m, km ; 1 m = 100 cm ; mesurer, comparer, estimer",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "comparer",
+    "normal": "mesurer + convertir m↔cm",
+    "plus_loin": "km ↔ m, mm"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "mesureur",
+    "grand-prix",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_gm_longueurs"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GM.MASSES",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Grandeurs et mesures",
+   "titre": "g, kg ; 1 kg = 1 000 g",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "comparer",
+    "normal": "lire une balance",
+    "plus_loin": "problèmes"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "mesureur",
+    "grand-prix",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_gm_masses"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GM.MONNAIE",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Grandeurs et mesures",
+   "titre": "Euros & centimes : pièces 1 c à 2 €, billets 5 € à 100 € ; payer, rendre",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 10 € entiers",
+    "normal": "≤ 100 €, centimes",
+    "plus_loin": "rendu optimal"
+   },
+   "itemKinds": [
+    "money",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "epicerie",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_gm_monnaie"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GM.TEMPS",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Grandeurs et mesures",
+   "titre": "Jours, semaines, mois, années ; heure (heures, demi, quarts) ; durées en h/min",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "heures pile",
+    "normal": "demi/quart, durées simples",
+    "plus_loin": "minutes, 1 h = 60 min"
+   },
+   "itemKinds": [
+    "clock",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "horloger",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_gm_temps"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GEO.FIGURES",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Espace et géométrie",
+   "titre": "Carré, rectangle, triangle, triangle rectangle, cercle ; côté, sommet, angle droit",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "reconnaître",
+    "normal": "propriétés (équerre)",
+    "plus_loin": "losange"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_geo_figures"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GEO.TRACER",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Espace et géométrie",
+   "titre": "Segments de longueur donnée, reproduire sur quadrillage",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "quadrillage",
+    "normal": "règle graduée",
+    "plus_loin": "équerre"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_geo_tracer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GEO.SYMETRIE",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Espace et géométrie",
+   "titre": "Symétrie axiale sur quadrillage",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "axe vertical",
+    "normal": "axe vertical/horizontal",
+    "plus_loin": "diagonale"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_geo_symetrie"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GEO.SOLIDES",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Espace et géométrie",
+   "titre": "Cube, pavé, boule, cylindre, cône, pyramide ; faces, arêtes, sommets",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "nommer",
+    "normal": "décrire",
+    "plus_loin": "patrons simples"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_geo_solides"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.GEO.REPERAGE",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Espace et géométrie",
+   "titre": "Vocabulaire spatial, plans, quadrillage, déplacements codés",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "gauche/droite",
+    "normal": "codage de déplacements",
+    "plus_loin": "instructions relatives"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_geo_reperage"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.MA.DON.LIRE",
+   "classe": "CE1",
+   "matiere": "maths",
+   "domaine": "Données",
+   "titre": "Tableaux, diagrammes en barres",
+   "programme": "2024",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Données",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "lire 1 info",
+    "normal": "lire/comparer",
+    "plus_loin": "construire"
+   },
+   "itemKinds": [
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "station-meteo",
+    "roue-probabilites",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_ma_don_lire"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.TEMPS.CALENDRIER",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Le temps",
+   "titre": "Jour, semaine, mois, année, saisons ; calendrier",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "jours de la semaine",
+    "normal": "mois, saisons, lire un calendrier",
+    "plus_loin": "siècles (introduction)"
+   },
+   "itemKinds": [
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "machine-temps",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/questions/ce1_questions.json",
+    "filter": {
+     "lessonId": "CE1.QLM.TEMPS.CALENDRIER"
+    }
+   },
+   "rappel": "Une semaine a 7 jours, une année a 12 mois et 4 saisons."
+  },
+  {
+   "id": "CE1.QLM.TEMPS.FRISE",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Le temps",
+   "titre": "Avant/après, frise chronologique, générations (parents, grands-parents)",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "3 images",
+    "normal": "frise familiale",
+    "plus_loin": "frise d'objets d'autrefois"
+   },
+   "itemKinds": [
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "machine-temps",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_temps_frise"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.TEMPS.AUTREFOIS",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Le temps",
+   "titre": "Évolution des modes de vie (école, transports, maison, objets d'autrefois)",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "aujourd'hui/autrefois",
+    "normal": "trier par époque",
+    "plus_loin": "dater approximativement"
+   },
+   "itemKinds": [
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "machine-temps",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/questions/ce1_questions.json",
+    "filter": {
+     "lessonId": "CE1.QLM.TEMPS.AUTREFOIS"
+    }
+   },
+   "rappel": "Autrefois, il n’y avait pas d’électricité partout, ni voiture, ni téléphone portable : les objets changent avec le temps."
+  },
+  {
+   "id": "CE1.QLM.ESPACE.PLANS",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "L'espace",
+   "titre": "Se repérer : plan de la classe, du quartier, maquette, photo",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "gauche/droite",
+    "normal": "lire un plan",
+    "plus_loin": "légende, échelle (intro)"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_espace_plans"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.ESPACE.MONDE",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "L'espace",
+   "titre": "Globe, planisphère, continents, océans, la France",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "terre/mer",
+    "normal": "6 continents, 5 océans",
+    "plus_loin": "pays européens voisins"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_espace_monde"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.ESPACE.PAYSAGES",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "L'espace",
+   "titre": "Paysages : ville, campagne, montagne, littoral",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2 types",
+    "normal": "4 types",
+    "plus_loin": "activités humaines"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_espace_paysages"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.VIVANT.CARACT",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Le vivant",
+   "titre": "Vivant / non-vivant ; besoins des animaux et des végétaux",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2 catégories",
+    "normal": "critères (naît, grandit, se nourrit, se reproduit, meurt)",
+    "plus_loin": "—"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_vivant_caract"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.VIVANT.CYCLES",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Le vivant",
+   "titre": "Cycles de vie (grenouille, papillon, poule, plante)",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "3 étapes",
+    "normal": "4-5 étapes",
+    "plus_loin": "métamorphose / croissance"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_vivant_cycles"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.VIVANT.ALIM",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Le vivant",
+   "titre": "Régimes alimentaires des animaux, chaînes simples",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "herbivore/carnivore",
+    "normal": "+ omnivore, chaîne de 3",
+    "plus_loin": "réseaux"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_vivant_alim"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.CORPS.SANTE",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Le corps et la santé",
+   "titre": "Hygiène, dents, alimentation équilibrée, sommeil, activité physique",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "bons/mauvais gestes",
+    "normal": "familles d'aliments",
+    "plus_loin": "squelette, articulations"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_corps_sante"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.MATIERE.EAU",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "La matière",
+   "titre": "États de l'eau (solide/liquide/gazeux), changements d'état",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "glace/eau",
+    "normal": "3 états + fusion/solidification",
+    "plus_loin": "ébullition, évaporation, 0 °C / 100 °C"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_matiere_eau"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.OBJETS.ELEC",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Les objets",
+   "titre": "Objets électriques, circuit simple, sécurité électrique",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "dangers",
+    "normal": "circuit pile-ampoule fermé/ouvert",
+    "plus_loin": "conducteurs/isolants"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_objets_elec"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.QLM.OBJETS.NUMERIQUE",
+   "classe": "CE1",
+   "matiere": "questionner_le_monde",
+   "domaine": "Les objets",
+   "titre": "Usages du numérique, sécurité",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "—",
+    "normal": "—",
+    "plus_loin": "—"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_qlm_objets_numerique"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.EMC.REGLES",
+   "classe": "CE1",
+   "matiere": "emc",
+   "domaine": "Vivre ensemble",
+   "titre": "Règles de vie, droits & devoirs à l'école",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, 2 choix",
+    "normal": "situations variées",
+    "plus_loin": "justifier son choix"
+   },
+   "itemKinds": [
+    "mcq",
+    "pairing",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "conseil-classe",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_emc_regles"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "situations, choix respectueux"
+  },
+  {
+   "id": "CE1.EMC.EMOTIONS",
+   "classe": "CE1",
+   "matiere": "emc",
+   "domaine": "Vivre ensemble",
+   "titre": "Identifier et exprimer ses émotions",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, 2 choix",
+    "normal": "situations variées",
+    "plus_loin": "justifier son choix"
+   },
+   "itemKinds": [
+    "mcq",
+    "pairing",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "conseil-classe",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_emc_emotions"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "Dobble des émotions, situations"
+  },
+  {
+   "id": "CE1.EMC.SYMBOLES",
+   "classe": "CE1",
+   "matiere": "emc",
+   "domaine": "Vivre ensemble",
+   "titre": "Symboles de la République : drapeau bleu-blanc-rouge, Marianne, devise « Liberté, Égalité, Fraternité », Marseillaise, 14 juillet",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, 2 choix",
+    "normal": "situations variées",
+    "plus_loin": "justifier son choix"
+   },
+   "itemKinds": [
+    "mcq",
+    "pairing",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "conseil-classe",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/questions/ce1_questions.json",
+    "filter": {
+     "lessonId": "CE1.EMC.SYMBOLES"
+    }
+   },
+   "rappel": "Les symboles de la République sont le drapeau bleu-blanc-rouge, Marianne, la devise « Liberté, Égalité, Fraternité », La Marseillaise et le 14 juillet.",
+   "contenus": "Memory, Vrai/Faux"
+  },
+  {
+   "id": "CE1.EMC.RESPECT",
+   "classe": "CE1",
+   "matiere": "emc",
+   "domaine": "Vivre ensemble",
+   "titre": "Respect d'autrui, harcèlement (dire stop, en parler à un adulte), égalité filles-garçons",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, 2 choix",
+    "normal": "situations variées",
+    "plus_loin": "justifier son choix"
+   },
+   "itemKinds": [
+    "mcq",
+    "pairing",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "conseil-classe",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_emc_respect"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "Conseil de la classe"
+  },
+  {
+   "id": "CE1.EMC.ENVIRONNEMENT",
+   "classe": "CE1",
+   "matiere": "emc",
+   "domaine": "Vivre ensemble",
+   "titre": "Gestes éco-citoyens, tri des déchets",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, 2 choix",
+    "normal": "situations variées",
+    "plus_loin": "justifier son choix"
+   },
+   "itemKinds": [
+    "mcq",
+    "pairing",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "conseil-classe",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_emc_environnement"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "Tri sélectif (classification)"
+  },
+  {
+   "id": "CE1.EN.GREETINGS",
+   "classe": "CE1",
+   "matiere": "anglais",
+   "domaine": "Anglais",
+   "titre": "Saluer, se présenter (Hello, My name is…, How are you?)",
+   "programme": "en_vigueur",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "reconnaître",
+    "normal": "répondre",
+    "plus_loin": "dialogue"
+   },
+   "itemKinds": [
+    "pairing",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "jacques-a-dit",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_en_greetings"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.EN.NUMBERS",
+   "classe": "CE1",
+   "matiere": "anglais",
+   "domaine": "Anglais",
+   "titre": "Nombres 1-20",
+   "programme": "en_vigueur",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1-10",
+    "normal": "1-20",
+    "plus_loin": "20-100 par dizaines"
+   },
+   "itemKinds": [
+    "pairing",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "jacques-a-dit",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_en_numbers"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.EN.COLOURS",
+   "classe": "CE1",
+   "matiere": "anglais",
+   "domaine": "Anglais",
+   "titre": "Couleurs",
+   "programme": "en_vigueur",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "5",
+    "normal": "10",
+    "plus_loin": "phrases (It's red)"
+   },
+   "itemKinds": [
+    "pairing",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "jacques-a-dit",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_en_colours"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.EN.ANIMALS",
+   "classe": "CE1",
+   "matiere": "anglais",
+   "domaine": "Anglais",
+   "titre": "Animaux",
+   "programme": "en_vigueur",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "6",
+    "normal": "15",
+    "plus_loin": "I like… / I don't like…"
+   },
+   "itemKinds": [
+    "pairing",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "jacques-a-dit",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_en_animals"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.EN.BODY",
+   "classe": "CE1",
+   "matiere": "anglais",
+   "domaine": "Anglais",
+   "titre": "Le corps (Simon says)",
+   "programme": "en_vigueur",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "6",
+    "normal": "12",
+    "plus_loin": "consignes enchaînées"
+   },
+   "itemKinds": [
+    "pairing",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "jacques-a-dit",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_en_body"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.EN.DAYS",
+   "classe": "CE1",
+   "matiere": "anglais",
+   "domaine": "Anglais",
+   "titre": "Jours, mois, météo",
+   "programme": "en_vigueur",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "jours",
+    "normal": "mois",
+    "plus_loin": "date complète"
+   },
+   "itemKinds": [
+    "pairing",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "jacques-a-dit",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_en_days"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CE1.EN.FAMILY",
+   "classe": "CE1",
+   "matiere": "anglais",
+   "domaine": "Anglais",
+   "titre": "Famille, vêtements, nourriture",
+   "programme": "en_vigueur",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "—",
+    "normal": "—",
+    "plus_loin": "—"
+   },
+   "itemKinds": [
+    "pairing",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "jacques-a-dit",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:ce1_en_family"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  }
+ ]
+}

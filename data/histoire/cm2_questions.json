@@ -1,0 +1,820 @@
+{
+ "$comment": "Questions d'histoire CM2 (programme 2020 en vigueur + programme 2026 pour 2027 + rappel CM1). 'bonne' = index de la bonne réponse AVANT mélange (le jeu mélange les choix). guillotine=false : thèmes sensibles, jamais joués en mode Guillotine. À relire par l'agent pedagogue.",
+ "questions": [
+  {
+   "id": "q001",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "En quelle année commence la Révolution française ?",
+   "choix": [
+    "1789",
+    "1914"
+   ],
+   "bonne": 0,
+   "explication": "La Révolution française commence en 1789.",
+   "guillotine": true
+  },
+  {
+   "id": "q002",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Quel bâtiment parisien les Parisiens prennent-ils le 14 juillet 1789 ?",
+   "choix": [
+    "La Bastille",
+    "La tour Eiffel"
+   ],
+   "bonne": 0,
+   "explication": "Le 14 juillet 1789, les Parisiens prennent la Bastille, une prison-forteresse, symbole du pouvoir du roi. La tour Eiffel date de 1889.",
+   "guillotine": true
+  },
+  {
+   "id": "q003",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Qui est le roi de France au début de la Révolution ?",
+   "choix": [
+    "Louis XVI",
+    "Napoléon"
+   ],
+   "bonne": 0,
+   "explication": "Louis XVI est roi de France en 1789.",
+   "guillotine": true
+  },
+  {
+   "id": "q004",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel texte est adopté le 26 août 1789 ?",
+   "choix": [
+    "La Déclaration des droits de l'homme et du citoyen",
+    "Le Code civil",
+    "La loi de séparation des Églises et de l'État",
+    "Le traité de Rome"
+   ],
+   "bonne": 0,
+   "explication": "La Déclaration des droits de l'homme et du citoyen affirme que « les hommes naissent et demeurent libres et égaux en droits ».",
+   "guillotine": true
+  },
+  {
+   "id": "q005",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Que se passe-t-il dans la nuit du 4 août 1789 ?",
+   "choix": [
+    "L'abolition des privilèges",
+    "Le sacre de Napoléon",
+    "La prise de la Bastille",
+    "L'exécution du roi"
+   ],
+   "bonne": 0,
+   "explication": "Dans la nuit du 4 août 1789, les députés abolissent les privilèges de la noblesse et du clergé.",
+   "guillotine": true
+  },
+  {
+   "id": "q006",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Avant 1789, la société était divisée en trois ordres. Lesquels ?",
+   "choix": [
+    "Clergé, noblesse, tiers état",
+    "Rois, reines, princes",
+    "Ouvriers, paysans, bourgeois",
+    "Soldats, marchands, artisans"
+   ],
+   "bonne": 0,
+   "explication": "La société d'Ancien Régime comprenait le clergé, la noblesse et le tiers état (la grande majorité de la population).",
+   "guillotine": true
+  },
+  {
+   "id": "q007",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Dans quels cahiers les Français écrivent-ils leurs plaintes au printemps 1789 ?",
+   "choix": [
+    "Les cahiers de doléances",
+    "Les cahiers de brouillon",
+    "Les cahiers de textes",
+    "Les cahiers de comptes"
+   ],
+   "bonne": 0,
+   "explication": "Les cahiers de doléances rassemblent les plaintes et les souhaits des habitants.",
+   "guillotine": true
+  },
+  {
+   "id": "q008",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "En quelle année la monarchie est-elle abolie et la République proclamée ?",
+   "choix": [
+    "1792",
+    "1789",
+    "1804",
+    "1848"
+   ],
+   "bonne": 0,
+   "explication": "La Ire République est proclamée en septembre 1792.",
+   "guillotine": true
+  },
+  {
+   "id": "q009",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "En quelle année Louis XVI est-il exécuté ?",
+   "choix": [
+    "1793",
+    "1789",
+    "1792",
+    "1799"
+   ],
+   "bonne": 0,
+   "explication": "Louis XVI est guillotiné le 21 janvier 1793.",
+   "guillotine": false
+  },
+  {
+   "id": "q010",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Quelle est la devise de la République, née pendant la Révolution ?",
+   "choix": [
+    "Liberté, Égalité, Fraternité",
+    "Paix, Travail, Patrie",
+    "Un pour tous, tous pour un",
+    "Honneur et Patrie"
+   ],
+   "bonne": 0,
+   "explication": "« Liberté, Égalité, Fraternité » devient la devise officielle de la République.",
+   "guillotine": true
+  },
+  {
+   "id": "q011",
+   "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Le 20 juin 1789, les députés du tiers état prêtent un serment. Lequel ?",
+   "choix": [
+    "Le serment du Jeu de paume",
+    "Le serment de Strasbourg",
+    "Le serment des Horaces",
+    "Le serment de Versailles"
+   ],
+   "bonne": 0,
+   "explication": "Au Jeu de paume, ils jurent de ne pas se séparer avant d'avoir donné une Constitution à la France.",
+   "guillotine": true
+  },
+  {
+   "id": "q012",
+   "lessonId": "CM2.HI20.T1.REPUBLIQUE100",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Quelle est la fête nationale française ?",
+   "choix": [
+    "Le 14 juillet",
+    "Le 1er janvier"
+   ],
+   "bonne": 0,
+   "explication": "Le 14 juillet est la fête nationale depuis 1880.",
+   "guillotine": true
+  },
+  {
+   "id": "q013",
+   "lessonId": "CM2.HI20.T1.REPUBLIQUE100",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Quelles sont les couleurs du drapeau français ?",
+   "choix": [
+    "Bleu, blanc, rouge",
+    "Vert, blanc, rouge"
+   ],
+   "bonne": 0,
+   "explication": "Le drapeau tricolore est bleu, blanc, rouge.",
+   "guillotine": true
+  },
+  {
+   "id": "q014",
+   "lessonId": "CM2.HI20.T1.REPUBLIQUE100",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Comment s'appelle la femme qui symbolise la République ?",
+   "choix": [
+    "Marianne",
+    "Jeanne",
+    "Joséphine",
+    "Marie-Antoinette"
+   ],
+   "bonne": 0,
+   "explication": "Marianne, coiffée d'un bonnet phrygien, symbolise la République.",
+   "guillotine": true
+  },
+  {
+   "id": "q015",
+   "lessonId": "CM2.HI20.T1.REPUBLIQUE100",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel est le nom de l'hymne national français ?",
+   "choix": [
+    "La Marseillaise",
+    "La Carmagnole",
+    "L'Internationale",
+    "Le Chant du départ"
+   ],
+   "bonne": 0,
+   "explication": "La Marseillaise, composée en 1792 par Rouget de Lisle, est l'hymne national.",
+   "guillotine": true
+  },
+  {
+   "id": "q016",
+   "lessonId": "CM2.HI20.T1.REPUBLIQUE100",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "En 1892, la République fête ses 100 ans. En quelle année a-t-elle été proclamée ?",
+   "choix": [
+    "1792",
+    "1789",
+    "1848",
+    "1870"
+   ],
+   "bonne": 0,
+   "explication": "1892 − 100 = 1792 : proclamation de la Ire République.",
+   "guillotine": true
+  },
+  {
+   "id": "q017",
+   "lessonId": "CM2.HI20.T1.REPUBLIQUE100",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "En quelle année commence la IIIe République ?",
+   "choix": [
+    "1870",
+    "1848",
+    "1792",
+    "1958"
+   ],
+   "bonne": 0,
+   "explication": "La IIIe République est proclamée le 4 septembre 1870.",
+   "guillotine": true
+  },
+  {
+   "id": "q018",
+   "lessonId": "CM2.HI20.T1.FERRY",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Qui a rendu l'école gratuite, laïque et obligatoire ?",
+   "choix": [
+    "Jules Ferry",
+    "Napoléon"
+   ],
+   "bonne": 0,
+   "explication": "Les lois de Jules Ferry (1881-1882) rendent l'école primaire gratuite, laïque et obligatoire.",
+   "guillotine": true
+  },
+  {
+   "id": "q019",
+   "lessonId": "CM2.HI20.T1.FERRY",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Les lois Ferry rendent l'école…",
+   "choix": [
+    "gratuite, laïque et obligatoire",
+    "payante et facultative",
+    "réservée aux garçons",
+    "religieuse"
+   ],
+   "bonne": 0,
+   "explication": "Gratuite (1881), laïque et obligatoire (1882).",
+   "guillotine": true
+  },
+  {
+   "id": "q020",
+   "lessonId": "CM2.HI20.T1.FERRY",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "En 1882, l'école devient obligatoire pour les enfants de…",
+   "choix": [
+    "6 à 13 ans",
+    "3 à 16 ans",
+    "10 à 18 ans",
+    "5 à 8 ans"
+   ],
+   "bonne": 0,
+   "explication": "L'instruction est obligatoire de 6 à 13 ans.",
+   "guillotine": true
+  },
+  {
+   "id": "q021",
+   "lessonId": "CM2.HI20.T1.FERRY",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Quel diplôme les élèves pouvaient-ils obtenir à la fin de l'école primaire ?",
+   "choix": [
+    "Le certificat d'études",
+    "Le baccalauréat",
+    "Le brevet des collèges",
+    "La licence"
+   ],
+   "bonne": 0,
+   "explication": "Le certificat d'études primaires récompensait la fin de la scolarité primaire.",
+   "guillotine": true
+  },
+  {
+   "id": "q022",
+   "lessonId": "CM2.HI20.T1.CITOYENS",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "En quelle année les femmes obtiennent-elles le droit de vote en France ?",
+   "choix": [
+    "1944",
+    "1789",
+    "1848",
+    "1981"
+   ],
+   "bonne": 0,
+   "explication": "Les femmes obtiennent le droit de vote en 1944 et votent pour la première fois en 1945.",
+   "guillotine": true
+  },
+  {
+   "id": "q023",
+   "lessonId": "CM2.HI20.T1.CITOYENS",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "En 1848, la IIe République adopte le suffrage universel masculin et…",
+   "choix": [
+    "l'abolition de l'esclavage",
+    "le droit de vote des femmes",
+    "l'euro",
+    "l'école obligatoire"
+   ],
+   "bonne": 0,
+   "explication": "L'esclavage est aboli définitivement en 1848, grâce notamment à Victor Schœlcher.",
+   "guillotine": false
+  },
+  {
+   "id": "q024",
+   "lessonId": "CM2.HI20.T1.CITOYENS",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Que dit la loi de 1905 ?",
+   "choix": [
+    "Les Églises et l'État sont séparés",
+    "Le roi revient au pouvoir",
+    "L'école devient payante",
+    "Les femmes peuvent voter"
+   ],
+   "bonne": 0,
+   "explication": "La loi de 1905 sépare les Églises et l'État : c'est un pilier de la laïcité.",
+   "guillotine": true
+  },
+  {
+   "id": "q025",
+   "lessonId": "CM2.HI20.T1.CITOYENS",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "En quelle année est fondée la Ve République ?",
+   "choix": [
+    "1958",
+    "1945",
+    "1870",
+    "1981"
+   ],
+   "bonne": 0,
+   "explication": "La Ve République est fondée en 1958 ; le général de Gaulle en est le premier président.",
+   "guillotine": true
+  },
+  {
+   "id": "q026",
+   "lessonId": "CM2.HI20.T1.CITOYENS",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Depuis 1974, à quel âge peut-on voter en France ?",
+   "choix": [
+    "18 ans",
+    "21 ans",
+    "16 ans",
+    "25 ans"
+   ],
+   "bonne": 0,
+   "explication": "En 1974, la majorité passe de 21 à 18 ans.",
+   "guillotine": true
+  },
+  {
+   "id": "q027",
+   "lessonId": "CM2.HI20.T2.ENERGIES",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Quelle énergie fait fonctionner les premières machines à vapeur ?",
+   "choix": [
+    "Le charbon",
+    "Le soleil"
+   ],
+   "bonne": 0,
+   "explication": "Le charbon chauffe l'eau, qui produit la vapeur qui fait tourner les machines.",
+   "guillotine": true
+  },
+  {
+   "id": "q028",
+   "lessonId": "CM2.HI20.T2.ENERGIES",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel moyen de transport se développe au XIXe siècle grâce à la machine à vapeur ?",
+   "choix": [
+    "Le train",
+    "L'avion",
+    "La trottinette",
+    "La fusée"
+   ],
+   "bonne": 0,
+   "explication": "Le chemin de fer se développe partout en France au XIXe siècle.",
+   "guillotine": true
+  },
+  {
+   "id": "q029",
+   "lessonId": "CM2.HI20.T2.ENERGIES",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Quel savant met au point le vaccin contre la rage en 1885 ?",
+   "choix": [
+    "Louis Pasteur",
+    "Marie Curie",
+    "Thomas Edison",
+    "Jules Verne"
+   ],
+   "bonne": 0,
+   "explication": "Louis Pasteur met au point le vaccin contre la rage en 1885.",
+   "guillotine": true
+  },
+  {
+   "id": "q030",
+   "lessonId": "CM2.HI20.T2.TRAVAIL",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Comment appelle-t-on la personne qui travaille dans une usine ?",
+   "choix": [
+    "Un ouvrier",
+    "Un seigneur",
+    "Un chevalier",
+    "Un moine"
+   ],
+   "bonne": 0,
+   "explication": "Les ouvriers travaillent dans les usines et les mines.",
+   "guillotine": true
+  },
+  {
+   "id": "q031",
+   "lessonId": "CM2.HI20.T2.TRAVAIL",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Au XIXe siècle, les enfants travaillaient-ils dans les mines et les usines ?",
+   "choix": [
+    "Oui, parfois très jeunes",
+    "Non, jamais",
+    "Seulement le dimanche",
+    "Seulement les rois"
+   ],
+   "bonne": 0,
+   "explication": "Beaucoup d'enfants travaillaient dans les mines et les usines ; des lois ont peu à peu limité ce travail.",
+   "guillotine": false
+  },
+  {
+   "id": "q032",
+   "lessonId": "CM2.HI20.T2.TRAVAIL",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Que permet le droit de grève, reconnu en 1864 ?",
+   "choix": [
+    "Arrêter le travail pour réclamer de meilleures conditions",
+    "Ne jamais travailler",
+    "Choisir son roi",
+    "Ne pas aller à l'école"
+   ],
+   "bonne": 0,
+   "explication": "La grève est un arrêt collectif du travail pour défendre des revendications.",
+   "guillotine": true
+  },
+  {
+   "id": "q033",
+   "lessonId": "CM2.HI20.T2.VILLE",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Comment appelle-t-on le départ des habitants des campagnes vers les villes ?",
+   "choix": [
+    "L'exode rural",
+    "Le tourisme",
+    "La colonisation",
+    "La migration des oiseaux"
+   ],
+   "bonne": 0,
+   "explication": "Avec l'industrie, beaucoup de paysans partent travailler en ville : c'est l'exode rural.",
+   "guillotine": true
+  },
+  {
+   "id": "q034",
+   "lessonId": "CM2.HI20.T3.GUERRES",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Quelles sont les dates de la Première Guerre mondiale ?",
+   "choix": [
+    "1914-1918",
+    "1939-1945"
+   ],
+   "bonne": 0,
+   "explication": "La Première Guerre mondiale dure de 1914 à 1918.",
+   "guillotine": false
+  },
+  {
+   "id": "q035",
+   "lessonId": "CM2.HI20.T3.GUERRES",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Comment surnomme-t-on les soldats français de la Première Guerre mondiale ?",
+   "choix": [
+    "Les poilus",
+    "Les grognards",
+    "Les mousquetaires",
+    "Les hussards"
+   ],
+   "bonne": 0,
+   "explication": "On les appelle les poilus.",
+   "guillotine": false
+  },
+  {
+   "id": "q036",
+   "lessonId": "CM2.HI20.T3.GUERRES",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel jour est signé l'armistice de la Première Guerre mondiale ?",
+   "choix": [
+    "11 novembre 1918",
+    "14 juillet 1918",
+    "8 mai 1945",
+    "6 juin 1944"
+   ],
+   "bonne": 0,
+   "explication": "L'armistice est signé le 11 novembre 1918 ; ce jour est commémoré chaque année.",
+   "guillotine": false
+  },
+  {
+   "id": "q037",
+   "lessonId": "CM2.HI20.T3.GUERRES",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Qui lance l'appel du 18 juin 1940 à la radio de Londres ?",
+   "choix": [
+    "Le général de Gaulle",
+    "Napoléon",
+    "Jules Ferry",
+    "Louis XVI"
+   ],
+   "bonne": 0,
+   "explication": "Le 18 juin 1940, le général de Gaulle appelle les Français à poursuivre le combat.",
+   "guillotine": false
+  },
+  {
+   "id": "q038",
+   "lessonId": "CM2.HI20.T3.GUERRES",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quelle est la date du débarquement allié en Normandie ?",
+   "choix": [
+    "6 juin 1944",
+    "11 novembre 1918",
+    "14 juillet 1789",
+    "8 mai 1945"
+   ],
+   "bonne": 0,
+   "explication": "Le 6 juin 1944, les Alliés débarquent sur les plages de Normandie.",
+   "guillotine": false
+  },
+  {
+   "id": "q039",
+   "lessonId": "CM2.HI20.T3.GUERRES",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Quel résistant a unifié la Résistance intérieure française ?",
+   "choix": [
+    "Jean Moulin",
+    "Jules Ferry",
+    "Victor Hugo",
+    "Louis Pasteur"
+   ],
+   "bonne": 0,
+   "explication": "Jean Moulin, envoyé par de Gaulle, unifie les mouvements de Résistance.",
+   "guillotine": false
+  },
+  {
+   "id": "q040",
+   "lessonId": "CM2.HI20.T3.GUERRES",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Quelle date marque la fin de la Seconde Guerre mondiale en Europe ?",
+   "choix": [
+    "8 mai 1945",
+    "11 novembre 1918",
+    "6 juin 1944",
+    "18 juin 1940"
+   ],
+   "bonne": 0,
+   "explication": "L'Allemagne nazie capitule le 8 mai 1945.",
+   "guillotine": false
+  },
+  {
+   "id": "q041",
+   "lessonId": "CM2.HI20.T3.EUROPE",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel traité de 1957 fonde la Communauté économique européenne ?",
+   "choix": [
+    "Le traité de Rome",
+    "Le traité de Versailles",
+    "Le traité de Paris",
+    "Le traité de Maastricht"
+   ],
+   "bonne": 0,
+   "explication": "Le traité de Rome (1957) réunit 6 pays fondateurs.",
+   "guillotine": true
+  },
+  {
+   "id": "q042",
+   "lessonId": "CM2.HI20.T3.EUROPE",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quelle monnaie utilise-t-on en France depuis 2002 ?",
+   "choix": [
+    "L'euro",
+    "Le franc",
+    "Le dollar",
+    "La livre"
+   ],
+   "bonne": 0,
+   "explication": "Les pièces et billets en euros circulent depuis le 1er janvier 2002.",
+   "guillotine": true
+  },
+  {
+   "id": "q043",
+   "lessonId": "CM2.HI20.T3.EUROPE",
+   "programme": "2020",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Lequel de ces pays n'est PAS un des 6 pays fondateurs ?",
+   "choix": [
+    "L'Espagne",
+    "L'Italie",
+    "La Belgique",
+    "Le Luxembourg"
+   ],
+   "bonne": 0,
+   "explication": "Les 6 fondateurs : France, Allemagne (RFA), Italie, Belgique, Pays-Bas, Luxembourg. L'Espagne entre en 1986.",
+   "guillotine": true
+  },
+  {
+   "id": "q044",
+   "lessonId": "CM2.HI26.T1",
+   "programme": "2026",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Comment s'appelle l'empereur des Français sacré en 1804 ?",
+   "choix": [
+    "Napoléon Ier",
+    "Louis XIV"
+   ],
+   "bonne": 0,
+   "explication": "Napoléon Bonaparte est sacré empereur le 2 décembre 1804.",
+   "guillotine": true
+  },
+  {
+   "id": "q045",
+   "lessonId": "CM2.HI26.T1",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel recueil de lois Napoléon fait-il rédiger en 1804 ?",
+   "choix": [
+    "Le Code civil",
+    "La Déclaration des droits de l'homme",
+    "Les lois Ferry",
+    "Le Code de la route"
+   ],
+   "bonne": 0,
+   "explication": "Le Code civil (1804) rassemble les lois sur la famille, la propriété…",
+   "guillotine": true
+  },
+  {
+   "id": "q046",
+   "lessonId": "CM2.HI26.T1",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "En quelle année l'esclavage est-il aboli pour la première fois dans les colonies françaises ?",
+   "choix": [
+    "1794",
+    "1848",
+    "1802",
+    "1905"
+   ],
+   "bonne": 0,
+   "explication": "Première abolition en 1794 ; Napoléon le rétablit en 1802 ; abolition définitive en 1848.",
+   "guillotine": false
+  },
+  {
+   "id": "q047",
+   "lessonId": "CM2.HI26.T1",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel chant est composé en avril 1792 ?",
+   "choix": [
+    "La Marseillaise",
+    "Frère Jacques",
+    "Au clair de la lune",
+    "L'Internationale"
+   ],
+   "bonne": 0,
+   "explication": "La Marseillaise est composée par Rouget de Lisle en avril 1792.",
+   "guillotine": true
+  },
+  {
+   "id": "q048",
+   "lessonId": "CM2.HI26.T1",
+   "programme": "2026",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Quels établissements scolaires Napoléon crée-t-il ?",
+   "choix": [
+    "Les lycées",
+    "Les écoles maternelles",
+    "Les universités populaires",
+    "Les collèges uniques"
+   ],
+   "bonne": 0,
+   "explication": "Napoléon crée les lycées en 1802.",
+   "guillotine": true
+  },
+  {
+   "id": "q049",
+   "lessonId": "CM2.HI26.T1",
+   "programme": "2026",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Quel fonctionnaire Napoléon place-t-il à la tête de chaque département ?",
+   "choix": [
+    "Le préfet",
+    "Le maire",
+    "Le seigneur",
+    "L'intendant"
+   ],
+   "bonne": 0,
+   "explication": "Le préfet, créé en 1800, représente l'État dans chaque département.",
+   "guillotine": true
+  }
+ ]
+}

@@ -1,0 +1,748 @@
+{
+ "$comment": "Listes de départ créées pour Ludidactik, alignées sur les attendus BO. Les parents ajoutent leurs propres listes dans l'app. Champ phrase = phrase-contexte lue en dictée (mot / phrase / mot).",
+ "classe": "CE1",
+ "listes": [
+  {
+   "id": "ce1-p1-simples",
+   "titre": "Mots simples (rappel CP)",
+   "periodes": [
+    1
+   ],
+   "theme": "code",
+   "niveau": "facile",
+   "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
+   "mots": [
+    {
+     "mot": "papa"
+    },
+    {
+     "mot": "maman"
+    },
+    {
+     "mot": "ami",
+     "phrase": "Mon ami joue avec moi."
+    },
+    {
+     "mot": "école"
+    },
+    {
+     "mot": "classe"
+    },
+    {
+     "mot": "livre"
+    },
+    {
+     "mot": "table"
+    },
+    {
+     "mot": "porte"
+    },
+    {
+     "mot": "lune"
+    },
+    {
+     "mot": "vélo"
+    },
+    {
+     "mot": "moto"
+    },
+    {
+     "mot": "rue"
+    },
+    {
+     "mot": "lit",
+     "phrase": "Je dors dans mon lit."
+    },
+    {
+     "mot": "sac"
+    },
+    {
+     "mot": "bol"
+    },
+    {
+     "mot": "mur"
+    },
+    {
+     "mot": "chat"
+    },
+    {
+     "mot": "robe"
+    },
+    {
+     "mot": "pomme"
+    },
+    {
+     "mot": "jupe"
+    }
+   ]
+  },
+  {
+   "id": "ce1-invariables-1",
+   "titre": "Petits mots invariables (1)",
+   "periodes": [
+    1,
+    2
+   ],
+   "theme": "invariables",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.ORTH.INVARIABLES",
+   "mots": [
+    {
+     "mot": "avec"
+    },
+    {
+     "mot": "dans"
+    },
+    {
+     "mot": "sur"
+    },
+    {
+     "mot": "sous"
+    },
+    {
+     "mot": "pour"
+    },
+    {
+     "mot": "mais"
+    },
+    {
+     "mot": "très"
+    },
+    {
+     "mot": "aussi"
+    },
+    {
+     "mot": "après"
+    },
+    {
+     "mot": "avant"
+    },
+    {
+     "mot": "devant"
+    },
+    {
+     "mot": "derrière"
+    },
+    {
+     "mot": "chez"
+    },
+    {
+     "mot": "vers"
+    },
+    {
+     "mot": "comme"
+    },
+    {
+     "mot": "quand"
+    }
+   ]
+  },
+  {
+   "id": "ce1-invariables-2",
+   "titre": "Petits mots invariables (2) : le temps et l'espace",
+   "periodes": [
+    2,
+    3
+   ],
+   "theme": "invariables",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.ORTH.INVARIABLES",
+   "mots": [
+    {
+     "mot": "toujours"
+    },
+    {
+     "mot": "jamais"
+    },
+    {
+     "mot": "souvent"
+    },
+    {
+     "mot": "beaucoup"
+    },
+    {
+     "mot": "ici"
+    },
+    {
+     "mot": "là-bas"
+    },
+    {
+     "mot": "loin"
+    },
+    {
+     "mot": "près"
+    },
+    {
+     "mot": "tôt"
+    },
+    {
+     "mot": "aussitôt"
+    },
+    {
+     "mot": "plutôt"
+    },
+    {
+     "mot": "bientôt"
+    },
+    {
+     "mot": "hier"
+    },
+    {
+     "mot": "demain"
+    },
+    {
+     "mot": "aujourd'hui"
+    },
+    {
+     "mot": "maintenant"
+    },
+    {
+     "mot": "encore"
+    },
+    {
+     "mot": "alors"
+    },
+    {
+     "mot": "puis"
+    },
+    {
+     "mot": "ensuite"
+    },
+    {
+     "mot": "enfin"
+    },
+    {
+     "mot": "depuis"
+    },
+    {
+     "mot": "pendant"
+    },
+    {
+     "mot": "parce que"
+    }
+   ]
+  },
+  {
+   "id": "ce1-ecole",
+   "titre": "Les mots de l'école",
+   "periodes": [
+    1
+   ],
+   "theme": "école",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
+   "mots": [
+    {
+     "mot": "cahier"
+    },
+    {
+     "mot": "crayon"
+    },
+    {
+     "mot": "cartable"
+    },
+    {
+     "mot": "trousse"
+    },
+    {
+     "mot": "gomme"
+    },
+    {
+     "mot": "règle",
+     "phrase": "J'utilise une règle pour tracer un trait."
+    },
+    {
+     "mot": "stylo"
+    },
+    {
+     "mot": "maîtresse"
+    },
+    {
+     "mot": "maître"
+    },
+    {
+     "mot": "élève"
+    },
+    {
+     "mot": "récréation"
+    },
+    {
+     "mot": "cantine"
+    },
+    {
+     "mot": "tableau"
+    },
+    {
+     "mot": "lecture"
+    },
+    {
+     "mot": "dictée"
+    }
+   ]
+  },
+  {
+   "id": "ce1-maison",
+   "titre": "La maison",
+   "periodes": [
+    2
+   ],
+   "theme": "maison",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
+   "mots": [
+    {
+     "mot": "maison"
+    },
+    {
+     "mot": "chambre"
+    },
+    {
+     "mot": "cuisine"
+    },
+    {
+     "mot": "fenêtre"
+    },
+    {
+     "mot": "escalier"
+    },
+    {
+     "mot": "jardin"
+    },
+    {
+     "mot": "salon"
+    },
+    {
+     "mot": "garage"
+    },
+    {
+     "mot": "lampe"
+    },
+    {
+     "mot": "chaise"
+    },
+    {
+     "mot": "porte"
+    },
+    {
+     "mot": "toit"
+    },
+    {
+     "mot": "clé"
+    },
+    {
+     "mot": "lit"
+    },
+    {
+     "mot": "armoire"
+    }
+   ]
+  },
+  {
+   "id": "ce1-corps",
+   "titre": "Le corps",
+   "periodes": [
+    2
+   ],
+   "theme": "corps",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
+   "mots": [
+    {
+     "mot": "tête"
+    },
+    {
+     "mot": "bras"
+    },
+    {
+     "mot": "jambe"
+    },
+    {
+     "mot": "main"
+    },
+    {
+     "mot": "pied"
+    },
+    {
+     "mot": "bouche"
+    },
+    {
+     "mot": "oreille"
+    },
+    {
+     "mot": "cheveux"
+    },
+    {
+     "mot": "ventre"
+    },
+    {
+     "mot": "genou"
+    },
+    {
+     "mot": "dent"
+    },
+    {
+     "mot": "nez"
+    },
+    {
+     "mot": "cou"
+    },
+    {
+     "mot": "dos"
+    },
+    {
+     "mot": "œil"
+    }
+   ]
+  },
+  {
+   "id": "ce1-sons-complexes",
+   "titre": "Les sons complexes",
+   "periodes": [
+    2,
+    3
+   ],
+   "theme": "code",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.LEC.CGP",
+   "mots": [
+    {
+     "mot": "oiseau"
+    },
+    {
+     "mot": "château"
+    },
+    {
+     "mot": "chapeau"
+    },
+    {
+     "mot": "bateau"
+    },
+    {
+     "mot": "gâteau"
+    },
+    {
+     "mot": "poisson",
+     "phrase": "Le poisson nage dans l'eau."
+    },
+    {
+     "mot": "maison"
+    },
+    {
+     "mot": "garçon"
+    },
+    {
+     "mot": "montagne"
+    },
+    {
+     "mot": "grenouille"
+    },
+    {
+     "mot": "abeille"
+    },
+    {
+     "mot": "soleil"
+    },
+    {
+     "mot": "feuille"
+    },
+    {
+     "mot": "fauteuil"
+    },
+    {
+     "mot": "citron"
+    },
+    {
+     "mot": "champignon"
+    },
+    {
+     "mot": "éléphant"
+    },
+    {
+     "mot": "photo"
+    },
+    {
+     "mot": "pharmacie"
+    },
+    {
+     "mot": "addition"
+    }
+   ]
+  },
+  {
+   "id": "ce1-lettres-muettes",
+   "titre": "Les lettres muettes (mot de la même famille)",
+   "periodes": [
+    3,
+    4
+   ],
+   "theme": "orthographe",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.ORTH.MUETTE",
+   "mots": [
+    {
+     "mot": "blanc",
+     "phrase": "La neige est blanche, le lait est blanc."
+    },
+    {
+     "mot": "chant",
+     "phrase": "Le chant des oiseaux : ils chantent."
+    },
+    {
+     "mot": "grand"
+    },
+    {
+     "mot": "petit"
+    },
+    {
+     "mot": "long"
+    },
+    {
+     "mot": "rond"
+    },
+    {
+     "mot": "gros"
+    },
+    {
+     "mot": "bavard"
+    },
+    {
+     "mot": "lait",
+     "phrase": "Le lait sert à faire du laitage."
+    },
+    {
+     "mot": "loup"
+    },
+    {
+     "mot": "dent"
+    },
+    {
+     "mot": "sang",
+     "phrase": "Le sang : on dit aussi sanguin."
+    },
+    {
+     "mot": "tapis"
+    },
+    {
+     "mot": "enfant"
+    },
+    {
+     "mot": "souris"
+    }
+   ]
+  },
+  {
+   "id": "ce1-nature",
+   "titre": "Les animaux et la nature",
+   "periodes": [
+    4,
+    5
+   ],
+   "theme": "nature",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
+   "mots": [
+    {
+     "mot": "lapin"
+    },
+    {
+     "mot": "cheval"
+    },
+    {
+     "mot": "chien"
+    },
+    {
+     "mot": "mouton"
+    },
+    {
+     "mot": "vache"
+    },
+    {
+     "mot": "cochon"
+    },
+    {
+     "mot": "renard"
+    },
+    {
+     "mot": "forêt"
+    },
+    {
+     "mot": "arbre"
+    },
+    {
+     "mot": "fleur"
+    },
+    {
+     "mot": "rivière"
+    },
+    {
+     "mot": "herbe"
+    },
+    {
+     "mot": "pluie"
+    },
+    {
+     "mot": "neige"
+    },
+    {
+     "mot": "nuage"
+    }
+   ]
+  },
+  {
+   "id": "ce1-affixes",
+   "titre": "Préfixes et suffixes",
+   "periodes": [
+    4,
+    5
+   ],
+   "theme": "vocabulaire",
+   "niveau": "normal",
+   "lessonId": "CE1.FR.VOC.AFFIXES",
+   "mots": [
+    {
+     "mot": "parapluie"
+    },
+    {
+     "mot": "multicolore"
+    },
+    {
+     "mot": "antivol"
+    },
+    {
+     "mot": "invisible"
+    },
+    {
+     "mot": "déranger"
+    },
+    {
+     "mot": "démonter"
+    },
+    {
+     "mot": "chanteur"
+    },
+    {
+     "mot": "coiffeuse"
+    },
+    {
+     "mot": "boulanger"
+    },
+    {
+     "mot": "boucher"
+    },
+    {
+     "mot": "danseur"
+    },
+    {
+     "mot": "danseuse"
+    }
+   ]
+  },
+  {
+   "id": "ce1-plus-loin",
+   "titre": "Pour aller plus loin",
+   "periodes": [
+    3,
+    4,
+    5
+   ],
+   "theme": "défi",
+   "niveau": "plus_loin",
+   "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
+   "mots": [
+    {
+     "mot": "quelquefois"
+    },
+    {
+     "mot": "longtemps"
+    },
+    {
+     "mot": "autrefois"
+    },
+    {
+     "mot": "anniversaire"
+    },
+    {
+     "mot": "bibliothèque"
+    },
+    {
+     "mot": "hippopotame"
+    },
+    {
+     "mot": "crocodile"
+    },
+    {
+     "mot": "kangourou"
+    },
+    {
+     "mot": "rhinocéros"
+    },
+    {
+     "mot": "orchestre"
+    },
+    {
+     "mot": "automne"
+    },
+    {
+     "mot": "boulangerie"
+    },
+    {
+     "mot": "gymnase"
+    },
+    {
+     "mot": "cerise"
+    },
+    {
+     "mot": "garage"
+    }
+   ]
+  }
+ ],
+ "phrasesDictee": [
+  {
+   "phrase": "Les petits chats jouent dans le jardin.",
+   "niveau": "normal",
+   "notions": [
+    "accord GN",
+    "accord sujet-verbe"
+   ]
+  },
+  {
+   "phrase": "Ma sœur a une jolie robe bleue.",
+   "niveau": "normal",
+   "notions": [
+    "a/à",
+    "féminin"
+   ]
+  },
+  {
+   "phrase": "Hier, nous jouions dans la cour.",
+   "niveau": "plus_loin",
+   "notions": [
+    "imparfait"
+   ]
+  },
+  {
+   "phrase": "Demain, tu iras à la piscine avec papa.",
+   "niveau": "plus_loin",
+   "notions": [
+    "futur",
+    "a/à"
+   ]
+  },
+  {
+   "phrase": "Le loup est grand et il est méchant.",
+   "niveau": "normal",
+   "notions": [
+    "et/est"
+   ]
+  },
+  {
+   "phrase": "Les enfants ont mangé des pommes rouges.",
+   "niveau": "plus_loin",
+   "notions": [
+    "passé composé",
+    "accord GN"
+   ]
+  }
+ ]
+}

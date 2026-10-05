@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Palette DESIGN_UI (canaux RGB) */
+    --c-sky: 79 195 247;
+    --c-sky-dark: 25 118 210;
+    --c-grass: 123 211 137;
+    --c-grass-dark: 46 140 72;
+    --c-sun: 255 212 92;
+    --c-sun-dark: 214 150 0;
+    --c-coral: 255 122 107;
+    --c-coral-dark: 205 62 48;
+    --c-grape: 142 124 255;
+    --c-grape-dark: 96 72 220;
+    --c-ink: 36 48 74;
+    --c-ink-soft: 88 100 128;
+    --c-cream: 255 248 236;
+    --c-cream-deep: 252 236 210;
+    --c-card: 255 255 255;
+    /* Matières */
+    --c-maths: 41 128 230;
+    --c-francais: 240 98 82;
+    --c-histoire: 224 164 88;
+    --c-geographie: 64 168 92;
+    --c-sciences: 26 177 170;
+    --c-emc: 92 120 220;
+    --c-anglais: 150 96 220;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='clair']) {
+      --c-ink: 236 240 250;
+      --c-ink-soft: 176 186 210;
+      --c-cream: 22 28 46;
+      --c-cream-deep: 30 38 62;
+      --c-card: 36 46 72;
+      --c-sky-dark: 110 180 255;
+      color-scheme: dark;
+    }
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    font-size: 100%;
+  }
+
+  html[data-classe='CE1'] {
+    font-size: 106%;
+  }
+
+  body {
+    @apply bg-cream font-texte text-base text-ink antialiased;
+    min-height: 100dvh;
+    overscroll-behavior-y: none;
+  }
+
+  html[data-font='dyslexie'] body,
+  html[data-font='dyslexie'] .font-titre {
+    font-family: OpenDyslexic, Andika, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-titre font-extrabold leading-tight;
+  }
+
+  :focus-visible {
+    outline: 4px solid rgb(var(--c-grape));
+    outline-offset: 3px;
+    border-radius: 12px;
+  }
+
+  button {
+    touch-action: manipulation;
+  }
+}
+
+@layer components {
+  /* Gros bouton « enfoncé » : l'ombre dure disparaît à l'appui */
+  .btn-3d {
+    @apply relative select-none rounded-btn font-titre font-bold shadow-pop transition-[transform,box-shadow] duration-100;
+  }
+  .btn-3d:active:not(:disabled) {
+    @apply translate-y-[5px] shadow-none;
+  }
+  .btn-3d:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+  .carte {
+    @apply rounded-card bg-card shadow-soft;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,208 @@
+{
+ "$comment": "Textes originaux écrits pour Ludidactik (libres de droits). Utilisés par le Détective du texte et le Karaoké de lecture. nbMots sert au calcul des MCLM.",
+ "textes": [
+  {
+   "id": "ce1-t1-le-cerf-volant",
+   "classe": "CE1",
+   "niveau": "facile",
+   "titre": "Le cerf-volant de Léna",
+   "texte": "Léna a un cerf-volant rouge. Ce matin, le vent souffle fort. Elle court dans le pré avec son frère Malo. Le cerf-volant monte, monte, très haut dans le ciel. Soudain, la ficelle casse ! Le cerf-volant s'envole au-dessus des arbres. Léna est triste. Mais Malo sourit : il a vu où il est tombé.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "De quelle couleur est le cerf-volant ?",
+     "choix": [
+      "rouge",
+      "bleu",
+      "vert"
+     ],
+     "bonne": 0,
+     "preuve": "Léna a un cerf-volant rouge."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi le cerf-volant s'envole-t-il ?",
+     "choix": [
+      "La ficelle casse.",
+      "Léna le lâche.",
+      "Malo le jette."
+     ],
+     "bonne": 0,
+     "preuve": "Soudain, la ficelle casse !"
+    },
+    {
+     "type": "mcq",
+     "question": "Dans « il a vu où il est tombé », que veut dire le deuxième « il » ?",
+     "choix": [
+      "le cerf-volant",
+      "Malo",
+      "le vent"
+     ],
+     "bonne": 0,
+     "preuve": "il a vu où il est tombé",
+     "notion": "anaphore"
+    },
+    {
+     "type": "mcq",
+     "question": "Comment se sent Léna à la fin, à ton avis ?",
+     "choix": [
+      "Elle va retrouver le sourire.",
+      "Elle sera encore plus triste.",
+      "Elle va dormir."
+     ],
+     "bonne": 0,
+     "preuve": "Mais Malo sourit : il a vu où il est tombé.",
+     "notion": "inférence"
+    }
+   ],
+   "nbMots": 54
+  },
+  {
+   "id": "ce1-t2-la-soupe",
+   "classe": "CE1",
+   "niveau": "normal",
+   "titre": "La soupe de potiron (texte prescriptif)",
+   "texte": "Pour faire une soupe de potiron, il faut un morceau de potiron, une pomme de terre, un oignon et de l'eau. D'abord, demande à un adulte d'éplucher et de couper les légumes. Ensuite, mets-les dans une casserole et couvre-les d'eau. Fais cuire pendant vingt minutes. Enfin, mixe la soupe et ajoute une pincée de sel. Attention, c'est chaud !",
+   "questions": [
+    {
+     "type": "ordering",
+     "question": "Remets les étapes dans l'ordre.",
+     "elements": [
+      "Éplucher et couper les légumes",
+      "Mettre les légumes dans l'eau",
+      "Faire cuire vingt minutes",
+      "Mixer et saler"
+     ]
+    },
+    {
+     "type": "mcq",
+     "question": "Combien de temps faut-il faire cuire la soupe ?",
+     "choix": [
+      "vingt minutes",
+      "deux heures",
+      "cinq minutes"
+     ],
+     "bonne": 0,
+     "preuve": "Fais cuire pendant vingt minutes."
+    },
+    {
+     "type": "mcq",
+     "question": "Quel mot montre la dernière étape ?",
+     "choix": [
+      "Enfin",
+      "D'abord",
+      "Ensuite"
+     ],
+     "bonne": 0,
+     "preuve": "Enfin, mixe la soupe"
+    }
+   ],
+   "nbMots": 59
+  },
+  {
+   "id": "cm2-t1-le-phare",
+   "classe": "CM2",
+   "niveau": "normal",
+   "titre": "Le gardien du phare",
+   "texte": "Depuis quarante ans, Anselme gardait le phare de l'île aux Mouettes. Chaque soir, il gravissait les deux cent douze marches de l'escalier en colimaçon, vérifiait la lampe, puis notait dans un grand registre la force du vent et l'état de la mer. Cette nuit-là, une tempête d'une violence inouïe s'abattit sur la côte. Vers minuit, la lumière vacilla et s'éteignit. Anselme comprit aussitôt : au large, le chalutier du vieux Corentin rentrait au port. Sans hésiter, il saisit sa lanterne de secours et remonta l'escalier quatre à quatre.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Depuis combien de temps Anselme garde-t-il le phare ?",
+     "choix": [
+      "quarante ans",
+      "deux cent douze ans",
+      "une nuit",
+      "quatre ans"
+     ],
+     "bonne": 0,
+     "preuve": "Depuis quarante ans"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi Anselme se précipite-t-il ?",
+     "choix": [
+      "Un bateau risque de ne pas voir la côte.",
+      "Il a oublié son registre.",
+      "Il a peur de l'orage.",
+      "Il veut dormir."
+     ],
+     "bonne": 0,
+     "preuve": "au large, le chalutier du vieux Corentin rentrait au port",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Que signifie « quatre à quatre » ?",
+     "choix": [
+      "très vite, en sautant des marches",
+      "en comptant jusqu'à quatre",
+      "avec quatre personnes",
+      "lentement"
+     ],
+     "bonne": 0,
+     "notion": "expression"
+    },
+    {
+     "type": "mcq",
+     "question": "À quel temps est le verbe « gravissait » ?",
+     "choix": [
+      "imparfait",
+      "passé simple",
+      "futur",
+      "présent"
+     ],
+     "bonne": 0,
+     "notion": "conjugaison"
+    }
+   ],
+   "nbMots": 88
+  },
+  {
+   "id": "cm2-t2-abeilles",
+   "classe": "CM2",
+   "niveau": "normal",
+   "titre": "Pourquoi protéger les abeilles ? (texte documentaire)",
+   "texte": "Les abeilles ne fabriquent pas seulement du miel. En butinant les fleurs, elles transportent le pollen d'une plante à l'autre : c'est la pollinisation. Sans elle, de nombreux arbres fruitiers ne donneraient presque pas de fruits. Or, depuis plusieurs années, le nombre d'abeilles diminue. Les causes sont multiples : certains pesticides, la disparition des haies et des prairies fleuries, ou encore des parasites. Planter des fleurs mellifères et laisser pousser l'herbe dans un coin du jardin sont des gestes simples pour les aider.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Comment s'appelle le transport du pollen par les abeilles ?",
+     "choix": [
+      "la pollinisation",
+      "la digestion",
+      "la photosynthèse",
+      "la respiration"
+     ],
+     "bonne": 0,
+     "preuve": "c'est la pollinisation"
+    },
+    {
+     "type": "mcq",
+     "question": "Que se passerait-il sans les abeilles ?",
+     "choix": [
+      "Beaucoup d'arbres donneraient très peu de fruits.",
+      "Il y aurait plus de miel.",
+      "Les fleurs pousseraient plus vite.",
+      "Rien ne changerait."
+     ],
+     "bonne": 0,
+     "preuve": "de nombreux arbres fruitiers ne donneraient presque pas de fruits"
+    },
+    {
+     "type": "mcq",
+     "question": "À quel mode est « donneraient » ?",
+     "choix": [
+      "conditionnel",
+      "indicatif futur",
+      "impératif",
+      "imparfait"
+     ],
+     "bonne": 0,
+     "notion": "conjugaison"
+    }
+   ],
+   "nbMots": 83
+  }
+ ]
+}

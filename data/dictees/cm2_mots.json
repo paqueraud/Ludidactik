@@ -1,0 +1,617 @@
+{
+ "$comment": "Listes de départ créées pour Ludidactik, alignées sur les attendus BO. Les parents ajoutent leurs propres listes dans l'app. Champ phrase = phrase-contexte lue en dictée (mot / phrase / mot).",
+ "classe": "CM2",
+ "listes": [
+  {
+   "id": "cm2-invariables",
+   "titre": "Mots invariables du cours moyen",
+   "periodes": [
+    1,
+    2,
+    3
+   ],
+   "theme": "invariables",
+   "niveau": "normal",
+   "lessonId": "CM2.FR.ORTH.MOTS",
+   "mots": [
+    {
+     "mot": "cependant"
+    },
+    {
+     "mot": "pourtant"
+    },
+    {
+     "mot": "néanmoins"
+    },
+    {
+     "mot": "désormais"
+    },
+    {
+     "mot": "dorénavant"
+    },
+    {
+     "mot": "parmi"
+    },
+    {
+     "mot": "malgré"
+    },
+    {
+     "mot": "lorsque"
+    },
+    {
+     "mot": "puisque"
+    },
+    {
+     "mot": "auparavant"
+    },
+    {
+     "mot": "aussitôt"
+    },
+    {
+     "mot": "autrefois"
+    },
+    {
+     "mot": "davantage"
+    },
+    {
+     "mot": "environ"
+    },
+    {
+     "mot": "longtemps"
+    },
+    {
+     "mot": "parfois"
+    },
+    {
+     "mot": "quelquefois"
+    },
+    {
+     "mot": "tandis que"
+    },
+    {
+     "mot": "volontiers"
+    },
+    {
+     "mot": "d'abord"
+    },
+    {
+     "mot": "presque"
+    },
+    {
+     "mot": "toutefois"
+    },
+    {
+     "mot": "plusieurs"
+    },
+    {
+     "mot": "certes"
+    },
+    {
+     "mot": "beaucoup"
+    }
+   ]
+  },
+  {
+   "id": "cm2-histoire",
+   "titre": "Vocabulaire de l'histoire",
+   "periodes": [
+    1,
+    2,
+    3
+   ],
+   "theme": "histoire",
+   "niveau": "normal",
+   "lessonId": "CM2.FR.VOC.UNIVERS",
+   "mots": [
+    {
+     "mot": "révolution"
+    },
+    {
+     "mot": "république"
+    },
+    {
+     "mot": "citoyen"
+    },
+    {
+     "mot": "monarchie"
+    },
+    {
+     "mot": "empereur"
+    },
+    {
+     "mot": "suffrage"
+    },
+    {
+     "mot": "démocratie"
+    },
+    {
+     "mot": "laïcité"
+    },
+    {
+     "mot": "industrie"
+    },
+    {
+     "mot": "ouvrier"
+    },
+    {
+     "mot": "usine"
+    },
+    {
+     "mot": "syndicat"
+    },
+    {
+     "mot": "armistice"
+    },
+    {
+     "mot": "résistance"
+    },
+    {
+     "mot": "occupation"
+    },
+    {
+     "mot": "constitution"
+    },
+    {
+     "mot": "liberté"
+    },
+    {
+     "mot": "égalité"
+    },
+    {
+     "mot": "fraternité"
+    },
+    {
+     "mot": "souveraineté"
+    }
+   ]
+  },
+  {
+   "id": "cm2-sciences",
+   "titre": "Vocabulaire des sciences",
+   "periodes": [
+    2,
+    3,
+    4
+   ],
+   "theme": "sciences",
+   "niveau": "normal",
+   "lessonId": "CM2.FR.VOC.UNIVERS",
+   "mots": [
+    {
+     "mot": "énergie"
+    },
+    {
+     "mot": "électricité"
+    },
+    {
+     "mot": "température"
+    },
+    {
+     "mot": "thermomètre"
+    },
+    {
+     "mot": "oxygène"
+    },
+    {
+     "mot": "digestion"
+    },
+    {
+     "mot": "respiration"
+    },
+    {
+     "mot": "circulation"
+    },
+    {
+     "mot": "squelette"
+    },
+    {
+     "mot": "muscle"
+    },
+    {
+     "mot": "écosystème"
+    },
+    {
+     "mot": "environnement"
+    },
+    {
+     "mot": "biodiversité"
+    },
+    {
+     "mot": "atmosphère"
+    },
+    {
+     "mot": "planète"
+    },
+    {
+     "mot": "satellite"
+    },
+    {
+     "mot": "volcan"
+    },
+    {
+     "mot": "séisme"
+    },
+    {
+     "mot": "végétal"
+    },
+    {
+     "mot": "mammifère"
+    }
+   ]
+  },
+  {
+   "id": "cm2-maths",
+   "titre": "Vocabulaire des mathématiques",
+   "periodes": [
+    2,
+    3,
+    4
+   ],
+   "theme": "mathématiques",
+   "niveau": "normal",
+   "lessonId": "CM2.FR.VOC.UNIVERS",
+   "mots": [
+    {
+     "mot": "perpendiculaire"
+    },
+    {
+     "mot": "parallèle"
+    },
+    {
+     "mot": "périmètre"
+    },
+    {
+     "mot": "diamètre"
+    },
+    {
+     "mot": "rayon"
+    },
+    {
+     "mot": "quadrilatère"
+    },
+    {
+     "mot": "losange"
+    },
+    {
+     "mot": "trapèze"
+    },
+    {
+     "mot": "hexagone"
+    },
+    {
+     "mot": "pentagone"
+    },
+    {
+     "mot": "triangle"
+    },
+    {
+     "mot": "équilatéral"
+    },
+    {
+     "mot": "isocèle"
+    },
+    {
+     "mot": "rectangle"
+    },
+    {
+     "mot": "numérateur"
+    },
+    {
+     "mot": "dénominateur"
+    },
+    {
+     "mot": "quotient"
+    },
+    {
+     "mot": "dividende"
+    },
+    {
+     "mot": "diviseur"
+    },
+    {
+     "mot": "centième"
+    }
+   ]
+  },
+  {
+   "id": "cm2-consonnes-doubles",
+   "titre": "Consonnes doubles et accents",
+   "periodes": [
+    3,
+    4
+   ],
+   "theme": "orthographe",
+   "niveau": "normal",
+   "lessonId": "CM2.FR.ORTH.MOTS",
+   "mots": [
+    {
+     "mot": "accueil"
+    },
+    {
+     "mot": "appétit"
+    },
+    {
+     "mot": "attention"
+    },
+    {
+     "mot": "commencer"
+    },
+    {
+     "mot": "différence"
+    },
+    {
+     "mot": "difficile"
+    },
+    {
+     "mot": "collection"
+    },
+    {
+     "mot": "honneur"
+    },
+    {
+     "mot": "innocent"
+    },
+    {
+     "mot": "immense"
+    },
+    {
+     "mot": "intelligent"
+    },
+    {
+     "mot": "occasion"
+    },
+    {
+     "mot": "offrir"
+    },
+    {
+     "mot": "personne"
+    },
+    {
+     "mot": "terrible"
+    },
+    {
+     "mot": "nécessaire"
+    },
+    {
+     "mot": "bouteille"
+    },
+    {
+     "mot": "colonne"
+    },
+    {
+     "mot": "appartement"
+    },
+    {
+     "mot": "addition"
+    }
+   ]
+  },
+  {
+   "id": "cm2-tion-sion",
+   "titre": "Les mots en -tion, -ssion, -sion",
+   "periodes": [
+    4,
+    5
+   ],
+   "theme": "orthographe",
+   "niveau": "normal",
+   "lessonId": "CM2.FR.ORTH.MOTS",
+   "mots": [
+    {
+     "mot": "émotion"
+    },
+    {
+     "mot": "attention"
+    },
+    {
+     "mot": "opération"
+    },
+    {
+     "mot": "expression"
+    },
+    {
+     "mot": "permission"
+    },
+    {
+     "mot": "télévision"
+    },
+    {
+     "mot": "décision"
+    },
+    {
+     "mot": "explosion"
+    },
+    {
+     "mot": "profession"
+    },
+    {
+     "mot": "émission"
+    },
+    {
+     "mot": "conversation"
+    },
+    {
+     "mot": "invention"
+    }
+   ]
+  },
+  {
+   "id": "cm2-facile",
+   "titre": "Mots fréquents (révision CM1)",
+   "periodes": [
+    1
+   ],
+   "theme": "révision",
+   "niveau": "facile",
+   "lessonId": "CM2.FR.ORTH.MOTS",
+   "mots": [
+    {
+     "mot": "maintenant"
+    },
+    {
+     "mot": "toujours"
+    },
+    {
+     "mot": "aujourd'hui"
+    },
+    {
+     "mot": "beaucoup"
+    },
+    {
+     "mot": "pendant"
+    },
+    {
+     "mot": "quelque"
+    },
+    {
+     "mot": "chaque"
+    },
+    {
+     "mot": "pourquoi"
+    },
+    {
+     "mot": "comment"
+    },
+    {
+     "mot": "combien"
+    },
+    {
+     "mot": "ensemble"
+    },
+    {
+     "mot": "dehors"
+    },
+    {
+     "mot": "dessous"
+    },
+    {
+     "mot": "dessus"
+    },
+    {
+     "mot": "hier"
+    }
+   ]
+  },
+  {
+   "id": "cm2-plus-loin",
+   "titre": "Pour aller plus loin (6e)",
+   "periodes": [
+    3,
+    4,
+    5
+   ],
+   "theme": "défi",
+   "niveau": "plus_loin",
+   "lessonId": "CM2.FR.ORTH.MOTS",
+   "mots": [
+    {
+     "mot": "accommoder"
+    },
+    {
+     "mot": "apparemment"
+    },
+    {
+     "mot": "conscience"
+    },
+    {
+     "mot": "exceptionnellement"
+    },
+    {
+     "mot": "hypothèse"
+    },
+    {
+     "mot": "parallélépipède"
+    },
+    {
+     "mot": "phénomène"
+    },
+    {
+     "mot": "rythme"
+    },
+    {
+     "mot": "symétrie"
+    },
+    {
+     "mot": "mystérieux"
+    },
+    {
+     "mot": "atmosphère"
+    },
+    {
+     "mot": "chrysalide"
+    },
+    {
+     "mot": "labyrinthe"
+    },
+    {
+     "mot": "enthousiasme"
+    },
+    {
+     "mot": "catastrophe"
+    }
+   ]
+  }
+ ],
+ "phrasesDictee": [
+  {
+   "phrase": "Ils ont retrouvé leurs amis près de la rivière.",
+   "niveau": "normal",
+   "notions": [
+    "on/ont",
+    "leur/leurs"
+   ]
+  },
+  {
+   "phrase": "Ces enfants regardent leurs cahiers ; c'est l'heure de la dictée.",
+   "niveau": "normal",
+   "notions": [
+    "ces/ses",
+    "c'est/s'est"
+   ]
+  },
+  {
+   "phrase": "Les filles sont arrivées en retard car le train était bloqué.",
+   "niveau": "normal",
+   "notions": [
+    "participe passé avec être"
+   ]
+  },
+  {
+   "phrase": "La lettre que j'ai écrite est partie ce matin.",
+   "niveau": "plus_loin",
+   "notions": [
+    "PP avec avoir, COD placé avant"
+   ]
+  },
+  {
+   "phrase": "Dans la forêt sombre marchaient deux voyageurs fatigués.",
+   "niveau": "plus_loin",
+   "notions": [
+    "sujet inversé"
+   ]
+  },
+  {
+   "phrase": "Où allez-vous ? Au marché ou à la plage ?",
+   "niveau": "normal",
+   "notions": [
+    "ou/où",
+    "a/à"
+   ]
+  },
+  {
+   "phrase": "Quand il pleuvra, nous resterons à la maison.",
+   "niveau": "normal",
+   "notions": [
+    "futur"
+   ]
+  },
+  {
+   "phrase": "Si j'avais le temps, je lirais ce roman.",
+   "niveau": "plus_loin",
+   "notions": [
+    "conditionnel",
+    "imparfait"
+   ]
+  }
+ ]
+}

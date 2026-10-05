@@ -1,0 +1,4043 @@
+{
+ "$comment": "Curriculum validé par src/content/schemas.ts (npm run validate:content). source.generator préfixé « TODO: » = pas encore jouable. periodes = périodes scolaires 1 à 5 où la leçon est travaillée.",
+ "classe": "CM2",
+ "anneeScolaire": "2026-2027",
+ "lecons": [
+  {
+   "id": "CM2.FR.LEC.FLUENCE",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Lecture",
+   "titre": "Lire avec fluidité (Karaoké)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Lecture",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "90 MCLM",
+    "normal": "120 MCLM, liaisons, ponctuation",
+    "plus_loin": "140 MCLM + expressivité"
+   },
+   "itemKinds": [
+    "read_aloud"
+   ],
+   "jeuxSuggeres": [
+    "karaoke-lecture"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_lec_fluence"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.LEC.COMP",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Lecture",
+   "titre": "Comprendre : explicite/implicite, inférences, genres littéraires",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Lecture",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "texte court",
+    "normal": "texte long, inférences",
+    "plus_loin": "documents composites, comparer 2 documents"
+   },
+   "itemKinds": [
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "detective-texte",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_lec_comp"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.LEC.CULTURE",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Lecture",
+   "titre": "Culture littéraire : héros/héroïnes, merveilleux, morale (fables), poésie, autres vies, rapport aux autres",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Lecture",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "personnages célèbres",
+    "normal": "genres & œuvres",
+    "plus_loin": "auteurs & citations courtes libres de droits (La Fontaine, Hugo…)"
+   },
+   "itemKinds": [
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "detective-texte",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_lec_culture"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.TYPES",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "Types & formes de phrases (corpus complexes)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "3 types",
+    "normal": "transformations",
+    "plus_loin": "phrases à forme multiple"
+   },
+   "itemKinds": [
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "puzzle-phrases",
+    "feu-ponctuation"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_types"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.SUJET",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "Sujets variés, sujet inversé",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "sujet GN/pronom",
+    "normal": "sujet inversé simple",
+    "plus_loin": "sujet inversé complexe"
+   },
+   "itemKinds": [
+    "classification",
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "labo-fonctions",
+    "puzzle-phrases",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_sujet"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.GROUPES",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "GS, GV, groupe circonstanciel",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repérer GS/GV",
+    "normal": "+ CC",
+    "plus_loin": "phrase longue"
+   },
+   "itemKinds": [
+    "classification",
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "labo-fonctions",
+    "puzzle-phrases",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_groupes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.COD_COI",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "COD vs COI",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "COD",
+    "normal": "COD/COI",
+    "plus_loin": "pronoms compléments"
+   },
+   "itemKinds": [
+    "classification",
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "labo-fonctions",
+    "puzzle-phrases",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_cod_coi"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.ATTRIBUT",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "Attribut du sujet vs complément d'objet ; verbes d'état",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "être + adj",
+    "normal": "attribut/COD",
+    "plus_loin": "sembler, devenir, paraître…"
+   },
+   "itemKinds": [
+    "classification",
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "labo-fonctions",
+    "puzzle-phrases",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_attribut"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.CC",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "CC de temps, lieu, cause",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "temps/lieu",
+    "normal": "+ cause",
+    "plus_loin": "CC manière/but (6e)"
+   },
+   "itemKinds": [
+    "classification",
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "labo-fonctions",
+    "puzzle-phrases",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_cc"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.NATURE_FONCTION",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "Nature (classe) vs fonction",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "nature",
+    "normal": "distinguer",
+    "plus_loin": "analyse complète"
+   },
+   "itemKinds": [
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "chef-orchestre",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_nature_fonction"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.CLASSES",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "Prépositions, conjonctions de subordination, pronoms personnels sujets/compléments (variations)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "prépositions",
+    "normal": "les 3",
+    "plus_loin": "adverbes, pronoms relatifs"
+   },
+   "itemKinds": [
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "chef-orchestre",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_classes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.GN",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "Expansions du nom : adjectif, GN prépositionnel, complément du nom ; épithète vs attribut",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "adjectif",
+    "normal": "complément du nom, épithète/attribut",
+    "plus_loin": "proposition relative"
+   },
+   "itemKinds": [
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "train-des-accords",
+    "peche-homophones",
+    "ascension"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_gn"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.GRAM.COMPLEXE",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Grammaire",
+   "titre": "Phrase simple / complexe (repérer les verbes conjugués)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "compter les verbes",
+    "normal": "distinguer",
+    "plus_loin": "juxtaposition/coordination/subordination"
+   },
+   "itemKinds": [
+    "classification",
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "labo-fonctions",
+    "puzzle-phrases",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_gram_complexe"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.ORTH.GN",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Orthographe",
+   "titre": "Chaîne d'accords dans le GN",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "régulier",
+    "normal": "variations particulières (-al/-aux, -eau/-eaux, féminins en -euse/-trice)",
+    "plus_loin": "adjectifs de couleur"
+   },
+   "itemKinds": [
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "train-des-accords",
+    "peche-homophones",
+    "ascension"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_orth_gn"
+   },
+   "rappel": "Dans le groupe nominal, le déterminant, le nom et l’adjectif s’accordent ensemble en genre et en nombre."
+  },
+  {
+   "id": "CM2.FR.ORTH.SV",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Orthographe",
+   "titre": "Accord sujet-verbe (sujet inversé, éloigné) & sujet-attribut",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "sujet proche",
+    "normal": "inversé/éloigné",
+    "plus_loin": "sujets multiples"
+   },
+   "itemKinds": [
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "train-des-accords",
+    "peche-homophones",
+    "ascension"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_orth_sv"
+   },
+   "rappel": "Le verbe s’accorde avec son sujet : je trouve le sujet en posant la question « Qui est-ce qui ? »."
+  },
+  {
+   "id": "CM2.FR.ORTH.PP",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Orthographe",
+   "titre": "Participe passé : avec être (accord sujet), avec avoir (accord COD placé avant, verbes étudiés)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "être",
+    "normal": "être + avoir/COD",
+    "plus_loin": "cas des pronoms"
+   },
+   "itemKinds": [
+    "fill_blank"
+   ],
+   "jeuxSuggeres": [
+    "train-des-accords",
+    "peche-homophones",
+    "ascension"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_orth_pp"
+   },
+   "rappel": "Avec être, le participe passé s’accorde avec le sujet ; avec avoir, il ne s’accorde pas avec le sujet."
+  },
+  {
+   "id": "CM2.FR.ORTH.HOMOPHONES",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Orthographe",
+   "titre": "a/à, et/est, son/sont, on/ont, ces/ses/c'est/s'est, leur/leurs, ou/où, ce/se, -é/-er/-ez/-ait/-ais, quand/quant/qu'en",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "4 couples",
+    "normal": "10 séries",
+    "plus_loin": "peu/peut/peux, sans/s'en/cent…"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "peche-homophones",
+    "vrai-faux",
+    "ascension"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_orth_homophones"
+   },
+   "rappel": "Pour choisir entre a/à, et/est, son/sont…, je remplace par un autre mot : avait, était…"
+  },
+  {
+   "id": "CM2.FR.ORTH.MOTS",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Orthographe",
+   "titre": "Mots fréquents, régularités, formation (data/dictees/cm2_mots.json)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "10 mots",
+    "normal": "liste CM2",
+    "plus_loin": "mots 6e"
+   },
+   "itemKinds": [
+    "spelling_word"
+   ],
+   "jeuxSuggeres": [
+    "ascension",
+    "appareil-photo",
+    "lettres-en-vrac",
+    "bonhomme-de-neige",
+    "wordle",
+    "mots-croises",
+    "dictee-duel"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/dictees/cm2_mots.json",
+    "filter": {
+     "lessonId": "CM2.FR.ORTH.MOTS"
+    }
+   },
+   "rappel": "Je pense aux familles de mots et aux régularités (consonnes doubles, -tion/-sion) pour bien écrire."
+  },
+  {
+   "id": "CM2.FR.ORTH.LISTES_PARENTS",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Orthographe",
+   "titre": "Mes mots de la semaine (parents)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "—",
+    "normal": "—",
+    "plus_loin": "—"
+   },
+   "itemKinds": [
+    "spelling_word"
+   ],
+   "jeuxSuggeres": [
+    "ascension",
+    "appareil-photo",
+    "lettres-en-vrac",
+    "bonhomme-de-neige",
+    "wordle",
+    "mots-croises",
+    "dictee-duel"
+   ],
+   "source": {
+    "kind": "parents"
+   },
+   "rappel": "Je regarde le mot, je le photographie dans ma tête, puis je l’écris sans regarder."
+  },
+  {
+   "id": "CM2.FR.CONJ.PRESENT",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Présent",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "être, avoir, 1er gr.",
+    "normal": "+ 2e gr. + 8 irréguliers BO",
+    "plus_loin": "autres 3e gr."
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_present"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.IMPARFAIT",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Imparfait",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "idem",
+    "normal": "idem",
+    "plus_loin": "—"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_imparfait"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.PASSE_SIMPLE",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Passé simple (3es personnes en priorité puis toutes)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "3e sing., 1er gr.",
+    "normal": "3es pers. tous verbes BO",
+    "plus_loin": "toutes personnes"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_passe_simple"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.FUTUR",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Futur",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "idem",
+    "normal": "idem",
+    "plus_loin": "—"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_futur"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.CONDITIONNEL",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Conditionnel présent",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1er gr.",
+    "normal": "verbes BO",
+    "plus_loin": "emplois (politesse, hypothèse)"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_conditionnel"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.PC",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Passé composé (aux. + PP, choix être/avoir)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "avoir",
+    "normal": "être/avoir + accords",
+    "plus_loin": "forme négative (ne…pas encadre l'auxiliaire)"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_pc"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.PQP",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Plus-que-parfait",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "avoir",
+    "normal": "être/avoir",
+    "plus_loin": "négation"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_pqp"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.IMPERATIF",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Impératif présent",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1er gr.",
+    "normal": "verbes BO",
+    "plus_loin": "pronoms (prends-le)"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_imperatif"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.MARQUES",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Radical, marque de temps, marque de personne ; variations de radical",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repérer terminaison",
+    "normal": "colorer temps/personne",
+    "plus_loin": "verbes en -yer, -eler/-eter"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_marques"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.CONJ.CONCORD",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Conjugaison",
+   "titre": "Reconnaître le temps et le mode d'un verbe",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "3 temps",
+    "normal": "tous temps BO",
+    "plus_loin": "choisir le temps dans un récit"
+   },
+   "itemKinds": [
+    "fill_blank",
+    "oral_answer",
+    "pairing"
+   ],
+   "jeuxSuggeres": [
+    "forge-du-verbe",
+    "robot-calculateur",
+    "memory",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_conj_concord"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.VOC.POLYSEMIE",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Polysémie selon le contexte (disciplinaire)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2 sens",
+    "normal": "contextes variés",
+    "plus_loin": "homonymes"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_voc_polysemie"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.VOC.MORPHO",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Familles, préfixes, suffixes, racines (étymologie latine/grecque)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "familles",
+    "normal": "dérivation",
+    "plus_loin": "racines grecques/latines (hydro-, -logie…)"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_voc_morpho"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.VOC.UNIVERS",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Lexique des univers de référence (sciences, histoire, arts, émotions, argumentation)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "images",
+    "normal": "définitions",
+    "plus_loin": "réemploi"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_voc_univers"
+   },
+   "rappel": "Les mots de chaque matière ont un sens précis : je les apprends avec leur orthographe."
+  },
+  {
+   "id": "CM2.FR.VOC.DICO",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Dictionnaire : article, abréviations, sens",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "ordre alpha",
+    "normal": "lire un article",
+    "plus_loin": "choisir le bon sens"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_voc_dico"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.FR.VOC.SYN_ANT",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Vocabulaire",
+   "titre": "Synonymes, antonymes, registres",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "—",
+    "normal": "nuances",
+    "plus_loin": "registres"
+   },
+   "itemKinds": [
+    "pairing",
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_fr_voc_syn_ant"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.HI20.T1.REPUBLIQUE100",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Le temps de la République",
+   "titre": "Le temps de la République — 1892 : la République fête ses 100 ans",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI20.T1.REPUBLIQUE100"
+    }
+   },
+   "rappel": "La Ire République est proclamée en 1792 ; ses symboles sont Marianne, le drapeau bleu-blanc-rouge, la devise et La Marseillaise.",
+   "contenus": "1792 proclamation de la Ire République ; symboles (Marianne, drapeau, devise, Marseillaise, 14 juillet fête nationale depuis 1880) ; IIIe République (1870)"
+  },
+  {
+   "id": "CM2.HI20.T1.FERRY",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Le temps de la République",
+   "titre": "L'école primaire au temps de Jules Ferry",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI20.T1.FERRY"
+    }
+   },
+   "rappel": "Avec les lois de Jules Ferry (1881-1882), l’école primaire devient gratuite, laïque et obligatoire.",
+   "contenus": "lois Ferry 1881-1882 : école gratuite, laïque, obligatoire (6-13 ans) ; hussards noirs ; certificat d'études"
+  },
+  {
+   "id": "CM2.HI20.T1.CITOYENS",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Le temps de la République",
+   "titre": "Des républicains, des démocrates et des citoyens",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI20.T1.CITOYENS"
+    }
+   },
+   "rappel": "Le droit de vote s’élargit peu à peu : tous les hommes en 1848, les femmes en 1944.",
+   "contenus": "suffrage universel masculin 1848 ; abolition de l'esclavage 1848 (Victor Schœlcher) ; loi de 1905 séparation des Églises et de l'État ; droit de vote des femmes 1944 (1er vote 1945) ; Ve République 1958 ; majorité à 18 ans 1974"
+  },
+  {
+   "id": "CM2.HI20.T2.ENERGIES",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "L'âge industriel en France",
+   "titre": "L'âge industriel — énergies et machines",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI20.T2.ENERGIES"
+    }
+   },
+   "rappel": "Au XIXe siècle, le charbon et la machine à vapeur transforment les usines et les transports.",
+   "contenus": "charbon, machine à vapeur, chemin de fer, électricité, pétrole ; inventions"
+  },
+  {
+   "id": "CM2.HI20.T2.TRAVAIL",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "L'âge industriel en France",
+   "titre": "Le travail à la mine, à l'usine, à l'atelier, au grand magasin",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI20.T2.TRAVAIL"
+    }
+   },
+   "rappel": "À l’âge industriel, les ouvriers, et même des enfants, travaillent de longues journées dans les mines et les usines.",
+   "contenus": "travail des enfants, ouvriers, Germinal (Zola, évocation), syndicats, grèves"
+  },
+  {
+   "id": "CM2.HI20.T2.VILLE",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "L'âge industriel en France",
+   "titre": "La ville industrielle ; le monde rural",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI20.T2.VILLE"
+    }
+   },
+   "rappel": "Beaucoup de paysans quittent les campagnes pour travailler en ville : c’est l’exode rural.",
+   "contenus": "exode rural, urbanisation, Haussmann, transformations des campagnes"
+  },
+  {
+   "id": "CM2.HI20.T3.GUERRES",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "La France, des guerres mondiales à l’Union européenne",
+   "titre": "Deux guerres mondiales au XXe siècle",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI20.T3.GUERRES"
+    }
+   },
+   "rappel": "La Première Guerre mondiale (1914-1918) et la Seconde (1939-1945) ont fait des millions de victimes.",
+   "contenus": "1914-1918, poilus, Verdun 1916, armistice 11 novembre 1918 ; 1939-1945, appel du 18 juin 1940, Occupation, Résistance (Jean Moulin), génocide des Juifs (Shoah), débarquement 6 juin 1944, 8 mai 1945"
+  },
+  {
+   "id": "CM2.HI20.T3.EUROPE",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "La France, des guerres mondiales à l’Union européenne",
+   "titre": "La construction européenne",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI20.T3.EUROPE"
+    }
+   },
+   "rappel": "En 1957, six pays signent le traité de Rome : c’est le début de la construction européenne.",
+   "contenus": "1951 CECA, 1957 traité de Rome (6 fondateurs : France, RFA, Italie, Belgique, Pays-Bas, Luxembourg), 1992 Maastricht, 2002 euro en pièces/billets, 27 pays"
+  },
+  {
+   "id": "CM2.HI.RAPPEL_CM1.REVOLUTION",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Rappel du CM1",
+   "titre": "Rappel CM1 : 1789, la Révolution française (Facile/Normal en révision)",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION"
+    }
+   },
+   "rappel": "En 1789, la Révolution française met fin à la monarchie absolue ; la Bastille est prise le 14 juillet 1789.",
+   "contenus": "États généraux (5 mai 1789), serment du Jeu de paume, prise de la Bastille (14 juillet 1789), abolition des privilèges (4 août), DDHC (26 août), Louis XVI, fin de la monarchie absolue, 1792 République, 1793 exécution de Louis XVI, Terreur"
+  },
+  {
+   "id": "CM2.HI26.T1",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Histoire de France, de 1792 à nos jours",
+   "titre": "De la République à l'Empire (1792-1815)",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    1
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI26.T1"
+    }
+   },
+   "rappel": "En 1792, la République est proclamée ; en 1804, Napoléon Bonaparte devient empereur des Français.",
+   "contenus": "mars 1792 pétition des femmes (Pauline Léon) ; avril 1792 Marseillaise ; sept. 1792 République ; 1794 1re abolition de l'esclavage ; 1802 rétablissement ; 2 déc. 1804 sacre de Napoléon Ier ; Code civil, lycées, préfets"
+  },
+  {
+   "id": "CM2.HI26.T2",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Histoire de France, de 1792 à nos jours",
+   "titre": "Vers une France républicaine : IIe (1848-1852) et IIIe République (1870-1914)",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    2
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI26.T2"
+    }
+   },
+   "rappel": "En 1848, tous les hommes obtiennent le droit de vote et l’esclavage est définitivement aboli.",
+   "contenus": "1848 suffrage universel masculin + abolition définitive ; 1882-1886 lois Ferry ; 9 déc. 1905 séparation des Églises et de l'État ; symboles ; empire colonial"
+  },
+  {
+   "id": "CM2.HI26.T3",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Histoire de France, de 1792 à nos jours",
+   "titre": "L'âge industriel en France au XIXe s.",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    2
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI26.T3"
+    }
+   },
+   "rappel": "Au XIXe siècle, les machines, le chemin de fer et les usines changent la vie des Français.",
+   "contenus": "locomotive (Stephenson), vaccin contre la rage (Pasteur, 1885), droit de grève (1864), liberté syndicale (1884) ; ouvriers, bourgeois, urbanisation"
+  },
+  {
+   "id": "CM2.HI26.T4",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Histoire de France, de 1792 à nos jours",
+   "titre": "La France dans la Première Guerre mondiale",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    3
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI26.T4"
+    }
+   },
+   "rappel": "De 1914 à 1918, les poilus combattent dans les tranchées ; l’armistice est signé le 11 novembre 1918.",
+   "contenus": "1914-1918, front nord et est, poilus, guerre de mouvement/position, armistice 11/11/1918, ~10 M de morts dont ~1,4 M de Français"
+  },
+  {
+   "id": "CM2.HI26.T5",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Histoire de France, de 1792 à nos jours",
+   "titre": "La France pendant la Seconde Guerre mondiale",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    4
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI26.T5"
+    }
+   },
+   "rappel": "Le 18 juin 1940, le général de Gaulle appelle à continuer le combat ; la guerre en Europe s’arrête le 8 mai 1945.",
+   "contenus": "18 juin 1940, Vichy (Pétain), collaboration, Résistance (de Gaulle, Jean Moulin), rafle du Vel d'Hiv 1942, 6 juin 1944, 8 mai 1945, génocide des Juifs"
+  },
+  {
+   "id": "CM2.HI26.T6",
+   "classe": "CM2",
+   "matiere": "histoire",
+   "domaine": "Histoire de France, de 1792 à nos jours",
+   "titre": "La France depuis 1945",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    5
+   ],
+   "niveaux": {
+    "facile": "QCM à 2 choix, faits essentiels",
+    "normal": "QCM à 4 choix, dates repères du programme",
+    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+   },
+   "itemKinds": [
+    "mcq",
+    "true_false",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "guillotine",
+    "machine-temps",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory"
+   ],
+   "source": {
+    "kind": "static",
+    "file": "data/histoire/cm2_questions.json",
+    "filter": {
+     "lessonId": "CM2.HI26.T6"
+    }
+   },
+   "rappel": "Depuis 1945, les femmes votent, la Ve République est fondée en 1958 et la France construit l’Europe.",
+   "contenus": "1944 droit de vote des femmes, Sécurité sociale, 1957 traité de Rome, 1958 Ve République, 1965 droits des femmes (travail, compte bancaire), 2002 (euro fiduciaire ; BO : « 2000 : l'euro remplace le franc » — vérifier formulation PDF)"
+  },
+  {
+   "id": "CM2.GE20.T1.DEPLACER",
+   "classe": "CM2",
+   "matiere": "geographie",
+   "domaine": "Géographie",
+   "titre": "Se déplacer",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repères essentiels, 2 choix",
+    "normal": "repères du programme, 4 choix",
+    "plus_loin": "localiser sans aide, expliquer"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "qui-suis-je",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ge20_t1_deplacer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "au quotidien en France / dans un autre lieu du monde ; d'une ville à l'autre (France, Europe, monde) ; modes de transport, réseaux, aéroports, LGV"
+  },
+  {
+   "id": "CM2.GE20.T2.INTERNET",
+   "classe": "CM2",
+   "matiere": "geographie",
+   "domaine": "Géographie",
+   "titre": "Communiquer grâce à l'Internet",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repères essentiels, 2 choix",
+    "normal": "repères du programme, 4 choix",
+    "plus_loin": "localiser sans aide, expliquer"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "qui-suis-je",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ge20_t2_internet"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "réseaux, câbles sous-marins, satellites, inégalités de connexion"
+  },
+  {
+   "id": "CM2.GE20.T3.HABITER",
+   "classe": "CM2",
+   "matiere": "geographie",
+   "domaine": "Géographie",
+   "titre": "Mieux habiter",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repères essentiels, 2 choix",
+    "normal": "repères du programme, 4 choix",
+    "plus_loin": "localiser sans aide, expliquer"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "qui-suis-je",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ge20_t3_habiter"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "nature en ville, recycler, écoquartier"
+  },
+  {
+   "id": "CM2.GE.REPERES",
+   "classe": "CM2",
+   "matiere": "geographie",
+   "domaine": "Repères sur la carte",
+   "titre": "Repères cartographiques (transversal, Tour de France)",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repères essentiels, 2 choix",
+    "normal": "repères du programme, 4 choix",
+    "plus_loin": "localiser sans aide, expliquer"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "qui-suis-je",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ge_reperes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "régions & capitales, fleuves (Seine, Loire, Garonne, Rhône, Rhin), massifs (Alpes, Pyrénées, Massif central, Jura, Vosges, Corse), océans & continents, pays de l'UE & capitales"
+  },
+  {
+   "id": "CM2.GE26.T1",
+   "classe": "CM2",
+   "matiere": "geographie",
+   "domaine": "Géographie",
+   "titre": "Organisation du territoire français",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repères essentiels, 2 choix",
+    "normal": "repères du programme, 4 choix",
+    "plus_loin": "localiser sans aide, expliquer"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "qui-suis-je",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ge26_t1"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "5 grandes agglomérations, axes autoroutiers/LGV, 18 régions & capitales, département de l'élève (réglage parent : département) ; commune, département, région"
+  },
+  {
+   "id": "CM2.GE26.T2",
+   "classe": "CM2",
+   "matiere": "geographie",
+   "domaine": "Géographie",
+   "titre": "Usages de l'eau douce en France",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repères essentiels, 2 choix",
+    "normal": "repères du programme, 4 choix",
+    "plus_loin": "localiser sans aide, expliquer"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "qui-suis-je",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ge26_t2"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "fleuves (Garonne, Loire, Maroni, Rhin, Rhône, Seine), massifs (Alpes, Corse, Jura, Massif central, Pyrénées, Vosges), 2 grands lacs ; conflits d'usages, nappe phréatique"
+  },
+  {
+   "id": "CM2.GE26.T3",
+   "classe": "CM2",
+   "matiere": "geographie",
+   "domaine": "Géographie",
+   "titre": "L'Union européenne",
+   "programme": "2026",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "repères essentiels, 2 choix",
+    "normal": "repères du programme, 4 choix",
+    "plus_loin": "localiser sans aide, expliquer"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "tour-de-france",
+    "qui-suis-je",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ge26_t3"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "Europe (continent) ≠ UE ; 10 pays membres dont 6 fondateurs ; 1957 Rome, 1992 Maastricht"
+  },
+  {
+   "id": "CM2.SC.MATIERE",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "Matière, mouvement, énergie, information",
+   "titre": "Matière : états, mélanges, solutions, masse/volume",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_matiere"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "Laboratoire (classification), Vrai/Faux"
+  },
+  {
+   "id": "CM2.SC.ENERGIE",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "Matière, mouvement, énergie, information",
+   "titre": "Sources d'énergie (renouvelables ou non), chaînes d'énergie",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_energie"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.SC.MOUVEMENT",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "Matière, mouvement, énergie, information",
+   "titre": "Mouvements, vitesse",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_mouvement"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.SC.SIGNAL",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "Matière, mouvement, énergie, information",
+   "titre": "Signaux et information (lumineux, sonores, électriques)",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_signal"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.SC.VIVANT.CLASSER",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "Le vivant, sa diversité et son fonctionnement",
+   "titre": "Classer le vivant (groupes emboîtés selon attributs)",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_vivant_classer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.SC.VIVANT.CORPS",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "Le vivant, sa diversité et son fonctionnement",
+   "titre": "Corps humain : digestion, respiration, circulation, mouvement, alimentation, puberté (traitement sobre et scientifique, réglage parent)",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_vivant_corps"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.SC.VIVANT.ECOSYS",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "Le vivant, sa diversité et son fonctionnement",
+   "titre": "Chaînes et réseaux alimentaires, décomposeurs, biodiversité",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_vivant_ecosys"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.SC.TERRE",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "La planète Terre",
+   "titre": "Système solaire, rotation/révolution, jour/nuit, saisons, phénomènes géologiques, risques",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_terre"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.SC.TECHNO",
+   "classe": "CM2",
+   "matiere": "sciences",
+   "domaine": "Matériaux et objets techniques",
+   "titre": "Objets techniques, fonctions, matériaux, programmation simple",
+   "programme": "2020",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "notions essentielles, 2 choix",
+    "normal": "notions du programme",
+    "plus_loin": "expliquer, relier les notions"
+   },
+   "itemKinds": [
+    "classification",
+    "ordering",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "laboratoire",
+    "vrai-faux",
+    "qui-suis-je"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_sc_techno"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant",
+   "contenus": "Robot codeur"
+  },
+  {
+   "id": "CM2.MA.NUM.GRANDS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Nombres entiers",
+   "titre": "Lire, écrire, décomposer (classes des unités, mille, millions)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres entiers",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 999 999",
+    "normal": "≤ 999 999 999",
+    "plus_loin": "milliards"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer"
+   ],
+   "jeuxSuggeres": [
+    "perroquet-nombres",
+    "batisseur",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_num_grands"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.NUM.COMPARER",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Nombres entiers",
+   "titre": "Comparer, encadrer, intercaler, ranger, droite graduée",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres entiers",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "≤ 6 chiffres",
+    "normal": "≤ 9 chiffres",
+    "plus_loin": "arrondis"
+   },
+   "itemKinds": [
+    "number_line",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "funambule",
+    "bataille-navale",
+    "crocodiles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_num_comparer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.NUM.DIVISIBILITE",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Nombres entiers",
+   "titre": "Critères 2/5/10, diviseurs, multiples",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres entiers",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "critères",
+    "normal": "diviseurs ≤ 30, communs",
+    "plus_loin": "critères 3/9 (6e)"
+   },
+   "itemKinds": [
+    "classification",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "diviseurs-mysteres",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_num_divisibilite"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.FRAC.SENS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Fractions & décimaux",
+   "titre": "Lire, représenter, fraction > 1 = entier + fraction < 1, encadrer entre 2 entiers",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "dénom. ≤ 10",
+    "normal": "≤ 60",
+    "plus_loin": "conversions multiples"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_frac_sens"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.FRAC.DROITE",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Fractions & décimaux",
+   "titre": "Placer/repérer sur demi-droite graduée",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "demis, quarts",
+    "normal": "tous",
+    "plus_loin": "fractions > 1"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_frac_droite"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.FRAC.COMPARER",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Fractions & décimaux",
+   "titre": "Comparer des fractions",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "même dénom.",
+    "normal": "dénom. multiples",
+    "plus_loin": "quelconques simples"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_frac_comparer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.FRAC.OPERATIONS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Fractions & décimaux",
+   "titre": "+ et − ; entier × fraction ; fraction d'une quantité",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "même dénom.",
+    "normal": "dénom. multiples, 3/4 de 60",
+    "plus_loin": "problèmes"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_frac_operations"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.DEC.FRAC_DEC",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Fractions & décimaux",
+   "titre": "Fractions décimales ↔ écriture à virgule (dixièmes, centièmes, millièmes)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "dixièmes",
+    "normal": "millièmes",
+    "plus_loin": "somme de fractions décimales"
+   },
+   "itemKinds": [
+    "visual_fraction",
+    "number_line",
+    "mcq",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "pizzaiolo",
+    "chocolatier",
+    "funambule",
+    "crocodiles",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_dec_frac_dec"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.DEC.COMPARER",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Fractions & décimaux",
+   "titre": "Comparer, ranger, encadrer, intercaler, partie entière, arrondi à l'unité",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1 décimale",
+    "normal": "3 décimales (piège 3,5 vs 3,45)",
+    "plus_loin": "arrondi au dixième"
+   },
+   "itemKinds": [
+    "number_line",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "funambule",
+    "bataille-navale",
+    "crocodiles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_dec_comparer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.DEC.USUELLES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Fractions & décimaux",
+   "titre": "Écriture décimale des fractions usuelles (1/2 = 0,5 ; 1/4 = 0,25 ; 3/4 = 0,75 ; 1/5 = 0,2 ; 1/10…)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Fractions & décimaux",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1/2, 1/10",
+    "normal": "liste",
+    "plus_loin": "1/8 = 0,125"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_dec_usuelles"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.CM.FAITS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Tables + / ×, moitiés des impairs ≤ 15 (7,5), relations entre fractions usuelles",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "tables",
+    "normal": "faits BO",
+    "plus_loin": "carrés ≤ 12×12"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.faits"
+   },
+   "rappel": "Je connais mes tables par cœur ; la moitié de 7, c’est 3,5 car 3,5 + 3,5 = 7."
+  },
+  {
+   "id": "CM2.MA.CM.DEC_ENTIER",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Décimal ± entier (avec/sans retenue)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "sans retenue",
+    "normal": "avec retenue",
+    "plus_loin": "décimal ± décimal"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.dec_entier"
+   },
+   "rappel": "J’ajoute ou j’enlève l’entier à la partie entière ; les dixièmes ne bougent pas : 7,5 + 8 = 15,5."
+  },
+  {
+   "id": "CM2.MA.CM.X10_DEC",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "× et ÷ par 10, 100, 1 000 sur décimaux",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "entiers",
+    "normal": "décimaux",
+    "plus_loin": "0,1 ; 0,01"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "ascenseur-virgule",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.x10_dec"
+   },
+   "rappel": "Multiplier par 10, 100 ou 1 000, c’est décaler chaque chiffre de 1, 2 ou 3 rangs vers la gauche : 3,45 × 100 = 345."
+  },
+  {
+   "id": "CM2.MA.CM.ADD_DEC",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Somme de deux décimaux < 10 à 1 décimale",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "sans retenue",
+    "normal": "avec retenue",
+    "plus_loin": "2 décimales"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.add_dec"
+   },
+   "rappel": "J’ajoute les unités ensemble et les dixièmes ensemble ; 10 dixièmes font 1 unité : 3,7 + 2,6 = 6,3."
+  },
+  {
+   "id": "CM2.MA.CM.PLUS99",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "± 8, 9, 18, 19, 28, 29 … 98, 99",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "±9",
+    "normal": "toute la liste",
+    "plus_loin": "±999"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.plus99"
+   },
+   "rappel": "Ajouter 99, c’est ajouter 100 puis enlever 1 ; ajouter 28, c’est ajouter 30 puis enlever 2."
+  },
+  {
+   "id": "CM2.MA.CM.MULT_RONDS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "30 × 400, 700 × 6 000",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "dizaines",
+    "normal": "dizaines/centaines/milliers",
+    "plus_loin": "milliers × milliers"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.mult_ronds"
+   },
+   "rappel": "Je multiplie les chiffres puis j’ajoute les zéros : 30 × 400 → 3 × 4 = 12, et 3 zéros : 12 000."
+  },
+  {
+   "id": "CM2.MA.CM.DISTRIB",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Distributivité cas simples (23 × 4, 12 × 15)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "×11",
+    "normal": "cas simples",
+    "plus_loin": "×99, ×101"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.distrib"
+   },
+   "rappel": "Je décompose : 23 × 4 = 20 × 4 + 3 × 4 = 80 + 12 = 92."
+  },
+  {
+   "id": "CM2.MA.CM.DOUBLE_MOITIE_DEC",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Double / moitié d'un décimal (cas simples)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2,4",
+    "normal": "3,6 ; 7,8",
+    "plus_loin": "13,5"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.double_moitie_dec"
+   },
+   "rappel": "Je partage les unités et les dixièmes : la moitié de 7,8, c’est la moitié de 7 (3,5) plus la moitié de 0,8 (0,4), donc 3,9."
+  },
+  {
+   "id": "CM2.MA.CM.DIV4_8",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "Diviser un entier par 4 ou 8 (moitié de la moitié)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "÷2",
+    "normal": "÷4, ÷8",
+    "plus_loin": "÷16"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.div4_8"
+   },
+   "rappel": "Diviser par 4, c’est prendre la moitié de la moitié ; diviser par 8, c’est prendre la moitié trois fois."
+  },
+  {
+   "id": "CM2.MA.CM.X5_X50",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Calcul mental",
+   "titre": "× 5 et × 50 sur décimaux (×10 ÷2)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "entiers",
+    "normal": "décimaux",
+    "plus_loin": "×25"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "grand-prix",
+    "tables-ninja",
+    "fusee-complements",
+    "robot-calculateur",
+    "compte-est-bon",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "cm2.ma.cm.x5_x50"
+   },
+   "rappel": "Multiplier par 5, c’est multiplier par 10 puis prendre la moitié : 3,2 × 5 → 32 ÷ 2 = 16."
+  },
+  {
+   "id": "CM2.MA.OP.ESTIMER",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Opérations posées",
+   "titre": "Estimer un ordre de grandeur",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Opérations posées",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "—",
+    "normal": "—",
+    "plus_loin": "—"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "grand-huit-operations",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_op_estimer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.OP.PARENTHESES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Opérations posées",
+   "titre": "Calculs avec 1 ou 2 paires de parenthèses",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Opérations posées",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1 paire",
+    "normal": "2 paires",
+    "plus_loin": "priorités sans parenthèses (6e)"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "grand-huit-operations",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_op_parentheses"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.OP.MULT_DEC",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Opérations posées",
+   "titre": "Décimal × entier posé",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Opérations posées",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1 chiffre",
+    "normal": "2 chiffres",
+    "plus_loin": "décimal × décimal (6e)"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "grand-huit-operations",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_op_mult_dec"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.OP.DIV",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Opérations posées",
+   "titre": "Division euclidienne ; division décimale (dividende entier/décimal, diviseur à 1 chiffre)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Opérations posées",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "euclidienne ÷ 1 chiffre",
+    "normal": "décimale ÷ 1 chiffre",
+    "plus_loin": "diviseur à 2 chiffres"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "grand-huit-operations",
+    "grand-prix"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_op_div"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.PB.ADDITIFS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Problèmes & algèbre",
+   "titre": "Additifs 1 ou plusieurs étapes",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "entiers",
+    "normal": "décimaux, fractions",
+    "plus_loin": "3 étapes"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_pb_additifs"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.PB.MULTIPLICATIFS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Problèmes & algèbre",
+   "titre": "Parties-tout multiplicatifs, comparaison multiplicative (« 3 fois plus »)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "entiers",
+    "normal": "décimaux",
+    "plus_loin": "fois moins"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_pb_multiplicatifs"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.PB.MIXTES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Problèmes & algèbre",
+   "titre": "Mixtes plusieurs étapes",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "2 étapes",
+    "normal": "3",
+    "plus_loin": "4"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_pb_mixtes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.PB.PROPORTION",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Problèmes & algèbre",
+   "titre": "Proportionnalité (passage par l'unité, linéarité, recettes, échelles simples)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "×2 ×3",
+    "normal": "règle de trois sans le nom",
+    "plus_loin": "pourcentages simples"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_pb_proportion"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.PB.DENOMBRER",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Problèmes & algèbre",
+   "titre": "Dénombrement & optimisation, préparation aux algorithmes",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "listes",
+    "normal": "arbres simples",
+    "plus_loin": "combinatoire"
+   },
+   "itemKinds": [
+    "bar_model",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "detective-problemes",
+    "patissier",
+    "robot-calculateur"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_pb_denombrer"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.ALG.TROUS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Problèmes & algèbre",
+   "titre": "Égalités à trous (178 − … = 6 × 8), « 2 ciseaux + 3 stylos = 20 € »",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "1 opération",
+    "normal": "2 membres",
+    "plus_loin": "2 inconnues simples"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "machine-programmes",
+    "compte-est-bon"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_alg_trous"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.ALG.PROGRAMMES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Problèmes & algèbre",
+   "titre": "Programmes de calcul (exécuter, inverser)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "exécuter",
+    "normal": "inverser",
+    "plus_loin": "produire"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "machine-programmes",
+    "compte-est-bon"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_alg_programmes"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.ALG.SUITES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Problèmes & algèbre",
+   "titre": "Suites de nombres et de motifs (étape n)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Problèmes & algèbre",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "prolonger",
+    "normal": "règle",
+    "plus_loin": "étape 100"
+   },
+   "itemKinds": [
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "machine-programmes",
+    "compte-est-bon"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_alg_suites"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GM.LONG_MASSE_CONT",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Grandeurs & mesures",
+   "titre": "Conversions par relations (3,5 m = 350 cm)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "m↔cm",
+    "normal": "toutes unités usuelles",
+    "plus_loin": "unités composées"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "mesureur",
+    "grand-prix",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_gm_long_masse_cont"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GM.PERIMETRE",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Grandeurs & mesures",
+   "titre": "Périmètres (polygones, carré, rectangle) ; cercle (plus loin)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "carré",
+    "normal": "polygones",
+    "plus_loin": "cercle (≈ 3,14 × d)"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "mesureur",
+    "grand-prix",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_gm_perimetre"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GM.AIRES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Grandeurs & mesures",
+   "titre": "Comparer, déterminer des aires ; cm², dm², m² ; carré/rectangle ; conversions",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "pavage",
+    "normal": "rectangle, conversions",
+    "plus_loin": "figures composées"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "mesureur",
+    "grand-prix",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_gm_aires"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GM.ANGLES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Grandeurs & mesures",
+   "titre": "Lexique, notations, comparer, somme/multiple, moitié par pliage, 90°",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "droit/aigu/obtus",
+    "normal": "comparer, construire",
+    "plus_loin": "45°, 180°"
+   },
+   "itemKinds": [
+    "numeric_answer",
+    "mcq"
+   ],
+   "jeuxSuggeres": [
+    "mesureur",
+    "grand-prix",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_gm_angles"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GM.DUREES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Grandeurs & mesures",
+   "titre": "Heure à aiguilles (h, min, s), durées, problèmes multi-étapes",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Grandeurs & mesures",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "h/min",
+    "normal": "h/min/s",
+    "plus_loin": "conversions 1,5 h = 1 h 30"
+   },
+   "itemKinds": [
+    "clock",
+    "numeric_answer"
+   ],
+   "jeuxSuggeres": [
+    "horloger",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_gm_durees"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GEO.VOCAB",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Espace & géométrie",
+   "titre": "Vocabulaire, notations [AB], (AB), [AB) ; perpendiculaires, parallèles",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "—",
+    "normal": "—",
+    "plus_loin": "—"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_geo_vocab"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GEO.FIGURES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Espace & géométrie",
+   "titre": "Triangles (rectangle, isocèle, équilatéral), quadrilatères (carré, rectangle, losange, trapèze, trapèze rectangle), pentagone, hexagone, cercle/disque ; propriétés",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "nommer",
+    "normal": "propriétés",
+    "plus_loin": "classification inclusive"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_geo_figures"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GEO.CONSTRUIRE",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Espace & géométrie",
+   "titre": "Constructions (règle, équerre, compas), programmes de construction",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "reproduire",
+    "normal": "construire",
+    "plus_loin": "rédiger un programme"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_geo_construire"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GEO.SYMETRIE",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Espace & géométrie",
+   "titre": "Symétrique sur quadrillage (axe vertical, horizontal, diagonal)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "vertical",
+    "normal": "les 3",
+    "plus_loin": "axe oblique quelconque"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_geo_symetrie"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GEO.SOLIDES",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Espace & géométrie",
+   "titre": "Cube, pavé, boule, cône, pyramide, cylindre, prisme droit ; patrons du cube/pavé ; perspective",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "nommer",
+    "normal": "décrire, patrons",
+    "plus_loin": "assemblages de cubes"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_geo_solides"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.GEO.DEPLACEMENTS",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Espace & géométrie",
+   "titre": "Instructions de déplacement, programmation",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Espace & géométrie",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "absolues",
+    "normal": "relatives",
+    "plus_loin": "boucles"
+   },
+   "itemKinds": [
+    "geometry_shape",
+    "mcq",
+    "ordering"
+   ],
+   "jeuxSuggeres": [
+    "geometre",
+    "miroir-magique",
+    "tangram",
+    "usine-patrons",
+    "robot-codeur",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_geo_deplacements"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.DON.LIRE",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Données & probabilités",
+   "titre": "Tableaux simple/double entrée, diagrammes en barres, courbes ; produire",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Données & probabilités",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "lire",
+    "normal": "interpréter, problèmes",
+    "plus_loin": "construire courbe"
+   },
+   "itemKinds": [
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "station-meteo",
+    "roue-probabilites",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_don_lire"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  },
+  {
+   "id": "CM2.MA.PROBA",
+   "classe": "CM2",
+   "matiere": "maths",
+   "domaine": "Données & probabilités",
+   "titre": "Impossible, certain, probable, peu probable ; 1/2 (pile/face, dé pair)",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Données & probabilités",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "certain/impossible",
+    "normal": "comparer",
+    "plus_loin": "fractions de chance"
+   },
+   "itemKinds": [
+    "mcq",
+    "classification"
+   ],
+   "jeuxSuggeres": [
+    "station-meteo",
+    "roue-probabilites",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "TODO:cm2_ma_proba"
+   },
+   "rappel": "TODO: règle en une phrase d’enfant"
+  }
+ ]
+}
