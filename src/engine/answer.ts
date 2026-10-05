@@ -55,13 +55,16 @@ function hasNonSignificantZeros(input: string): boolean {
 export function checkNumeric(
   input: string,
   expected: number,
-  opts: { tolerateZeros?: boolean } = {},
+  opts: { tolerateZeros?: boolean; unit?: string } = {},
 ): NumericCheck {
   const value = parseNumber(input);
   if (value === null)
     return { correct: false, value, hint: 'Écris seulement des chiffres (et une virgule si besoin).' };
   const same = Math.abs(value - expected) < 1e-9;
-  if (same && hasNonSignificantZeros(input) && !opts.tolerateZeros) {
+  // En euros, « 2,90 » est l'écriture usuelle de 2,9 € : on l'accepte.
+  const ecritureMonnaie =
+    opts.unit === '€' && /[.,]\d{2}$/.test(input.trim()) && !/^-?0\d/.test(input.trim());
+  if (same && hasNonSignificantZeros(input) && !opts.tolerateZeros && !ecritureMonnaie) {
     return { correct: false, value, hint: 'C’est la bonne valeur, mais on n’écrit pas les zéros inutiles !' };
   }
   return { correct: same, value };

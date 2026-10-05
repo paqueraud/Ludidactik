@@ -27,6 +27,9 @@ describe('nombres', () => {
     expect(checkNumeric('056', 56, { tolerateZeros: true }).correct).toBe(true);
     expect(checkNumeric('3,50', 3.5).correct).toBe(false);
     expect(checkNumeric('3,5', 3.5).correct).toBe(true);
+    // en euros, 2,90 est l'écriture usuelle
+    expect(checkNumeric('2,90', 2.9, { unit: '€' }).correct).toBe(true);
+    expect(checkNumeric('2,90', 2.9).correct).toBe(false);
   });
 });
 

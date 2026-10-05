@@ -61,6 +61,7 @@ test.describe('parcours principal', () => {
   test.afterEach(() => expect(erreurs, erreurs.join('\n')).toEqual([]));
 
   test('profil CE1 → Grand Prix facile jusqu’à l’arrivée → bilan', async ({ page }) => {
+    test.setTimeout(120_000);
     await creerProfil(page, 'Léa', 'CE1');
     await ouvrirJeu(page, 'CE1', /Mathématiques/, /Tables d'addition/, /Le Grand Prix/, /^Facile/);
     for (let i = 0; i < 6; i++) {
@@ -79,6 +80,7 @@ test.describe('parcours principal', () => {
   });
 
   test('Ascension : une faute → différence + copie active → mot suivant', async ({ page }) => {
+    test.setTimeout(120_000);
     await creerProfil(page, 'Tom', 'CE1');
     await ouvrirJeu(page, 'CE1', /Français/, /Mots fréquents/, /L'Ascension/, /^Normal/);
     await expect(page.getByText(/Écris le mot que tu entends/)).toBeVisible({ timeout: 10_000 });

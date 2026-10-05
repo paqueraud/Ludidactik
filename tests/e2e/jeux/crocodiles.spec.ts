@@ -21,9 +21,13 @@ for (const niveau of ['facile', 'plus_loin']) {
   });
 }
 
-test('Crocodiles : sans comparaison dans la leçon, message bienveillant', async ({ page }) => {
+test('Crocodiles : comparaisons de nombres (mcq < = >) jouables', async ({ page }) => {
   const erreurs = surveillerErreurs(page);
   await page.goto('/labo/crocodiles?niveau=normal');
-  await expect(page.getByText(/pas de comparaisons/)).toBeVisible();
+  await expect(page.getByRole('button', { name: 'égal' })).toBeVisible();
+  await page.keyboard.press('<');
+  await expect(
+    page.getByText(/Bravo|Super|Génial|Exactement|Bien joué|Parfait|Presque/).first(),
+  ).toBeVisible();
   expect(erreurs).toEqual([]);
 });

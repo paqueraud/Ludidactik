@@ -29,7 +29,7 @@ export function numericDistractors(item: NumericItem, rng: Rng, count = 3): numb
   const candidates = new Set<number>();
   const add = (x: number) => {
     const v = Math.round(x * 1000) / 1000;
-    if (v >= 0 && v !== a) candidates.add(v);
+    if (v >= 0 && v !== a && (item.decimals > 0 || Number.isInteger(v))) candidates.add(v);
   };
   add(a + step);
   add(a - step);

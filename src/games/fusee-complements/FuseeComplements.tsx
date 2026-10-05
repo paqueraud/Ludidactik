@@ -227,7 +227,7 @@ export default function FuseeComplements({
   const valider = useCallback(
     (v: string) => {
       if (!item || etat !== 'jeu' || paused) return;
-      const check = checkNumeric(v, item.answer, { tolerateZeros: level === 'facile' });
+      const check = checkNumeric(v, item.answer, { tolerateZeros: level === 'facile', unit: item.unit });
       questions.current++;
       answer(item, check.correct, v, formatNumber(item.answer));
       if (check.correct) {

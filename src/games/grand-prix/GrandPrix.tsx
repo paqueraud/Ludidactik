@@ -148,7 +148,7 @@ export default function GrandPrix({
 
   const submit = useCallback(() => {
     if (done || feedback?.type === 'faux' || !input.trim()) return;
-    const check = checkNumeric(input, item.answer, { tolerateZeros: level === 'facile' });
+    const check = checkNumeric(input, item.answer, { tolerateZeros: level === 'facile', unit: item.unit });
     const ms = clock.current - questionStart.current;
     total.current++;
     onAnswer({

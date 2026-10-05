@@ -9,7 +9,7 @@ import { DEFAULT_AVATAR } from '@/avatar/parts';
 import { Screen } from '@/components/Layout';
 import { Button } from '@/components/ui';
 import type { ItemStream } from '@/content/provider';
-import { type ItemKind, LEVELS, type Lesson, type Level } from '@/content/schemas';
+import { type Item, type ItemKind, LEVELS, type Lesson, type Level } from '@/content/schemas';
 import type { GameSummary } from '@/engine/GameModule';
 import { createRng } from '@/engine/rng';
 import { FIXTURES } from '@/games/_kit/fixtures';
@@ -47,9 +47,11 @@ const LECON_LABO: Lesson = {
   rappel: 'Règle d’essai.',
 };
 
-function fixtureStream(kind: ItemKind): ItemStream {
+function fixtureStream(kind: ItemKind, filter?: (i: Item) => boolean): ItemStream {
   const rng = createRng(42);
-  const pool = FIXTURES[kind];
+  const filtered = filter ? FIXTURES[kind].filter(filter) : FIXTURES[kind];
+  // sans item adapté, on garde tous les exemples : le jeu doit afficher un état propre
+  const pool = filtered.length ? filtered : FIXTURES[kind];
   let queue = rng.shuffle(pool);
   return {
     size: pool.length,
@@ -70,7 +72,7 @@ export function Labo() {
     ? (params.get('niveau') as Level)
     : 'normal';
   const kind = (params.get('type') as ItemKind | null) ?? game?.accepts[0];
-  const stream = useMemo(() => (kind ? fixtureStream(kind) : null), [kind, partie]); // eslint-disable-line react-hooks/exhaustive-deps
+  const stream = useMemo(() => (kind ? fixtureStream(kind, game?.filterItem) : null), [kind, partie]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!game || !kind || !stream) {
     return (

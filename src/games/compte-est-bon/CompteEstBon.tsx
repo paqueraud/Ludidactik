@@ -131,7 +131,7 @@ export default function CompteEstBon({
   const validerCible = useCallback(
     (v: string) => {
       if (!item || phase.type !== 'cible' || paused) return;
-      const c = checkNumeric(v, item.answer, { tolerateZeros: level === 'facile' });
+      const c = checkNumeric(v, item.answer, { tolerateZeros: level === 'facile', unit: item.unit });
       answer(item, c.correct, v, formatNumber(item.answer));
       if (c.correct) {
         score.current += 100;

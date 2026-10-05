@@ -36,7 +36,8 @@ export function itemKey(item: Item): string {
     case 'spelling_word':
       return `mot:${item.word.toLowerCase()}`;
     case 'numeric_answer':
-      return `calc:${item.prompt}`;
+      // la dictée de nombres a un énoncé fixe : la clé inclut ce qui est dit
+      return `calc:${item.prompt}|${item.spoken}`;
     default:
       return `${item.kind}:${item.id}`;
   }
@@ -258,6 +259,12 @@ function derivedPool(
   return null;
 }
 
+/** Un générateur produit-il des items acceptés par le filtre ? (échantillon de 40 tirages) */
+function sampleMatches(gen: () => Item, filter: ItemFilter): boolean {
+  for (let i = 0; i < 40; i++) if (filter(gen())) return true;
+  return false;
+}
+
 /** Nombre d'items distincts disponibles (Infinity pour un générateur). */
 export function countItems(
   index: ContentIndex,
@@ -272,11 +279,15 @@ export function countItems(
     ? nativeSource(index, lesson, kind, level, rng, ctx)
     : null;
   if (native) {
-    if ('gen' in native) return Infinity;
+    if ('gen' in native) return !filter || sampleMatches(() => native.gen(0.5), filter) ? Infinity : 0;
     return filter ? native.pool.filter(filter).length : native.pool.length;
   }
   const d = derivedPool(kind, index, lesson, level, rng, ctx);
-  if (d === 'infini') return Infinity;
+  if (d === 'infini') {
+    if (!filter) return Infinity;
+    const st = createStream(index, lesson, kind, level, rng, ctx);
+    return st && sampleMatches(() => st.next(0.5), filter) ? Infinity : 0;
+  }
   if (!d) return 0;
   return filter ? d.filter(filter).length : d.length;
 }
@@ -323,7 +334,7 @@ export function createStream(
       return {
         size: null,
         next(target = 0.5) {
-          for (let i = 0; i < 20; i++) {
+          for (let i = 0; i < 60; i++) {
             const it = src.gen(target);
             if (ok(it)) return it;
           }
