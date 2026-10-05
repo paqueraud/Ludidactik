@@ -258,9 +258,8 @@ export default function LettresEnVrac({ level, stream, paused, onAnswer, onEnd, 
         if (proche) poser(proche);
       },
       onDelete: retirerDerniere,
-      onSubmit: () => {
-        if (etape === 'faux') suivant();
-      },
+      // Entrée après une erreur : géré par le panneau de correction
+      onSubmit: () => {},
       disabled: paused || etape === 'fini',
     },
     TOUCHES_LETTRES,

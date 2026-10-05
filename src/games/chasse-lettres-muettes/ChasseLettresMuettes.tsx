@@ -16,7 +16,8 @@ import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
 import { ChoiceGrid, Feedback, Hud } from '../_kit/ui';
-import { base, lettres, prefixeCommun, tirerItem } from '../_orthographe-commun/lettres';
+import { tirerItem } from '../_orthographe-commun/lettres';
+import { decouperFamille } from './famille';
 import {
   type Trou,
   phraseALire,
@@ -28,25 +29,6 @@ import {
 import { TOUCHES_LETTRES } from '../_orthographe-commun/voix';
 
 const MANCHES: Record<Level, number> = { facile: 8, normal: 10, plus_loin: 12 };
-
-/** Découpe le mot de la famille pour surligner la lettre qu'on y entend. */
-function decouperFamille(t: Trou): { avant: string; lettre: string; apres: string } | null {
-  if (!t.famille) return null;
-  const prefixe = t.avant.match(/[\p{L}'’-]*$/u)?.[0] ?? '';
-  const lf = lettres(t.famille);
-  const lr = lettres(t.reponse);
-  const lp = lettres(prefixe);
-  if (!lp.length) return null;
-  const pos = prefixeCommun(prefixe, t.famille);
-  if (pos !== lp.length) return null;
-  const segment = lf.slice(pos, pos + lr.length);
-  if (segment.map(base).join('') !== lr.map(base).join('')) return null;
-  return {
-    avant: lf.slice(0, pos).join(''),
-    lettre: segment.join(''),
-    apres: lf.slice(pos + lr.length).join(''),
-  };
-}
 
 function MotFamille({ t, surligne }: { t: Trou; surligne: boolean }) {
   const d = decouperFamille(t);
@@ -287,7 +269,7 @@ export default function ChasseLettresMuettes({
             </p>
           </div>
           <p className="rounded-full bg-white/80 px-3 py-1 text-sm font-bold">
-            Quelle lettre dort à la fin du mot ?
+            {trou.famille ? 'Quelle lettre dort à la fin du mot ?' : 'Complète le mot.'}
           </p>
 
           {/* La lampe : le mot de la même famille */}

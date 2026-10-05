@@ -131,7 +131,8 @@ export default function BonhommeDeNeige({ level, stream, paused, onAnswer, onEnd
       onKey: proposer,
       onDelete: () => {},
       onSubmit: () => {
-        if (etape === 'trouve' || etape === 'fondu') suivant();
+        // (bonhomme fondu : Entrée est gérée par le panneau de correction)
+        if (etape === 'trouve') suivant();
       },
       disabled: paused || etape === 'fini',
     },

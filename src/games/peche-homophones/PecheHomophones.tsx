@@ -36,13 +36,27 @@ const okItem = (it: Item) => {
   return !!t?.choix && it.kind === 'fill_blank';
 };
 
-function Poisson({ couleur, mot, sens }: { couleur: string; mot: string; sens: 1 | -1 }) {
+/** Un poisson qui porte un mot. `flip` : keyframes de retournement synchronisés avec la nage. */
+function Poisson({
+  couleur,
+  mot,
+  flip,
+}: {
+  couleur: string;
+  mot: string;
+  flip: { scaleX: number[]; times: number[]; duration: number } | null;
+}) {
   return (
     <div className="relative h-16" style={{ width: POISSON_L }}>
-      <svg
+      <motion.svg
         viewBox="0 0 132 64"
         className="absolute inset-0 h-full w-full"
-        style={{ transform: `scaleX(${sens})` }}
+        animate={flip ? { scaleX: flip.scaleX } : { scaleX: 1 }}
+        transition={
+          flip
+            ? { duration: flip.duration, times: flip.times, repeat: Infinity, ease: 'linear' }
+            : { duration: 0.2 }
+        }
         aria-hidden
       >
         <path d="M14 32 L-2 14 L2 32 L-2 50 Z" fill={couleur} transform="translate(4 0)" />
@@ -52,7 +66,7 @@ function Poisson({ couleur, mot, sens }: { couleur: string; mot: string; sens: 1
         <circle cx="108" cy="25" r="6" fill="#fff" />
         <circle cx="110" cy="25" r="3" fill="#24304A" />
         <path d="M118 36 Q122 38 118 40" stroke="#24304A" strokeWidth="2" fill="none" />
-      </svg>
+      </motion.svg>
       <span className="absolute inset-y-0 left-6 right-8 flex items-center justify-center">
         <span className="rounded-full bg-white/95 px-2.5 py-0.5 font-titre text-xl font-extrabold text-ink shadow-pop-sm">
           {mot}
@@ -297,8 +311,20 @@ export default function PecheHomophones({
 
         <div role="group" aria-label="Poissons" className="absolute inset-x-0 bottom-0" style={{ top: 92 }}>
           {choix.map((mot, i) => {
-            const sens: 1 | -1 = i % 2 === 0 ? 1 : -1;
-            const depart = ((i * 0.37) % 1) * course;
+            // Nage : depart → bord droit → bord gauche → depart (le poisson se retourne aux bords)
+            const depart = ((i * 0.37 + 0.1) % 1) * course;
+            const duree = TRAVERSEE_S[level] * 2 * (1 + i * 0.12);
+            const t1 = course ? (course - depart) / (2 * course) : 0.25;
+            const t2 = t1 + 0.5;
+            const nage = {
+              x: [depart, course, 0, depart],
+              times: [0, t1, t2, 1],
+              flip: {
+                scaleX: [1, 1, -1, -1, 1, 1],
+                times: [0, Math.max(0, t1 - 0.01), t1, t2 - 0.01, t2, 1],
+                duration: duree,
+              },
+            };
             const estChoisi = choisi === i;
             const estBon = etat && mot === trou.reponse;
             return (
@@ -320,23 +346,27 @@ export default function PecheHomophones({
                       ? { y: 24, rotate: 15, opacity: 0.4 }
                       : immobile
                         ? { opacity: etat && !estBon ? 0.45 : 1 }
-                        : {
-                            x: sens === 1 ? [depart, course, 0, depart] : [depart, 0, course, depart],
-                            opacity: 1,
-                          }
+                        : { x: nage.x, opacity: 1 }
                 }
                 transition={
                   estChoisi
                     ? { duration: 0.7 }
                     : immobile
                       ? { duration: 0.3 }
-                      : { duration: TRAVERSEE_S[level] * 2, repeat: Infinity, ease: 'easeInOut' }
+                      : {
+                          x: { duration: duree, times: nage.times, repeat: Infinity, ease: 'linear' },
+                          opacity: { duration: 0.4 },
+                        }
                 }
               >
                 <span className="absolute -left-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full bg-ink font-titre text-sm font-bold text-white">
                   {i + 1}
                 </span>
-                <Poisson couleur={COULEURS[i % COULEURS.length]!} mot={mot} sens={sens} />
+                <Poisson
+                  couleur={COULEURS[i % COULEURS.length]!}
+                  mot={mot}
+                  flip={immobile ? null : nage.flip}
+                />
               </motion.button>
             );
           })}

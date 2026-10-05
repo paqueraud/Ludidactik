@@ -16,6 +16,7 @@ import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
 import { Feedback, Hud } from '../_kit/ui';
 import { tirerItem } from '../_orthographe-commun/lettres';
+import { wagonsDe } from './wagons';
 import {
   type Trou,
   phraseALire,
@@ -29,35 +30,6 @@ const MANCHES: Record<Level, number> = { facile: 8, normal: 10, plus_loin: 10 };
 const COULEURS = ['#4FC3F7', '#7BD389', '#FFD45C', '#8E7CFF', '#FF7A6B', '#3CC8B4'];
 const TOUCHES = ['a', 'b', 'c', 'd', 'e', 'f'];
 const SAISIE = /^[\p{L}'’\- ]$/u;
-
-interface Wagon {
-  avant: string;
-  apres: string;
-  /** Wagon vide (à accrocher). */
-  trou: boolean;
-}
-
-/** Les wagons : les mots du groupe (meta.groupe), sinon les mots de la phrase. */
-function wagonsDe(t: Trou): Wagon[] {
-  if (t.groupe) {
-    let i = t.groupe.findIndex((g) => g.includes('___'));
-    if (i < 0) i = t.groupe.findIndex((g) => g.toLowerCase() === t.reponse.toLowerCase());
-    if (i < 0) i = t.groupe.findIndex((g) => t.choix?.some((c) => c.toLowerCase() === g.toLowerCase()));
-    const mots = i < 0 ? [...t.groupe, '___'] : t.groupe;
-    const k = i < 0 ? mots.length - 1 : i;
-    return mots.map((g, j) => {
-      if (j !== k) return { avant: g, apres: '', trou: false };
-      const [a = '', b = ''] = g.includes('___') ? g.split(/_{3,}/) : ['', ''];
-      return { avant: a, apres: b, trou: true };
-    });
-  }
-  const jetons = `${t.avant}___${t.apres}`.split(/\s+/).filter(Boolean);
-  return jetons.map((j) => {
-    if (!j.includes('___')) return { avant: j, apres: '', trou: false };
-    const [a = '', b = ''] = j.split(/_{3,}/);
-    return { avant: a, apres: b, trou: true };
-  });
-}
 
 function Roues() {
   return (
@@ -340,7 +312,7 @@ export default function TrainAccords({
                     onClick={() => accrocher(c)}
                     disabled={!!etat || paused || fini}
                     className={`btn-3d relative mb-3 flex min-h-[3.5rem] min-w-[5rem] items-center gap-2 rounded-xl px-4 font-titre text-2xl font-extrabold ${
-                      bon ? 'bg-grass ring-4 ring-grass-dark' : mauvais ? 'bg-coral/40' : 'bg-card'
+                      bon ? 'bg-grass ring-4 ring-grass-dark' : mauvais ? 'bg-coral/40' : 'bg-sky/25'
                     } ${etat && !bon && !mauvais ? 'opacity-50' : ''}`}
                     aria-label={`Wagon ${i + 1} : ${c}`}
                   >

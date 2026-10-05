@@ -38,7 +38,7 @@ const COULEUR: Record<EtatLettre, string> = {
   bien: 'bg-grass-dark text-white border-grass-dark',
   accent: 'bg-grass/60 text-ink border-sun-dark ring-4 ring-sun ring-inset',
   mal_place: 'bg-sun text-ink border-sun-dark',
-  absent: 'bg-ink/30 text-white border-transparent',
+  absent: 'bg-ink/50 text-white border-transparent',
 };
 const LIBELLE: Record<EtatLettre, string> = {
   bien: 'bien placée',
@@ -172,7 +172,8 @@ export default function Wordle({ level, stream, paused, onAnswer, onEnd, speech,
     onDelete: () => etape === 'jeu' && setSaisie((v) => [...v].slice(0, -1).join('')),
     onSubmit: () => {
       if (etape === 'jeu') valider();
-      else if (etape === 'gagne' || etape === 'perdu') suivant();
+      // (mot perdu : Entrée est gérée par le panneau de correction)
+      else if (etape === 'gagne') suivant();
     },
     disabled: paused || etape === 'fini',
   };
