@@ -16,7 +16,7 @@ import { checkSpelling } from '@/engine/answer';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
-import { useCompteARebours } from '../_orthographe-commun/hooks';
+import { useCompteARebours, useVoixEnPause } from '../_orthographe-commun/hooks';
 import { BadgeParents, CorrectionMot } from '../_orthographe-commun/ui';
 
 const DUREE_MS: Record<Level, number> = { facile: 5000, normal: 3000, plus_loin: 2000 };
@@ -65,8 +65,10 @@ function Polaroid({
   restant,
   reveleJuste,
   pret,
+  phrase,
 }: {
   pret: boolean;
+  phrase: boolean;
   mot: string;
   visible: boolean;
   restant: number;
@@ -111,7 +113,11 @@ function Polaroid({
                 <ellipse cx="60" cy="34" rx="40" ry="10" fill="#fff" opacity="0.7" />
               </svg>
               <span className="font-titre text-lg font-bold">
-                {pret ? 'Prêt ? Regarde bien…' : 'Le mot s’est envolé !'}
+                {pret
+                  ? 'C’est parti ? Regarde bien…'
+                  : phrase
+                    ? 'La phrase s’est envolée !'
+                    : 'Le mot s’est envolé !'}
               </span>
             </motion.div>
           )}
@@ -143,6 +149,7 @@ export default function AppareilPhoto({
   const total = parNiveau(level, MANCHES);
   const dureeBase = parNiveau(level, DUREE_MS);
   const session = useGameSession({ paused, onAnswer, onEnd });
+  useVoixEnPause(paused, speech);
   const reduce = useReducedMotion();
 
   const [item, setItem] = useState(() => stream.next() as SpellingItem);
@@ -339,6 +346,7 @@ export default function AppareilPhoto({
 
         <Polaroid
           pret={etape === 'pret'}
+          phrase={item.isSentence}
           mot={item.word}
           visible={etape === 'photo' || (etape === 'correction' && !message)}
           restant={etape === 'photo' ? restant : 0}
@@ -392,7 +400,9 @@ export default function AppareilPhoto({
 
         {enErreur && (
           <CorrectionMot donne={donne} attendu={item.word} message={message} explication={item.explication}>
-            <p className="font-bold">Recopie-le en le regardant bien :</p>
+            <p className="font-bold">
+              {item.isSentence ? 'Recopie-la en la regardant bien :' : 'Recopie-le en le regardant bien :'}
+            </p>
             <div
               className={`flex min-h-[3.75rem] w-full max-w-xl items-center justify-center rounded-2xl border-4 px-4 font-titre text-3xl font-extrabold ${copieOk ? 'border-grass bg-grass/10' : 'border-sun bg-cream'}`}
               aria-label={`Ta copie : ${copie || 'vide'}`}
@@ -401,7 +411,7 @@ export default function AppareilPhoto({
               <span className="ml-0.5 inline-block h-8 w-1 animate-pulse bg-ink/40" aria-hidden />
             </div>
             <Button variant="grass" onClick={continuer} disabled={!copieOk}>
-              {copieOk ? 'Bravo ! Photo suivante' : 'Recopie le mot'}
+              {copieOk ? 'Bravo ! Photo suivante' : item.isSentence ? 'Recopie la phrase' : 'Recopie le mot'}
             </Button>
           </CorrectionMot>
         )}

@@ -16,7 +16,7 @@ import { direMot, peutEntendre } from './voix';
 /* Correction lettre à lettre                                          */
 /* ------------------------------------------------------------------ */
 
-/** Ce que l'enfant a écrit, corrigé : lettres oubliées (vert souligné), à changer (jaune), en trop (barrées). */
+/** Ce que l'enfant a écrit, corrigé : lettres oubliées (vert souligné), corrigées (jaune, lettre écrite barrée), en trop (barrées). */
 export function DiffMot({ diff, className = '' }: { diff: DiffOp[]; className?: string }) {
   return (
     <span
@@ -33,8 +33,9 @@ export function DiffMot({ diff, className = '' }: { diff: DiffOp[]; className?: 
           );
         if (op.type === 'sub')
           return (
-            <span key={i} className="rounded bg-sun/70 px-0.5">
-              {op.char}
+            <span key={i} className="inline-flex items-baseline">
+              <span className="text-[0.6em] text-coral line-through">{op.given}</span>
+              <span className="rounded bg-sun/70 px-0.5">{op.char}</span>
             </span>
           );
         return (
@@ -52,7 +53,8 @@ export function LegendeDiff() {
   return (
     <p className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-sm text-ink-soft">
       <span>
-        <span className="rounded bg-sun/70 px-1 font-bold text-ink">a</span> à changer
+        <span className="text-coral line-through">e</span>
+        <span className="rounded bg-sun/70 px-1 font-bold text-ink">a</span> corrigée
       </span>
       <span>
         <span className="rounded bg-grass/40 px-1 font-bold text-grass-dark underline">a</span> oubliée

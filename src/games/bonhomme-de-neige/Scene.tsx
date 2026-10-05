@@ -5,8 +5,16 @@
  */
 import { motion, useReducedMotion } from 'framer-motion';
 
-export function SceneBonhomme({ fonte, sauve }: { fonte: number; sauve: boolean }) {
-  const reduce = useReducedMotion();
+export function SceneBonhomme({
+  fonte,
+  sauve,
+  paused = false,
+}: {
+  fonte: number;
+  sauve: boolean;
+  paused?: boolean;
+}) {
+  const reduce = useReducedMotion() || paused;
   const f = Math.max(0, Math.min(1, fonte));
   const fondu = f >= 1;
   const tr = reduce ? { duration: 0 } : { type: 'spring' as const, stiffness: 70, damping: 14 };

@@ -3,7 +3,7 @@
  * La grille est générée à partir de la liste de mots (programme ou parents) — voir
  * `_orthographe-commun/mots-croises.ts`. Indice de chaque mot : sa définition si elle existe,
  * sinon le mot à écouter (voix du parent prioritaire), toujours avec son nombre de lettres.
- * Facile : 5 mots, 1re lettre de chaque mot donnée, chaque mot est vérifié dès qu'il est rempli
+ * Facile : 5 mots, 1re lettre de chaque mot donnée, 3 lettres à révéler, chaque mot est vérifié dès qu'il est rempli
  *          (les cases fausses sont montrées). Normal : 7 mots, vérification du mot rempli (sans
  *          montrer la case fausse), 2 lettres à révéler. Plus loin : 9 mots, aucune lettre donnée,
  *          vérification de toute la grille à la fin, sans aide.
@@ -18,6 +18,7 @@ import { checkSpelling, letterDiff } from '@/engine/answer';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
+import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { Hud } from '../_kit/ui';
 import { collecterMots, estMot, melanger, motSimple } from '../_orthographe-commun/lettres';
 import { type Placement, casesDe, genererGrille, grilleDeLettres } from '../_orthographe-commun/mots-croises';
@@ -36,6 +37,7 @@ type Resultat = 'juste' | 'faux';
 
 export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, speech, sfx }: GameProps) {
   const session = useGameSession({ paused, onAnswer, onEnd });
+  useVoixEnPause(paused, speech);
 
   const { grille, items } = useMemo(() => {
     const pool = collecterMots(stream, okItem, 30);
@@ -50,6 +52,21 @@ export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, sp
   }, [stream, level]);
 
   const lettresAttendues = useMemo(() => grilleDeLettres(grille), [grille]);
+  /**
+   * Texte de l'indice : la définition ; sinon (pas de définition) le mot à écouter ; et si aucune voix
+   * n'est disponible (ni synthèse ni enregistrement du parent), les lettres du mot mélangées.
+   */
+  const textesIndices = useMemo(
+    () =>
+      items.map((it) =>
+        it.definition
+          ? it.definition
+          : peutEntendre(speech, it)
+            ? null
+            : `Lettres mélangées : ${melanger([...it.word.toLowerCase()]).join(' ')}`,
+      ),
+    [items, speech],
+  );
   const placements = grille.placements;
 
   /** Cases données d'office (facile : 1re lettre de chaque mot) ou révélées. */
@@ -146,7 +163,7 @@ export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, sp
           if ((m.get(k(l, c)) ?? '').toLowerCase() !== pl.cases[n]) fausses.add(k(l, c));
         });
         setFaussesVues(fausses);
-        setMessage('Presque ! Change les cases orange.');
+        setMessage('Presque ! Change les cases jaunes.');
       } else setMessage('Presque ! Une lettre n’est pas encore juste dans ce mot.');
     }
     setResultats(res);
@@ -313,7 +330,6 @@ export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, sp
 
   const indice = (i: number) => {
     const pl = placements[i]!;
-    const it = items[i]!;
     const n = pl.cases.length;
     const etat = resultats.get(i);
     return (
@@ -324,13 +340,13 @@ export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, sp
           className={`flex min-h-[48px] w-full items-center gap-2 rounded-xl px-2 py-1 text-left ${
             i === sel ? 'bg-sky/25 ring-2 ring-sky-dark' : 'hover:bg-ink/5'
           } ${etat === 'juste' ? 'text-grass-dark line-through decoration-2' : ''}`}
-          aria-label={`${pl.numero} ${pl.dir === 'h' ? 'horizontal' : 'vertical'} : ${it.definition ?? 'écoute le mot'}, ${n} lettres`}
+          aria-label={`${pl.numero} ${pl.dir === 'h' ? 'horizontal' : 'vertical'} : ${textesIndices[i] ?? 'écoute le mot'}, ${n} lettres`}
         >
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sky font-titre font-bold text-white">
             {pl.numero}
           </span>
           <span className="min-w-0 flex-1">
-            {it.definition ?? (
+            {textesIndices[i] ?? (
               <span className="inline-flex items-center gap-1 font-bold">
                 <Volume2 size={18} aria-hidden /> Écoute le mot
               </span>
@@ -424,10 +440,10 @@ export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, sp
             <span className="font-titre font-bold">
               {p.numero} {p.dir === 'h' ? '→' : '↓'}
             </span>
-            {itemSel.definition ? (
+            {textesIndices[sel] ? (
               <>
-                <SpeakButton text={itemSel.definition} size={36} label="Écouter la définition" />
-                <span className="font-bold">{itemSel.definition}</span>
+                <SpeakButton text={textesIndices[sel]!} size={36} label="Écouter l’indice" />
+                <span className="font-bold">{textesIndices[sel]}</span>
               </>
             ) : (
               <span className="font-bold">Écoute le mot :</span>
@@ -474,11 +490,13 @@ export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, sp
                     ) : null}
                     <span className="font-titre text-2xl font-extrabold text-grass-dark">→ {pl.mot}</span>
                     <SpeakButton text={pl.mot} size={36} label={`Écouter : ${pl.mot}`} />
+                    {items[i]?.explication && (
+                      <p className="w-full text-center text-sm">{items[i]!.explication}</p>
+                    )}
                   </li>
                 ),
               )}
             </ul>
-            {items[0]?.explication && <p className="mt-2 text-center">{items[0].explication}</p>}
             <div className="mt-3 flex justify-center">
               <Button variant="grass" onClick={terminer} autoFocus>
                 J’ai compris, terminer

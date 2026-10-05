@@ -4,7 +4,7 @@
  * complète la phrase. L'astuce de substitution (`hint`, « remplace par avait ») est affichée.
  * Facile : 2 poissons lents, astuce toujours visible. Normal : tous les poissons, astuce sur demande.
  * Plus loin : poissons rapides, astuce seulement dans la correction.
- * Toucher un poisson ou taper 1-6 / A-F. Pause et « réduire les animations » : les poissons s'arrêtent.
+ * Toucher un poisson ou taper 1-6 (pas A-F : « a » est une réponse possible). Pause et « réduire les animations » : les poissons s'arrêtent.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Lightbulb } from 'lucide-react';
@@ -14,6 +14,7 @@ import type { Item, Level } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
+import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { Feedback, Hud } from '../_kit/ui';
 import { tirerItem } from '../_orthographe-commun/lettres';
 import {
@@ -28,7 +29,6 @@ import {
 const MANCHES: Record<Level, number> = { facile: 8, normal: 10, plus_loin: 12 };
 const TRAVERSEE_S: Record<Level, number> = { facile: 10, normal: 7, plus_loin: 4.5 };
 const COULEURS = ['#FF7A6B', '#FFD45C', '#8E7CFF', '#7BD389', '#4FC3F7', '#E0A458'];
-const TOUCHES = ['a', 'b', 'c', 'd', 'e', 'f'];
 const POISSON_L = 132;
 
 const okItem = (it: Item) => {
@@ -88,6 +88,7 @@ export default function PecheHomophones({
 }: GameProps) {
   const total = parNiveau(level, MANCHES);
   const session = useGameSession({ paused, onAnswer, onEnd });
+  useVoixEnPause(paused, speech);
   const reduce = useReducedMotion();
 
   const tirer = useCallback((): Trou | null => {
@@ -176,9 +177,8 @@ export default function PecheHomophones({
     if (etat || paused || fini) return;
     const h = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
-      const i = TOUCHES.indexOf(e.key.toLowerCase());
-      const j = Number(e.key) - 1;
-      const k = i >= 0 ? i : Number.isInteger(j) && j >= 0 ? j : -1;
+      // Chiffres seulement : taper « a » ne doit pas pêcher le poisson n° 1 (qui porte peut-être « à »)
+      const k = /^[1-6]$/.test(e.key) ? Number(e.key) - 1 : -1;
       if (k >= 0 && k < choix.length) {
         e.preventDefault();
         pecher(k);
@@ -303,7 +303,7 @@ export default function PecheHomophones({
               key={i}
               className="absolute bottom-2 block h-3 w-3 rounded-full border-2 border-white/70"
               style={{ left: x }}
-              animate={paused ? undefined : { y: [0, -hauteur * 0.6], opacity: [0.9, 0] }}
+              animate={paused ? { y: 0, opacity: 0 } : { y: [0, -hauteur * 0.6], opacity: [0.9, 0] }}
               transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.8 }}
               aria-hidden
             />
@@ -379,7 +379,7 @@ export default function PecheHomophones({
             <Feedback
               state={etat}
               expected={phraseComplete(trou)}
-              explication={[trou.astuce, trou.explication].filter(Boolean).join(' ')}
+              explication={trou.explication}
               onContinue={suivant}
               message={etat === 'juste' ? 'Belle prise ! 🐟' : 'Presque ! Ce poisson-là ne va pas.'}
             />

@@ -4,10 +4,10 @@ import type { GameModule } from '@/engine/GameModule';
 const jeu: GameModule = {
   id: 'appareil-photo',
   numero: 30,
-  titre: "L'Appareil photo",
+  titre: 'L’Appareil photo',
   description: 'Clic ! Le mot apparaît quelques secondes : photographie-le dans ta tête, puis écris-le.',
   consigne:
-    "Bienvenue au studio photo ! Appuie sur le déclencheur : le mot s'affiche quelques secondes. Regarde-le bien, photographie-le dans ta tête, puis écris-le quand il disparaît.",
+    'Bienvenue au studio photo ! Appuie sur le déclencheur : le mot s’affiche quelques secondes. Regarde-le bien, photographie-le dans ta tête, puis écris-le quand il disparaît.',
   icone: '📸',
   couleur: 'from-grape to-sky',
   modalites: ['regarder', 'ecrire'],

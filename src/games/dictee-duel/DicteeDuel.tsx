@@ -71,7 +71,7 @@ function PanneauJoueur({
   return (
     <section
       className={`carte flex min-w-0 flex-1 flex-col items-center gap-2 border-4 p-3 ${bord} ${retourne ? 'rotate-180' : ''}`}
-      aria-label={`Côté de ${nom}`}
+      aria-label={nom.startsWith('Côté') ? nom : `Côté de ${nom}`}
     >
       <div className="flex w-full items-center justify-between gap-2">
         <span className={`rounded-full px-3 py-1 font-titre text-lg font-bold text-white ${fond}`}>
@@ -81,8 +81,8 @@ function PanneauJoueur({
           {j.juste
             ? 'Juste !'
             : bloque
-              ? 'Plus d’essai pour ce mot'
-              : `Essai${restants > 1 ? 's' : ''} : ${restants}`}
+              ? 'Essais terminés pour ce mot'
+              : `Encore ${restants} essai${restants > 1 ? 's' : ''}`}
         </span>
       </div>
       <motion.div
@@ -125,7 +125,7 @@ export default function DicteeDuel({
   const total = parNiveau(level, MOTS);
   const maxEssais = parNiveau(level, ESSAIS);
   const session = useGameSession({ paused, onAnswer, onEnd });
-  const noms = [profile.prenom || 'Joueur 1', 'Joueur 2'] as const;
+  const noms = [profile.prenom || 'Côté bleu', 'Côté rouge'] as const;
 
   const tirer = useCallback(() => tirerItem(stream, okItem) ?? (stream.next() as SpellingItem), [stream]);
   const [item, setItem] = useState<SpellingItem>(tirer);
@@ -380,7 +380,10 @@ export default function DicteeDuel({
         )}
       </AnimatePresence>
       {!revele && large && (
-        <p className="text-sm text-ink-soft">Le clavier de l’ordinateur écrit pour {noms[0]}.</p>
+        <p className="text-sm text-ink-soft">
+          Le clavier de l’ordinateur écrit pour {noms[0]} : pour un duel équitable, chacun peut aussi jouer
+          avec son clavier à l’écran.
+        </p>
       )}
     </section>
   );

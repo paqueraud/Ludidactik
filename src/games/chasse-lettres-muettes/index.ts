@@ -8,7 +8,7 @@ const jeu: GameModule = {
   description:
     'Une lettre se cache sans faire de bruit à la fin du mot : trouve-la grâce à un mot de sa famille !',
   consigne:
-    'Chut… Des lettres muettes se cachent à la fin des mots : on les écrit mais on ne les entend pas ! Pour les trouver, pense à un mot de la même famille : dans chanter, on entend le t, alors on écrit chant avec un t.',
+    'Chut… Des lettres muettes se cachent à la fin des mots : on les écrit mais on ne les entend pas ! Pour les trouver, pense à un mot de la même famille : dans « chanter », on entend le « t », alors on écrit « chant » avec un « t ».',
   icone: '🔦',
   couleur: 'from-grape to-ink',
   modalites: ['ecouter', 'regarder'],

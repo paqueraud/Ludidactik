@@ -7,13 +7,13 @@ for (const niveau of ['normal', 'plus_loin']) {
     const erreurs = surveillerErreurs(page);
     await page.goto(`/labo/dictee-duel?niveau=${niveau}`);
     const j1 = page.getByRole('region', { name: 'Côté de Testeur' });
-    const j2 = page.getByRole('region', { name: 'Côté de Joueur 2' });
+    const j2 = page.getByRole('region', { name: 'Côté rouge' });
     await expect(j1).toBeVisible();
     await expect(j2).toBeVisible();
     // Joueur 1 : clavier physique ; joueur 2 : son clavier à l'écran (avec une lettre accentuée)
     await page.keyboard.type('zz');
     await page.keyboard.press('Enter');
-    await expect(j1.getByText(/Presque|Plus d’essai/)).toBeVisible();
+    await expect(j1.getByText(/Presque|Essais terminés/)).toBeVisible();
     for (const t of ['z', 'é', 'z']) await j2.getByRole('button', { name: t, exact: true }).click();
     await j2.getByRole('button', { name: 'Valider' }).click();
     if (niveau === 'plus_loin') {

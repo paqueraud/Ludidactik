@@ -15,6 +15,7 @@ import type { Item, Level } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
+import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { ChoiceGrid, Feedback, Hud } from '../_kit/ui';
 import { tirerItem } from '../_orthographe-commun/lettres';
 import { decouperFamille } from './famille';
@@ -55,8 +56,8 @@ function MotFamille({ t, surligne }: { t: Trou; surligne: boolean }) {
 }
 
 /** Le décor de nuit : la lampe de poche éclaire le mot. */
-function Nuit({ lanternes, total }: { lanternes: number; total: number }) {
-  const reduce = useReducedMotion();
+function Nuit({ lanternes, total, paused }: { lanternes: number; total: number; paused: boolean }) {
+  const reduce = useReducedMotion() || paused;
   return (
     <svg viewBox="0 0 400 90" className="block w-full" aria-hidden>
       <rect width="400" height="90" fill="#1F2840" />
@@ -118,6 +119,7 @@ export default function ChasseLettresMuettes({
 }: GameProps) {
   const total = parNiveau(level, MANCHES);
   const session = useGameSession({ paused, onAnswer, onEnd });
+  useVoixEnPause(paused, speech);
 
   const tirer = useCallback((): Trou | null => {
     const avecFamille = tirerItem(stream, (it: Item) => !!versTrou(it)?.famille);
@@ -233,7 +235,7 @@ export default function ChasseLettresMuettes({
         className="w-full overflow-hidden rounded-card border-4 border-white shadow-soft"
         aria-label={`${trouvees} lanternes allumées`}
       >
-        <Nuit lanternes={trouvees} total={total} />
+        <Nuit lanternes={trouvees} total={total} paused={paused} />
         <div
           className="relative flex flex-col items-center gap-3 px-4 pb-6 pt-4"
           style={{ background: 'radial-gradient(ellipse at 50% 40%, #FFF6D6 0%, #F7E7B0 35%, #2B3550 75%)' }}
@@ -257,11 +259,11 @@ export default function ChasseLettresMuettes({
               >
                 <AnimatePresence mode="wait">
                   <motion.span
-                    key={remplie || 'chut'}
+                    key={remplie || 'cachee'}
                     initial={{ y: -12, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                   >
-                    {remplie || <span className="text-xl">chut</span>}
+                    {remplie || <span aria-hidden>?</span>}
                   </motion.span>
                 </AnimatePresence>
               </span>
@@ -283,7 +285,7 @@ export default function ChasseLettresMuettes({
                 >
                   <Flashlight className="text-grape" aria-hidden />
                   <span>Pense à</span>
-                  <MotFamille t={trou} surligne={level === 'facile' || !!etat} />
+                  <MotFamille t={trou} surligne={!!etat} />
                   <SpeakButton text={trou.famille} size={36} label={`Écouter : ${trou.famille}`} />
                 </motion.div>
               ) : (
@@ -332,9 +334,21 @@ export default function ChasseLettresMuettes({
         <Feedback
           state={etat}
           expected={phraseComplete(trou)}
-          explication={`${trou.famille ? `On entend « ${decouperFamille(trou)?.lettre ?? trou.reponse} » dans « ${trou.famille} ». ` : ''}${trou.explication}`}
+          explication={`${
+            trou.famille
+              ? decouperFamille(trou)
+                ? `On entend « ${decouperFamille(trou)!.lettre} » dans « ${trou.famille} ». `
+                : `Pense à « ${trou.famille} », un mot de la même famille. `
+              : ''
+          }${trou.explication}`}
           onContinue={suivant}
-          message={etat === 'juste' ? `Bravo ! On écrit « ${phraseComplete(trou)} ».` : 'Presque !'}
+          message={
+            etat === 'juste'
+              ? `Bravo ! On écrit « ${phraseComplete(trou)} ».`
+              : trou.famille
+                ? `Presque ! La lettre muette est « ${trou.reponse} ».`
+                : 'Presque !'
+          }
         />
       </section>
     </div>

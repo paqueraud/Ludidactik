@@ -16,6 +16,7 @@ import { checkSpelling } from '@/engine/answer';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
+import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { Hud } from '../_kit/ui';
 import { base, estMot, tirerItem } from '../_orthographe-commun/lettres';
 import { BadgeParents, BoutonEntendre, CorrectionMot } from '../_orthographe-commun/ui';
@@ -90,6 +91,7 @@ function Bloc({
 export default function LettresEnVrac({ level, stream, paused, onAnswer, onEnd, speech, sfx }: GameProps) {
   const total = parNiveau(level, MANCHES);
   const session = useGameSession({ paused, onAnswer, onEnd });
+  useVoixEnPause(paused, speech);
 
   const tirer = useCallback(() => tirerItem(stream, okItem) ?? (stream.next() as SpellingItem), [stream]);
   const [item, setItem] = useState<SpellingItem>(tirer);
@@ -159,7 +161,9 @@ export default function LettresEnVrac({ level, stream, paused, onAnswer, onEnd, 
         setMessage(
           res.verdict === 'accent'
             ? res.message
-            : 'Presque ! Les lettres sont là, mais pas dans le bon ordre.',
+            : p.some((id) => tas.tuiles.find((t) => t.id === id)?.intrus)
+              ? 'Presque ! Une lettre intruse s’est glissée dans ton mot.'
+              : 'Presque ! Les lettres sont là, mais pas dans le bon ordre.',
         );
         setEtape('faux');
         void speech.speak(`Presque ! On écrit : ${item.word}`);

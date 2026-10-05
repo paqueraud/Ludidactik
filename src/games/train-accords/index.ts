@@ -8,7 +8,7 @@ const jeu: GameModule = {
   description:
     'Accroche le bon wagon pour que tous les mots du groupe soient bien accordés : le train peut partir !',
   consigne:
-    'Tchou tchou ! Dans un groupe de mots, les mots s’accordent ensemble, comme les wagons d’un train bien accrochés. Choisis le wagon qui porte le mot bien accordé. Si c’est le bon, le train démarre !',
+    'Tchou tchou ! Dans un groupe de mots, tous les mots se mettent d’accord : tous au singulier ou tous au pluriel, tous au masculin ou tous au féminin. C’est le nom qui commande, comme la locomotive ! Choisis le wagon qui porte le mot bien accordé. Si c’est le bon, le train démarre !',
   icone: '🚂',
   couleur: 'from-coral to-sun',
   modalites: ['manipuler', 'regarder', 'ecrire'],

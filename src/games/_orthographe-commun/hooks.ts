@@ -1,5 +1,6 @@
 /** Petits hooks communs aux jeux d'orthographe. */
 import { useEffect, useRef, useState } from 'react';
+import type { SpeechService } from '@/services/speech';
 
 /**
  * Compte à rebours qui se fige pendant la pause. Renvoie la fraction restante (1 → 0).
@@ -46,4 +47,11 @@ export function useCompteARebours({
   }, [actif, paused, dureeMs, cle]);
 
   return restant;
+}
+
+/** Pause : on coupe la voix (dictée, consigne) tout de suite. */
+export function useVoixEnPause(paused: boolean, speech: SpeechService) {
+  useEffect(() => {
+    if (paused) speech.stop();
+  }, [paused, speech]);
 }

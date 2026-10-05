@@ -16,6 +16,7 @@ import type { Level, SpellingItem } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
+import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { Hud } from '../_kit/ui';
 import { base, estLettre, estMot, lettres, tirerItem } from '../_orthographe-commun/lettres';
 import {
@@ -58,6 +59,7 @@ export default function BonhommeDeNeige({ level, stream, paused, onAnswer, onEnd
   const total = parNiveau(level, MANCHES);
   const maxGouttes = parNiveau(level, GOUTTES);
   const session = useGameSession({ paused, onAnswer, onEnd });
+  useVoixEnPause(paused, speech);
 
   const tirer = useCallback(() => tirerItem(stream, okItem) ?? (stream.next() as SpellingItem), [stream]);
   const [item, setItem] = useState<SpellingItem>(tirer);
@@ -159,7 +161,7 @@ export default function BonhommeDeNeige({ level, stream, paused, onAnswer, onEnd
             : `Bonhomme de neige : encore ${gouttesRestantes} lettre${gouttesRestantes > 1 ? 's' : ''} fausse${gouttesRestantes > 1 ? 's' : ''} avant de fondre`
         }
       >
-        <SceneBonhomme fonte={fonte} sauve={etape === 'trouve'} />
+        <SceneBonhomme fonte={fonte} sauve={etape === 'trouve'} paused={paused} />
         <div className="absolute left-2 top-2 flex flex-wrap gap-2">
           <Hud>
             Mot {manche} / {total}
@@ -169,7 +171,7 @@ export default function BonhommeDeNeige({ level, stream, paused, onAnswer, onEnd
         <div
           className="absolute bottom-2 left-2 flex gap-0.5 rounded-full bg-white/85 px-3 py-1"
           aria-hidden
-          title="Gouttes avant de fondre"
+          title="Flocons avant de fondre"
         >
           {Array.from({ length: maxGouttes }, (_, i) => (
             <span key={i} className={i < erreurs ? 'opacity-25 grayscale' : ''}>

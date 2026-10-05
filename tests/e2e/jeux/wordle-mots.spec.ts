@@ -21,7 +21,7 @@ for (const niveau of ['facile', 'normal', 'plus_loin']) {
       await page.keyboard.type('z'.repeat(aTaper - 1));
       await page.keyboard.press('Enter');
     }
-    await expect(page.getByText('Presque ! Les 6 essais sont passés.')).toBeVisible();
+    await expect(page.getByText('Les 6 essais sont utilisés. Voici le mot :')).toBeVisible();
     await page.keyboard.press('Enter');
     await expect(page.getByText(/Mot 2 \//)).toBeVisible();
     expect(erreurs).toEqual([]);

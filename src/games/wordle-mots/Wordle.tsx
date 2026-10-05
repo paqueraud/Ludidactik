@@ -17,6 +17,7 @@ import { checkSpelling } from '@/engine/answer';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
+import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { Hud } from '../_kit/ui';
 import { collecterMots, estMot, lettres, motSimple } from '../_orthographe-commun/lettres';
 import { BadgeParents, ClavierLettres, CorrectionMot } from '../_orthographe-commun/ui';
@@ -87,6 +88,7 @@ function Case({
 
 export default function Wordle({ level, stream, paused, onAnswer, onEnd, speech, sfx }: GameProps) {
   const session = useGameSession({ paused, onAnswer, onEnd });
+  useVoixEnPause(paused, speech);
   const pool = useMemo(() => collecterMots(stream, okItem), [stream]);
   const nbMots = Math.min(parNiveau(level, MOTS), Math.max(1, pool.length));
 
@@ -140,8 +142,7 @@ export default function Wordle({ level, stream, paused, onAnswer, onEnd, speech,
       void speech.speak(`Presque ! Le mot était : ${item.word}`);
     } else {
       sfx.play(etats.some((e) => e === 'bien' || e === 'accent') ? 'pop' : 'tic');
-      if (etats.includes('accent'))
-        setAlerte('Une lettre est juste mais il manque son accent (ou il y en a un de trop) !');
+      if (etats.includes('accent')) setAlerte('Une lettre est à la bonne place, mais vérifie son accent !');
     }
   }, [etape, paused, item, ligneCourante, L, essais, session, sfx, speech]);
 
@@ -192,6 +193,8 @@ export default function Wordle({ level, stream, paused, onAnswer, onEnd, speech,
   // Mots possibles (facile) : les mots de la liste qui ont la même longueur
   const possibles =
     level === 'facile' ? pool.filter((p) => lettres(p.word).length === L).map((p) => p.word) : [];
+  // Un seul mot possible donnerait la réponse : la liste n'apparaît qu'à partir de deux mots
+  const listePossibles = possibles.length >= 2 ? possibles : [];
   const aideDispo = level !== 'plus_loin' && essais.length >= 2 && etape === 'jeu';
   const lignes = Array.from({ length: ESSAIS }, (_, i) => i);
 
@@ -280,7 +283,7 @@ export default function Wordle({ level, stream, paused, onAnswer, onEnd, speech,
           <CorrectionMot
             donne={dernierEssai?.mot ?? null}
             attendu={item.word}
-            message="Presque ! Les 6 essais sont passés."
+            message="Les 6 essais sont utilisés. Voici le mot :"
             explication={item.explication}
             onContinue={suivant}
             libelleContinuer={rang + 1 >= nbMots ? 'Voir mon score' : 'Mot suivant'}
@@ -318,11 +321,11 @@ export default function Wordle({ level, stream, paused, onAnswer, onEnd, speech,
             </li>
           ))}
         </ul>
-        {possibles.length > 0 && etape === 'jeu' && (
+        {listePossibles.length > 0 && etape === 'jeu' && (
           <div>
             <h2 className="font-titre text-lg font-bold">Mots possibles de ta liste</h2>
             <p className="flex flex-wrap gap-1.5">
-              {possibles.map((m) => (
+              {listePossibles.map((m) => (
                 <span key={m} className="rounded-full bg-sky/15 px-3 py-1 font-bold">
                   {m}
                 </span>

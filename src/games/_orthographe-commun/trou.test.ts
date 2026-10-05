@@ -86,6 +86,15 @@ describe('Chasse aux lettres muettes : mot de la famille', () => {
     })!;
     expect(decouperFamille(grand)).toEqual({ avant: 'gran', lettre: 'd', apres: 'e' });
   });
+  it('ne prétend pas qu’on entend « c » dans « blanche »', () => {
+    const blanc = versTrou({
+      ...muette,
+      sentence: 'Un chat blan___.',
+      answer: 'c',
+      meta: { famille: 'blanche' },
+    })!;
+    expect(decouperFamille(blanc)).toBeNull();
+  });
   it('renvoie null si le mot de la famille ne correspond pas', () => {
     expect(decouperFamille(versTrou({ ...muette, meta: { famille: 'oiseau' } })!)).toBeNull();
     expect(decouperFamille(versTrou(accord)!)).toBeNull();

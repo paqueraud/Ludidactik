@@ -5,9 +5,10 @@ const jeu: GameModule = {
   id: 'peche-homophones',
   numero: 36,
   titre: 'La Pêche aux homophones',
-  description: 'a ou à ? et ou est ? Pêche le poisson qui porte le bon mot pour compléter la phrase !',
+  description:
+    '« a » ou « à » ? « et » ou « est » ? Pêche le poisson qui porte le bon mot pour compléter la phrase !',
   consigne:
-    'Lis la phrase : il manque un petit mot. Chaque poisson porte un mot qui se prononce pareil. Pêche le bon ! Pour t’aider, utilise l’astuce : remplace le mot par un autre pour vérifier.',
+    'Lis la phrase : il manque un petit mot. Tous les poissons portent des mots qui se prononcent de la même façon. Pêche le bon ! Pour t’aider, utilise l’astuce : remplace le mot par un autre pour vérifier.',
   icone: '🎣',
   couleur: 'from-sky to-grass',
   modalites: ['regarder', 'manipuler'],

@@ -14,6 +14,8 @@ export function decouperFamille(t: Trou): { avant: string; lettre: string; apres
   if (pos !== lp.length) return null;
   const segment = lf.slice(pos, pos + lr.length);
   if (segment.map(base).join('') !== lr.map(base).join('')) return null;
+  // « blanche » : le c est suivi de h, on n'y entend pas [k] → pas de surlignage trompeur
+  if (base(lf[pos + lr.length] ?? '') === 'h') return null;
   return {
     avant: lf.slice(0, pos).join(''),
     lettre: segment.join(''),

@@ -14,6 +14,7 @@ import type { Item, Level } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
+import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { Feedback, Hud } from '../_kit/ui';
 import { tirerItem } from '../_orthographe-commun/lettres';
 import { wagonsDe } from './wagons';
@@ -87,6 +88,7 @@ export default function TrainAccords({
 }: GameProps) {
   const total = parNiveau(level, MANCHES);
   const session = useGameSession({ paused, onAnswer, onEnd });
+  useVoixEnPause(paused, speech);
   const reduce = useReducedMotion();
 
   const tirer = useCallback((): Trou | null => {
@@ -107,6 +109,12 @@ export default function TrainAccords({
   const [fini, setFini] = useState(false);
 
   const ecrit = level === 'plus_loin';
+  /** Plus loin : le mot de base à accorder (meta.lemme, sinon la forme la plus courte des choix). */
+  const lemme = useMemo(() => {
+    const l = trou?.item.meta?.lemme;
+    if (typeof l === 'string' && l.trim()) return l.trim();
+    return trou?.choix ? [...trou.choix].sort((a, b) => a.length - b.length)[0] : undefined;
+  }, [trou]);
   const choix = useMemo(
     () => (trou?.choix ? reduireChoix(trou.choix, trou.reponse, level === 'facile' ? 2 : 6) : []),
     [trou, level],
@@ -332,7 +340,9 @@ export default function TrainAccords({
         ) : (
           !etat && (
             <>
-              <p className="font-bold">Écris le mot bien accordé :</p>
+              <p className="font-bold">
+                {lemme ? `Écris le mot « ${lemme} » bien accordé :` : 'Écris le mot bien accordé :'}
+              </p>
               <div
                 className="flex min-h-[4rem] w-full max-w-md items-center justify-center rounded-2xl border-4 border-coral bg-cream font-titre text-3xl font-extrabold"
                 aria-label={`Ton mot : ${saisie || 'rien pour l’instant'}`}
