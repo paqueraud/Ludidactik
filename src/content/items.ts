@@ -222,7 +222,7 @@ export const GeometryItemSchema = z.object({
       cols: z.number().int().min(2).max(20),
       rows: z.number().int().min(2).max(20),
       cells: z.array(z.tuple([z.number().int(), z.number().int()])),
-      axis: z.enum(['vertical', 'horizontal', 'diagonale']).optional(),
+      axis: z.enum(['vertical', 'horizontal', 'diagonale', 'anti-diagonale']).optional(),
     })
     .optional(),
 });
