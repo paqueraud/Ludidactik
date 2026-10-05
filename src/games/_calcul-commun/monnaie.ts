@@ -83,11 +83,7 @@ export function valeursProposees(item: MoneyItem): number[] {
  * en commençant par les petites pièces (3,20 € → 3,30 € → 3,50 € → 4 € → 5 €).
  * Renvoie les étapes [montant atteint, valeur ajoutée].
  */
-export function etapesCompleter(
-  prix: number,
-  donne: number,
-  valeurs: readonly number[],
-): [number, number][] {
+export function etapesCompleter(prix: number, donne: number, valeurs: readonly number[]): [number, number][] {
   const deco = decompositionOptimale(donne - prix, valeurs);
   if (!deco) return [];
   let x = prix;

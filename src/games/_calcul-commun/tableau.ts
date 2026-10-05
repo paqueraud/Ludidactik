@@ -39,7 +39,12 @@ export function lireTableau(item: Item): Tableau | null {
   }
   const tr = trou as [number, 0 | 1] | null;
   if (!tr || tr[0] < 0) return null;
-  const res: Tableau = { entetes: [entetes[0] as string, entetes[1] as string], lignes: ok, ligne: tr[0], col: tr[1] };
+  const res: Tableau = {
+    entetes: [entetes[0] as string, entetes[1] as string],
+    lignes: ok,
+    ligne: tr[0],
+    col: tr[1],
+  };
   // cohérence : toutes les lignes complètes ont le même coefficient, et la réponse le respecte
   const k = coefficient(res);
   if (k === null) return null;
@@ -78,7 +83,10 @@ export function aides(t: Tableau): Aide[] {
   const x = t.lignes[ligne]![autreCol]!;
   const completes = t.lignes
     .map((l, i) => ({ l, i }))
-    .filter(({ l, i }) => i !== ligne && l[0] !== null && l[1] !== null) as { l: [number, number]; i: number }[];
+    .filter(({ l, i }) => i !== ligne && l[0] !== null && l[1] !== null) as {
+    l: [number, number];
+    i: number;
+  }[];
   const out: Aide[] = [];
   for (const { l, i } of completes) {
     const xi = l[autreCol];
@@ -90,7 +98,7 @@ export function aides(t: Tableau): Aide[] {
         type: 'fois',
         depuis: i,
         k,
-        texte: `${f(x)}, c’est ${f(k)} fois ${f(xi)} : il faut ${f(k)} fois plus. ${f(yi)} × ${f(k)} = ${f(yi * k)}.`,
+        texte: `${f(x)}, c’est ${f(k)} fois ${f(xi)} : il en faut ${f(k)} fois plus. ${f(yi)} × ${f(k)} = ${f(yi * k)}.`,
         indice: `${f(x)}, c’est ${f(k)} fois ${f(xi)} : il en faut ${f(k)} fois plus que ${f(yi)}.`,
       });
     else if (k < 1 && entier(1 / k))
@@ -115,7 +123,13 @@ export function aides(t: Tableau): Aide[] {
         });
     }
   const premiere = completes[0];
-  if (premiere) {
+  // passage par l'unité : seulement vers la 2e colonne et si la valeur pour 1 est « simple »
+  if (
+    premiere &&
+    col === 1 &&
+    premiere.l[autreCol] !== 0 &&
+    entier((premiere.l[col] / premiere.l[autreCol]) * 100)
+  ) {
     const xi = premiere.l[autreCol];
     const yi = premiere.l[col];
     if (xi !== 0) {

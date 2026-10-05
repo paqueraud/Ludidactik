@@ -35,7 +35,13 @@ function Piece({ v, d }: { v: number; d: number }) {
   const orFonce = '#B5831A';
   const argent = '#D7DCE2';
   const argentFonce = '#8F99A6';
-  const [ext, extBord] = cuivre ? ['#D2864A', '#94511F'] : bimetal ? (v === 100 ? [or, orFonce] : [argent, argentFonce]) : [or, orFonce];
+  const [ext, extBord] = cuivre
+    ? ['#D2864A', '#94511F']
+    : bimetal
+      ? v === 100
+        ? [or, orFonce]
+        : [argent, argentFonce]
+      : [or, orFonce];
   const [int, intBord] = bimetal ? (v === 100 ? [argent, argentFonce] : [or, orFonce]) : [ext, extBord];
   const [nombre, unite] = libelleValeur(v).split(' ') as [string, string];
   return (
@@ -43,13 +49,44 @@ function Piece({ v, d }: { v: number; d: number }) {
       <circle cx="50" cy="53" r="46" fill="rgb(0 0 0 / 0.18)" />
       <circle cx="50" cy="50" r="46" fill={ext} stroke={extBord} strokeWidth="4" />
       {/* cannelures */}
-      <circle cx="50" cy="50" r="40" fill="none" stroke={extBord} strokeWidth="2" strokeDasharray="3 4" opacity="0.6" />
-      <circle cx="50" cy="50" r={bimetal ? 31 : 36} fill={int} stroke={intBord} strokeWidth={bimetal ? 3 : 0} />
+      <circle
+        cx="50"
+        cy="50"
+        r="40"
+        fill="none"
+        stroke={extBord}
+        strokeWidth="2"
+        strokeDasharray="3 4"
+        opacity="0.6"
+      />
+      <circle
+        cx="50"
+        cy="50"
+        r={bimetal ? 31 : 36}
+        fill={int}
+        stroke={intBord}
+        strokeWidth={bimetal ? 3 : 0}
+      />
       <ellipse cx="38" cy="34" rx="16" ry="8" fill="#fff" opacity="0.35" transform="rotate(-25 38 34)" />
-      <text x="50" y="58" textAnchor="middle" fontFamily="Baloo 2, sans-serif" fontWeight="800" fill="#24304A">
+      <text
+        x="50"
+        y="58"
+        textAnchor="middle"
+        fontFamily="Baloo 2, sans-serif"
+        fontWeight="800"
+        fill="#24304A"
+      >
         <tspan fontSize={nombre.length > 1 ? 40 : 48}>{nombre}</tspan>
       </text>
-      <text x="50" y="80" textAnchor="middle" fontFamily="Baloo 2, sans-serif" fontWeight="800" fill="#24304A" fontSize="20">
+      <text
+        x="50"
+        y="80"
+        textAnchor="middle"
+        fontFamily="Baloo 2, sans-serif"
+        fontWeight="800"
+        fill="#24304A"
+        fontSize="20"
+      >
         {unite === 'c' ? 'cent' : 'euro'}
       </text>
     </svg>
@@ -72,10 +109,26 @@ function Billet({ v, l, h }: { v: number; l: number; h: number }) {
       <text x="18" y="78" fontFamily="Baloo 2, sans-serif" fontWeight="800" fontSize="46" fill="#24304A">
         {v / 100}
       </text>
-      <text x={v >= 10000 ? 96 : v >= 1000 ? 74 : 50} y="78" fontFamily="Baloo 2, sans-serif" fontWeight="800" fontSize="34" fill="#24304A">
+      <text
+        x={v >= 10000 ? 96 : v >= 1000 ? 74 : 50}
+        y="78"
+        fontFamily="Baloo 2, sans-serif"
+        fontWeight="800"
+        fontSize="34"
+        fill="#24304A"
+      >
         €
       </text>
-      <text x="178" y="30" textAnchor="end" fontFamily="Baloo 2, sans-serif" fontWeight="700" fontSize="16" fill="#24304A" opacity="0.7">
+      <text
+        x="178"
+        y="30"
+        textAnchor="end"
+        fontFamily="Baloo 2, sans-serif"
+        fontWeight="700"
+        fontSize="16"
+        fill="#24304A"
+        opacity="0.7"
+      >
         EURO
       </text>
     </svg>

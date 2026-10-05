@@ -56,7 +56,12 @@ export default function Ascenseur(props: GameProps) {
   const jeu = useManches(props, {
     total: parNiveau(level, MANCHES),
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Liftier en chef ! 🛗' : `${b} voyage${b > 1 ? 's' : ''} réussi${b > 1 ? 's' : ''} sur ${t} !` }),
+    fin: (b, t) => ({
+      headline:
+        b === t
+          ? 'Liftier en chef ! 🛗'
+          : `${b} voyage${b > 1 ? 's' : ''} réussi${b > 1 ? 's' : ''} sur ${t} !`,
+    }),
     delaiJuste: 1500,
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
@@ -124,7 +129,9 @@ export default function Ascenseur(props: GameProps) {
     const c = checkNumeric(saisie.r, exo.item.answer, { tolerateZeros: level === 'facile' });
     setHint(c.hint);
     setDecal(k);
-    setMessage(c.correct ? (glisseOk.current ? 'Bravo, l’ascenseur est arrivé !' : 'Bien écrit !') : undefined);
+    setMessage(
+      c.correct ? (glisseOk.current ? 'Bravo, l’ascenseur est arrivé !' : 'Bien écrit !') : undefined,
+    );
     repondre(c.correct, saisie.r, formatNumber(exo.item.answer));
   }, [exo, bloque, phase, saisie, level, k, repondre]);
 
@@ -152,7 +159,10 @@ export default function Ascenseur(props: GameProps) {
   const depart = useRef<{ x: number; d: number } | null>(null);
   const largeurCol = () => (rangee.current ? rangee.current.clientWidth / Math.max(1, colonnes.length) : 50);
 
-  if (!exo) return <EtatVide icone="🛗" jeu="L’Ascenseur de la virgule" besoin="de calculs × ou ÷ par 10, 100 ou 1 000" />;
+  if (!exo)
+    return (
+      <EtatVide icone="🛗" jeu="L’Ascenseur de la virgule" besoin="de calculs × ou ÷ par 10, 100 ou 1 000" />
+    );
 
   const { g, item } = exo;
   const montrerResultat = phase === 'ecrire' && (level !== 'plus_loin' || !!etat);
@@ -176,12 +186,18 @@ export default function Ascenseur(props: GameProps) {
           aria-label="L’immeuble des nombres"
         >
           {/* en-têtes de classes */}
-          <div className="grid gap-0.5" style={{ gridTemplateColumns: `repeat(${colonnes.length}, minmax(0, 1fr))` }}>
+          <div
+            className="grid gap-0.5"
+            style={{ gridTemplateColumns: `repeat(${colonnes.length}, minmax(0, 1fr))` }}
+          >
             {colonnes.map((r, i) => {
               const cl = classeRang(r);
               const debut = i === 0 || classeRang(colonnes[i - 1]!) !== cl;
               return (
-                <div key={r} className="h-5 truncate text-center text-[10px] font-bold uppercase text-ink/70 sm:text-xs">
+                <div
+                  key={r}
+                  className="h-5 truncate text-center text-[10px] font-bold uppercase text-ink/70 sm:text-xs"
+                >
                   {debut ? (cl === 'partie décimale' ? 'décimales' : cl) : ''}
                 </div>
               );
@@ -189,13 +205,24 @@ export default function Ascenseur(props: GameProps) {
           </div>
           {/* tours */}
           <div className="relative">
-            <div className="grid items-end gap-0.5" style={{ gridTemplateColumns: `repeat(${colonnes.length}, minmax(0, 1fr))` }}>
+            <div
+              className="grid items-end gap-0.5"
+              style={{ gridTemplateColumns: `repeat(${colonnes.length}, minmax(0, 1fr))` }}
+            >
               {colonnes.map((r) => {
                 const h = 70 + (r + 3) * 14;
                 const c = COULEURS[classeRang(r)]!;
                 return (
-                  <div key={r} className="relative flex flex-col items-center justify-start rounded-t-lg pt-1" style={{ height: h, background: c }} title={nomRang(r)[1]}>
-                    <span className="rounded bg-white/85 px-1 text-[10px] font-extrabold leading-tight sm:text-xs" aria-label={nomRang(r)[1]}>
+                  <div
+                    key={r}
+                    className="relative flex flex-col items-center justify-start rounded-t-lg pt-1"
+                    style={{ height: h, background: c }}
+                    title={nomRang(r)[1]}
+                  >
+                    <span
+                      className="rounded bg-white/85 px-1 text-[10px] font-extrabold leading-tight sm:text-xs"
+                      aria-label={nomRang(r)[1]}
+                    >
                       {nomRang(r)[0]}
                     </span>
                     {/* fenêtres */}
@@ -233,7 +260,10 @@ export default function Ascenseur(props: GameProps) {
               onPointerCancel={() => (depart.current = null)}
             >
               {colonnes.map((r) => (
-                <div key={r} className="relative flex items-center justify-center border-x border-dashed border-ink/10">
+                <div
+                  key={r}
+                  className="relative flex items-center justify-center border-x border-dashed border-ink/10"
+                >
                   {zeros.has(r) && (
                     <motion.span
                       initial={reduce ? false : { scale: 0, opacity: 0 }}
@@ -300,10 +330,20 @@ export default function Ascenseur(props: GameProps) {
                 Fais glisser les chiffres dans l’immeuble (avec le doigt ou les flèches), puis valide.
               </p>
               <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Ascenseur">
-                <Button variant="sky" icon={<ArrowLeft aria-hidden />} onClick={() => bouger(1)} disabled={bloque || decal >= maxDecal}>
+                <Button
+                  variant="sky"
+                  icon={<ArrowLeft aria-hidden />}
+                  onClick={() => bouger(1)}
+                  disabled={bloque || decal >= maxDecal}
+                >
                   Monter
                 </Button>
-                <Button variant="grape" icon={<ArrowRight aria-hidden />} onClick={() => bouger(-1)} disabled={bloque || decal <= minDecal}>
+                <Button
+                  variant="grape"
+                  icon={<ArrowRight aria-hidden />}
+                  onClick={() => bouger(-1)}
+                  disabled={bloque || decal <= minDecal}
+                >
                   Descendre
                 </Button>
               </div>
@@ -325,7 +365,15 @@ export default function Ascenseur(props: GameProps) {
                 {level === 'plus_loin' ? 'Écris le résultat.' : 'Lis le nombre dans l’immeuble et écris-le.'}
                 {level === 'facile' && zeros.size > 0 && ' Les zéros violets gardent les places vides !'}
               </p>
-              <SaisieChamps champs={CHAMP} valeurs={saisie} onChange={setSaisie} onValider={validerEcrit} disabled={bloque} etat={etat} decimal />
+              <SaisieChamps
+                champs={CHAMP}
+                valeurs={saisie}
+                onChange={setSaisie}
+                onValider={validerEcrit}
+                disabled={bloque}
+                etat={etat}
+                decimal
+              />
             </>
           )}
 

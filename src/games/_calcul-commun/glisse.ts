@@ -90,8 +90,9 @@ export function rangsSignificatifs(n: number): number[] {
 export function colonnesTableau(g: Glisse): number[] {
   const avant = rangsSignificatifs(g.nombre);
   const k = decalage(g);
-  const tous = [...avant, ...avant.map((r) => r + k), 0, -1];
-  const haut = Math.min(8, Math.max(...tous, 2));
+  const decimal = decimales(g.nombre) > 0 || decimales(resultatGlisse(g)) > 0;
+  const tous = [...avant, ...avant.map((r) => r + k), 0, ...(decimal ? [-1] : [])];
+  const haut = Math.min(8, Math.max(...tous, decimal ? 2 : 3));
   const bas = Math.max(-3, Math.min(...tous));
   const out: number[] = [];
   for (let r = haut; r >= bas; r--) out.push(r);

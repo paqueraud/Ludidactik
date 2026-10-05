@@ -24,7 +24,12 @@ import { Bandeau, Bulle, EtatVide, useManches } from '../_calcul-commun/ui';
 import { Grille } from './Grille';
 
 const MANCHES: Record<Level, number> = { facile: 4, normal: 5, plus_loin: 6 };
-const NOMS_OP: Record<Posee['op'], string> = { '+': 'addition', '−': 'soustraction', '×': 'multiplication', '÷': 'division' };
+const NOMS_OP: Record<Posee['op'], string> = {
+  '+': 'addition',
+  '−': 'soustraction',
+  '×': 'multiplication',
+  '÷': 'division',
+};
 
 interface Exo {
   item: NumericItem;
@@ -84,7 +89,15 @@ function MontagnesRusses({ progres, enLooping }: { progres: number; enLooping: b
           <circle cx="21" cy="19" r="3" fill="#24304A" />
         </g>
       </motion.g>
-      <text x="392" y="54" textAnchor="end" fontSize="12" fontFamily="Baloo 2, sans-serif" fontWeight="800" fill="#2E8C48">
+      <text
+        x="392"
+        y="54"
+        textAnchor="end"
+        fontSize="12"
+        fontFamily="Baloo 2, sans-serif"
+        fontWeight="800"
+        fill="#2E8C48"
+      >
         🏁
       </text>
     </svg>
@@ -115,7 +128,10 @@ export default function GrandHuit(props: GameProps) {
   const jeu = useManches(props, {
     total: parNiveau(level, MANCHES),
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Champion du Grand Huit ! 🎢' : `${b} tour${b > 1 ? 's' : ''} sans faute sur ${t} !` }),
+    fin: (b, t) => ({
+      headline:
+        b === t ? 'Champion du Grand Huit ! 🎢' : `${b} tour${b > 1 ? 's' : ''} sans faute sur ${t} !`,
+    }),
     delaiJuste: 2000,
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
@@ -165,7 +181,11 @@ export default function GrandHuit(props: GameProps) {
       setCur(suivantCur);
       if (suivantCur >= n) {
         const ok = nErr.size === 0;
-        setMessage(ok ? `Sans faute ! ${exo.d.conclusion}` : `${nErr.size} chiffre${nErr.size > 1 ? 's' : ''} corrigé${nErr.size > 1 ? 's' : ''}. ${exo.d.conclusion}`);
+        setMessage(
+          ok
+            ? `Sans faute ! ${exo.d.conclusion}`
+            : `${nErr.size} chiffre${nErr.size > 1 ? 's' : ''} corrigé${nErr.size > 1 ? 's' : ''}. ${exo.d.conclusion}`,
+        );
         repondre(ok, ok ? attendu : `${nErr.size} erreur${nErr.size > 1 ? 's' : ''}`, attendu);
       }
     },
@@ -186,7 +206,14 @@ export default function GrandHuit(props: GameProps) {
     return () => window.removeEventListener('keydown', h);
   }, [bloque, taper]);
 
-  if (!exo) return <EtatVide icone="🎢" jeu="Le Grand Huit" besoin="d’opérations à poser (addition, soustraction, multiplication, division)" />;
+  if (!exo)
+    return (
+      <EtatVide
+        icone="🎢"
+        jeu="Le Grand Huit"
+        besoin="d’opérations à poser (addition, soustraction, multiplication, division)"
+      />
+    );
 
   const { item, p, d } = exo;
   const aideVisible = level === 'facile' ? etape?.aide : null;
@@ -202,7 +229,10 @@ export default function GrandHuit(props: GameProps) {
           <span aria-hidden>🎢</span> {bonnes}
         </Hud>
       </Bandeau>
-      <section className="overflow-hidden rounded-card border-4 border-white bg-[#BFE6FF] shadow-soft" aria-label="Les montagnes russes">
+      <section
+        className="overflow-hidden rounded-card border-4 border-white bg-[#BFE6FF] shadow-soft"
+        aria-label="Les montagnes russes"
+      >
         <MontagnesRusses progres={progres} enLooping={etat === 'juste'} />
       </section>
       <div className="grid gap-3 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
@@ -228,7 +258,11 @@ export default function GrandHuit(props: GameProps) {
           )}
           {!etat && etape && (
             <p className="text-center font-bold">
-              {p.op === '÷' && etape.ligne === 1 ? 'Écris le chiffre du quotient.' : p.op === '÷' ? 'Écris le reste.' : 'Écris le chiffre dans la case violette.'}
+              {p.op === '÷' && etape.ligne === 1
+                ? 'Écris le chiffre du quotient.'
+                : p.op === '÷'
+                  ? 'Écris le reste.'
+                  : 'Écris le chiffre dans la case violette.'}
             </p>
           )}
           {level === 'normal' && !indiceUtilise && !etat && etape && (

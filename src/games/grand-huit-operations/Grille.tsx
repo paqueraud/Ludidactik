@@ -120,7 +120,12 @@ export function Grille({
       >
         <span className={barre ? 'relative text-ink/40' : ''}>
           {c.texte}
-          {barre && <span className="absolute left-[-15%] top-1/2 h-[3px] w-[130%] -rotate-12 rounded bg-coral" aria-hidden />}
+          {barre && (
+            <span
+              className="absolute left-[-15%] top-1/2 h-[3px] w-[130%] -rotate-12 rounded bg-coral"
+              aria-hidden
+            />
+          )}
         </span>
         {virgule && <span className="absolute -right-0.5 bottom-0">,</span>}
       </span>
@@ -146,14 +151,22 @@ export function Grille({
             <span
               key={`t${i}`}
               className="absolute w-[3px] rounded bg-ink"
-              style={{ left: t.col0 * taille - 2, top: tops[t.ligne], height: (tops[t.ligne1 ?? t.ligne] ?? 0) + h(t.ligne1 ?? t.ligne) - (tops[t.ligne] ?? 0) }}
+              style={{
+                left: t.col0 * taille - 2,
+                top: tops[t.ligne],
+                height: (tops[t.ligne1 ?? t.ligne] ?? 0) + h(t.ligne1 ?? t.ligne) - (tops[t.ligne] ?? 0),
+              }}
               aria-hidden
             />
           ) : (
             <span
               key={`t${i}`}
               className="absolute h-[3px] rounded bg-ink"
-              style={{ left: t.col0 * taille, top: (tops[t.ligne] ?? 0) + h(t.ligne) - 1, width: (t.col1 - t.col0 + 1) * taille }}
+              style={{
+                left: t.col0 * taille,
+                top: (tops[t.ligne] ?? 0) + h(t.ligne) - 1,
+                width: (t.col1 - t.col0 + 1) * taille,
+              }}
               aria-hidden
             />
           ),

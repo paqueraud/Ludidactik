@@ -50,9 +50,22 @@ function Topping({ g, x, y, s }: { g: Garniture; x: number; y: number; s: number
     case 'olive':
       return <circle cx={x} cy={y} r={4.5 * s} fill="none" stroke="#2E2E2E" strokeWidth={2.6 * s} />;
     case 'basilic':
-      return <ellipse cx={x} cy={y} rx={6.5 * s} ry={3.4 * s} fill="#43A047" transform={`rotate(-30 ${x} ${y})`} />;
+      return (
+        <ellipse cx={x} cy={y} rx={6.5 * s} ry={3.4 * s} fill="#43A047" transform={`rotate(-30 ${x} ${y})`} />
+      );
     case 'ananas':
-      return <rect x={x - 4 * s} y={y - 4 * s} width={8 * s} height={8 * s} rx={1.5 * s} fill="#FFCA28" stroke="#F9A825" strokeWidth={s} />;
+      return (
+        <rect
+          x={x - 4 * s}
+          y={y - 4 * s}
+          width={8 * s}
+          height={8 * s}
+          rx={1.5 * s}
+          fill="#FFCA28"
+          stroke="#F9A825"
+          strokeWidth={s}
+        />
+      );
   }
 }
 
@@ -141,7 +154,9 @@ export function Pizza({
           parts === 1
             ? [
                 [0, 0],
-                ...Array.from({ length: 6 }, (_, k) => point(k * 60 + 20, 52)).map(([x, y]) => [x - C, y - C] as [number, number]),
+                ...Array.from({ length: 6 }, (_, k) => point(k * 60 + 20, 52)).map(
+                  ([x, y]) => [x - C, y - C] as [number, number],
+                ),
               ]
             : Array.from({ length: nb }, (_, k) => {
                 const ang = milieu + (nb > 1 ? (k / (nb - 1) - 0.5) * ouverture * 0.45 : 0);
@@ -183,14 +198,35 @@ export function Pizza({
       {parts > 1 &&
         Array.from({ length: parts }, (_, i) => {
           const [x, y] = point((i * 360) / parts, R + 6);
-          return <line key={i} x1={C} y1={C} x2={x} y2={y} stroke="#7A4A1C" strokeWidth="2.5" strokeLinecap="round" />;
+          return (
+            <line
+              key={i}
+              x1={C}
+              y1={C}
+              x2={x}
+              y2={y}
+              stroke="#7A4A1C"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+          );
         })}
       {apercuCoupe !== undefined &&
         apercuCoupe > 1 &&
         Array.from({ length: apercuCoupe }, (_, i) => {
           const [x, y] = point((i * 360) / apercuCoupe, R + 6);
           return (
-            <line key={i} x1={C} y1={C} x2={x} y2={y} stroke="#24304A" strokeWidth="2" strokeDasharray="5 5" strokeLinecap="round" />
+            <line
+              key={i}
+              x1={C}
+              y1={C}
+              x2={x}
+              y2={y}
+              stroke="#24304A"
+              strokeWidth="2"
+              strokeDasharray="5 5"
+              strokeLinecap="round"
+            />
           );
         })}
     </svg>

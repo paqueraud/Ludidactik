@@ -6,7 +6,15 @@ const CHEVEUX = ['#2B1D14', '#6B3E1F', '#D9A441', '#A0522D', '#1F1F2E'];
 const HAUTS = ['#4FC3F7', '#FF7A6B', '#8E7CFF', '#7BD389', '#FFD45C'];
 
 /** `graine` choisit l'apparence (même client pour toute la manche). */
-export function Client({ graine, humeur = 'neutre', taille = 120 }: { graine: number; humeur?: 'neutre' | 'content' | 'pense'; taille?: number }) {
+export function Client({
+  graine,
+  humeur = 'neutre',
+  taille = 120,
+}: {
+  graine: number;
+  humeur?: 'neutre' | 'content' | 'pense';
+  taille?: number;
+}) {
   const reduce = useReducedMotion();
   const peau = PEAUX[graine % PEAUX.length]!;
   const cheveux = CHEVEUX[(graine * 3 + 1) % CHEVEUX.length]!;
@@ -29,7 +37,11 @@ export function Client({ graine, humeur = 'neutre', taille = 120 }: { graine: nu
       {/* tête */}
       <circle cx="60" cy="50" r="28" fill={peau} />
       <path
-        d={longs ? 'M32 48 Q34 18 60 18 Q88 18 88 48 Q76 34 58 32 Q42 34 32 48 Z' : 'M33 44 Q36 20 60 20 Q86 20 87 44 Q74 30 60 32 Q44 30 33 44 Z'}
+        d={
+          longs
+            ? 'M32 48 Q34 18 60 18 Q88 18 88 48 Q76 34 58 32 Q42 34 32 48 Z'
+            : 'M33 44 Q36 20 60 20 Q86 20 87 44 Q74 30 60 32 Q44 30 33 44 Z'
+        }
         fill={cheveux}
       />
       {/* yeux */}

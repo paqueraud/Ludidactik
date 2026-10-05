@@ -56,8 +56,12 @@ function forme(item: VisualFractionItem, d: number): [number, number] {
 
 /** Trois moules : le bon (d carrés) et deux voisins plausibles. */
 function moules(d: number, graine: number): number[] {
-  const autres = [d + 1, d - 1, d * 2, d + 2].filter((x) => x >= 2 && x !== d && x <= MAX_DENOM);
-  const out = [d, autres[0]!, autres[graine % 2 === 0 ? 2 : 1] ?? autres[1]!];
+  const autres = [d + 1, d - 1, d * 2, d + 2, d - 2, Math.round(d / 2)].filter(
+    (x) => x >= 2 && x !== d && x <= MAX_DENOM,
+  );
+  const out = [d, autres[0], autres[graine % 2 === 0 ? 2 : 1] ?? autres[1]].filter(
+    (x): x is number => x !== undefined,
+  );
   const uniques = [...new Set(out)].slice(0, 3);
   const r = graine % uniques.length;
   return [...uniques.slice(r), ...uniques.slice(0, r)];
@@ -69,7 +73,12 @@ export default function Chocolatier(props: GameProps) {
   const jeu = useManches(props, {
     total: parNiveau(level, MANCHES),
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Grand maître chocolatier ! 🍫' : `${b} commande${b > 1 ? 's' : ''} réussie${b > 1 ? 's' : ''} sur ${t} !` }),
+    fin: (b, t) => ({
+      headline:
+        b === t
+          ? 'Grand maître chocolatier ! 🍫'
+          : `${b} commande${b > 1 ? 's' : ''} réussie${b > 1 ? 's' : ''} sur ${t} !`,
+    }),
     delaiJuste: 1600,
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
@@ -92,7 +101,10 @@ export default function Chocolatier(props: GameProps) {
     const r = (manche + f.d) % p.length;
     return [...p.slice(r), ...p.slice(0, r)];
   }, [item, manche]); // eslint-disable-line react-hooks/exhaustive-deps
-  const choixComparer = useMemo(() => (o ? [`A : ${formatFrac(f)}`, `B : ${formatFrac(o)}`, 'Autant'] : []), [item]); // eslint-disable-line react-hooks/exhaustive-deps
+  const choixComparer = useMemo(
+    () => (o ? [`A : ${formatFrac(f)}`, `B : ${formatFrac(o)}`, 'Autant'] : []),
+    [item],
+  ); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!item) return;
@@ -113,7 +125,9 @@ export default function Chocolatier(props: GameProps) {
       if (bloque || phase !== 'moule') return;
       const m = listeMoules[i]!;
       if (m !== f.d)
-        setNoteMoule(`Ce moule a ${m} carrés. Le dénominateur est ${f.d} : il faut une tablette de ${f.d} carrés égaux.`);
+        setNoteMoule(
+          `Presque ! Ce moule a ${m} carrés. Le dénominateur est ${f.d} : il faut une tablette de ${f.d} carrés égaux.`,
+        );
       else setNoteMoule(null);
       sfx.play(m === f.d ? 'pop' : 'glisse');
       setPhase('emballer');
@@ -150,7 +164,9 @@ export default function Chocolatier(props: GameProps) {
       }
       const exact = donne.n === f.n && donne.d === f.d;
       const juste = exact || (donne.d > 0 && comparer(donne, f) === 0);
-      setMessage(juste ? (exact ? 'Exact !' : `Juste ! ${formatFrac(donne)} = ${formatFrac(f)}.`) : undefined);
+      setMessage(
+        juste ? (exact ? 'Exact !' : `Juste ! ${formatFrac(donne)} = ${formatFrac(f)}.`) : undefined,
+      );
       repondre(juste, formatFrac(donne), formatFrac(f));
     },
     [item, bloque, propositions, saisie, f, repondre],
@@ -214,7 +230,11 @@ export default function Chocolatier(props: GameProps) {
               <span>🍬</span>
               <span>🧁</span>
             </div>
-            <Client graine={(manche * 13 + f.d) % 50} humeur={etat === 'juste' ? 'content' : etat === 'faux' ? 'pense' : 'neutre'} taille={86} />
+            <Client
+              graine={(manche * 13 + f.d) % 50}
+              humeur={etat === 'juste' ? 'content' : etat === 'faux' ? 'pense' : 'neutre'}
+              taille={86}
+            />
           </div>
 
           {item.task === 'colorier' && phase === 'moule' ? (
@@ -223,8 +243,17 @@ export default function Chocolatier(props: GameProps) {
                 const [l, c] = grilleTablette(m, 10);
                 return (
                   <div key={i} className="flex flex-col items-center gap-1">
-                    <span className="rounded-full bg-white px-2 font-titre font-extrabold">{['A', 'B', 'C'][i]}</span>
-                    <Tablette d={m} lignes={item.shape === 'barre' ? 1 : l} colonnes={item.shape === 'barre' ? m : c} pris={[]} largeurMax={100} label={`Moule de ${m} carrés`} />
+                    <span className="rounded-full bg-white px-2 font-titre font-extrabold">
+                      {['A', 'B', 'C'][i]}
+                    </span>
+                    <Tablette
+                      d={m}
+                      lignes={item.shape === 'barre' ? 1 : l}
+                      colonnes={item.shape === 'barre' ? m : c}
+                      pris={[]}
+                      largeurMax={100}
+                      label={`Moule de ${m} carrés`}
+                    />
                   </div>
                 );
               })}
@@ -233,7 +262,9 @@ export default function Chocolatier(props: GameProps) {
             <div className="flex w-full flex-col gap-3">
               {[f, o].map((x, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <span className="w-8 shrink-0 font-titre text-2xl font-extrabold">{i === 0 ? 'A' : 'B'}</span>
+                  <span className="w-8 shrink-0 font-titre text-2xl font-extrabold">
+                    {i === 0 ? 'A' : 'B'}
+                  </span>
                   <div className="min-w-0 flex-1">
                     {montrerBandes ? (
                       <Tablette
@@ -241,7 +272,9 @@ export default function Chocolatier(props: GameProps) {
                         lignes={1}
                         colonnes={x.d * unitesNecessaires(x)}
                         pris={remplir(x.n, x.d * unitesNecessaires(x), 1)[0]!}
-                        largeurFixe={(340 / Math.max(unitesNecessaires(f), unitesNecessaires(o))) * unitesNecessaires(x)}
+                        largeurFixe={
+                          (340 / Math.max(unitesNecessaires(f), unitesNecessaires(o))) * unitesNecessaires(x)
+                        }
                         label={`Bande ${i === 0 ? 'A' : 'B'} : ${formatFrac(x)}`}
                         couleur={i === 0 ? '#FFD45C' : '#8EE3C8'}
                       />
@@ -259,7 +292,9 @@ export default function Chocolatier(props: GameProps) {
               key={`${manche}-${phase}`}
               className="flex w-full flex-wrap items-center justify-center gap-2"
               initial={reduce ? false : { y: 20, opacity: 0 }}
-              animate={etat === 'juste' && !reduce ? { scale: [1, 1.06, 1], opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+              animate={
+                etat === 'juste' && !reduce ? { scale: [1, 1.06, 1], opacity: 1, y: 0 } : { opacity: 1, y: 0 }
+              }
             >
               {pris.map((p, i) => (
                 <Tablette
@@ -298,7 +333,11 @@ export default function Chocolatier(props: GameProps) {
           {item.task === 'colorier' && phase === 'moule' && (
             <>
               <p className="font-bold">Choisis le bon moule à chocolat :</p>
-              <ChoiceGrid choices={listeMoules.map((m) => `${m} carrés`)} onPick={choisirMoule} disabled={bloque} />
+              <ChoiceGrid
+                choices={listeMoules.map((m) => `${m} carrés`)}
+                onPick={choisirMoule}
+                disabled={bloque}
+              />
             </>
           )}
 
@@ -313,7 +352,7 @@ export default function Chocolatier(props: GameProps) {
                 Touche les carrés pour les emballer
                 {level !== 'plus_loin' && (
                   <span className="mt-1 block font-titre text-2xl" aria-live="polite">
-                    {nbPris} carré{nbPris > 1 ? "s" : ""} emballé{nbPris > 1 ? "s" : ""} sur {f.d * k}
+                    {nbPris} carré{nbPris > 1 ? 's' : ''} emballé{nbPris > 1 ? 's' : ''} sur {f.d * k}
                   </span>
                 )}
               </p>
@@ -332,7 +371,15 @@ export default function Chocolatier(props: GameProps) {
                 disabled={bloque}
               />
             ) : (
-              <SaisieChamps champs={CHAMPS} valeurs={saisie} onChange={setSaisie} onValider={() => lire()} disabled={bloque} etat={etat} disposition="fraction" />
+              <SaisieChamps
+                champs={CHAMPS}
+                valeurs={saisie}
+                onChange={setSaisie}
+                onValider={() => lire()}
+                disabled={bloque}
+                etat={etat}
+                disposition="fraction"
+              />
             ))}
 
           {item.task === 'comparer' && (

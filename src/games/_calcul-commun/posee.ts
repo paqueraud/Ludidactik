@@ -111,7 +111,11 @@ const nombreOk = (n: unknown): n is number =>
 
 /** Calcul exact (sans artefacts flottants). */
 export function calculer(op: OpPosee, termes: number[]): number {
-  if (op === '+') return roundTo(termes.reduce((a, b) => a + b, 0), 6);
+  if (op === '+')
+    return roundTo(
+      termes.reduce((a, b) => a + b, 0),
+      6,
+    );
   if (op === '−') return roundTo(termes[0]! - termes[1]!, 6);
   if (op === '×') return roundTo(termes[0]! * termes[1]!, 6);
   return termes[0]! / termes[1]!;
@@ -239,7 +243,7 @@ function addition(termes: number[]): Disposition {
       q >= maxLen
         ? `Il reste la retenue : j’écris ${retenue}.`
         : `Colonne des ${nom} : ${chiffres.join(' + ')}${retenue ? ` + ${retenue} (retenue)` : ''} = ${s}` +
-          (s >= 10 ? ` : j’écris ${s % 10} et je retiens ${Math.floor(s / 10)}.` : ` : j’écris ${s}.`);
+          (s >= 10 ? `, j’écris ${s % 10} et je retiens ${Math.floor(s / 10)}.` : `, j’écris ${s}.`);
     etapes.push({ attendu: String(s % 10), aide, ligne: ligneRes, col: col(q) });
     cellules.push({
       ligne: ligneRes,
@@ -347,7 +351,7 @@ function soustraction(a: number, b: number, methode: Methode): Disposition {
       d = t[q]! - bq(q);
       aide =
         (marques.length
-          ? `Pas assez de ${nom} en haut : je casse ${marques.join(', puis ')}. `
+          ? `Pas assez ${/^[aeiouéè]/.test(nom) ? 'd’' : 'de '}${nom} en haut : je casse ${marques.join(', puis ')}. `
           : `Colonne des ${nom} : `) + `${t[q]} − ${bq(q)} = ${d}.`;
     } else {
       const haut = chiffre(A, q);
@@ -356,7 +360,14 @@ function soustraction(a: number, b: number, methode: Methode): Disposition {
       if (haut < bas) {
         cellules.push({ ligne: 1, col: col(q), texte: '1', type: 'retenue', coin: 'hg', visibleA: idx });
         if (q + 1 < lenA)
-          cellules.push({ ligne: 2, col: col(q + 1), texte: '1', type: 'retenue', coin: 'bg', visibleA: idx });
+          cellules.push({
+            ligne: 2,
+            col: col(q + 1),
+            texte: '1',
+            type: 'retenue',
+            coin: 'bg',
+            visibleA: idx,
+          });
         d = haut + 10 - bas;
         aide = `Colonne des ${nom} : ${basTexte}${haut} est plus petit que ${bas} : j’ajoute 10 ${nom} en haut et 1 ${nomRang(q + 1 - D, false)} en bas. ${haut + 10} − ${bas} = ${d}.`;
         reportBas = 1;
@@ -452,8 +463,14 @@ function multiplication(a: number, b: number): Disposition {
       const ai = chiffre(A, i);
       const s = ai * bj + retenue;
       const idx = etapes.length;
-      const aide = `${bj} × ${ai}${retenue ? ` + ${retenue} (retenue)` : ''} = ${s}${
-        s >= 10 && i < lenA - 1 ? ` : j’écris ${s % 10} et je retiens ${Math.floor(s / 10)}.` : ` : j’écris ${i < lenA - 1 ? s % 10 : s}.`
+      const debutLigne =
+        i === 0 && j > 0
+          ? `Je multiplie par le chiffre des ${nomRang(j)} : j’ai d’abord écrit ${j > 1 ? `${j} zéros` : 'un 0'} à droite. `
+          : '';
+      const aide = `${debutLigne}${bj} × ${ai}${retenue ? ` + ${retenue} (retenue)` : ''} = ${s}${
+        s >= 10 && i < lenA - 1
+          ? `, j’écris ${s % 10} et je retiens ${Math.floor(s / 10)}.`
+          : `, j’écris ${i < lenA - 1 ? s % 10 : s}.`
       }`;
       const dernier = i === lenA - 1;
       if (dernier && s >= 10) {
@@ -520,7 +537,7 @@ function multiplication(a: number, b: number): Disposition {
           q >= maxLen
             ? `Il reste la retenue : j’écris ${retenue}.`
             : `J’additionne les lignes : ${chiffres.join(' + ')}${retenue ? ` + ${retenue} (retenue)` : ''} = ${s}` +
-              (s >= 10 ? ` : j’écris ${s % 10} et je retiens ${Math.floor(s / 10)}.` : ` : j’écris ${s}.`),
+              (s >= 10 ? `, j’écris ${s % 10} et je retiens ${Math.floor(s / 10)}.` : `, j’écris ${s}.`),
         ligne: ligneRes,
         col: col(q),
       });
@@ -568,7 +585,7 @@ function multiplication(a: number, b: number): Disposition {
     casesFuturesVisibles: true,
     conclusion:
       D > 0
-        ? `${da ? `${formatNumber(a)} a ${da} chiffre${da > 1 ? 's' : ''} après la virgule` : ''}${da && db ? ' et ' : ''}${db ? `${formatNumber(b)} en a ${db}` : ''} : le résultat a ${D} chiffre${D > 1 ? 's' : ''} après la virgule. ${formatNumber(a)} × ${formatNumber(b)} = ${formatNumber(res)}`
+        ? `${da ? `${formatNumber(a)} a ${da} chiffre${da > 1 ? 's' : ''} après la virgule` : ''}${da && db ? ' et ' : ''}${db ? `${formatNumber(b)} en a ${db}` : ''} : le résultat a ${D} chiffre${D > 1 ? 's' : ''} après la virgule. ${formatNumber(a)} × ${formatNumber(b)} = ${formatNumber(res)}${decimalesDe(res) < D ? ` (${formatNumber(res, D)} = ${formatNumber(res)} : les zéros à la fin de la partie décimale sont inutiles)` : ''}`
         : `${formatNumber(a)} × ${formatNumber(b)} = ${formatNumber(res)}`,
   };
 }
@@ -582,7 +599,10 @@ function division(a: number, b: number, decQ: number): Disposition {
   const A = echelle(a, da);
   const intLen = longueur(Math.floor(a));
   // chiffres du dividende (sans virgule), puis zéros abaissés si besoin
-  const chiffresA = String(A).padStart(intLen + da, '0').split('').map(Number);
+  const chiffresA = String(A)
+    .padStart(intLen + da, '0')
+    .split('')
+    .map(Number);
   const nbTotal = intLen + Math.max(da, decQ);
   const colDiv = nbTotal + 1; // colonne du diviseur (après une colonne vide : la potence)
   const lenB = longueur(b);
@@ -633,7 +653,7 @@ function division(a: number, b: number, decQ: number): Disposition {
     const virguleQ = decQ > 0 && i === intLen - 1;
     etapes.push({
       attendu: String(q),
-      aide: `Dans ${partiel}, combien de fois ${b} ? ${q} × ${b} = ${q * b}${r ? `, il reste ${r}` : ''} : j’écris ${q}.`,
+      aide: `${zeroAbaisse ? 'J’abaisse un 0. ' : ''}Dans ${partiel}, combien de fois ${b} ? ${q} × ${b} = ${q * b}${r ? `, il reste ${r}` : ''} : j’écris ${q}${virguleQ ? ', puis la virgule : on passe aux dixièmes' : ''}.`,
       ligne: 1,
       col: qCol,
     });
@@ -684,7 +704,13 @@ function division(a: number, b: number, decQ: number): Disposition {
             ligne: ligneReste,
             col: i - rs.length + 1 + k,
           });
-          cellules.push({ ligne: ligneReste, col: i - rs.length + 1 + k, texte: c, type: 'saisie', etape: e });
+          cellules.push({
+            ligne: ligneReste,
+            col: i - rs.length + 1 + k,
+            texte: c,
+            type: 'saisie',
+            etape: e,
+          });
         });
       } else if (q > 0)
         rs.split('').forEach((c, k) =>
@@ -742,7 +768,9 @@ function division(a: number, b: number, decQ: number): Disposition {
     conclusion:
       resteFinal !== undefined && resteFinal > 0
         ? `${formatNumber(a)} = (${b} × ${formatNumber(resultat)}) + ${resteFinal} : le quotient est ${formatNumber(resultat)}, le reste est ${resteFinal}.`
-        : `${formatNumber(a)} ÷ ${b} = ${formatNumber(resultat)}`,
+        : decQ > 0 && reste !== 0
+          ? `${formatNumber(a)} ÷ ${b} ≈ ${formatNumber(resultat)} (on s’arrête ${decQ === 1 ? 'aux dixièmes' : decQ === 2 ? 'aux centièmes' : 'aux millièmes'})`
+          : `${formatNumber(a)} ÷ ${b} = ${formatNumber(resultat)}`,
   };
 }
 
@@ -776,7 +804,8 @@ export function disposer(p: Posee): Disposition {
 
 /** Valeur obtenue en lisant les cases à remplir (pour vérifier les algorithmes). */
 export function lireResultat(d: Disposition): number {
-  const ligneRes = d.op === '÷' ? 1 : Math.max(...d.cellules.filter((c) => c.type === 'saisie').map((c) => c.ligne));
+  const ligneRes =
+    d.op === '÷' ? 1 : Math.max(...d.cellules.filter((c) => c.type === 'saisie').map((c) => c.ligne));
   const cs = d.cellules
     .filter((c) => c.ligne === ligneRes && (c.type === 'saisie' || (d.op !== '÷' && c.type === 'zero')))
     .sort((x, y) => x.col - y.col);

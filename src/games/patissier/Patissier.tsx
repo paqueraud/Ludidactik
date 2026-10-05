@@ -43,12 +43,20 @@ export default function Patissier(props: GameProps) {
   const jeu = useManches(props, {
     total,
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Chef pâtissier ! Ton gâteau est magnifique 🎂' : `Ton gâteau a ${b} décoration${b > 1 ? 's' : ''} !` }),
+    fin: (b, t) => ({
+      headline:
+        b === t
+          ? 'Chef pâtissier ! Ton gâteau est magnifique 🎂'
+          : `Ton gâteau a ${b} décoration${b > 1 ? 's' : ''} !`,
+    }),
     delaiJuste: 1600,
   });
   const { courant, manche, etat, fini, repondre, suivant, bonnes } = jeu;
   const exo = courant?.valeur ?? null;
-  const champ = useMemo<Champ[]>(() => [{ cle: 'r', nom: 'réponse', max: 9, suffixe: exo?.item.unit }], [exo]);
+  const champ = useMemo<Champ[]>(
+    () => [{ cle: 'r', nom: 'réponse', max: 9, suffixe: exo?.item.unit }],
+    [exo],
+  );
   const [saisie, setSaisie] = useState<Record<string, string>>({ r: '' });
   const [indice, setIndice] = useState(false);
   const [message, setMessage] = useState<string | undefined>();
@@ -74,7 +82,8 @@ export default function Patissier(props: GameProps) {
     repondre(c.correct, saisie.r, formatNumber(exo.item.answer));
   }, [exo, bloque, saisie, level, repondre]);
 
-  if (!exo) return <EtatVide icone="🎂" jeu="Le Pâtissier" besoin="de recettes en tableau de proportionnalité" />;
+  if (!exo)
+    return <EtatVide icone="🎂" jeu="Le Pâtissier" besoin="de recettes en tableau de proportionnalité" />;
 
   const { item, t } = exo;
   const aide = indice || etat === 'faux' ? meilleureAide(exo.aides) : null;
@@ -105,10 +114,18 @@ export default function Patissier(props: GameProps) {
           >
             <p className="mb-2 text-center font-titre text-lg font-extrabold text-[#8A5A3B]">📜 Ma recette</p>
             <div className="relative">
-              <div className="grid grid-cols-2 overflow-hidden rounded-xl border-2 border-ink/20" role="table" aria-label="Tableau de la recette">
+              <div
+                className="grid grid-cols-2 overflow-hidden rounded-xl border-2 border-ink/20"
+                role="table"
+                aria-label="Tableau de la recette"
+              >
                 <div role="row" className="contents">
                   {t.entetes.map((e) => (
-                    <div key={e} role="columnheader" className="flex h-12 items-center justify-center bg-[#FFE0B2] px-1 text-center font-bold leading-tight">
+                    <div
+                      key={e}
+                      role="columnheader"
+                      className="flex h-12 items-center justify-center bg-[#FFE0B2] px-1 text-center font-bold leading-tight"
+                    >
                       {e}
                     </div>
                   ))}
@@ -151,7 +168,9 @@ export default function Patissier(props: GameProps) {
                 />
               )}
               {aide?.type === 'unite' && (
-                <span className="absolute -left-14 top-1/2 -translate-y-1/2 rounded-full bg-grape px-2 py-0.5 text-sm font-bold text-white">pour 1</span>
+                <span className="absolute -left-14 top-1/2 -translate-y-1/2 rounded-full bg-grape px-2 py-0.5 text-sm font-bold text-white">
+                  pour 1
+                </span>
               )}
             </div>
           </motion.div>
@@ -172,19 +191,40 @@ export default function Patissier(props: GameProps) {
             </Bulle>
           )}
           {level === 'normal' && !indice && !etat && exo.aides.length > 0 && (
-            <Button variant="sun" icon={<Lightbulb aria-hidden />} onClick={() => setIndice(true)} disabled={bloque}>
+            <Button
+              variant="sun"
+              icon={<Lightbulb aria-hidden />}
+              onClick={() => setIndice(true)}
+              disabled={bloque}
+            >
               Indice
             </Button>
           )}
-          <SaisieChamps champs={champ} valeurs={saisie} onChange={setSaisie} onValider={valider} disabled={bloque} etat={etat} decimal />
+          <SaisieChamps
+            champs={champ}
+            valeurs={saisie}
+            onChange={setSaisie}
+            onValider={valider}
+            disabled={bloque}
+            etat={etat}
+            decimal
+          />
           <AnimatePresence>
             {etat && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full">
                 <Feedback
                   state={etat}
                   message={message ?? (hint ? `Presque ! ${hint}` : undefined)}
-                  expected={etat === 'faux' ? `${formatNumber(item.answer)}${item.unit ? ` ${item.unit}` : ''}` : undefined}
-                  explication={etat === 'faux' ? `${item.explication}${aideTexte && !item.explication.includes(aideTexte) ? ` ${aideTexte}` : ''}` : undefined}
+                  expected={
+                    etat === 'faux'
+                      ? `${formatNumber(item.answer)}${item.unit ? ` ${item.unit}` : ''}`
+                      : undefined
+                  }
+                  explication={
+                    etat === 'faux'
+                      ? `${item.explication}${aideTexte && !item.explication.includes(aideTexte) ? ` ${aideTexte}` : ''}`
+                      : undefined
+                  }
                   onContinue={suivant}
                 />
               </motion.div>
@@ -207,10 +247,22 @@ function FlecheAide({ de, vers, texte }: { de: number[]; vers: number; texte: st
         const mid = (yd + yv) / 2;
         return (
           <g key={d}>
-            <path d={`M 60 ${yd} C 10 ${yd}, 10 ${yv}, 56 ${yv}`} fill="none" stroke="#8E7CFF" strokeWidth="3" />
-            <path d={`M 50 ${yv - 6} L 58 ${yv} L 50 ${yv + 6}`} fill="none" stroke="#8E7CFF" strokeWidth="3" />
+            <path
+              d={`M 60 ${yd} C 10 ${yd}, 10 ${yv}, 56 ${yv}`}
+              fill="none"
+              stroke="#8E7CFF"
+              strokeWidth="3"
+            />
+            <path
+              d={`M 50 ${yv - 6} L 58 ${yv} L 50 ${yv + 6}`}
+              fill="none"
+              stroke="#8E7CFF"
+              strokeWidth="3"
+            />
             <foreignObject x="0" y={mid - 14} width="44" height="28">
-              <div className="flex h-full items-center justify-center rounded-full bg-grape text-sm font-extrabold text-white">{texte}</div>
+              <div className="flex h-full items-center justify-center rounded-full bg-grape text-sm font-extrabold text-white">
+                {texte}
+              </div>
             </foreignObject>
           </g>
         );

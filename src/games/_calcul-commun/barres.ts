@@ -32,15 +32,20 @@ export interface Analyse {
 const POINTS = /^(…|\.\.\.)$/;
 export const estPoints = (label?: string) => !!label && POINTS.test(label.trim());
 /** Segment « écart / de plus / de moins » (dessiné en pointillés). */
-export const estEcart = (label?: string) => !!label && /écart|de plus|de moins|en plus|en moins|de trop/i.test(label);
+export const estEcart = (label?: string) =>
+  !!label && /écart|de plus|de moins|en plus|en moins|de trop/i.test(label);
 
 /** Analyse du schéma : où sont les nombres connus, où est l'inconnue (« ? »). */
 export function analyser(item: BarModelItem): Analyse {
   const emplacements: Emplacement[] = [];
   let aInconnueSegment = false;
   // valeur moyenne des segments connus (pour dessiner les inconnus)
-  const connus = item.bars.flatMap((b) => b.segments.map((s) => s.value).filter((v): v is number => v !== null));
-  const nbInconnus = item.bars.flatMap((b) => b.segments).filter((s) => s.value === null && !estPoints(s.label)).length;
+  const connus = item.bars.flatMap((b) =>
+    b.segments.map((s) => s.value).filter((v): v is number => v !== null),
+  );
+  const nbInconnus = item.bars
+    .flatMap((b) => b.segments)
+    .filter((s) => s.value === null && !estPoints(s.label)).length;
   const sommeConnus = connus.reduce((a, b) => a + b, 0);
   const typique = connus.length ? sommeConnus / connus.length : item.answer || 1;
   const largeurs = item.bars.map((b) =>

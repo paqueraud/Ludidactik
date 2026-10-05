@@ -51,7 +51,12 @@ export default function Pizzaiolo(props: GameProps) {
   const jeu = useManches(props, {
     total: parNiveau(level, MANCHES),
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Pizzaïolo d’or ! 🍕' : `${b} pizza${b > 1 ? 's' : ''} servie${b > 1 ? 's' : ''} sur ${t} !` }),
+    fin: (b, t) => ({
+      headline:
+        b === t
+          ? 'Pizzaïolo d’or ! 🍕'
+          : `${b} pizza${b > 1 ? 's' : ''} servie${b > 1 ? 's' : ''} sur ${t} !`,
+    }),
     delaiJuste: 1700,
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
@@ -139,7 +144,9 @@ export default function Pizzaiolo(props: GameProps) {
       }
       const exact = donne.n === f.n && donne.d === f.d;
       const juste = exact || (donne.d > 0 && comparer(donne, f) === 0);
-      setMessage(juste ? (exact ? 'Exact !' : `Juste ! ${formatFrac(donne)} = ${formatFrac(f)}.`) : undefined);
+      setMessage(
+        juste ? (exact ? 'Exact !' : `Juste ! ${formatFrac(donne)} = ${formatFrac(f)}.`) : undefined,
+      );
       repondre(juste, formatFrac(donne), formatFrac(f));
     },
     [item, bloque, propositions, saisie, f, repondre],
@@ -167,7 +174,10 @@ export default function Pizzaiolo(props: GameProps) {
         } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === '-') {
           e.preventDefault();
           setCoupe((c) => Math.max(1, c - 1));
-        } else if (e.key === 'Enter' && (document.activeElement as HTMLElement | null)?.tagName !== 'BUTTON') {
+        } else if (
+          e.key === 'Enter' &&
+          (document.activeElement as HTMLElement | null)?.tagName !== 'BUTTON'
+        ) {
           e.preventDefault();
           couper();
         }
@@ -191,7 +201,8 @@ export default function Pizzaiolo(props: GameProps) {
     return () => window.removeEventListener('keydown', h);
   }, [item, bloque, phase, couper, servir, f.d, k]);
 
-  if (!item) return <EtatVide icone="🍕" jeu="Le Pizzaïolo" besoin="d’exercices de fractions avec des pizzas" />;
+  if (!item)
+    return <EtatVide icone="🍕" jeu="Le Pizzaïolo" besoin="d’exercices de fractions avec des pizzas" />;
 
   const enonce = adapterEnonce(item.prompt, 'pizza');
   const parle = aDire(adapterEnonce(item.spoken ?? item.prompt, 'pizza'));
@@ -219,7 +230,12 @@ export default function Pizzaiolo(props: GameProps) {
               <path d="M30 78 V52 a30 22 0 0 1 60 0 V78 Z" fill="#2B1D14" />
               <path d="M40 78 q8 -18 20 -6 q10 -16 20 6 Z" fill={reduce ? '#FF7A6B' : '#FFB74D'}>
                 {!reduce && !paused && (
-                  <animate attributeName="d" dur="1.2s" repeatCount="indefinite" values="M40 78 q8 -18 20 -6 q10 -16 20 6 Z;M40 78 q8 -12 20 -10 q10 -10 20 10 Z;M40 78 q8 -18 20 -6 q10 -16 20 6 Z" />
+                  <animate
+                    attributeName="d"
+                    dur="1.2s"
+                    repeatCount="indefinite"
+                    values="M40 78 q8 -18 20 -6 q10 -16 20 6 Z;M40 78 q8 -12 20 -10 q10 -10 20 10 Z;M40 78 q8 -18 20 -6 q10 -16 20 6 Z"
+                  />
                 )}
               </path>
             </svg>
@@ -237,7 +253,11 @@ export default function Pizzaiolo(props: GameProps) {
                   <span>? {nomGarniture.emoji}</span>
                 )}
               </div>
-              <Client graine={(manche * 11 + f.d) % 50} humeur={etat === 'juste' ? 'content' : etat === 'faux' ? 'pense' : 'neutre'} taille={90} />
+              <Client
+                graine={(manche * 11 + f.d) % 50}
+                humeur={etat === 'juste' ? 'content' : etat === 'faux' ? 'pense' : 'neutre'}
+                taille={90}
+              />
             </div>
           </div>
 
@@ -250,7 +270,14 @@ export default function Pizzaiolo(props: GameProps) {
                   </span>
                   <div className="flex flex-wrap justify-center gap-1">
                     {remplir(x.n, x.d, unitesNecessaires(x)).map((g, p) => (
-                      <Pizza key={p} parts={x.d} garnies={g} garniture={garniture} taille={unitesNecessaires(x) > 1 ? 110 : 150} label={`Pizza de la commande ${i === 0 ? 'A' : 'B'} : ${formatFrac(x)}`} />
+                      <Pizza
+                        key={p}
+                        parts={x.d}
+                        garnies={g}
+                        garniture={garniture}
+                        taille={unitesNecessaires(x) > 1 ? 110 : 150}
+                        label={`Pizza de la commande ${i === 0 ? 'A' : 'B'} : ${formatFrac(x)}`}
+                      />
                     ))}
                   </div>
                 </div>
@@ -261,7 +288,11 @@ export default function Pizzaiolo(props: GameProps) {
               key={`${manche}`}
               className="flex flex-wrap items-center justify-center gap-2"
               initial={reduce ? false : { scale: 0.8, opacity: 0 }}
-              animate={etat === 'juste' && !reduce ? { scale: [1, 1.08, 0.9], y: [0, -10, 30], opacity: [1, 1, 0.4] } : { scale: 1, opacity: 1 }}
+              animate={
+                etat === 'juste' && !reduce
+                  ? { scale: [1, 1.08, 0.9], y: [0, -10, 30], opacity: [1, 1, 0.4] }
+                  : { scale: 1, opacity: 1 }
+              }
               transition={{ duration: etat === 'juste' ? 1.2 : 0.35 }}
             >
               {(phase === 'couper' ? [Array(1).fill(false) as boolean[]] : garnies).map((g, p) =>
@@ -303,17 +334,36 @@ export default function Pizzaiolo(props: GameProps) {
             <div className="flex flex-col items-center gap-2">
               <p className="font-bold">En combien de parts égales je coupe chaque pizza ?</p>
               <div className="flex items-center gap-3" role="group" aria-label="Nombre de parts">
-                <Button variant="blanc" onClick={() => setCoupe((c) => Math.max(1, c - 1))} disabled={bloque} aria-label="Une part de moins">
+                <Button
+                  variant="blanc"
+                  onClick={() => setCoupe((c) => Math.max(1, c - 1))}
+                  disabled={bloque}
+                  aria-label="Une part de moins"
+                >
                   <Minus aria-hidden />
                 </Button>
-                <span className="min-w-[3ch] text-center font-titre text-4xl font-extrabold" aria-live="polite">
+                <span
+                  className="min-w-[3ch] text-center font-titre text-4xl font-extrabold"
+                  aria-live="polite"
+                >
                   {coupe}
                 </span>
-                <Button variant="blanc" onClick={() => setCoupe((c) => Math.min(MAX_DENOM, c + 1))} disabled={bloque} aria-label="Une part de plus">
+                <Button
+                  variant="blanc"
+                  onClick={() => setCoupe((c) => Math.min(MAX_DENOM, c + 1))}
+                  disabled={bloque}
+                  aria-label="Une part de plus"
+                >
                   <Plus aria-hidden />
                 </Button>
               </div>
-              <Button variant="coral" size="lg" icon={<Scissors aria-hidden />} onClick={couper} disabled={bloque}>
+              <Button
+                variant="coral"
+                size="lg"
+                icon={<Scissors aria-hidden />}
+                onClick={couper}
+                disabled={bloque}
+              >
                 Couper !
               </Button>
             </div>
@@ -352,7 +402,15 @@ export default function Pizzaiolo(props: GameProps) {
                 disabled={bloque}
               />
             ) : (
-              <SaisieChamps champs={CHAMPS} valeurs={saisie} onChange={setSaisie} onValider={() => lire()} disabled={bloque} etat={etat} disposition="fraction" />
+              <SaisieChamps
+                champs={CHAMPS}
+                valeurs={saisie}
+                onChange={setSaisie}
+                onValider={() => lire()}
+                disabled={bloque}
+                etat={etat}
+                disposition="fraction"
+              />
             ))}
 
           {item.task === 'comparer' && (

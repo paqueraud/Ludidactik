@@ -100,9 +100,11 @@ describe('fractions', () => {
     expect(comparer({ n: 3, d: 4 }, { n: 6, d: 8 })).toBe(0);
   });
   it('en mots', () => {
-    expect(fracEnMots({ n: 3, d: 8 })).toBe('3 huitièmes');
+    expect(fracEnMots({ n: 3, d: 8 })).toBe('trois huitièmes');
+    expect(fracEnMots({ n: 7, d: 45 })).toBe('sept quarante-cinquièmes');
+    expect(fracEnMots({ n: 2, d: 29 })).toBe('deux vingt-neuvièmes');
     expect(fracEnMots({ n: 1, d: 2 })).toBe('un demi');
-    expect(fracEnMots({ n: 2, d: 3 })).toBe('2 tiers');
+    expect(fracEnMots({ n: 2, d: 3 })).toBe('deux tiers');
   });
   it('tablette', () => {
     expect(grilleTablette(12)).toEqual([3, 4]);
@@ -119,7 +121,12 @@ describe('fractions', () => {
 describe('glisse-nombre', () => {
   it('lit meta.glisse et les énoncés simples', () => {
     for (const it of EX_GLISSE) expect(lireGlisse(it), it.id).not.toBeNull();
-    const simple: NumericItem = { ...(EX_GLISSE[0] as NumericItem), meta: undefined, prompt: '4 200 ÷ 100', answer: 42 };
+    const simple: NumericItem = {
+      ...(EX_GLISSE[0] as NumericItem),
+      meta: undefined,
+      prompt: '4 200 ÷ 100',
+      answer: 42,
+    };
     expect(lireGlisse(simple)).toEqual({ nombre: 4200, operation: '÷', facteur: 100 });
     expect(lireGlisse(FIXTURES.numeric_answer[0]!)).toBeNull();
   });
@@ -129,6 +136,9 @@ describe('glisse-nombre', () => {
     expect(zerosAjoutes({ nombre: 4.2, operation: '×', facteur: 100 })).toEqual([0]);
     expect(zerosAjoutes({ nombre: 7.5, operation: '÷', facteur: 10 })).toEqual([0]);
     expect(resultatGlisse({ nombre: 56, operation: '÷', facteur: 1000 })).toBe(0.056);
+  });
+  it('pas de colonne décimale pour les entiers (CE1)', () => {
+    expect(colonnesTableau({ nombre: 34, operation: '×', facteur: 10 })).toEqual([3, 2, 1, 0]);
   });
   it('colonnes', () => {
     const c = colonnesTableau({ nombre: 56, operation: '÷', facteur: 1000 });
@@ -204,6 +214,15 @@ describe('opérations posées', () => {
     verifierPosee({ op: '÷', termes: [3, 4], methode: 'cassage', decimalesQuotient: 2 });
     verifierPosee({ op: '÷', termes: [12.6, 3], methode: 'cassage', decimalesQuotient: 1 });
   });
+  it('division décimale qui ne tombe pas juste : valeur approchée', () => {
+    const d = verifierPosee({ op: '÷', termes: [10, 3], methode: 'cassage', decimalesQuotient: 2 });
+    expect(d.conclusion).toBe('10 ÷ 3 ≈ 3,33 (on s’arrête aux centièmes)');
+    expect(d.etapes[1]!.aide).toMatch(/^J’abaisse un 0/);
+  });
+  it('aides bien écrites', () => {
+    const d = verifierPosee({ op: '−', termes: [52, 7], methode: 'cassage', decimalesQuotient: 0 });
+    expect(d.etapes[0]!.aide).toMatch(/^Pas assez d’unités en haut/);
+  });
   it('division euclidienne avec zéro au quotient : 412 ÷ 4 et 41 ÷ 4', () => {
     const d = verifierPosee({ op: '÷', termes: [412, 4], methode: 'cassage', decimalesQuotient: 0 });
     expect(d.etapes.map((e) => e.attendu).join('')).toBe('103');
@@ -223,8 +242,18 @@ describe('opérations posées', () => {
       });
       const a = rng.int(0, 99999);
       const b = rng.int(0, a);
-      verifierPosee({ op: '−', termes: [a, b], methode: rng.chance(0.5) ? 'cassage' : 'compensation', decimalesQuotient: 0 });
-      verifierPosee({ op: '×', termes: [rng.int(1, 9999), rng.int(1, 999)], methode: 'cassage', decimalesQuotient: 0 });
+      verifierPosee({
+        op: '−',
+        termes: [a, b],
+        methode: rng.chance(0.5) ? 'cassage' : 'compensation',
+        decimalesQuotient: 0,
+      });
+      verifierPosee({
+        op: '×',
+        termes: [rng.int(1, 9999), rng.int(1, 999)],
+        methode: 'cassage',
+        decimalesQuotient: 0,
+      });
       verifierPosee({
         op: '÷',
         termes: [rng.int(0, 99999), rng.int(1, 99)],
@@ -268,7 +297,16 @@ describe('proportionnalité', () => {
   it('refuse un tableau non proportionnel', () => {
     const p = {
       ...(EX_TABLEAU[0] as NumericItem),
-      meta: { tableau: { entetes: ['a', 'b'], lignes: [[4, 2], [6, 5], [12, null]] } },
+      meta: {
+        tableau: {
+          entetes: ['a', 'b'],
+          lignes: [
+            [4, 2],
+            [6, 5],
+            [12, null],
+          ],
+        },
+      },
     };
     expect(lireTableau(p)).toBeNull();
   });

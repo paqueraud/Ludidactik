@@ -89,7 +89,7 @@ export function useManches<T>(
     if (manche >= total) {
       setFini(true);
       const r = finRef.current(bonnes.current, total);
-      sfx.play(r.won ?? bonnes.current >= Math.ceil(total / 2) ? 'fanfare' : 'etoile');
+      sfx.play((r.won ?? bonnes.current >= Math.ceil(total / 2)) ? 'fanfare' : 'etoile');
       session.end({
         won: r.won ?? bonnes.current >= Math.ceil(total / 2),
         headline: r.headline,
@@ -122,7 +122,10 @@ export function useManches<T>(
 /** Aucun exercice de la bonne forme dans cette leçon : message calme, sans erreur. */
 export function EtatVide({ icone, jeu, besoin }: { icone: string; jeu: string; besoin: string }) {
   return (
-    <div className="carte mx-auto my-6 flex max-w-md flex-col items-center gap-3 p-6 text-center" role="status">
+    <div
+      className="carte mx-auto my-6 flex max-w-md flex-col items-center gap-3 p-6 text-center"
+      role="status"
+    >
       <span className="text-5xl" aria-hidden>
         {icone}
       </span>
@@ -268,7 +271,11 @@ export function SaisieChamps({
   }, [taper, effacer, valider, decimal, clavier]);
 
   const couleur =
-    etat === 'juste' ? 'border-grass bg-grass/15' : etat === 'faux' ? 'border-coral bg-coral/10' : 'border-sky bg-cream';
+    etat === 'juste'
+      ? 'border-grass bg-grass/15'
+      : etat === 'faux'
+        ? 'border-coral bg-coral/10'
+        : 'border-sky bg-cream';
 
   const cases = champs.map((c, i) => {
     const v = valeurs[c.cle] ?? '';
@@ -306,7 +313,11 @@ export function SaisieChamps({
           {cases[1]}
         </div>
       ) : (
-        <div className="flex flex-wrap items-center justify-center gap-2" role="group" aria-label="Ta réponse">
+        <div
+          className="flex flex-wrap items-center justify-center gap-2"
+          role="group"
+          aria-label="Ta réponse"
+        >
           {cases.flatMap((c, i) =>
             i > 0 && separateur
               ? [

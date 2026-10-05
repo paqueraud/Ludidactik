@@ -21,7 +21,8 @@ export function angles({ h, m, s = 0 }: Heure) {
 
 /** « 3 h 15 », « 15 h 05 », « 7 h », avec secondes : « 3 h 15 min 20 s ». */
 export function formatHeure({ h, m, s }: Heure): string {
-  if (s !== undefined && s > 0) return `${h} h ${String(m).padStart(2, '0')} min ${String(s).padStart(2, '0')} s`;
+  if (s !== undefined && s > 0)
+    return `${h} h ${String(m).padStart(2, '0')} min ${String(s).padStart(2, '0')} s`;
   return m === 0 ? `${h} h` : `${h} h ${String(m).padStart(2, '0')}`;
 }
 
@@ -90,7 +91,8 @@ export function analyserDuree(item: ClockItem): AnalyseDuree | null {
   const commeHeure = commeDuree === null ? lireHeure(texte) : null;
   const fin = depuisMinutes(enMinutes(ici) + d);
   const debut = depuisMinutes(enMinutes(ici) - d);
-  if (commeHeure && memeCadran(commeHeure, fin)) return { mode: 'fin', debut: ici, fin: commeHeure, duree: d };
+  if (commeHeure && memeCadran(commeHeure, fin))
+    return { mode: 'fin', debut: ici, fin: commeHeure, duree: d };
   if (commeHeure && memeCadran(commeHeure, debut))
     return { mode: 'debut', debut: commeHeure, fin: ici, duree: d };
   const dd = commeDuree ?? lireDuree(texte);

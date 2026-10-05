@@ -5,7 +5,8 @@ const jeu: GameModule = {
   id: 'detective-problemes',
   numero: 16,
   titre: 'Le Détective des problèmes',
-  description: 'Mène l’enquête : comprends l’histoire, fais le schéma en barre, calcule et rédige la réponse.',
+  description:
+    'Mène l’enquête : comprends l’histoire, fais le schéma en barre, calcule et rédige la réponse.',
   consigne:
     'Bienvenue, détective ! Pour résoudre un problème, on mène l’enquête en quatre étapes. Comprendre : lis bien l’histoire. Modéliser : complète le schéma en barre. Calculer : trouve le bon calcul. Répondre : écris la phrase-réponse. Et un bon détective vérifie toujours si c’est possible !',
   icone: '🕵️',

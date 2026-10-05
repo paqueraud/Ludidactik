@@ -1,5 +1,6 @@
 /** Fractions (Pizzaïolo, Chocolatier) : comparaison, découpage d'une tablette, écriture en mots. Fonctions pures. */
 import type { VisualFractionItem } from '@/content/schemas';
+import { nombreEnLettres } from '@/engine/nombres';
 
 export interface Frac {
   n: number;
@@ -43,15 +44,20 @@ const ORDINAUX = [
   'vingtième',
 ];
 
-/** « trois huitièmes », « un demi », « 7 sur 45 » (au-delà de 20 : lecture « sur »). */
+/** Ordinal d'un dénominateur : 45 → « quarante-cinquième ». */
+function ordinal(d: number): string {
+  const l = nombreEnLettres(d);
+  return `${l.replace(/e$/, '').replace(/cinq$/, 'cinqu').replace(/neuf$/, 'neuv')}ième`;
+}
+
+/** « trois huitièmes », « un demi », « sept quarante-cinquièmes ». */
 export function fracEnMots({ n, d }: Frac): string {
-  const nb = n === 1 ? 'un' : String(n);
+  const nb = n === 1 ? 'un' : nombreEnLettres(n);
   if (DENOMS[d]) return `${nb} ${DENOMS[d]![n > 1 ? 1 : 0]}`;
   if (d === 100) return `${nb} centième${n > 1 ? 's' : ''}`;
   if (d === 1000) return `${nb} millième${n > 1 ? 's' : ''}`;
-  const o = ORDINAUX[d];
-  if (o) return `${nb} ${o}${n > 1 ? 's' : ''}`;
-  return `${n} sur ${d}`;
+  const o = ORDINAUX[d] || ordinal(d);
+  return `${nb} ${o}${n > 1 ? 's' : ''}`;
 }
 
 /**

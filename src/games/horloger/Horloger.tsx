@@ -88,13 +88,17 @@ export default function Horloger(props: GameProps) {
   const jeu = useManches(props, {
     total: parNiveau(level, MANCHES),
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Maître horloger ! ⏰' : `${b} horloge${b > 1 ? 's' : ''} sur ${t} !` }),
+    fin: (b, t) => ({
+      headline: b === t ? 'Maître horloger ! ⏰' : `${b} horloge${b > 1 ? 's' : ''} sur ${t} !`,
+    }),
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
   const exo = courant?.valeur ?? null;
   const item = exo?.item ?? null;
   const task = item?.task ?? 'lire';
-  const avecSecondes = (item?.seconds ?? 0) > 0 || (lesson.classe === 'CM2' && level === 'plus_loin' && item?.seconds !== undefined);
+  const avecSecondes =
+    (item?.seconds ?? 0) > 0 ||
+    (lesson.classe === 'CM2' && level === 'plus_loin' && item?.seconds !== undefined);
 
   const [reglage, setReglage] = useState(0); // minutes 0..719
   const [saisie, setSaisie] = useState<Record<string, string>>({});
@@ -140,7 +144,9 @@ export default function Horloger(props: GameProps) {
       const { item: it, cible, duree } = exo;
       if (it.task === 'lire') {
         if (level === 'facile' && choix !== undefined) {
-          const juste = propositions[choix] === formatHeure({ h: cible.h % 12 === 0 ? 12 : cible.h % 12, m: cible.m, s: cible.s });
+          const juste =
+            propositions[choix] ===
+            formatHeure({ h: cible.h % 12 === 0 ? 12 : cible.h % 12, m: cible.m, s: cible.s });
           setMessage(juste ? 'Bravo, tu sais lire l’heure !' : undefined);
           repondre(juste, propositions[choix] ?? '', it.answerText);
           return;
@@ -158,7 +164,11 @@ export default function Horloger(props: GameProps) {
       if (it.task === 'regler') {
         const donne: Heure = { h: Math.floor(reglage / 60), m: reglage % 60 };
         const juste = memeCadran(donne, { h: cible.h, m: cible.m });
-        setMessage(juste ? 'L’horloge est à l’heure !' : `Presque ! Ton horloge montre ${formatHeure({ h: donne.h === 0 ? 12 : donne.h, m: donne.m })}.`);
+        setMessage(
+          juste
+            ? 'L’horloge est à l’heure !'
+            : `Presque ! Ton horloge montre ${formatHeure({ h: donne.h === 0 ? 12 : donne.h, m: donne.m })}.`,
+        );
         repondre(juste, formatHeure(donne), it.answerText);
         return;
       }
@@ -208,12 +218,19 @@ export default function Horloger(props: GameProps) {
     return () => window.removeEventListener('keydown', h);
   }, [task, bloque, pas, sfx, valider]);
 
-  if (!exo || !item) return <EtatVide icone="⏰" jeu="L’Horloger" besoin="d’exercices sur l’heure et les durées" />;
+  if (!exo || !item)
+    return <EtatVide icone="⏰" jeu="L’Horloger" besoin="d’exercices sur l’heure et les durées" />;
 
   const { cible, duree } = exo;
   const montreSec = avecSecondes || (item.seconds ?? 0) > 0;
   const heureAffichee: Heure =
-    task === 'regler' ? { h: Math.floor(reglage / 60), m: reglage % 60 } : task === 'duree' && duree ? (duree.mode === 'debut' ? duree.fin : duree.debut) : cible;
+    task === 'regler'
+      ? { h: Math.floor(reglage / 60), m: reglage % 60 }
+      : task === 'duree' && duree
+        ? duree.mode === 'debut'
+          ? duree.fin
+          : duree.debut
+        : cible;
   const reponseTexte =
     task === 'duree' && duree
       ? duree.mode === 'duree'
@@ -228,7 +245,12 @@ export default function Horloger(props: GameProps) {
 
   const scene =
     task === 'duree' && duree ? (
-      <Gare duree={duree} montrerArrivee={duree.mode === 'duree' || duree.mode === 'debut'} etat={etat} reduce={!!reduce} />
+      <Gare
+        duree={duree}
+        montrerArrivee={duree.mode === 'duree' || duree.mode === 'debut'}
+        etat={etat}
+        reduce={!!reduce}
+      />
     ) : null;
 
   return (
@@ -268,22 +290,51 @@ export default function Horloger(props: GameProps) {
             />
             {task === 'duree' && duree && (
               <p className="mt-1 rounded-full bg-white/90 px-3 font-titre font-bold text-ink">
-                {duree.mode === 'debut' ? 'Arrivée' : 'Départ'} : {formatHeure(duree.mode === 'debut' ? duree.fin : duree.debut)}
+                {duree.mode === 'debut' ? 'Arrivée' : 'Départ'} :{' '}
+                {formatHeure(duree.mode === 'debut' ? duree.fin : duree.debut)}
               </p>
             )}
           </motion.div>
           {task === 'regler' && (
-            <div className="grid w-full max-w-sm grid-cols-4 gap-2" role="group" aria-label="Régler les aiguilles">
-              <Button variant="blanc" className="whitespace-nowrap !px-1" onClick={() => bouger(-60)} disabled={bloque} aria-label="Reculer d’une heure">
+            <div
+              className="grid w-full max-w-sm grid-cols-4 gap-2"
+              role="group"
+              aria-label="Régler les aiguilles"
+            >
+              <Button
+                variant="blanc"
+                className="whitespace-nowrap !px-1"
+                onClick={() => bouger(-60)}
+                disabled={bloque}
+                aria-label="Reculer d’une heure"
+              >
                 −1 h
               </Button>
-              <Button variant="blanc" className="whitespace-nowrap !px-1" onClick={() => bouger(60)} disabled={bloque} aria-label="Avancer d’une heure">
+              <Button
+                variant="blanc"
+                className="whitespace-nowrap !px-1"
+                onClick={() => bouger(60)}
+                disabled={bloque}
+                aria-label="Avancer d’une heure"
+              >
                 +1 h
               </Button>
-              <Button variant="blanc" className="whitespace-nowrap !px-1" onClick={() => bouger(-pas)} disabled={bloque} aria-label={`Reculer de ${pas} minutes`}>
+              <Button
+                variant="blanc"
+                className="whitespace-nowrap !px-1"
+                onClick={() => bouger(-pas)}
+                disabled={bloque}
+                aria-label={`Reculer de ${pas} minutes`}
+              >
                 −{pas}
               </Button>
-              <Button variant="blanc" className="whitespace-nowrap !px-1" onClick={() => bouger(pas)} disabled={bloque} aria-label={`Avancer de ${pas} minutes`}>
+              <Button
+                variant="blanc"
+                className="whitespace-nowrap !px-1"
+                onClick={() => bouger(pas)}
+                disabled={bloque}
+                aria-label={`Avancer de ${pas} minutes`}
+              >
                 +{pas}
               </Button>
             </div>
@@ -310,13 +361,18 @@ export default function Horloger(props: GameProps) {
           {aideVisible && task === 'duree' && duree?.mode === 'debut' && (
             <Bulle ton="sky">
               <span aria-hidden>🦉</span>
-              <span>On remonte le temps : on enlève {formatDuree(duree.duree)} à {formatHeure(duree.fin)}.</span>
+              <span>
+                On remonte le temps : on enlève {formatDuree(duree.duree)} à {formatHeure(duree.fin)}.
+              </span>
             </Bulle>
           )}
           {aideVisible && task !== 'duree' && level !== 'facile' && (
             <Bulle ton="sky">
               <span aria-hidden>🦉</span>
-              <span>La petite aiguille montre les heures, la grande les minutes : regarde les nombres bleus autour du cadran.</span>
+              <span>
+                La petite aiguille montre les heures, la grande les minutes : regarde les nombres bleus autour
+                du cadran.
+              </span>
             </Bulle>
           )}
           {level === 'normal' && !indiceUtilise && !etat && (
@@ -340,7 +396,9 @@ export default function Horloger(props: GameProps) {
               reveal={
                 etat
                   ? {
-                      correct: propositions.indexOf(formatHeure({ h: cible.h % 12 === 0 ? 12 : cible.h % 12, m: cible.m, s: cible.s })),
+                      correct: propositions.indexOf(
+                        formatHeure({ h: cible.h % 12 === 0 ? 12 : cible.h % 12, m: cible.m, s: cible.s }),
+                      ),
                       chosen: null,
                     }
                   : null
@@ -399,7 +457,10 @@ function Gare({
 }) {
   return (
     <div className="w-full overflow-hidden rounded-2xl bg-[#BFE6FF]">
-      <div className="mx-auto mt-2 flex w-fit gap-4 rounded-xl bg-ink px-4 py-1 font-mono text-sm text-sun sm:text-base" aria-hidden>
+      <div
+        className="mx-auto mt-2 flex w-fit gap-4 rounded-xl bg-ink px-4 py-1 font-mono text-sm text-sun sm:text-base"
+        aria-hidden
+      >
         <span>DÉPART {duree.mode === 'debut' ? '??' : formatHeure(duree.debut)}</span>
         <span>ARRIVÉE {montrerArrivee ? formatHeure(duree.fin) : '??'}</span>
       </div>

@@ -50,7 +50,10 @@ export default function Epicerie(props: GameProps) {
     total: parNiveau(level, MANCHES),
     convertir,
     fin: (b, t) => ({
-      headline: b === t ? 'Tous les clients sont ravis ! 🛒' : `${b} client${b > 1 ? 's' : ''} servi${b > 1 ? 's' : ''} sur ${t} !`,
+      headline:
+        b === t
+          ? 'Tous les clients sont ravis ! 🛒'
+          : `${b} client${b > 1 ? 's' : ''} servi${b > 1 ? 's' : ''} sur ${t} !`,
     }),
     delaiJuste: 1600,
   });
@@ -68,7 +71,10 @@ export default function Epicerie(props: GameProps) {
   const valeurs = useMemo(() => (item ? valeursProposees(item) : []), [item]);
   const surComptoir = somme(poses.map((p) => p.v));
   const optimalExige = !!item?.meta?.optimal;
-  const mini = useMemo(() => (item ? (decompositionOptimale(cible, valeurs) ?? []) : []), [item, cible, valeurs]);
+  const mini = useMemo(
+    () => (item ? (decompositionOptimale(cible, valeurs) ?? []) : []),
+    [item, cible, valeurs],
+  );
   const graine = (manche * 7 + (item?.priceCents ?? 0)) % 97;
   const article = ARTICLES[graine % ARTICLES.length]!;
   const bloque = !!etat || paused || fini;
@@ -106,7 +112,9 @@ export default function Epicerie(props: GameProps) {
     const tropDePieces = juste && mini.length > 0 && poses.length > mini.length;
     const donne = `${formatEuros(surComptoir)} (${poses.map((p) => libelleValeur(p.v)).join(' + ')})`;
     if (juste && tropDePieces && optimalExige) {
-      setMessage(`C’est la bonne somme, mais on pouvait utiliser moins de pièces et de billets (${mini.length}).`);
+      setMessage(
+        `C’est la bonne somme, mais on pouvait utiliser moins de pièces et de billets (${mini.length}).`,
+      );
       repondre(false, donne, formatEuros(cible));
       return;
     }
@@ -144,9 +152,16 @@ export default function Epicerie(props: GameProps) {
     return () => window.removeEventListener('keydown', h);
   }, [bloque, valider]);
 
-  if (!item) return <EtatVide icone="🛒" jeu="La Petite Épicerie" besoin="d’exercices de monnaie (payer, rendre)" />;
+  if (!item)
+    return <EtatVide icone="🛒" jeu="La Petite Épicerie" besoin="d’exercices de monnaie (payer, rendre)" />;
 
-  const donneParClient = item.task === 'rendre' ? (decompositionOptimale(item.givenCents ?? 0, [500, 1000, 2000, 5000, 10000, 100, 200, 50, 20, 10, 5, 2, 1]) ?? []) : [];
+  const donneParClient =
+    item.task === 'rendre'
+      ? (decompositionOptimale(
+          item.givenCents ?? 0,
+          [500, 1000, 2000, 5000, 10000, 100, 200, 50, 20, 10, 5, 2, 1],
+        ) ?? [])
+      : [];
   const expected =
     `${formatEuros(cible)}` + (mini.length ? ` (par exemple ${mini.map(libelleValeur).join(' + ')})` : '');
   const strategie =
@@ -188,7 +203,11 @@ export default function Epicerie(props: GameProps) {
             ))}
           </svg>
           <div className="flex items-end gap-2 px-3 pb-0 pt-2">
-            <Client graine={graine} humeur={etat === 'juste' ? 'content' : etat === 'faux' ? 'pense' : 'neutre'} taille={110} />
+            <Client
+              graine={graine}
+              humeur={etat === 'juste' ? 'content' : etat === 'faux' ? 'pense' : 'neutre'}
+              taille={110}
+            />
             <motion.div
               key={manche}
               initial={reduce ? false : { scale: 0.7, opacity: 0 }}
@@ -206,7 +225,9 @@ export default function Epicerie(props: GameProps) {
               </div>
               {item.task === 'rendre' && (
                 <div className="mt-2">
-                  <p className="text-sm font-bold text-ink-soft">Je te donne {formatEuros(item.givenCents ?? 0)} :</p>
+                  <p className="text-sm font-bold text-ink-soft">
+                    Je te donne {formatEuros(item.givenCents ?? 0)} :
+                  </p>
                   <div className="mt-1 flex flex-wrap items-center gap-1">
                     {donneParClient.map((v, i) => (
                       <Argent key={i} valeur={v} echelle={0.75} />
@@ -220,7 +241,11 @@ export default function Epicerie(props: GameProps) {
           <div
             ref={comptoir}
             className={`relative mx-2 mb-2 min-h-[132px] rounded-2xl border-4 border-dashed p-2 transition-colors ${
-              etat === 'juste' ? 'border-grass bg-grass/20' : etat === 'faux' ? 'border-coral bg-coral/10' : 'border-[#C9965B] bg-[#E8B87E]/60'
+              etat === 'juste'
+                ? 'border-grass bg-grass/20'
+                : etat === 'faux'
+                  ? 'border-coral bg-coral/10'
+                  : 'border-[#C9965B] bg-[#E8B87E]/60'
             }`}
             aria-label={`Comptoir : ${poses.length ? poses.map((p) => libelleValeur(p.v)).join(', ') : 'vide'}`}
             role="group"
@@ -228,13 +253,18 @@ export default function Epicerie(props: GameProps) {
             <p className="mb-1 flex items-center justify-between text-sm font-bold text-ink/70">
               <span>{item.task === 'rendre' ? 'La monnaie que tu rends' : 'Ce que tu paies'}</span>
               {afficheTotal && (
-                <span className="rounded-full bg-white/80 px-2 font-titre text-base text-ink" aria-live="polite">
+                <span
+                  className="rounded-full bg-white/80 px-2 font-titre text-base text-ink"
+                  aria-live="polite"
+                >
                   {formatEuros(surComptoir)}
                 </span>
               )}
             </p>
             {poses.length === 0 && (
-              <p className="py-6 text-center text-ink/60">Glisse ou touche les pièces et les billets de la caisse.</p>
+              <p className="py-6 text-center text-ink/60">
+                Glisse ou touche les pièces et les billets de la caisse.
+              </p>
             )}
             <div className="flex flex-wrap items-center gap-1.5">
               <AnimatePresence initial={false}>
@@ -313,7 +343,12 @@ export default function Epicerie(props: GameProps) {
             ))}
           </div>
           <div className="flex w-full flex-wrap justify-center gap-2">
-            <Button variant="blanc" icon={<RotateCcw aria-hidden />} onClick={() => setPoses([])} disabled={bloque || !poses.length}>
+            <Button
+              variant="blanc"
+              icon={<RotateCcw aria-hidden />}
+              onClick={() => setPoses([])}
+              disabled={bloque || !poses.length}
+            >
               Tout reprendre
             </Button>
             {level === 'normal' && !indiceUtilise && (
@@ -336,7 +371,8 @@ export default function Epicerie(props: GameProps) {
           </div>
           {level === 'plus_loin' && !etat && (
             <p className="text-center text-sm font-bold text-grape-dark">
-              🚀 Défi : utilise le moins de pièces et de billets possible{optimalExige ? ' (obligatoire ici)' : ''}.
+              🚀 Défi : utilise le moins de pièces et de billets possible
+              {optimalExige ? ' (obligatoire ici)' : ''}.
             </p>
           )}
           {etat && (

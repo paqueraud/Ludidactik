@@ -111,7 +111,9 @@ export function lireSuite(item: Item): Suite | null {
   if (item.kind !== 'numeric_answer') return null;
   const s = item.meta?.suite as Record<string, unknown> | undefined;
   if (!s || typeof s !== 'object' || !Array.isArray(s.termes)) return null;
-  const termes = (s.termes as unknown[]).filter((x): x is number => typeof x === 'number' && Number.isFinite(x));
+  const termes = (s.termes as unknown[]).filter(
+    (x): x is number => typeof x === 'number' && Number.isFinite(x),
+  );
   const etape = typeof s.etape === 'number' ? s.etape : NaN;
   if (termes.length < 2 || termes.length !== (s.termes as unknown[]).length) return null;
   if (!Number.isInteger(etape) || etape < 1) return null;

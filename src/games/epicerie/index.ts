@@ -6,7 +6,8 @@ const jeu: GameModule = {
   id: 'epicerie',
   numero: 11,
   titre: 'La Petite Épicerie',
-  description: 'Tiens la caisse ! Paie avec les bonnes pièces et les bons billets, et rends la monnaie aux clients.',
+  description:
+    'Tiens la caisse ! Paie avec les bonnes pièces et les bons billets, et rends la monnaie aux clients.',
   consigne:
     'Bienvenue dans ton épicerie ! Glisse les pièces et les billets de la caisse sur le comptoir, ou touche-les. Pour payer, réunis exactement le prix. Pour rendre la monnaie, compte ce qu’il faut rendre au client. Touche une pièce du comptoir pour la reprendre. Puis valide !',
   icone: '🛒',

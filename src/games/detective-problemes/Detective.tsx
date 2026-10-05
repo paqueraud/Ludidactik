@@ -17,7 +17,15 @@ import { checkNumeric, formatNumber } from '@/engine/answer';
 import type { GameProps } from '@/engine/GameModule';
 import { parNiveau } from '../_kit/session';
 import { ChoiceGrid, Feedback, Hud } from '../_kit/ui';
-import { type Analyse, type Emplacement, aPlacer, analyser, candidatFaux, equations, nombresEnonce } from '../_calcul-commun/barres';
+import {
+  type Analyse,
+  type Emplacement,
+  aPlacer,
+  analyser,
+  candidatFaux,
+  equations,
+  nombresEnonce,
+} from '../_calcul-commun/barres';
 import { aDire } from '../_calcul-commun/tirer';
 import { Bandeau, Bulle, type Champ, EtatVide, SaisieChamps, useManches, vide } from '../_calcul-commun/ui';
 import { Schema } from './Schema';
@@ -73,12 +81,18 @@ function melange<T>(l: T[], graine: number): T[] {
 }
 
 export default function Detective(props: GameProps) {
-  const { level, lectureAuto, speech, sfx, paused } = props;
+  const { level, lectureAuto, speech, sfx, paused, lesson } = props;
+  const ops = lesson.classe === 'CE1' ? OPS.filter((o) => o !== '÷') : [...OPS];
   const reduce = useReducedMotion();
   const jeu = useManches(props, {
     total: parNiveau(level, MANCHES),
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Enquêtes toutes résolues ! 🕵️' : `${b} enquête${b > 1 ? 's' : ''} résolue${b > 1 ? 's' : ''} sur ${t} !` }),
+    fin: (b, t) => ({
+      headline:
+        b === t
+          ? 'Enquêtes toutes résolues ! 🕵️'
+          : `${b} enquête${b > 1 ? 's' : ''} résolue${b > 1 ? 's' : ''} sur ${t} !`,
+    }),
     delaiJuste: 2200,
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
@@ -101,23 +115,39 @@ export default function Detective(props: GameProps) {
 
   const eqs = useMemo(() => (item ? equations(item.operation) : []), [item]);
   const reformulations = useMemo(
-    () => (item?.reformulations ? melange(item.reformulations.map((t, i) => ({ t, bon: i === 0 })), manche * 7) : []),
+    () =>
+      item?.reformulations
+        ? melange(
+            item.reformulations.map((t, i) => ({ t, bon: i === 0 })),
+            manche * 7,
+          )
+        : [],
     [item, manche],
   );
   const candidat = useMemo(() => {
     if (!item) return null;
     const faux = candidatFaux(item);
     if (faux === null) return null;
-    return (manche + item.answer) % 2 === 0 ? { valeur: item.answer, possible: true } : { valeur: faux, possible: false };
+    return (manche + item.answer) % 2 === 0
+      ? { valeur: item.answer, possible: true }
+      : { valeur: faux, possible: false };
   }, [item, manche]);
   const optionsReponse = useMemo(() => {
     if (!item) return [];
-    const autres = [...nombresEnonce(item.statement), ...eqs.map((e) => e.resultat)].filter((x) => x !== item.answer);
+    const autres = [...nombresEnonce(item.statement), ...eqs.map((e) => e.resultat)].filter(
+      (x) => x !== item.answer,
+    );
     const uniq = [...new Set(autres)].slice(0, 2);
-    return melange([item.answer, ...uniq].map((x) => formatNumber(x)), manche * 3 + 1);
+    return melange(
+      [item.answer, ...uniq].map((x) => formatNumber(x)),
+      manche * 3 + 1,
+    );
   }, [item, eqs, manche]);
 
-  const phaseApresModele = useCallback((): Phase => (level !== 'facile' && candidat ? 'possible' : 'calculer'), [level, candidat]);
+  const phaseApresModele = useCallback(
+    (): Phase => (level !== 'facile' && candidat ? 'possible' : 'calculer'),
+    [level, candidat],
+  );
 
   // Nouvelle enquête
   useEffect(() => {
@@ -131,7 +161,12 @@ export default function Detective(props: GameProps) {
     // blocs : un par emplacement à remplir (les parts égales répétées sont aussi à poser)
     const aRemplir = analyse.emplacements.filter((e) => !pre[e.id]);
     setActifs(new Set(aRemplir.map((e) => e.id)));
-    setBlocs(melange(aRemplir.map((e, i) => ({ id: i, texte: e.attendu, pose: false })), manche * 5 + 2));
+    setBlocs(
+      melange(
+        aRemplir.map((e, i) => ({ id: i, texte: e.attendu, pose: false })),
+        manche * 5 + 2,
+      ),
+    );
     setSelection(null);
     setEqIndex(0);
     setEqPhase(level === 'normal' ? 'op' : 'res');
@@ -140,26 +175,29 @@ export default function Detective(props: GameProps) {
     setNote(null);
     setAttente(null);
     setMessage(undefined);
-    setPhase(it.reformulations && it.reformulations.length >= 2 ? 'comprendre' : aRemplir.length ? 'modeliser' : phaseApresModele());
+    setPhase(
+      it.reformulations && it.reformulations.length >= 2
+        ? 'comprendre'
+        : aRemplir.length
+          ? 'modeliser'
+          : phaseApresModele(),
+    );
     if (lectureAuto) void speech.speak(aDire(enonceComplet(it)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exo]);
 
   const bloque = !!etat || paused || fini;
 
-  const passer = useCallback(
-    (p: Phase, texte?: string, ton: 'sun' | 'sky' | 'grape' = 'sky') => {
-      if (texte) {
-        setNote({ texte, ton });
-        setAttente(p);
-      } else {
-        setNote(null);
-        setAttente(null);
-        setPhase(p);
-      }
-    },
-    [],
-  );
+  const passer = useCallback((p: Phase, texte?: string, ton: 'sun' | 'sky' | 'grape' = 'sky') => {
+    if (texte) {
+      setNote({ texte, ton });
+      setAttente(p);
+    } else {
+      setNote(null);
+      setAttente(null);
+      setPhase(p);
+    }
+  }, []);
   const continuerNote = useCallback(() => {
     if (!attente) return;
     setPhase(attente);
@@ -178,7 +216,11 @@ export default function Detective(props: GameProps) {
       passer(suite);
     } else {
       sfx.play('glisse');
-      passer(suite, `Presque ! La bonne façon de raconter l’histoire : « ${reformulations.find((x) => x.bon)?.t} »`, 'sun');
+      passer(
+        suite,
+        `Presque ! La bonne façon de raconter l’histoire : « ${reformulations.find((x) => x.bon)?.t} »`,
+        'sun',
+      );
     }
   };
 
@@ -238,7 +280,7 @@ export default function Detective(props: GameProps) {
   const direct = level === 'plus_loin' || eqs.length === 0;
   const choisirOp = (i: number) => {
     if (bloque || attente || !eq) return;
-    const op = OPS[i]!;
+    const op = ops[i]!;
     if (op === eq.op) {
       sfx.play('pop');
       setEqPhase('res');
@@ -246,7 +288,10 @@ export default function Detective(props: GameProps) {
     } else {
       sfx.play('glisse');
       setErreurCalcul(true);
-      setNote({ texte: `Presque ! Ici, il faut faire ${formatNumber(eq.gauche)} ${eq.op} ${formatNumber(eq.droite)}.`, ton: 'sun' });
+      setNote({
+        texte: `Presque ! Ici, il faut faire ${formatNumber(eq.gauche)} ${eq.op} ${formatNumber(eq.droite)}.`,
+        ton: 'sun',
+      });
       setEqPhase('res');
     }
   };
@@ -301,7 +346,7 @@ export default function Detective(props: GameProps) {
         juste
           ? 'Enquête résolue ! 🕵️'
           : c.correct
-            ? 'Ta phrase est juste, mais il y avait une erreur de calcul en route.'
+            ? 'Ta phrase est juste ! Attention, il y a eu une petite erreur de calcul en route.'
             : undefined,
       );
       setNote(null);
@@ -323,10 +368,19 @@ export default function Detective(props: GameProps) {
     return () => window.removeEventListener('keydown', h);
   }, [attente, bloque, continuerNote]);
 
-  if (!exo || !item) return <EtatVide icone="🕵️" jeu="Le Détective des problèmes" besoin="de problèmes avec un schéma en barre" />;
+  if (!exo || !item)
+    return (
+      <EtatVide icone="🕵️" jeu="Le Détective des problèmes" besoin="de problèmes avec un schéma en barre" />
+    );
 
   const phrase = item.answerSentence.split('___');
-  const etapes = ETAPES.filter((e) => (e.id === 'comprendre' ? !!item.reformulations : e.id === 'possible' ? level !== 'facile' && !!candidat : true));
+  const etapes = ETAPES.filter((e) =>
+    e.id === 'comprendre'
+      ? !!item.reformulations
+      : e.id === 'possible'
+        ? level !== 'facile' && !!candidat
+        : true,
+  );
   const iPhase = etapes.findIndex((e) => e.id === phase);
   const enonceDit = aDire(enonceComplet(item));
   const montrerSchema = phase !== 'comprendre';
@@ -348,7 +402,11 @@ export default function Detective(props: GameProps) {
           <li
             key={e.id}
             className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-sm font-bold ${
-              i === iPhase ? 'bg-grape text-white shadow-pop-sm' : i < iPhase || etat ? 'bg-grass/30' : 'bg-white/70 text-ink-soft'
+              i === iPhase
+                ? 'bg-grape text-white shadow-pop-sm'
+                : i < iPhase || etat
+                  ? 'bg-grass/30'
+                  : 'bg-white/70 text-ink-soft'
             }`}
             aria-current={i === iPhase ? 'step' : undefined}
           >
@@ -389,7 +447,11 @@ export default function Detective(props: GameProps) {
             </motion.div>
           )}
           {phase === 'modeliser' && (
-            <div className="flex flex-wrap items-center justify-center gap-2" role="group" aria-label="Blocs à poser">
+            <div
+              className="flex flex-wrap items-center justify-center gap-2"
+              role="group"
+              aria-label="Blocs à poser"
+            >
               {blocs
                 .filter((b) => !b.pose)
                 .map((b) => (
@@ -429,26 +491,41 @@ export default function Detective(props: GameProps) {
         <section className="carte flex min-w-0 flex-col items-center gap-3 p-4">
           {phase === 'comprendre' && (
             <>
-              <p className="text-center font-titre text-xl font-extrabold">🔎 Quelle phrase raconte bien l’histoire ?</p>
-              <ChoiceGrid choices={reformulations.map((r) => r.t)} onPick={comprendre} disabled={bloque || !!attente} />
+              <p className="text-center font-titre text-xl font-extrabold">
+                🔎 Quelle phrase raconte bien l’histoire ?
+              </p>
+              <ChoiceGrid
+                choices={reformulations.map((r) => r.t)}
+                onPick={comprendre}
+                disabled={bloque || !!attente}
+              />
             </>
           )}
           {phase === 'modeliser' && (
             <p className="text-center font-titre text-xl font-extrabold">
               📊 Complète le schéma : touche un bloc, puis la case où il va (ou fais-le glisser).
-              {level === 'facile' && <span className="mt-1 block text-base font-bold text-ink-soft">Le « ? », c’est ce qu’on cherche.</span>}
+              {level === 'facile' && (
+                <span className="mt-1 block text-base font-bold text-ink-soft">
+                  Le « ? », c’est ce qu’on cherche.
+                </span>
+              )}
             </p>
           )}
           {phase === 'possible' && candidat && (
             <>
               <p className="text-center font-titre text-xl font-extrabold">
-                🤔 Le détective Hibou, un peu distrait, annonce : « La réponse est {formatNumber(candidat.valeur)} ! » Est-ce possible ?
+                🤔 Le détective Hibou, un peu distrait, annonce : « La réponse est{' '}
+                {formatNumber(candidat.valeur)} ! » Est-ce possible ?
               </p>
               <SpeakButton
                 text={`Le détective Hibou annonce : la réponse est ${aDire(formatNumber(candidat.valeur))}. Est-ce possible ?`}
                 label="Écouter la question"
               />
-              <ChoiceGrid choices={['Oui, c’est possible', 'Non, impossible']} onPick={possible} disabled={bloque || !!attente} />
+              <ChoiceGrid
+                choices={['Oui, c’est possible', 'Non, impossible']}
+                onPick={possible}
+                disabled={bloque || !!attente}
+              />
             </>
           )}
           {phase === 'calculer' && (
@@ -462,19 +539,27 @@ export default function Detective(props: GameProps) {
                       🧮 Calcul {eqs.length > 1 ? `${eqIndex + 1} / ${eqs.length}` : ''}
                     </p>
                     <p className="font-titre text-4xl font-extrabold" aria-live="polite">
-                      {formatNumber(eq.gauche)} {level === 'normal' && eqPhase === 'op' ? '?' : eq.op} {formatNumber(eq.droite)} = ?
+                      {formatNumber(eq.gauche)} {level === 'normal' && eqPhase === 'op' ? '?' : eq.op}{' '}
+                      {formatNumber(eq.droite)} = ?
                     </p>
                     {level === 'normal' && eqPhase === 'op' && (
                       <>
                         <p className="font-bold">Quelle opération ?</p>
-                        <ChoiceGrid choices={[...OPS]} onPick={choisirOp} disabled={bloque || !!attente} />
+                        <ChoiceGrid choices={ops} onPick={choisirOp} disabled={bloque || !!attente} />
                       </>
                     )}
                   </>
                 )
               )}
               {(direct || eqPhase === 'res') && !attente && (
-                <SaisieChamps champs={CHAMP} valeurs={saisie} onChange={setSaisie} onValider={validerCalcul} disabled={bloque || !!attente} decimal />
+                <SaisieChamps
+                  champs={CHAMP}
+                  valeurs={saisie}
+                  onChange={setSaisie}
+                  onValider={validerCalcul}
+                  disabled={bloque || !!attente}
+                  decimal
+                />
               )}
             </>
           )}
@@ -482,7 +567,11 @@ export default function Detective(props: GameProps) {
             <>
               <p className="text-center font-titre text-xl font-extrabold">✍️ Complète la phrase-réponse :</p>
               <div className="flex items-center gap-2">
-                <SpeakButton text={aDire(item.answerSentence.replace('___', 'combien'))} label="Écouter la phrase" size={40} />
+                <SpeakButton
+                  text={aDire(item.answerSentence.replace('___', 'combien'))}
+                  label="Écouter la phrase"
+                  size={40}
+                />
                 <p className="text-center text-xl font-bold">
                   {phrase[0]}
                   <span className="mx-1 inline-block min-w-[3ch] rounded-lg border-4 border-dashed border-sky px-2 text-center">
@@ -502,7 +591,11 @@ export default function Detective(props: GameProps) {
                     decimal
                   />
                 ) : (
-                  <ChoiceGrid choices={optionsReponse} onPick={(i) => terminer(optionsReponse[i] ?? '')} disabled={bloque || !!attente} />
+                  <ChoiceGrid
+                    choices={optionsReponse}
+                    onPick={(i) => terminer(optionsReponse[i] ?? '')}
+                    disabled={bloque || !!attente}
+                  />
                 ))}
             </>
           )}
@@ -527,7 +620,11 @@ export default function Detective(props: GameProps) {
                 <Feedback
                   state={etat}
                   message={message}
-                  expected={etat === 'faux' ? `${formatNumber(item.answer)}${item.unit ? ` ${item.unit}` : ''} (${item.operation})` : undefined}
+                  expected={
+                    etat === 'faux'
+                      ? `${formatNumber(item.answer)}${item.unit ? ` ${item.unit}` : ''} (${item.operation})`
+                      : undefined
+                  }
                   explication={etat === 'faux' ? item.explication : undefined}
                   onContinue={suivant}
                 />

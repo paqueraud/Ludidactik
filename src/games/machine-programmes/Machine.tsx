@@ -17,7 +17,14 @@ import { checkNumeric, formatNumber } from '@/engine/answer';
 import type { GameProps } from '@/engine/GameModule';
 import { parNiveau } from '../_kit/session';
 import { Feedback, Hud } from '../_kit/ui';
-import { type Programme, type Suite, inverse, lireProgramme, lireSuite, texteEtape } from '../_calcul-commun/programme';
+import {
+  type Programme,
+  type Suite,
+  inverse,
+  lireProgramme,
+  lireSuite,
+  texteEtape,
+} from '../_calcul-commun/programme';
 import { aDire } from '../_calcul-commun/tirer';
 import { Bandeau, Bulle, type Champ, EtatVide, SaisieChamps, useManches, vide } from '../_calcul-commun/ui';
 import { Engrenage } from './Engrenage';
@@ -26,7 +33,9 @@ const MANCHES: Record<Level, number> = { facile: 6, normal: 8, plus_loin: 10 };
 const CHAMP: Champ[] = [{ cle: 'r', nom: 'nombre', max: 9 }];
 const COULEURS = ['#FFD45C', '#4FC3F7', '#FF7A6B', '#7BD389'];
 
-type Exo = { item: NumericItem; prog: Programme; suite?: undefined } | { item: NumericItem; suite: Suite; prog?: undefined };
+type Exo =
+  | { item: NumericItem; prog: Programme; suite?: undefined }
+  | { item: NumericItem; suite: Suite; prog?: undefined };
 const convertir = (it: Item): Exo | null => {
   if (it.kind !== 'numeric_answer') return null;
   const prog = lireProgramme(it);
@@ -41,7 +50,12 @@ export default function Machine(props: GameProps) {
   const jeu = useManches(props, {
     total: parNiveau(level, MANCHES),
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Ingénieur des machines ! ⚙️' : `${b} machine${b > 1 ? 's' : ''} réparée${b > 1 ? 's' : ''} sur ${t} !` }),
+    fin: (b, t) => ({
+      headline:
+        b === t
+          ? 'Ingénieur des machines ! ⚙️'
+          : `${b} machine${b > 1 ? 's' : ''} réparée${b > 1 ? 's' : ''} sur ${t} !`,
+    }),
     delaiJuste: 1600,
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
@@ -55,7 +69,9 @@ export default function Machine(props: GameProps) {
     if (!prog) return [];
     const n = prog.valeurs.length;
     if (!pasAPas) return [prog.inconnue === 'sortie' ? n - 1 : 0];
-    return prog.inconnue === 'sortie' ? Array.from({ length: n - 1 }, (_, i) => i + 1) : Array.from({ length: n - 1 }, (_, i) => n - 2 - i);
+    return prog.inconnue === 'sortie'
+      ? Array.from({ length: n - 1 }, (_, i) => i + 1)
+      : Array.from({ length: n - 1 }, (_, i) => n - 2 - i);
   }, [prog, pasAPas]);
 
   const [pos, setPos] = useState(0);
@@ -116,22 +132,40 @@ export default function Machine(props: GameProps) {
     }
     const juste = c.correct && erreurs === 0;
     setNote(null);
-    setMessage(c.correct ? (erreurs ? 'Bon résultat final ! Attention aux étapes.' : 'La machine fonctionne parfaitement !') : undefined);
+    setMessage(
+      c.correct
+        ? erreurs
+          ? 'Bon résultat final ! Attention aux étapes.'
+          : 'La machine fonctionne parfaitement !'
+        : undefined,
+    );
     setMontres(new Set(prog.valeurs.map((_, i) => i)));
     repondre(juste, saisie.r, formatNumber(exo.item.answer));
   }, [exo, bloque, saisie, suite, prog, ordre, pos, erreurs, sfx, repondre]);
 
-  if (!exo) return <EtatVide icone="⚙️" jeu="La Machine à programmes" besoin="de programmes de calcul ou de suites de motifs" />;
+  if (!exo)
+    return (
+      <EtatVide
+        icone="⚙️"
+        jeu="La Machine à programmes"
+        besoin="de programmes de calcul ou de suites de motifs"
+      />
+    );
 
   const { item } = exo;
   const chaine = prog ? prog.valeurs.map((v) => formatNumber(v)).join(' → ') : '';
   const cibleCourante = prog ? ordre[pos] : undefined;
   const indiceTexte = prog
     ? prog.inconnue === 'entree'
-      ? `On remonte la machine en faisant les opérations inverses : ${[...prog.etapes].reverse().map((e) => texteEtape(inverse(e))).join(', puis ')}.`
+      ? `On remonte la machine en faisant les opérations inverses : ${[...prog.etapes]
+          .reverse()
+          .map((e) => texteEtape(inverse(e)))
+          .join(', puis ')}.`
       : `Fais les calculs dans l’ordre : ${prog.etapes.map(texteEtape).join(', puis ')}.`
     : suite?.ecart !== null && suite?.ecart !== undefined
-      ? `À chaque étape, on ajoute ${formatNumber(suite.ecart)}.`
+      ? suite.ecart >= 0
+        ? `À chaque étape, on ajoute ${formatNumber(suite.ecart)}.`
+        : `À chaque étape, on enlève ${formatNumber(-suite.ecart)}.`
       : 'Regarde comment on passe d’une étape à la suivante.';
 
   return (
@@ -164,9 +198,15 @@ export default function Machine(props: GameProps) {
                     } ${enCours ? 'border-grape ring-4 ring-grape/30' : connu ? 'border-grass/60' : 'border-dashed border-ink/30'}`}
                     aria-label={`${estEntree ? 'Entrée' : estSortie ? 'Sortie' : `Après l’étape ${i}`} : ${connu ? formatNumber(v) : 'inconnu'}`}
                   >
-                    <span className="text-sm font-bold text-ink-soft">{estEntree ? 'Entrée' : estSortie ? 'Sortie' : ''}</span>
+                    <span className="text-sm font-bold text-ink-soft">
+                      {estEntree ? 'Entrée' : estSortie ? 'Sortie' : ''}
+                    </span>
                     {connu ? (
-                      <motion.span key={`v${i}`} initial={reduce ? false : { scale: 0.3 }} animate={{ scale: 1 }}>
+                      <motion.span
+                        key={`v${i}`}
+                        initial={reduce ? false : { scale: 0.3 }}
+                        animate={{ scale: 1 }}
+                      >
                         {formatNumber(v)}
                       </motion.span>
                     ) : enCours ? (
@@ -186,10 +226,17 @@ export default function Machine(props: GameProps) {
                         tourne={(tourne === i || (etat === 'juste' && !reduce)) && !paused}
                         sens={i % 2 === 0 ? 1 : -1}
                         taille={84}
-                        actif={cibleCourante !== undefined && (prog.inconnue === 'sortie' ? cibleCourante - 1 === i : cibleCourante === i) && !etat}
+                        actif={
+                          cibleCourante !== undefined &&
+                          (prog.inconnue === 'sortie' ? cibleCourante - 1 === i : cibleCourante === i) &&
+                          !etat
+                        }
                       />
                       {prog.inconnue === 'entree' && (indice || etat) && (
-                        <span className="rounded-full bg-grape px-2 py-0.5 font-titre text-lg font-bold text-white" title="opération inverse">
+                        <span
+                          className="rounded-full bg-grape px-2 py-0.5 font-titre text-lg font-bold text-white"
+                          title="opération inverse"
+                        >
                           ↑ {texteEtape(inverse(prog.etapes[i]!))}
                         </span>
                       )}
@@ -230,11 +277,24 @@ export default function Machine(props: GameProps) {
             </Bulle>
           )}
           {level === 'normal' && !indice && !etat && (
-            <Button variant="sun" icon={<Lightbulb aria-hidden />} onClick={() => setIndice(true)} disabled={bloque}>
+            <Button
+              variant="sun"
+              icon={<Lightbulb aria-hidden />}
+              onClick={() => setIndice(true)}
+              disabled={bloque}
+            >
               Indice
             </Button>
           )}
-          <SaisieChamps champs={CHAMP} valeurs={saisie} onChange={setSaisie} onValider={valider} disabled={bloque} etat={etat} decimal />
+          <SaisieChamps
+            champs={CHAMP}
+            valeurs={saisie}
+            onChange={setSaisie}
+            onValider={valider}
+            disabled={bloque}
+            etat={etat}
+            decimal
+          />
           <AnimatePresence>
             {etat && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full">
@@ -242,7 +302,9 @@ export default function Machine(props: GameProps) {
                   state={etat}
                   message={message}
                   expected={etat === 'faux' ? formatNumber(item.answer) : undefined}
-                  explication={etat === 'faux' ? `${item.explication}${prog ? ` (${chaine})` : ''}` : undefined}
+                  explication={
+                    etat === 'faux' ? `${item.explication}${prog ? ` (${chaine})` : ''}` : undefined
+                  }
                   onContinue={suivant}
                 />
               </motion.div>
@@ -255,7 +317,15 @@ export default function Machine(props: GameProps) {
 }
 
 /** Les motifs d'une suite : des tas de cubes qui grandissent (ou des cartes si les nombres sont grands). */
-function Motifs({ suite, montrerEcarts, reponse }: { suite: Suite; montrerEcarts: boolean; reponse: number | null }) {
+function Motifs({
+  suite,
+  montrerEcarts,
+  reponse,
+}: {
+  suite: Suite;
+  montrerEcarts: boolean;
+  reponse: number | null;
+}) {
   const entiers = suite.termes.every((t) => Number.isInteger(t) && t >= 0 && t <= 30);
   const saut = suite.etape > suite.termes.length + 1;
   return (
@@ -275,7 +345,9 @@ function Motifs({ suite, montrerEcarts, reponse }: { suite: Suite; montrerEcarts
                 ))}
               </div>
             ) : null}
-            <span className="rounded-xl bg-white px-2 font-titre text-xl font-extrabold">{formatNumber(t)}</span>
+            <span className="rounded-xl bg-white px-2 font-titre text-xl font-extrabold">
+              {formatNumber(t)}
+            </span>
             <span className="text-xs font-bold text-ink-soft">étape {i + 1}</span>
           </div>
         </Fragment>

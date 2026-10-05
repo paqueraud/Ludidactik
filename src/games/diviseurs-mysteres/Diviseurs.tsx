@@ -30,14 +30,30 @@ const convertir = (it: Item): ClassificationItem | null => (itemDiviseurs(it) ? 
 
 function Oeuf({ texte, couleur, taille = 64 }: { texte: string; couleur: string; taille?: number }) {
   return (
-    <span className="relative inline-flex items-center justify-center" style={{ width: taille, height: taille * 1.22 }}>
+    <span
+      className="relative inline-flex items-center justify-center"
+      style={{ width: taille, height: taille * 1.22 }}
+    >
       <svg viewBox="0 0 60 74" className="absolute inset-0 h-full w-full" aria-hidden>
         <ellipse cx="30" cy="70" rx="18" ry="3" fill="rgb(0 0 0 / 0.15)" />
-        <path d="M30 2 C 50 2 58 34 58 46 C 58 62 46 72 30 72 C 14 72 2 62 2 46 C 2 34 10 2 30 2 Z" fill={couleur} stroke="rgb(0 0 0 / 0.15)" strokeWidth="2" />
-        <path d="M6 40 q 6 -6 12 0 t 12 0 t 12 0 t 12 0" stroke="#fff" strokeWidth="3" fill="none" opacity="0.7" />
+        <path
+          d="M30 2 C 50 2 58 34 58 46 C 58 62 46 72 30 72 C 14 72 2 62 2 46 C 2 34 10 2 30 2 Z"
+          fill={couleur}
+          stroke="rgb(0 0 0 / 0.15)"
+          strokeWidth="2"
+        />
+        <path
+          d="M6 40 q 6 -6 12 0 t 12 0 t 12 0 t 12 0"
+          stroke="#fff"
+          strokeWidth="3"
+          fill="none"
+          opacity="0.7"
+        />
         <ellipse cx="20" cy="20" rx="6" ry="10" fill="#fff" opacity="0.35" transform="rotate(20 20 20)" />
       </svg>
-      <span className="relative mt-3 rounded-full bg-white/90 px-1.5 font-titre text-lg font-extrabold leading-tight text-ink">{texte}</span>
+      <span className="relative mt-3 rounded-full bg-white/90 px-1.5 font-titre text-lg font-extrabold leading-tight text-ink">
+        {texte}
+      </span>
     </span>
   );
 }
@@ -55,7 +71,12 @@ export default function Diviseurs(props: GameProps) {
   const jeu = useManches(props, {
     total: parNiveau(level, MANCHES),
     convertir,
-    fin: (b, t) => ({ headline: b === t ? 'Chasse aux œufs parfaite ! 🥚' : `${b} jardin${b > 1 ? 's' : ''} parfait${b > 1 ? 's' : ''} sur ${t} !` }),
+    fin: (b, t) => ({
+      headline:
+        b === t
+          ? 'Chasse aux œufs parfaite ! 🥚'
+          : `${b} jardin${b > 1 ? 's' : ''} parfait${b > 1 ? 's' : ''} sur ${t} !`,
+    }),
     delaiJuste: 1800,
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
@@ -96,7 +117,10 @@ export default function Diviseurs(props: GameProps) {
   useEffect(() => {
     if (level !== 'plus_loin' || !item || etat || paused || fini) return;
     const debut = performance.now() - (1 - soleil) * DUREE_SOLEIL_MS;
-    const t = setInterval(() => setSoleil(Math.max(0, 1 - (performance.now() - debut) / DUREE_SOLEIL_MS)), 250);
+    const t = setInterval(
+      () => setSoleil(Math.max(0, 1 - (performance.now() - debut) / DUREE_SOLEIL_MS)),
+      250,
+    );
     return () => clearInterval(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [level, item, etat, paused, fini]);
@@ -113,7 +137,9 @@ export default function Diviseurs(props: GameProps) {
       if (bon !== panier) {
         corriges.add(oeuf);
         sfx.play('glisse');
-        setNote(`Presque ! ${item.elements[oeuf]!.label} va dans « ${item.categories[bon]} ». ${item.explication}`);
+        setNote(
+          `Presque ! ${item.elements[oeuf]!.label} va dans « ${item.categories[bon]} ». ${item.explication}`,
+        );
       } else {
         sfx.play('pop');
         setNote(null);
@@ -126,7 +152,11 @@ export default function Diviseurs(props: GameProps) {
         const donne = juste
           ? 'tous bien rangés'
           : `mal rangés : ${[...corriges].map((i) => item.elements[i]!.label).join(', ')}`;
-        repondre(juste, donne, item.elements.map((e) => `${e.label} → ${item.categories[e.category]}`).join(' ; '));
+        repondre(
+          juste,
+          donne,
+          item.elements.map((e) => `${e.label} → ${item.categories[e.category]}`).join(' ; '),
+        );
       }
     },
     [item, bloque, st, sfx, level, soleil, repondre],
@@ -147,7 +177,14 @@ export default function Diviseurs(props: GameProps) {
     return () => window.removeEventListener('keydown', h);
   }, [item, bloque, selection, ranger]);
 
-  if (!item) return <EtatVide icone="🥚" jeu="Les Diviseurs mystères" besoin="de nombres à ranger (divisibilité, diviseurs, multiples)" />;
+  if (!item)
+    return (
+      <EtatVide
+        icone="🥚"
+        jeu="Les Diviseurs mystères"
+        besoin="de nombres à ranger (divisibilité, diviseurs, multiples)"
+      />
+    );
 
   const restants = ordre.filter((i) => st.places[i] === null);
 
@@ -183,7 +220,12 @@ export default function Diviseurs(props: GameProps) {
           </Bulle>
         )}
         {level === 'normal' && !indice && !etat && (
-          <Button variant="sun" icon={<Lightbulb aria-hidden />} onClick={() => setIndice(true)} disabled={bloque}>
+          <Button
+            variant="sun"
+            icon={<Lightbulb aria-hidden />}
+            onClick={() => setIndice(true)}
+            disabled={bloque}
+          >
             Indice
           </Button>
         )}
@@ -199,13 +241,21 @@ export default function Diviseurs(props: GameProps) {
           <div
             className="absolute right-4 transition-all"
             style={{ top: `${4 + (1 - soleil) * 40}px`, opacity: 0.4 + soleil * 0.6 }}
-            aria-label={soleil > 0 ? 'Le soleil se couche : range vite pour un bonus !' : 'C’est la nuit, prends ton temps'}
+            aria-label={
+              soleil > 0
+                ? 'Le soleil se couche : range vite pour un bonus !'
+                : 'C’est la nuit, prends ton temps'
+            }
             role="img"
           >
             <span className="text-4xl">{soleil > 0 ? '☀️' : '🌙'}</span>
           </div>
         )}
-        <div className="flex min-h-[150px] flex-wrap items-end justify-center gap-x-3 gap-y-1 px-3 pb-3 pt-12" role="group" aria-label="Œufs cachés">
+        <div
+          className="flex min-h-[150px] flex-wrap items-end justify-center gap-x-3 gap-y-1 px-3 pb-3 pt-12"
+          role="group"
+          aria-label="Œufs cachés"
+        >
           <AnimatePresence>
             {restants.map((i, k) => (
               <motion.button
@@ -240,10 +290,18 @@ export default function Diviseurs(props: GameProps) {
               </motion.button>
             ))}
           </AnimatePresence>
-          {restants.length === 0 && <p className="py-6 font-titre text-xl font-bold text-white drop-shadow">Tous les œufs sont rangés !</p>}
+          {restants.length === 0 && (
+            <p className="py-6 font-titre text-xl font-bold text-white drop-shadow">
+              Tous les œufs sont rangés !
+            </p>
+          )}
         </div>
         {/* Les paniers */}
-        <div className="flex flex-wrap items-stretch justify-center gap-2 bg-[#5DAE53]/60 p-2" role="group" aria-label="Paniers">
+        <div
+          className="flex flex-wrap items-stretch justify-center gap-2 bg-[#5DAE53]/60 p-2"
+          role="group"
+          aria-label="Paniers"
+        >
           {item.categories.map((c, p) => {
             const dedans = ordre.filter((i) => st.places[i] === p);
             return (
@@ -256,7 +314,9 @@ export default function Diviseurs(props: GameProps) {
                 onClick={() => selection !== null && ranger(selection, p)}
                 disabled={bloque || selection === null}
                 className={`flex min-h-[110px] min-w-[140px] max-w-[220px] flex-1 flex-col items-center justify-between rounded-2xl border-4 p-2 transition-transform disabled:cursor-default ${
-                  selection !== null && !bloque ? 'border-sun ring-4 ring-sun/40 hover:scale-[1.03]' : 'border-white/70'
+                  selection !== null && !bloque
+                    ? 'border-sun ring-4 ring-sun/40 hover:scale-[1.03]'
+                    : 'border-white/70'
                 }`}
                 style={{
                   background: `repeating-linear-gradient(45deg, rgb(0 0 0 / 0.1) 0 6px, transparent 6px 12px), repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.1) 0 6px, transparent 6px 12px), ${PANIERS[p % PANIERS.length]}`,
@@ -270,7 +330,11 @@ export default function Diviseurs(props: GameProps) {
                 <span className="mt-1 flex flex-wrap justify-center gap-1">
                   {dedans.map((i) => (
                     <span key={i} className={`rounded-full ${st.corriges.has(i) ? 'ring-4 ring-coral' : ''}`}>
-                      <Oeuf texte={item.elements[i]!.label} couleur={COULEURS_OEUFS[i % COULEURS_OEUFS.length]!} taille={38} />
+                      <Oeuf
+                        texte={item.elements[i]!.label}
+                        couleur={COULEURS_OEUFS[i % COULEURS_OEUFS.length]!}
+                        taille={38}
+                      />
                     </span>
                   ))}
                 </span>
@@ -292,7 +356,11 @@ export default function Diviseurs(props: GameProps) {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="carte w-full p-4">
               <Feedback
                 state={etat}
-                message={etat === 'juste' ? 'Tous les œufs sont dans le bon panier ! 🧺' : `Presque ! ${st.corriges.size} œuf${st.corriges.size > 1 ? 's' : ''} à revoir (entouré${st.corriges.size > 1 ? 's' : ''} en rouge).`}
+                message={
+                  etat === 'juste'
+                    ? 'Tous les œufs sont dans le bon panier ! 🧺'
+                    : `Presque ! ${st.corriges.size} œuf${st.corriges.size > 1 ? 's' : ''} à revoir (entouré${st.corriges.size > 1 ? 's' : ''} en rouge).`
+                }
                 explication={etat === 'faux' ? item.explication : undefined}
                 onContinue={suivant}
               />

@@ -97,14 +97,33 @@ export function Tablette({
         const on = pris[i] ?? false;
         return (
           <g key={i}>
-            <rect x={x + 2} y={y + 2} width={CASE - 4} height={CASE - 4} rx="5" fill={on ? couleur : '#7B4A2E'} />
+            <rect
+              x={x + 2}
+              y={y + 2}
+              width={CASE - 4}
+              height={CASE - 4}
+              rx="5"
+              fill={on ? couleur : '#7B4A2E'}
+            />
             {/* biseau */}
             <path
               d={`M${x + 2} ${y + CASE - 2} L${x + 8} ${y + CASE - 8} L${x + CASE - 8} ${y + CASE - 8} L${x + CASE - 2} ${y + CASE - 2} Z`}
               fill="rgb(0 0 0 / 0.25)"
             />
-            <path d={`M${x + 2} ${y + 2} L${x + 8} ${y + 8} L${x + CASE - 8} ${y + 8} L${x + CASE - 2} ${y + 2} Z`} fill="rgb(255 255 255 / 0.18)" />
-            {on && <path d={`M${x + 10} ${y + 12} l6 -3 l4 4`} stroke="#fff" strokeWidth="2" fill="none" opacity="0.7" strokeLinecap="round" />}
+            <path
+              d={`M${x + 2} ${y + 2} L${x + 8} ${y + 8} L${x + CASE - 8} ${y + 8} L${x + CASE - 2} ${y + 2} Z`}
+              fill="rgb(255 255 255 / 0.18)"
+            />
+            {on && (
+              <path
+                d={`M${x + 10} ${y + 12} l6 -3 l4 4`}
+                stroke="#fff"
+                strokeWidth="2"
+                fill="none"
+                opacity="0.7"
+                strokeLinecap="round"
+              />
+            )}
           </g>
         );
       })}

@@ -34,9 +34,16 @@ export const EX_GLISSE: Item[] = [
   num('gl1', '35 × 10', '35 fois 10', 350, 'Multiplier par 10 : chaque chiffre monte d’un rang.', {
     glisse: { nombre: 35, operation: '×', facteur: 10 },
   }),
-  num('gl2', '4,2 × 100', '4 virgule 2 fois 100', 420, 'Multiplier par 100 : chaque chiffre monte de 2 rangs.', {
-    glisse: { nombre: 4.2, operation: '×', facteur: 100 },
-  }),
+  num(
+    'gl2',
+    '4,2 × 100',
+    '4 virgule 2 fois 100',
+    420,
+    'Multiplier par 100 : chaque chiffre monte de 2 rangs.',
+    {
+      glisse: { nombre: 4.2, operation: '×', facteur: 100 },
+    },
+  ),
   num(
     'gl3',
     '56 ÷ 1 000',
@@ -59,23 +66,51 @@ export const EX_GLISSE: Item[] = [
 
 /** Grand Huit : `meta.posee` (et `meta.termes` pour l'addition de plusieurs nombres). */
 export const EX_POSEE: Item[] = [
-  num('po1', '347 + 285', '347 plus 285', 632, 'On additionne colonne par colonne, sans oublier les retenues.', {
-    posee: { a: 347, b: 285, op: '+' },
-    termes: [347, 285],
-  }),
-  num('po2', '503 − 278', '503 moins 278', 225, 'Quand il n’y a pas assez en haut, on casse une dizaine ou une centaine.', {
-    posee: { a: 503, b: 278, op: '−' },
-    algorithme: 'cassage',
-  }),
-  num('po3', '146 × 23', '146 fois 23', 3358, 'On multiplie par 3, puis par 20, et on additionne les deux lignes.', {
-    posee: { a: 146, b: 23, op: '×' },
-  }),
+  num(
+    'po1',
+    '347 + 285',
+    '347 plus 285',
+    632,
+    'On additionne colonne par colonne, sans oublier les retenues.',
+    {
+      posee: { a: 347, b: 285, op: '+' },
+      termes: [347, 285],
+    },
+  ),
+  num(
+    'po2',
+    '503 − 278',
+    '503 moins 278',
+    225,
+    'Quand il n’y a pas assez en haut, on casse une dizaine ou une centaine.',
+    {
+      posee: { a: 503, b: 278, op: '−' },
+      algorithme: 'cassage',
+    },
+  ),
+  num(
+    'po3',
+    '146 × 23',
+    '146 fois 23',
+    3358,
+    'On multiplie par 3, puis par 20, et on additionne les deux lignes.',
+    {
+      posee: { a: 146, b: 23, op: '×' },
+    },
+  ),
   num('po4', '175 ÷ 4', '175 divisé par 4', 43, 'Dans 17, 4 fois 4 ; dans 15, 3 fois 4, il reste 3.', {
     posee: { a: 175, b: 4, op: '÷' },
   }),
-  num('po5', '125 + 68 + 207', '125 plus 68 plus 207', 400, 'On additionne les trois nombres colonne par colonne.', {
-    termes: [125, 68, 207],
-  }),
+  num(
+    'po5',
+    '125 + 68 + 207',
+    '125 plus 68 plus 207',
+    400,
+    'On additionne les trois nombres colonne par colonne.',
+    {
+      termes: [125, 68, 207],
+    },
+  ),
   num(
     'po6',
     '3,6 × 4',
@@ -98,9 +133,16 @@ export const EX_POSEE: Item[] = [
 
 /** Machine à programmes de calcul : `meta.programme` et `meta.suite`. */
 export const EX_PROGRAMME: Item[] = [
-  num('pr1', 'Programme : 4 → × 3 → + 5', 'Choisis 4, multiplie par 3, ajoute 5.', 17, '4 × 3 = 12, puis 12 + 5 = 17.', {
-    programme: { etapes: ['× 3', '+ 5'], entree: 4, sortie: null },
-  }),
+  num(
+    'pr1',
+    'Programme : 4 → × 3 → + 5',
+    'Choisis 4, multiplie par 3, ajoute 5.',
+    17,
+    '4 × 3 = 12, puis 12 + 5 = 17.',
+    {
+      programme: { etapes: ['× 3', '+ 5'], entree: 4, sortie: null },
+    },
+  ),
   num(
     'pr2',
     'Programme : ? → × 2 → − 3 → 15',
@@ -233,7 +275,8 @@ export const EX_AUTRES: Item[] = [
     kind: 'money',
     id: 'mo1',
     lessonId: L,
-    prompt: 'Le client achète pour 13,40 € et donne 20 €. Rends la monnaie avec le moins de pièces et de billets possible.',
+    prompt:
+      'Le client achète pour 13,40 € et donne 20 €. Rends la monnaie avec le moins de pièces et de billets possible.',
     task: 'rendre',
     priceCents: 1340,
     givenCents: 2000,
@@ -251,7 +294,8 @@ export const EX_AUTRES: Item[] = [
     minutes: 42,
     seconds: 30,
     answerText: '10 h 42 min 30 s',
-    explication: 'La petite aiguille a dépassé le 10, la grande est entre le 8 et le 9 : 42 minutes ; la trotteuse sur le 6 : 30 secondes.',
+    explication:
+      'La petite aiguille a dépassé le 10, la grande est entre le 8 et le 9 : 42 minutes ; la trotteuse sur le 6 : 30 secondes.',
   },
   {
     kind: 'clock',
@@ -292,7 +336,8 @@ export const EX_AUTRES: Item[] = [
     kind: 'bar_model',
     id: 'bm1',
     lessonId: L,
-    statement: 'Dans l’école, il y a 257 filles et 211 garçons. Combien y a-t-il de filles de plus que de garçons ?',
+    statement:
+      'Dans l’école, il y a 257 filles et 211 garçons. Combien y a-t-il de filles de plus que de garçons ?',
     structure: 'comparaison',
     bars: [
       { label: 'Filles', segments: [{ value: 257 }] },
