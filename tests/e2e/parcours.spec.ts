@@ -35,7 +35,14 @@ async function creerProfil(page: Page, prenom: string, classe: 'CE1' | 'CM2') {
   await expect(page).toHaveURL(/\/jouer$/);
 }
 
-async function ouvrirJeu(page: Page, classe: string, matiere: RegExp, lecon: RegExp, jeu: RegExp, niveau: RegExp) {
+async function ouvrirJeu(
+  page: Page,
+  classe: string,
+  matiere: RegExp,
+  lecon: RegExp,
+  jeu: RegExp,
+  niveau: RegExp,
+) {
   await page.getByRole('button', { name: classe, exact: false }).first().click();
   await page.getByRole('button', { name: matiere }).click();
   await page.getByRole('button', { name: lecon }).first().click();
@@ -79,7 +86,17 @@ test.describe('parcours principal', () => {
     await page.keyboard.press('Enter');
     const juste = await page.locator('span.text-grass-dark.font-titre').first().textContent();
     expect(juste).toBeTruthy();
-    await page.keyboard.type(juste!);
+    // recopie avec le clavier à l'écran (lettres accentuées comprises)
+    for (const ch of juste!) {
+      if (ch === "'") await page.getByRole('button', { name: 'apostrophe' }).click();
+      else if (ch === '-') await page.getByRole('button', { name: 'trait d’union' }).click();
+      else if (ch === ' ') await page.getByRole('button', { name: 'espace' }).click();
+      else
+        await page
+          .getByRole('group', { name: 'Clavier' })
+          .getByRole('button', { name: ch, exact: true })
+          .click();
+    }
     await page.keyboard.press('Enter');
     await expect(page.getByText(/Écris le mot que tu entends/)).toBeVisible();
     await expect(page.getByText('Camp 0 / 12')).toBeVisible();

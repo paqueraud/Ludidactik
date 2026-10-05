@@ -134,6 +134,15 @@ function MatieresInner({
   const progress = useProgress(profile.id);
   return (
     <Screen titre={`${classe} : choisis une matière`} retour="/jouer">
+      <Link
+        to="/jeux"
+        className="carte mb-4 flex items-center gap-3 bg-gradient-to-r from-grape/40 to-sky/40 p-4 font-titre text-xl font-bold"
+      >
+        <span className="text-3xl" aria-hidden>
+          🎮
+        </span>
+        La salle de jeux : tous les jeux pour réviser
+      </Link>
       {profile.enCours.length > 0 && (
         <Link
           to={`/jouer/${classe}/en-cours`}

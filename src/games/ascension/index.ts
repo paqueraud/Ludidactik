@@ -1,8 +1,9 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
 
-export const ascension: GameModule = {
+const jeu: GameModule = {
   id: 'ascension',
+  numero: 29,
   titre: "L'Ascension",
   description: 'Écoute le mot, écris-le sans faute et grimpe jusqu’au sommet de la montagne !',
   consigne:
@@ -17,3 +18,5 @@ export const ascension: GameModule = {
   signature: true,
   component: lazy(() => import('./Ascension')),
 };
+
+export default jeu;

@@ -73,7 +73,7 @@ export function Connexion() {
           <SpeakButton text={consigne} size={36} />
         </p>
         {profile.auth.type === 'image' ? (
-          <PicturePassword value={pictos} onChange={setPictos} erreur={erreur} />
+          <PicturePassword value={pictos} onChange={setPictos} erreur={erreur} masque />
         ) : (
           <form
             className="flex w-full max-w-sm flex-col gap-3"

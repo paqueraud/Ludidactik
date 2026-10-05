@@ -34,11 +34,9 @@ for (const e of errors) console.error(`✗ ${e.file} — ${e.message}`);
 if (process.argv.includes('--verbose')) for (const w of warnings) console.warn(`⚠ ${w.file} — ${w.message}`);
 
 const lessons = [...index.lessons.values()];
-const todo = lessons.filter(
-  (l) => l.source.kind === 'generator' && l.source.generator.startsWith('TODO:'),
-).length;
+const todo = warnings.filter((w) => w.message.includes('pas encore de contenu jouable')).length;
 console.log(
-  `\n${Object.keys(files).length} fichiers · ${lessons.length} leçons (${todo} générateurs à écrire) · ` +
+  `\n${Object.keys(files).length} fichiers · ${lessons.length} leçons (${todo} pas encore jouables) · ` +
     `${index.wordLists.length} listes de mots · ${index.questions.length} questions`,
 );
 console.log(

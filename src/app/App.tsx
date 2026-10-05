@@ -7,7 +7,9 @@ import { CreerProfil } from '@/screens/CreerProfil';
 import { MonProfil } from '@/screens/MonProfil';
 import { Parents } from '@/screens/Parents';
 import { ChoixJeu, ChoixNiveau, Classes, Lecons, Matieres } from '@/screens/Parcours';
+import { Labo } from '@/screens/Labo';
 import { Profils } from '@/screens/Profils';
+import { JeuLecons, SalleDeJeux } from '@/screens/SalleDeJeux';
 import { useSettings } from '@/stores/settings';
 
 export function App() {
@@ -30,6 +32,10 @@ export function App() {
         <Route path="/jouer/:classe/:matiere" element={<Lecons />} />
         <Route path="/jouer/:classe/:matiere/:lessonId" element={<ChoixJeu />} />
         <Route path="/jouer/:classe/:matiere/:lessonId/:gameId" element={<ChoixNiveau />} />
+        <Route path="/jeux" element={<SalleDeJeux />} />
+        <Route path="/jeux/:gameId" element={<JeuLecons />} />
+        <Route path="/labo" element={<Labo />} />
+        <Route path="/labo/:gameId" element={<Labo />} />
         <Route path="/partie/:lessonId/:gameId/:level" element={<GameHost />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -53,6 +53,8 @@ export interface GameProps {
 
 export interface GameModule {
   id: string;
+  /** Numéro dans docs/CATALOGUE_JEUX.md (ordre d'affichage). */
+  numero: number;
   titre: string;
   description: string;
   /** Consigne lue à voix haute avant la partie. */
@@ -70,6 +72,8 @@ export interface GameModule {
   /** Nombre minimal d'items distincts pour proposer le jeu. */
   minItems: number;
   filterItem?: ItemFilter;
+  /** Restreint le jeu à certaines leçons (ex. Fusée des compléments → leçons de compléments). */
+  lessons?: (lesson: Lesson) => boolean;
   signature?: boolean;
   component: LazyExoticComponent<FC<GameProps>>;
 }

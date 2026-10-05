@@ -1,8 +1,9 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
 
-export const grandPrix: GameModule = {
+const jeu: GameModule = {
   id: 'grand-prix',
+  numero: 1,
   titre: 'Le Grand Prix',
   description: 'Une course de chevaux : plus tu calcules vite et juste, plus ton cheval galope !',
   consigne:
@@ -18,3 +19,5 @@ export const grandPrix: GameModule = {
   signature: true,
   component: lazy(() => import('./GrandPrix')),
 };
+
+export default jeu;

@@ -3,7 +3,7 @@
  * (fichiers importés par Vite) et par `npm run validate:content` (fichiers lus sur disque).
  */
 import type { z } from 'zod';
-import { CALC_GENERATORS } from './generators/calcul';
+import { CONTENU } from './modules';
 import {
   type Classe,
   type Curriculum,
@@ -85,16 +85,20 @@ function crossCheck(index: ContentIndex, files: RawFiles): ContentIssue[] {
   const issues: ContentIssue[] = [];
   for (const l of index.lessons.values()) {
     const file = `data/curriculum/${l.classe.toLowerCase()}.json`;
-    if (
-      l.source.kind === 'generator' &&
-      !l.source.generator.startsWith('TODO:') &&
-      !CALC_GENERATORS[l.source.generator]
-    )
-      issues.push({
-        file,
-        severity: 'erreur',
-        message: `${l.id} : générateur inconnu « ${l.source.generator} »`,
-      });
+    const jouable =
+      !!CONTENU[l.id] ||
+      l.source.kind === 'parents' ||
+      index.wordLists.some((w) => w.lessonId === l.id) ||
+      index.questions.some((q) => q.lessonId === l.id);
+    if (!jouable)
+      issues.push({ file, severity: 'avertissement', message: `${l.id} : pas encore de contenu jouable` });
+    for (const id of Object.keys(CONTENU))
+      if (!index.lessons.has(id) && l === [...index.lessons.values()][0])
+        issues.push({
+          file: 'src/content/modules',
+          severity: 'erreur',
+          message: `module de contenu pour une leçon inconnue : ${id}`,
+        });
     if (l.source.kind === 'static' && !(l.source.file in files))
       issues.push({ file, severity: 'erreur', message: `${l.id} : fichier source absent ${l.source.file}` });
     if (l.rappel.startsWith('TODO'))

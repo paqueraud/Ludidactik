@@ -167,6 +167,7 @@ export function CreerProfil() {
                   value={pictos2}
                   onChange={setPictos2}
                   erreur={pictos2.length === PICTO_LENGTH && !imageOk}
+                  masque
                 />
               )}
               {pictos2 === null && pictos.length === PICTO_LENGTH && (
