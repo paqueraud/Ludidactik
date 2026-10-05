@@ -1126,7 +1126,7 @@
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Nombres",
-   "titre": "Lire/écrire les nombres (chiffres ↔ lettres ↔ dictée)",
+   "titre": "Lire et écrire les nombres jusqu’à 1 000",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
    "periodes": [
@@ -1143,6 +1143,8 @@
    },
    "itemKinds": [
     "numeric_answer",
+    "mcq",
+    "fill_blank",
     "oral_answer"
    ],
    "jeuxSuggeres": [
@@ -1152,16 +1154,17 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_num_ecrire"
+    "generator": "maths-ce1/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour écrire un nombre en lettres, je le lis par morceaux (les centaines, puis le reste) et je mets des traits d’union entre tous les mots : six-cent-trente-cinq.",
+   "contenus": "Chiffres ↔ lettres ↔ dictée (BO : écrire en chiffres un nombre dicté, lire un nombre et l’écrire en lettres). Orthographe rectifiée de 1990 (traits d’union) et traditionnelle acceptées."
   },
   {
    "id": "CE1.MA.NUM.DECOMP",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Nombres",
-   "titre": "Centaines, dizaines, unités ; décompositions (635 = 6c 3d 5u = 63d 5u = 600+30+5 = 6×100+3×10+5)",
+   "titre": "Centaines, dizaines et unités",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
    "periodes": [
@@ -1177,7 +1180,10 @@
     "plus_loin": "groupements non canoniques (17 u, 8 d, 2 c)"
    },
    "itemKinds": [
-    "numeric_answer"
+    "numeric_answer",
+    "fill_blank",
+    "pairing",
+    "mcq"
    ],
    "jeuxSuggeres": [
     "batisseur",
@@ -1185,16 +1191,17 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_num_decomp"
+    "generator": "maths-ce1/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Dans 635, le 6 vaut 6 centaines (600), le 3 vaut 3 dizaines (30) et le 5 vaut 5 unités ; 10 unités font 1 dizaine et 10 dizaines font 1 centaine.",
+   "contenus": "Décompositions : 635 = 6 c 3 d 5 u = 63 d 5 u = 600 + 30 + 5 = (6 × 100) + (3 × 10) + 5 ; écritures dans le désordre ; groupements non canoniques (2 c 27 d 14 u) en plus loin."
   },
   {
    "id": "CE1.MA.NUM.COMPARER",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Nombres",
-   "titre": "Comparer, ranger (≤ 5 nombres), <, >, =, « compris entre »",
+   "titre": "Comparer et ranger les nombres",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
    "periodes": [
@@ -1210,9 +1217,10 @@
     "plus_loin": "≤ 10 000"
    },
    "itemKinds": [
-    "number_line",
     "mcq",
-    "ordering"
+    "ordering",
+    "true_false",
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "funambule",
@@ -1221,16 +1229,17 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_num_comparer"
+    "generator": "maths-ce1/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour comparer deux nombres, je regarde d’abord le nombre de chiffres, puis les centaines, les dizaines et les unités ; la pointe de < ou de > montre le plus petit.",
+   "contenus": "Comparer avec <, >, = ; ranger jusqu’à 5 nombres dans l’ordre croissant ou décroissant ; « compris entre » ; nombre juste avant / juste après."
   },
   {
    "id": "CE1.MA.NUM.DROITE",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Nombres",
-   "titre": "Demi-droite graduée (pas 1, 10, 100), intercaler",
+   "titre": "La droite graduée",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
    "periodes": [
@@ -1247,8 +1256,8 @@
    },
    "itemKinds": [
     "number_line",
-    "mcq",
-    "ordering"
+    "numeric_answer",
+    "mcq"
    ],
    "jeuxSuggeres": [
     "funambule",
@@ -1257,16 +1266,17 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_num_droite"
+    "generator": "maths-ce1/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Sur une droite graduée, je regarde de combien on avance à chaque trait (1, 10 ou 100), puis je compte à partir d’un nombre connu.",
+   "contenus": "Placer et lire des nombres sur une demi-droite graduée de 1 en 1, de 10 en 10, de 100 en 100 ; intercaler ; encadrer entre deux graduations."
   },
   {
    "id": "CE1.MA.NUM.PARITE",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Nombres",
-   "titre": "Pair / impair",
+   "titre": "Nombres pairs et impairs",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
    "periodes": [
@@ -1279,12 +1289,13 @@
    "niveaux": {
     "facile": "≤ 20",
     "normal": "≤ 1 000 (« pairs entre 767 et 778 »)",
-    "plus_loin": "règles de somme"
+    "plus_loin": "règles de somme (pair + impair…)"
    },
    "itemKinds": [
+    "classification",
+    "true_false",
     "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "mcq"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1296,16 +1307,17 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_num_parite"
+    "generator": "maths-ce1/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un nombre pair se termine par 0, 2, 4, 6 ou 8 ; un nombre impair se termine par 1, 3, 5, 7 ou 9.",
+   "contenus": "Dire si un nombre est pair ou impair ; donner les nombres pairs compris entre 767 et 778 (BO)."
   },
   {
    "id": "CE1.MA.NUM.ORDINAUX",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Nombres",
-   "titre": "Ordinaux & suites",
+   "titre": "Premier, deuxième… : les rangs et les suites",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Nombres",
    "periodes": [
@@ -1318,11 +1330,11 @@
    "niveaux": {
     "facile": "≤ 20",
     "normal": "≤ 100",
-    "plus_loin": "suites évolutives"
+    "plus_loin": "suites évolutives (1, 2, 4, 7, 11… ; 1, 2, 4, 8…)"
    },
    "itemKinds": [
     "numeric_answer",
-    "oral_answer",
+    "mcq",
     "true_false"
    ],
    "jeuxSuggeres": [
@@ -1335,20 +1347,20 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_num_ordinaux"
+    "generator": "maths-ce1/nombres"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le 5e de la file a 4 personnes devant lui : premier, deuxième, troisième… indiquent une place, un rang.",
+   "contenus": "Nombres ordinaux jusqu’à 100 ; rang dans une file ; suites répétitives (« ABAB… », « △ ▢ ○ … ») et évolutives (« 1, 2, 4, 7, 11… », plus loin)."
   },
   {
    "id": "CE1.MA.FRAC.UNITAIRE",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Fractions",
-   "titre": "1/2, 1/3 … 1/10 (part d'un tout)",
+   "titre": "Un demi, un tiers, un quart…",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Fractions",
    "periodes": [
-    1,
     2,
     3,
     4,
@@ -1363,6 +1375,7 @@
     "visual_fraction",
     "number_line",
     "mcq",
+    "pairing",
     "numeric_answer"
    ],
    "jeuxSuggeres": [
@@ -1374,21 +1387,20 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_frac_unitaire"
+    "generator": "maths-ce1/fractions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour avoir un quart (1/4), je partage le tout en 4 parts égales et j’en prends une.",
+   "contenus": "Fractions unitaires 1/2, 1/3, 1/4, 1/5, 1/6, 1/8, 1/10 d’un tout (dès la période 2) ; mots moitié, demi, quart ; fraction d’une collection en plus loin."
   },
   {
    "id": "CE1.MA.FRAC.NONUNIT",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Fractions",
-   "titre": "3/8 = 1/8+1/8+1/8, vocabulaire numérateur/dénominateur, 5/5 = 1",
+   "titre": "Les fractions : 3/8, 2/5…",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Fractions",
    "periodes": [
-    1,
-    2,
     3,
     4,
     5
@@ -1396,13 +1408,14 @@
    "niveaux": {
     "facile": "dénom. 2-4",
     "normal": "dénom. 2-10",
-    "plus_loin": "fractions > 1 (CE2)"
+    "plus_loin": "fractions plus grandes que 1 (CE2)"
    },
    "itemKinds": [
     "visual_fraction",
     "number_line",
+    "fill_blank",
     "mcq",
-    "numeric_answer"
+    "pairing"
    ],
    "jeuxSuggeres": [
     "pizzaiolo",
@@ -1413,35 +1426,33 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_frac_nonunit"
+    "generator": "maths-ce1/fractions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le dénominateur (en bas) dit en combien de parts égales on partage, le numérateur (en haut) combien on en prend : 3/8 = 1/8 + 1/8 + 1/8.",
+   "contenus": "Fractions ≤ 1, dénominateurs 2, 3, 4, 5, 6, 8, 10 ; 3/8 = 1/8 + 1/8 + 1/8 ; vocabulaire numérateur / dénominateur ; 5/5 = 1."
   },
   {
    "id": "CE1.MA.FRAC.COMPARER",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Fractions",
-   "titre": "Même dénominateur ; numérateur 1 (1/5 < 1/3)",
+   "titre": "Comparer des fractions",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Fractions",
    "periodes": [
-    1,
-    2,
-    3,
     4,
     5
    ],
    "niveaux": {
     "facile": "visuel",
     "normal": "sans visuel",
-    "plus_loin": "dénominateurs multiples (1/2 vs 3/4)"
+    "plus_loin": "dénominateurs multiples (1/2 et 3/4), égalités 1/2 = 2/4"
    },
    "itemKinds": [
     "visual_fraction",
-    "number_line",
     "mcq",
-    "numeric_answer"
+    "ordering",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "pizzaiolo",
@@ -1452,22 +1463,20 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_frac_comparer"
+    "generator": "maths-ce1/fractions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Avec le même dénominateur, la plus grande fraction a le plus grand numérateur ; avec un numérateur 1, plus on partage, plus la part est petite (1/5 < 1/3).",
+   "contenus": "Comparer des fractions de même dénominateur ou de numérateur 1 (dès la période 4) ; comparer à 1. Plus loin : dénominateurs multiples (1/2 et 3/4)."
   },
   {
    "id": "CE1.MA.FRAC.ADD",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Fractions",
-   "titre": "1/5 + 2/5 ; 2/3 − 1/3 ; compléter à 1",
+   "titre": "Ajouter et enlever des fractions",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Fractions",
    "periodes": [
-    1,
-    2,
-    3,
     4,
     5
    ],
@@ -1477,10 +1486,11 @@
     "plus_loin": "3 termes"
    },
    "itemKinds": [
+    "numeric_answer",
     "visual_fraction",
-    "number_line",
     "mcq",
-    "numeric_answer"
+    "fill_blank",
+    "number_line"
    ],
    "jeuxSuggeres": [
     "pizzaiolo",
@@ -1491,9 +1501,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_frac_add"
+    "generator": "maths-ce1/fractions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Avec le même dénominateur, j’ajoute ou j’enlève seulement les numérateurs : 1/5 + 2/5 = 3/5, et 5/5 = 1.",
+   "contenus": "Additionner et soustraire des fractions de même dénominateur (1/5 + 2/5 ; 2/3 − 1/3) ; compléter à 1 (3/10 + 7/10 = 1)."
   },
   {
    "id": "CE1.MA.CM.TABLES_ADD",
@@ -1845,7 +1856,7 @@
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul posé",
-   "titre": "Addition posée (2-3 nombres, ≤ 3 chiffres)",
+   "titre": "L’addition posée",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul posé",
    "periodes": [
@@ -1861,7 +1872,9 @@
     "plus_loin": "4 nombres"
    },
    "itemKinds": [
-    "numeric_answer"
+    "numeric_answer",
+    "mcq",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "grand-huit-operations",
@@ -1869,32 +1882,33 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_cp_add"
+    "generator": "maths-ce1/calcul-pose"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je pose les unités sous les unités et les dizaines sous les dizaines, je commence par les unités et je n’oublie pas les retenues.",
+   "contenus": "Addition posée de 2 ou 3 nombres de 1 à 3 chiffres (245 + 437 ; 218 + 48 ; 76 + 7 + 568). Les QCM proposent les erreurs fréquentes (retenue oubliée, mauvais alignement)."
   },
   {
    "id": "CE1.MA.CP.SOUS",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul posé",
-   "titre": "Soustraction posée (cassage ou compensation — réglage parent)",
+   "titre": "La soustraction posée",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul posé",
    "periodes": [
-    1,
-    2,
     3,
     4,
     5
    ],
    "niveaux": {
     "facile": "sans retenue",
-    "normal": "avec retenue",
-    "plus_loin": "double retenue / zéros"
+    "normal": "avec un cassage (une retenue)",
+    "plus_loin": "deux cassages, zéros (403 − 167 ; 1 000 − 365)"
    },
    "itemKinds": [
-    "numeric_answer"
+    "numeric_answer",
+    "mcq",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "grand-huit-operations",
@@ -1902,20 +1916,20 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_cp_sous"
+    "generator": "maths-ce1/calcul-pose"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je pose les unités sous les unités ; s’il n’y a pas assez d’unités en haut, je casse une dizaine en 10 unités.",
+   "contenus": "Algorithme unique de l’application : soustraction par cassage (échange d’une dizaine contre 10 unités, d’une centaine contre 10 dizaines). Introduite au plus tard en période 3 (BO)."
   },
   {
    "id": "CE1.MA.CP.MULT_SENS",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul posé",
-   "titre": "Sens de × (« 7 fois 20 »), commutativité",
+   "titre": "Le signe × : « 7 fois 20 »",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul posé",
    "periodes": [
-    1,
     2,
     3,
     4,
@@ -1927,7 +1941,10 @@
     "plus_loin": "× multiples de 10"
    },
    "itemKinds": [
-    "numeric_answer"
+    "numeric_answer",
+    "fill_blank",
+    "pairing",
+    "mcq"
    ],
    "jeuxSuggeres": [
     "grand-huit-operations",
@@ -1935,16 +1952,17 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_cp_mult_sens"
+    "generator": "maths-ce1/calcul-pose"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "7 × 20 se lit « 7 fois 20 » : c’est 20 ajouté 7 fois, et 7 × 20 = 20 × 7.",
+   "contenus": "Sens de la multiplication (addition répétée), symbole × lu « fois », commutativité (8 × 4 = 4 × 8)."
   },
   {
    "id": "CE1.MA.PB.ADD_PT",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Problèmes",
-   "titre": "Additifs parties-tout / transformation (1 étape)",
+   "titre": "Problèmes : ajouter, enlever, trouver le tout",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
    "periodes": [
@@ -1955,8 +1973,8 @@
     5
    ],
    "niveaux": {
-    "facile": "≤ 100",
-    "normal": "≤ 1 000",
+    "facile": "≤ 100, chercher le tout ou l’état final",
+    "normal": "≤ 1 000, toutes les inconnues (état initial, transformation)",
     "plus_loin": "2 étapes"
    },
    "itemKinds": [
@@ -1970,16 +1988,17 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_pb_add_pt"
+    "generator": "maths-ce1/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je lis l’histoire et je fais un schéma en barre : si je cherche le tout, j’ajoute les parties ; si je cherche une partie, j’enlève l’autre partie au tout.",
+   "contenus": "Problèmes additifs en une étape : parties-tout, transformations (état final, état initial, transformation inconnue), énoncés pièges (« gagné » mais il faut soustraire). Modèle BO en 4 phases."
   },
   {
    "id": "CE1.MA.PB.COMPAR",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Problèmes",
-   "titre": "Comparaison additive (« 75 de plus »)",
+   "titre": "Problèmes : « de plus », « de moins »",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
    "periodes": [
@@ -1990,9 +2009,9 @@
     5
    ],
    "niveaux": {
-    "facile": "≤ 100",
-    "normal": "≤ 1 000",
-    "plus_loin": "inconnue sur le petit"
+    "facile": "≤ 100, grand ou écart inconnu",
+    "normal": "≤ 1 000, grand, petit ou écart inconnu (BO : Elsa a 6 € de plus que Noé)",
+    "plus_loin": "énoncés « de moins » où il faut ajouter"
    },
    "itemKinds": [
     "bar_model",
@@ -2005,20 +2024,20 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_pb_compar"
+    "generator": "maths-ce1/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "« 75 de plus que Léo », c’est autant que Léo et encore 75 ; pour trouver l’écart, j’enlève le petit nombre du grand.",
+   "contenus": "Comparaison additive : grand inconnu, écart inconnu (BO : 111 garçons et 257 filles), petit inconnu en plus loin. Schéma à deux barres."
   },
   {
    "id": "CE1.MA.PB.2ETAPES",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Problèmes",
-   "titre": "Additifs 2 étapes, monnaie (rendu sur 5 €, 50 €)",
+   "titre": "Problèmes en deux étapes et rendu de monnaie",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
    "periodes": [
-    1,
     2,
     3,
     4,
@@ -2040,20 +2059,20 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_pb_2etapes"
+    "generator": "maths-ce1/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je cherche d’abord ce qui me manque (le prix total), puis je réponds à la question (la monnaie rendue).",
+   "contenus": "Problèmes additifs en deux étapes (83 livres + 18 − 27) ; achats et rendu sur 5 €, 10 €, 20 €, 50 € (baguette à 1,15 €, pain aux raisins à 95 c)."
   },
   {
    "id": "CE1.MA.PB.MULT",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Problèmes",
-   "titre": "Multiplicatifs (valeur du tout), partage (nb de parts / valeur d'une part)",
+   "titre": "Problèmes : plusieurs fois, partager",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
    "periodes": [
-    1,
     2,
     3,
     4,
@@ -2061,8 +2080,8 @@
    ],
    "niveaux": {
     "facile": "≤ 30",
-    "normal": "≤ 200",
-    "plus_loin": "reste"
+    "normal": "≤ 200, partage avec reste (attendu BO)",
+    "plus_loin": "nombres plus grands (≤ 1 000)"
    },
    "itemKinds": [
     "bar_model",
@@ -2075,27 +2094,25 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_pb_mult"
+    "generator": "maths-ce1/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Quand il y a plusieurs fois la même quantité, je multiplie ; pour faire des parts égales, je cherche combien de fois la part tient dans le tout, sans oublier ce qui reste.",
+   "contenus": "Multiplicatifs (valeur du tout), partage : nombre de parts (60 élèves, équipes de 5), valeur d’une part (18 images pour 3 enfants), avec reste (189 photos, 10 par page ; 75 œufs, boites de 6)."
   },
   {
    "id": "CE1.MA.PB.MIXTES",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Problèmes",
-   "titre": "Mixtes (1 additive + 1 multiplicative)",
+   "titre": "Problèmes mélangés : × puis + ou −",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Problèmes (≥ 10 / semaine)",
    "periodes": [
-    1,
-    2,
-    3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "—",
+    "facile": "petits nombres",
     "normal": "BO",
     "plus_loin": "3 étapes"
    },
@@ -2110,18 +2127,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_pb_mixtes"
+    "generator": "maths-ce1/problemes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je découpe le problème en deux étapes : une multiplication (plusieurs fois la même chose), puis une addition ou une soustraction.",
+   "contenus": "Problèmes mixtes en deux étapes (BO : 7 litres d’huile à 2 €, on donne 20 € ; 20 cahiers à 4 € et autant de protège-cahiers à 2 €)."
   },
   {
    "id": "CE1.MA.GM.LONGUEURS",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Grandeurs et mesures",
-   "titre": "cm, m, km ; 1 m = 100 cm ; mesurer, comparer, estimer",
+   "titre": "Les longueurs : cm, m, km",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures",
    "periodes": [
     1,
     2,
@@ -2130,13 +2148,14 @@
     5
    ],
    "niveaux": {
-    "facile": "comparer",
-    "normal": "mesurer + convertir m↔cm",
-    "plus_loin": "km ↔ m, mm"
+    "facile": "mesurer en cm, comparer, estimer",
+    "normal": "m ↔ cm et km ↔ m, mesurer, estimer, ranger",
+    "plus_loin": "mm et dm (CE2), km ↔ m au-delà de 1 000"
    },
    "itemKinds": [
     "numeric_answer",
-    "mcq"
+    "mcq",
+    "ordering"
    ],
    "jeuxSuggeres": [
     "mesureur",
@@ -2145,18 +2164,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_gm_longueurs"
+    "generator": "maths-ce1/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "1 m = 100 cm et 1 km = 1 000 m ; pour mesurer, je place le 0 de la règle au bout de l’objet.",
+   "contenus": "Mesurer à la règle (cm), convertir par les relations 1 m = 100 cm et 1 km = 1 000 m (1 m + 46 cm = 146 cm), estimer (une trousse : 2 cm, 20 cm ou 2 m ?), comparer, ranger. Pas d’écriture à virgule."
   },
   {
    "id": "CE1.MA.GM.MASSES",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Grandeurs et mesures",
-   "titre": "g, kg ; 1 kg = 1 000 g",
+   "titre": "Les masses : g et kg",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures",
    "periodes": [
     1,
     2,
@@ -2165,13 +2185,14 @@
     5
    ],
    "niveaux": {
-    "facile": "comparer",
-    "normal": "lire une balance",
-    "plus_loin": "problèmes"
+    "facile": "comparer, lire une balance (petites masses)",
+    "normal": "1 kg = 1 000 g, balance, estimer, ranger",
+    "plus_loin": "kg ↔ g au-delà de 1 000, problèmes"
    },
    "itemKinds": [
     "numeric_answer",
-    "mcq"
+    "mcq",
+    "ordering"
    ],
    "jeuxSuggeres": [
     "mesureur",
@@ -2180,18 +2201,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_gm_masses"
+    "generator": "maths-ce1/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "1 kg = 1 000 g ; pour comparer deux masses, je les écris dans la même unité.",
+   "contenus": "Balance (masses marquées), 1 kg = 1 000 g, masses de référence (paquet de sucre : 1 kg ; sachet de levure : 10 g), ordonner (1 kg et 300 g ; 1 000 g ; 50 kg ; 2 kg et 100 g)."
   },
   {
    "id": "CE1.MA.GM.MONNAIE",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Grandeurs et mesures",
-   "titre": "Euros & centimes : pièces 1 c à 2 €, billets 5 € à 100 € ; payer, rendre",
+   "titre": "Les euros et les centimes",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures",
    "periodes": [
     1,
     2,
@@ -2202,11 +2224,13 @@
    "niveaux": {
     "facile": "≤ 10 € entiers",
     "normal": "≤ 100 €, centimes",
-    "plus_loin": "rendu optimal"
+    "plus_loin": "rendre la monnaie avec le moins de pièces et de billets"
    },
    "itemKinds": [
     "money",
-    "numeric_answer"
+    "numeric_answer",
+    "mcq",
+    "ordering"
    ],
    "jeuxSuggeres": [
     "epicerie",
@@ -2214,18 +2238,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_gm_monnaie"
+    "generator": "maths-ce1/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "1 € = 100 centimes ; après la virgule, j’écris toujours deux chiffres pour les centimes : 2 € et 5 c s’écrit 2,05 €.",
+   "contenus": "100 c = 1 € ; centimes au plus tard en P2, écriture à virgule dès P3 (2,05 € ≠ 2,50 €) ; payer, rendre la monnaie ; comparer des sommes. Pièces de 1 c à 2 € et billets de 5 € à 100 € : choix de l’application (liste non citée par le BO)."
   },
   {
    "id": "CE1.MA.GM.TEMPS",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Grandeurs et mesures",
-   "titre": "Jours, semaines, mois, années ; heure (heures, demi, quarts) ; durées en h/min",
+   "titre": "Lire l’heure et calculer des durées",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Grandeurs et mesures",
    "periodes": [
     1,
     2,
@@ -2235,12 +2260,14 @@
    ],
    "niveaux": {
     "facile": "heures pile",
-    "normal": "demi/quart, durées simples",
-    "plus_loin": "minutes, 1 h = 60 min"
+    "normal": "heures > 12, demi et quarts d’heure, 1 h = 60 min, durées",
+    "plus_loin": "minutes de 5 en 5, durées en minutes"
    },
    "itemKinds": [
     "clock",
-    "numeric_answer"
+    "numeric_answer",
+    "mcq",
+    "ordering"
    ],
    "jeuxSuggeres": [
     "horloger",
@@ -2248,18 +2275,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_gm_temps"
+    "generator": "maths-ce1/grandeurs"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "La petite aiguille montre les heures, la grande les minutes ; 1 h = 60 min, une demi-heure = 30 min et un quart d’heure = 15 min.",
+   "contenus": "Temps courts (BO) : heures entières y compris > 12 (14 h 15), demi-heures, quarts d’heure, matin / après-midi ; 1 h = 60 min ; durées dans une même journée ; comparer 2 h et 130 min. Les jours, mois et années relèvent de « Questionner le monde »."
   },
   {
    "id": "CE1.MA.GEO.FIGURES",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Espace et géométrie",
-   "titre": "Carré, rectangle, triangle, triangle rectangle, cercle ; côté, sommet, angle droit",
+   "titre": "Carré, rectangle, triangle, cercle",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie",
    "periodes": [
     1,
     2,
@@ -2269,13 +2297,14 @@
    ],
    "niveaux": {
     "facile": "reconnaître",
-    "normal": "propriétés (équerre)",
-    "plus_loin": "losange"
+    "normal": "propriétés (équerre), angles aigu / obtus, milieu, alignement",
+    "plus_loin": "losange (CE2)"
    },
    "itemKinds": [
     "geometry_shape",
-    "mcq",
-    "ordering"
+    "classification",
+    "true_false",
+    "mcq"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -2287,18 +2316,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_geo_figures"
+    "generator": "maths-ce1/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un carré a 4 côtés égaux et 4 angles droits, un rectangle a 4 angles droits et ses côtés opposés égaux, un triangle a 3 côtés ; je vérifie les angles droits avec l’équerre.",
+   "contenus": "Carré, rectangle, triangle, triangle rectangle, cercle ; côté, sommet, angle droit / aigu / obtus, centre, milieu, points alignés, code de l’angle droit."
   },
   {
    "id": "CE1.MA.GEO.TRACER",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Espace et géométrie",
-   "titre": "Segments de longueur donnée, reproduire sur quadrillage",
+   "titre": "Tracer avec la règle, l’équerre et le compas",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie",
    "periodes": [
     1,
     2,
@@ -2307,14 +2337,15 @@
     5
    ],
    "niveaux": {
-    "facile": "quadrillage",
-    "normal": "règle graduée",
-    "plus_loin": "équerre"
+    "facile": "reproduire sur quadrillage",
+    "normal": "règle graduée, équerre, compas",
+    "plus_loin": "côtés obliques sur quadrillage, rectangle complet"
    },
    "itemKinds": [
     "geometry_shape",
     "mcq",
-    "ordering"
+    "ordering",
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -2326,18 +2357,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_geo_tracer"
+    "generator": "maths-ce1/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour tracer, je pars du 0 de la règle graduée, j’utilise l’équerre pour l’angle droit et le compas pour le cercle.",
+   "contenus": "Segments de longueur donnée, reproduction sur quadrillage, angle droit à l’équerre, cercle au compas (centre donné, passant par un point), milieu d’un segment."
   },
   {
    "id": "CE1.MA.GEO.SYMETRIE",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Espace et géométrie",
-   "titre": "Symétrie axiale sur quadrillage",
+   "titre": "La symétrie — Pour aller plus loin (CE2)",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie",
    "periodes": [
     1,
     2,
@@ -2347,13 +2379,13 @@
    ],
    "niveaux": {
     "facile": "axe vertical",
-    "normal": "axe vertical/horizontal",
-    "plus_loin": "diagonale"
+    "normal": "axe vertical ou horizontal (attendu CE2)",
+    "plus_loin": "axe en diagonale"
    },
    "itemKinds": [
     "geometry_shape",
     "mcq",
-    "ordering"
+    "classification"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -2365,18 +2397,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_geo_symetrie"
+    "generator": "maths-ce1/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le symétrique d’une case est à la même distance de l’axe, de l’autre côté, comme dans un miroir.",
+   "contenus": "Hors programme CE1 : la symétrie axiale est au programme du CE2 (axe vertical ou horizontal, BO n°41 du 31/10/2024). Compléter une figure sur quadrillage ; lettres qui ont un axe de symétrie."
   },
   {
    "id": "CE1.MA.GEO.SOLIDES",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Espace et géométrie",
-   "titre": "Cube, pavé, boule, cylindre, cône, pyramide ; faces, arêtes, sommets",
+   "titre": "Les solides : cube, pavé, boule…",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie",
    "periodes": [
     1,
     2,
@@ -2387,12 +2420,12 @@
    "niveaux": {
     "facile": "nommer",
     "normal": "décrire",
-    "plus_loin": "patrons simples"
+    "plus_loin": "patrons du cube (CE2)"
    },
    "itemKinds": [
     "geometry_shape",
     "mcq",
-    "ordering"
+    "classification"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -2404,18 +2437,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_geo_solides"
+    "generator": "maths-ce1/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un cube a 6 faces carrées et un pavé 6 faces rectangulaires ; la boule, le cylindre et le cône peuvent rouler.",
+   "contenus": "Cube, pavé, boule, cylindre, cône, pyramide ; faces, arêtes, sommets ; reconnaitre les solides dans des objets familiers."
   },
   {
    "id": "CE1.MA.GEO.REPERAGE",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Espace et géométrie",
-   "titre": "Vocabulaire spatial, plans, quadrillage, déplacements codés",
+   "titre": "Se repérer et coder un déplacement",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie (à vérifier PDF)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Espace et géométrie",
    "periodes": [
     1,
     2,
@@ -2424,14 +2458,14 @@
     5
    ],
    "niveaux": {
-    "facile": "gauche/droite",
-    "normal": "codage de déplacements",
-    "plus_loin": "instructions relatives"
+    "facile": "gauche / droite, flèches",
+    "normal": "avancer, pivoter d’un quart de tour (≤ 15 instructions, 4 virages)",
+    "plus_loin": "programmes plus longs avec obstacles"
    },
    "itemKinds": [
     "geometry_shape",
     "mcq",
-    "ordering"
+    "true_false"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -2443,16 +2477,17 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_geo_reperage"
+    "generator": "maths-ce1/geometrie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour coder un déplacement, je regarde d’abord vers où le robot est tourné : pivoter le fait tourner sur place, avancer le fait changer de case.",
+   "contenus": "Vocabulaire spatial (gauche, droite, entre, au-dessus, en dessous) ; déplacements codés sur quadrillage : « avancer de », « pivoter d’un quart de tour à droite / à gauche », au plus 15 instructions dont 4 virages (BO)."
   },
   {
    "id": "CE1.MA.DON.LIRE",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Données",
-   "titre": "Tableaux, diagrammes en barres",
+   "titre": "Lire un tableau et un diagramme",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Données",
    "periodes": [
@@ -2464,11 +2499,13 @@
    ],
    "niveaux": {
     "facile": "lire 1 info",
-    "normal": "lire/comparer",
-    "plus_loin": "construire"
+    "normal": "lire, comparer, produire (diagramme, tableau à double entrée)",
+    "plus_loin": "calculs sur les données (écarts, totaux)"
    },
    "itemKinds": [
     "mcq",
+    "numeric_answer",
+    "true_false",
     "classification"
    ],
    "jeuxSuggeres": [
@@ -2478,9 +2515,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_ma_don_lire"
+    "generator": "maths-ce1/donnees"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Dans un diagramme en barres, la hauteur de chaque barre donne le nombre ; je lis d’abord le titre et le nom de chaque barre.",
+   "contenus": "Recueillir des données, produire et lire un tableau ou un diagramme en barres (axe gradué de 1 en 1), lire un tableau à double entrée (BO)."
   },
   {
    "id": "CE1.QLM.TEMPS.CALENDRIER",
