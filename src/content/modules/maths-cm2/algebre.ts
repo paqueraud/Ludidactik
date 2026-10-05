@@ -15,7 +15,7 @@
 import type { Rng } from '@/engine/rng';
 import type { ItemGen, LessonContent } from '../../registry';
 import type { Level } from '../../schemas';
-import { clamp01, de, dire, fmt, make, mcq, nbDecimales, numeric, PERSOS, r3, vraiFaux } from './util';
+import { cap, clamp01, de, dire, fmt, make, mcq, nbDecimales, numeric, PERSOS, r3, vraiFaux } from './util';
 
 type Op = '+' | '−' | '×' | '÷';
 const appliquer = (a: number, op: Op, b: number) =>
@@ -119,6 +119,7 @@ function trou(level: Level, rng: Rng): Trou {
     );
   }
   if (level === 'normal') {
+    if (rng.chance(0.3)) return unSymbole(rng);
     const t = rng.int(0, 5);
     if (t === 0) {
       // BO : 178 − … = 6 × 8
@@ -197,8 +198,61 @@ function trou(level: Level, rng: Rng): Trou {
       0.55,
     );
   }
+  // Plus loin : deux inconnues (▲ et ●)
   const t = rng.int(0, 2);
   if (t === 0) {
+    const y = i(2, 30);
+    const x = y + i(1, 30);
+    const eq1 = `▲ + ● = ${x + y}`;
+    const eq2 = `▲ − ● = ${x - y}`;
+    const tri = rng.chance(0.5);
+    return {
+      equations: [eq1, eq2],
+      valeurs: { '▲': x, '●': y },
+      inconnue: tri ? '▲' : '●',
+      prompt: `${eq1} et ${eq2}. Combien vaut ${tri ? '▲' : '●'} ?`,
+      spoken: `Triangle plus rond égale ${x + y}, et triangle moins rond égale ${x - y}. Combien vaut le ${tri ? 'triangle' : 'rond'} ?`,
+      expl: `Le triangle a ${x - y} de plus que le rond. Sans cet écart, il reste ${x + y} − ${x - y} = ${2 * y} pour deux ronds, donc le rond vaut ${y} et le triangle vaut ${y} + ${x - y} = ${x}.`,
+      pieges: tri ? [y, x + y, x - y] : [x, x + y, x - y],
+      difficulty: 0.8,
+    };
+  }
+  if (t === 1) {
+    const x = i(2, 20);
+    const y = i(2, 30);
+    const eq1 = `■ + ■ + ■ = ${3 * x}`;
+    const eq2 = `■ + ▲ = ${x + y}`;
+    return {
+      equations: [eq1, eq2],
+      valeurs: { '■': x, '▲': y },
+      inconnue: '▲',
+      prompt: `${eq1} et ${eq2}. Combien vaut ▲ ?`,
+      spoken: `Carré plus carré plus carré égale ${3 * x}, et carré plus triangle égale ${x + y}. Combien vaut le triangle ?`,
+      expl: `Trois carrés valent ${3 * x}, donc un carré vaut ${3 * x} ÷ 3 = ${x}. Alors le triangle vaut ${x + y} − ${x} = ${y}.`,
+      pieges: [x, x + y, 3 * x - y].filter((v) => v > 0),
+      difficulty: 0.7,
+    };
+  }
+  const x = i(2, 20);
+  const y = i(2, 30);
+  const eq1 = `(2 × ▲) + ● = ${2 * x + y}`;
+  const eq2 = `▲ + ● = ${x + y}`;
+  return {
+    equations: [eq1, eq2],
+    valeurs: { '▲': x, '●': y },
+    inconnue: '▲',
+    prompt: `${eq1} et ${eq2}. Combien vaut ▲ ?`,
+    spoken: `2 fois triangle, plus rond, égale ${2 * x + y}, et triangle plus rond égale ${x + y}. Combien vaut le triangle ?`,
+    expl: `La première égalité a un triangle de plus que la seconde : le triangle vaut ${2 * x + y} − ${x + y} = ${x}.`,
+    pieges: [y, x + y, 2 * x + y],
+    difficulty: 0.75,
+  };
+}
+
+/** Un seul symbole (niveau normal) : « ■ + ■ + 11 = 59 », « (3 × ■) + 12 = 27 ». */
+function unSymbole(rng: Rng): Trou {
+  const i = (a: number, b: number) => rng.int(a, b);
+  if (rng.chance(0.5)) {
     const x = i(3, 30);
     const a = i(2, 20);
     const eq = `■ + ■ + ${a} = ${2 * x + a}`;
@@ -210,39 +264,22 @@ function trou(level: Level, rng: Rng): Trou {
       spoken: `Carré plus carré plus ${a} égale ${2 * x + a}. Combien vaut le carré ?`,
       expl: `Deux carrés valent ${2 * x + a} − ${a} = ${2 * x}, donc un carré vaut ${2 * x} ÷ 2 = ${x}.`,
       pieges: [2 * x, 2 * x + a, x + a],
-      difficulty: 0.6,
+      difficulty: 0.55,
     };
   }
-  if (t === 1) {
-    const x = i(2, 20);
-    const k = i(3, 5);
-    const a = i(2, 20);
-    const eq = `${k} × ■ + ${a} = ${k * x + a}`;
-    return {
-      equations: [eq],
-      valeurs: { '■': x },
-      inconnue: '■',
-      prompt: `${eq}. Combien vaut ■ ?`,
-      spoken: `${k} fois carré plus ${a} égale ${k * x + a}. Combien vaut le carré ?`,
-      expl: `${k} carrés valent ${k * x + a} − ${a} = ${k * x}, donc un carré vaut ${k * x} ÷ ${k} = ${x}.`,
-      pieges: [k * x, k * x + a, x + 1],
-      difficulty: 0.65,
-    };
-  }
-  // Deux inconnues : ▲ + ● = s et ▲ − ● = d
-  const y = i(2, 30);
-  const x = y + i(1, 30);
-  const eq1 = `▲ + ● = ${x + y}`;
-  const eq2 = `▲ − ● = ${x - y}`;
+  const x = i(2, 20);
+  const k = i(3, 5);
+  const a = i(2, 20);
+  const eq = `(${k} × ■) + ${a} = ${k * x + a}`;
   return {
-    equations: [eq1, eq2],
-    valeurs: { '▲': x, '●': y },
-    inconnue: '▲',
-    prompt: `${eq1} et ${eq2}. Combien vaut ▲ ?`,
-    spoken: `Triangle plus rond égale ${x + y}, et triangle moins rond égale ${x - y}. Combien vaut le triangle ?`,
-    expl: `Le triangle a ${x - y} de plus que le rond. Sans cet écart, il reste ${x + y} − ${x - y} = ${2 * y} pour deux ronds, donc le rond vaut ${y} et le triangle vaut ${y} + ${x - y} = ${x}.`,
-    pieges: [y, x + y, x - y],
-    difficulty: 0.8,
+    equations: [eq],
+    valeurs: { '■': x },
+    inconnue: '■',
+    prompt: `${eq}. Combien vaut ■ ?`,
+    spoken: `${k} fois carré, plus ${a}, égale ${k * x + a}. Combien vaut le carré ?`,
+    expl: `${k} carrés valent ${k * x + a} − ${a} = ${k * x}, donc un carré vaut ${k * x} ÷ ${k} = ${x}.`,
+    pieges: [k * x, k * x + a, x + 1],
+    difficulty: 0.6,
   };
 }
 
@@ -268,7 +305,7 @@ const trousQcm: ItemGen = (level, rng, ctx) => {
   const autres = [x + 1, x + 10, x - 1, x * 2].filter((v) => v > 0);
   return mcq(ctx, rng, `trou-${t.prompt}`, {
     question: t.inconnue === '…' ? `Quel nombre manque ? ${t.prompt}` : t.prompt,
-    spoken: t.inconnue === '…' ? `Quel nombre manque ? ${t.spoken}` : t.spoken,
+    spoken: t.inconnue === '…' ? `Quel nombre manque ? ${cap(t.spoken)}` : t.spoken,
     good: fmt(x),
     wrong: [...new Set([...t.pieges, ...autres])]
       .filter((v) => v !== x && v > 0)
@@ -287,15 +324,15 @@ const trousVraiFaux: ItemGen = (level, rng, ctx) => {
   const juste = rng.chance(0.5);
   if (level === 'plus_loin') {
     const x = i(2, 15);
+    const y = i(2, 20);
     const k = i(2, 5);
-    const a = i(2, 20);
-    const v = k * x + a;
+    const v = k * x + y;
     const montre = juste ? v : v + rng.pick([k, x, 1, -1]);
-    return vraiFaux(ctx, `si-${x}-${k}-${a}-${montre}`, {
-      statement: `Si ■ = ${x}, alors ${k} × ■ + ${a} = ${montre}.`,
-      spoken: `Si le carré vaut ${x}, alors ${k} fois carré plus ${a} égale ${montre}. Vrai ou faux ?`,
+    return vraiFaux(ctx, `si-${x}-${y}-${k}-${montre}`, {
+      statement: `Si ▲ = ${x} et ● = ${y}, alors (${k} × ▲) + ● = ${montre}.`,
+      spoken: `Si le triangle vaut ${x} et le rond vaut ${y}, alors ${k} fois triangle, plus rond, égale ${montre}. Vrai ou faux ?`,
       answer: juste,
-      explication: `On remplace ■ par ${x} : ${k} × ${x} + ${a} = ${k * x} + ${a} = ${v}.`,
+      explication: `On remplace ▲ par ${x} et ● par ${y} : (${k} × ${x}) + ${y} = ${k * x} + ${y} = ${v}.`,
       difficulty: 0.6,
     });
   }
@@ -310,7 +347,9 @@ const trousVraiFaux: ItemGen = (level, rng, ctx) => {
       statement,
       spoken: `${dire(statement)}. Vrai ou faux ?`,
       answer: juste,
-      explication: `${a} + ${b} = ${s}. Le signe = veut dire « a la même valeur que », on peut l’écrire dans les deux sens.`,
+      explication: inverseSens
+        ? `${a} + ${b} = ${s}. Le signe = veut dire « a la même valeur que » : on peut l’écrire dans les deux sens.`
+        : `${a} + ${b} = ${s}.`,
       difficulty: inverseSens ? 0.35 : 0.2,
     });
   }
@@ -365,43 +404,74 @@ const ARTICLES: [string, string][] = [
 
 const trousProbleme: ItemGen = (level, rng, ctx) => {
   const qui = rng.pick(PERSOS);
+  const Il = qui.il === 'il' ? 'Il' : 'Elle';
   const [[o1, o1s], [o2, o2s]] = rng.shuffle(ARTICLES) as [[string, string], [string, string]];
+  const n1 = rng.int(2, 4);
+  const n2 = rng.int(2, 4);
+  const p1 = rng.int(2, 9);
+  const p2 = rng.pick([1, 2, 3, 4, 5, 6].filter((x) => x !== p1));
   if (level === 'facile') {
-    const n = rng.int(2, 4);
+    // Une seule opération : un objet + une gomme
     const p = rng.int(2, 9);
-    const g = rng.int(1, 5);
-    const total = n * p + g;
-    return make(ctx, 'bar_model', `pb1-${n}-${p}-${g}-${o1}`, {
-      statement: `${qui.nom} achète ${n} ${o1s} identiques et une gomme à ${g} €. ${qui.il === 'il' ? 'Il' : 'Elle'} paie ${total} € en tout.`,
+    const g = rng.pick([1, 2, 3, 4, 5].filter((x) => x !== p));
+    const total = p + g;
+    return make(ctx, 'bar_model', `pb0-${p}-${g}-${o1}`, {
+      statement: `${qui.nom} achète un ${o1} et une gomme. ${Il} paie ${total} € en tout. La gomme coûte ${g} €.`,
+      structure: 'parties-tout',
+      bars: [
+        {
+          label: 'prix payé',
+          segments: [
+            { value: null, label: o1 },
+            { value: g, label: 'gomme' },
+          ],
+        },
+      ],
+      total,
+      question: `Combien coûte le ${o1} ?`,
+      answer: p,
+      unit: '€',
+      answerSentence: `Le ${o1} coûte ___ €.`,
+      reformulations: [
+        `Le ${o1} et la gomme coûtent ${total} € ensemble ; on cherche le prix du ${o1}.`,
+        `On cherche le prix de la gomme.`,
+        `On cherche combien ${qui.nom} a payé en tout.`,
+      ],
+      operation: `${total} − ${g} = ${p}`,
+      explication: `Le tout coûte ${total} € et la gomme ${g} € : le ${o1} coûte ${total} − ${g} = ${p} €.`,
+      difficulty: 0.2,
+    });
+  }
+  if (level === 'normal' && rng.chance(0.5)) {
+    const g = rng.pick([1, 2, 3, 4, 5].filter((x) => x !== p1));
+    const total = n1 * p1 + g;
+    return make(ctx, 'bar_model', `pb1-${n1}-${p1}-${g}-${o1}`, {
+      statement: `${qui.nom} achète ${n1} ${o1s} identiques et une gomme à ${g} €. ${Il} paie ${total} € en tout.`,
       structure: 'deux-etapes',
       bars: [
         {
           label: 'prix payé',
           segments: [
-            ...Array.from({ length: n }, () => ({ value: null, label: o1 })),
+            ...Array.from({ length: n1 }, () => ({ value: null, label: o1 })),
             { value: g, label: 'gomme' },
           ],
         },
       ],
       total,
       question: `Combien coûte un ${o1} ?`,
-      answer: p,
+      answer: p1,
       unit: '€',
       answerSentence: `Un ${o1} coûte ___ €.`,
       reformulations: [
-        `${n} ${o1s} et une gomme coûtent ${total} € ; on cherche le prix d’un seul ${o1}.`,
+        `${n1} ${o1s} et une gomme coûtent ${total} € ; on cherche le prix d’un seul ${o1}.`,
         `On cherche le prix de la gomme.`,
         `On cherche combien ${qui.nom} a payé en tout.`,
       ],
-      operation: `(${total} − ${g}) ÷ ${n} = ${p}`,
-      explication: `On enlève la gomme : ${total} − ${g} = ${total - g} € pour les ${n} ${o1s}, puis on partage : ${total - g} ÷ ${n} = ${p} €.`,
-      difficulty: 0.3,
+      operation: `(${total} − ${g}) ÷ ${n1} = ${p1}`,
+      explication: `On enlève la gomme : ${total} − ${g} = ${total - g} € pour les ${n1} ${o1s}, puis on partage : ${total - g} ÷ ${n1} = ${p1} €.`,
+      difficulty: 0.45,
     });
   }
-  const n1 = rng.int(2, 4);
-  const n2 = rng.int(2, 4);
-  const p1 = rng.int(2, 9);
-  const p2 = rng.int(1, 6);
   if (level === 'normal') {
     const total = n1 * p1 + n2 * p2;
     return make(ctx, 'bar_model', `pb2-${n1}-${p1}-${n2}-${p2}-${o1}-${o2}`, {
@@ -436,25 +506,21 @@ const trousProbleme: ItemGen = (level, rng, ctx) => {
   const t2 = p1 + n2 * p2;
   return make(ctx, 'bar_model', `pb3-${p1}-${n2}-${p2}-${o1}-${o2}`, {
     statement: `2 ${o1s} et ${n2} ${o2s} coûtent ${t1} €. 1 ${o1} et ${n2} ${o2s} coûtent ${t2} €.`,
-    structure: 'deux-etapes',
+    structure: 'comparaison',
     bars: [
       {
         label: `2 ${o1s} et ${n2} ${o2s}`,
         segments: [
-          { value: null, label: o1 },
-          { value: null, label: o1 },
-          { value: null, label: `${n2} ${o2s}` },
+          { value: t2, label: `1 ${o1} et ${n2} ${o2s}` },
+          { value: null, label: `1 ${o1}` },
         ],
       },
       {
         label: `1 ${o1} et ${n2} ${o2s}`,
-        segments: [
-          { value: null, label: o1 },
-          { value: null, label: `${n2} ${o2s}` },
-        ],
+        segments: [{ value: t2, label: `1 ${o1} et ${n2} ${o2s}` }],
       },
     ],
-    total: null,
+    total: t1,
     question: `Combien coûte un ${o1} ?`,
     answer: p1,
     unit: '€',
@@ -500,12 +566,12 @@ interface Programme {
   sortie: number;
 }
 
-function programme(level: Level, rng: Rng, n = level === 'facile' ? 2 : 3): Programme {
+/** Programme de `n` étapes ; `decimal` = nombre de départ décimal (plus loin). */
+function programme(level: Level, rng: Rng, n = level === 'facile' ? 2 : 3, decimal = false): Programme {
   for (let essai = 0; essai < 500; essai++) {
-    const entree =
-      level === 'plus_loin' && rng.chance(0.4)
-        ? r3(rng.int(11, 99) / 10)
-        : rng.int(1, level === 'facile' ? 15 : level === 'normal' ? 30 : 50);
+    const entree = decimal
+      ? r3((rng.int(1, 9) * 10 + rng.int(1, 9)) / 10)
+      : rng.int(1, level === 'facile' ? 15 : level === 'normal' ? 30 : 50);
     const etapes: Etape[] = [];
     let v = entree;
     let ok = true;
@@ -569,8 +635,15 @@ const difProg = (level: Level, inv: boolean) =>
   clamp01({ facile: 0.25, normal: 0.45, plus_loin: 0.65 }[level] + (inv ? 0.2 : 0));
 
 const programmesNumeric: ItemGen = (level, rng, ctx) => {
-  const p = programme(level, rng);
+  // Facile : exécuter 2 étapes ; normal : exécuter 3 étapes ou remonter 2 étapes ;
+  // plus loin : exécuter avec un nombre décimal ou remonter 3 étapes
   const inv = level !== 'facile' && rng.chance(0.5);
+  const p =
+    level === 'normal' && inv
+      ? programme(level, rng, 2)
+      : level === 'plus_loin' && !inv
+        ? programme(level, rng, 3, true)
+        : programme(level, rng);
   const sig = `${p.etapes.map(etapeCode).join('|')}`;
   if (inv)
     return numeric(ctx, `inv-${sig}-${p.sortie}`, {
@@ -613,8 +686,8 @@ const programmesQcm: ItemGen = (level, rng, ctx) => {
       ];
       const faux = variantes
         .filter((v) => {
-          const r = executer(p.entree, v).at(-1)!;
-          return Number.isFinite(r) && r !== p.sortie;
+          const vals = executer(p.entree, v);
+          return vals.every((x) => valeurOk(x) && Number.isInteger(x)) && vals.at(-1) !== p.sortie;
         })
         .map((v) => v.map(etapeMots).join(', puis '))
         .filter((t) => t !== vrai);
@@ -629,7 +702,7 @@ const programmesQcm: ItemGen = (level, rng, ctx) => {
       });
     }
   }
-  const p = programme(level, rng);
+  const p = programme(level, rng, undefined, level === 'plus_loin');
   return mcq(ctx, rng, `exec-${p.entree}-${p.etapes.map(etapeCode).join('|')}`, {
     question: `Programme de calcul : ${texteProg(p)}. On choisit ${fmt(p.entree)}. Quel nombre obtient-on ?`,
     spoken: dire(
@@ -652,7 +725,7 @@ function permutations<T>(l: T[]): T[][] {
 
 const programmesOrdre: ItemGen = (level, rng, ctx) => {
   for (let g = 0; g < 100; g++) {
-    const p = programme(level, rng);
+    const p = programme(level, rng, undefined, level === 'plus_loin');
     const mots = p.etapes.map(etapeMots);
     if (new Set(mots).size !== mots.length) continue;
     const memeResultat = permutations(p.etapes).filter((perm) => {
@@ -669,7 +742,7 @@ const programmesOrdre: ItemGen = (level, rng, ctx) => {
       mode: 'etapes',
       explication: explExec(p),
       difficulty: difProg(level, false) + 0.1,
-      meta: metaProg(p, 'sortie'),
+      meta: { programme: { etapes: p.etapes.map(etapeCode), entree: p.entree, sortie: p.sortie } },
     });
   }
   return make(ctx, 'ordering', 'ordre-secours', {
@@ -683,7 +756,7 @@ const programmesOrdre: ItemGen = (level, rng, ctx) => {
 };
 
 const programmesVraiFaux: ItemGen = (level, rng, ctx) => {
-  const p = programme(level, rng);
+  const p = programme(level, rng, undefined, level === 'plus_loin');
   const juste = rng.chance(0.5);
   const errs = erreursProg(p);
   const montre = juste || !errs.length ? p.sortie : rng.pick(errs);
@@ -695,7 +768,7 @@ const programmesVraiFaux: ItemGen = (level, rng, ctx) => {
     answer: montre === p.sortie,
     explication: explExec(p),
     difficulty: difProg(level, false),
-    meta: metaProg(p, 'sortie'),
+    meta: { programme: { etapes: p.etapes.map(etapeCode), entree: p.entree, sortie: p.sortie } },
   });
 };
 
@@ -783,15 +856,27 @@ function regleSuite(level: Level, rng: Rng): Regle {
     const f = rng.int(0, 4);
     if (f === 0) return { premier: i(1, 50), m: 1, k: i(11, 25) };
     if (f === 1) return { premier: r3(i(1, 20) / 2), m: 1, k: rng.pick([0.5, 0.25, 1.5, 2.5]) };
-    if (f === 2) return { premier: i(1, 5), m: rng.pick([2, 3]), k: 0 };
-    if (f === 3) return { premier: i(2, 7), m: 2, k: 1 };
+    if (f === 2 || f === 3) return { premier: i(1, 5), m: rng.pick([2, 3]), k: 0 };
     const k = i(3, 12);
     return { premier: k * i(8, 15), m: 1, k: -k };
   }
-  const f = rng.int(0, 2);
-  if (f === 0) return { premier: i(2, 9), m: 2, k: rng.pick([1, 2, 3]) };
-  if (f === 1) return { premier: r3(i(1, 40) / 10), m: 1, k: rng.pick([0.2, 0.25, 0.75, 1.25]) };
-  return { premier: i(1, 3), m: 3, k: rng.pick([0, 1]) };
+  // Plus loin : « × a puis + b » (BO : 7 ; 15 ; 31 ; 63 ; 127), pas décimaux, grands écarts (étape 100)
+  const f = rng.int(0, 3);
+  if (f === 0 || f === 1) {
+    const m = rng.pick([2, 2, 3]);
+    return { premier: i(2, m === 2 ? 9 : 5), m, k: rng.pick([1, 2, 3]) };
+  }
+  if (f === 2) return { premier: r3(i(1, 40) / 10), m: 1, k: rng.pick([0.2, 0.25, 0.75, 1.25]) };
+  return { premier: i(1, 50), m: 1, k: i(11, 25) };
+}
+
+/** Explication d'un terme éloigné, avec le calcul. */
+function explRang(r: Regle, n: number, affiches: number): string {
+  const v = terme(r, n);
+  if (r.m === 1)
+    return `Du 1er au ${rang(n)} nombre, on ${r.k >= 0 ? 'ajoute' : 'retire'} ${n - 1} fois ${fmt(Math.abs(r.k))} : ${fmt(r.premier)} ${r.k >= 0 ? '+' : '−'} (${n - 1} × ${fmt(Math.abs(r.k))}) = ${fmt(v)}.`;
+  const suite = termes(r, n).slice(affiches);
+  return `On continue : ${suite.map((x) => fmt(x)).join(' ; ')}. Le ${rang(n)} nombre est ${fmt(v)}.`;
 }
 
 const nbAffiches = (level: Level) => (level === 'facile' ? 4 : 5);
@@ -823,7 +908,7 @@ const suitesNumeric: ItemGen = (level, rng, ctx) => {
     return numeric(ctx, `motif-${mo.premier}-${mo.ajout}-${mo.objets}-${n}`, {
       prompt: `${mo.description} Étape 1 : ${mo.premier} ${mo.objets} ; étape 2 : ${mo.premier + mo.ajout} ${mo.objets} ; étape 3 : ${mo.premier + 2 * mo.ajout} ${mo.objets}. Combien y a-t-il ${de(mo.objets)} à l’étape ${n} ?`,
       answer: v,
-      explication: `Il y a ${mo.premier} ${mo.objets} à l’étape 1, puis ${mo.ajout} de plus à chaque étape. De l’étape 1 à l’étape ${n}, on ajoute ${n - 1} fois ${mo.ajout} : ${mo.premier} + ${n - 1} × ${mo.ajout} = ${fmt(v)}.`,
+      explication: `Il y a ${mo.premier} ${mo.objets} à l’étape 1, puis ${mo.ajout} de plus à chaque étape. De l’étape 1 à l’étape ${n}, on ajoute ${n - 1} fois ${mo.ajout} : ${mo.premier} + (${n - 1} × ${mo.ajout}) = ${fmt(v)}.`,
       difficulty: { facile: 0.35, normal: 0.6, plus_loin: 0.8 }[level],
       meta: metaSuite(r, termes(r, 3), n, mo),
     });
@@ -837,8 +922,9 @@ const suitesNumeric: ItemGen = (level, rng, ctx) => {
     if (v >= 0)
       return numeric(ctx, `rang-${liste(t)}-${n}`, {
         prompt: `Voici le début d’une suite : ${liste(t)} ; … Quel est le ${rang(n)} nombre de cette suite ?`,
+        spoken: `Voici le début d’une suite : ${dire(liste(t))}. Quel est le ${rang(n)} nombre de cette suite ?`,
         answer: v,
-        explication: `${cap1(regleMots(r))} à chaque fois. Du 1er au ${rang(n)} nombre, on le fait ${n - 1} fois : ${fmt(r.premier)} ${r.k >= 0 ? '+' : '−'} ${n - 1} × ${fmt(Math.abs(r.k))} = ${fmt(v)}.`,
+        explication: `${cap1(regleMots(r))} à chaque fois. ${explRang(r, n, k)}`,
         difficulty: level === 'normal' ? 0.6 : 0.8,
         meta: metaSuite(r, t, n),
       });
@@ -911,7 +997,7 @@ const suitesVraiFaux: ItemGen = (level, rng, ctx) => {
     const r = regleSuite(level, rng);
     const n = nbAffiches(level);
     const t = termes(r, n);
-    const p = rng.int(n + 2, n + 5);
+    const p = r.m === 1 ? rng.int(n + 2, n + 5) : rng.int(n + 1, n + 2);
     const vrai = terme(r, p);
     const ecart = Math.abs(r3(t[1]! - t[0]!));
     const faux = r3(vrai + (ecart > 1 ? 1 : ecart / 2));
@@ -923,7 +1009,7 @@ const suitesVraiFaux: ItemGen = (level, rng, ctx) => {
       statement: `Dans la suite ${liste(t)} ; …, le ${rang(p)} nombre est ${fmt(montre)}.`,
       spoken: `Dans la suite ${dire(liste(t))}, et ainsi de suite, le ${rang(p)} nombre est ${dire(fmt(montre))}. Vrai ou faux ?`,
       answer: juste,
-      explication: `${explSuite(r)} Le ${rang(p)} nombre est ${fmt(vrai)}.`,
+      explication: `${explSuite(r)} ${explRang(r, p, n)}`,
       difficulty: { facile: 0.3, normal: 0.5, plus_loin: 0.7 }[level],
       meta: metaSuite(r, t, p),
     });
@@ -932,7 +1018,7 @@ const suitesVraiFaux: ItemGen = (level, rng, ctx) => {
   return vraiFaux(ctx, `vf-secours-${juste}`, {
     statement: `Dans la suite 4 ; 7 ; 10 ; 13 ; …, le 6e nombre est ${juste ? 19 : 20}.`,
     answer: juste,
-    explication: `${explSuite(r)} Le 6e nombre est 19.`,
+    explication: `${explSuite(r)} Du 1er au 6e nombre, on ajoute 5 fois 3 : 4 + (5 × 3) = 19.`,
     difficulty: 0.3,
     meta: metaSuite(r, termes(r, 4), 6),
   });

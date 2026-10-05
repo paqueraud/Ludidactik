@@ -24,8 +24,22 @@ const appliquer = (a: number, op: Op, b: number) =>
 const estEntier = (x: number) => Math.abs(x - Math.round(x)) < 1e-9;
 
 /** Lecture orale d'un calcul avec parenthèses. */
-const direCalcul = (t: string) =>
-  dire(t.replace(/\(/g, 'parenthèse ouvrante, ').replace(/\)/g, ', parenthèse fermante'));
+function direCalcul(t: string): string {
+  const MOTS: Record<string, string> = {
+    '(': 'parenthèse ouvrante',
+    ')': 'parenthèse fermante',
+    '+': 'plus',
+    '−': 'moins',
+    '×': 'fois',
+    '÷': 'divisé par',
+  };
+  const toks = t.match(/\d{1,3}(?: \d{3})+(?:,\d+)?|\d+(?:,\d+)?|[()+−×÷]/g) ?? [];
+  const par = (x?: string) => x === '(' || x === ')';
+  // Une pause (virgule) autour de chaque parenthèse
+  return toks
+    .map((x) => MOTS[x] ?? dire(x))
+    .reduce((acc, m, j) => (j === 0 ? m : `${acc}${par(toks[j]) || par(toks[j - 1]) ? ', ' : ' '}${m}`), '');
+}
 
 /* ================================================================== */
 /* CM2.MA.OP.ESTIMER                                                   */
@@ -69,13 +83,26 @@ function estimation(level: Level, rng: Rng): Estim {
     const rB = arrondi(b, ub);
     return { a, b, op, ra: rA, rb: rB, ua, ub, exact: appliquer(a, op, b), approx: appliquer(rA, op, rB) };
   };
-  for (let essai = 0; essai < 100; essai++) {
+  for (let essai = 0; essai < 200; essai++) {
+    const e = estimationBrute(level, rng, fin);
+    // Les arrondis ne doivent pas trop s'accumuler (398 − 333 ≈ 400 − 300 = 100 : trop loin de 65)
+    if (e && Math.abs(e.approx - e.exact) <= 0.25 * e.exact) return e;
+  }
+  return fin(487, '+', 312, 100, 100);
+}
+
+function estimationBrute(
+  level: Level,
+  rng: Rng,
+  fin: (a: number, op: Op, b: number, ua: number, ub: number, ra?: number) => Estim,
+): Estim | null {
+  {
     if (level === 'facile') {
       const a = tirerLoin(rng, 120, 980, 100);
       const b = tirerLoin(rng, 110, 890, 100);
       if (rng.chance(0.5)) return fin(a, '+', b, 100, 100);
       if (arrondi(a, 100) > arrondi(b, 100) && a > b) return fin(a, '−', b, 100, 100);
-      continue;
+      return null;
     }
     if (level === 'normal') {
       if (rng.chance(0.6)) {
@@ -87,7 +114,7 @@ function estimation(level: Level, rng: Rng): Estim {
       const b = tirerLoin(rng, 1100, 49000, 1000);
       if (rng.chance(0.5)) return fin(a, '+', b, 1000, 1000);
       if (a > b && arrondi(a, 1000) > arrondi(b, 1000)) return fin(a, '−', b, 1000, 1000);
-      continue;
+      return null;
     }
     const forme = rng.int(0, 2);
     if (forme === 0) {
@@ -109,7 +136,6 @@ function estimation(level: Level, rng: Rng): Estim {
     const b = tirerLoin(rng, 11, 94, 10);
     return fin(a, '×', b, 1000, 10);
   }
-  return fin(487, '+', 312, 100, 100);
 }
 
 const exprEstim = (e: Estim) => `${fmt(e.a)} ${e.op} ${fmt(e.b)}`;
@@ -163,41 +189,105 @@ const estimerNumeric: ItemGen = (level, rng, ctx) => {
   });
 };
 
-/** Affirmations de vraisemblance : [plausible, pas plausible]. */
-const VRAISEMBLANCE: [string, string][] = [
-  ['Une voiture mesure 4,5 m de long.', 'Une voiture mesure 45 m de long.'],
-  ['Un élève de CM2 pèse 35 kg.', 'Un élève de CM2 pèse 350 kg.'],
-  ['Une bouteille d’eau contient 1,5 L.', 'Une bouteille d’eau contient 150 L.'],
-  ['Un film dure 1 h 30 min.', 'Un film dure 15 h.'],
-  ['Une porte mesure 2 m de haut.', 'Une porte mesure 20 cm de haut.'],
-  ['Une pomme pèse 150 g.', 'Une pomme pèse 15 kg.'],
-  ['Un crayon mesure 15 cm.', 'Un crayon mesure 15 m.'],
-  ['Une récréation dure 15 min.', 'Une récréation dure 15 s.'],
-  ['Un cartable pèse 3 kg.', 'Un cartable pèse 300 kg.'],
-  ['Une baignoire contient 150 L d’eau.', 'Une baignoire contient 1,5 L d’eau.'],
-  ['Paris et Marseille sont à environ 700 km.', 'Paris et Marseille sont à environ 7 km.'],
-  ['Un éléphant pèse environ 5 t.', 'Un éléphant pèse environ 5 kg.'],
-  ['Une cuillère à café contient 5 mL.', 'Une cuillère à café contient 5 L.'],
-  ['Un timbre mesure 3 cm de large.', 'Un timbre mesure 3 m de large.'],
-  ['Une nuit de sommeil dure 10 h.', 'Une nuit de sommeil dure 10 min.'],
-  ['Une salle de classe mesure 9 m de long.', 'Une salle de classe mesure 9 km de long.'],
-  ['Paris et New York sont à environ 6 000 km.', 'Paris et New York sont à environ 800 km.'],
+/**
+ * Affirmations de vraisemblance : [plausible, pas plausible, explication « environ »].
+ * Facile : écarts énormes ; normal : erreurs d'un facteur 10 ; plus loin : erreurs d'unité.
+ */
+type Vrais = [string, string, string];
+const VRAIS_FACILE: Vrais[] = [
+  ['Une voiture mesure 4 m de long.', 'Une voiture mesure 400 m de long.', 'une voiture mesure environ 4 m'],
+  [
+    'Une porte mesure 2 m de haut.',
+    'Une porte mesure 20 cm de haut.',
+    'une porte mesure environ 2 m de haut',
+  ],
+  ['Une pomme pèse 150 g.', 'Une pomme pèse 15 kg.', 'une pomme pèse environ 150 g'],
+  ['Un crayon mesure 15 cm.', 'Un crayon mesure 15 m.', 'un crayon mesure environ 15 cm'],
+  ['Une récréation dure 15 min.', 'Une récréation dure 15 s.', 'une récréation dure environ 15 min'],
+  [
+    'Une nuit de sommeil dure 10 h.',
+    'Une nuit de sommeil dure 10 min.',
+    'une nuit de sommeil dure environ 10 h',
+  ],
+  [
+    'Une salle de classe mesure 9 m de long.',
+    'Une salle de classe mesure 9 km de long.',
+    'une salle de classe mesure environ 9 m',
+  ],
+  ['Un timbre mesure 3 cm de large.', 'Un timbre mesure 3 m de large.', 'un timbre mesure environ 3 cm'],
 ];
-
-const sansPoint = (s: string) => s.replace(/\.$/, '');
-const minuscule = (s: string) => s[0]!.toLowerCase() + s.slice(1);
+const VRAIS_NORMAL: Vrais[] = [
+  [
+    'Une voiture mesure 4,5 m de long.',
+    'Une voiture mesure 45 m de long.',
+    'une voiture mesure environ 4,5 m',
+  ],
+  [
+    'Une bouteille d’eau contient 1,5 L.',
+    'Une bouteille d’eau contient 15 L.',
+    'une bouteille d’eau contient environ 1,5 L',
+  ],
+  ['Un film dure 1 h 30 min.', 'Un film dure 15 h.', 'un film dure environ 1 h 30 min'],
+  [
+    'Une baignoire contient 150 L d’eau.',
+    'Une baignoire contient 15 L d’eau.',
+    'une baignoire contient environ 150 L',
+  ],
+  [
+    'Paris et Marseille sont à environ 700 km.',
+    'Paris et Marseille sont à environ 70 km.',
+    'Paris et Marseille sont à environ 700 km',
+  ],
+  [
+    'Une girafe mesure environ 5 m de haut.',
+    'Une girafe mesure environ 50 m de haut.',
+    'une girafe mesure environ 5 m',
+  ],
+  ['Un vélo pèse environ 12 kg.', 'Un vélo pèse environ 120 kg.', 'un vélo pèse environ 12 kg'],
+  ['Un livre a environ 200 pages.', 'Un livre a environ 20 000 pages.', 'un livre a environ 200 pages'],
+];
+const VRAIS_PLUS_LOIN: Vrais[] = [
+  ['Un éléphant pèse environ 5 t.', 'Un éléphant pèse environ 5 kg.', 'un éléphant pèse environ 5 tonnes'],
+  [
+    'Une cuillère à café contient 5 mL.',
+    'Une cuillère à café contient 5 L.',
+    'une cuillère à café contient environ 5 mL',
+  ],
+  [
+    'Un marathon mesure environ 42 km.',
+    'Un marathon mesure environ 42 m.',
+    'un marathon mesure environ 42 km',
+  ],
+  [
+    'Une feuille de papier pèse environ 5 g.',
+    'Une feuille de papier pèse environ 5 kg.',
+    'une feuille de papier pèse environ 5 g',
+  ],
+  [
+    'Paris et New York sont à environ 6 000 km.',
+    'Paris et New York sont à environ 800 km.',
+    'Paris et New York sont à environ 6 000 km',
+  ],
+  ['Un verre contient environ 20 cL.', 'Un verre contient environ 20 L.', 'un verre contient environ 20 cL'],
+  ['Une fourmi mesure environ 5 mm.', 'Une fourmi mesure environ 5 cm.', 'une fourmi mesure environ 5 mm'],
+  [
+    'La tour Eiffel mesure environ 330 m.',
+    'La tour Eiffel mesure environ 33 km.',
+    'la tour Eiffel mesure environ 330 m',
+  ],
+];
+const vraisemblances = (level: Level) =>
+  ({ facile: VRAIS_FACILE, normal: VRAIS_NORMAL, plus_loin: VRAIS_PLUS_LOIN })[level];
 
 const estimerVraiFaux: ItemGen = (level, rng, ctx) => {
   const juste = rng.chance(0.5);
   if (rng.chance(0.5)) {
-    const [ok, ko] = rng.pick(VRAISEMBLANCE);
+    const [ok, ko, expl] = rng.pick(vraisemblances(level));
     const phrase = juste ? ok : ko;
     return vraiFaux(ctx, `vrai-${phrase}`, {
       statement: `${phrase} Est-ce plausible ?`,
       answer: juste,
-      explication: juste
-        ? `Oui : ${minuscule(sansPoint(ok))}, c’est une mesure habituelle.`
-        : `Non, ce n’est pas plausible : en vrai, ${minuscule(sansPoint(ok))}.`,
+      explication: juste ? `Oui, c’est plausible : ${expl}.` : `Non, ce n’est pas plausible : ${expl}.`,
       difficulty: level === 'facile' ? 0.2 : 0.3,
     });
   }
@@ -219,21 +309,23 @@ const estimerVraiFaux: ItemGen = (level, rng, ctx) => {
 
 const estimerClasser: ItemGen = (level, rng, ctx) => {
   const n = { facile: 4, normal: 6, plus_loin: 8 }[level];
-  const els = rng
-    .shuffle(VRAISEMBLANCE)
-    .slice(0, n)
-    .map(([ok, ko]) => (rng.chance(0.5) ? { label: ok, category: 0 } : { label: ko, category: 1 }));
+  const choisis = rng.shuffle(vraisemblances(level)).slice(0, n);
+  const els = choisis.map(([ok, ko]) =>
+    rng.chance(0.5) ? { label: ok, category: 0 } : { label: ko, category: 1 },
+  );
   // Au moins un élément dans chaque catégorie
   if (els.every((e) => e.category === els[0]!.category)) {
-    const [ok, ko] = VRAISEMBLANCE.find(([a, b]) => !els.some((e) => e.label === a || e.label === b))!;
+    const [ok, ko] = choisis[0]!;
     els[0] = els[0]!.category === 0 ? { label: ko, category: 1 } : { label: ok, category: 0 };
   }
   return make(ctx, 'classification', `vrai-${els.map((e) => e.label).join('|')}`, {
     prompt: 'Ces mesures sont-elles plausibles ? Range chaque phrase.',
     categories: ['plausible', 'pas plausible'],
     elements: els,
-    explication:
-      'Je compare avec des mesures que je connais : une porte mesure environ 2 m, une bouteille contient 1,5 L, un élève de CM2 pèse environ 35 kg.',
+    explication: `Je compare avec des mesures que je connais : ${choisis
+      .slice(0, 3)
+      .map((v) => v[2])
+      .join(' ; ')}.`,
     difficulty: { facile: 0.25, normal: 0.4, plus_loin: 0.5 }[level],
   });
 };
@@ -347,9 +439,10 @@ function expressionParentheses(level: Level, rng: Rng): E {
 function explParentheses(e: E, level: Level): string {
   const s = etapes(e);
   const fin = s.length > 1 ? `${s.slice(0, -1).join(' ; ')}, puis ${s[s.length - 1]}` : s[0]!;
-  return level === 'plus_loin'
-    ? `On calcule d’abord les parenthèses, puis les multiplications et les divisions, et enfin les additions et les soustractions : ${fin}.`
-    : `On commence toujours par ce qui est entre parenthèses : ${fin}.`;
+  if (level !== 'plus_loin') return `On commence toujours par ce qui est entre parenthèses : ${fin}.`;
+  return rendu(e, 'minimal').includes('(')
+    ? `On fait d’abord les parenthèses, puis × et ÷, puis + et − : ${fin}.`
+    : `On fait d’abord × et ÷, puis + et − : ${fin}.`;
 }
 
 const difPar = (level: Level) => ({ facile: 0.3, normal: 0.5, plus_loin: 0.7 })[level];
@@ -611,13 +704,13 @@ function division(level: Level, rng: Rng): Div {
     }
     if (level === 'normal') {
       const f = rng.next();
-      if (f < 0.3) {
+      if (f < 0.25) {
         const b = rng.int(3, 9);
         const d = euclid(rng.int(1000, 9999), b);
         if (d.type === 'euclid' && d.r > 0) return d;
         continue;
       }
-      if (f < 0.65) {
+      if (f < 0.7) {
         // Dividende entier : 7 ÷ 4 = 1,75
         const b = rng.pick([2, 4, 5, 8]);
         const a = rng.int(5, 999);
@@ -655,7 +748,7 @@ const egaliteEuclid = (a: number, b: number, q: number, r: number) =>
 function explDiv(d: Div): string {
   if (d.type === 'euclid')
     return `On cherche combien de fois ${fmt(d.b)} dans ${fmt(d.a)} : ${fmt(d.b)} × ${fmt(d.q)} = ${fmt(d.b * d.q)} et il reste ${fmt(d.r)}, plus petit que ${fmt(d.b)}. Donc ${egaliteEuclid(d.a, d.b, d.q, d.r)}.`;
-  return `Quand il reste quelque chose aux unités, on écrit la virgule au quotient et on continue avec les dixièmes, puis les centièmes : ${divTexte(d)} = ${fmt(d.q)}, car ${fmt(d.b)} × ${fmt(d.q)} = ${fmt(d.a)}.`;
+  return `Quand j’abaisse les dixièmes, j’écris la virgule au quotient ; s’il reste quelque chose, j’ajoute un 0 et je continue : ${divTexte(d)} = ${fmt(d.q)}, car ${fmt(d.b)} × ${fmt(d.q)} = ${fmt(d.a)}.`;
 }
 
 const difDiv = (d: Div, level: Level) =>
@@ -722,12 +815,18 @@ const divVraiFaux: ItemGen = (level, rng, ctx) => {
   const juste = rng.chance(0.5);
   const qui = rng.pick(PERSOS);
   if (d.type === 'euclid') {
-    const [q, r] = juste ? [d.q, d.r] : rng.pick([[d.q - 1, d.r + d.b] as const, [d.q, d.r + 1] as const]);
+    const resteTropGrand = !juste && rng.chance(0.5);
+    const [q, r] = juste ? [d.q, d.r] : resteTropGrand ? [d.q - 1, d.r + d.b] : [d.q, d.r + 1];
+    const verif = `(${fmt(d.b)} × ${fmt(d.q)}) + ${fmt(d.r)} = ${fmt(d.a)}, et le reste ${fmt(d.r)} est plus petit que ${fmt(d.b)}`;
     return vraiFaux(ctx, `vf-${divTexte(d)}-${q}-${r}`, {
       statement: `Pour ${divTexte(d)}, ${qui.nom} trouve un quotient de ${fmt(q)} et un reste de ${fmt(r)}. C’est juste ?`,
       spoken: `Pour ${dire(divTexte(d))}, ${qui.nom} trouve un quotient de ${q} et un reste de ${r}. C’est juste ?`,
       answer: juste,
-      explication: `On vérifie : (${fmt(d.b)} × ${fmt(d.q)}) + ${fmt(d.r)} = ${fmt(d.a)}, et le reste ${fmt(d.r)} est plus petit que ${fmt(d.b)}.`,
+      explication: juste
+        ? `Oui ! On vérifie : ${verif}.`
+        : resteTropGrand
+          ? `Presque ! (${fmt(d.b)} × ${fmt(q)}) + ${fmt(r)} fait bien ${fmt(d.a)}, mais le reste ${fmt(r)} est plus grand que ${fmt(d.b)} : on peut encore mettre ${fmt(d.b)} une fois. Quotient ${fmt(d.q)}, reste ${fmt(d.r)}.`
+          : `Presque ! (${fmt(d.b)} × ${fmt(q)}) + ${fmt(r)} = ${fmt(d.b * q + r)}, pas ${fmt(d.a)}. Le bon résultat : quotient ${fmt(d.q)}, reste ${fmt(d.r)}.`,
       difficulty: difDiv(d, level),
     });
   }

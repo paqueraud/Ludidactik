@@ -54,6 +54,8 @@ const chiffre = (n: number, p: number) => Math.floor(n / 10 ** p) % 10;
 const nbChiffres = (n: number) => String(n).length;
 /** « des dizaines de mille » / « des unités ». */
 const desRang = (p: number) => `des ${RANG_PL[p]}`;
+/** Nom des classes : unités, mille, millions, milliards. */
+const NOM_CLASSE = ['unités', 'mille', 'millions', 'milliards'];
 
 /** Chiffres non nuls avec leur rang, du plus grand rang au plus petit. */
 function chiffresNonNuls(n: number): [number, number][] {
@@ -124,12 +126,21 @@ function grandNombre(level: Level, rng: Rng): number {
   return g * 1e9 + rng.int(0, 999_999_999);
 }
 
-/** Nombre ≤ 999 999 999 (écriture en lettres possible) ; au niveau « plus loin », que des pièges. */
+/** Nombre à écrire en lettres ; au niveau « plus loin », des milliards avec des classes pièges (6e). */
 function nombreLettres(level: Level, rng: Rng): number {
   if (level !== 'plus_loin') return grandNombre(level, rng);
   const c = () => rng.pick(CLASSES_PIEGES);
-  return c() * 1e6 + (rng.chance(0.7) ? c() * 1000 : 0) + (rng.chance(0.8) ? c() : 0);
+  return (
+    rng.pick([2, 3, 4, 5, 8, 12, 20, 80, 200, 300]) * 1e9 +
+    c() * 1e6 +
+    (rng.chance(0.6) ? c() * 1000 : 0) +
+    (rng.chance(0.7) ? c() : 0)
+  );
 }
+
+/** Graphies acceptées (milliards compris). */
+const graphies = (n: number) =>
+  n < 1e9 ? graphiesNombre(n) : [...new Set([lettresMilliards(n), lettresMilliards(n, 'traditionnelle')])];
 
 const maxNiv = (level: Level) =>
   parNiv(level, { facile: 999_999, normal: 999_999_999, plus_loin: 999_999_999_999 });
@@ -150,6 +161,16 @@ function difNombre(n: number, level: Level): number {
 
 /** Graphies fautives plausibles : jamais une graphie acceptée. */
 function lettresFautives(n: number): string[] {
+  if (n >= 1e9) {
+    const g = Math.floor(n / 1e9);
+    const tete = lettresMilliards(g * 1e9);
+    const reste = n % 1e9;
+    const out = reste ? lettresFautives(reste).map((f) => `${tete} ${f}`) : [];
+    if (g > 1) out.push(lettresMilliards(n).replace('milliards', 'milliard'));
+    if (g % 100 === 0 && g > 100)
+      out.push(lettresMilliards(n).replace('-cents milliards', '-cent milliards'));
+    return [...new Set(out)].filter((x) => !graphies(n).includes(x));
+  }
   const r = nombreEnLettres(n);
   const [, m, k] = classes(n) as [number, number, number, number];
   const out: string[] = [];
@@ -193,18 +214,19 @@ function voisinsConfusion(n: number, rng: Rng, max: number): number[] {
 }
 
 const explLettres = (n: number) => {
-  const [, m, k] = classes(n) as [number, number, number, number];
+  const [g, m, k] = classes(n) as [number, number, number, number];
+  const l = lettresMilliards(n);
   const regles: string[] = [];
-  if (m) regles.push('« million » prend un s au pluriel et reste séparé par une espace');
-  if (k) regles.push('« mille » ne prend jamais de s');
-  const l = nombreEnLettres(n);
-  if (/cents|vingts/.test(l))
+  if (g || m)
     regles.push(
-      '« cent » et « vingt » prennent un s quand ils sont multipliés et qu’aucun nombre ne les suit',
+      `« ${g ? 'milliard' : 'million'} » prend un s au pluriel et reste un mot à part, sans trait d’union`,
     );
-  else if (/-(cent|vingt)-mille/.test(l))
-    regles.push('« cent » et « vingt » ne prennent pas de s devant « mille »');
-  return `${fmt(n)} s’écrit « ${nombreEnLettres(n)} »${regles.length ? ` : ${regles.join(', ')}` : ''}.`;
+  if (k) regles.push('« mille » ne prend jamais de s');
+  if (/(deux|trois|quatre|cinq|six|sept|huit|neuf)-cent|quatre-vingt/.test(l))
+    regles.push(
+      '« cent » et « vingt » prennent un s quand ils sont multipliés et terminent le nombre, ou devant « millions » ou « milliards », jamais devant « mille »',
+    );
+  return `${fmt(n)} s’écrit « ${l} »${regles.length ? ` (${regles.join(' ; ')})` : ''}.`;
 };
 
 /** Décomposition affichée et sa forme « lisible » pour l'explication. */
@@ -244,16 +266,16 @@ const grandsNumeric: ItemGen = (level, rng, ctx) => {
       prompt: 'Écris en chiffres le nombre que tu entends.',
       spoken: String(n),
       answer: n,
-      explication: `On entend « ${n < 1e9 ? nombreEnLettres(n) : lectureClasses(n)} » : on écrit ${fmt(n)}, en séparant les classes par des espaces et en n’oubliant pas les zéros.`,
+      explication: `On entend « ${lettresMilliards(n)} » : on écrit ${fmt(n)}, en séparant les classes par des espaces et en n’oubliant pas les zéros.`,
       difficulty: difNombre(n, level),
       meta: { dictee: true },
     });
   }
   // 2. Construire à partir d'une décomposition
   if (forme < 0.75) {
-    let n = level === 'plus_loin' && rng.chance(0.5) ? grandNombre('normal', rng) : grandNombre(level, rng);
-    if (level === 'plus_loin' && n >= 1e9 && rng.chance(0.5)) n = Math.floor(n / 1e6) * 1e6;
-    if (n >= 1e9) {
+    let n = grandNombre(level, rng);
+    if (level === 'plus_loin' && rng.chance(0.5)) n = Math.floor(n / 1e6) * 1e6;
+    if (n >= 1e9 && rng.chance(0.4)) {
       const texte = lectureClasses(n);
       return numeric(ctx, `construire-milliards-${n}`, {
         prompt: `Écris en chiffres : ${texte}`,
@@ -277,11 +299,11 @@ const grandsNumeric: ItemGen = (level, rng, ctx) => {
     });
   }
   // 3. Nombre de milliers / centaines / millions « en tout »
-  const n = level === 'plus_loin' ? grandNombre('normal', rng) : grandNombre(level, rng);
+  const n = grandNombre(level, rng);
   const choix = parNiv(level, {
     facile: [1, 2, 3],
     normal: [2, 3, 4, 6],
-    plus_loin: [3, 4, 5, 6],
+    plus_loin: [3, 6, 9],
   }).filter((p) => n >= 10 ** (p + 1));
   const p = choix.length ? rng.pick(choix) : 2;
   const q = Math.floor(n / 10 ** p);
@@ -295,7 +317,7 @@ const grandsNumeric: ItemGen = (level, rng, ctx) => {
 
 const grandsLettresTrou: ItemGen = (level, rng, ctx) => {
   const n = nombreLettres(level, rng);
-  const lettres = nombreEnLettres(n);
+  const lettres = lettresMilliards(n);
   const avecChoix = level === 'facile' || (level === 'normal' && rng.chance(0.5));
   const choices = avecChoix
     ? rng.shuffle([
@@ -305,7 +327,7 @@ const grandsLettresTrou: ItemGen = (level, rng, ctx) => {
             ...lettresFautives(n),
             ...voisinsConfusion(n, rng, 999_999_999).map((x) => nombreEnLettres(x)),
           ])
-          .filter((x, i, a) => a.indexOf(x) === i && x !== lettres && !graphiesNombre(n).includes(x))
+          .filter((x, i, a) => a.indexOf(x) === i && x !== lettres && !graphies(n).includes(x))
           .slice(0, 2),
       ])
     : undefined;
@@ -313,7 +335,7 @@ const grandsLettresTrou: ItemGen = (level, rng, ctx) => {
     sentence: `${fmt(n)} s’écrit en lettres : ___`,
     spoken: `Écris ${n} en lettres.`,
     answer: lettres,
-    accepted: graphiesNombre(n).filter((g) => g !== lettres),
+    accepted: graphies(n).filter((g) => g !== lettres),
     choices,
     explication: explLettres(n),
     difficulty: clamp01(difNombre(n, level) + (avecChoix ? 0 : 0.25)),
@@ -346,17 +368,18 @@ const grandsQcm: ItemGen = (level, rng, ctx) => {
   // Lettres → chiffres ou chiffres → lettres
   if (forme === 0 || forme === 1) {
     const n = nombreLettres(level, rng);
-    const lettres = nombreEnLettres(n);
+    const lettres = lettresMilliards(n);
+    const max = maxNiv(level);
     if (forme === 0) {
       const pieges = [
         ...lettresFautives(n),
-        ...voisinsConfusion(n, rng, 999_999_999).map((x) => nombreEnLettres(x)),
+        ...voisinsConfusion(n, rng, max).map((x) => lettresMilliards(x)),
       ];
       return mcq(ctx, rng, `lettres-${n}`, {
         question: `Comment s’écrit ${fmt(n)} en lettres ?`,
         spoken: `Comment s’écrit ${n} en lettres ?`,
         good: lettres,
-        wrong: pieges.filter((x) => !graphiesNombre(n).includes(x)),
+        wrong: pieges.filter((x) => !graphies(n).includes(x)),
         explication: explLettres(n),
         difficulty: difNombre(n, level),
         meta: { lettres: true },
@@ -366,16 +389,13 @@ const grandsQcm: ItemGen = (level, rng, ctx) => {
     return mcq(ctx, rng, `chiffres-${n}`, {
       question: `Quel nombre s’écrit « ${lettres} » ?`,
       good: fmt(n),
-      wrong: voisinsConfusion(n, rng, 999_999_999).map((x) => fmt(x)),
-      explication: `« ${lettres} », c’est ${fmt(n)} : chaque classe (millions, mille, unités) s’écrit avec 3 chiffres, zéros compris.`,
+      wrong: voisinsConfusion(n, rng, max).map((x) => fmt(x)),
+      explication: `« ${lettres} », c’est ${fmt(n)} : chaque classe (${n >= 1e9 ? 'milliards, ' : ''}millions, mille, unités) s’écrit avec 3 chiffres, zéros compris.`,
       difficulty: difNombre(n, level),
       max: level === 'facile' ? 3 : 4,
     });
   }
-  const n =
-    level === 'plus_loin'
-      ? grandNombre(rng.chance(0.5) ? 'plus_loin' : 'normal', rng)
-      : grandNombre(level, rng);
+  const n = grandNombre(level, rng);
   const nn = chiffresNonNuls(n);
   // Chiffre d'un rang donné
   if (forme === 2) {
@@ -444,18 +464,18 @@ const grandsOral: ItemGen = (level, rng, ctx) => {
 };
 
 const grandsVraiFaux: ItemGen = (level, rng, ctx) => {
-  const n = level === 'plus_loin' && rng.chance(0.5) ? grandNombre('normal', rng) : grandNombre(level, rng);
+  const n = grandNombre(level, rng);
   const juste = rng.chance(0.5);
   if (rng.chance(0.5)) {
     // Chiffre d'un rang
     const p = rng.int(1, nbChiffres(n) - 1);
     const c = chiffre(n, p);
     const autres = [p - 1, p + 1].filter((q) => q >= 0 && q < nbChiffres(n) && chiffre(n, q) !== c);
-    const montre = juste || !autres.length ? c : chiffre(n, rng.pick(autres));
+    const montre = juste ? c : autres.length ? chiffre(n, rng.pick(autres)) : (c + 1) % 10;
     return vraiFaux(ctx, `vf-chiffre-${p}-${n}-${montre}`, {
       statement: `Dans ${fmt(n)}, le chiffre ${desRang(p)} est ${montre}.`,
       answer: montre === c,
-      explication: `Dans ${fmt(n)}, le chiffre ${desRang(p)} est ${c}.`,
+      explication: `Je découpe en classes (${fmt(n).split('\u00a0').join(' | ')}). Dans la classe des ${NOM_CLASSE[Math.floor(p / 3)]}, le chiffre ${desRang(p)} est ${c}.`,
       difficulty: clamp01(0.3 + p * 0.04),
     });
   }
@@ -466,7 +486,10 @@ const grandsVraiFaux: ItemGen = (level, rng, ctx) => {
     const i = rng.int(0, nn.length - 1);
     const [c, p] = nn[i]!;
     const libres = [p + 1, p - 1].filter((q) => q >= 0 && q < nbChiffres(n) && !nn.some(([, r]) => r === q));
-    if (libres.length) decal = nn.map((x, j) => (j === i ? ([c, rng.pick(libres)] as [number, number]) : x));
+    // Erreur d'enfant : un chiffre décalé d'un rang, sinon un chiffre mal recopié
+    decal = libres.length
+      ? nn.map((x, j) => (j === i ? ([c, rng.pick(libres)] as [number, number]) : x))
+      : nn.map((x, j) => (j === i ? ([c === 9 ? 8 : c + 1, p] as [number, number]) : x));
   }
   const valeur = decal.reduce((s, [c, p]) => s + c * 10 ** p, 0);
   const texte = decal.map(([c, p]) => rangs(c, p)).join(' + ');
@@ -495,7 +518,7 @@ function explComparer(a: number, b: number): string {
     return `${fmt(petit)} a ${nbChiffres(petit)} chiffres et ${fmt(grand)} en a ${nbChiffres(grand)} : celui qui a le plus de chiffres est le plus grand, donc ${rel}.`;
   let p = nbChiffres(a) - 1;
   while (p > 0 && chiffre(a, p) === chiffre(b, p)) p--;
-  return `Même nombre de chiffres : je compare de gauche à droite. Le premier chiffre différent est celui ${desRang(p)} (${chiffre(petit, p)} < ${chiffre(grand, p)}), donc ${rel}.`;
+  return `Ils ont le même nombre de chiffres, alors je compare de gauche à droite. Le premier chiffre différent est celui ${desRang(p)} (${chiffre(a, p)} ${s} ${chiffre(b, p)}), donc ${rel}.`;
 }
 
 /** Nombre au hasard ayant exactement k chiffres. */
@@ -511,7 +534,7 @@ function changeChiffre(n: number, p: number, rng: Rng): number {
 }
 
 const chiffresNiv = (level: Level, rng: Rng) =>
-  parNiv(level, { facile: rng.int(4, 6), normal: rng.int(6, 9), plus_loin: rng.int(9, 12) });
+  parNiv(level, { facile: rng.int(4, 6), normal: rng.int(7, 9), plus_loin: rng.int(10, 12) });
 
 function paireComparer(level: Level, rng: Rng): [number, number] {
   const k = chiffresNiv(level, rng);
@@ -543,7 +566,7 @@ const comparerCroco: ItemGen = (level, rng, ctx) => {
       gauche: g,
       droite: d,
       signe: signe(vg, vd),
-      explication: `${m} ${nom} = ${fmt(v)}, puis je compare comme d’habitude : ${explComparer(vg, vd)}`,
+      explication: `${m} ${nom}, c’est ${fmt(v)}. ${explComparer(vg, vd)}`,
       difficulty: 0.75,
     });
   }
@@ -603,16 +626,19 @@ const comparerDroite: ItemGen = (level, rng, ctx) => {
       target,
       display: fmt(target),
       tolerance: (S / 2) * 0.4,
-      explication: `Les grands traits vont de 100 000 en 100 000 et chaque petit trait vaut 50 000 : ${fmt(target)} est sur le trait de ${fmt(target)}.`,
+      explication:
+        target % S === 0
+          ? `Les grands traits vont de 100 000 en 100 000, donc ${fmt(target)} est sur un grand trait.`
+          : `Chaque petit trait vaut 50 000, donc ${fmt(target)} est au milieu entre ${fmt(target - S / 2)} et ${fmt(target + S / 2)}.`,
       difficulty: 0.25,
     });
   }
   const S = parNiv(level, {
     facile: 1e5,
     normal: rng.pick([1e5, 1e6, 1e7]),
-    plus_loin: rng.pick([1e6, 1e7, 1e9]),
+    plus_loin: rng.pick([1e8, 1e9]),
   });
-  const a = rng.int(S === 1e9 ? 0 : 1, S >= 1e7 && S < 1e9 ? 7 : 50);
+  const a = S === 1e9 ? rng.int(1, 50) : S === 1e8 ? rng.int(10, 40) : rng.int(1, S === 1e7 ? 7 : 50);
   const min = a * S;
   const max = min + 2 * S;
   const sub = S / 10;
@@ -635,7 +661,7 @@ const comparerDroite: ItemGen = (level, rng, ctx) => {
     tolerance: Math.round(sub * (entre ? 0.45 : 0.4)),
     explication: entre
       ? `Chaque petit trait vaut ${fmt(sub)} : ${fmt(target)} est juste au milieu entre ${fmt(target - sub / 2)} et ${fmt(target + sub / 2)}.`
-      : `Entre deux grands traits il y a ${fmt(S)}, partagé en 10 : chaque petit trait vaut ${fmt(sub)}. ${fmt(target)} = ${fmt(min)} + ${j} × ${fmt(sub)}.`,
+      : `Entre deux grands traits il y a ${fmt(S)}, partagé en 10, donc chaque petit trait vaut ${fmt(sub)}. ${fmt(target)} = ${fmt(min + Math.floor(j / 10) * S)} + ${j % 10} × ${fmt(sub)}.`,
     difficulty: clamp01(0.45 + (entre ? 0.25 : 0) + (S >= 1e7 ? 0.1 : 0)),
   });
 };
@@ -710,7 +736,7 @@ const comparerNumeric: ItemGen = (level, rng, ctx) => {
     const p = parNiv(level, {
       facile: rng.pick([3, 4]),
       normal: rng.pick([5, 6, 7]),
-      plus_loin: rng.pick([7, 8, 9]),
+      plus_loin: rng.pick([9, 10]),
     });
     const u = 10 ** p;
     const a = rng.int(1, 8) * u + (level === 'facile' ? 0 : rng.int(0, 9) * u * 10);
@@ -759,7 +785,8 @@ const comparerVraiFaux: ItemGen = (level, rng, ctx) => {
   const k = chiffresNiv(level, rng);
   const p = Math.max(3, k - 2);
   const u = 10 ** p;
-  const n = avecChiffres(rng, k);
+  // Les bornes affichées gardent au plus k chiffres
+  const n = rng.int(10 ** (k - 1), 10 ** k - 2 * u - 1);
   const lo = Math.floor(n / u) * u;
   const decalage = juste ? 0 : rng.pick([-1, 1]) * u;
   const a = Math.max(0, lo + decalage);
@@ -792,18 +819,28 @@ const CRITERE: Record<number, string> = {
 };
 
 /** Explication « n est-il divisible par d ? » (critère pour 2, 5, 10 ; somme des chiffres pour 3, 9 ; tables sinon). */
-function explDiv(n: number, d: number): string {
+function explDiv(
+  n: number,
+  d: number,
+  question: 'divisible' | 'diviseur' | 'multiple' = 'divisible',
+): string {
   const oui = n % d === 0;
   if (CRITERE[d])
     return `Un nombre est divisible par ${d} quand ${CRITERE[d]} : ${fmt(n)} se termine par ${n % 10}, donc il ${oui ? 'est' : 'n’est pas'} divisible par ${d}.`;
-  if (d === 3 || d === 9) {
+  if ((d === 3 || d === 9) && n > 100) {
     const s = sommeChiffres(n);
     return `Un nombre est divisible par ${d} quand la somme de ses chiffres l’est : ${String(n).split('').join(' + ')} = ${s}, ${s % d === 0 ? `qui est dans la table de ${d}` : `qui n’est pas dans la table de ${d}`} (règle vue en 6e).`;
   }
   const q = Math.floor(n / d);
   return oui
-    ? `${d} × ${q} = ${fmt(n)} : ${fmt(n)} est un multiple de ${d}, et ${d} est un diviseur de ${fmt(n)}.`
-    : `${d} × ${q} = ${fmt(d * q)} et ${d} × ${q + 1} = ${fmt(d * (q + 1))} : ${fmt(n)} n’est pas dans la table de ${d}, donc ${d} n’est pas un diviseur de ${fmt(n)}.`;
+    ? `${d} × ${q} = ${fmt(n)}, donc ${fmt(n)} est un multiple de ${d} et ${d} est un diviseur de ${fmt(n)}.`
+    : `${d} × ${q} = ${fmt(d * q)} et ${d} × ${q + 1} = ${fmt(d * (q + 1))}, donc ${fmt(n)} n’est pas dans la table de ${d} : ${
+        question === 'multiple'
+          ? `${fmt(n)} n’est pas un multiple de ${d}`
+          : question === 'diviseur'
+            ? `${d} n’est pas un diviseur de ${fmt(n)}`
+            : `${fmt(n)} n’est pas divisible par ${d}`
+      }.`;
 }
 
 /** Nombre au hasard divisible (ou non) par d. */
@@ -816,7 +853,7 @@ function tireNombre(rng: Rng, min: number, max: number, d: number, divisible: bo
 }
 
 const divClasser: ItemGen = (level, rng, ctx) => {
-  const forme = parNiv(level, { facile: 0, normal: rng.int(1, 3), plus_loin: rng.chance(0.7) ? 4 : 2 });
+  const forme = parNiv(level, { facile: 0, normal: rng.int(1, 3), plus_loin: rng.chance(0.6) ? 4 : 2 });
   if (forme === 0) {
     const d = rng.pick([2, 5, 10]);
     const vals = new Set<number>();
@@ -852,10 +889,11 @@ const divClasser: ItemGen = (level, rng, ctx) => {
     });
   }
   if (forme === 2) {
-    // Diviseurs d'un nombre ≤ 100
-    const n = rng.pick([
-      12, 18, 20, 24, 28, 30, 36, 40, 42, 45, 48, 54, 56, 60, 63, 64, 72, 80, 84, 90, 96, 100,
-    ]);
+    // Diviseurs d'un nombre ≤ 100 (attendu BO) ; plus loin : nombres plus grands
+    const n =
+      level === 'plus_loin'
+        ? rng.pick([120, 126, 132, 144, 150, 168, 180, 196, 200, 210, 225, 240, 252, 300, 360])
+        : rng.pick([12, 18, 20, 24, 28, 30, 36, 40, 42, 45, 48, 54, 56, 60, 63, 64, 72, 80, 84, 90, 96, 100]);
     const divs = diviseurs(n).filter((d) => d > 1 && d < n);
     const non = Array.from({ length: Math.min(12, n - 1) }, (_, i) => i + 2).filter((d) => n % d !== 0);
     const pris = [...rng.shuffle(divs).slice(0, 4), ...rng.shuffle(non).slice(0, 3)];
@@ -994,13 +1032,11 @@ const divQcm: ItemGen = (level, rng, ctx) => {
       const a = g * rng.int(2, 6);
       const b = g * rng.int(2, 6);
       if (a === b || pgcdLocal(a, b) !== g || a > 60 || b > 60) continue;
-      const autres = diviseurs(g).filter((d) => d !== g);
-      const wrong = [
-        ...autres,
-        Math.abs(a - b) === g ? a + b : Math.abs(a - b),
-        Math.min(a, b),
-        g * 2,
-      ].filter((x) => x !== g);
+      const autres = diviseurs(g).filter((d) => d !== g && d > 1);
+      const seuls = [...diviseurs(a), ...diviseurs(b)].filter(
+        (d) => d > 1 && d < Math.max(a, b) && (a % d !== 0 || b % d !== 0),
+      );
+      const wrong = [...autres, ...rng.shuffle(seuls)].filter((x) => x !== g).slice(0, 3);
       return mcq(ctx, rng, `pgcd-${a}-${b}`, {
         question: `Quel est le plus grand diviseur commun à ${a} et à ${b} ?`,
         good: String(g),
@@ -1040,7 +1076,7 @@ const divNumeric: ItemGen = (level, rng, ctx) => {
       difficulty: d === 2 ? 0.2 : 0.3,
     });
   }
-  const forme = level === 'normal' ? rng.int(0, 2) : rng.int(1, 4);
+  const forme = level === 'normal' ? rng.int(0, 2) : rng.pick([1, 3, 4]);
   if (forme === 0) {
     const n = rng.int(6, 30);
     const divs = diviseurs(n);
@@ -1057,6 +1093,7 @@ const divNumeric: ItemGen = (level, rng, ctx) => {
       const a = rng.int(2, lim);
       const b = rng.int(2, lim);
       if (a === b || a % b === 0 || b % a === 0) continue;
+      if (level === 'plus_loin' && Math.max(a, b) < 15) continue;
       const l = (a * b) / pgcdLocal(a, b);
       return numeric(ctx, `ppcm-${Math.min(a, b)}-${Math.max(a, b)}`, {
         prompt: `Quel est le plus petit multiple commun à ${a} et à ${b} (autre que 0) ?`,
@@ -1142,6 +1179,17 @@ const divVraiFaux: ItemGen = (level, rng, ctx) => {
       difficulty: 0.7,
     });
   }
+  if (level === 'plus_loin') {
+    // Diviseurs à 2 chiffres de nombres à 3 chiffres (au-delà des tables)
+    const d = rng.pick([11, 12, 15, 20, 25]);
+    const n = tireNombre(rng, 100, 999, d, juste);
+    return vraiFaux(ctx, `vf-grand-diviseur-${d}-${n}`, {
+      statement: `${d} est un diviseur de ${n}.`,
+      answer: n % d === 0,
+      explication: explDiv(n, d, 'diviseur'),
+      difficulty: 0.7,
+    });
+  }
   const forme = rng.int(0, 2);
   const d = rng.int(3, 9);
   const n = tireNombre(rng, 20, 100, d, juste);
@@ -1149,14 +1197,14 @@ const divVraiFaux: ItemGen = (level, rng, ctx) => {
     return vraiFaux(ctx, `vf-diviseur-${d}-${n}`, {
       statement: `${d} est un diviseur de ${n}.`,
       answer: n % d === 0,
-      explication: explDiv(n, d),
+      explication: explDiv(n, d, 'diviseur'),
       difficulty: 0.45,
     });
   if (forme === 1)
     return vraiFaux(ctx, `vf-multiple-${d}-${n}`, {
       statement: `${n} est un multiple de ${d}.`,
       answer: n % d === 0,
-      explication: explDiv(n, d),
+      explication: explDiv(n, d, 'multiple'),
       difficulty: 0.45,
     });
   // Diviseur commun
@@ -1176,27 +1224,70 @@ const divVraiFaux: ItemGen = (level, rng, ctx) => {
   return vraiFaux(ctx, `vf-multiple-${d}-${n}`, {
     statement: `${n} est un multiple de ${d}.`,
     answer: n % d === 0,
-    explication: explDiv(n, d),
+    explication: explDiv(n, d, 'multiple'),
     difficulty: 0.45,
   });
 };
 
-const divRanger: ItemGen = (level, rng, ctx) => {
-  const n = parNiv(level, {
-    facile: rng.pick([6, 8, 10, 14, 15]),
-    normal: rng.pick([12, 16, 18, 20, 24, 28, 30]),
-    plus_loin: rng.pick([36, 40, 42, 45, 48, 50, 54, 56, 63, 64, 66, 70, 75, 80, 81, 88, 98, 100]),
+/** Plus petit diviseur d'un nombre, autre que 1. */
+const plusPetitDiviseur = (n: number) => diviseurs(n).find((d) => d > 1) ?? n;
+
+const CRITERES_25 = [
+  'divisible par 10',
+  'divisible par 5, pas par 10',
+  'divisible par 2, pas par 10',
+  'ni par 2 ni par 5',
+];
+const critere25 = (x: number) => (x % 10 === 0 ? 0 : x % 5 === 0 ? 1 : x % 2 === 0 ? 2 : 3);
+
+const divPaires: ItemGen = (level, rng, ctx) => {
+  if (level === 'facile') {
+    // Un nombre pour chacun des 4 cas du chiffre des unités
+    const pairs = CRITERES_25.map((right, k) => {
+      let x = rng.int(100, 99_999);
+      while (critere25(x) !== k) x = rng.int(100, 99_999);
+      return { left: fmt(x), right };
+    });
+    return make(ctx, 'pairing', `crit-${pairs.map((p) => p.left).join('|')}`, {
+      prompt: 'Associe chaque nombre à ce que dit son chiffre des unités.',
+      pairs: rng.shuffle(pairs),
+      relation: 'nombre → divisibilité',
+      explication:
+        'Je regarde le chiffre des unités : 0 → divisible par 10 (donc par 2 et par 5) ; 5 → par 5 ; 2, 4, 6, 8 → par 2.',
+      difficulty: 0.3,
+    });
+  }
+  if (level === 'normal') {
+    // Plus petit diviseur autre que 1 : 2, 3, 5 ou 7 (tables)
+    const pairs = [2, 3, 5, 7].map((d) => {
+      let x = rng.int(10, 100);
+      while (plusPetitDiviseur(x) !== d || x === d) x = rng.int(10, 100);
+      return { left: String(x), right: String(d) };
+    });
+    return make(ctx, 'pairing', `ppd-${pairs.map((p) => p.left).join('|')}`, {
+      prompt: 'Associe chaque nombre à son plus petit diviseur autre que 1.',
+      pairs: rng.shuffle(pairs),
+      relation: 'nombre → plus petit diviseur',
+      explication: `J’essaie 2, puis 3, puis 5, puis 7 : ${pairs.map((p) => `${p.left} = ${p.right} × ${Number(p.left) / Number(p.right)}`).join(' ; ')}.`,
+      difficulty: 0.55,
+    });
+  }
+  // Plus loin : plus grand diviseur commun de deux nombres ≤ 60
+  const gs = rng.shuffle([2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15]).slice(0, 4);
+  const pairs = gs.map((g) => {
+    for (;;) {
+      const a = g * rng.int(2, 6);
+      const b = g * rng.int(2, 6);
+      if (a !== b && a <= 60 && b <= 60 && pgcdLocal(a, b) === g)
+        return { left: `${Math.min(a, b)} et ${Math.max(a, b)}`, right: String(g) };
+    }
   });
-  const divs = diviseurs(n);
-  return make(ctx, 'ordering', `rangerdivs-${n}`, {
-    prompt: `Voici tous les diviseurs de ${n}. Range-les du plus petit au plus grand.`,
-    elements: divs.map(String),
-    mode: 'croissant',
-    explication: `Je cherche les diviseurs par paires de produits égaux à ${n} (${divs
-      .filter((d) => d * d <= n)
-      .map((d) => `${d} × ${n / d}`)
-      .join(', ')}), puis je les range : ${divs.join(', ')}.`,
-    difficulty: clamp01(0.3 + divs.length * 0.05),
+  return make(ctx, 'pairing', `pgcd-${pairs.map((p) => p.left).join('|')}`, {
+    prompt: 'Associe chaque paire de nombres à leur plus grand diviseur commun.',
+    pairs: rng.shuffle(pairs),
+    relation: 'deux nombres → plus grand diviseur commun',
+    explication: `Je cherche le plus grand nombre qui divise les deux : ${pairs.map((p) => `${p.right} pour ${p.left}`).join(', ')}.`,
+    difficulty: 0.75,
   });
 };
 
@@ -1225,7 +1316,7 @@ export const NOMBRES: Record<string, LessonContent> = {
       mcq: divQcm,
       numeric_answer: divNumeric,
       true_false: divVraiFaux,
-      ordering: divRanger,
+      pairing: divPaires,
     },
   },
 };

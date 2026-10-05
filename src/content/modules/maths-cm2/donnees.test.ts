@@ -14,6 +14,20 @@ const PART: Record<string, number> = {
   'le huitième': 1 / 8,
 };
 
+/** Étiquettes citées dans un texte, dans l'ordre d'apparition (« 8 h » n'est pas trouvé dans « 18 h »). */
+function cites(texte: string, etiquettes: string[]): string[] {
+  return etiquettes
+    .map((e) => ({
+      e,
+      i: texte.search(
+        new RegExp(`(?<![\\p{L}\\d])${e.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}\\d])`, 'u'),
+      ),
+    }))
+    .filter((x) => x.i >= 0)
+    .sort((a, b) => a.i - b.i)
+    .map((x) => x.e);
+}
+
 describe('CM2.MA.DON.LIRE', () => {
   const id = 'CM2.MA.DON.LIRE';
 
@@ -24,6 +38,7 @@ describe('CM2.MA.DON.LIRE', () => {
         const q = it.meta!.question as string;
         const v = (e: string) => g.valeurs[g.etiquettes.indexOf(e)]!;
         const somme = r3(g.valeurs.reduce((a, b) => a + b, 0));
+        const lab = cites(q, g.etiquettes);
         let m: RegExpMatchArray | null;
         if (it.meta!.echelle) {
           m = q.match(/barre « (.+) »/)!;
@@ -38,24 +53,30 @@ describe('CM2.MA.DON.LIRE', () => {
           expect(it.answer).toBe(v(m[1]!));
           const part = it.prompt.match(new RegExp(`${m[1]} : ([^,.]+)`))![1]!;
           expect(r3(somme * PART[part]!)).toBe(it.answer);
-        } else if ((m = q.match(/de plus pour « (.+) » que pour « (.+) »/))) {
-          expect(it.answer).toBe(r3(v(m[1]!) - v(m[2]!)));
+        } else if (/^On réunit/.test(q)) {
+          expect(it.answer).toBe(r3(v(lab[0]!) + v(lab[1]!) - v(lab[2]!)));
           expect(it.answer).toBeGreaterThan(0);
-        } else if ((m = q.match(/l’écart entre .+ (?:en|à|au) (.+) et .+ (?:en|à|au) (.+) \?/))) {
-          expect(it.answer).toBe(r3(Math.abs(v(m[1]!) - v(m[2]!))));
-        } else if (/en tout \?$/.test(q)) {
-          expect(it.answer).toBe(somme);
-        } else if ((m = q.match(/ne sont pas dans la catégorie « (.+) »/))) {
-          expect(it.answer).toBe(r3(somme - v(m[1]!)));
-        } else if ((m = q.match(/(augmenté|diminué) entre (.+) et (.+) \?$/))) {
-          const d = r3(v(m[3]!) - v(m[2]!));
+        } else if (/de plus/.test(q)) {
+          expect(it.answer).toBe(r3(v(lab[0]!) - v(lab[1]!)));
+          expect(it.answer).toBeGreaterThan(0);
+        } else if (/l’écart entre/.test(q)) {
+          expect(it.answer).toBe(r3(Math.abs(v(lab[0]!) - v(lab[1]!))));
+        } else if (/(augmenté|diminué) entre/.test(q)) {
+          const d = r3(v(lab[1]!) - v(lab[0]!));
           expect(it.answer).toBe(Math.abs(d));
-          expect(d > 0 ? 'augmenté' : 'diminué').toBe(m[1]);
-        } else if ((m = q.match(/pour « (.+) » \?$/)) || (m = q.match(/(?:en|à|au) (.+) \?$/))) {
-          expect(it.answer).toBe(v(m[1]!));
-        } else throw new Error(`forme inconnue : ${q}`);
+          expect(d > 0 ? 'augmenté' : 'diminué').toBe(q.match(/augmenté|diminué/)![0]);
+        } else if (/ne viennent pas|n’ont pas choisi|ne sont pas des|autres jours/.test(q)) {
+          expect(lab.length).toBe(1);
+          expect(it.answer).toBe(r3(somme - v(lab[0]!)));
+        } else if (/en tout|dans la semaine/.test(q)) {
+          expect(it.answer).toBe(somme);
+        } else {
+          expect(lab.length, q).toBe(1);
+          expect(it.answer).toBe(v(lab[0]!));
+          expect(level).toBe('facile');
+        }
         // les données sont écrites en clair dans l'énoncé
-        if (g.type !== 'circulaire' && !it.meta!.echelle)
+        if (g.type !== 'circulaire' && !it.meta!.echelle && !/cela fait/.test(q))
           for (const x of g.valeurs) expect(it.prompt).toContain(String(x).replace('.', ','));
       }
   });
@@ -67,24 +88,27 @@ describe('CM2.MA.DON.LIRE', () => {
         const q = it.meta!.question as string;
         const good = it.choices[it.answerIndex]!;
         const v = (e: string) => g.valeurs[g.etiquettes.indexOf(e)]!;
-        if (/le plus|le moins|la plus élevée|la plus basse/.test(q) && !/augmenté/.test(q)) {
-          const plus = /le plus|élevée/.test(q);
-          const ext = plus ? Math.max(...g.valeurs) : Math.min(...g.valeurs);
-          expect(v(good)).toBe(ext);
-          expect(g.valeurs.filter((x) => x === ext).length).toBe(1);
-        } else if (/le plus augmenté/.test(q)) {
+        if (/le plus augmenté/.test(q)) {
           const h = g.valeurs.slice(1).map((x, i) => r3(x - g.valeurs[i]!));
           const k = h.indexOf(Math.max(...h));
           expect(h.filter((x) => x === h[k]).length).toBe(1);
-          expect(good).toBe(`entre ${g.etiquettes[k]} et ${g.etiquettes[k + 1]}`);
+          expect(cites(good, g.etiquettes)).toEqual([g.etiquettes[k], g.etiquettes[k + 1]]);
         } else if (/Quelle part/.test(q)) {
           const e = q.match(/« (.+) »/)![1]!;
           expect(r3(v(e) / g.valeurs.reduce((a, b) => a + b, 0))).toBe(r3(PART[good]!));
+          expect(level).not.toBe('facile');
         } else if (/barre est fausse/.test(q)) {
           const juste = it.meta!.tableauJuste as number[];
           const diff = g.etiquettes.filter((_, i) => juste[i] !== g.valeurs[i]);
           expect(diff).toEqual([good]);
-        } else throw new Error(`forme inconnue : ${q}`);
+          const i = g.etiquettes.indexOf(good);
+          expect(Math.abs(g.valeurs[i]! - juste[i]!)).toBeGreaterThanOrEqual(Math.max(10, juste[i]! * 0.1));
+        } else {
+          const plus = !/moins|basse|petite/.test(q);
+          const ext = plus ? Math.max(...g.valeurs) : Math.min(...g.valeurs);
+          expect(v(good)).toBe(ext);
+          expect(g.valeurs.filter((x) => x === ext).length).toBe(1);
+        }
       }
   });
 
@@ -94,26 +118,51 @@ describe('CM2.MA.DON.LIRE', () => {
         const g = it.meta!.graphique as G;
         const q = it.meta!.question as string;
         const v = (e: string) => g.valeurs[g.etiquettes.indexOf(e)]!;
+        const tot = r3(g.valeurs.reduce((a, b) => a + b, 0));
         let m: RegExpMatchArray | null;
-        if ((m = q.match(/pour « (.+) » que pour « (.+) »/))) expect(it.answer).toBe(v(m[1]!) > v(m[2]!));
-        else if ((m = q.match(/plus élevée (?:en|à|au) (.+) qu(?:e |’)(?:en|à|au) (.+)\.$/)))
-          expect(it.answer).toBe(v(m[1]!) > v(m[2]!));
-        else if ((m = q.match(/En tout, on a compté (.+?) \p{L}/u)))
-          expect(it.answer).toBe(num(m[1]!) === r3(g.valeurs.reduce((a, b) => a + b, 0)));
-        else if ((m = q.match(/^(.+?) des élèves .+ « (.+) »/))) {
-          const tot = g.valeurs.reduce((a, b) => a + b, 0);
+        if ((m = q.match(/En tout, on a compté (.+?) \p{L}/u))) expect(it.answer).toBe(num(m[1]!) === tot);
+        else if ((m = q.match(/^(.+?) des élèves .+ « (.+) »/)))
           expect(it.answer).toBe(r3(v(m[2]!) / tot) === r3(PART[m[1]!.toLowerCase()]!));
-        } else throw new Error(`forme inconnue : ${q}`);
+        else if ((m = q.match(/de plus de ([\d,]+)/))) {
+          const [a, b] = cites(q, g.etiquettes);
+          expect(it.answer).toBe(Math.abs(v(b!) - v(a!)) > num(m[1]!));
+          expect(level).toBe('plus_loin');
+        } else {
+          const [a, b] = cites(q, g.etiquettes);
+          expect(it.answer, q).toBe(v(a!) > v(b!));
+          expect(level).not.toBe('plus_loin');
+        }
       }
       for (const it of tiragesDe(id, 'classification', level)) {
         const g = it.meta!.graphique as G;
-        const seuil = num(it.categories[0]!.match(/^([\d  ,]+)/)![1]!);
-        for (const e of it.elements)
-          expect(e.category).toBe(g.valeurs[g.etiquettes.indexOf(e.label)]! >= seuil ? 0 : 1);
+        if (level === 'plus_loin') {
+          expect(it.categories).toEqual(['en hausse', 'stable', 'en baisse']);
+          for (const e of it.elements) {
+            const [a, b] = cites(e.label, g.etiquettes);
+            const d = v2(g, b!) - v2(g, a!);
+            expect(e.category).toBe(d > 0 ? 0 : d === 0 ? 1 : 2);
+          }
+        } else {
+          const seuil = num(it.categories[0]!.match(/^([\d  ,]+)/)![1]!);
+          for (const e of it.elements)
+            expect(e.category).toBe(g.valeurs[g.etiquettes.indexOf(e.label)]! >= seuil ? 0 : 1);
+        }
       }
     }
   });
+
+  it('valeurs réalistes : au moins 5 par catégorie dans les enquêtes', () => {
+    for (const level of LEVELS)
+      for (const kind of ['numeric_answer', 'mcq', 'true_false', 'classification'] as const)
+        for (const it of tiragesDe(id, kind, level)) {
+          const g = it.meta!.graphique as G;
+          if (g.type === 'barres' || g.type === 'tableau')
+            if (!/banquise/.test(JSON.stringify(it.meta)))
+              for (const x of g.valeurs) expect(x).toBeGreaterThanOrEqual(5);
+        }
+  });
 });
+const v2 = (g: G, e: string) => g.valeurs[g.etiquettes.indexOf(e)]!;
 
 /* ------------------------------------------------------------------ */
 /* Probabilités : on reconstruit les issues à partir de l'énoncé       */
@@ -151,9 +200,8 @@ function predicat(ev: string): (i: string[]) => boolean {
   if ((m = e.match(/somme plus grande que (\d+)/))) return (i) => s(i) > Number(m![1]);
   if ((m = e.match(/somme plus petite que (\d+)/))) return (i) => s(i) < Number(m![1]);
   if (/un double/.test(e)) return (i) => i[0] === i[1];
-  if (/quatre piles|trois fois pile/.test(e) && !/trois pièces/.test(e))
-    return (i) => piles(i) === (/quatre/.test(e) ? 4 : 3);
-  if (/exactement deux piles/.test(e)) return (i) => piles(i) === 2;
+  if (/quatre fois pile|trois fois pile/.test(e)) return (i) => piles(i) === (/quatre/.test(e) ? 4 : 3);
+  if (/exactement deux fois pile/.test(e)) return (i) => piles(i) === 2;
   if (/au plus un pile/.test(e)) return (i) => piles(i) <= 1;
   if (/au moins un pile/.test(e)) return (i) => piles(i) >= 1;
   if (/deux fois pile/.test(e)) return (i) => piles(i) === 2;
@@ -177,7 +225,8 @@ function predicat(ev: string): (i: string[]) => boolean {
   if ((m = e.match(/plus petit que (\d+)/))) return (i) => x(i) < Number(m![1]);
   if ((m = e.match(/plus grand que (\d+)/))) return (i) => x(i) > Number(m![1]);
   if ((m = e.match(/(\d+) ou (\d+)$/))) return (i) => [Number(m![1]), Number(m![2])].includes(x(i));
-  if ((m = e.match(/entre (\d+) et (\d+)/))) return (i) => x(i) >= Number(m![1]) && x(i) <= Number(m![2]);
+  if ((m = e.match(/(?:entre|de) (\d+) (?:et|à) (\d+)/)))
+    return (i) => x(i) >= Number(m![1]) && x(i) <= Number(m![2]);
   if (/deux chiffres/.test(e)) return (i) => i[0]!.length === 2;
   // couleurs (sac ou roue)
   if ((m = e.match(/qui n’est pas (\p{L}+)/u))) return (i) => i[0] !== m![1];
@@ -197,7 +246,7 @@ describe('CM2.MA.PROBA', () => {
   it('les expériences connues sont bien dénombrées', () => {
     expect(compter('On lance deux dés à 6 faces', 'obtenir une somme égale à 7')).toEqual([6, 36]);
     expect(compter('On lance deux pièces', 'obtenir au moins un pile')).toEqual([3, 4]);
-    expect(compter('On lance trois pièces', 'obtenir exactement deux piles')).toEqual([3, 8]);
+    expect(compter('On lance trois pièces', 'obtenir exactement deux fois pile')).toEqual([3, 8]);
     expect(compter('Dans un sac, il y a 5 billes rouges et 1 bille bleue.', 'tirer une bille rouge')).toEqual(
       [5, 6],
     );
@@ -225,7 +274,7 @@ describe('CM2.MA.PROBA', () => {
         let m: RegExpMatchArray | null;
         if (/c’est…$/.test(q)) {
           const [a, b] = compter(q, q.match(/« (.+) »/)![1]!);
-          expect(good).toBe(a === 0 ? 'impossible' : a === b ? 'certain' : 'possible');
+          expect(good).toBe(a === 0 ? 'impossible' : a === b ? 'certain' : 'possible mais pas certain');
         } else if (/plus probable/.test(q)) {
           const counts = it.choices.map((c) => compter(q, c)[0]);
           expect(compter(q, good)[0]).toBe(Math.max(...counts));
@@ -269,9 +318,11 @@ describe('CM2.MA.PROBA', () => {
       for (const it of tiragesDe(id, 'true_false', level)) {
         const s = it.statement;
         let m: RegExpMatchArray | null;
-        if ((m = s.match(/« (.+) » est (impossible|possible|certain)\.$/))) {
+        if ((m = s.match(/« (.+) » est (impossible|possible mais pas certain|certain)\.$/))) {
           const [a, b] = compter(s, m[1]!);
-          expect(it.answer).toBe((a === 0 ? 'impossible' : a === b ? 'certain' : 'possible') === m[2]);
+          expect(it.answer).toBe(
+            (a === 0 ? 'impossible' : a === b ? 'certain' : 'possible mais pas certain') === m[2],
+          );
         } else if (/trois fois de suite/.test(s)) {
           expect(it.answer).toBe(/toujours 1 chance sur 6/.test(s));
         } else {

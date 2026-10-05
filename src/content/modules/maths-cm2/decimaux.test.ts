@@ -8,7 +8,10 @@ function evalM(expr: string): number {
   return expr
     .split(' + ')
     .map((t) => {
-      const f = t.trim().match(/^(\d+)\/(\d+)$/);
+      const f = t
+        .trim()
+        .replace(/\u00a0/g, '')
+        .match(/^(\d+)\/(\d+)$/);
       if (f) {
         const v = (Number(f[1]) * 1000) / Number(f[2]);
         expect(Number.isInteger(v), t).toBe(true);
@@ -29,7 +32,14 @@ const RANG: Record<string, number> = {
 };
 const rangDe = (mot: string) => RANG[mot.replace(/s$/, '')]!;
 const chiffreM = (m: number, r: number) => Math.floor(m / 10 ** r) % 10;
-const VAUT: Record<string, number> = { unité: 1000, dixième: 100, centième: 10, millième: 1, dizaine: 10000 };
+const VAUT: Record<string, number> = {
+  unité: 1000,
+  dixième: 100,
+  centième: 10,
+  millième: 1,
+  dizaine: 10000,
+  centaine: 100000,
+};
 
 describe('CM2.MA.DEC.FRAC_DEC', () => {
   const id = 'CM2.MA.DEC.FRAC_DEC';
@@ -70,12 +80,14 @@ describe('CM2.MA.DEC.FRAC_DEC', () => {
           expect(chiffreM(evalM(m[1]!), rangDe(mot!))).toBe(Number(m[2]));
           // le chiffre n'apparaît qu'une fois
           expect(m[1]!.split('').filter((x) => x === m![2]).length, it.question).toBe(1);
-        } else if ((m = it.question.match(/^Combien de (\p{L}+) y a-t-il dans 1 (\p{L}+) \?$/u))) {
-          expect(num(good) * VAUT[m[1]!.replace(/s$/, '')]!).toBe(VAUT[m[2]!]!);
+        } else if ((m = it.question.match(/^Combien de (\p{L}+) y a-t-il dans (\d) (\p{L}+?)s? \?$/u))) {
+          expect(num(good) * VAUT[m[1]!.replace(/s$/, '')]!).toBe(Number(m[2]) * VAUT[m[3]!]!);
+          if (level === 'plus_loin') expect(`${m[2]} ${m[3]}`).not.toBe('1 unité');
+        } else if ((m = it.question.match(/^Combien y a-t-il de (\p{L}+) en tout dans (.+) \?$/u))) {
+          expect(num(good)).toBe(Math.floor(evalM(m[2]!) / VAUT[m[1]!.replace(/s$/, '')]!));
         } else if ((m = it.question.match(/^Quelle écriture à virgule est égale à (.+) \?$/))) {
           expect(evalM(good)).toBe(evalM(m[1]!));
-          for (const c of it.choices)
-            if (c !== good && !/,\d{2,}0$/.test(c)) expect(evalM(c)).not.toBe(evalM(good));
+          for (const c of it.choices) if (c !== good) expect(evalM(c)).not.toBe(evalM(good));
         } else if ((m = it.question.match(/^Quel est le chiffre des (\p{L}+) dans (.+) \?$/u))) {
           expect(chiffreM(evalM(m[2]!), rangDe(m[1]!))).toBe(Number(good));
         } else throw new Error(`forme inconnue : ${it.question}`);

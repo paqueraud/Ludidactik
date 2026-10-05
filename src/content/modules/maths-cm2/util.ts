@@ -98,6 +98,8 @@ const UNITES_DITES: Record<string, string> = {
   s: 'secondes',
   '€': 'euros',
 };
+/** « centimètres carrés » → « centimètre carré ». */
+const uniteAuSingulier = (nom: string) => nom.replace(/s(?= |$)/g, '');
 const U = 'm²|cm²|dm²|km|hm|dam|dm|cm|mm|kg|mg|hL|dL|cL|mL|min|m|g|t|L|h|s|€';
 
 /**
@@ -105,27 +107,36 @@ const U = 'm²|cm²|dm²|km|hm|dam|dm|cm|mm|kg|mg|hL|dL|cL|mL|min|m|g|t|L|h|s|�
  * Les fractions « 3/4 » sont lues « 3 sur 4 » (préférer `fractionEnMots` quand c'est possible).
  */
 export function dire(texte: string): string {
-  return texte
-    .replace(new RegExp(`… ?(${U})(?![\\p{L}²])`, 'gu'), (_, u: string) => `combien ${de(UNITES_DITES[u]!)}`)
-    .replace(/(\d)[  ](?=\d{3}(?!\d))/g, '$1')
-    .replace(/(\d+),(\d+)/g, (_, e: string, d: string) => {
-      // On lit les chiffres écrits, zéros compris (« 2,30 » → « 2 virgule 30 », « 3,05 » → « 3 virgule zéro 5 »)
-      const zeros = d.match(/^0+/)?.[0].length ?? 0;
-      const reste = d.slice(zeros);
-      return `${e} virgule ${'zéro '.repeat(zeros)}${reste}`.trim();
-    })
-    .replace(
-      new RegExp(`(\\d) (${U})(?![\\p{L}²])`, 'gu'),
-      (_, d: string, u: string) => `${d} ${UNITES_DITES[u]}`,
-    )
-    .replace(/(^|[^\d,])1 (\p{L}+)s(?![\p{L}])/gu, (_, avant: string, mot: string) => `${avant}1 ${mot}`)
-    .replace(/(\d+)\/(\d+)/g, '$1 sur $2')
-    .replace(/ = /g, ' égale ')
-    .replace(/ \+ /g, ' plus ')
-    .replace(/ − /g, ' moins ')
-    .replace(/ × /g, ' fois ')
-    .replace(/ ÷ /g, ' divisé par ')
-    .replace(/…/g, 'combien');
+  return (
+    texte
+      .replace(
+        new RegExp(`… ?(${U})(?![\\p{L}²])`, 'gu'),
+        (_, u: string) => `combien ${de(UNITES_DITES[u]!)}`,
+      )
+      .replace(/(\d)[  ](?=\d{3}(?!\d))/g, '$1')
+      // Unités : pluriel seulement si la partie entière vaut au moins 2 (« 1,5 kilomètre », « 2,1 kilomètres »)
+      .replace(
+        new RegExp(`(\\d+)((?:,\\d+)?) (${U})(?![\\p{L}²])`, 'gu'),
+        (_, e: string, d: string, u: string) => {
+          const nom = UNITES_DITES[u]!;
+          return `${e}${d} ${Number(e) >= 2 ? nom : uniteAuSingulier(nom)}`;
+        },
+      )
+      .replace(/(^|[^\d,])1 (\p{L}+)s(?![\p{L}])/gu, (_, avant: string, mot: string) => `${avant}1 ${mot}`)
+      .replace(/(\d+),(\d+)/g, (_, e: string, d: string) => {
+        // On lit les chiffres écrits, zéros compris (« 2,30 » → « 2 virgule 30 », « 3,05 » → « 3 virgule zéro 5 »)
+        const zeros = d.match(/^0+/)?.[0].length ?? 0;
+        const reste = d.slice(zeros);
+        return `${e} virgule ${'zéro '.repeat(zeros)}${reste}`.trim();
+      })
+      .replace(/(\d+)\/(\d+)/g, '$1 sur $2')
+      .replace(/ = /g, ' égale ')
+      .replace(/ \+ /g, ' plus ')
+      .replace(/ − /g, ' moins ')
+      .replace(/ × /g, ' fois ')
+      .replace(/ ÷ /g, ' divisé par ')
+      .replace(/…/g, 'combien')
+  );
 }
 
 export const clamp01 = (x: number) => Math.min(1, Math.max(0, Math.round(x * 100) / 100));

@@ -26,6 +26,8 @@ export const cellsTxt = (cs: Cell[]) =>
 const NIVEAUX: Level[] = ['facile', 'normal', 'plus_loin'];
 const auNiveau = <T extends { niv: Level }>(level: Level, pool: T[]) =>
   pool.filter((p) => NIVEAUX.indexOf(p.niv) <= NIVEAUX.indexOf(level));
+/** Éléments de ce niveau exactement (tirages disjoints d’un niveau à l’autre). */
+const duNiveau = <T extends { niv: Level }>(level: Level, pool: T[]) => pool.filter((p) => p.niv === level);
 
 /* ------------------------------------------------------------------ */
 /* CM2.MA.GEO.SOLIDES                                                  */
@@ -163,7 +165,6 @@ const OBJETS: { o: string; img: string; s: string; niv: Level }[] = [
   { o: 'une orange', img: '🍊', s: 'boule', niv: 'facile' },
   { o: 'un cornet de glace', img: '🍦', s: 'cône', niv: 'facile' },
   { o: 'un chapeau pointu de fête', img: '🥳', s: 'cône', niv: 'facile' },
-  { o: 'un plot de chantier', img: '🚧', s: 'cône', niv: 'facile' },
   { o: 'une tente canadienne', img: '⛺', s: 'prisme droit', niv: 'normal' },
   { o: 'une part de fromage en forme de triangle', img: '🧀', s: 'prisme droit', niv: 'normal' },
   { o: 'la pyramide du Louvre', img: '🔺', s: 'pyramide', niv: 'normal' },
@@ -426,7 +427,7 @@ const cellulesDe = (rs: Rect[]): Cell[] =>
 
 const solidesShape: ItemGen = (level, rng, ctx) => {
   const forme = parNiv(level, {
-    facile: rng.pick(['nommer', 'nommer', 'patron'] as const),
+    facile: rng.pick(['nommer', 'nommer', 'proprietes'] as const),
     normal: rng.pick(['nommer', 'proprietes', 'patron', 'completer', 'pave'] as const),
     plus_loin: rng.pick(['proprietes', 'completer', 'pave', 'pave'] as const),
   });
@@ -448,8 +449,17 @@ const solidesShape: ItemGen = (level, rng, ctx) => {
     });
   }
   if (forme === 'proprietes') {
-    const s = rng.pick(auNiveau(level, POLYEDRES));
-    const quoi = rng.pick(['faces', 'arêtes', 'sommets'] as const);
+    const s = rng.pick(
+      level === 'facile'
+        ? POLYEDRES.filter((x) => x.id === 'cube' || x.id === 'pave')
+        : level === 'normal'
+          ? POLYEDRES.filter((x) => x.niv !== 'plus_loin')
+          : duNiveau(level, POLYEDRES),
+    );
+    const quoi =
+      level === 'facile'
+        ? rng.pick(['faces', 'sommets'] as const)
+        : rng.pick(['faces', 'arêtes', 'sommets'] as const);
     const n = (quoi === 'faces' ? s.faces : quoi === 'arêtes' ? s.aretes : s.sommets)!;
     const choix = [...new Set([n, 4, 5, 6, 8, 12].filter((x) => x !== n))].slice(0, 3);
     return make(ctx, 'geometry_shape', `compter-${s.id}-${quoi}`, {
@@ -501,7 +511,10 @@ const solidesShape: ItemGen = (level, rng, ctx) => {
       if (level === 'plus_loin' && solutions.length > 2) continue;
       const sorted = [...reste].sort((a, b) => a[1] - b[1] || a[0] - b[0]);
       return make(ctx, 'geometry_shape', `completer-${cellsTxt(reste)}`, {
-        prompt: 'Il manque un carré pour obtenir un patron de cube. Colorie la case qui convient.',
+        prompt:
+          solutions.length > 1
+            ? 'Il manque un carré pour obtenir un patron de cube. Colorie une case qui convient (il y a plusieurs possibilités).'
+            : 'Il manque un carré pour obtenir un patron de cube. Colorie la case qui convient.',
         task: 'patron',
         shape: 'patron_cube_incomplet',
         answer: cellKey(net[idx]!),
@@ -509,7 +522,7 @@ const solidesShape: ItemGen = (level, rng, ctx) => {
         explication:
           'Un patron de cube a 6 carrés ; en pliant, chaque carré doit devenir une face différente : le carré ajouté doit fermer la seule face encore ouverte.',
         difficulty: clamp01(0.55 + (solutions.length === 1 ? 0.2 : 0)),
-        meta: { solutions: solutions.map(cellKey).sort() },
+        meta: { solutions: solutions.map(cellKey).sort(), validation: 'une des solutions' },
       });
     }
   }
@@ -548,7 +561,9 @@ const solidesShape: ItemGen = (level, rng, ctx) => {
           ? 'Les deux couvercles sont du même côté : en pliant, ils se superposent et le pavé reste ouvert en dessous.'
           : 'Un couvercle n’a pas la bonne taille : ses bords ne tombent pas sur ceux des faces voisines, le pavé ne se ferme pas.',
     difficulty: level === 'plus_loin' ? 0.75 : 0.6,
-    meta: { rectangles: rects, dimensions: { L, l, h } },
+    // Le rendu doit tracer le contour de CHAQUE rectangle de meta.rectangles : deux faces voisines de même
+    // hauteur forment sinon une seule bande sur le quadrillage.
+    meta: { rectangles: rects, dimensions: { L, l, h }, rendu: 'contours de meta.rectangles' },
   });
 };
 
@@ -559,13 +574,13 @@ const solidesQcm: ItemGen = (level, rng, ctx) => {
     plus_loin: rng.pick(['devinette', 'devinette', 'perspective', 'faces'] as const),
   });
   if (forme === 'objet') {
-    const o = rng.pick(auNiveau(level, OBJETS));
+    const o = rng.pick(level === 'facile' ? duNiveau('facile', OBJETS) : auNiveau(level, OBJETS));
     return mcq(ctx, rng, `objet-${o.o}`, {
       question: `${o.img} ${cap(o.o)} a la forme…`,
       good: `d’${article(o.s)} ${o.s}`,
-      wrong: NOMS_SOLIDES.filter((n) => n !== o.s && (level !== 'facile' || n !== 'prisme droit')).map(
-        (n) => `d’${article(n)} ${n}`,
-      ),
+      wrong: NOMS_SOLIDES.filter(
+        (n) => n !== o.s && !(o.s === 'cube' && n === 'pavé') && (level !== 'facile' || n !== 'prisme droit'),
+      ).map((n) => `d’${article(n)} ${n}`),
       explication: `${cap(o.o)} a la forme d’${article(o.s)} ${o.s}.`,
       difficulty: o.niv === 'facile' ? 0.2 : 0.45,
       image: o.img,
@@ -573,11 +588,20 @@ const solidesQcm: ItemGen = (level, rng, ctx) => {
     });
   }
   if (forme === 'faces') {
-    const s = rng.pick(auNiveau(level, SOLIDES).filter((x) => x.faces !== null || level !== 'facile'));
+    const s = rng.pick(
+      level === 'facile'
+        ? SOLIDES.filter((x) => x.niv === 'facile' && x.faces !== null)
+        : level === 'normal'
+          ? SOLIDES.filter((x) => x.niv === 'normal' || (x.niv === 'facile' && x.faces === null))
+          : duNiveau(level, SOLIDES),
+    );
     return mcq(ctx, rng, `faces-${s.id}`, {
       question: `Comment sont les faces ${s.le.startsWith('la') ? 'de la' : 'du'} ${s.le.replace(/^(le|la) /, '')} ?`,
       good: s.natureFaces,
-      wrong: auNiveau(level, SOLIDES).map((x) => x.natureFaces),
+      // « 6 rectangles » est vrai aussi pour un cube (un carré est un rectangle) : jamais proposé pour le cube.
+      wrong: auNiveau(level, SOLIDES)
+        .map((x) => x.natureFaces)
+        .filter((n) => !(s.id === 'cube' && n === '6 rectangles')),
       explication: `${cap(s.le)} : ${s.natureFaces}.`,
       difficulty: 0.35 + (s.niv === 'facile' ? 0 : 0.2),
     });
@@ -603,9 +627,9 @@ const solidesQcm: ItemGen = (level, rng, ctx) => {
         e: 'En perspective, les faces de côté sont « écrasées » : un carré peut ressembler à un losange, mais c’est toujours un carré sur le vrai solide.',
       },
       {
-        q: 'Un solide dessiné en perspective a 6 faces qui sont toutes des rectangles. Quel est ce solide ?',
+        q: 'Un solide dessiné en perspective a 6 faces rectangulaires qui ne sont pas toutes des carrés. Quel est ce solide ?',
         g: 'un pavé',
-        w: ['un cube', 'une pyramide', 'un prisme droit'],
+        w: ['une pyramide', 'un prisme droit', 'un cylindre'],
         e: 'Un solide à 6 faces rectangulaires est un pavé (si toutes les faces étaient des carrés, ce serait un cube).',
       },
     ]);
@@ -620,7 +644,13 @@ const solidesQcm: ItemGen = (level, rng, ctx) => {
   // Devinette : quel solide a f faces, a arêtes, s sommets ?
   const s = rng.pick(POLYEDRES);
   return mcq(ctx, rng, `devinette-${s.id}`, {
-    question: `Je suis un solide qui a ${s.faces} faces, ${s.aretes} arêtes et ${s.sommets} sommets. Qui suis-je ?`,
+    question: `Je suis un solide qui a ${s.faces} faces, ${s.aretes} arêtes et ${s.sommets} sommets${
+      s.id === 'cube'
+        ? ' ; toutes mes faces sont des carrés'
+        : s.id === 'pave'
+          ? ' ; mes faces ne sont pas toutes des carrés'
+          : ''
+    }. Qui suis-je ?`,
     good: s.un,
     wrong: POLYEDRES.filter((x) => x.faces !== s.faces || x.aretes !== s.aretes).map((x) => x.un),
     explication: `${cap(s.un)} a ${s.faces} faces (${s.natureFaces}), ${s.aretes} arêtes et ${s.sommets} sommets.`,
@@ -631,7 +661,8 @@ const solidesQcm: ItemGen = (level, rng, ctx) => {
 
 const solidesClasser: ItemGen = (level, rng, ctx) => {
   if (level === 'facile') {
-    const cats = rng.shuffle(['cube', 'pavé', 'cylindre', 'boule', 'cône']).slice(0, 3);
+    // Jamais « cube » et « pavé » ensemble : un cube est aussi un pavé.
+    const cats = [rng.pick(['cube', 'pavé']), ...rng.shuffle(['cylindre', 'boule', 'cône']).slice(0, 2)];
     const els = rng
       .shuffle(OBJETS.filter((o) => cats.includes(o.s)))
       .slice(0, 6)
@@ -721,7 +752,9 @@ const solidesNumeric: ItemGen = (level, rng, ctx) => {
   const s = rng.pick(
     level === 'facile'
       ? POLYEDRES.filter((x) => x.id === 'cube' || x.id === 'pave')
-      : auNiveau(level, POLYEDRES),
+      : level === 'normal'
+        ? POLYEDRES.filter((x) => x.niv !== 'plus_loin')
+        : duNiveau(level, POLYEDRES),
   );
   const quoi =
     level === 'facile'
@@ -839,7 +872,7 @@ const VF_SOLIDES: { s: string; v: boolean; e: string; niv: Level }[] = [
 
 const solidesVraiFaux: ItemGen = (level, rng, ctx) => {
   const v = rng.chance(0.5);
-  const pool = auNiveau(level, VF_SOLIDES).filter((x) => x.v === v);
+  const pool = duNiveau(level, VF_SOLIDES).filter((x) => x.v === v);
   const q = rng.pick(pool);
   return vraiFaux(ctx, `vf-${q.s}`, {
     statement: q.s,
@@ -981,12 +1014,13 @@ const robotShape: ItemGen = (level, rng, ctx) => {
         task: 'tracer',
         shape: 'robot',
         answer: b.texte,
-        explication: `Le motif ${b.motif.join(' ')} ${b.nom} ; il y a ${b.fois} marches, donc on le répète ${b.fois} fois : ${b.texte} (au lieu de ${b.deplie.length} instructions).`,
+        explication: `Un programme possible : ${b.texte}. Le motif ${b.motif.join(' ')} ${b.nom} ; il y a ${b.fois} marches, donc on le répète ${b.fois} fois : ${b.texte} (au lieu de ${b.deplie.length} instructions).`,
         difficulty: 0.8,
         meta: {
           robot: { cols, rows, depart: dep, cible: fin, obstacles, relatif: true, orientation: 'droite' },
           boucles: { fois: b.fois, motif: b.motif },
           programmeDeplie: b.deplie.join(' '),
+          validation: 'simulation',
           codes: {
             ...CODES_RELATIFS,
             'répéter n fois [ … ]': 'refaire n fois les instructions entre crochets',
@@ -1029,12 +1063,14 @@ const robotShape: ItemGen = (level, rng, ctx) => {
         answer: prog.join(' '),
         explication: relatif
           ? `Un programme possible (${prog.length} instructions) : ${prog.join(' ')}. Un quart de tour ne fait pas changer de case : il change seulement la direction du robot.`
-          : `Un chemin possible : ${prog.join(' ')} (${prog.length} cases).`,
+          : `Un programme possible : ${prog.join(' ')} (${prog.length} cases).`,
         difficulty: clamp01(0.15 + prog.length * 0.03 + (relatif ? 0.2 : 0)),
         meta: {
           robot: { cols, rows, depart: dep, cible, obstacles, relatif, orientation: NOM_DIR[dir0] },
           codes: relatif ? CODES_RELATIFS : CODES_ABSOLUS,
           longueurMini: prog.length,
+          // Plusieurs programmes conviennent : le jeu doit SIMULER celui de l’enfant (answer = un exemple).
+          validation: 'simulation',
         },
       },
     );
@@ -1127,6 +1163,18 @@ function arriveesFausses(t: Trajet): Cell[] {
     .filter((c) => cellKey(c) !== cellKey(t.fin) && dansGrille(c, t.cols, t.rows));
 }
 
+/** Cases voisines de l’arrivée (distracteurs de secours), toujours dans la grille. */
+const voisinesDansGrille = (t: Trajet): Cell[] =>
+  (
+    [
+      [t.fin[0] + 1, t.fin[1]],
+      [t.fin[0] - 1, t.fin[1]],
+      [t.fin[0], t.fin[1] + 1],
+      [t.fin[0], t.fin[1] - 1],
+      [t.fin[1], t.fin[0]],
+    ] as Cell[]
+  ).filter((c) => dansGrille(c, t.cols, t.rows) && cellKey(c) !== cellKey(t.fin));
+
 const intro = (t: Trajet) =>
   t.deplie.some((p) => p === 'A')
     ? `Le robot est sur la case ${nomCase(t.dep)} et regarde ${VERS_DIR[t.dir0]}.`
@@ -1161,12 +1209,7 @@ const robotQcm: ItemGen = (level, rng, ctx) => {
   return mcq(ctx, rng, `arrivee-${cellKey(t.dep)}-${t.dir0}-${t.texte}`, {
     question: `${intro(t)} Il exécute : ${t.texte}. Sur quelle case arrive-t-il ?${legende(t)}`,
     good: nomCase(t.fin),
-    wrong: [
-      ...faux,
-      nomCase([t.fin[0] + 1, t.fin[1]]),
-      nomCase([t.fin[1], t.fin[0]]),
-      nomCase([Math.max(0, t.fin[0] - 1), t.fin[1] + 1]),
-    ],
+    wrong: [...faux, ...voisinesDansGrille(t).map(nomCase)],
     explication: `On suit le programme pas à pas en déplaçant le robot case par case : il arrive sur la case ${nomCase(t.fin)}.`,
     difficulty: 0.3 + t.deplie.length * 0.04 + (level === 'plus_loin' ? 0.2 : 0),
     meta: {
@@ -1180,6 +1223,7 @@ const robotVraiFaux: ItemGen = (level, rng, ctx) => {
   const t = trajet(level, rng);
   const juste = rng.chance(0.5);
   const fausses = arriveesFausses(t);
+  if (!fausses.length) fausses.push(...voisinesDansGrille(t));
   const montre = juste || !fausses.length ? t.fin : rng.pick(fausses);
   return vraiFaux(ctx, `vf-${cellKey(t.dep)}-${t.dir0}-${t.texte}-${cellKey(montre)}`, {
     statement: `${intro(t)} Il exécute : ${t.texte}. Il arrive sur la case ${nomCase(montre)}.${legende(t)}`,
@@ -1193,6 +1237,25 @@ const robotVraiFaux: ItemGen = (level, rng, ctx) => {
   });
 };
 
+const MOT: Record<string, string> = {
+  A: 'avance',
+  D: 'quart de tour à droite',
+  G: 'quart de tour à gauche',
+  ...CODES_ABSOLUS,
+};
+/** Lecture à voix haute d’un programme, boucles comprises : « répéter 2 fois : avance, … ; puis avance ». */
+function direProgramme(texte: string): string {
+  const m = texte.match(/^répéter (\d+) fois \[ ([^\]]+) \](.*)$/);
+  const mots = (t: string) =>
+    t
+      .split(' ')
+      .filter(Boolean)
+      .map((p) => MOT[p] ?? p)
+      .join(', ');
+  if (!m) return mots(texte);
+  return `répéter ${m[1]} fois : ${mots(m[2]!)}${m[3]!.trim() ? ` ; puis ${mots(m[3]!)}` : ''}`;
+}
+
 const robotNumeric: ItemGen = (level, rng, ctx) => {
   const t = trajet(level, rng);
   const pas = t.deplie.filter((p) => p !== 'D' && p !== 'G').length;
@@ -1200,17 +1263,7 @@ const robotNumeric: ItemGen = (level, rng, ctx) => {
     prompt: `Le robot exécute le programme : ${t.texte}. De combien de cases avance-t-il en tout ?${
       t.deplie.some((p) => p === 'A') ? ' (A = avancer d’une case, D et G = quarts de tour.)' : ''
     }`,
-    spoken: `Le robot exécute le programme : ${t.deplie
-      .map((p) =>
-        p === 'A'
-          ? 'avance'
-          : p === 'D'
-            ? 'quart de tour à droite'
-            : p === 'G'
-              ? 'quart de tour à gauche'
-              : `${CODES_ABSOLUS[p as keyof typeof CODES_ABSOLUS]}`,
-      )
-      .join(', ')}. De combien de cases avance-t-il en tout ?`,
+    spoken: `Le robot exécute le programme : ${direProgramme(t.texte)}. De combien de cases avance-t-il en tout ?`,
     answer: pas,
     explication: t.texte.includes('répéter')
       ? `On déplie la boucle : ${t.deplie.join(' ')}. Seuls les A font avancer : ${pas} cases (les quarts de tour ne déplacent pas le robot).`

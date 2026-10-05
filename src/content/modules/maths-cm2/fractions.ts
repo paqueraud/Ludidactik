@@ -17,7 +17,6 @@ import {
   cap,
   comparaison,
   denominateurOk,
-  deuxPersos,
   dire,
   fmt,
   frac,
@@ -27,6 +26,7 @@ import {
   nomDenominateur,
   numeric,
   parNiv,
+  PERSOS,
   pgcd,
   ppcm,
   signe,
@@ -38,12 +38,12 @@ type Shape = ItemOf<'visual_fraction'>['shape'];
 
 const DE_LA: Record<Shape, string> = {
   pizza: 'de la pizza',
-  barre: 'de la bande',
+  barre: 'de la barre',
   tablette: 'de la tablette',
 };
 const ENTIERE: Record<Shape, string> = {
   pizza: 'une pizza entière',
-  barre: 'une bande entière',
+  barre: 'une barre entière',
   tablette: 'une tablette entière',
 };
 
@@ -57,12 +57,15 @@ const ecrire = ([n, d]: F) => (d === 1 ? String(n) : frac(n, d));
 const compare = ([a, b]: F, [c, d]: F) => signe(a * d, c * b);
 
 /** Lecture à voix haute : fractions en mots, « …/8 » → « combien de huitièmes ». */
-export const lire = (t: string) =>
-  dire(
+export const lire = (t: string) => {
+  const x = dire(
     t
       .replace(/…\/(\d+)/g, (_, d: string) => `combien de ${nomDenominateur(Number(d), true)}`)
       .replace(/(\d+)\/(\d+)/g, (_, a: string, b: string) => fractionEnMots(Number(a), Number(b))),
   );
+  // Une question se lit avec l'intonation montante
+  return /combien/.test(x) && !/\?\s*$/.test(x) ? `${x} ?` : x;
+};
 
 const parts = (k: number, d: number) => `${k} ${nomDenominateur(d, k >= 2)}`;
 const s = (k: number) => (k >= 2 ? 's' : '');
@@ -157,17 +160,22 @@ const denVisuel = (level: Level) =>
     plus_loin: [3, 4, 5, 6, 8, 10, 12],
   });
 
-/** Fraction > 1 non entière : q unités et r parts (1 ≤ q ≤ qMax). */
-function fracSup1(rng: Rng, d: number, qMax: number): F {
-  const q = rng.int(1, qMax);
+/** Fraction > 1 non entière : q unités et r parts (qMin ≤ q ≤ qMax). */
+function fracSup1(rng: Rng, d: number, qMax: number, qMin = 1): F {
+  const q = rng.int(qMin, qMax);
   const r = rng.int(1, d - 1);
   return [q * d + r, d];
 }
 
 const sensVisuel: ItemGen = (level, rng, ctx) => {
   const d = rng.pick(denVisuel(level));
-  const sup1 = parNiv(level, { facile: false, normal: rng.chance(0.5), plus_loin: true });
-  const [n] = sup1 ? fracSup1(rng, d, level === 'plus_loin' ? 3 : 1) : [rng.int(1, d - 1)];
+  // Facile : fraction < 1 ; normal : jusqu'à 2 unités et des parts ; plus loin : 3 ou 4 unités
+  const sup1 = level !== 'facile';
+  const [n] = sup1
+    ? level === 'plus_loin'
+      ? fracSup1(rng, d, 4, 3)
+      : fracSup1(rng, d, 2)
+    : [rng.int(1, d - 1)];
   return visuel(ctx, rng, n!, d, rng.chance(0.5) ? 'colorier' : 'lire', 0.15 + (sup1 ? 0.35 : 0) + d / 60);
 };
 
@@ -204,7 +212,7 @@ const sensNumeric: ItemGen = (level, rng, ctx) => {
   }
   if (level === 'normal') {
     const d = rng.pick(DEN_N);
-    const fr = fracSup1(rng, d, d > 12 ? 3 : 5);
+    const fr = fracSup1(rng, d, d > 12 ? 3 : 5, 2);
     const [n] = fr;
     const q = Math.floor(n / d);
     const r = n % d;
@@ -252,7 +260,7 @@ const sensNumeric: ItemGen = (level, rng, ctx) => {
   // Pour aller plus loin : fractions égales (conversions), grands entiers
   const d = rng.pick([2, 3, 4, 5, 6, 10, 12]);
   const k = rng.pick([2, 3, 4, 5].filter((x) => d * x <= 60));
-  const fr = fracSup1(rng, d, 9);
+  const fr = fracSup1(rng, d, 9, 6);
   const [n] = fr;
   const q = Math.floor(n / d);
   const r = n % d;
@@ -287,7 +295,9 @@ const sensQcm: ItemGen = (level, rng, ctx) => {
   const d = rng.pick(ds);
   const formeQ = parNiv(level, { facile: rng.int(0, 1), normal: rng.int(0, 3), plus_loin: rng.int(2, 4) });
   if (formeQ <= 1) {
-    const n = rng.int(level === 'facile' ? 1 : 2, level === 'facile' ? d - 1 : d + 5);
+    let n = rng.int(1, d - 1);
+    if (level !== 'facile' && DEN_F.includes(d)) n = rng.int(d + 1, 2 * d - 1);
+    else if (level !== 'facile') n = rng.int(2, d + 5);
     const mots = fractionEnMots(n, d);
     const voisins: F[] = [
       [d, n],
@@ -314,7 +324,7 @@ const sensQcm: ItemGen = (level, rng, ctx) => {
       max: level === 'facile' ? 3 : 4,
     });
   }
-  const fr = fracSup1(rng, d, level === 'plus_loin' ? 9 : d > 12 ? 3 : 5);
+  const fr = level === 'plus_loin' ? fracSup1(rng, d, 9, 6) : fracSup1(rng, d, d > 12 ? 3 : 5);
   const [n] = fr;
   const q = Math.floor(n / d);
   const r = n % d;
@@ -367,18 +377,25 @@ const sensPaires: ItemGen = (level, rng, ctx) => {
   const out: F[] = [];
   let guard = 0;
   while (out.length < n && guard++ < 100) {
-    const d = rng.pick(level === 'facile' ? DEN_F : [2, 3, 4, 5, 6, 8, 10, 12]);
-    const fr: F =
-      level === 'plus_loin' ? fracSup1(rng, d, 4) : [rng.int(1, level === 'facile' ? d - 1 : d + 3), d];
+    // Facile : nom des fractions < 1 ; normal : fraction > 1 ↔ entier + fraction (attendu BO) ;
+    // plus loin : même travail avec de grands dénominateurs et plus d'unités
+    const d = rng.pick(
+      parNiv(level, {
+        facile: DEN_F,
+        normal: [2, 3, 4, 5, 6, 8, 10, 12],
+        plus_loin: [15, 16, 20, 24, 25, 30, 40, 50, 60],
+      }),
+    );
+    const fr: F = level === 'facile' ? [rng.int(1, d - 1), d] : fracSup1(rng, d, level === 'normal' ? 4 : 6);
     if (fr[0] % fr[1] === 0 || vus.has(frac(...fr))) continue;
     // Les paires doivent être sans ambiguïté : pas deux décompositions identiques
-    const right = level === 'plus_loin' ? mixte(fr) : fractionEnMots(...fr);
+    const right = level !== 'facile' ? mixte(fr) : fractionEnMots(...fr);
     if (vus.has(right)) continue;
     vus.add(frac(...fr));
     vus.add(right);
     out.push(fr);
   }
-  const plus = level === 'plus_loin';
+  const plus = level !== 'facile';
   const pairs = out.map((fr) => ({ left: frac(...fr), right: plus ? mixte(fr) : fractionEnMots(...fr) }));
   return make(ctx, 'pairing', `paires-${pairs.map((p) => p.left).join('|')}`, {
     prompt: plus
@@ -389,7 +406,7 @@ const sensPaires: ItemGen = (level, rng, ctx) => {
     explication: plus
       ? 'Cherche combien d’unités entières tient la fraction : 7/3 = 6/3 + 1/3 = 2 + 1/3.'
       : 'Le nombre du bas dit en combien de parts égales on partage, celui du haut combien on en prend.',
-    difficulty: plus ? 0.65 : level === 'facile' ? 0.2 : 0.4,
+    difficulty: parNiv(level, { facile: 0.2, normal: 0.5, plus_loin: 0.75 }),
   });
 };
 
@@ -397,22 +414,46 @@ const sensPaires: ItemGen = (level, rng, ctx) => {
 /* CM2.MA.FRAC.DROITE — placer, repérer                                */
 /* ------------------------------------------------------------------ */
 
+/** Dénominateurs par niveau, disjoints pour que les tirages ne se répètent pas d'un niveau à l'autre. */
 const denDroite = (level: Level) =>
-  parNiv(level, { facile: [2, 4], normal: [2, 3, 4, 5, 6, 8, 10, 12], plus_loin: [3, 4, 5, 6, 8, 10, 12] });
+  parNiv(level, { facile: [2, 4], normal: [3, 5, 6, 8, 10], plus_loin: [12, 15, 20] });
 
-/** Fraction non entière à placer. */
+/** Fraction non entière à placer : facile entre 0 et 2 ; normal souvent > 1 (attendu BO) ; plus loin jusqu'à 5. */
 function fracDroite(level: Level, rng: Rng): F {
   const d = rng.pick(denDroite(level));
   if (level === 'plus_loin') return fracSup1(rng, d, 4);
+  if (level === 'normal' && rng.chance(0.6)) return fracSup1(rng, d, 3);
   for (;;) {
-    const n = rng.int(1, 2 * d - 1);
+    const n = rng.int(1, level === 'facile' ? 2 * d - 1 : d - 1);
     if (n !== d) return [n, d];
   }
 }
 
+/** Plus loin : point au milieu de deux graduations (graduations en g-ièmes, fraction en 2g-ièmes). */
+const ligneMilieu = (rng: Rng, ctx: GenContext): ItemOf<'number_line'> => {
+  const g = rng.pick([3, 4, 5, 6]);
+  const D = 2 * g;
+  const n = 2 * rng.int(0, 3 * g - 1) + 1;
+  const max = Math.max(2, Math.ceil(n / D));
+  return make(ctx, 'number_line', `milieu-${n}-${D}-${max}`, {
+    prompt: `Place ${frac(n, D)} sur la demi-droite graduée (attention : l’unité est partagée en ${g} parts).`,
+    spoken: `Place ${fractionEnMots(n, D)} sur la demi-droite graduée. Attention : l’unité est partagée en ${g} parts.`,
+    min: 0,
+    max,
+    step: 1,
+    subdivisions: g,
+    target: n / D,
+    display: frac(n, D),
+    tolerance: Math.round((0.4 / D) * 1000) / 1000,
+    explication: `Une graduation vaut ${frac(1, g)} = ${frac(2, D)} : ${frac(n, D)} est au milieu, entre ${frac(n - 1, D)} et ${frac(n + 1, D)}.`,
+    difficulty: 0.85,
+  });
+};
+
 const droiteLigne: ItemGen = (level, rng, ctx) => {
+  if (level === 'plus_loin' && rng.chance(0.5)) return ligneMilieu(rng, ctx);
   const fr = fracDroite(level, rng);
-  const mix = level === 'plus_loin' && rng.chance(0.5);
+  const mix = level !== 'facile' && fr[0] > fr[1] && rng.chance(0.5);
   return ligne(
     ctx,
     fr,
@@ -427,9 +468,9 @@ const LETTRES = ['A', 'B', 'C', 'D', 'E', 'M', 'P'];
 /** Description d'un point : `k` graduations après le repère `q` (ou avant `q + 1` en plus loin). */
 function pointDecrit(level: Level, rng: Rng) {
   const d = rng.pick(denDroite(level));
-  const q = parNiv(level, { facile: 0, normal: rng.int(0, 2), plus_loin: rng.int(1, 4) });
+  const q = parNiv(level, { facile: 0, normal: rng.int(0, 3), plus_loin: rng.int(1, 4) });
   const k = rng.int(1, d - 1);
-  const avant = level === 'plus_loin' && rng.chance(0.5);
+  const avant = parNiv(level, { facile: false, normal: rng.chance(0.3), plus_loin: rng.chance(0.5) });
   const n = avant ? (q + 1) * d - k : q * d + k;
   const lettre = rng.pick(LETTRES);
   const kk = avant ? (q + 1) * d - n : k;
@@ -503,10 +544,10 @@ const droiteVraiFaux: ItemGen = (level, rng, ctx) => {
   const vrai = rng.chance(0.5);
   if (level !== 'facile' && rng.chance(0.4)) {
     // Deux fractions égales se placent au même point
-    const d = rng.pick([2, 3, 4, 5, 6]);
-    const k = rng.pick([2, 3]);
-    const n = rng.int(1, 2 * d - 1);
-    if (n === d) return droiteVraiFaux(level, rng, ctx);
+    const d = rng.pick(level === 'normal' ? [2, 3, 4, 5] : [6, 8, 10, 12]);
+    const k = rng.pick([2, 3, 4, 5].filter((x) => (level === 'normal' ? x <= 3 : d * x <= 60)));
+    const n = rng.int(1, (level === 'normal' ? 2 : 3) * d - 1);
+    if (n % d === 0) return droiteVraiFaux(level, rng, ctx);
     const m = vrai ? n * k : n * k + rng.pick([-1, 1]);
     return vraiFaux(ctx, `meme-point-${n}-${d}-${m}-${d * k}`, {
       statement: `Sur une demi-droite graduée, ${frac(n, d)} et ${frac(m, d * k)} sont placés au même point.`,
@@ -546,7 +587,7 @@ function paireComparer(level: Level, rng: Rng, visuelSeul = false): Paire {
   if (level === 'normal') {
     const r = rng.next();
     if (!visuelSeul && r < 0.15) {
-      const d = rng.pick(DEN_N);
+      const d = rng.pick(DEN_N.filter((x) => x > 10));
       return { a: [rng.int(1, 2 * d), d], b: [1, 1], cas: 'un' };
     }
     const d = rng.pick([2, 3, 4, 5, 6, 8, 10, 12].filter((x) => x * 2 <= maxD));
@@ -578,7 +619,8 @@ function paireComparer(level: Level, rng: Rng, visuelSeul = false): Paire {
   if (rng.chance(0.4)) {
     const n = rng.int(1, visuelSeul ? 4 : 9);
     const [d1, d2] = rng.shuffle([2, 3, 4, 5, 6, 7, 8, 9, 10, 12].filter((x) => x > n || !visuelSeul));
-    return { a: [n, d1!], b: [n, d2!], cas: 'meme-num' };
+    // Dénominateurs non multiples l'un de l'autre (sinon c'est le cas « normal »)
+    if (d1! % d2! !== 0 && d2! % d1! !== 0) return { a: [n, d1!], b: [n, d2!], cas: 'meme-num' };
   }
   for (;;) {
     const d1 = rng.int(2, 12);
@@ -586,7 +628,7 @@ function paireComparer(level: Level, rng: Rng, visuelSeul = false): Paire {
     if (d1 === d2 || d1 % d2 === 0 || d2 % d1 === 0 || ppcm(d1, d2) > maxD) continue;
     const a: F = [rng.int(1, visuelSeul ? d1 - 1 : 2 * d1 - 1), d1];
     const b: F = [rng.int(1, visuelSeul ? d2 - 1 : 2 * d2 - 1), d2];
-    if (compare(a, b) === '=') continue;
+    if (compare(a, b) === '=' || a[0] % d1 === 0 || b[0] % d2 === 0) continue;
     return { a, b, cas: 'commun' };
   }
 }
@@ -612,7 +654,9 @@ function explComparer({ a, b, cas }: Paire): string {
         .filter((f) => f[1] !== D)
         .map((f) => `${ecrire(f)} = ${frac(f[0] * (D / f[1]), D)}`)
         .join(' et ');
-      return `On écrit les fractions avec le même dénominateur ${D} : ${conv}. On compare alors les numérateurs : ${A} ${sg} ${B}.`;
+      const na = a[0] * (D / a[1]);
+      const nb = b[0] * (D / b[1]);
+      return `On écrit les fractions avec le même dénominateur ${D} : ${conv}. On compare les numérateurs : ${na} ${sg} ${nb}, donc ${A} ${sg} ${B}.`;
     }
   }
 }
@@ -718,17 +762,28 @@ function operation(level: Level, rng: Rng, visuelSeul = false): Op {
     let D: number;
     if (level === 'facile') {
       d = D = rng.pick(visuelSeul ? [3, 4, 5, 6, 8, 10, 12] : [3, 4, 5, 6, 7, 8, 9, 10, 12]);
+    } else if (level === 'plus_loin') {
+      // Plus loin (6e) : aucun dénominateur n'est multiple de l'autre (1/4 + 1/6 = …/12)
+      const d1 = rng.int(2, visuelSeul ? 6 : 10);
+      const d2 = rng.int(2, visuelSeul ? 6 : 10);
+      if (d1 === d2 || d1 % d2 === 0 || d2 % d1 === 0 || ppcm(d1, d2) > (visuelSeul ? 12 : 40)) continue;
+      const P = ppcm(d1, d2);
+      const a = rng.int(1, 2 * d1 - 1);
+      const b = rng.int(1, 2 * d2 - 1);
+      if (a % d1 === 0 || b % d2 === 0) continue; // pas de « 2/2 » ni de « 4/4 »
+      const res = op === '+' ? a * (P / d1) + b * (P / d2) : a * (P / d1) - b * (P / d2);
+      if (res <= 0 || res > 3 * P) continue;
+      return { a: [a, d1], b: [b, d2], op, D: P, res };
     } else {
       d = rng.pick([2, 3, 4, 5, 6].filter((x) => !visuelSeul || x <= 6));
       const k = rng.pick([2, 3, 4, 5].filter((x) => d * x <= (visuelSeul ? 12 : 60)));
       D = d * k;
     }
-    const lim = level === 'plus_loin' ? 2 : 1;
-    const a = rng.int(1, lim * d - 1);
-    const b = rng.int(1, lim * D - 1);
+    const a = rng.int(1, d - 1);
+    const b = rng.int(1, D - 1);
     const A = a * (D / d);
     const res = op === '+' ? A + b : A - b;
-    if (res <= 0 || res > parNiv(level, { facile: D, normal: 2 * D, plus_loin: 3 * D })) continue;
+    if (res <= 0 || res > (level === 'facile' ? D : 2 * D)) continue;
     if (level === 'facile' && op === '+' && res > D) continue;
     // Ordre aléatoire des deux termes pour l'addition
     const swap = op === '+' && d !== D && rng.chance(0.5);
@@ -739,42 +794,61 @@ function operation(level: Level, rng: Rng, visuelSeul = false): Op {
 const ecrireOp = (o: Op) => `${frac(...o.a)} ${o.op} ${frac(...o.b)}`;
 
 function explOp(o: Op): string {
-  const verbe = o.op === '+' ? 'on ajoute' : 'on enlève';
+  const verbe = o.op === '+' ? 'on ajoute' : 'on soustrait';
   const nom = nomDenominateur(o.D, true);
+  const entier = o.res % o.D === 0 ? ` = ${o.res / o.D}` : '';
   if (o.a[1] === o.b[1])
-    return `Les parts ont la même taille : ${verbe} les numérateurs (${o.a[0]} ${o.op} ${o.b[0]} = ${o.res}) et le dénominateur ne change pas, ${frac(o.res, o.D)}.`;
-  const [petit] = [o.a, o.b].filter((f) => f[1] !== o.D) as [F];
-  const k = o.D / petit[1];
-  const conv = frac(petit[0] * k, o.D);
-  const [x, y] = o.a[1] === o.D ? [o.a[0], petit[0] * k] : [petit[0] * k, o.b[0]];
-  return `On écrit ${frac(...petit)} en ${nom} : ${frac(...petit)} = ${conv}. Puis ${x} ${o.op} ${y} = ${o.res}, donc ${frac(o.res, o.D)}.`;
+    return `Les parts ont la même taille : ${verbe} les numérateurs (${o.a[0]} ${o.op} ${o.b[0]} = ${o.res}) et le dénominateur ne change pas, ${frac(o.res, o.D)}${entier}.`;
+  const conv = [o.a, o.b]
+    .filter((f) => f[1] !== o.D)
+    .map((f) => `${frac(...f)} = ${frac(f[0] * (o.D / f[1]), o.D)}`)
+    .join(' et ');
+  const x = o.a[0] * (o.D / o.a[1]);
+  const y = o.b[0] * (o.D / o.b[1]);
+  return `On écrit les fractions en ${nom} : ${conv}. Puis ${x} ${o.op} ${y} = ${o.res}, donc ${frac(o.res, o.D)}${entier}.`;
 }
 
 type Quantite = { n: number; d: number; Q: number; unite: string; res: number };
 
-const UNITES_Q = ['€', 'm', 'kg', 'min', 'L', 'km'];
+/** Grandeurs vraisemblables : [unité, minimum, maximum] de la quantité de départ. */
+const UNITES_Q: [string, number, number][] = [
+  ['€', 10, 200],
+  ['m', 10, 1000],
+  ['kg', 10, 500],
+  ['min', 30, 240],
+  ['L', 10, 500],
+  ['km', 10, 600],
+];
 
 function quantite(level: Level, rng: Rng): Quantite {
-  const d = parNiv(level, {
-    facile: rng.pick([2, 3, 4, 5, 10]),
-    normal: rng.pick([2, 3, 4, 5, 6, 8, 10, 12, 20, 25]),
-    plus_loin: rng.pick([6, 8, 12, 15, 20, 24, 25, 40, 50, 60]),
-  });
-  // Fraction irréductible (« 3/4 de 60 », pas « 6/8 de 60 »)
-  let n = 1;
-  if (level !== 'facile')
-    do n = rng.int(1, d - 1);
-    while (pgcd(n, d) !== 1);
-  const part = parNiv(level, { facile: rng.int(2, 10), normal: rng.int(2, 40), plus_loin: rng.int(5, 160) });
-  const Q = d * part;
-  return { n, d, Q, unite: rng.pick(UNITES_Q), res: n * part };
+  for (;;) {
+    const d = parNiv(level, {
+      facile: rng.pick([2, 3, 4, 5, 10]),
+      normal: rng.pick([2, 3, 4, 5, 8, 10]),
+      plus_loin: rng.pick([6, 12, 15, 20, 24, 25, 40, 50, 60]),
+    });
+    const [unite, min, max0] = rng.pick(UNITES_Q);
+    const max = level === 'facile' ? Math.min(max0, 10 * d) : max0;
+    const pMin = Math.max(2, Math.ceil(min / d));
+    const pMax = Math.floor(max / d);
+    if (pMin > pMax) continue;
+    // Fraction irréductible (« 3/4 de 60 », pas « 6/8 de 60 »)
+    let n = 1;
+    if (level !== 'facile')
+      do n = rng.int(1, d - 1);
+      while (pgcd(n, d) !== 1);
+    const part = rng.int(pMin, pMax);
+    return { n, d, Q: d * part, unite, res: n * part };
+  }
 }
 
 const ecrireQ = (q: Quantite) => `${frac(q.n, q.d)} de ${fmt(q.Q)} ${q.unite}`;
 const explQ = (q: Quantite) =>
-  q.n === 1
-    ? `${frac(1, q.d)} de ${fmt(q.Q)}, c’est une part quand on partage en ${q.d} : ${fmt(q.Q)} ÷ ${q.d} = ${fmt(q.res)}.`
-    : `On partage ${fmt(q.Q)} en ${q.d} parts égales (${fmt(q.Q)} ÷ ${q.d} = ${fmt(q.Q / q.d)}), puis on prend ${q.n} parts : ${q.n} × ${fmt(q.Q / q.d)} = ${fmt(q.res)}.`;
+  q.n === 1 && q.d === 2
+    ? `La moitié de ${fmt(q.Q)}, c’est ${fmt(q.Q)} ÷ 2 = ${fmt(q.res)}.`
+    : q.n === 1
+      ? `${frac(1, q.d)} de ${fmt(q.Q)}, c’est une part quand on partage en ${q.d} : ${fmt(q.Q)} ÷ ${q.d} = ${fmt(q.res)}.`
+      : `On partage ${fmt(q.Q)} en ${q.d} parts égales (${fmt(q.Q)} ÷ ${q.d} = ${fmt(q.Q / q.d)}), puis on prend ${q.n} parts : ${q.n} × ${fmt(q.Q / q.d)} = ${fmt(q.res)}.`;
 
 const opNumeric: ItemGen = (level, rng, ctx) => {
   const f = parNiv(level, { facile: rng.int(0, 1), normal: rng.int(0, 2), plus_loin: rng.int(0, 3) });
@@ -789,10 +863,16 @@ const opNumeric: ItemGen = (level, rng, ctx) => {
     });
   }
   if (f === 1 && level !== 'facile') {
-    const d = rng.pick([3, 4, 5, 6, 7, 8, 9, 10, 12]);
-    const a = rng.int(1, d - 1);
-    const m = rng.int(2, level === 'plus_loin' ? 12 : 9);
-    if (level === 'plus_loin' && m * a > d && (m * a) % d !== 0)
+    let d = rng.pick([3, 4, 5, 6, 7, 8, 9, 10, 12]);
+    let a = rng.int(1, d - 1);
+    let m = rng.int(2, 9);
+    if (level === 'plus_loin') {
+      // Plus loin : le produit dépasse 1 et on l'écrit « entier + fraction »
+      while (m * a <= d || (m * a) % d === 0) {
+        d = rng.pick([3, 4, 5, 6, 7, 8, 9, 10, 12]);
+        a = rng.int(1, d - 1);
+        m = rng.int(2, 12);
+      }
       return numeric(ctx, `mult-ent-${m}-${a}-${d}`, {
         prompt: `${m} × ${frac(a, d)} = … + ${frac((m * a) % d, d)}`,
         spoken: lire(`${m} × ${frac(a, d)} = combien plus ${frac((m * a) % d, d)}`),
@@ -800,6 +880,7 @@ const opNumeric: ItemGen = (level, rng, ctx) => {
         explication: `${m} × ${frac(a, d)} = ${frac(m * a, d)} (${m} fois ${parts(a, d)}) ; ${explMixte([m * a, d])}`,
         difficulty: 0.75,
       });
+    }
     return numeric(ctx, `mult-${m}-${a}-${d}`, {
       prompt: `${m} × ${frac(a, d)} = …/${d}`,
       spoken: lire(`${m} × ${frac(a, d)} = …/${d}`),
@@ -895,6 +976,9 @@ const opQcm: ItemGen = (level, rng, ctx) => {
 type Contexte = {
   objet: string;
   unite: string;
+  /** Quantité de départ vraisemblable. */
+  min: number;
+  max: number;
   /** `f` = « les 3/4 » ou « 1/4 » ; `un` = numérateur 1 (accord au singulier). */
   enonce: (Q: string, f: string, un: boolean) => string;
   question: string;
@@ -906,6 +990,8 @@ const CONTEXTES: Contexte[] = [
   {
     objet: 'élèves',
     unite: 'élèves',
+    min: 40,
+    max: 600,
     enonce: (Q, f, un) =>
       `Dans une école de ${Q} élèves, ${f} des élèves ${un ? 'mange' : 'mangent'} à la cantine.`,
     question: 'Combien d’élèves mangent à la cantine ?',
@@ -918,33 +1004,42 @@ const CONTEXTES: Contexte[] = [
   {
     objet: 'ruban',
     unite: 'cm',
+    min: 20,
+    max: 300,
     enonce: (Q, f) => `Un ruban mesure ${Q} cm. On en coupe ${f}.`,
     question: 'Quelle longueur de ruban coupe-t-on ?',
     reponse: 'On coupe ___ cm de ruban.',
     reste: { question: 'Quelle longueur de ruban reste-t-il ?', reponse: 'Il reste ___ cm de ruban.' },
   },
   {
-    objet: 'randonnée',
+    objet: 'sortie à vélo',
     unite: 'km',
-    enonce: (Q, f) => `Une randonnée fait ${Q} km. Le premier jour, on a parcouru ${f} du trajet.`,
-    question: 'Combien de kilomètres a-t-on parcourus le premier jour ?',
-    reponse: 'Le premier jour, on a parcouru ___ km.',
+    min: 20,
+    max: 120,
+    enonce: (Q, f) => `Une sortie à vélo fait ${Q} km. Avant la pause, PERSO a parcouru ${f} du trajet.`,
+    question: 'Combien de kilomètres PERSO a-t-PRON parcourus avant la pause ?',
+    reponse: 'Avant la pause, PERSO a parcouru ___ km.',
     reste: {
-      question: 'Combien de kilomètres reste-t-il à parcourir ?',
-      reponse: 'Il reste ___ km à parcourir.',
+      question: 'Combien de kilomètres reste-t-il à parcourir après la pause ?',
+      reponse: 'Après la pause, il reste ___ km à parcourir.',
     },
   },
   {
     objet: 'argent',
     unite: '€',
-    enonce: (Q, f) => `PERSO a ${Q} € d’économies. PRON dépense ${f} de cette somme pour acheter un livre.`,
-    question: 'Combien coûte le livre ?',
-    reponse: 'Le livre coûte ___ €.',
+    min: 10,
+    max: 100,
+    enonce: (Q, f) =>
+      `PERSO a ${Q} € d’économies. PRON dépense ${f} de cette somme pour acheter un jeu de société.`,
+    question: 'Combien coûte le jeu ?',
+    reponse: 'Le jeu coûte ___ €.',
     reste: { question: 'Combien d’argent reste-t-il à PERSO ?', reponse: 'Il reste ___ € à PERSO.' },
   },
   {
     objet: 'film',
     unite: 'min',
+    min: 60,
+    max: 180,
     enonce: (Q, f) => `Un film dure ${Q} minutes. PERSO en a déjà regardé ${f}.`,
     question: 'Combien de minutes du film PERSO a-t-PRON regardées ?',
     reponse: 'PERSO a regardé ___ minutes du film.',
@@ -964,19 +1059,24 @@ const opProbleme: ItemGen = (level, rng, ctx) => {
   });
   let n = 1;
   if (level !== 'facile')
-    do n = rng.int(1, d - 1);
+    do n = rng.int(2, d - 1);
     while (pgcd(n, d) !== 1);
-  const part = parNiv(level, { facile: rng.int(2, 12), normal: rng.int(3, 30), plus_loin: rng.int(4, 60) });
+  const pMin = Math.max(2, Math.ceil(c.min / d));
+  const pMax = Math.max(pMin, Math.floor((level === 'facile' ? Math.min(c.max, 12 * d) : c.max) / d));
+  const part = rng.int(pMin, pMax);
   const Q = d * part;
   const res = n * part;
-  const deuxEtapes = level === 'plus_loin' && rng.chance(0.7);
-  const [p] = deuxPersos(rng);
+  const deuxEtapes = level === 'plus_loin';
+  // Filles et garçons à parts égales
+  const fille = rng.chance(0.5);
+  const p = rng.pick(PERSOS.filter((x) => (x.il === 'elle') === fille));
   const perso = (t: string) =>
     t
       .replace(/PERSO/g, p.nom)
       .replace(/\. PRON/g, `. ${cap(p.il)}`)
       .replace(/PRON/g, p.il);
-  const f = n === 1 ? frac(1, d) : `les ${frac(n, d)}`;
+  const moitie = n === 1 && d === 2;
+  const f = moitie ? 'la moitié' : n === 1 ? frac(1, d) : `les ${frac(n, d)}`;
   const statement = perso(c.enonce(fmt(Q), f, n === 1));
   const answer = deuxEtapes ? Q - res : res;
   const question = perso(deuxEtapes ? c.reste.question : c.question);
@@ -1004,7 +1104,10 @@ const opProbleme: ItemGen = (level, rng, ctx) => {
         ]
       : [
           `On partage ${fmt(Q)} en ${d} parts égales et on en prend ${n}.`,
-          `On cherche ce qui reste quand on a enlevé ${f} de ${fmt(Q)}.`,
+          // Pour la moitié, « ce qui reste » donnerait le même nombre : autre distracteur
+          moitie
+            ? `On multiplie ${fmt(Q)} par 2.`
+            : `On cherche ce qui reste quand on a enlevé ${f} de ${fmt(Q)}.`,
           `On ajoute ${n} et ${d} à ${fmt(Q)}.`,
         ],
     operation: operationTxt,

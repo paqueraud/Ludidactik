@@ -139,8 +139,10 @@ function tirerConv(level: Level, rng: Rng): Conv {
   const max = level === 'facile' ? (ratio >= 1000 ? 9 : 25) : 60;
   if (rng.chance(0.5)) {
     // De la grande unité vers la petite : 3,5 m = 350 cm
-    const d = parNiv(level, { facile: 0, normal: rng.int(0, 2), plus_loin: rng.int(1, 3) });
-    const k = rng.int(1, max * 10 ** d);
+    const d = parNiv(level, { facile: 0, normal: rng.int(1, 2), plus_loin: rng.int(1, 3) });
+    let k = rng.int(1, max * 10 ** d);
+    // Au niveau normal, une vraie écriture décimale (29 m = 2 900 cm est réservé au niveau facile)
+    while (level === 'normal' && k % 10 === 0) k = rng.int(1, max * 10 ** d);
     return {
       grande,
       petite,
@@ -153,7 +155,8 @@ function tirerConv(level: Level, rng: Rng): Conv {
   }
   // De la petite unité vers la grande : 1 250 g = 1,25 kg (au plus 3 décimales)
   const d = level === 'facile' ? 0 : rng.int(1, Math.min(lr, 3));
-  const k = rng.int(level === 'facile' ? 1 : 2, max * 10 ** d);
+  let k = rng.int(level === 'facile' ? 1 : 2, max * 10 ** d);
+  while (level === 'normal' && k % 10 === 0) k = rng.int(2, max * 10 ** d);
   return {
     grande,
     petite,
@@ -199,7 +202,7 @@ function compose(level: Level, rng: Rng) {
   const x = rng.int(1, 9);
   // Piège du zéro : 3 m 5 cm = 305 cm (et non 35 cm)
   const y = rng.chance(0.4) ? rng.int(1, 9) : rng.int(10, ratio - 1);
-  const versGrande = level === 'plus_loin' && rng.chance(0.5);
+  const versGrande = level === 'plus_loin';
   const enPetite = x * ratio + y;
   const p = `${x} ${a} ${fmt(y)} ${b} = … ${versGrande ? a : b}`;
   return versGrande
@@ -245,26 +248,26 @@ const convNumeric: ItemGen = (level, rng, ctx) => {
 };
 
 /** Mesures vraisemblables (estimation, choix de l'unité). */
-const ESTIMATIONS: { quoi: string; v: number; u: string; img: string }[] = [
-  { quoi: 'la longueur d’une voiture', v: 4, u: 'm', img: '🚗' },
-  { quoi: 'la hauteur d’une porte', v: 2, u: 'm', img: '🚪' },
-  { quoi: 'la longueur d’un crayon neuf', v: 18, u: 'cm', img: '✏️' },
-  { quoi: 'l’épaisseur d’une pièce de 1 euro', v: 2, u: 'mm', img: '🪙' },
-  { quoi: 'la distance entre Paris et Lyon', v: 465, u: 'km', img: '🛣️' },
-  { quoi: 'la longueur d’une fourmi', v: 5, u: 'mm', img: '🐜' },
-  { quoi: 'la hauteur de la tour Eiffel', v: 330, u: 'm', img: '🗼' },
-  { quoi: 'la longueur d’un terrain de football', v: 100, u: 'm', img: '⚽' },
-  { quoi: 'la masse d’un éléphant', v: 5, u: 't', img: '🐘' },
-  { quoi: 'la masse d’une pomme', v: 150, u: 'g', img: '🍎' },
-  { quoi: 'la masse d’un enfant de CM2', v: 35, u: 'kg', img: '🧒' },
-  { quoi: 'la masse d’un cartable rempli', v: 4, u: 'kg', img: '🎒' },
-  { quoi: 'la masse d’une plume', v: 50, u: 'mg', img: '🪶' },
-  { quoi: 'la masse d’un camion chargé', v: 20, u: 't', img: '🚚' },
-  { quoi: 'la contenance d’une baignoire', v: 150, u: 'L', img: '🛁' },
-  { quoi: 'la contenance d’une cuillère à café', v: 5, u: 'mL', img: '🥄' },
-  { quoi: 'la contenance d’une canette de jus de fruits', v: 33, u: 'cL', img: '🥤' },
-  { quoi: 'la contenance d’un arrosoir', v: 10, u: 'L', img: '🪴' },
-  { quoi: 'la contenance d’un verre d’eau', v: 20, u: 'cL', img: '🥛' },
+const ESTIMATIONS: { quoi: string; v: number; u: string; img: string; niv: Level }[] = [
+  { quoi: 'la longueur d’une voiture', v: 4, u: 'm', img: '🚗', niv: 'facile' },
+  { quoi: 'la hauteur d’une porte', v: 2, u: 'm', img: '🚪', niv: 'normal' },
+  { quoi: 'la longueur d’un crayon neuf', v: 18, u: 'cm', img: '✏️', niv: 'facile' },
+  { quoi: 'l’épaisseur d’une pièce de 1 euro', v: 2, u: 'mm', img: '🪙', niv: 'normal' },
+  { quoi: 'la distance entre Paris et Lyon', v: 465, u: 'km', img: '🛣️', niv: 'normal' },
+  { quoi: 'la longueur d’une fourmi', v: 5, u: 'mm', img: '🐜', niv: 'facile' },
+  { quoi: 'la hauteur de la tour Eiffel', v: 330, u: 'm', img: '🗼', niv: 'normal' },
+  { quoi: 'la longueur d’un terrain de football', v: 100, u: 'm', img: '⚽', niv: 'normal' },
+  { quoi: 'la masse d’un éléphant', v: 5, u: 't', img: '🐘', niv: 'facile' },
+  { quoi: 'la masse d’une pomme', v: 150, u: 'g', img: '🍎', niv: 'facile' },
+  { quoi: 'la masse d’un vélo d’enfant', v: 10, u: 'kg', img: '🚲', niv: 'facile' },
+  { quoi: 'la masse d’un cartable rempli', v: 4, u: 'kg', img: '🎒', niv: 'normal' },
+  { quoi: 'la masse d’une plume', v: 50, u: 'mg', img: '🪶', niv: 'normal' },
+  { quoi: 'la masse d’un camion chargé', v: 20, u: 't', img: '🚚', niv: 'normal' },
+  { quoi: 'la contenance d’une baignoire', v: 150, u: 'L', img: '🛁', niv: 'facile' },
+  { quoi: 'la contenance d’une cuillère à café', v: 5, u: 'mL', img: '🥄', niv: 'normal' },
+  { quoi: 'la contenance d’une canette de jus de fruits', v: 33, u: 'cL', img: '🥤', niv: 'normal' },
+  { quoi: 'la contenance d’un arrosoir', v: 10, u: 'L', img: '🪴', niv: 'normal' },
+  { quoi: 'la contenance d’un verre d’eau', v: 20, u: 'cL', img: '🥛', niv: 'facile' },
 ];
 const UNITES_USUELLES: Record<Grandeur, string[]> = {
   longueur: ['km', 'm', 'cm', 'mm'],
@@ -289,8 +292,8 @@ function tirerComparaison(level: Level, rng: Rng) {
 }
 
 const convQcm: ItemGen = (level, rng, ctx) => {
-  if (rng.chance(level === 'facile' ? 0.6 : 0.4)) {
-    const e = rng.pick(ESTIMATIONS);
+  if (level !== 'plus_loin' && rng.chance(level === 'facile' ? 0.6 : 0.4)) {
+    const e = rng.pick(ESTIMATIONS.filter((x) => x.niv === level));
     const g = GRANDEUR[e.u]!;
     const good = `${fmt(e.v)} ${e.u}`;
     return mcq(ctx, rng, `estim-${e.quoi}`, {
@@ -331,11 +334,20 @@ const convRanger: ItemGen = (level, rng, ctx) => {
   while (qs.size < n && guard++ < 200) qs.add(rng.int(lo, hi) * pas);
   if (qs.size < n) for (let k = 1; qs.size < n; k++) qs.add(centre + k * pas);
   const valeurs = [...qs];
+  if (level === 'facile' && !valeurs.some((q) => q % ratio === 0)) {
+    // Au niveau facile, au moins une mesure entière dans la grande unité (2 L), aucune écriture décimale
+    let q = ratio * rng.int(1, 4);
+    while (valeurs.includes(q)) q += ratio;
+    valeurs[0] = q;
+  }
   const affiche = new Map<number, string>();
-  valeurs.forEach((q, i) => {
-    const enGrande = i === 0 ? true : i === 1 ? false : rng.chance(0.5);
-    affiche.set(q, enGrande && nbDecimales(q / ratio) <= 3 ? ecrit(r3(q / ratio), grande) : ecrit(q, petite));
-  });
+  // Au niveau facile, seules les mesures entières dans la grande unité y sont écrites
+  const ecrivible = (q: number) => (level === 'facile' ? q % ratio === 0 : nbDecimales(q / ratio) <= 3);
+  const premiere = valeurs.findIndex(ecrivible);
+  const enGrandes = valeurs.map((q, i) => ecrivible(q) && (i === premiere || rng.chance(0.5)));
+  // … et au moins une mesure reste dans la petite unité
+  if (enGrandes.every(Boolean)) enGrandes[valeurs.length - 1] = false;
+  valeurs.forEach((q, i) => affiche.set(q, enGrandes[i] ? ecrit(r3(q / ratio), grande) : ecrit(q, petite)));
   const decroissant = level !== 'facile' && rng.chance(0.3);
   const tries = [...valeurs].sort((a, b) => (decroissant ? b - a : a - b));
   const elements = tries.map((q) => affiche.get(q)!);
@@ -407,8 +419,8 @@ function pbPerimetre(level: Level, rng: Rng): PbMesure {
   const u = rng.pick(['cm', 'm']);
   const formes = parNiv(level, {
     facile: ['carre', 'rectangle'],
-    normal: ['polygone', 'regulier', 'mixte', 'manque-rect', 'manque-carre', 'manque-tri', 'rectangle'],
-    plus_loin: ['cercle', 'cercle', 'manque-carre-dec', 'mixte', 'manque-tri'],
+    normal: ['polygone', 'regulier', 'mixte', 'manque-rect', 'manque-carre', 'manque-tri'],
+    plus_loin: ['cercle', 'cercle', 'manque-carre-dec', 'mixte-dec'],
   });
   const forme = rng.pick(formes);
   switch (forme) {
@@ -495,6 +507,24 @@ function pbPerimetre(level: Level, rng: Rng): PbMesure {
         meta: { figure: { type: 'rectangle', cotes: [Lcm, l, Lcm, l], unite: 'cm' } satisfies Figure },
       };
     }
+    case 'mixte-dec': {
+      let Lcm = rng.int(101, 399);
+      while (Lcm % 10 === 0) Lcm = rng.int(101, 399);
+      const lcm = rng.int(3, 9) * 10;
+      const p = 2 * (Lcm + lcm);
+      return {
+        sig: `mixtedec-${Lcm}-${lcm}`,
+        debut: `Un rectangle mesure ${fmt(Lcm / 100)} m de long et ${fmt(lcm / 100)} m de large.`,
+        question: 'Quel est son périmètre, en centimètres ?',
+        quoi: 'Son périmètre mesure',
+        answer: p,
+        unit: 'cm',
+        explication: `1 m = 100 cm, donc ${fmt(Lcm / 100)} m = ${Lcm} cm et ${fmt(lcm / 100)} m = ${lcm} cm. Puis ${Lcm} + ${lcm} + ${Lcm} + ${lcm} = ${p} cm.`,
+        erreurs: [r3(p / 100), Lcm + lcm, 2 * (Lcm + lcm / 10)],
+        difficulty: 0.7,
+        meta: { figure: { type: 'rectangle', cotes: [Lcm, lcm, Lcm, lcm], unite: 'cm' } satisfies Figure },
+      };
+    }
     case 'manque-rect': {
       const L = rng.int(6, 25);
       const l = rng.int(2, L - 1);
@@ -516,7 +546,7 @@ function pbPerimetre(level: Level, rng: Rng): PbMesure {
     }
     case 'manque-carre':
     case 'manque-carre-dec': {
-      const a = forme === 'manque-carre' ? rng.int(3, 25) : r3(rng.int(11, 99) / 2);
+      const a = forme === 'manque-carre' ? rng.int(3, 25) : (rng.int(5, 49) * 2 + 1) / 2;
       const P = r3(4 * a);
       return {
         sig: `mcarre-${P}`,
@@ -644,7 +674,7 @@ const mesureVraiFaux =
     const st = `${[p.debut, p.quoi].filter(Boolean).join(' ')} ${fmt(montre)} ${p.unit}${p.debut ? '.' : ''}`;
     return vraiFaux(ctx, `vf-${p.sig}-${montre}`, {
       statement: st,
-      spoken: `${dire(st)} Vrai ou faux ?`,
+      spoken: `${dire(st)}${st.endsWith('.') ? '' : '.'} Vrai ou faux ?`,
       answer: montre === p.answer,
       explication: p.explication,
       difficulty: p.difficulty,
@@ -652,42 +682,45 @@ const mesureVraiFaux =
     });
   };
 
-const reglesPerimetre = (level: Level) => [
-  {
-    s: 'Le périmètre d’un carré, c’est 4 fois la longueur de son côté.',
-    v: true,
-    e: 'Un carré a 4 côtés de même longueur : son tour mesure 4 fois le côté.',
-  },
-  {
-    s: 'Pour trouver le périmètre d’un polygone, on additionne les longueurs de tous ses côtés.',
-    v: true,
-    e: 'Le périmètre, c’est la longueur du tour de la figure.',
-  },
-  {
-    s: 'Le périmètre d’un rectangle, c’est sa longueur multipliée par sa largeur.',
-    v: false,
-    e: 'Le périmètre, c’est le tour : on additionne les 4 côtés (longueur + largeur + longueur + largeur).',
-  },
-  {
-    s: 'Un rectangle de 1 m sur 50 cm a un périmètre de 1 + 50 + 1 + 50 = 102 cm.',
-    v: false,
-    e: 'Il faut d’abord écrire les longueurs dans la même unité : 1 m = 100 cm, donc 100 + 50 + 100 + 50 = 300 cm.',
-  },
-  ...(level === 'plus_loin'
-    ? [
-        {
-          s: 'Le tour d’un cercle mesure environ 3 fois son diamètre.',
-          v: true,
-          e: 'Le tour d’un cercle mesure environ 3,14 fois son diamètre, un peu plus de 3 fois.',
-        },
-        {
-          s: 'Le tour d’un cercle mesure environ 3,14 fois son rayon.',
-          v: false,
-          e: 'C’est 3,14 fois le diamètre (le double du rayon).',
-        },
-      ]
-    : []),
-];
+const reglesPerimetre = (level: Level) =>
+  parNiv(level, {
+    facile: [
+      {
+        s: 'Le périmètre d’un carré, c’est 4 fois la longueur de son côté.',
+        v: true,
+        e: 'Un carré a 4 côtés de même longueur : son tour mesure 4 fois le côté.',
+      },
+      {
+        s: 'Le périmètre d’un rectangle, c’est sa longueur multipliée par sa largeur.',
+        v: false,
+        e: 'Le périmètre, c’est le tour : on additionne les 4 côtés (longueur + largeur + longueur + largeur).',
+      },
+    ],
+    normal: [
+      {
+        s: 'Pour trouver le périmètre d’un polygone, on additionne les longueurs de tous ses côtés.',
+        v: true,
+        e: 'Le périmètre, c’est la longueur du tour de la figure.',
+      },
+      {
+        s: 'Un rectangle de 1 m sur 50 cm a un périmètre de 1 + 50 + 1 + 50 = 102 cm.',
+        v: false,
+        e: 'Il faut d’abord écrire les longueurs dans la même unité : 1 m = 100 cm, donc 100 + 50 + 100 + 50 = 300 cm.',
+      },
+    ],
+    plus_loin: [
+      {
+        s: 'Le tour d’un cercle mesure un peu plus de 3 fois son diamètre.',
+        v: true,
+        e: 'Le tour d’un cercle mesure environ 3,14 fois son diamètre, un peu plus de 3 fois.',
+      },
+      {
+        s: 'Le tour d’un cercle mesure environ 3,14 fois son rayon.',
+        v: false,
+        e: 'C’est 3,14 fois le diamètre (le double du rayon).',
+      },
+    ],
+  });
 
 const perimetreQcm: ItemGen = (level, rng, ctx) => {
   if (level === 'normal' && rng.chance(0.35)) {
@@ -959,29 +992,88 @@ function pbAire(level: Level, rng: Rng): PbMesure {
   }
 }
 
-/** Mesures d'aire vraisemblables. */
-const AIRES_OBJETS: { quoi: string; v: number; u: string; img: string }[] = [
-  { quoi: 'un timbre', v: 6, u: 'cm²', img: '✉️' },
-  { quoi: 'une carte de bibliothèque', v: 46, u: 'cm²', img: '💳' },
-  { quoi: 'une page de cahier', v: 4, u: 'dm²', img: '📓' },
-  { quoi: 'la porte de la classe', v: 2, u: 'm²', img: '🚪' },
-  { quoi: 'le sol de la classe', v: 60, u: 'm²', img: '🏫' },
-  { quoi: 'un terrain de basket', v: 420, u: 'm²', img: '🏀' },
-  { quoi: 'l’écran d’un téléphone', v: 80, u: 'cm²', img: '📱' },
-  { quoi: 'un set de table', v: 12, u: 'dm²', img: '🍽️' },
+/** Mesures d'aire vraisemblables (le dm² n'est pas attendu au niveau facile). */
+const AIRES_OBJETS: { quoi: string; v: number; u: string; img: string; pourquoi: string; niv: Level }[] = [
+  {
+    quoi: 'un timbre',
+    v: 6,
+    u: 'cm²',
+    img: '✉️',
+    pourquoi: 'Pour une petite surface comme un timbre, on utilise le cm².',
+    niv: 'facile',
+  },
+  {
+    quoi: 'le sol de la classe',
+    v: 60,
+    u: 'm²',
+    img: '🏫',
+    pourquoi: 'Pour une grande surface comme le sol de la classe, on utilise le m².',
+    niv: 'facile',
+  },
+  {
+    quoi: 'l’écran d’un téléphone',
+    v: 80,
+    u: 'cm²',
+    img: '📱',
+    pourquoi: 'Pour une petite surface comme un écran de téléphone, on utilise le cm².',
+    niv: 'facile',
+  },
+  {
+    quoi: 'un terrain de basket',
+    v: 420,
+    u: 'm²',
+    img: '🏀',
+    pourquoi: 'Pour une grande surface comme un terrain de sport, on utilise le m².',
+    niv: 'facile',
+  },
+  {
+    quoi: 'un set de table',
+    v: 12,
+    u: 'dm²',
+    img: '🍽️',
+    pourquoi:
+      'Pour une surface moyenne comme un set de table, le dm² convient : 12 dm², c’est un rectangle d’environ 4 dm sur 3 dm.',
+    niv: 'normal',
+  },
+  {
+    quoi: 'une page de cahier',
+    v: 4,
+    u: 'dm²',
+    img: '📓',
+    pourquoi: 'Pour une surface moyenne comme une page de cahier, le dm² convient : environ 2 dm sur 2 dm.',
+    niv: 'normal',
+  },
+  {
+    quoi: 'une carte de bibliothèque',
+    v: 46,
+    u: 'cm²',
+    img: '💳',
+    pourquoi: 'Une carte de bibliothèque est petite : environ 8,5 cm sur 5,5 cm, soit 46 cm².',
+    niv: 'normal',
+  },
+  {
+    quoi: 'la porte de la classe',
+    v: 2,
+    u: 'm²',
+    img: '🚪',
+    pourquoi: 'Une porte mesure environ 2 m sur 1 m : son aire est d’environ 2 m².',
+    niv: 'normal',
+  },
 ];
 
 const aireQcm: ItemGen = (level, rng, ctx) => {
   const r = rng.next();
-  if (r < 0.3) {
-    const o = rng.pick(AIRES_OBJETS);
+  if (r < 0.3 && level !== 'plus_loin') {
+    const o = rng.pick(AIRES_OBJETS.filter((x) => x.niv === level));
     const good = `${fmt(o.v)} ${o.u}`;
     return mcq(ctx, rng, `unite-${o.quoi}`, {
       question: `${o.img} Quelle est l’aire la plus vraisemblable pour ${o.quoi} ?`,
       good,
-      wrong: ['cm²', 'dm²', 'm²'].filter((u) => u !== o.u).map((u) => `${fmt(o.v)} ${u}`),
-      explication: `L’aire ${de(o.quoi)} est d’environ ${good}. Pour une petite surface, on utilise le cm² ; pour une grande, le m².`,
-      difficulty: 0.35,
+      wrong: (level === 'facile' ? ['cm²', 'm²'] : ['cm²', 'dm²', 'm²'])
+        .filter((u) => u !== o.u)
+        .map((u) => `${fmt(o.v)} ${u}`),
+      explication: `L’aire ${de(o.quoi)} est d’environ ${good}. ${o.pourquoi}`,
+      difficulty: level === 'facile' ? 0.3 : 0.45,
       max: 3,
     });
   }
@@ -1042,67 +1134,60 @@ const aireQcm: ItemGen = (level, rng, ctx) => {
   return mesureQcm(pbAire)(level, rng, ctx);
 };
 
-const reglesAires = (level: Level) => [
-  {
-    s: 'Deux figures qui ont le même périmètre ont toujours la même aire.',
-    v: false,
-    e: 'Un rectangle de 6 sur 1 et un carré de 3,5 de côté ont le même périmètre (14), mais pas la même aire (6 et 12,25).',
-  },
-  {
-    s: 'Deux figures de formes différentes peuvent avoir la même aire.',
-    v: true,
-    e: 'Un rectangle de 6 carreaux sur 2 et un rectangle de 4 carreaux sur 3 couvrent tous les deux 12 carreaux.',
-  },
-  ...(level === 'facile'
-    ? [
-        {
-          s: 'Pour trouver l’aire d’une figure sur un quadrillage, on compte les carreaux qu’elle recouvre.',
-          v: true,
-          e: 'L’aire, c’est la place occupée par la surface : on compte les carreaux à l’intérieur.',
-        },
-        {
-          s: 'Pour trouver l’aire d’une figure, on compte les côtés de carreaux sur son bord.',
-          v: false,
-          e: 'Compter le bord, c’est le périmètre ; pour l’aire, on compte les carreaux à l’intérieur.',
-        },
-      ]
-    : [
-        {
-          s: '1 dm² = 100 cm²',
-          v: true,
-          e: 'Un carré de 1 dm de côté contient 10 rangées de 10 carrés de 1 cm de côté : 100 cm².',
-        },
-        {
-          s: '1 dm² = 10 cm²',
-          v: false,
-          e: 'Un carré de 1 dm de côté contient 10 rangées de 10 carrés de 1 cm de côté : 100 cm², pas 10.',
-        },
-        {
-          s: '1 m² = 100 dm²',
-          v: true,
-          e: 'Un carré de 1 m de côté contient 10 rangées de 10 carrés de 1 dm de côté : 100 dm².',
-        },
-        {
-          s: '1 m² = 10 dm²',
-          v: false,
-          e: 'Un carré de 1 m de côté contient 10 × 10 = 100 carrés de 1 dm de côté : 1 m² = 100 dm².',
-        },
-      ]),
-  ...(level === 'plus_loin'
-    ? [
-        {
-          s: '1 m² = 10 000 cm²',
-          v: true,
-          e: 'Un carré de 1 m de côté contient 100 rangées de 100 carrés de 1 cm de côté : 10 000 cm².',
-        },
-        {
-          s: '1 m² = 1 000 cm²',
-          v: false,
-          e: '1 m² = 100 dm² et 1 dm² = 100 cm², donc 1 m² = 10 000 cm².',
-        },
-      ]
-    : []),
-];
+const reglesAires = (level: Level) =>
+  parNiv(level, {
+    facile: [
+      {
+        s: 'Pour trouver l’aire d’une figure sur un quadrillage, on compte les carreaux qu’elle recouvre.',
+        v: true,
+        e: 'L’aire, c’est la place occupée par la surface : on compte les carreaux à l’intérieur.',
+      },
+      {
+        s: 'Pour trouver l’aire d’une figure, on compte les côtés de carreaux sur son bord.',
+        v: false,
+        e: 'Compter le bord, c’est le périmètre ; pour l’aire, on compte les carreaux à l’intérieur.',
+      },
+    ],
+    normal: [
+      {
+        s: 'Deux figures qui ont le même périmètre ont toujours la même aire.',
+        v: false,
+        e: 'Un rectangle de 6 cm sur 2 cm et un carré de 4 cm de côté ont le même périmètre (16 cm) mais pas la même aire (12 cm² et 16 cm²).',
+      },
+      {
+        s: 'Deux figures de formes différentes peuvent avoir la même aire.',
+        v: true,
+        e: 'Un rectangle de 6 carreaux sur 2 et un rectangle de 4 carreaux sur 3 couvrent tous les deux 12 carreaux.',
+      },
+      {
+        s: '1 dm² = 100 cm²',
+        v: true,
+        e: 'Un carré de 1 dm de côté contient 10 rangées de 10 carrés de 1 cm de côté : 100 cm².',
+      },
+      {
+        s: '1 m² = 10 dm²',
+        v: false,
+        e: 'Un carré de 1 m de côté contient 10 × 10 = 100 carrés de 1 dm de côté : 1 m² = 100 dm².',
+      },
+    ],
+    plus_loin: [
+      {
+        s: '1 m² = 10 000 cm²',
+        v: true,
+        e: 'Un carré de 1 m de côté contient 100 rangées de 100 carrés de 1 cm de côté : 10 000 cm².',
+      },
+      {
+        s: '1 m² = 1 000 cm²',
+        v: false,
+        e: '1 m² = 100 dm² et 1 dm² = 100 cm², donc 1 m² = 10 000 cm².',
+      },
+      {
+        s: 'Un triangle rectangle a la moitié de l’aire du rectangle qui a les mêmes côtés de l’angle droit.',
+        v: true,
+        e: 'En coupant un rectangle par une diagonale, on obtient deux triangles rectangles pareils.',
+      },
+    ],
+  });
 
 /* ================================================================== */
 /* Angles                                                              */
@@ -1158,109 +1243,117 @@ const angleHorloge = (h: number) => Math.min((h % 12) * 30, 360 - (h % 12) * 30)
 type Q = { q: string; good: string; wrong: string[]; e: string; d: number; sig: string };
 
 function questionsAngles(level: Level, rng: Rng): Q[] {
-  const h = rng.pick([1, 2, 3, 4, 5, 7, 8, 9, 10, 11]);
-  const a = angleHorloge(h);
-  const base: Q[] = [
-    {
-      sig: 'sommet',
-      q: 'Comment s’appelle le point où se rejoignent les deux côtés d’un angle ?',
-      good: 'le sommet',
-      wrong: ['le centre', 'le milieu', 'le côté'],
-      e: 'Un angle a un sommet et deux côtés qui partent de ce sommet.',
-      d: 0.2,
-    },
-    {
-      sig: 'petit',
-      q: 'Un angle plus petit qu’un angle droit est…',
-      good: 'aigu',
-      wrong: ['obtus', 'droit'],
-      e: 'Un angle aigu est plus petit qu’un angle droit ; un angle obtus est plus grand.',
-      d: 0.2,
-    },
-    {
-      sig: 'grand',
-      q: 'Un angle plus grand qu’un angle droit (mais plus petit que deux angles droits) est…',
-      good: 'obtus',
-      wrong: ['aigu', 'droit'],
-      e: 'Un angle obtus est plus grand qu’un angle droit ; un angle aigu est plus petit.',
-      d: 0.25,
-    },
-    {
-      sig: `horloge-${h}`,
-      q: `🕐 À ${h} h pile, les deux aiguilles d’une horloge forment un angle…`,
-      good: natureAngle(a),
-      wrong: ['aigu', 'droit', 'obtus'],
-      e:
-        a === 90
-          ? `À ${h} h, les aiguilles forment un angle droit, comme le coin d’une feuille.`
-          : `À ${h} h, l’angle entre les aiguilles est ${a < 90 ? 'plus petit' : 'plus grand'} qu’un angle droit : il est ${natureAngle(a)}.`,
-      d: 0.35,
-    },
-    {
-      sig: 'equerre',
-      q: 'Quel instrument permet de vérifier qu’un angle est droit ?',
-      good: 'l’équerre',
-      wrong: ['le compas', 'la règle graduée'],
-      e: 'On place le coin de l’équerre sur le sommet de l’angle : s’il colle exactement, l’angle est droit.',
-      d: 0.15,
-    },
-  ];
-  if (level === 'facile') return base;
-  const x = rng.pick([20, 30, 40, 50, 60, 75, 80, 100, 110, 120, 135, 150, 160, 170]);
-  const choixMesures: [string, number][] = [
-    ['un angle droit', 90],
-    ['la moitié d’un angle droit', 45],
-    [`un angle de ${rng.pick([30, 60, 80])}°`, 0],
-    [`un angle de ${rng.pick([100, 120, 150])}°`, 0],
-  ];
-  const mesures = choixMesures.map(([t, v]) => [t, v || Number(t.match(/(\d+)°/)![1])] as [string, number]);
-  const trois = rng.shuffle(mesures).slice(0, 3);
-  const plusGrand = trois.reduce((m, c) => (c[1] > m[1] ? c : m));
-  const normal: Q[] = [
-    ...base.slice(3),
-    {
-      sig: 'droit90',
-      q: 'Combien mesure un angle droit ?',
-      good: '90°',
-      wrong: ['100°', '180°', '45°', '60°'],
-      e: 'Un angle droit mesure 90 degrés (90°).',
-      d: 0.25,
-    },
-    {
-      sig: 'moitie45',
-      q: 'On plie un angle droit en deux, bord contre bord. Combien mesure chaque moitié ?',
-      good: '45°',
-      wrong: ['90°', '50°', '30°', '180°'],
-      e: 'La moitié d’un angle droit mesure 90 ÷ 2 = 45°.',
-      d: 0.4,
-    },
-    {
-      sig: `nature-${x}`,
-      q: `Un angle de ${x}° est…`,
-      good: natureAngle(x),
-      wrong: ['aigu', 'droit', 'obtus'],
-      e: `${x}° est ${x < 90 ? 'moins' : 'plus'} que 90°, la mesure de l’angle droit : l’angle est ${natureAngle(x)}.`,
-      d: 0.35,
-    },
-    {
-      sig: `plusgrand-${trois.map((t) => t[0]).join('|')}`,
-      q: 'Quel est le plus grand de ces angles ?',
-      good: plusGrand[0],
-      wrong: trois.filter((t) => t !== plusGrand).map((t) => t[0]),
-      e: `Un angle droit mesure 90° et sa moitié 45° : ${trois.map((t) => `${t[0]} = ${t[1]}°`).join(', ')}.`,
-      d: 0.5,
-    },
-  ];
-  if (level === 'normal') return normal;
+  if (level === 'facile') {
+    const h = rng.pick([1, 2, 3, 4, 5, 7, 8, 9, 10, 11]);
+    const a = angleHorloge(h);
+    return [
+      {
+        sig: 'sommet',
+        q: 'Comment s’appelle le point où se rejoignent les deux côtés d’un angle ?',
+        good: 'le sommet',
+        wrong: ['le centre', 'le milieu', 'le côté'],
+        e: 'Un angle a un sommet et deux côtés qui partent de ce sommet.',
+        d: 0.2,
+      },
+      {
+        sig: 'petit',
+        q: 'Un angle plus petit qu’un angle droit est…',
+        good: 'aigu',
+        wrong: ['obtus', 'droit'],
+        e: 'Un angle aigu est plus petit qu’un angle droit ; un angle obtus est plus grand.',
+        d: 0.2,
+      },
+      {
+        sig: 'grand',
+        q: 'Un angle plus grand qu’un angle droit (mais plus petit que deux angles droits) est…',
+        good: 'obtus',
+        wrong: ['aigu', 'droit'],
+        e: 'Un angle obtus est plus grand qu’un angle droit ; un angle aigu est plus petit.',
+        d: 0.25,
+      },
+      {
+        sig: `horloge-${h}`,
+        q: `🕐 À ${h} h pile, les deux aiguilles d’une horloge forment un angle…`,
+        good: natureAngle(a),
+        wrong: ['aigu', 'droit', 'obtus'],
+        e:
+          a === 90
+            ? `À ${h} h, les aiguilles forment un angle droit, comme le coin d’une feuille.`
+            : `À ${h} h, l’angle entre les aiguilles est ${a < 90 ? 'plus petit' : 'plus grand'} qu’un angle droit : il est ${natureAngle(a)}.`,
+        d: 0.35,
+      },
+      {
+        sig: 'equerre',
+        q: 'Quel instrument permet de vérifier qu’un angle est droit ?',
+        good: 'l’équerre',
+        wrong: ['le compas', 'la règle graduée'],
+        e: 'On place le coin de l’équerre sur le sommet de l’angle : s’il colle exactement, l’angle est droit.',
+        d: 0.15,
+      },
+    ];
+  }
+  if (level === 'normal') {
+    const x = rng.pick([20, 30, 40, 50, 60, 75, 80, 100, 110, 120, 135, 150, 160, 170]);
+    const mesures: [string, number][] = [
+      ['un angle droit', 90],
+      ['la moitié d’un angle droit', 45],
+      ...[rng.pick([30, 60, 80]), rng.pick([100, 120, 150])].map(
+        (v) => [`un angle de ${v}°`, v] as [string, number],
+      ),
+    ];
+    const trois = rng.shuffle(mesures).slice(0, 3);
+    const plusGrand = trois.reduce((m, c) => (c[1] > m[1] ? c : m));
+    return [
+      {
+        sig: 'droit90',
+        q: 'Combien mesure un angle droit ?',
+        good: '90°',
+        wrong: ['100°', '180°', '45°', '60°'],
+        e: 'Un angle droit mesure 90 degrés (90°).',
+        d: 0.3,
+      },
+      {
+        sig: 'moitie45',
+        q: 'On plie un angle droit en deux, bord contre bord. Combien mesure chaque moitié ?',
+        good: '45°',
+        wrong: ['90°', '50°', '30°', '180°'],
+        e: 'La moitié d’un angle droit mesure 90 ÷ 2 = 45°.',
+        d: 0.4,
+      },
+      {
+        sig: `nature-${x}`,
+        q: `Un angle de ${x}° est…`,
+        good: natureAngle(x),
+        wrong: ['aigu', 'droit', 'obtus'],
+        e: `${x}° est ${x < 90 ? 'moins' : 'plus'} que 90°, la mesure de l’angle droit : l’angle est ${natureAngle(x)}.`,
+        d: 0.35,
+      },
+      {
+        sig: `plusgrand-${trois.map((t) => t[0]).join('|')}`,
+        q: 'Quel est le plus grand de ces angles ?',
+        good: plusGrand[0],
+        wrong: trois.filter((t) => t !== plusGrand).map((t) => t[0]),
+        e: `Un angle droit mesure 90°, sa moitié 45° : ${plusGrand[0]}${plusGrand[0].includes('°') ? '' : ` (${plusGrand[1]}°)`} est le plus grand.`,
+        d: 0.5,
+      },
+      {
+        sig: 'deux45',
+        q: 'On place côte à côte deux angles de 45°. On obtient…',
+        good: 'un angle droit',
+        wrong: ['un angle aigu', 'un angle obtus', 'un angle de 45°'],
+        e: '45° + 45° = 90° : c’est un angle droit.',
+        d: 0.45,
+      },
+    ];
+  }
   return [
-    ...normal.slice(1),
     {
       sig: 'plat',
       q: 'Deux angles droits placés côte à côte forment un angle plat. Combien mesure-t-il ?',
       good: '180°',
       wrong: ['90°', '360°', '100°', '200°'],
       e: 'Deux angles droits : 90° + 90° = 180°. On l’appelle angle plat.',
-      d: 0.5,
+      d: 0.55,
     },
     {
       sig: 'tiers',
@@ -1272,11 +1365,11 @@ function questionsAngles(level: Level, rng: Rng): Q[] {
     },
     {
       sig: 'equilateral',
-      q: 'Les 3 angles d’un triangle équilatéral sont égaux et leur somme fait 180°. Combien mesure chacun ?',
+      q: 'Au collège, on apprend que les 3 angles d’un triangle font 180° en tout. Dans un triangle équilatéral, ils sont égaux : combien mesure chacun ?',
       good: '60°',
       wrong: ['90°', '45°', '30°', '120°'],
       e: '180 ÷ 3 = 60 : chaque angle d’un triangle équilatéral mesure 60°.',
-      d: 0.65,
+      d: 0.7,
     },
     {
       sig: '135',
@@ -1288,6 +1381,30 @@ function questionsAngles(level: Level, rng: Rng): Q[] {
         'un angle droit plus un tiers d’angle droit',
       ],
       e: '90° + 45° = 135°.',
+      d: 0.6,
+    },
+    {
+      sig: 'quart-plat',
+      q: 'Combien mesure le quart d’un angle plat (180°) ?',
+      good: '45°',
+      wrong: ['60°', '90°', '30°', '40°'],
+      e: '180 ÷ 4 = 45 : le quart d’un angle plat mesure 45°, la moitié d’un angle droit.',
+      d: 0.65,
+    },
+    {
+      sig: 'trente',
+      q: 'Combien d’angles de 30° faut-il placer côte à côte pour obtenir un angle droit ?',
+      good: '3',
+      wrong: ['2', '4', '6', '9'],
+      e: '30° + 30° + 30° = 90° : il en faut 3.',
+      d: 0.6,
+    },
+    {
+      sig: 'droit-plus-30',
+      q: 'Un angle droit et un angle de 30° placés côte à côte forment…',
+      good: 'un angle obtus de 120°',
+      wrong: ['un angle aigu de 60°', 'un angle droit', 'un angle plat de 180°'],
+      e: '90° + 30° = 120°, c’est plus qu’un angle droit : l’angle est obtus.',
       d: 0.6,
     },
   ];
@@ -1308,14 +1425,13 @@ const anglesQcm: ItemGen = (level, rng, ctx) => {
 
 const anglesNumeric: ItemGen = (level, rng, ctx) => {
   type C = { p: string; a: number; u?: string; e: string; d: number };
-  const figures: [string, number][] = [
-    ['un carré', 4],
-    ['un rectangle', 4],
-    ['un triangle rectangle', 1],
-  ];
   const formes: (() => C)[] = [];
   if (level === 'facile') {
-    const [f, n] = rng.pick(figures);
+    const [f, n] = rng.pick([
+      ['un carré', 4],
+      ['un rectangle', 4],
+      ['un triangle rectangle', 1],
+    ] as [string, number][]);
     formes.push(
       () => ({
         p: `Combien d’angles droits a ${f} ?`,
@@ -1348,7 +1464,7 @@ const anglesNumeric: ItemGen = (level, rng, ctx) => {
         d: 0.3,
       }),
     );
-  } else {
+  } else if (level === 'normal') {
     const a1 = rng.int(3, 14) * 5;
     const a2 = rng.int(2, Math.min(14, 34 - a1 / 5)) * 5;
     const m = rng.int(2, 4);
@@ -1392,39 +1508,61 @@ const anglesNumeric: ItemGen = (level, rng, ctx) => {
         d: 0.55,
       }),
     );
-    if (level === 'plus_loin') {
-      const x = rng.int(4, 32) * 5;
-      formes.push(
-        () => ({
-          p: 'Deux angles droits placés côte à côte forment un angle de … °',
-          a: 180,
-          u: '°',
-          e: '90° + 90° = 180° : c’est un angle plat.',
-          d: 0.5,
-        }),
-        () => ({
-          p: `Un angle plat est partagé en deux angles. L’un mesure ${x}°. L’autre mesure … °`,
-          a: 180 - x,
-          u: '°',
-          e: `Un angle plat mesure 180° : 180 − ${x} = ${180 - x}°.`,
-          d: 0.65,
-        }),
-        () => ({
-          p: 'On partage un angle droit en 3 angles égaux. Chacun mesure … °',
-          a: 30,
-          u: '°',
-          e: '90 ÷ 3 = 30°.',
-          d: 0.6,
-        }),
-        () => ({
-          p: 'Chaque angle d’un triangle équilatéral mesure … ° (la somme des 3 angles fait 180°).',
-          a: 60,
-          u: '°',
-          e: 'Les 3 angles sont égaux : 180 ÷ 3 = 60°.',
-          d: 0.7,
-        }),
-      );
-    }
+  } else {
+    const x = rng.int(4, 32) * 5;
+    const y = rng.int(4, 10) * 10;
+    const z = rng.int(1, 8) * 10;
+    formes.push(
+      () => ({
+        p: 'Deux angles droits placés côte à côte forment un angle plat de … °',
+        a: 180,
+        u: '°',
+        e: '90° + 90° = 180° : c’est un angle plat.',
+        d: 0.55,
+      }),
+      () => ({
+        p: `Un angle plat (180°) est partagé en deux angles. L’un mesure ${x}°. L’autre mesure … °`,
+        a: 180 - x,
+        u: '°',
+        e: `Un angle plat mesure 180° : 180 − ${x} = ${180 - x}°.`,
+        d: 0.65,
+      }),
+      () => ({
+        p: 'On partage un angle droit en 3 angles égaux. Chacun mesure … °',
+        a: 30,
+        u: '°',
+        e: '90 ÷ 3 = 30°.',
+        d: 0.6,
+      }),
+      () => ({
+        p: 'On partage un angle plat (180°) en 3 angles égaux. Chacun mesure … °',
+        a: 60,
+        u: '°',
+        e: '180 ÷ 3 = 60°.',
+        d: 0.65,
+      }),
+      () => ({
+        p: 'On place côte à côte 3 angles de 45°. L’angle obtenu mesure … °',
+        a: 135,
+        u: '°',
+        e: '3 × 45 = 135° : c’est un angle droit plus sa moitié.',
+        d: 0.6,
+      }),
+      () => ({
+        p: `Un angle mesure ${y}°. On place à côté de lui sa moitié. L’angle obtenu mesure … °`,
+        a: y + y / 2,
+        u: '°',
+        e: `La moitié de ${y}° est ${y / 2}° : ${y} + ${y / 2} = ${y + y / 2}°.`,
+        d: 0.7,
+      }),
+      () => ({
+        p: `Un angle droit et un angle de ${z}° placés côte à côte forment un angle de … °`,
+        a: 90 + z,
+        u: '°',
+        e: `Un angle droit mesure 90° : 90 + ${z} = ${90 + z}°.`,
+        d: 0.55,
+      }),
+    );
   }
   const c = rng.pick(formes)();
   return numeric(ctx, `angle-${c.p}`, {
@@ -1442,10 +1580,11 @@ const anglesNumeric: ItemGen = (level, rng, ctx) => {
 
 const anglesVraiFaux: ItemGen = (level, rng, ctx) => {
   const juste = rng.chance(0.5);
-  const forme = rng.int(0, level === 'facile' ? 1 : 3);
-  if (forme === 0) {
-    const nat = rng.pick(['aigu', 'droit', 'obtus']);
-    const x = mesureDe(nat, level === 'facile' ? 'facile' : 'normal', rng);
+  if (level !== 'plus_loin' && rng.chance(level === 'facile' ? 0.5 : 0.4)) {
+    // Facile : multiples de 10 (et 90°) ; normal : 15°, 25°… 175°, plus proches de l’angle droit
+    const x =
+      level === 'facile' ? rng.pick([rng.int(2, 8) * 10, 90, rng.int(10, 17) * 10]) : rng.int(1, 17) * 10 + 5;
+    const nat = natureAngle(x);
     const dite = juste ? nat : rng.pick(['aigu', 'droit', 'obtus'].filter((n) => n !== nat));
     const st = `Un angle de ${x}° est ${dite}.`;
     return vraiFaux(ctx, `nature-${x}-${dite}`, {
@@ -1454,58 +1593,83 @@ const anglesVraiFaux: ItemGen = (level, rng, ctx) => {
       answer: dite === nat,
       explication:
         x === 90
-          ? 'Un angle de 90° est exactement un angle droit.'
+          ? `Un angle de 90° est un angle droit${dite === 'droit' ? '' : `, donc il n’est pas ${dite}`}.`
           : `Un angle droit mesure 90° : ${x}° est ${x < 90 ? 'plus petit' : 'plus grand'}, l’angle est ${nat}.`,
-      difficulty: 0.35,
+      difficulty: level === 'facile' ? 0.3 : 0.4,
     });
   }
-  const regles = [
-    { s: 'Un angle droit mesure 90°.', v: true, e: 'Un angle droit mesure 90 degrés.' },
-    { s: 'Un angle droit mesure 100°.', v: false, e: 'Un angle droit mesure 90 degrés.' },
-    {
-      s: 'Si on prolonge les côtés d’un angle, l’angle devient plus grand.',
-      v: false,
-      e: 'La taille d’un angle ne dépend pas de la longueur de ses côtés, seulement de leur écartement.',
-    },
-    {
-      s: 'Un angle aigu est plus petit qu’un angle droit.',
-      v: true,
-      e: 'Aigu : plus petit qu’un angle droit ; obtus : plus grand.',
-    },
-    ...(level !== 'facile'
-      ? [
-          { s: 'La moitié d’un angle droit mesure 45°.', v: true, e: '90 ÷ 2 = 45°.' },
-          { s: 'La moitié d’un angle droit mesure 50°.', v: false, e: '90 ÷ 2 = 45°.' },
-          {
-            s: 'Deux angles aigus placés côte à côte forment toujours un angle obtus.',
-            v: false,
-            e: 'Pas toujours : 20° + 30° = 50°, c’est encore un angle aigu.',
-          },
-        ]
-      : []),
-    ...(level === 'plus_loin'
-      ? [
-          {
-            s: 'Un angle plat mesure 180°.',
-            v: true,
-            e: 'Un angle plat, c’est deux angles droits : 90° + 90° = 180°.',
-          },
-          {
-            s: 'Un angle de 120° est le double d’un angle de 60°.',
-            v: true,
-            e: '2 × 60 = 120.',
-          },
-          { s: 'Le tiers d’un angle droit mesure 45°.', v: false, e: '90 ÷ 3 = 30° ; 45° est la moitié.' },
-        ]
-      : []),
-  ];
+  if (level === 'plus_loin' && rng.chance(0.5)) {
+    const a = rng.int(2, 8) * 10;
+    const montre = juste ? 2 * a : 2 * a + rng.pick([-10, 10]);
+    const st = `Un angle de ${montre}° est le double d’un angle de ${a}°.`;
+    return vraiFaux(ctx, `double-${a}-${montre}`, {
+      statement: st,
+      spoken: st.replace(/(\d+)°/g, '$1 degrés'),
+      answer: montre === 2 * a,
+      explication: `Le double de ${a}°, c’est 2 × ${a} = ${2 * a}°.`,
+      difficulty: 0.55,
+    });
+  }
+  const regles = parNiv(level, {
+    facile: [
+      { s: 'Un angle droit mesure 90°.', v: true, e: 'Un angle droit mesure 90 degrés.' },
+      { s: 'Un angle droit mesure 100°.', v: false, e: 'Un angle droit mesure 90 degrés.' },
+      {
+        s: 'Si on prolonge les côtés d’un angle, l’angle devient plus grand.',
+        v: false,
+        e: 'La taille d’un angle ne dépend pas de la longueur de ses côtés, seulement de leur écartement.',
+      },
+      {
+        s: 'Un angle aigu est plus petit qu’un angle droit.',
+        v: true,
+        e: 'Aigu : plus petit qu’un angle droit ; obtus : plus grand.',
+      },
+    ],
+    normal: [
+      { s: 'La moitié d’un angle droit mesure 45°.', v: true, e: '90 ÷ 2 = 45°.' },
+      { s: 'La moitié d’un angle droit mesure 50°.', v: false, e: '90 ÷ 2 = 45°.' },
+      {
+        s: 'Deux angles aigus placés côte à côte forment toujours un angle obtus.',
+        v: false,
+        e: 'Pas toujours : 20° + 30° = 50°, c’est encore un angle aigu.',
+      },
+      {
+        s: 'Deux angles de 45° placés côte à côte forment un angle droit.',
+        v: true,
+        e: '45° + 45° = 90° : c’est un angle droit.',
+      },
+      {
+        s: 'Un angle de 60° est plus grand qu’un angle droit.',
+        v: false,
+        e: '60° est moins que 90° : c’est un angle aigu, plus petit qu’un angle droit.',
+      },
+    ],
+    plus_loin: [
+      {
+        s: 'Un angle plat mesure 180°.',
+        v: true,
+        e: 'Un angle plat, c’est deux angles droits : 90° + 90° = 180°.',
+      },
+      { s: 'Le tiers d’un angle droit mesure 45°.', v: false, e: '90 ÷ 3 = 30° ; 45° est la moitié.' },
+      {
+        s: 'Deux angles obtus placés côte à côte forment un angle plat.',
+        v: false,
+        e: 'Deux angles obtus font plus de 90° + 90° = 180° : on dépasse l’angle plat.',
+      },
+      {
+        s: 'Le quart d’un angle plat est la moitié d’un angle droit.',
+        v: true,
+        e: '180 ÷ 4 = 45° et 90 ÷ 2 = 45° : ce sont bien les mêmes angles.',
+      },
+    ],
+  });
   const r = rng.pick(regles.filter((x) => x.v === juste));
   return vraiFaux(ctx, `regle-${r.s}`, {
     statement: r.s,
     spoken: r.s.replace(/(\d+)°/g, '$1 degrés'),
     answer: r.v,
     explication: r.e,
-    difficulty: 0.4,
+    difficulty: parNiv(level, { facile: 0.3, normal: 0.45, plus_loin: 0.6 }),
   });
 };
 
@@ -1536,11 +1700,77 @@ const ACTIVITES = [
   'La visite du musée',
   'Le concert',
 ];
+const finit = (activite: string) => (/^La /.test(activite) ? 'finit-elle' : 'finit-il');
+
+/** Durées décimales en heures (6e) : [écriture, minutes]. */
+const HEURES_DECIMALES: [number, number][] = [
+  [0.75, 45],
+  [1.25, 75],
+  [1.5, 90],
+  [1.75, 105],
+  [2.25, 135],
+  [2.5, 150],
+  [2.75, 165],
+];
+const FRACTION_HEURE: Record<number, string> = {
+  15: '0,25 h = un quart d’heure = 15 min',
+  30: '0,5 h = une demi-heure = 30 min',
+  45: '0,75 h = trois quarts d’heure = 45 min',
+};
 
 const dureesClock: ItemGen = (level, rng, ctx) => {
+  if (level === 'plus_loin') {
+    const forme = rng.pick(['decimale', 'minuit', 'apres'] as const);
+    if (forme === 'apres') {
+      // Régler l'horloge sur l'heure qu'il sera après une durée en h, min, s
+      const [h, m, s] = [rng.int(7, 15), rng.int(0, 59), rng.int(0, 59)];
+      const d = rng.int(1, 3) * 3600 + rng.int(1, 59) * 60 + rng.int(1, 59);
+      const t = h * 3600 + m * 60 + s + d;
+      const [fh, fm, fs] = [Math.floor(t / 3600), Math.floor((t % 3600) / 60), t % 60];
+      const txt = heure(fh, fm, fs);
+      return make(ctx, 'clock', `apres-${h}-${m}-${s}-${d}`, {
+        prompt: `Il est ${heure(h, m, s)}. Règle l’horloge sur l’heure qu’il sera dans ${dureeTxt(d)}.`,
+        spoken: `Il est ${dire(heure(h, m, s))}. Règle l’horloge sur l’heure qu’il sera dans ${dire(dureeTxt(d))}.`,
+        task: 'regler',
+        hours: fh,
+        minutes: fm,
+        seconds: fs,
+        answerText: txt,
+        explication: `On ajoute les secondes, puis les minutes, puis les heures ; 60 s font 1 min et 60 min font 1 h : ${heure(h, m, s)} + ${dureeTxt(d)} = ${txt}.`,
+        difficulty: 0.75,
+      });
+    }
+    const hd = forme === 'decimale' ? rng.int(8, 19) : rng.int(21, 23);
+    const m = rng.int(0, 11) * 5;
+    // « minuit » : la durée fait toujours passer minuit
+    const [dec, duree] =
+      forme === 'decimale'
+        ? rng.pick(HEURES_DECIMALES)
+        : [0, rng.int(Math.max(70, 24 * 60 - (hd * 60 + m) + 5), 200)];
+    const fin = hd * 60 + m + duree;
+    const [fh, fm] = [Math.floor(fin / 60), fin % 60];
+    const fin24 = heure(fh % 24, fm);
+    const activite = rng.pick(ACTIVITES);
+    const dureeEcrite = forme === 'decimale' ? `${fmt(dec)} h` : dureeTxt(duree * 60);
+    const conversion =
+      forme === 'decimale' ? `${fmt(dec)} h = ${dureeTxt(duree * 60)} (${FRACTION_HEURE[duree % 60]}). ` : '';
+    return make(ctx, 'clock', `${forme}-${hd}-${m}-${duree}`, {
+      prompt: `${activite} commence à ${heure(hd, m)} et dure ${dureeEcrite}. À quelle heure ${finit(activite)} ?`,
+      task: 'duree',
+      hours: hd,
+      minutes: m,
+      durationMinutes: duree,
+      answerText: fin24,
+      explication:
+        fh >= 24
+          ? `${conversion}${heure(hd, m)} + ${dureeTxt(duree * 60)}, cela fait ${fh} h ${p2(fm)} : après minuit, on repart de 0 h, donc il sera ${fin24}.`
+          : `${conversion}${heure(hd, m)} + ${dureeTxt(duree * 60)} = ${fin24}.`,
+      difficulty: forme === 'minuit' ? 0.75 : 0.65,
+    });
+  }
   const task = rng.pick(['lire', 'regler', 'duree'] as const);
-  const avecSec = level !== 'facile' && task !== 'duree';
-  const apm = level !== 'facile' && rng.chance(0.4);
+  const avecSec = level === 'normal' && task !== 'duree';
+  const apm = level === 'normal' && rng.chance(0.4);
   const h = apm ? rng.int(13, 18) : rng.int(level === 'facile' ? 1 : 7, 11);
   const m = level === 'facile' ? rng.int(0, 11) * 5 : rng.int(0, 59);
   const s = avecSec ? rng.int(0, 59) : undefined;
@@ -1566,35 +1796,34 @@ const dureesClock: ItemGen = (level, rng, ctx) => {
       difficulty: clamp01(0.15 + (m % 5 ? 0.2 : 0) + (apm ? 0.15 : 0) + (avecSec ? 0.25 : 0)),
     });
   }
-  const duree = parNiv(level, {
-    facile: rng.pick([15, 20, 25, 30, 35, 40, 45, 50, 55, 70, 75, 90]),
-    normal: rng.int(25, 150),
-    plus_loin: rng.int(95, 280),
-  });
-  const hd = rng.int(8, level === 'plus_loin' ? 18 : 17);
+  const duree =
+    level === 'facile' ? rng.pick([15, 20, 25, 30, 35, 40, 45, 50, 55, 70, 75, 90]) : rng.int(25, 150);
+  const hd = rng.int(8, 17);
   const fin = hd * 60 + m + duree;
   const [fh, fm] = [Math.floor(fin / 60), fin % 60];
+  const retenue = m + (duree % 60) >= 60;
   const activite = rng.pick(ACTIVITES);
-  const finit = /^La /.test(activite) ? 'finit-elle' : 'finit-il';
   return make(ctx, 'clock', `duree-${hd}-${m}-${duree}`, {
-    prompt: `${activite} commence à ${heure(hd, m)} et dure ${dureeTxt(duree * 60)}. À quelle heure ${finit} ?`,
+    prompt: `${activite} commence à ${heure(hd, m)} et dure ${dureeTxt(duree * 60)}. À quelle heure ${finit(activite)} ?`,
     task: 'duree',
     hours: hd,
     minutes: m,
     durationMinutes: duree,
     answerText: heure(fh, fm),
-    explication: `${heure(hd, m)} + ${dureeTxt(duree * 60)} = ${heure(fh, fm)} (1 h = 60 min : quand on dépasse 60 minutes, on ajoute 1 heure).`,
-    difficulty: clamp01(0.3 + duree / 400 + (m + (duree % 60) >= 60 ? 0.2 : 0)),
+    explication: retenue
+      ? `${heure(hd, m)} + ${dureeTxt(duree * 60)} = ${heure(fh, fm)} : on dépasse 60 minutes, et 60 min font 1 heure de plus.`
+      : `${heure(hd, m)} + ${dureeTxt(duree * 60)} = ${heure(fh, fm)} : on ajoute les heures, puis les minutes.`,
+    difficulty: clamp01(0.3 + duree / 400 + (retenue ? 0.2 : 0)),
   });
 };
 
 const dureesNumeric: ItemGen = (level, rng, ctx) => {
   type C = { p: string; a: number; u: string; e: string; d: number };
   const formes: (() => C)[] = [];
-  const k = rng.int(2, 6);
-  const hm = rng.int(1, 3);
-  const mm = rng.int(5, 55);
   if (level === 'facile') {
+    const k = rng.int(2, 6);
+    const hm = rng.int(1, 3);
+    const mm = rng.int(5, 55);
     formes.push(
       () => ({
         p: `${k} h = … min`,
@@ -1615,11 +1844,9 @@ const dureesNumeric: ItemGen = (level, rng, ctx) => {
         const m0 = rng.int(0, 11) * 5;
         const dur = rng.pick([25, 35, 40, 45, 50, 55, 65, 70, 80, 95]);
         const f = d0 * 60 + m0 + dur;
+        const activite = rng.pick(ACTIVITES);
         return {
-          p: `${rng.pick(ACTIVITES)} commence à ${heure(d0, m0)} et se termine à ${heure(Math.floor(f / 60), f % 60)}. Combien de minutes dure-t-il ?`.replace(
-            /^La (.*)dure-t-il/,
-            'La $1dure-t-elle',
-          ),
+          p: `${activite} commence à ${heure(d0, m0)} et se termine à ${heure(Math.floor(f / 60), f % 60)}. Combien de minutes dure-t-${/^La /.test(activite) ? 'elle' : 'il'} ?`,
           a: dur,
           u: 'min',
           e:
@@ -1631,7 +1858,8 @@ const dureesNumeric: ItemGen = (level, rng, ctx) => {
       },
       () => ({ p: '1 jour = … h', a: 24, u: 'h', e: 'Une journée entière dure 24 heures.', d: 0.15 }),
     );
-  } else {
+  } else if (level === 'normal') {
+    const k = rng.int(2, 6);
     const s1 = rng.int(1, 4);
     const s2 = rng.int(5, 59);
     const total = rng.int(70, 290);
@@ -1660,13 +1888,6 @@ const dureesNumeric: ItemGen = (level, rng, ctx) => {
           d: 0.55,
         };
       },
-      () => ({
-        p: `${hm} h ${mm} min = … min`,
-        a: hm * 60 + mm,
-        u: 'min',
-        e: `1 h = 60 min, donc ${hm} h = ${hm * 60} min, et ${hm * 60} + ${mm} = ${hm * 60 + mm} min.`,
-        d: 0.35,
-      }),
       () => {
         // Horaire de train (durée en minutes, on passe l'heure)
         const d0 = rng.int(6, 15);
@@ -1677,7 +1898,10 @@ const dureesNumeric: ItemGen = (level, rng, ctx) => {
           p: `Un train part à ${heure(d0, m0)} et arrive à ${heure(Math.floor(f / 60), f % 60)}. Combien de minutes dure le trajet ?`,
           a: dur,
           u: 'min',
-          e: `De ${heure(d0, m0)} à ${heure(Math.floor(f / 60), f % 60)}, il s’écoule ${dureeTxt(dur * 60)}, soit ${dur} min (1 h = 60 min).`,
+          e:
+            dur < 60
+              ? `De ${heure(d0, m0)} à ${heure(Math.floor(f / 60), f % 60)}, il s’écoule ${dur} min.`
+              : `De ${heure(d0, m0)} à ${heure(Math.floor(f / 60), f % 60)}, il s’écoule ${dureeTxt(dur * 60)}, soit ${dur} min (1 h = 60 min).`,
           d: 0.6,
         };
       },
@@ -1695,51 +1919,57 @@ const dureesNumeric: ItemGen = (level, rng, ctx) => {
         };
       },
     );
-    if (level === 'plus_loin') {
-      const dec = rng.pick([
-        [1.5, 90],
-        [0.5, 30],
-        [0.25, 15],
-        [0.75, 45],
-        [2.5, 150],
-        [1.25, 75],
-        [3.5, 210],
-      ] as [number, number][]);
-      const h3 = rng.int(1, 3);
-      const m3 = rng.int(1, 59);
-      const s3 = rng.int(1, 59);
-      const j = rng.int(2, 7);
-      formes.push(
-        () => ({
-          p: `${fmt(dec[0])} h = … min`,
-          a: dec[1],
-          u: 'min',
-          e: `1 h = 60 min, donc ${fmt(dec[0])} h = ${fmt(dec[0])} × 60 = ${dec[1]} min (attention : 1,5 h, c’est 1 h 30 min, pas 1 h 50 min).`,
-          d: 0.7,
-        }),
-        () => ({
-          p: `${h3} h ${m3} min ${s3} s = … s`,
-          a: h3 * 3600 + m3 * 60 + s3,
-          u: 's',
-          e: `1 h = 3 600 s et 1 min = 60 s : ${fmt(h3 * 3600)} + ${fmt(m3 * 60)} + ${s3} = ${fmt(h3 * 3600 + m3 * 60 + s3)} s.`,
-          d: 0.75,
-        }),
-        () => ({
-          p: `${j} jours = … h`,
-          a: 24 * j,
-          u: 'h',
-          e: `1 jour = 24 h, donc ${j} jours = ${j} × 24 = ${24 * j} h.`,
-          d: 0.5,
-        }),
-        () => ({
-          p: `${j} siècles = … ans`,
-          a: 100 * j,
-          u: 'ans',
-          e: `1 siècle = 100 ans, donc ${j} siècles = ${100 * j} ans.`,
-          d: 0.45,
-        }),
-      );
-    }
+  } else {
+    const [dec, mins] = rng.pick(HEURES_DECIMALES);
+    const h3 = rng.int(1, 3);
+    const m3 = rng.int(1, 59);
+    const s3 = rng.int(1, 59);
+    const j = rng.int(2, 7);
+    const sem = rng.int(2, 5);
+    formes.push(
+      () => ({
+        p: `${fmt(dec)} h = … min`,
+        a: mins,
+        u: 'min',
+        e: `1 h = 60 min, donc ${fmt(dec)} h = ${fmt(dec)} × 60 = ${mins} min (${FRACTION_HEURE[mins % 60]}).`,
+        d: 0.7,
+      }),
+      () => ({
+        p: `${mins} min = … h`,
+        a: dec,
+        u: 'h',
+        e: `${mins} min = ${dureeTxt(mins * 60)}, et ${FRACTION_HEURE[mins % 60]} : ${mins} min = ${fmt(dec)} h.`,
+        d: 0.75,
+      }),
+      () => ({
+        p: `${h3} h ${m3} min ${s3} s = … s`,
+        a: h3 * 3600 + m3 * 60 + s3,
+        u: 's',
+        e: `1 h = 3 600 s et 1 min = 60 s : ${fmt(h3 * 3600)} + ${fmt(m3 * 60)} + ${s3} = ${fmt(h3 * 3600 + m3 * 60 + s3)} s.`,
+        d: 0.75,
+      }),
+      () => ({
+        p: `${j} jours = … h`,
+        a: 24 * j,
+        u: 'h',
+        e: `1 jour = 24 h, donc ${j} jours = ${j} × 24 = ${24 * j} h.`,
+        d: 0.55,
+      }),
+      () => ({
+        p: `${sem} semaines = … h`,
+        a: 168 * sem,
+        u: 'h',
+        e: `1 semaine = 7 jours = 7 × 24 = 168 h, donc ${sem} semaines = ${sem} × 168 = ${168 * sem} h.`,
+        d: 0.7,
+      }),
+      () => ({
+        p: `${j} siècles = … ans`,
+        a: 100 * j,
+        u: 'ans',
+        e: `1 siècle = 100 ans, donc ${j} siècles = ${100 * j} ans.`,
+        d: 0.55,
+      }),
+    );
   }
   const c = rng.pick(formes)();
   return numeric(ctx, `duree-${c.p}`, {
@@ -1753,53 +1983,62 @@ const dureesNumeric: ItemGen = (level, rng, ctx) => {
 };
 
 const dureesQcm: ItemGen = (level, rng, ctx) => {
-  const qs: Q[] = [
-    {
-      sig: 'h-min',
-      q: 'Combien y a-t-il de minutes dans une heure ?',
-      good: '60',
-      wrong: ['100', '24', '30', '50'],
-      e: '1 h = 60 min.',
-      d: 0.15,
-    },
-    {
-      sig: 'quart',
-      q: 'Un quart d’heure, c’est…',
-      good: '15 min',
-      wrong: ['25 min', '4 min', '45 min', '30 min'],
-      e: 'Une heure, c’est 60 min ; un quart d’heure, c’est 60 ÷ 4 = 15 min.',
-      d: 0.25,
-    },
-    {
-      sig: 'trois-quarts',
-      q: 'Trois quarts d’heure, c’est…',
-      good: '45 min',
-      wrong: ['34 min', '75 min', '30 min', '15 min'],
-      e: 'Un quart d’heure = 15 min, donc trois quarts d’heure = 3 × 15 = 45 min.',
-      d: 0.3,
-    },
-  ];
-  if (level !== 'facile') {
+  let qs: Q[];
+  if (level === 'facile')
+    qs = [
+      {
+        sig: 'h-min',
+        q: 'Combien y a-t-il de minutes dans une heure ?',
+        good: '60',
+        wrong: ['100', '24', '30', '50'],
+        e: '1 h = 60 min.',
+        d: 0.15,
+      },
+      {
+        sig: 'demi',
+        q: 'Une demi-heure, c’est…',
+        good: '30 min',
+        wrong: ['50 min', '20 min', '2 min'],
+        e: 'Une heure, c’est 60 min ; une demi-heure, c’est 60 ÷ 2 = 30 min.',
+        d: 0.2,
+      },
+      {
+        sig: 'quart',
+        q: 'Un quart d’heure, c’est…',
+        good: '15 min',
+        wrong: ['25 min', '4 min', '45 min', '30 min'],
+        e: 'Une heure, c’est 60 min ; un quart d’heure, c’est 60 ÷ 4 = 15 min.',
+        d: 0.25,
+      },
+      {
+        sig: 'trois-quarts',
+        q: 'Trois quarts d’heure, c’est…',
+        good: '45 min',
+        wrong: ['34 min', '75 min', '30 min', '15 min'],
+        e: 'Un quart d’heure = 15 min, donc trois quarts d’heure = 3 × 15 = 45 min.',
+        d: 0.3,
+      },
+    ];
+  else if (level === 'normal') {
     const d0 = rng.int(13, 20);
     const m0 = rng.int(1, 11) * 5;
-    const dh = 1;
     const dm = rng.int(1, 11) * 5;
-    const f = d0 * 60 + m0 + dh * 60 + dm;
+    const f = d0 * 60 + m0 + 60 + dm;
     const good = heure(Math.floor(f / 60), f % 60);
     const faux = [
-      `${d0 + dh} h ${m0 + dm}`,
+      `${d0 + 1} h ${m0 + dm}`,
       heure(Math.floor(f / 60) - 1, f % 60),
       heure(Math.floor(f / 60) + 1, f % 60),
       heure(Math.floor(f / 60), (f % 60) + 5 >= 60 ? (f % 60) - 5 : (f % 60) + 5),
     ];
-    qs.push(
+    qs = [
       {
         sig: 'min-s',
         q: 'Combien y a-t-il de secondes dans une minute ?',
         good: '60',
         wrong: ['100', '10', '30', '1 000'],
         e: '1 min = 60 s.',
-        d: 0.15,
+        d: 0.3,
       },
       {
         sig: 'annee',
@@ -1807,7 +2046,7 @@ const dureesQcm: ItemGen = (level, rng, ctx) => {
         good: '365',
         wrong: ['366', '360', '12', '52'],
         e: 'Une année compte 365 jours (366 les années bissextiles, comme 2028).',
-        d: 0.3,
+        d: 0.35,
       },
       {
         sig: 'siecle',
@@ -1815,20 +2054,19 @@ const dureesQcm: ItemGen = (level, rng, ctx) => {
         good: '100 ans',
         wrong: ['10 ans', '1 000 ans', '50 ans'],
         e: 'Un siècle dure 100 ans ; un millénaire, 1 000 ans.',
-        d: 0.3,
+        d: 0.35,
       },
       {
         sig: `film-${d0}-${m0}-${dm}`,
-        q: `Le film commence à ${heure(d0, m0)} et dure ${dh} h ${dm} min. À quelle heure finit-il ?`,
+        q: `Le film commence à ${heure(d0, m0)} et dure 1 h ${dm} min. À quelle heure finit-il ?`,
         good,
         wrong: faux.filter((x) => x !== good),
-        e: `${heure(d0, m0)} + ${dh} h = ${heure(d0 + dh, m0)}, puis + ${dm} min = ${good} (60 min font 1 h).`,
+        e: `${heure(d0, m0)} + 1 h = ${heure(d0 + 1, m0)}, puis + ${dm} min = ${good} (60 min font 1 h).`,
         d: 0.55,
       },
-    );
-  }
-  if (level === 'plus_loin')
-    qs.push(
+    ];
+  } else
+    qs = [
       {
         sig: '1,5h',
         q: '1,5 h, c’est…',
@@ -1838,12 +2076,20 @@ const dureesQcm: ItemGen = (level, rng, ctx) => {
         d: 0.6,
       },
       {
+        sig: '0,25h',
+        q: '0,25 h, c’est…',
+        good: '15 min',
+        wrong: ['25 min', '2 min 5 s', '4 min'],
+        e: '0,25 h, c’est un quart d’heure : 60 ÷ 4 = 15 min.',
+        d: 0.65,
+      },
+      {
         sig: 'millenaire',
         q: 'Combien d’années compte un millénaire ?',
         good: '1 000',
         wrong: ['100', '10 000', '10'],
         e: 'Un millénaire, c’est 10 siècles : 1 000 ans.',
-        d: 0.4,
+        d: 0.55,
       },
       {
         sig: 'heure-s',
@@ -1851,13 +2097,29 @@ const dureesQcm: ItemGen = (level, rng, ctx) => {
         good: '3 600',
         wrong: ['60', '360', '6 000', '1 000'],
         e: '1 h = 60 min et 1 min = 60 s : 60 × 60 = 3 600 s.',
+        d: 0.6,
+      },
+      {
+        sig: 'semaine-h',
+        q: 'Combien y a-t-il d’heures dans une semaine ?',
+        good: '168',
+        wrong: ['70', '24', '100', '144'],
+        e: '1 semaine = 7 jours et 1 jour = 24 h : 7 × 24 = 168 h.',
+        d: 0.65,
+      },
+      {
+        sig: 'bissextile',
+        q: 'Combien de jours compte une année bissextile, comme 2028 ?',
+        good: '366',
+        wrong: ['365', '364', '360'],
+        e: 'Une année bissextile a un jour de plus (le 29 février) : 366 jours.',
         d: 0.55,
       },
-    );
+    ];
   const q = rng.pick(qs);
   return mcq(ctx, rng, q.sig, {
     question: q.q,
-    spoken: dire(q.q),
+    spoken: dire(q.q.replace(/…$/, ' combien ?')),
     good: q.good,
     wrong: q.wrong,
     explication: q.e,
@@ -1868,39 +2130,45 @@ const dureesQcm: ItemGen = (level, rng, ctx) => {
 
 const dureesRanger: ItemGen = (level, rng, ctx) => {
   const n = level === 'facile' ? 3 : 4;
-  let vals: number[];
-  let ecrire: (v: number, i: number) => string;
-  let unite: string;
+  const vals: number[] = [];
+  const textes = new Map<number, string>();
+  const notes: string[] = [];
+  let unite: 'min' | 's';
   if (level === 'facile') {
-    vals = [];
+    unite = 'min';
     while (vals.length < n) {
       const v = rng.int(6, 30) * 5;
       if (!vals.includes(v)) vals.push(v);
     }
     // valeurs en minutes ; écritures « 1 h 10 min » ou « 70 min »
-    ecrire = (v, i) => (v >= 60 && (i === 0 || (i !== 1 && rng.chance(0.5))) ? dureeTxt(v * 60) : `${v} min`);
-    unite = 'min';
+    vals.forEach((v, i) =>
+      textes.set(v, v >= 60 && (i === 0 || (i !== 1 && rng.chance(0.5))) ? dureeTxt(v * 60) : `${v} min`),
+    );
   } else if (level === 'normal') {
-    vals = [];
+    unite = 's';
     while (vals.length < n) {
       const v = rng.int(65, 250);
       if (!vals.includes(v)) vals.push(v);
     }
-    ecrire = (v, i) => (i === 0 || (i !== 1 && rng.chance(0.5)) ? dureeTxt(v) : `${v} s`);
-    unite = 's';
+    vals.forEach((v, i) => textes.set(v, i === 0 || (i !== 1 && rng.chance(0.5)) ? dureeTxt(v) : `${v} s`));
   } else {
-    vals = [];
+    // Valeurs en secondes : une durée décimale en heures, une en secondes, les autres en min ou h min s
+    unite = 's';
+    const [dec, mins] = rng.pick(HEURES_DECIMALES);
+    vals.push(mins * 60);
+    textes.set(mins * 60, `${fmt(dec)} h`);
+    notes.push(`${fmt(dec)} h = ${dureeTxt(mins * 60)} (${FRACTION_HEURE[mins % 60]})`);
     while (vals.length < n) {
-      const v = rng.int(2, 16) * 15;
-      if (!vals.includes(v)) vals.push(v);
+      const i = vals.length;
+      const v =
+        i === 1
+          ? rng.int(30, 160) * 60 + rng.int(1, 59)
+          : rng.int(30, 170) * 60 + (rng.chance(0.5) ? rng.int(1, 59) : 0);
+      if (vals.includes(v)) continue;
+      vals.push(v);
+      textes.set(v, i === 1 ? `${fmt(v)} s` : v % 60 === 0 ? `${v / 60} min` : dureeTxt(v));
     }
-    ecrire = (v, i) => {
-      const r = i === 0 ? 0 : i === 1 ? 1 : rng.int(0, 2);
-      return r === 0 ? `${fmt(v / 60)} h` : r === 1 ? `${v} min` : dureeTxt(v * 60);
-    };
-    unite = 'min';
   }
-  const textes = new Map(vals.map((v, i) => [v, ecrire(v, i)]));
   const decroissant = level !== 'facile' && rng.chance(0.3);
   const tries = [...vals].sort((a, b) => (decroissant ? b - a : a - b));
   const elements = tries.map((v) => textes.get(v)!);
@@ -1908,10 +2176,10 @@ const dureesRanger: ItemGen = (level, rng, ctx) => {
     prompt: `Range ces durées de la plus ${decroissant ? 'longue' : 'courte'} à la plus ${decroissant ? 'courte' : 'longue'}.`,
     elements,
     mode: decroissant ? 'decroissant' : 'croissant',
-    explication: `On écrit toutes les durées dans la même unité (${unite === 's' ? '1 min = 60 s' : '1 h = 60 min'}) : ${tries
-      .map((v) => `${v} ${unite}`)
-      .join(decroissant ? ' > ' : ' < ')}.`,
-    difficulty: clamp01(0.35 + (level === 'plus_loin' ? 0.25 : level === 'normal' ? 0.15 : 0)),
+    explication: `${notes.length ? `${notes.join(' ; ')}. ` : ''}On écrit toutes les durées dans la même unité (${
+      level === 'plus_loin' ? '1 h = 3 600 s, 1 min = 60 s' : unite === 's' ? '1 min = 60 s' : '1 h = 60 min'
+    }) : ${tries.map((v) => `${fmt(v)} ${unite}`).join(decroissant ? ' > ' : ' < ')}.`,
+    difficulty: clamp01(0.35 + (level === 'plus_loin' ? 0.3 : level === 'normal' ? 0.15 : 0)),
   });
 };
 

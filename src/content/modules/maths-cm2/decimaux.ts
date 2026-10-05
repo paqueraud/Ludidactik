@@ -38,14 +38,18 @@ const lu = (s: string) =>
       /(\d+),(\d+)/g,
       (_, e: string, d: string) => `${e} virgule ${d.replace(/^0+/, (z) => 'zéro '.repeat(z.length))}`,
     )
-    .replace(/(\d+)\/(\d+)/g, (_, n: string, d: string) => fractionEnMots(Number(n), Number(d)))
+    .replace(/(\d+)\/(\d+)/g, (_, n: string, d: string) => fracDite(Number(n), Number(d)))
     .replace(/ \+ /g, ' plus ')
     .replace(/ = /g, ' égale ')
     .replace(/…/g, 'combien');
 /** Nombre de décimales significatives d'un nombre de millièmes. */
 const decs = (m: number) => (m % 1000 === 0 ? 0 : m % 100 === 0 ? 1 : m % 10 === 0 ? 2 : 3);
 const ent = (m: number) => Math.floor(m / 1000);
-const fr = (n: number, d: number) => `${n}/${d}`;
+const fr = (n: number, d: number) => (n >= 10000 ? `${fmt(n)}/${fmt(d)}` : `${n}/${d}`);
+/** « 1 petit trait », « 3 petits traits ». */
+const traits = (k: number) => `${k} petit${k > 1 ? 's' : ''} trait${k > 1 ? 's' : ''}`;
+/** Égalités sans répétition : [« 9/10 », « 9/10 », « 0,9 »] → « 9/10 = 0,9 ». */
+const egalites = (...t: string[]) => t.filter((x, i) => t.indexOf(x) === i).join(' = ');
 /** Lecture d'une fraction : en lettres jusqu'à 99, en chiffres au-delà (« 6206 centièmes »). */
 const fracDite = (n: number, d: number) =>
   n < 100 ? fractionEnMots(n, d) : `${n} ${nomDenominateur(d, true)}`;
@@ -153,7 +157,7 @@ const fdNumeric: ItemGen = (level, rng, ctx) => {
       prompt: `Écris avec une virgule : ${q}`,
       spoken: `Écris ${fracDite(n, d)} avec une virgule.`,
       answer: m / 1000,
-      explication: `${fr(n, d)}, c’est ${fmt(n)} ${nomDenominateur(d, true)} : ${fr(n, d)} = ${somme(m)} = ${dm(m)}.`,
+      explication: `${fr(n, d)}, c’est ${fmt(n)} ${nomDenominateur(d, n >= 2)} : ${egalites(fr(n, d), somme(m), dm(m))}.`,
       difficulty: 0.25 + decs(m) * 0.1 + (/0/.test(String(m % 1000)) ? 0.1 : 0),
     });
   }
@@ -162,7 +166,7 @@ const fdNumeric: ItemGen = (level, rng, ctx) => {
       prompt: `${dm(m)} = …/${d}`,
       spoken: `${lu(dm(m))} égale combien de ${nomDenominateur(d, true)} ?`,
       answer: n,
-      explication: `${dm(m)} = ${somme(m)}, c’est ${fmt(n)} ${nomDenominateur(d, true)} : ${dm(m)} = ${fr(n, d)}.`,
+      explication: `${dm(m)}, c’est ${fmt(n)} ${nomDenominateur(d, n >= 2)} : ${egalites(dm(m), somme(m), fr(n, d))}.`,
       difficulty: 0.35 + decs(m) * 0.1,
     });
   }
@@ -265,13 +269,24 @@ const fdPaires: ItemGen = (level, rng, ctx) => {
       add(fr(k, d), (k * 1000) / d);
     }
   } else {
-    const e = rng.int(1, 9);
-    const c = rng.int(1, 9);
-    add(`${e} + ${fr(c, 10)}`, e * 1000 + c * 100);
-    add(`${e} + ${fr(c, 100)}`, e * 1000 + c * 10);
-    add(`${e} + ${fr(c, 1000)}`, e * 1000 + c);
-    add(`${fr(e * 10 + c, 100)}`, e * 100 + c * 10);
-    add(`${e} + ${fr(c, 10)} + ${fr(c, 1000)}`, e * 1000 + c * 100 + c);
+    // regroupements : 13/10 = 1 + 3/10, 45/100 = 4/10 + 5/100
+    let guard = 0;
+    while (pairs.length < 5 && guard++ < 50) {
+      const e = rng.int(1, 60);
+      const forme = rng.int(0, 2);
+      if (forme === 0) {
+        const a = rng.int(11, 39);
+        const b = rng.int(1, 9);
+        add(`${e} + ${fr(a, 10)} + ${fr(b, 100)}`, e * 1000 + a * 100 + b * 10);
+      } else if (forme === 1) {
+        const a = rng.int(101, 399);
+        add(`${e} + ${fr(a, 100)}`, e * 1000 + a * 10);
+      } else {
+        const a = rng.int(11, 99);
+        const b = rng.int(1, 9);
+        add(`${e} + ${fr(b, 10)} + ${fr(a, 1000)}`, e * 1000 + b * 100 + a);
+      }
+    }
   }
   return make(ctx, 'pairing', `paires-${pairs.map((p) => p.left).join('|')}`, {
     prompt: 'Associe chaque fraction décimale à son écriture à virgule.',
@@ -298,7 +313,11 @@ function chiffresDistincts(level: Level, rng: Rng): number {
 }
 
 const fdQcm: ItemGen = (level, rng, ctx) => {
-  const forme = parNiv(level, { facile: rng.int(0, 2), normal: rng.int(0, 2), plus_loin: rng.int(0, 3) });
+  const forme = parNiv(level, {
+    facile: rng.int(0, 2),
+    normal: rng.int(0, 2),
+    plus_loin: rng.pick([1, 2, 3]),
+  });
   if (forme === 0) {
     const m = chiffresDistincts(level, rng);
     const maxR = String(m).length - 1;
@@ -322,7 +341,8 @@ const fdQcm: ItemGen = (level, rng, ctx) => {
     const rel: readonly [string, string, string] = parNiv<readonly [string, string, string]>(level, {
       facile: rng.pick([
         ['dixièmes', '1 unité', '10'],
-        ['centièmes', '1 dixième', '10'],
+        ['dixièmes', '2 unités', '20'],
+        ['dixièmes', '5 unités', '50'],
       ] as const),
       normal: rng.pick([
         ['centièmes', '1 dixième', '10'],
@@ -332,15 +352,20 @@ const fdQcm: ItemGen = (level, rng, ctx) => {
         ['millièmes', '1 dixième', '100'],
       ] as const),
       plus_loin: rng.pick([
-        ['millièmes', '1 dixième', '100'],
-        ['millièmes', '1 unité', '1 000'],
         ['centièmes', '1 dizaine', '1 000'],
+        ['millièmes', '1 dizaine', '10 000'],
+        ['dixièmes', '1 centaine', '1 000'],
+        ['millièmes', '3 dixièmes', '300'],
+        ['centièmes', '4 unités', '400'],
       ] as const),
     });
+    const g = Number(rel[2].replace(/ /g, ''));
     return mcq(ctx, rng, `rel-${rel[0]}-${rel[1]}`, {
       question: `Combien de ${rel[0]} y a-t-il dans ${rel[1]} ?`,
       good: rel[2],
-      wrong: ['1', '10', '100', '1 000', '10 000'],
+      wrong: [g / 100, g / 10, g * 10, g * 100]
+        .filter((x) => Number.isInteger(x) && x >= 1)
+        .map((x) => fmt(x)),
       explication:
         'Chaque rang vaut 10 fois le rang à sa droite : 1 unité = 10 dixièmes, 1 dixième = 10 centièmes, 1 centième = 10 millièmes.',
       difficulty: 0.4,
@@ -364,17 +389,17 @@ const fdQcm: ItemGen = (level, rng, ctx) => {
       difficulty: 0.45,
     });
   }
-  // Plus loin : chiffre d'un rang donné
+  // Plus loin : le nombre de dixièmes ou de centièmes « en tout » (4,107 = 410 centièmes et 7 millièmes)
   const m = chiffresDistincts('normal', rng);
-  const r = rng.int(0, 2);
-  const c = chiffre(m, r);
-  return mcq(ctx, rng, `chiffre-des-${m}-${r}`, {
-    question: `Quel est le chiffre des ${RANGS[r]} dans ${dm(m)} ?`,
-    spoken: `Quel est le chiffre des ${RANGS[r]} dans ${lu(dm(m))} ?`,
-    good: String(c),
-    wrong: [0, 1, 2, 3, 4].filter((i) => i !== r).map((i) => String(chiffre(m, i))),
-    explication: `Après la virgule : dixièmes, centièmes, millièmes. Dans ${dm(m)}, le chiffre des ${RANGS[r]} est ${c}.`,
-    difficulty: 0.55,
+  const r = rng.int(1, 2);
+  const tout = Math.floor(m / 10 ** r);
+  return mcq(ctx, rng, `en-tout-${m}-${r}`, {
+    question: `Combien y a-t-il de ${RANGS[r]} en tout dans ${dm(m)} ?`,
+    spoken: `Combien y a-t-il de ${RANGS[r]} en tout dans ${lu(dm(m))} ?`,
+    good: fmt(tout),
+    wrong: [chiffre(m, r), Math.floor(tout / 10), tout * 10 + chiffre(m, r - 1), tout + 1].map((x) => fmt(x)),
+    explication: `1 unité = ${r === 2 ? '10 dixièmes' : '100 centièmes'} : dans ${dm(m)}, il y a ${fmt(tout)} ${RANGS[r]} en tout (le chiffre des ${RANGS[r]} n’est que le dernier chiffre de ce nombre).`,
+    difficulty: 0.8,
   });
 };
 
@@ -389,7 +414,7 @@ const fdDroite: ItemGen = (level, rng, ctx) => {
       step: 1000,
       target: nn * 100,
       display: fr(nn, 10),
-      explication: `L’unité est partagée en 10 : chaque petit trait vaut 1/10. ${fr(nn, 10)}, c’est ${nn} petits traits après 0, donc ${dm(nn * 100)}.`,
+      explication: `L’unité est partagée en 10 : d’un petit trait au suivant, on avance de 1/10. ${fr(nn, 10)}, c’est ${traits(nn)} après 0, donc ${dm(nn * 100)}.`,
       difficulty: 0.25 + nn / 100,
     });
   }
@@ -405,7 +430,7 @@ const fdDroite: ItemGen = (level, rng, ctx) => {
       step: 100,
       target: t,
       display: fr(n, d),
-      explication: `Ici, chaque grand trait vaut 1/10 et chaque petit trait 1/100. ${fr(n, d)} = ${dm(t)}.`,
+      explication: `D’un grand trait au suivant, on avance de 1/10 ; d’un petit trait au suivant, de 1/100. ${fr(n, d)} = ${dm(t)} : c’est ${traits((t - base) / 10)} après ${dm(base)}.`,
       difficulty: 0.5,
     });
   }
@@ -418,7 +443,7 @@ const fdDroite: ItemGen = (level, rng, ctx) => {
     step: 10,
     target: t,
     display: somme(t),
-    explication: `Chaque grand trait vaut 1/100 et chaque petit trait 1/1000 : ${somme(t)} = ${dm(t)}.`,
+    explication: `D’un grand trait au suivant, on avance de 1/100 ; d’un petit trait au suivant, de 1/1000. ${somme(t)} = ${dm(t)} : c’est ${traits(t - base)} après ${dm(base)}.`,
     difficulty: 0.8,
   });
 };
@@ -426,7 +451,7 @@ const fdDroite: ItemGen = (level, rng, ctx) => {
 const fdVisuel: ItemGen = (level, rng, ctx) => {
   const shape = rng.pick(['tablette', 'barre'] as const);
   const objet = shape === 'tablette' ? 'tablette' : 'barre';
-  const n = parNiv(level, { facile: rng.int(1, 9), normal: rng.int(1, 19), plus_loin: rng.int(11, 29) });
+  const n = parNiv(level, { facile: rng.int(1, 9), normal: rng.int(1, 19), plus_loin: rng.int(21, 39) });
   const nn = n % 10 === 0 ? n + 1 : n;
   const task = level === 'facile' ? 'colorier' : rng.pick(['colorier', 'lire'] as const);
   const plus1 = nn > 10;
@@ -449,7 +474,7 @@ const fdVisuel: ItemGen = (level, rng, ctx) => {
     denominator: 10,
     shape,
     task,
-    explication: `Chaque ${objet} est partagée en 10 parts égales : ${nn} parts, c’est ${fr(nn, 10)} = ${ecrit}.`,
+    explication: `${nn > 10 ? `Chaque ${objet}` : `La ${objet}`} est partagée en 10 parts égales : ${nn} part${nn > 1 ? 's' : ''}, c’est ${fr(nn, 10)} = ${ecrit}.`,
     difficulty: clamp01(
       0.2 + (task === 'lire' ? 0.15 : 0) + (plus1 ? 0.25 : 0) + (level === 'facile' ? 0 : 0.1),
     ),
@@ -474,7 +499,7 @@ function paire(level: Level, rng: Rng): [Ecrit, Ecrit] {
     return [E(i * 1000 + a * 100), E(i * 1000 + b * 100)];
   }
   const i = rng.int(0, level === 'normal' ? 99 : 999);
-  const t = parNiv(level, { facile: 0, normal: rng.int(0, 4), plus_loin: rng.int(1, 6) });
+  const t = parNiv(level, { facile: 0, normal: rng.int(0, 4), plus_loin: rng.pick([1, 2, 4, 5, 6]) });
   const d1 = rng.int(1, 8);
   if (t === 0) {
     // 3,5 / 3,45 : le nombre le plus long n'est pas le plus grand
@@ -518,7 +543,8 @@ const explComparer = (a: Ecrit, b: Ecrit) => {
     return `On compare d’abord les parties entières : ${fmt(ent(g.m))} > ${fmt(ent(p.m))}, donc ${g.s} > ${p.s}.`;
   const k = Math.max(decs(a.m), decs(b.m));
   const aide = decs(a.m) !== decs(b.m) ? ` (on peut écrire ${dm(g.m, k)} et ${dm(p.m, k)})` : '';
-  return `Même partie entière : on compare les dixièmes, puis les centièmes, puis les millièmes${aide} : ${g.s} > ${p.s}.`;
+  const r = [2, 1, 0].find((x) => chiffre(g.m, x) !== chiffre(p.m, x))!;
+  return `Même partie entière ; on compare chiffre par chiffre après la virgule${aide} : aux ${RANGS[r]}, ${chiffre(g.m, r)} > ${chiffre(p.m, r)}, donc ${g.s} > ${p.s}.`;
 };
 
 const cmpQcm: ItemGen = (level, rng, ctx) => {
@@ -596,7 +622,7 @@ const cmpDroite: ItemGen = (level, rng, ctx) => {
       step: 1000,
       target: t,
       display: dm(t),
-      explication: `Entre deux nombres entiers, il y a 10 petits traits : chacun vaut 0,1. ${dm(t)} est à ${(t - k * 1000) / 100} petits traits de ${k}.`,
+      explication: `Entre deux nombres entiers, il y a 10 intervalles : d’un petit trait au suivant, on avance de 0,1. ${dm(t)} est à ${traits((t - k * 1000) / 100)} de ${k}.`,
       difficulty: 0.3,
     });
   }
@@ -612,8 +638,8 @@ const cmpDroite: ItemGen = (level, rng, ctx) => {
     display: dm(t),
     explication:
       level === 'normal'
-        ? `Les grands traits vont de 0,1 en 0,1 et chaque petit trait vaut 0,01 : ${dm(t)} est ${(t - base) / 10} petits traits après ${dm(base)}.`
-        : `Les grands traits vont de 0,01 en 0,01 et chaque petit trait vaut 0,001 : ${dm(t)} est ${t - base} petits traits après ${dm(base)}.`,
+        ? `Les grands traits vont de 0,1 en 0,1 et, d’un petit trait au suivant, on avance de 0,01 : ${dm(t)} est ${traits((t - base) / 10)} après ${dm(base)}.`
+        : `Les grands traits vont de 0,01 en 0,01 et, d’un petit trait au suivant, on avance de 0,001 : ${dm(t)} est ${traits(t - base)} après ${dm(base)}.`,
     difficulty: level === 'normal' ? 0.55 : 0.8,
   });
 };
@@ -624,7 +650,7 @@ function pasMoitie(m: number, unite: number): number {
 }
 
 const cmpNumeric: ItemGen = (level, rng, ctx) => {
-  const forme = parNiv(level, { facile: rng.int(0, 2), normal: rng.int(0, 4), plus_loin: rng.int(3, 6) });
+  const forme = parNiv(level, { facile: rng.int(0, 2), normal: rng.int(1, 4), plus_loin: rng.int(3, 6) });
   const i = rng.int(0, level === 'facile' ? 30 : 999);
   const m0 =
     level === 'facile'
@@ -675,7 +701,8 @@ const cmpNumeric: ItemGen = (level, rng, ctx) => {
   }
   if (forme === 4) {
     // encadrer au dixième
-    const mm = i * 1000 + rng.int(1, 99) * 10 + (rng.chance(0.5) ? rng.int(1, 9) : 0);
+    // partie décimale entre 0,1 et 0,9 : les deux bornes ont un chiffre après la virgule
+    const mm = i * 1000 + rng.int(11, 89) * 10 + (rng.chance(0.5) ? rng.int(1, 9) : 0);
     const x = mm % 100 === 0 ? mm + 30 : mm;
     const bas = Math.floor(x / 100) * 100;
     const haut = rng.chance(0.5);
@@ -683,9 +710,9 @@ const cmpNumeric: ItemGen = (level, rng, ctx) => {
       prompt: haut
         ? `Encadre au dixième : ${dm(bas)} < ${dm(x)} < …`
         : `Encadre au dixième : … < ${dm(x)} < ${dm(bas + 100)}`,
-      spoken: `Encadre ${lu(dm(x))} entre deux nombres qui ont un seul chiffre après la virgule et qui se suivent.`,
+      spoken: `Encadre ${lu(dm(x))} entre deux nombres qui se suivent de dixième en dixième.`,
       answer: (haut ? bas + 100 : bas) / 1000,
-      explication: `${dm(x)} est entre ${dm(bas)} et ${dm(bas + 100)} : on regarde les dixièmes.`,
+      explication: `On garde les dixièmes de ${dm(x)} : il est entre ${dm(bas)} et ${dm(bas + 100)}, deux nombres qui se suivent de dixième en dixième.`,
       difficulty: 0.55,
     });
   }
@@ -699,7 +726,7 @@ const cmpNumeric: ItemGen = (level, rng, ctx) => {
       prompt: `Arrondis ${dm(x)} au ${u === 100 ? 'dixième' : 'centième'}.`,
       spoken: `Arrondis ${lu(dm(x))} au ${u === 100 ? 'dixième' : 'centième'}.`,
       answer: r / 1000,
-      explication: `${dm(x)} est entre ${dm(Math.floor(x / u) * u)} et ${dm(Math.floor(x / u) * u + u)} ; il est plus près de ${dm(r)}.`,
+      explication: `${dm(x)} est entre ${dm(Math.floor(x / u) * u)} et ${dm(Math.floor(x / u) * u + u)}. Je regarde le chiffre des ${u === 100 ? 'centièmes' : 'millièmes'} : ${chiffre(x, u === 100 ? 1 : 0)} ${chiffre(x, u === 100 ? 1 : 0) >= 5 ? '≥ 5, j’arrondis au-dessus' : '< 5, j’arrondis au-dessous'} : ${dm(r)}.`,
       difficulty: 0.75,
     });
   }
@@ -726,31 +753,31 @@ const USUELLES: Record<Level, [number, number][]> = {
     [1, 100],
     [5, 10],
   ],
+  // 1/2, 1/10, 1/100 sont travaillés au niveau facile : listes disjointes d'un niveau à l'autre
   normal: [
-    [1, 2],
     [1, 4],
     [3, 4],
     [1, 5],
-    [1, 10],
-    [1, 100],
+    [2, 5],
+    [3, 5],
+    [4, 5],
     [1, 1000],
     [3, 2],
     [5, 2],
-    [2, 5],
   ],
   plus_loin: [
     [1, 8],
     [3, 8],
     [5, 8],
     [7, 8],
-    [3, 5],
-    [4, 5],
     [1, 20],
+    [3, 20],
     [1, 25],
+    [3, 25],
     [1, 50],
+    [9, 50],
     [5, 4],
     [7, 4],
-    [3, 20],
   ],
 };
 
@@ -766,7 +793,7 @@ const explUsuelle = (f: [number, number]) => {
   const [en, ed] = equivalente(f);
   const v = dm(valeurM(f));
   if (d === 10 || d === 100 || d === 1000)
-    return `${fr(n, d)}, c’est ${fractionEnMots(n, d)} : ${fr(n, d)} = ${v}.`;
+    return `${fr(n, d)}, c’est ${fractionEnMots(n, d)}, donc ${fr(n, d)} = ${v}.`;
   return `${fr(n, d)} = ${fr(en, ed)} (on multiplie en haut et en bas par ${ed / d}), donc ${fr(n, d)} = ${v}.`;
 };
 
@@ -794,7 +821,7 @@ const usuelleNumeric: ItemGen = (level, rng, ctx) => {
 const usuellePaires: ItemGen = (level, rng, ctx) => {
   const vus = new Set<number>();
   const pairs: { left: string; right: string }[] = [];
-  const pool = level === 'facile' ? USUELLES.facile : [...USUELLES[level], ...USUELLES.normal];
+  const pool = USUELLES[level];
   for (const f of rng.shuffle(pool)) {
     const v = valeurM(f);
     if (vus.has(v)) continue;

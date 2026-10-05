@@ -92,9 +92,12 @@ describe('fractions CM2 — réponses justes', () => {
     for (const level of LEVELS) {
       for (const it of tiragesDe('CM2.MA.FRAC.DROITE', 'number_line', level)) {
         expect(close(evalExpr(it.display), it.target), it.display).toBe(true);
-        expect(close((it.target * it.subdivisions!) % 1, 0)).toBe(true);
+        // Sur une graduation, ou au milieu de deux graduations en « plus loin »
+        const k = level === 'plus_loin' ? 2 : 1;
+        expect(close((it.target * it.subdivisions! * k) % 1, 0)).toBe(true);
         if (level === 'facile') expect([2, 4]).toContain(it.subdivisions);
-        if (level === 'plus_loin') expect(it.target).toBeGreaterThan(1);
+        if (level === 'normal') expect([3, 5, 6, 8, 10]).toContain(it.subdivisions);
+        if (level === 'plus_loin') expect(it.subdivisions! <= 6 || it.target > 1).toBe(true);
       }
       const repere = (texte: string) => {
         const d = Number(texte.match(/partagée en (\d+) parts/)![1]);
@@ -181,14 +184,22 @@ describe('fractions CM2 — réponses justes', () => {
         for (const c of it.choices) if (c !== good) expect(close(evalExpr(c), v)).toBe(false);
       }
       for (const it of tiragesDe('CM2.MA.FRAC.OPERATIONS', 'bar_model', level)) {
-        const m = it.statement.match(/(\d[\d ]*) (?:élèves|cm|km|€|minutes)[^]*? (\d+)\/(\d+)/)!;
+        const m = it.statement.match(/(\d[\d\u00a0]*) (?:élèves|cm|km|€|minutes)/)!;
+        const f = it.statement.match(/ (\d+)\/(\d+)/);
+        const [n, d] = f ? [Number(f[1]), Number(f[2])] : [1, 2];
+        if (!f) expect(it.statement).toMatch(/la moitié/);
         const Q = num(m[1]!);
-        const part = (Q / Number(m[3])) * Number(m[2]);
+        const part = (Q / d) * n;
         expect(Number.isInteger(part)).toBe(true);
         expect(it.answer).toBe(it.structure === 'deux-etapes' ? Q - part : part);
         expect(it.total).toBe(Q);
-        expect(it.operation.replace(/[  ]/g, '')).toContain(String(it.answer));
-        expect(it.bars[0]!.segments.length).toBe(Number(m[3]));
+        expect(it.operation.replace(/[\u00a0 ]/g, '')).toContain(String(it.answer));
+        expect(it.bars[0]!.segments.length).toBe(d);
+        // Contextes vraisemblables : pas plus de 100 € d'économies ni de 120 km à vélo
+        if (/€/.test(it.statement)) expect(Q).toBeLessThanOrEqual(100);
+        if (/vélo/.test(it.statement)) expect(Q).toBeLessThanOrEqual(120);
+        // Pour la moitié, aucune reformulation fausse ne doit donner le même résultat
+        if (!f) for (const r of it.reformulations!.slice(1)) expect(r).not.toMatch(/reste/);
       }
     }
   });

@@ -78,12 +78,29 @@ describe('maths CM2 — algèbre', () => {
           if (it.kind === 'mcq')
             for (const c of it.choices)
               if (c !== it.choices[it.answerIndex])
-                expect(egaliteVraie(e.equations[0]!.replace(/…|■/g, c.replace(/\s/g, '')))).toBe(false);
-          if (level === 'normal') expect(e.equations[0]!.split(' = ')[1]).toMatch(/[+−×÷]/);
+                expect(
+                  e.equations.every((eq) =>
+                    egaliteVraie(
+                      eq.replace(/…|■|▲|●/g, (sym) =>
+                        sym === e.inconnue ? c.replace(/\s/g, '') : String(e.valeurs[sym]),
+                      ),
+                    ),
+                  ),
+                ).toBe(false);
+          // Normal : deux membres calculés ou un seul symbole ; plus loin : deux inconnues
+          if (level === 'normal')
+            expect(/■/.test(e.equations[0]!) || /[+−×÷]/.test(e.equations[0]!.split(' = ')[1]!)).toBe(true);
+          if (level === 'plus_loin') expect(e.equations.length).toBe(2);
+          if (level !== 'plus_loin') expect(e.equations.length).toBe(1);
+          // Mélange de × et de + / − : toujours des parenthèses (pas de priorités au CM2)
+          for (const eq of e.equations)
+            for (const membre of eq.split(' = '))
+              if (/×/.test(membre) && /[+−]/.test(membre)) expect(membre, eq).toMatch(/\(/);
         }
       for (const it of tiragesDe(`${ID}TROUS`, 'true_false', level)) {
-        const m = it.statement.match(/^Si ■ = (\d+), alors (.+)\.$/);
-        const eq = m ? m[2]!.replace(/■/g, m[1]!) : it.statement;
+        const m = it.statement.match(/^Si ▲ = (\d+) et ● = (\d+), alors (.+)\.$/);
+        const eq = m ? m[3]!.replace(/▲/g, m[1]!).replace(/●/g, m[2]!) : it.statement;
+        if (level === 'plus_loin') expect(m).not.toBeNull();
         expect(it.answer, it.statement).toBe(egaliteVraie(eq));
       }
       for (const it of tiragesDe(`${ID}TROUS`, 'bar_model', level)) {
@@ -104,6 +121,12 @@ describe('maths CM2 — algèbre', () => {
           const p = it.meta!.programme as { etapes: string[]; entree: number | null; sortie: number | null };
           expect(p.etapes.length).toBeLessThanOrEqual(3);
           if (level === 'facile') expect(p.etapes.length).toBe(2);
+          // Remonter : au plus 2 étapes en normal, 3 en plus loin ; plus loin = départ décimal ou remonter
+          if (p.entree === null && level === 'normal') expect(p.etapes.length).toBe(2);
+          if (p.entree === null && level === 'plus_loin') expect(p.etapes.length).toBe(3);
+          if (p.entree === null) expect(level).not.toBe('facile');
+          if (level === 'plus_loin' && p.entree !== null && kind !== 'mcq')
+            expect(Number.isInteger(p.entree), `${kind} ${JSON.stringify(it)}`).toBe(false);
           const entree = p.entree ?? (it.kind === 'numeric_answer' ? it.answer : NaN);
           const sortie = p.etapes.reduce(appliquer, entree);
           if (p.sortie !== null) expect(sortie).toBe(p.sortie);
@@ -141,6 +164,10 @@ describe('maths CM2 — algèbre', () => {
           const s = it.meta!.suite as { termes: number[]; etape: number };
           const r = it.meta!.regle as { premier: number; m: number; k: number };
           s.termes.forEach((t, j) => expect(t).toBe(terme(r, j + 1)));
+          // Progressivité : × seul au normal, « × a puis + b » seulement en plus loin
+          if (level === 'facile') expect(r.m).toBe(1);
+          if (level === 'normal' && r.m > 1) expect(r.k).toBe(0);
+          if (level === 'plus_loin' && r.m > 1) expect(r.k).toBeGreaterThan(0);
           for (const t of s.termes) expect(t).toBeGreaterThanOrEqual(0);
           if (it.kind === 'numeric_answer') expect(it.answer).toBe(terme(r, s.etape));
           if (it.kind === 'fill_blank') expect(num(it.answer)).toBe(terme(r, s.etape));

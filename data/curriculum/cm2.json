@@ -2433,7 +2433,7 @@
     "generator": "maths-cm2/nombres"
    },
    "rappel": "Je découpe le nombre en classes de 3 chiffres à partir de la droite (unités, mille, millions) et je lis chaque classe ; « mille » ne prend jamais de s, « million » oui.",
-   "contenus": "Nombres jusqu’à 999 999 999 : classes des unités, des mille et des millions ; dictée de nombres ; écriture en lettres (million nom variable, mille invariable, accord de cent et vingt) ; décompositions (par classes, par rangs, (4 × 1 000 000) + …) ; valeur d’un chiffre selon son rang ; nombre de milliers, de centaines… en tout. Périodes 1-2 : nombres du CM1 (≤ 6 chiffres). Plus loin : les milliards (6e)."
+   "contenus": "Nombres jusqu’à 999 999 999 : classes des unités, des mille et des millions ; dictée de nombres ; écriture en lettres (million nom variable, mille invariable, accord de cent et vingt) ; décompositions (par classes, par rangs, (4 × 1 000 000) + …) ; valeur d’un chiffre selon son rang ; nombre de milliers, de centaines… en tout. Périodes 1-2 : nombres du CM1 (≤ 6 chiffres). Plus loin : les milliards (6e), en chiffres, en lettres et décomposés."
   },
   {
    "id": "CM2.MA.NUM.COMPARER",
@@ -2452,8 +2452,8 @@
    ],
    "niveaux": {
     "facile": "≤ 6 chiffres",
-    "normal": "≤ 9 chiffres",
-    "plus_loin": "arrondis, milliards"
+    "normal": "7 à 9 chiffres",
+    "plus_loin": "milliards, arrondis"
    },
    "itemKinds": [
     "mcq",
@@ -2491,14 +2491,14 @@
    ],
    "niveaux": {
     "facile": "critères par 2, 5 et 10",
-    "normal": "diviseurs (≤ 30), diviseurs communs, multiples communs",
-    "plus_loin": "critères par 3 et 9, plus grand diviseur commun (6e)"
+    "normal": "diviseurs (≤ 100), diviseurs communs, multiples communs",
+    "plus_loin": "critères par 3 et 9, nombres > 100, plus grand diviseur commun (6e)"
    },
    "itemKinds": [
     "classification",
     "mcq",
     "numeric_answer",
-    "ordering",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
@@ -2510,7 +2510,7 @@
     "generator": "maths-cm2/nombres"
    },
    "rappel": "Un nombre est divisible par 2 s’il finit par 0, 2, 4, 6 ou 8, par 5 s’il finit par 0 ou 5, par 10 s’il finit par 0 ; sinon, je cherche dans les tables.",
-   "contenus": "Critères de divisibilité par 2, 5 et 10 (seuls au programme) ; un nombre ≤ 10 est-il diviseur d’un nombre (tables) ; des diviseurs d’un nombre ≤ 100 ; tous les diviseurs d’un nombre ≤ 30 ; diviseurs communs à deux nombres ≤ 30 ; multiples communs à deux nombres < 15. Plus loin (6e) : critères par 3 et par 9, plus grand diviseur commun."
+   "contenus": "Critères de divisibilité par 2, 5 et 10 (seuls au programme) ; un nombre ≤ 10 est-il diviseur d’un nombre (tables) ; des diviseurs d’un nombre ≤ 100 ; tous les diviseurs d’un nombre ≤ 30 ; diviseurs communs à deux nombres ≤ 30 ; multiples communs à deux nombres < 15. Plus loin (6e) : critères par 3 et par 9, diviseurs de nombres > 100, plus grand diviseur commun."
   },
   {
    "id": "CM2.MA.FRAC.SENS",
@@ -2528,9 +2528,9 @@
     5
    ],
    "niveaux": {
-    "facile": "dénominateurs ≤ 10, fractions < 1",
-    "normal": "dénominateurs ≤ 60, fractions > 1",
-    "plus_loin": "fractions égales, grands entiers"
+    "facile": "fractions < 1, dénominateurs ≤ 10",
+    "normal": "fractions > 1 = entier + fraction, dénominateurs ≤ 60",
+    "plus_loin": "6 à 9 unités, fractions égales (6e)"
    },
    "itemKinds": [
     "mcq",
@@ -2557,7 +2557,7 @@
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Fractions & décimaux",
-   "titre": "Les fractions sur la droite graduée",
+   "titre": "Les fractions sur la demi-droite graduée",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Nombres, calcul et résolution de problèmes — Les fractions",
    "periodes": [
@@ -2569,8 +2569,8 @@
    ],
    "niveaux": {
     "facile": "demis et quarts, entre 0 et 2",
-    "normal": "unités partagées en 3, 5, 6, 8, 10, 12",
-    "plus_loin": "fractions > 1 et entier + fraction"
+    "normal": "fractions > 1 et entier + fraction (unités en 3, 5, 6, 8, 10)",
+    "plus_loin": "unités en 12, 15, 20 ; point entre deux graduations"
    },
    "itemKinds": [
     "mcq",
@@ -2630,7 +2630,7 @@
     "generator": "maths-cm2/fractions"
    },
    "rappel": "Avec le même dénominateur, la plus grande fraction est celle qui a le plus grand numérateur ; sinon, j’écris les deux fractions avec le même dénominateur.",
-   "contenus": "Comparer deux fractions (<, =, >), comparer à 1, ranger dans l’ordre croissant ou décroissant ; même dénominateur, dénominateurs multiples l’un de l’autre (1/2 et 3/8), même numérateur ; dénominateur commun ≤ 60 en « Pour aller plus loin »."
+   "contenus": "Comparer deux fractions (<, =, >), comparer à 1, ranger dans l’ordre croissant ou décroissant ; même dénominateur, dénominateurs multiples l’un de l’autre (1/2 et 3/8) ; même numérateur et dénominateur commun ≤ 60 en « Pour aller plus loin »."
   },
   {
    "id": "CM2.MA.FRAC.OPERATIONS",
@@ -2648,9 +2648,9 @@
     5
    ],
    "niveaux": {
-    "facile": "même dénominateur, compléter à 1",
+    "facile": "même dénominateur, compléter à 1, une part (1/4 de 20)",
     "normal": "dénominateurs multiples, entier × fraction, 3/4 de 60",
-    "plus_loin": "résultats > 1, problèmes en deux étapes"
+    "plus_loin": "dénominateurs non multiples (1/4 + 1/6), problèmes en deux étapes (6e)"
    },
    "itemKinds": [
     "bar_model",
@@ -2670,7 +2670,7 @@
     "generator": "maths-cm2/fractions"
    },
    "rappel": "Pour ajouter des fractions, il faut des parts de même taille : j’ajoute les numérateurs et je garde le dénominateur ; pour prendre les 3/4 de 60, je partage 60 en 4 puis je prends 3 parts.",
-   "contenus": "Additionner et soustraire des fractions (même dénominateur, puis dénominateurs multiples) ; compléter à 1 ; produit d’un entier par une fraction (4 × 3/10) ; fraction d’une quantité ou d’une grandeur (3/4 de 60 €, 2/3 de 12 m) ; petits problèmes en une ou deux étapes."
+   "contenus": "Additionner et soustraire des fractions (même dénominateur, puis dénominateurs multiples) ; compléter à 1 ; produit d’un entier par une fraction (4 × 3/10) ; fraction d’une quantité ou d’une grandeur (3/4 de 60 €, 2/3 de 12 m) ; problèmes en une ou deux étapes."
   },
   {
    "id": "CM2.MA.DEC.FRAC_DEC",
@@ -2769,8 +2769,8 @@
    ],
    "niveaux": {
     "facile": "1/2, dixièmes, 1/100",
-    "normal": "liste du CM2 (demis, quarts, cinquièmes)",
-    "plus_loin": "1/8 = 0,125 ; 1/20 ; 1/25 ; 1/50 ; 7/4"
+    "normal": "quarts, cinquièmes, 3/2, 5/2, 1/1000",
+    "plus_loin": "huitièmes (1/8 = 0,125), vingtièmes, vingt-cinquièmes, cinquantièmes, 7/4"
    },
    "itemKinds": [
     "mcq",
@@ -2791,7 +2791,7 @@
     "generator": "maths-cm2/decimaux"
    },
    "rappel": "Je connais par cœur 1/2 = 0,5 ; 1/4 = 0,25 ; 3/4 = 0,75 ; 1/5 = 0,2 ; 1/10 = 0,1, et je peux les retrouver avec une fraction décimale : 1/4 = 25/100 = 0,25.",
-   "contenus": "Écriture décimale des fractions usuelles : 1/2 = 0,5 ; 1/4 = 0,25 ; 3/4 = 0,75 ; 1/5 = 0,2 ; 2/5 = 0,4 ; 3/2 = 1,5 ; 5/2 = 2,5 ; 1/10 = 0,1 ; 1/100 = 0,01 ; 1/1000 = 0,001. Pour aller plus loin : huitièmes (1/8 = 0,125), vingtièmes, vingt-cinquièmes, cinquantièmes."
+   "contenus": "Écriture décimale des fractions usuelles : 1/2 = 0,5 ; 1/10 = 0,1 ; 1/100 = 0,01 ; 1/1000 = 0,001 ; 1/4 = 0,25 ; 3/4 = 0,75 ; 1/5 = 0,2 ; 2/5 = 0,4 ; 3/2 = 1,5 ; 5/2 = 2,5. Pour aller plus loin : huitièmes (1/8 = 0,125), vingtièmes, vingt-cinquièmes, cinquantièmes, 5/4 et 7/4."
   },
   {
    "id": "CM2.MA.CM.FAITS",
@@ -3193,9 +3193,9 @@
     5
    ],
    "niveaux": {
-    "facile": "additions et soustractions, arrondi à la centaine",
-    "normal": "multiplications 3 chiffres × 2 chiffres, grands nombres arrondis au millier",
-    "plus_loin": "décimal × entier, divisions"
+    "facile": "additions et soustractions arrondies à la centaine ; mesures très exagérées",
+    "normal": "multiplications 3 chiffres × 2 chiffres, arrondis au millier ; erreurs d’un facteur 10",
+    "plus_loin": "décimal × entier, divisions ; erreurs d’unité"
    },
    "itemKinds": [
     "classification",
@@ -3322,7 +3322,7 @@
     "generator": "maths-cm2/operations"
    },
    "rappel": "Dans une division euclidienne, le reste est toujours plus petit que le diviseur (47 = (6 × 7) + 5) ; s’il reste quelque chose, je peux mettre une virgule au quotient et continuer avec les dixièmes.",
-   "contenus": "Division euclidienne posée (a = (b × q) + r avec r < b) ; divisions décimales posées avec un dividende entier (7 ÷ 4 = 1,75) ou décimal (12,6 ÷ 3 = 4,2) et un diviseur à un chiffre ; vérifier avec une multiplication."
+   "contenus": "Division euclidienne posée (a = (b × q) + r avec r < b) ; divisions décimales posées avec un dividende entier (7 ÷ 4 = 1,75) ou décimal (12,6 ÷ 3 = 4,2) et un diviseur à un chiffre : quand j’abaisse les dixièmes, j’écris la virgule au quotient ; vérifier avec une multiplication."
   },
   {
    "id": "CM2.MA.PB.ADDITIFS",
@@ -3360,7 +3360,7 @@
     "generator": "maths-cm2/problemes"
    },
    "rappel": "Je lis l’histoire, je repère ce que je connais et ce que je cherche, je fais un schéma en barre : si je cherche le tout, j’additionne les parties ; si je cherche une partie, je soustrais.",
-   "contenus": "Problèmes additifs en une ou plusieurs étapes : parties-tout, transformations (gagner, perdre, état de départ), comparaisons (« de plus », « de moins », écart) ; entiers, grands nombres, décimaux (longueurs, masses, contenances, prix) ; énoncés pièges où « plus » ou « dépenser » n’indiquent pas l’opération ; schéma en barre, reformulation, contrôle de la réponse."
+   "contenus": "Problèmes additifs en une ou plusieurs étapes : parties-tout, transformations (gagner, perdre, état de départ), comparaisons (« de plus », « de moins », écart) ; entiers, grands nombres, décimaux (longueurs, masses, contenances, prix) ; énoncés pièges où « plus », « ajouter » ou « dépenser » n’indiquent pas l’opération ; schéma en barre, reformulation, contrôle de la réponse."
   },
   {
    "id": "CM2.MA.PB.MULTIPLICATIFS",
@@ -3379,8 +3379,8 @@
    ],
    "niveaux": {
     "facile": "entiers",
-    "normal": "décimaux (prix, masses, contenances)",
-    "plus_loin": "« fois moins » et énoncés pièges"
+    "normal": "décimaux, « fois moins », comparaisons inversées",
+    "plus_loin": "comparaison + une étape, diviseur à 2 chiffres"
    },
    "itemKinds": [
     "bar_model",
@@ -3398,7 +3398,7 @@
     "generator": "maths-cm2/problemes"
    },
    "rappel": "Quand toutes les parts sont égales, je multiplie pour trouver le tout et je divise pour trouver une part ou le nombre de parts ; « 3 fois plus », c’est × 3, et « 3 fois moins », c’est ÷ 3.",
-   "contenus": "Problèmes multiplicatifs « parties-tout » en une étape : produit (n parts égales), partage (valeur d’une part), groupement (nombre de parts) ; comparaison multiplicative « 3 fois plus », « combien de fois plus », « 3 fois moins » ; prix unitaire × quantité, division décimale par un nombre à un chiffre."
+   "contenus": "Problèmes multiplicatifs « parties-tout » en une étape : produit (n parts égales), partage (valeur d’une part), groupement (nombre de parts) ; comparaison multiplicative « 3 fois plus », « 3 fois moins », « combien de fois plus », comparaisons inversées ; prix unitaire × quantité, division décimale par un nombre à un chiffre ; plus loin : comparaison suivie d’une autre étape, diviseur à deux chiffres."
   },
   {
    "id": "CM2.MA.PB.MIXTES",
@@ -3456,7 +3456,7 @@
    "niveaux": {
     "facile": "× 2, × 3, × 10",
     "normal": "linéarité (× et +), passage par l’unité",
-    "plus_loin": "pourcentages simples, échelles, tableau (6e)"
+    "plus_loin": "« k fois et la moitié », pourcentages simples, échelles (6e)"
    },
    "itemKinds": [
     "bar_model",
@@ -3474,7 +3474,7 @@
     "generator": "maths-cm2/problemes"
    },
    "rappel": "Si j’achète 3 fois plus de pains, je paie 3 fois plus cher ; et le prix de 4 pains plus le prix de 8 pains, c’est le prix de 12 pains.",
-   "contenus": "Reconnaitre une situation de proportionnalité (âge et taille : non) ; raisonnements de linéarité en langage naturel : « 3 fois plus de pains, 3 fois plus cher », addition de deux quantités connues, passage par l’unité ; uniquement avec des grandeurs. Pas de tableau de proportionnalité, de coefficient ni de produit en croix au cours moyen (BO) ; tableau, pourcentages et échelles réservés au niveau « plus loin » (6e)."
+   "contenus": "Reconnaitre une situation de proportionnalité (âge et taille : non) ; raisonnements de linéarité en langage naturel, avec les unités : « 3 fois plus de crêpes, donc 3 fois plus de farine », addition de deux quantités connues, passage par l’unité ; uniquement avec des grandeurs. Pas de tableau de proportionnalité, de coefficient ni de produit en croix au cours moyen (BO) ; pourcentages et échelles (avec tableau) réservés au niveau « plus loin » (6e)."
   },
   {
    "id": "CM2.MA.PB.DENOMBRER",
@@ -3493,8 +3493,8 @@
    ],
    "niveaux": {
     "facile": "listes (2 choix)",
-    "normal": "arbres, tableaux, meilleur prix",
-    "plus_loin": "combinatoire (3 étapes, poignées de main)"
+    "normal": "arbres, tableaux, optimisation",
+    "plus_loin": "combinatoire (3 étapes, poignées de main, cadenas)"
    },
    "itemKinds": [
     "bar_model",
@@ -3511,8 +3511,8 @@
     "kind": "generator",
     "generator": "maths-cm2/problemes"
    },
-   "rappel": "Pour compter toutes les possibilités sans en oublier ni en compter deux fois, je fais une liste rangée, un arbre ou un tableau.",
-   "contenus": "Dénombrement (listes, arbres, tableaux à double entrée : tenues, menus, glaces, nombres avec des étiquettes, poignées de main, championnat) ; optimisation (nombre minimum de boites, meilleur prix entre lots et unités) ; préparation aux algorithmes (payer une somme avec le moins de billets et de pièces en prenant toujours la plus grande valeur possible)."
+   "rappel": "Pour compter toutes les possibilités sans en oublier ni en compter deux fois, je fais une liste rangée, un arbre ou un tableau ; pour trouver la meilleure solution, je compare plusieurs façons de faire.",
+   "contenus": "Dénombrement (listes, arbres, tableaux à double entrée : tenues, sandwichs, menus, glaces, nombres avec des étiquettes, poignées de main, championnat, codes de cadenas) ; optimisation (nombre minimum de boites, meilleur prix entre lots et unités) ; préparation aux algorithmes (payer une somme avec le moins de billets et de pièces en prenant toujours la plus grande valeur possible)."
   },
   {
    "id": "CM2.MA.ALG.TROUS",
@@ -3530,9 +3530,9 @@
     5
    ],
    "niveaux": {
-    "facile": "une seule opération (… + 27 = 63)",
-    "normal": "une opération de chaque côté du signe =",
-    "plus_loin": "symboles et deux inconnues simples"
+    "facile": "une seule opération (… + 27 = 63) ; problème en une étape",
+    "normal": "une opération de chaque côté du signe = ou un seul symbole ((3 × ■) + 12 = 27)",
+    "plus_loin": "deux inconnues (▲ et ●)"
    },
    "itemKinds": [
     "bar_model",
@@ -3549,7 +3549,7 @@
     "generator": "maths-cm2/algebre"
    },
    "rappel": "Le signe = veut dire « a la même valeur que » : dans 178 − … = 6 × 8, je calcule 6 × 8 = 48, puis je cherche ce qu’on enlève à 178 pour obtenir 48.",
-   "contenus": "Trouver le nombre manquant dans une égalité (178 − … = 6 × 8) : le signe = relie deux expressions qui ont la même valeur ; problèmes algébriques (« 2 classeurs et 3 stylos coûtent 20 € ») avec schéma en barre ; nombres inconnus représentés par un symbole."
+   "contenus": "Trouver le nombre manquant dans une égalité (178 − … = 6 × 8) : le signe = relie deux expressions qui ont la même valeur ; nombre inconnu représenté par un symbole, avec parenthèses quand on mélange × et + ((3 × ■) + 12 = 27) ; problèmes algébriques (« 2 classeurs et 3 stylos coûtent 20 € ») avec schéma en barre."
   },
   {
    "id": "CM2.MA.ALG.PROGRAMMES",
@@ -3567,8 +3567,8 @@
    ],
    "niveaux": {
     "facile": "exécuter un programme à 2 étapes",
-    "normal": "3 étapes, exécuter ou remonter",
-    "plus_loin": "nombres décimaux, choisir le programme"
+    "normal": "exécuter 3 étapes, remonter 2 étapes",
+    "plus_loin": "départ décimal, remonter 3 étapes, choisir le programme"
    },
    "itemKinds": [
     "mcq",
@@ -3604,8 +3604,8 @@
    ],
    "niveaux": {
     "facile": "prolonger une suite (+ ou −)",
-    "normal": "trouver la règle, l’étape 10",
-    "plus_loin": "étape 50 ou 100, décimaux"
+    "normal": "trouver la règle (+, −, × 2, × 3), l’étape 10",
+    "plus_loin": "« × 2 puis + 1 », étape 50 ou 100, décimaux"
    },
    "itemKinds": [
     "fill_blank",
@@ -3621,7 +3621,7 @@
     "kind": "generator",
     "generator": "maths-cm2/algebre"
    },
-   "rappel": "Je cherche ce qui se passe d’un nombre au suivant (on ajoute 3 ? on multiplie par 2 ?) ; pour aller à l’étape 10, j’ajoute 9 fois le même nombre au premier.",
+   "rappel": "Je cherche ce qui se passe d’un nombre au suivant (on ajoute 3 ? on multiplie par 2 ?) ; si on ajoute toujours le même nombre, pour aller au 10e nombre, j’ajoute 9 fois ce nombre au premier.",
    "contenus": "Trouver la règle d’une suite de nombres (+ 6, × 2, × 2 puis + 1 : 7 ; 15 ; 31 ; 63 ; 127) et la prolonger ; suites de motifs évolutives (allumettes, tables, jetons) : nombre d’éléments à une étape donnée (étape 10, étape 100)."
   },
   {
@@ -3660,7 +3660,7 @@
     "generator": "maths-cm2/grandeurs"
    },
    "rappel": "Pour convertir, j’utilise la relation entre les unités : 1 m = 100 cm, donc 3,5 m = 3,5 × 100 cm = 350 cm.",
-   "contenus": "Unités du mm au km, du mg à la tonne, du mL à l’hL ; conversions par relations entre unités, sans tableau (3,5 m = 350 cm car 1 m = 100 cm) ; expressions complexes (3 m 5 cm = 305 cm) ; comparer et ranger des mesures écrites dans des unités différentes ; choisir une unité adaptée, estimer une mesure."
+   "contenus": "Unités du mm au km, du mg à la tonne, du mL à l’hL ; conversions par relations entre unités, sans tableau (3,5 m = 350 cm car 1 m = 100 cm) ; expressions complexes (3 m 5 cm = 305 cm) ; comparer et ranger des mesures écrites dans des unités différentes ; choisir une unité adaptée, estimer une mesure (facile et normal)."
   },
   {
    "id": "CM2.MA.GM.PERIMETRE",
@@ -3680,7 +3680,7 @@
    "niveaux": {
     "facile": "carré et rectangle, nombres entiers",
     "normal": "polygones, côtés décimaux, unités à convertir, côté manquant",
-    "plus_loin": "cercle (≈ 3,14 × diamètre, 6e)"
+    "plus_loin": "cercle (≈ 3,14 × diamètre, 6e), côtés en m à 2 décimales"
    },
    "itemKinds": [
     "mcq",
@@ -3752,7 +3752,7 @@
    "niveaux": {
     "facile": "reconnaître un angle aigu, droit ou obtus",
     "normal": "angle droit = 90°, comparer, somme, multiple, moitié (45°)",
-    "plus_loin": "angle plat (180°), 30° et 60° par partage (6e)"
+    "plus_loin": "angle plat (180°), 30°, 60°, 135° par partage ou assemblage (6e)"
    },
    "itemKinds": [
     "classification",
@@ -3790,7 +3790,7 @@
    "niveaux": {
     "facile": "heures et minutes",
     "normal": "heures, minutes et secondes, problèmes en plusieurs étapes",
-    "plus_loin": "durées décimales (1,5 h = 1 h 30 min), h min s → s"
+    "plus_loin": "durées décimales (1,5 h = 1 h 30 min), passage de minuit, h min s → s"
    },
    "itemKinds": [
     "clock",
@@ -3807,7 +3807,7 @@
     "generator": "maths-cm2/grandeurs"
    },
    "rappel": "1 h = 60 min et 1 min = 60 s : quand je dépasse 60 minutes, j’ajoute 1 heure (et 1,5 h, c’est 1 h 30 min, pas 1 h 50 min).",
-   "contenus": "Lire et régler une horloge à aiguilles en heures, minutes et secondes ; calculer l’heure de fin ou une durée (horaires de train, film, course) ; relations 1 h = 60 min, 1 min = 60 s, 1 jour = 24 h, quart d’heure, siècle ; problèmes à une ou plusieurs étapes. Plus loin : 1,5 h = 1 h 30 min, secondes dans une heure."
+   "contenus": "Lire et régler une horloge à aiguilles en heures, minutes et secondes ; calculer l’heure de fin ou une durée (horaires de train, film, course) ; relations 1 h = 60 min, 1 min = 60 s, 1 jour = 24 h, quart d’heure, siècle ; problèmes à une ou plusieurs étapes. Plus loin : durées décimales (1,5 h = 1 h 30 min), passage de minuit, ajouter une durée en h min s, heures dans une semaine."
   },
   {
    "id": "CM2.MA.GEO.VOCAB",
@@ -3825,7 +3825,7 @@
    "niveaux": {
     "facile": "segment, droite, milieu, sommet ; parallèles ou perpendiculaires (vie courante)",
     "normal": "demi-droite, diagonale, rayon, diamètre ; parallèles sur quadrillage",
-    "plus_loin": "perpendiculaire sur quadrillage, propriétés (2 perpendiculaires à une même droite), intérieur/extérieur d’un cercle"
+    "plus_loin": "perpendiculaire sur quadrillage, propriétés (2 perpendiculaires à une même droite), rayon ↔ diamètre décimal, intérieur/extérieur d’un cercle"
    },
    "itemKinds": [
     "classification",
@@ -3905,7 +3905,7 @@
    "niveaux": {
     "facile": "instruments, programmes de 3 étapes",
     "normal": "programmes de 4 étapes (carré, rectangle, cercle, triangle rectangle), carré penché sur quadrillage",
-    "plus_loin": "programmes au compas (triangles isocèle et équilatéral), figures composées, étape manquante"
+    "plus_loin": "programmes au compas (triangles isocèle et équilatéral), figures composées, étape manquante, diamètre impair (rayon décimal)"
    },
    "itemKinds": [
     "geometry_shape",
@@ -3981,7 +3981,7 @@
     5
    ],
    "niveaux": {
-    "facile": "nommer les solides, faces du cube et du pavé",
+    "facile": "nommer les solides, faces et sommets du cube et du pavé",
     "normal": "décrire (faces, arêtes, sommets), patrons du cube et du pavé",
     "plus_loin": "autres prismes et pyramides, assemblages de cubes"
    },
@@ -4065,8 +4065,8 @@
    ],
    "niveaux": {
     "facile": "lire une valeur, le plus / le moins",
-    "normal": "interpréter, problèmes en 1 ou 2 étapes, diagramme circulaire",
-    "plus_loin": "repérer une erreur, échelles 20/25/50, retrouver le total d’un diagramme circulaire"
+    "normal": "interpréter, problèmes en 1 ou 2 étapes, diagramme circulaire (moitié, quarts, huitièmes), produire avec une échelle",
+    "plus_loin": "données réelles (banquise, CO₂), hausse ou baisse d’une courbe, barre fausse, tiers et sixièmes, total d’un diagramme circulaire"
    },
    "itemKinds": [
     "classification",
@@ -4101,9 +4101,9 @@
     5
    ],
    "niveaux": {
-    "facile": "impossible, possible, certain",
-    "normal": "« a chances sur b », comparer, indépendance, deux étapes",
-    "plus_loin": "écriture en fraction (6e), deux dés, trois pièces"
+    "facile": "impossible, possible mais pas certain, certain",
+    "normal": "« a chances sur b », comparer, indépendance, deux couleurs ≠ une chance sur deux, deux étapes",
+    "plus_loin": "deux dés, trois pièces, écriture en fraction (6e)"
    },
    "itemKinds": [
     "classification",

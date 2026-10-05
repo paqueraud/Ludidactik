@@ -2,8 +2,9 @@
  * Grandeurs et mesures CM2 : réponses recalculées indépendamment des générateurs.
  */
 import { describe, expect, it } from 'vitest';
-import { LEVELS } from '../../schemas';
-import { num, tiragesDe } from './testkit';
+import { type ItemKind, LEVELS } from '../../schemas';
+import { GRANDEURS } from './grandeurs';
+import { cle, num, tirages, tiragesDe } from './testkit';
 
 /** Valeur des unités dans l'unité de base (mm, mg, mL) — table indépendante de celle du générateur. */
 const BASE: Record<string, number> = {
@@ -26,7 +27,7 @@ const BASE: Record<string, number> = {
 };
 const AIRE: Record<string, number> = { 'm²': 10_000, 'dm²': 100, 'cm²': 1 };
 const NB = '([\\d\\u00a0]+(?:,\\d+)?)';
-const close = (a: number, b: number) => Math.abs(a - b) < 1e-6;
+const close = (a: number, b: number) => Math.abs(a - b) < 1e-9 * Math.max(1, Math.abs(a), Math.abs(b));
 
 /** « 3,5 m » ou « 3 m 45 cm » → valeur dans l'unité de base. */
 function mesure(s: string): number {
@@ -39,8 +40,15 @@ function mesure(s: string): number {
 
 /** « 1 h 25 min », « 95 s », « 1,5 h » → secondes. */
 function duree(s: string): number {
-  const U: Record<string, number> = { h: 3600, min: 60, s: 1, jours: 86400, jour: 86400 };
-  const parts = [...s.matchAll(new RegExp(`${NB} (h|min|s|jours?)(?![\\p{L}])`, 'gu'))];
+  const U: Record<string, number> = {
+    h: 3600,
+    min: 60,
+    s: 1,
+    jours: 86400,
+    jour: 86400,
+    semaines: 604800,
+  };
+  const parts = [...s.matchAll(new RegExp(`${NB} (h|min|s|jours?|semaines)(?![\\p{L}])`, 'gu'))];
   expect(parts.length, s).toBeGreaterThan(0);
   return parts.reduce((acc, p) => acc + num(p[1]!) * U[p[2]!]!, 0);
 }
@@ -169,8 +177,9 @@ describe('grandeurs CM2 — durées', () => {
       for (const it of tiragesDe('CM2.MA.GM.DUREES', 'clock', level)) {
         const debut = it.hours * 3600 + it.minutes * 60 + (it.seconds ?? 0);
         const attendu = it.task === 'duree' ? debut + it.durationMinutes! * 60 : debut;
-        expect(lire(it.answerText), it.prompt).toBe(attendu);
-        expect(attendu).toBeLessThan(24 * 3600);
+        // Passage de minuit (plus loin) : 23 h 30 + 1 h 10 min = 0 h 40
+        expect(lire(it.answerText), it.prompt).toBe(attendu % (24 * 3600));
+        if (attendu >= 24 * 3600) expect(level).toBe('plus_loin');
         if (level === 'facile') expect(it.seconds).toBeUndefined();
       }
   });
@@ -200,5 +209,26 @@ describe('grandeurs CM2 — durées', () => {
         expect(v).toEqual([...v].sort((a, b) => (it.mode === 'croissant' ? a - b : b - a)));
       }
     }
+  });
+});
+
+describe('grandeurs CM2 — les niveaux ne se recouvrent pas', () => {
+  for (const [id, c] of Object.entries(GRANDEURS))
+    for (const kind of Object.keys(c.gens ?? {}))
+      it(`${id} · ${kind} : aucun item commun à deux niveaux`, () => {
+        const parNiveau = LEVELS.map((l) => new Set(tirages(id, kind as ItemKind, l, 200, 5).map(cle)));
+        for (let a = 0; a < 3; a++)
+          for (let b = a + 1; b < 3; b++) {
+            const communs = [...parNiveau[a]!].filter((k) => parNiveau[b]!.has(k));
+            expect(communs, `${LEVELS[a]} / ${LEVELS[b]}`).toEqual([]);
+          }
+      });
+
+  it('plus loin : difficulté d’au moins 0,55 (hors conversions et rangements)', () => {
+    for (const [id, c] of Object.entries(GRANDEURS))
+      for (const kind of ['mcq', 'numeric_answer', 'clock'])
+        if (c.gens?.[kind as ItemKind] && !/LONG_MASSE_CONT|AIRES|PERIMETRE/.test(id))
+          for (const it of tirages(id, kind as ItemKind, 'plus_loin', 100))
+            expect(it.difficulty ?? 0, `${it.id}`).toBeGreaterThanOrEqual(0.55);
   });
 });

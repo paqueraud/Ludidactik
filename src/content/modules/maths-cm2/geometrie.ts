@@ -19,7 +19,7 @@ import type { Rng } from '@/engine/rng';
 import type { ItemGen, LessonContent } from '../../registry';
 import type { Level } from '../../schemas';
 import { GEOMETRIE_ESPACE, type Cell, cellKey, cellsTxt } from './geometrie-espace';
-import { cap, clamp01, make, mcq, parNiv, vraiFaux } from './util';
+import { cap, clamp01, fmt, make, mcq, parNiv, vraiFaux } from './util';
 
 const NIVEAUX: Level[] = ['facile', 'normal', 'plus_loin'];
 const auNiveau = <T extends { niv: Level }>(level: Level, pool: T[]) =>
@@ -32,8 +32,15 @@ type VF = { s: string; v: boolean; e: string; niv: Level };
 /** Vrai / faux équilibré tiré d’une banque d’affirmations. */
 function vfDepuis(pool: VF[], level: Level, rng: Rng) {
   const v = rng.chance(0.5);
-  return rng.pick(auNiveau(level, pool).filter((x) => x.v === v));
+  // Tirages disjoints d’un niveau à l’autre : on prend d’abord les affirmations de ce niveau exactement.
+  const exact = pool.filter((x) => x.niv === level && x.v === v);
+  return rng.pick(exact.length ? exact : auNiveau(level, pool).filter((x) => x.v === v));
 }
+/** Éléments de ce niveau exactement (repli : niveaux inférieurs). */
+const duNiveau = <T extends { niv: Level }>(level: Level, pool: T[]) => {
+  const exact = pool.filter((p) => p.niv === level);
+  return exact.length ? exact : auNiveau(level, pool);
+};
 
 /* ------------------------------------------------------------------ */
 /* Points sur un quadrillage (nœuds)                                    */
@@ -174,19 +181,22 @@ const QCM_VOCAB: QR[] = [
 const vocabQcm: ItemGen = (level, rng, ctx) => {
   const forme = rng.next();
   if (level !== 'facile' && forme < 0.25) {
-    // Rayon ↔ diamètre
-    const r = rng.int(2, 9);
+    // Rayon ↔ diamètre (normal : entiers ; plus loin : rayon décimal, diamètre impair)
+    const r = level === 'normal' ? rng.int(2, 9) : rng.int(2, 9) + 0.5;
+    const d = 2 * r;
     const versDiam = rng.chance(0.5);
     return mcq(ctx, rng, `rd-${versDiam}-${r}`, {
       question: versDiam
-        ? `Un cercle a un rayon de ${r} cm. Combien mesure son diamètre ?`
-        : `Un cercle a un diamètre de ${2 * r} cm. Combien mesure son rayon ?`,
-      good: versDiam ? `${2 * r} cm` : `${r} cm`,
+        ? `Un cercle a un rayon de ${fmt(r)} cm. Combien mesure son diamètre ?`
+        : `Un cercle a un diamètre de ${fmt(d)} cm. Combien mesure son rayon ?`,
+      good: versDiam ? `${fmt(d)} cm` : `${fmt(r)} cm`,
       wrong: versDiam
-        ? [`${r} cm`, `${r + 2} cm`, `${4 * r} cm`]
-        : [`${2 * r} cm`, `${4 * r} cm`, `${r + 1} cm`],
-      explication: `Le diamètre mesure deux fois le rayon : ${r} × 2 = ${2 * r} cm.`,
-      difficulty: 0.45,
+        ? [`${fmt(r)} cm`, `${fmt(r + 2)} cm`, `${fmt(2 * d)} cm`]
+        : [`${fmt(d)} cm`, `${fmt(2 * d)} cm`, `${fmt(r + 1)} cm`],
+      explication: versDiam
+        ? `Le diamètre mesure deux fois le rayon : ${fmt(r)} × 2 = ${fmt(d)} cm.`
+        : `Le rayon est la moitié du diamètre : ${fmt(d)} ÷ 2 = ${fmt(r)} cm.`,
+      difficulty: level === 'normal' ? 0.45 : 0.7,
     });
   }
   if (level === 'plus_loin' && forme < 0.5) {
@@ -206,7 +216,7 @@ const vocabQcm: ItemGen = (level, rng, ctx) => {
       difficulty: 0.6,
     });
   }
-  const q = rng.pick(auNiveau(level, QCM_VOCAB));
+  const q = rng.pick(duNiveau(level, QCM_VOCAB));
   return mcq(ctx, rng, `def-${q.q}`, {
     question: q.q,
     good: q.g,
@@ -244,8 +254,33 @@ const EXEMPLES_DROITES: { label: string; cat: 0 | 1 | 2; niv: Level }[] = [
 ];
 const CAT_DROITES = ['perpendiculaires', 'parallèles', 'ni l’un ni l’autre'];
 
-/** Dessin schématique (deux segments sur un quadrillage de nœuds) pour chaque catégorie. */
-function dessinDroites(cat: 0 | 1 | 2, rng: Rng) {
+/** Aiguilles d’horloge : centre commun, extrémités des deux aiguilles (quadrillage de nœuds). */
+const AIGUILLES: Record<string, [Pt, Pt]> = {
+  '3 h': [
+    [6, 2],
+    [9, 6],
+  ],
+  '9 h': [
+    [6, 2],
+    [3, 6],
+  ],
+  '1 h': [
+    [6, 2],
+    [8, 3],
+  ],
+  '2 h': [
+    [6, 2],
+    [9, 4],
+  ],
+};
+
+/** Dessin schématique (deux segments sur un quadrillage de nœuds) pour chaque exemple. */
+function dessinDroites(label: string, cat: 0 | 1 | 2, rng: Rng) {
+  const h = label.match(/horloge à (\d+ h)/)?.[1];
+  if (h && AIGUILLES[h]) {
+    const centre: Pt = [6, 6];
+    return { d1: [centre, AIGUILLES[h]![0]], d2: [centre, AIGUILLES[h]![1]] };
+  }
   const dir = rng.pick([
     [4, 0],
     [0, 4],
@@ -268,23 +303,28 @@ const vocabClasser: ItemGen = (level, rng, ctx) => {
   const nbCats = level === 'facile' ? 2 : 3;
   const parCat = 2;
   const pool = auNiveau(level, EXEMPLES_DROITES);
-  const choisis = [0, 1, 2]
-    .slice(0, nbCats)
-    .flatMap((c) =>
-      rng
-        .shuffle(pool.filter((e) => e.cat === c && (level !== 'plus_loin' || rng.chance(0.8))))
-        .slice(0, parCat),
-    );
+  // Au moins un exemple du niveau par catégorie (tirages différents d’un niveau à l’autre), puis un autre au hasard.
+  const choisis = [0, 1, 2].slice(0, nbCats).flatMap((c) => {
+    const duNiv = rng.shuffle(pool.filter((e) => e.cat === c && e.niv === level));
+    const reste = pool.filter((e) => e.cat === c && !duNiv.slice(0, 1).includes(e));
+    return [...duNiv.slice(0, 1), ...rng.shuffle(reste)].slice(0, parCat);
+  });
   const els = rng.shuffle(choisis).map((e) => ({ label: e.label, category: e.cat }));
   return make(ctx, 'classification', `droites-${els.map((e) => e.label).join('|')}`, {
-    prompt: 'Range ces paires de lignes : sont-elles perpendiculaires ou parallèles ?',
+    prompt:
+      nbCats === 2
+        ? 'Range ces paires de lignes : sont-elles perpendiculaires ou parallèles ?'
+        : 'Range ces paires de lignes : sont-elles perpendiculaires, parallèles, ou ni l’un ni l’autre ?',
     categories: CAT_DROITES.slice(0, nbCats),
     elements: els,
-    explication:
-      'Perpendiculaires : elles se coupent en faisant un angle droit. Parallèles : elles ne se coupent jamais et gardent le même écart.',
+    explication: `Perpendiculaires : elles se coupent en faisant un angle droit. Parallèles : elles ne se coupent jamais et gardent le même écart.${
+      nbCats === 3 ? ' Ni l’un ni l’autre : elles se coupent, mais sans faire d’angle droit.' : ''
+    }`,
     difficulty: nbCats === 2 ? 0.3 : level === 'normal' ? 0.5 : 0.75,
     meta: {
-      dessins: Object.fromEntries(els.map((e) => [e.label, dessinDroites(e.category as 0 | 1 | 2, rng)])),
+      dessins: Object.fromEntries(
+        els.map((e) => [e.label, dessinDroites(e.label, e.category as 0 | 1 | 2, rng)]),
+      ),
       repere: 'noeuds',
     },
   });
@@ -733,8 +773,8 @@ const FIGURES: Figure[] = [
     indices: [
       'Je suis un quadrilatère.',
       'Je n’ai pas d’angle droit.',
-      'Mes deux autres côtés ne sont pas parallèles.',
       'J’ai deux côtés opposés parallèles.',
+      'Mes deux autres côtés ne sont pas parallèles.',
     ],
   },
   {
@@ -763,9 +803,9 @@ const FIGURES: Figure[] = [
 ];
 /** Figures qui conviennent aussi (cas particuliers, figure plus générale) : jamais proposées comme mauvais choix. */
 const PROCHES: Record<string, string[]> = {
-  carre: ['rectangle', 'losange'],
-  rectangle: ['carre', 'trapeze'],
-  losange: ['carre'],
+  carre: ['rectangle', 'losange', 'trapeze', 'trapeze_rectangle'],
+  rectangle: ['carre', 'trapeze', 'trapeze_rectangle'],
+  losange: ['carre', 'trapeze'],
   triangle_rectangle: ['triangle_isocele', 'triangle'],
   triangle_isocele: ['triangle_equilateral', 'triangle'],
   triangle_equilateral: ['triangle_isocele', 'triangle'],
@@ -825,66 +865,83 @@ const figuresShape: ItemGen = (level, rng, ctx) => {
         ...rng.shuffle(figs.filter((x) => x.famille !== f.famille).map((x) => x.nom)).slice(0, 1),
       ]),
       answer: f.nom,
-      explication: `C’est ${f.un} : c’est ${definition(f)}.`,
+      explication:
+        f.id === 'triangle'
+          ? 'C’est un triangle : il a 3 côtés (ici, ses 3 côtés ont des longueurs différentes et il n’a pas d’angle droit).'
+          : `C’est ${f.un} : c’est ${definition(f)}.`,
       difficulty: f.niv === 'facile' ? 0.2 : 0.45,
       meta: metaFigure(f),
     });
   }
   if (forme === 'proprietes') {
     const f = rng.pick(auNiveau(level, FIGURES).filter((x) => x.cotes >= 3 && x.cotes <= 4));
-    const quoi = rng.pick(['anglesDroits', 'pairesParalleles', 'cotes'] as const);
+    const quoi = rng.pick(['anglesDroits', 'pairesParalleles'] as const);
     const n = f[quoi];
-    const txt = {
-      anglesDroits: 'angles droits',
-      pairesParalleles: 'paires de côtés parallèles',
-      cotes: 'côtés',
-    }[quoi];
-    const choix =
-      quoi === 'pairesParalleles'
-        ? ['0', '1', '2']
-        : quoi === 'cotes'
-          ? ['3', '4', '5', '6']
-          : ['0', '1', '2', '4'];
+    const txt = quoi === 'anglesDroits' ? 'angles droits' : 'paires de côtés parallèles';
+    const choix = quoi === 'pairesParalleles' ? ['0', '1', '2'] : ['0', '1', '2', '4'];
     return make(ctx, 'geometry_shape', `prop-${f.id}-${quoi}`, {
       prompt: `Combien ${quoi === 'anglesDroits' ? 'd’' : 'de '}${txt} ce ${f.nom} a-t-il ?`,
       task: 'proprietes',
       shape: f.id,
       choices: choix,
       answer: String(n),
-      explication: `${cap(f.un)}, c’est ${definition(f)} : il a ${f.cotes} côtés, ${f.anglesDroits} angle${f.anglesDroits > 1 ? 's' : ''} droit${f.anglesDroits > 1 ? 's' : ''} et ${f.pairesParalleles} paire${f.pairesParalleles > 1 ? 's' : ''} de côtés parallèles.`,
+      // On ne dit en général que ce qui est toujours vrai ; le reste concerne la figure dessinée.
+      explication: `${cap(f.un)}, c’est ${definition(f)}. Ce ${f.nom}-ci a ${f.anglesDroits} angle${f.anglesDroits > 1 ? 's' : ''} droit${f.anglesDroits > 1 ? 's' : ''} et ${f.pairesParalleles} paire${f.pairesParalleles > 1 ? 's' : ''} de côtés parallèles.`,
       difficulty: 0.45 + (quoi === 'pairesParalleles' ? 0.15 : 0),
       meta: metaFigure(f),
     });
   }
-  // Classification inclusive : « Ce carré est aussi… »
+  // Classification inclusive : la figure dessinée est-elle aussi… ? Les choix sont des raisons plausibles.
   const cas = rng.pick([
     {
       f: 'carre',
-      good: 'un rectangle',
-      e: 'Un carré a 4 angles droits : c’est donc aussi un rectangle (un rectangle particulier).',
+      q: 'Ce carré est-il aussi un rectangle ?',
+      good: 'oui, car il a 4 angles droits',
+      wrong: ['non, car ses 4 côtés ont la même longueur', 'non, un carré n’est jamais un rectangle'],
+      e: 'Un rectangle, c’est un quadrilatère qui a 4 angles droits : le carré en a 4, c’est donc un rectangle particulier.',
     },
     {
       f: 'carre',
-      good: 'un losange',
-      e: 'Un carré a 4 côtés de même longueur : c’est donc aussi un losange.',
+      q: 'Ce carré est-il aussi un losange ?',
+      good: 'oui, car ses 4 côtés ont la même longueur',
+      wrong: ['non, car il a des angles droits', 'non, un losange est toujours penché'],
+      e: 'Un losange, c’est un quadrilatère qui a 4 côtés de même longueur : le carré aussi, c’est donc un losange particulier.',
     },
     {
       f: 'triangle_equilateral',
-      good: 'un triangle isocèle',
-      e: 'Un triangle équilatéral a 3 côtés égaux, donc au moins 2 : il est aussi isocèle.',
+      q: 'Ce triangle équilatéral est-il aussi un triangle isocèle ?',
+      good: 'oui, car il a au moins 2 côtés de même longueur',
+      wrong: ['non, car ses 3 côtés sont égaux', 'non, un isocèle a exactement 2 côtés égaux'],
+      e: 'Un triangle isocèle a 2 côtés de même longueur ; l’équilatéral en a même 3 : il est donc aussi isocèle.',
+    },
+    {
+      f: 'rectangle',
+      q: 'Ce rectangle est-il aussi un carré ?',
+      good: 'non, car ses 4 côtés n’ont pas tous la même longueur',
+      wrong: ['oui, car il a 4 angles droits', 'oui, un rectangle est toujours un carré'],
+      e: 'Pour être un carré, il faut 4 angles droits ET 4 côtés de même longueur : ce rectangle-ci a des côtés de longueurs différentes.',
+    },
+    {
+      f: 'losange',
+      q: 'Ce losange est-il aussi un carré ?',
+      good: 'non, car il n’a pas d’angle droit',
+      wrong: ['oui, car ses 4 côtés ont la même longueur', 'oui, un losange est toujours un carré'],
+      e: 'Un carré doit avoir 4 côtés égaux ET 4 angles droits : ce losange-ci n’a pas d’angle droit.',
+    },
+    {
+      f: 'triangle_isocele',
+      q: 'Ce triangle isocèle est-il aussi un triangle équilatéral ?',
+      good: 'non, car seulement 2 de ses côtés ont la même longueur',
+      wrong: ['oui, car il a 2 côtés égaux', 'oui, un isocèle est toujours équilatéral'],
+      e: 'Un triangle équilatéral a ses 3 côtés égaux : celui-ci n’en a que 2.',
     },
   ]);
   const f = FIG[cas.f]!;
-  return make(ctx, 'geometry_shape', `inclusion-${cas.f}-${cas.good}`, {
-    prompt: `Ce ${f.nom} est aussi…`,
+  return make(ctx, 'geometry_shape', `inclusion-${cas.f}-${cas.q}`, {
+    prompt: cas.q,
     task: 'proprietes',
     shape: f.id,
-    choices: rng.shuffle([
-      cas.good,
-      'un pentagone',
-      'un hexagone',
-      cas.f === 'triangle_equilateral' ? 'un triangle rectangle' : 'un triangle',
-    ]),
+    choices: rng.shuffle([cas.good, ...cas.wrong]),
     answer: cas.good,
     explication: cas.e,
     difficulty: 0.75,
@@ -1023,10 +1080,14 @@ const figuresQcm: ItemGen = (level, rng, ctx) => {
   const nbIndices = parNiv(level, { facile: 4, normal: 4, plus_loin: 3 });
   const indices = f.indices.slice(f.indices.length - nbIndices);
   const exclus = new Set([f.id, ...(PROCHES[f.id] ?? [])]);
+  const possibles = figs.filter((x) => !exclus.has(x.id));
+  // Plus loin : des distracteurs de la même famille (un triangle parmi des triangles…) quand c’est possible.
+  const memeFamille = possibles.filter((x) => x.famille === f.famille);
+  const wrong = level === 'plus_loin' && memeFamille.length >= 2 ? memeFamille : possibles;
   return mcq(ctx, rng, `quisuisje-${f.id}-${nbIndices}`, {
     question: `Qui suis-je ? ${indices.join(' ')}`,
     good: f.nom,
-    wrong: figs.filter((x) => !exclus.has(x.id)).map((x) => x.nom),
+    wrong: wrong.map((x) => x.nom),
     explication: `C’est ${f.un} : c’est ${definition(f)}.`,
     difficulty: difNiv(f.niv) + (level === 'plus_loin' ? 0.1 : 0),
     hints: indices,
@@ -1161,9 +1222,14 @@ const figuresVraiFaux: ItemGen = (level, rng, ctx) => {
 /* CM2.MA.GEO.CONSTRUIRE                                               */
 /* ------------------------------------------------------------------ */
 
-type Prog = { figure: string; etapes: string[] };
+export type Prog = { figure: string; etapes: string[] };
 
-function programmes(level: Level, rng: Rng): Prog[] {
+/**
+ * Programmes de construction. L’ordre des étapes est UNIQUE : chaque étape (sauf la première) utilise ce
+ * que l’étape précédente vient de créer (un point nommé, « cette droite », « sans changer l’écartement »…).
+ * Le test `geometrie.test.ts` vérifie cette dépendance.
+ */
+export function programmes(level: Level, rng: Rng): Prog[] {
   const a = rng.int(4, 9);
   const b = rng.int(2, a - 1);
   const r = rng.int(2, 6);
@@ -1177,16 +1243,16 @@ function programmes(level: Level, rng: Rng): Prog[] {
         figure: `un cercle de rayon ${r} cm`,
         etapes: [
           `Écarte le compas de ${r} cm sur la règle graduée.`,
-          'Pique la pointe du compas sur le point O.',
-          'Tourne le compas pour tracer le cercle.',
+          'Sans changer l’écartement, pique la pointe du compas sur le point O.',
+          'Tourne le compas autour de O pour tracer le cercle.',
         ],
       },
       {
         figure: `le milieu d’un segment de ${2 * m} cm`,
         etapes: [
           `Trace le segment [AB] de ${2 * m} cm.`,
-          `À partir de A, mesure ${m} cm sur le segment.`,
-          'Marque le point M : c’est le milieu du segment [AB].',
+          `À partir de A, mesure ${m} cm sur le segment [AB] et marque le point M.`,
+          `Vérifie que M est aussi à ${m} cm de B : M est le milieu du segment [AB].`,
         ],
       },
       {
@@ -1204,7 +1270,7 @@ function programmes(level: Level, rng: Rng): Prog[] {
         etapes: [
           `Trace le segment [AB] de ${a} cm.`,
           'Avec l’équerre, trace en A et en B deux droites perpendiculaires au segment [AB].',
-          `Place C et D sur ces droites, du même côté, à ${a} cm de B et de A.`,
+          `Sur ces droites, du même côté du segment [AB], place C à ${a} cm de B et D à ${a} cm de A.`,
           'Trace le segment [CD].',
         ],
       },
@@ -1213,7 +1279,7 @@ function programmes(level: Level, rng: Rng): Prog[] {
         etapes: [
           `Trace le segment [AB] de ${a} cm.`,
           'Avec l’équerre, trace en A et en B deux droites perpendiculaires au segment [AB].',
-          `Place C et D sur ces droites, du même côté, à ${b} cm de B et de A.`,
+          `Sur ces droites, du même côté du segment [AB], place C à ${b} cm de B et D à ${b} cm de A.`,
           'Trace le segment [CD].',
         ],
       },
@@ -1222,8 +1288,8 @@ function programmes(level: Level, rng: Rng): Prog[] {
         etapes: [
           `Trace le segment [AB] de ${pair} cm.`,
           'Place le point O, milieu du segment [AB].',
-          `Écarte le compas de ${pair / 2} cm.`,
-          'Pique la pointe du compas sur O et trace le cercle.',
+          `Écarte le compas de O jusqu’à A (${pair / 2} cm).`,
+          'Sans changer l’écartement, pique la pointe du compas sur O et trace le cercle.',
         ],
       },
       {
@@ -1241,9 +1307,9 @@ function programmes(level: Level, rng: Rng): Prog[] {
         figure: 'un triangle isocèle',
         etapes: [
           `Trace le segment [AB] de ${a} cm.`,
-          `Écarte le compas de ${iso} cm.`,
-          'Trace un arc de cercle de centre A, puis un arc de cercle de centre B, sans changer l’écartement.',
-          'Appelle C un point où les deux arcs se coupent.',
+          `Pique le compas sur A, écarte-le de ${iso} cm et trace un arc de cercle.`,
+          'Sans changer l’écartement, trace un arc de cercle de centre B qui coupe le premier.',
+          'Appelle C le point où les deux arcs se coupent.',
           'Trace les segments [AC] et [BC].',
         ],
       },
@@ -1252,18 +1318,18 @@ function programmes(level: Level, rng: Rng): Prog[] {
         etapes: [
           `Trace le segment [AB] de ${pair} cm.`,
           `Avec l’équerre, trace les segments [AD] et [BC] de ${b} cm, perpendiculaires au segment [AB], du même côté.`,
-          'Trace le segment [DC] pour fermer le rectangle.',
-          'Place le point M, milieu du côté [AB].',
-          'Pique le compas sur A, écarte-le jusqu’à M et trace le cercle.',
+          'Trace le segment [DC] pour fermer le rectangle ABCD.',
+          'Place le point M, milieu du côté [DC] que tu viens de tracer.',
+          'Pique le compas sur D, écarte-le jusqu’à M et trace le cercle.',
         ],
       },
       {
         figure: 'un triangle équilatéral',
         etapes: [
           `Trace le segment [AB] de ${a} cm.`,
-          `Écarte le compas de ${a} cm, la longueur du segment [AB].`,
-          'Trace un arc de cercle de centre A, puis un arc de cercle de centre B, sans changer l’écartement.',
-          'Appelle C un point où les deux arcs se coupent.',
+          'Pique le compas sur A, écarte-le jusqu’à B et trace un arc de cercle.',
+          'Sans changer l’écartement, trace un arc de cercle de centre B qui coupe le premier.',
+          'Appelle C le point où les deux arcs se coupent.',
           'Trace les segments [AC] et [BC].',
         ],
       },
@@ -1329,33 +1395,39 @@ const INSTRUMENTS: QR[] = [
   },
 ];
 
+/** Rayon du cercle à tracer : facile = rayon entier donné ; normal = diamètre pair ; plus loin = diamètre impair. */
+function rayonCompas(level: Level, rng: Rng): { r: number; diam: boolean } {
+  if (level === 'facile') return { r: rng.int(2, 8), diam: false };
+  if (level === 'normal') return { r: rng.int(2, 8), diam: true };
+  return { r: rng.int(2, 8) + 0.5, diam: rng.chance(0.7) };
+}
+
 const construireQcm: ItemGen = (level, rng, ctx) => {
   const forme = parNiv(level, {
     facile: rng.pick(['instrument', 'instrument', 'ecart'] as const),
     normal: rng.pick(['instrument', 'figure', 'ecart', 'figure'] as const),
-    plus_loin: rng.pick(['manque', 'manque', 'figure', 'instrument'] as const),
+    plus_loin: rng.pick(['manque', 'manque', 'figure', 'ecart'] as const),
   });
   if (forme === 'ecart') {
-    const r = rng.int(2, 8);
-    const diam = level !== 'facile' && rng.chance(0.5);
+    // facile : rayon donné ; normal : diamètre pair ; plus loin : diamètre impair (rayon décimal)
+    const { r, diam } = rayonCompas(level, rng);
     return mcq(ctx, rng, `ecart-${diam}-${r}`, {
       question: diam
-        ? `Pour tracer un cercle de ${2 * r} cm de diamètre, de combien dois-je écarter mon compas ?`
-        : `Pour tracer un cercle de rayon ${r} cm, de combien dois-je écarter mon compas ?`,
-      good: `${r} cm`,
-      wrong: diam ? [`${2 * r} cm`, `${4 * r} cm`, `${r + 1} cm`] : [`${2 * r} cm`, `${r + 1} cm`],
+        ? `Pour tracer un cercle de ${fmt(2 * r)} cm de diamètre, de combien dois-je écarter mon compas ?`
+        : `Pour tracer un cercle de rayon ${fmt(r)} cm, de combien dois-je écarter mon compas ?`,
+      good: `${fmt(r)} cm`,
+      wrong: diam
+        ? [`${fmt(2 * r)} cm`, `${fmt(4 * r)} cm`, `${fmt(r + 1)} cm`]
+        : [`${fmt(2 * r)} cm`, `${fmt(r + 1)} cm`],
       explication: diam
-        ? `L’écartement du compas, c’est le rayon : la moitié du diamètre, ${2 * r} : 2 = ${r} cm.`
-        : `L’écartement du compas, c’est le rayon : ${r} cm.`,
-      difficulty: diam ? 0.5 : 0.3,
+        ? `L’écartement du compas, c’est le rayon : la moitié du diamètre, ${fmt(2 * r)} ÷ 2 = ${fmt(r)} cm.`
+        : `L’écartement du compas, c’est le rayon : ${fmt(r)} cm.`,
+      difficulty: level === 'facile' ? 0.3 : level === 'normal' ? 0.5 : 0.7,
       max: level === 'facile' ? 3 : 4,
     });
   }
   if (forme === 'figure') {
-    const progs = [
-      ...programmes('normal', rng),
-      ...(level === 'plus_loin' ? programmes('plus_loin', rng) : []),
-    ];
+    const progs = level === 'plus_loin' ? programmes('plus_loin', rng) : programmes('normal', rng);
     const prog = rng.pick(progs.filter((p) => !p.figure.includes(' et ')));
     const nomFig = prog.figure.replace(/ (de|sur) .*$/, '').replace(/ \d.*$/, '');
     return mcq(ctx, rng, `figure-${prog.etapes.join('|')}`, {
@@ -1396,7 +1468,7 @@ const construireQcm: ItemGen = (level, rng, ctx) => {
       difficulty: 0.75,
     });
   }
-  const q = rng.pick(auNiveau(level, INSTRUMENTS));
+  const q = rng.pick(duNiveau(level, INSTRUMENTS));
   return mcq(ctx, rng, `instr-${q.q}`, {
     question: q.q,
     good: q.g,
@@ -1506,17 +1578,16 @@ const construireShape: ItemGen = (level, rng, ctx) => {
 
 const construireVraiFaux: ItemGen = (level, rng, ctx) => {
   if (rng.chance(0.5)) {
-    const r = rng.int(2, 7);
+    const { r, diam } = rayonCompas(level, rng);
     const juste = rng.chance(0.5);
-    const diam = level !== 'facile' && rng.chance(0.5);
     const montre = juste ? r : 2 * r;
     return vraiFaux(ctx, `vf-compas-${diam}-${r}-${montre}`, {
       statement: diam
-        ? `Pour tracer un cercle de ${2 * r} cm de diamètre, j’écarte mon compas de ${montre} cm.`
-        : `Pour tracer un cercle de rayon ${r} cm, j’écarte mon compas de ${montre} cm.`,
+        ? `Pour tracer un cercle de ${fmt(2 * r)} cm de diamètre, j’écarte mon compas de ${fmt(montre)} cm.`
+        : `Pour tracer un cercle de rayon ${fmt(r)} cm, j’écarte mon compas de ${fmt(montre)} cm.`,
       answer: montre === r,
-      explication: `L’écartement du compas est égal au rayon${diam ? ', la moitié du diamètre' : ''} : ${r} cm.`,
-      difficulty: diam ? 0.5 : 0.3,
+      explication: `L’écartement du compas est égal au rayon${diam ? ', la moitié du diamètre' : ''} : ${fmt(r)} cm.`,
+      difficulty: level === 'facile' ? 0.3 : level === 'normal' ? 0.5 : 0.7,
     });
   }
   const pool: VF[] = [
@@ -1628,7 +1699,10 @@ const symetrieShape: ItemGen = (level, rng, ctx) => {
     normal: rng.pick(['vertical', 'horizontal', 'diagonale'] as Axe[]),
     plus_loin: rng.pick(['vertical', 'horizontal', 'diagonale', 'anti-diagonale'] as Axe[]),
   });
-  const cheval = level === 'plus_loin' && rng.chance(0.5);
+  // Plus loin : figure à cheval sur l’axe (toujours pour les axes vertical et horizontal, déjà vus avant).
+  const cheval =
+    level === 'plus_loin' &&
+    (axe === 'vertical' || axe === 'horizontal' || rng.chance(axe === 'diagonale' ? 0.5 : 0.4));
   const k = parNiv(level, { facile: rng.int(3, 4), normal: rng.int(4, 6), plus_loin: rng.int(6, 9) });
   const diag = axe === 'diagonale' || axe === 'anti-diagonale';
   const [cols, rows] = diag
@@ -1801,9 +1875,19 @@ const AXES: { fig: string; n: string; e: string; niv: Level }[] = [
 const CHOIX_AXES = ['0', '1', '2', '3', '4', '5', '6', 'une infinité'];
 
 const symetrieQcm: ItemGen = (level, rng, ctx) => {
-  if (level === 'facile' || rng.chance(0.35)) {
+  if (level === 'plus_loin' && rng.chance(0.4)) {
+    const k = rng.int(2, 9);
+    return mcq(ctx, rng, `ecart-${k}`, {
+      question: `Le point A est à ${carreaux(k)} de l’axe de symétrie. Combien de carreaux séparent A de son symétrique A’ ?`,
+      good: carreaux(2 * k),
+      wrong: [carreaux(k), carreaux(2 * k + 1), carreaux(k + 2), carreaux(4 * k)],
+      explication: `A’ est de l’autre côté de l’axe, lui aussi à ${carreaux(k)} : entre A et A’, il y a ${k} + ${k} = ${carreaux(2 * k)}.`,
+      difficulty: 0.75,
+    });
+  }
+  if (level === 'facile' || (level === 'normal' && rng.chance(0.35))) {
     const k = rng.int(1, 6);
-    const vertical = level === 'facile' || rng.chance(0.5);
+    const vertical = level === 'facile';
     const [ici, la] = vertical ? ['à gauche', 'à droite'] : ['au-dessus', 'en dessous'];
     return mcq(ctx, rng, `point-${vertical}-${k}`, {
       question: `Le point A est à ${carreaux(k)} ${ici} de l’axe de symétrie ${vertical ? 'vertical' : 'horizontal'}. Où est son symétrique ?`,
@@ -1819,7 +1903,7 @@ const symetrieQcm: ItemGen = (level, rng, ctx) => {
       max: level === 'facile' ? 3 : 4,
     });
   }
-  const a = rng.pick(auNiveau(level, AXES));
+  const a = rng.pick(duNiveau(level, AXES));
   return mcq(ctx, rng, `axes-${a.fig}`, {
     question: `Combien d’axes de symétrie a ${a.fig} ?`,
     good: a.n,
@@ -1897,6 +1981,8 @@ const symetrieClasser: ItemGen = (level, rng, ctx) => {
     explication:
       'Une lettre a un axe de symétrie si on peut la plier en deux moitiés qui se superposent : A a un axe vertical, B un axe horizontal, H les deux, F aucun.',
     difficulty: level === 'facile' ? 0.3 : 0.55,
+    // Le classement suppose des majuscules en police bâton (sans empattements).
+    meta: { police: 'baton' },
   });
 };
 
@@ -1946,7 +2032,7 @@ const VF_SYMETRIE: VF[] = [
   {
     s: 'Un point situé sur l’axe de symétrie est son propre symétrique.',
     v: true,
-    e: 'Il est à une distance nulle de l’axe : il ne bouge pas.',
+    e: 'Il est à 0 carreau de l’axe : son symétrique est lui-même, il ne bouge pas.',
     niv: 'plus_loin',
   },
   {
@@ -1967,11 +2053,23 @@ const symetrieVraiFaux: ItemGen = (level, rng, ctx) => {
   if (rng.chance(0.4)) {
     const k = rng.int(1, 7);
     const juste = rng.chance(0.5);
+    if (level === 'plus_loin') {
+      const m = juste
+        ? 2 * k
+        : rng.pick([k, 2 * k + 1, 2 * k - 1, k + 2].filter((x) => x !== 2 * k && x > 0));
+      return vraiFaux(ctx, `vf-ecart-${k}-${m}`, {
+        statement: `Le point A est à ${carreaux(k)} de l’axe de symétrie. A et son symétrique A’ sont à ${carreaux(m)} l’un de l’autre.`,
+        answer: m === 2 * k,
+        explication: `A et A’ sont chacun à ${carreaux(k)} de l’axe, de part et d’autre : ils sont à ${k} + ${k} = ${carreaux(2 * k)} l’un de l’autre.`,
+        difficulty: 0.7,
+      });
+    }
     const m = juste ? k : rng.pick([k + 1, k + 2, 2 * k, Math.max(0, k - 1)].filter((x) => x !== k));
     const vertical = level === 'facile' || rng.chance(0.5);
     const [ici, la] = vertical ? ['à gauche', 'à droite'] : ['au-dessus', 'en dessous'];
+    const nomAxe = vertical ? 'l’axe vertical' : 'l’axe horizontal';
     return vraiFaux(ctx, `vf-dist-${vertical}-${k}-${m}`, {
-      statement: `Le point A est à ${carreaux(k)} ${ici} de l’axe. Son symétrique A’ est à ${carreaux(m)} ${la} de l’axe.`,
+      statement: `Le point A est à ${carreaux(k)} ${ici} de ${nomAxe}. Son symétrique A’ est à ${carreaux(m)} ${la} de ${nomAxe}.`,
       answer: m === k,
       explication: `Un point et son symétrique sont à la même distance de l’axe : A’ est à ${carreaux(k)} ${la}.`,
       difficulty: 0.35,

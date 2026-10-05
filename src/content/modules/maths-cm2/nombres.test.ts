@@ -3,8 +3,20 @@
  */
 import { describe, expect, it } from 'vitest';
 import { graphiesNombre, nombreEnLettres } from '@/engine/nombres';
-import { LEVELS } from '../../schemas';
-import { num, symb, tiragesDe } from './testkit';
+import { type ItemKind, LEVELS } from '../../schemas';
+import { contenu } from './index';
+import { cle, num, symb, tirages, tiragesDe } from './testkit';
+
+/** Graphies acceptées d'un nombre, milliards compris (« douze milliards cinq-cents-millions »). */
+function graphies(n: number): string[] {
+  const g = Math.floor(n / 1e9);
+  if (!g) return graphiesNombre(n);
+  const reste = n % 1e9;
+  return (['rectifiee', 'traditionnelle'] as const).map(
+    (st) =>
+      `${nombreEnLettres(g, st)} milliard${g > 1 ? 's' : ''}${reste ? ` ${nombreEnLettres(reste, st)}` : ''}`,
+  );
+}
 
 const RANGS: Record<string, number> = {
   unité: 0,
@@ -81,21 +93,21 @@ describe('CM2.MA.NUM.GRANDS', () => {
     for (const level of LEVELS) {
       for (const it of tiragesDe(L, 'fill_blank', level)) {
         const n = num(it.sentence.split(' s’écrit')[0]!);
-        expect(it.answer).toBe(nombreEnLettres(n));
-        for (const c of it.choices ?? []) if (c !== it.answer) expect(graphiesNombre(n)).not.toContain(c);
+        expect(graphies(n)[0]).toBe(it.answer);
+        for (const c of it.choices ?? []) if (c !== it.answer) expect(graphies(n)).not.toContain(c);
       }
       for (const it of tiragesDe(L, 'mcq', level)) {
         const good = it.choices[it.answerIndex]!;
         let m = it.question.match(/^Comment s’écrit (.+) en lettres/);
         if (m) {
           const n = num(m[1]!);
-          expect(good).toBe(nombreEnLettres(n));
-          for (const c of it.choices) if (c !== good) expect(graphiesNombre(n)).not.toContain(c);
+          expect(good).toBe(graphies(n)[0]);
+          for (const c of it.choices) if (c !== good) expect(graphies(n)).not.toContain(c);
           continue;
         }
         m = it.question.match(/^Quel nombre s’écrit « (.+) » \?/);
         if (m) {
-          expect(graphiesNombre(num(good))).toContain(m[1]);
+          expect(graphies(num(good))).toContain(m[1]);
           continue;
         }
         m = it.question.match(/^Quel est le chiffre (?:des|du) (.+) dans (.+) \?$/);
@@ -356,10 +368,45 @@ describe('CM2.MA.NUM.DIVISIBILITE', () => {
         const x = Number(m![1]);
         expect(it.answer).toBe(Number(m![2]) % x === 0 && Number(m![3]) % x === 0);
       }
-      for (const it of tiragesDe(L, 'ordering', level)) {
-        const n = Number(it.prompt.match(/diviseurs de (\d+)/)![1]);
-        expect(it.elements.map(Number)).toEqual(diviseurs(n));
-      }
+      for (const it of tiragesDe(L, 'pairing', level))
+        for (const { left, right } of it.pairs) {
+          if (level === 'facile') {
+            const x = num(left);
+            const k = x % 10 === 0 ? 0 : x % 5 === 0 ? 1 : x % 2 === 0 ? 2 : 3;
+            expect(right).toBe(
+              [
+                'divisible par 10',
+                'divisible par 5, pas par 10',
+                'divisible par 2, pas par 10',
+                'ni par 2 ni par 5',
+              ][k],
+            );
+          } else if (level === 'normal') expect(diviseurs(Number(left))[1]).toBe(Number(right));
+          else {
+            const [x, y] = left.split(' et ').map(Number);
+            expect(pgcd(x!, y!)).toBe(Number(right));
+          }
+        }
     }
+  });
+});
+
+describe('niveaux disjoints', () => {
+  it('un même item n’apparaît pas à deux niveaux', () => {
+    for (const id of ['CM2.MA.NUM.GRANDS', 'CM2.MA.NUM.COMPARER', 'CM2.MA.NUM.DIVISIBILITE'])
+      for (const k of Object.keys(contenu[id]!.gens!)) {
+        const par = LEVELS.map((l) => new Set(tirages(id, k as ItemKind, l, 200, 5).map(cle)));
+        for (let i = 0; i < 3; i++)
+          for (let j = i + 1; j < 3; j++) {
+            const communs = [...par[i]!].filter((c) => par[j]!.has(c));
+            expect(communs, `${id} ${k} ${LEVELS[i]}/${LEVELS[j]}`).toEqual([]);
+          }
+      }
+  });
+
+  it('le niveau plus loin dépasse le milliard pour les grands nombres', () => {
+    for (const k of ['numeric_answer', 'fill_blank', 'oral_answer'] as const)
+      for (const it of tirages('CM2.MA.NUM.GRANDS', k, 'plus_loin', 100, 3))
+        expect(JSON.stringify(it), it.id).toMatch(/milliard|\d{1,3}(?:\u00a0\d{3}){3}/);
   });
 });

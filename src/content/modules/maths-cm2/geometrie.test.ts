@@ -4,7 +4,9 @@
  * simulés, y compris les boucles).
  */
 import { describe, expect, it } from 'vitest';
+import { createRng } from '@/engine/rng';
 import { LEVELS, type Level } from '../../schemas';
+import { programmes } from './geometrie';
 import { tiragesDe } from './testkit';
 
 type P = [number, number];
@@ -353,15 +355,21 @@ describe('géométrie CM2 — symétrie', () => {
         const good = it.choices[it.answerIndex]!;
         if (it.question.startsWith('Combien'))
           expect(good).toBe(AXES.find(([re]) => re.test(it.question))![1]);
-        else {
+        else if (it.question.includes('séparent')) {
+          const n = Number(it.question.match(/à (\d+) carreau/)![1]);
+          expect(good).toBe(`${2 * n} carreaux`);
+        } else {
           const n = it.question.match(/à (\d+) carreau/)![1];
           expect(good.startsWith(`à ${n} carreau`)).toBe(true);
           expect(good).toMatch(/à droite|en dessous/);
+          if (level === 'facile') expect(it.question).toContain('vertical');
         }
       }
       for (const it of tiragesDe('CM2.MA.GEO.SYMETRIE', 'true_false', level)) {
         const m = [...it.statement.matchAll(/à (\d+) carreau/g)].map((x) => x[1]);
-        if (m.length === 2) expect(it.answer).toBe(m[0] === m[1]);
+        if (m.length === 2 && it.statement.includes('l’un de l’autre'))
+          expect(it.answer).toBe(Number(m[1]) === 2 * Number(m[0]));
+        else if (m.length === 2) expect(it.answer).toBe(m[0] === m[1]);
       }
     }
   });
@@ -426,11 +434,46 @@ describe('géométrie CM2 — figures et constructions', () => {
         expect(it.elements[0]).toMatch(/^(Trace|Écarte)/);
       }
       for (const it of tiragesDe('CM2.MA.GEO.CONSTRUIRE', 'mcq', level)) {
+        if (it.question.startsWith('Il manque')) {
+          // Le bon choix est le seul qui commence comme lui : aucune autre étape « presque pareille »
+          const debut = (e: string) => e.split(' ').slice(0, 3).join(' ');
+          const good = it.choices[it.answerIndex]!;
+          for (const c of it.choices) if (c !== good) expect(debut(c)).not.toBe(debut(good));
+        }
         const m = it.question.match(/cercle de (\d+) cm de diamètre, de combien/);
-        if (m) expect(it.choices[it.answerIndex]).toBe(`${Number(m[1]) / 2} cm`);
+        if (m) expect(it.choices[it.answerIndex]).toBe(`${String(Number(m[1]) / 2).replace('.', ',')} cm`);
         const r = it.question.match(/cercle de rayon (\d+) cm, de combien/);
         if (r) expect(it.choices[it.answerIndex]).toBe(`${r[1]} cm`);
       }
     }
+  });
+
+  it('programmes de construction : l’ordre est unique (chaque étape dépend de la précédente)', () => {
+    // Une étape dépend de la précédente si elle utilise un point que celle-ci vient de créer,
+    // ou une formule qui y renvoie (« cette droite », « sans changer l’écartement »…).
+    const RENVOIS = [
+      'Sans changer',
+      'cette droite',
+      'ces droites',
+      'les deux arcs',
+      'que tu viens de tracer',
+      'pour fermer',
+    ];
+    // Points nommés : « A », ou les lettres d’un segment « [AB] » / d’un polygone « ABCD »
+    const points = (e: string) =>
+      new Set((e.match(/\b[A-DMO]+\b/g) ?? []).flatMap((m) => (/^[A-DMO]+$/.test(m) ? [...m] : [])));
+    for (const level of LEVELS)
+      for (let graine = 1; graine <= 20; graine++)
+        for (const prog of programmes(level, createRng(graine))) {
+          const vus = new Set<string>();
+          prog.etapes.forEach((e, i) => {
+            if (i > 0) {
+              const nouveaux = [...points(prog.etapes[i - 1]!)].filter((p) => !vus.has(p));
+              const ok = RENVOIS.some((r) => e.includes(r)) || nouveaux.some((p) => points(e).has(p));
+              expect(ok, `${prog.figure} : étape ${i + 1} « ${e} »`).toBe(true);
+              for (const p of points(prog.etapes[i - 1]!)) vus.add(p);
+            }
+          });
+        }
   });
 });
