@@ -5,7 +5,7 @@
  * point d'exclamation (elle s'exclame). Une bonne réponse fait passer une voiture.
  * Facile : la phrase est écrite, aide-mémoire sous chaque feu, écoutes illimitées.
  * Normal : on écoute d'abord ; « Voir la phrase » en indice. Plus loin : 2 écoutes, feu chronométré.
- * Clavier : touches . ? ! ou 1 2 3 ; R = réécouter.
+ * Clavier : touches . ? ! ou 1 2 3 ; R = réécouter.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Eye, Volume2 } from 'lucide-react';
@@ -166,7 +166,7 @@ export default function FeuPonctuation({ level, stream, paused, onAnswer, onEnd,
       sfx.play('fanfare');
       session.end({
         won: voitures >= Math.ceil(total * 0.6),
-        headline: `${voitures} voiture${voitures > 1 ? 's' : ''} passée${voitures > 1 ? 's' : ''} au feu !`,
+        headline: `${voitures} voiture${voitures > 1 ? 's' : ''} passée${voitures > 1 ? 's' : ''} au feu !`,
         delayMs: 900,
       });
       return;
@@ -206,7 +206,7 @@ export default function FeuPonctuation({ level, stream, paused, onAnswer, onEnd,
     return (
       <PasDExercice
         texte="Cette leçon n’a pas de phrases à ponctuer à l’oreille."
-        onFin={() => session.end({ won: false, headline: 'À bientôt !', delayMs: 0 })}
+        onFin={() => session.end({ won: false, headline: 'À bientôt !', delayMs: 0 })}
       />
     );
   }
@@ -217,7 +217,7 @@ export default function FeuPonctuation({ level, stream, paused, onAnswer, onEnd,
     <div className="mx-auto flex max-w-6xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6 lg:flex-row">
       <section
         className="relative overflow-hidden rounded-card border-4 border-white shadow-soft lg:w-[44%] lg:self-start"
-        aria-label={etat === 'juste' ? 'La voiture passe au feu !' : 'La voiture attend au feu'}
+        aria-label={etat === 'juste' ? 'La voiture passe au feu !' : 'La voiture attend au feu'}
       >
         <Route passe={etat === 'juste'} allume={etat === 'question' ? null : choisi} reduite={reduite} />
         <div className="absolute left-2 top-2 flex gap-2">
@@ -336,10 +336,10 @@ export default function FeuPonctuation({ level, stream, paused, onAnswer, onEnd,
                 onContinue={suivant}
                 message={
                   etat === 'juste'
-                    ? 'Feu vert pour la voiture ! 🚗'
+                    ? 'Feu vert pour la voiture ! 🚗'
                     : choisi
-                      ? 'Presque ! Réécoute la fin de la phrase.'
-                      : 'Le feu a changé ! On réessaie à la prochaine.'
+                      ? 'Presque ! Réécoute la fin de la phrase.'
+                      : 'Le feu a changé ! On réessaie à la prochaine.'
                 }
               />
             </motion.div>

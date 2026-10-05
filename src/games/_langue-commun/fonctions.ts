@@ -18,7 +18,7 @@ export interface PhraseLabo {
   item: ClassificationItem;
   phrase: string;
   segments: Segment[];
-  /** Ponctuation finale (« . », « ! »…). */
+  /** Ponctuation finale (« . », « ! »…). */
   finale: string;
   /** Pour chaque groupe (même ordre que `item.elements`) : index du segment dans la phrase. */
   segmentDuGroupe: number[];
@@ -117,6 +117,25 @@ export function versLabo(item: Item): PhraseLabo | null {
 }
 
 export type Manipulation = 'supprimer' | 'deplacer' | 'encadrer' | 'remplacer';
+
+/**
+ * Astuce de méthode (manipulations syntaxiques du BO) selon le nom de la fonction à trouver.
+ * Ce n'est pas un contenu d'exercice : c'est la « boîte à outils » du chercheur, commune à toutes les phrases.
+ */
+export function astuceFonction(categorie: string): string | null {
+  const c = categorie.toLowerCase();
+  if (/attribut/.test(c))
+    return 'Après un verbe d’état (être, sembler, devenir, paraître…), le groupe qui dit comment est le sujet est un attribut : on peut remplacer le verbe par « être ».';
+  if (/sujet/.test(c)) return 'Le sujet s’encadre par « c’est… qui » et on ne peut pas le supprimer.';
+  if (/coi|indirect/.test(c))
+    return 'Le COI est relié au verbe par une préposition (à, de…) : on ne peut ni le déplacer ni, souvent, le supprimer.';
+  if (/cod|direct/.test(c))
+    return 'Le COD suit le verbe sans préposition : on ne peut pas le déplacer en tête de phrase.';
+  if (/cc|circonstanciel/.test(c))
+    return 'Le complément circonstanciel se déplace et se supprime : la phrase reste correcte.';
+  if (/verbe/.test(c)) return 'Le verbe change de forme quand on change le temps de la phrase (hier, demain).';
+  return null;
+}
 
 /** Phrase de départ, telle qu'affichée. */
 export const phraseInitiale = (p: PhraseLabo) => `${p.phrase}${p.finale}`;

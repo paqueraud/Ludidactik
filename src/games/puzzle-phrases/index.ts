@@ -6,9 +6,9 @@ const jeu: GameModule = {
   id: 'puzzle-phrases',
   numero: 42,
   titre: 'Le Puzzle de phrases',
-  description: 'Remets les étiquettes-mots dans l’ordre et choisis la ponctuation : chaque phrase juste dévoile un morceau du tableau !',
+  description: 'Remets les étiquettes-mots dans l’ordre et choisis la ponctuation : chaque phrase juste dévoile un morceau du tableau !',
   consigne:
-    'Touche les étiquettes dans l’ordre pour construire la phrase. Pour enlever un mot, touche-le dans la phrase. N’oublie pas la ponctuation à la fin, puis vérifie !',
+    'Touche les étiquettes dans l’ordre pour construire la phrase. Pour enlever un mot, touche-le dans la phrase. N’oublie pas la ponctuation à la fin, puis vérifie !',
   icone: '🧩',
   couleur: 'from-grape to-sky',
   modalites: ['manipuler', 'regarder'],

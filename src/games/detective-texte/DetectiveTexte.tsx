@@ -140,7 +140,7 @@ export default function DetectiveTexte({
       session.end({
         won: reussi,
         headline: reussi
-          ? `Enquête résolue ! ${preuves} preuve${preuves > 1 ? 's' : ''} trouvée${preuves > 1 ? 's' : ''} 🔎`
+          ? `Enquête résolue ! ${preuves} preuve${preuves > 1 ? 's' : ''} trouvée${preuves > 1 ? 's' : ''} 🔎`
           : `${justes} bonne${justes > 1 ? 's' : ''} réponse${justes > 1 ? 's' : ''} sur ${total}`,
         score: score.current,
         delayMs: 900,
@@ -166,7 +166,7 @@ export default function DetectiveTexte({
     return (
       <PasDExercice
         texte="Il faut des textes avec leurs questions pour mener l’enquête."
-        onFin={() => session.end({ won: false, headline: 'À bientôt !', delayMs: 0 })}
+        onFin={() => session.end({ won: false, headline: 'À bientôt !', delayMs: 0 })}
       />
     );
   }
@@ -204,7 +204,7 @@ export default function DetectiveTexte({
             <span className="text-5xl" aria-hidden>
               🎧
             </span>
-            <p className="font-bold">Le texte est caché : écoute-le avec le haut-parleur jaune !</p>
+            <p className="font-bold">Le texte est caché : écoute-le avec le haut-parleur jaune !</p>
           </div>
         ) : (
           <p className="text-lg leading-relaxed sm:text-xl" aria-live="off">
@@ -298,7 +298,7 @@ export default function DetectiveTexte({
               className="w-full rounded-2xl bg-grass/15 p-4 text-center"
               role="status"
             >
-              <p className="font-titre text-xl font-extrabold text-grass-dark">Bonne réponse !</p>
+              <p className="font-titre text-xl font-extrabold text-grass-dark">Bonne réponse !</p>
               <p className="mt-1 font-bold">
                 Un vrai détective le prouve : touche, dans le texte, la phrase qui donne la réponse.
               </p>
@@ -312,14 +312,14 @@ export default function DetectiveTexte({
               {preuveRatee ? (
                 <Feedback
                   state="faux"
-                  message="Ta réponse est juste ! La preuve était dans la phrase en jaune."
+                  message="Ta réponse est juste ! La preuve était dans la phrase en jaune."
                   explication={q.item.explication}
                   onContinue={suivant}
                 />
               ) : (
                 <Feedback
                   state="juste"
-                  message={phraseTouchee === q.preuve && phraseTouchee !== null ? 'Preuve trouvée, bravo détective ! 🔎' : 'Bravo !'}
+                  message={phraseTouchee === q.preuve && phraseTouchee !== null ? 'Preuve trouvée, bravo détective ! 🔎' : 'Bravo !'}
                 />
               )}
             </motion.div>
@@ -333,7 +333,7 @@ export default function DetectiveTexte({
                   q.preuve >= 0 ? `${q.item.explication} Relis la phrase en jaune dans le texte.` : q.item.explication
                 }
                 onContinue={suivant}
-                message="Presque !"
+                message="Presque !"
               />
             </motion.div>
           )}

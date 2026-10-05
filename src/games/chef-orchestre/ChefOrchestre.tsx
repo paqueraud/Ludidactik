@@ -177,7 +177,7 @@ export default function ChefOrchestre({
       const reussi = justes >= Math.ceil(total * 0.6);
       session.end({
         won: reussi,
-        headline: reussi ? 'Bravo maestro ! L’orchestre a joué juste ! 🎼' : `${justes} notes bien rangées sur ${total} !`,
+        headline: reussi ? 'Bravo maestro ! L’orchestre a joué juste ! 🎼' : `${justes} notes bien rangées sur ${total} !`,
         delayMs: 900,
       });
       return;
@@ -207,7 +207,7 @@ export default function ChefOrchestre({
     return (
       <PasDExercice
         texte="Cette leçon n’a pas de mots à ranger dans des catégories."
-        onFin={() => session.end({ won: false, headline: 'À bientôt !', delayMs: 0 })}
+        onFin={() => session.end({ won: false, headline: 'À bientôt !', delayMs: 0 })}
       />
     );
   }
@@ -274,7 +274,7 @@ export default function ChefOrchestre({
           </div>
           {etat === 'reessai' && (
             <p className="absolute inset-x-0 bottom-1 text-center font-bold text-sun" role="status">
-              Presque ! Essaie un autre pupitre.
+              Presque ! Essaie un autre pupitre.
             </p>
           )}
         </div>
@@ -354,7 +354,7 @@ export default function ChefOrchestre({
 
       <Correction
         ouvert={etat === 'faux'}
-        titre={choisi === null ? 'La note est tombée !' : 'Presque !'}
+        titre={choisi === null ? 'La note est tombée !' : 'Presque !'}
         bonne={`« ${note.label} » va sur le pupitre « ${item.categories[note.categorie]} ».`}
         explication={item.explication}
         onContinuer={suivant}

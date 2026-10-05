@@ -81,16 +81,16 @@ function Rouleau({
 
 function verifier(q: QuestionForge, donne: string): { juste: boolean; message: string } {
   const d = normalizeText(donne);
-  if (!d) return { juste: false, message: 'Presque !' };
+  if (!d) return { juste: false, message: 'Presque !' };
   let accent = false;
   for (const a of q.acceptees) {
     const r = checkSpelling(d, a);
-    if (r.correct) return { juste: true, message: 'Bravo !' };
+    if (r.correct) return { juste: true, message: 'Bravo !' };
     if (r.verdict === 'accent') accent = true;
   }
   return {
     juste: false,
-    message: accent ? 'Presque ! Toutes les lettres sont là, mais attention à l’accent.' : 'Presque ! Regarde bien la forme.',
+    message: accent ? 'Presque ! Toutes les lettres sont là, mais attention à l’accent.' : 'Presque ! Regarde bien la forme.',
   };
 }
 
@@ -188,7 +188,7 @@ export default function ForgeVerbe({
       const v = verifier(q, valeur);
       session.answer(q.item, v.juste, valeur || '(temps écoulé)', q.reponse);
       setDonne(valeur);
-      setMessage(tempsEcoule && !valeur.trim() ? 'Le métal a refroidi ! On réessaie au prochain tour.' : v.message);
+      setMessage(tempsEcoule && !valeur.trim() ? 'Le métal a refroidi ! On réessaie au prochain tour.' : v.message);
       if (v.juste) {
         sfx.play('piece');
         setPieces((p) => p + 1);
@@ -218,8 +218,8 @@ export default function ForgeVerbe({
         won: pieces >= Math.ceil(total * 0.6),
         headline:
           pieces >= PIECES.length
-            ? 'Ton chevalier a toute son armure ! ⚔️'
-            : `${pieces} pièce${pieces > 1 ? 's' : ''} d’armure forgée${pieces > 1 ? 's' : ''} !`,
+            ? 'Ton chevalier a toute son armure ! ⚔️'
+            : `${pieces} pièce${pieces > 1 ? 's' : ''} d’armure forgée${pieces > 1 ? 's' : ''} !`,
         delayMs: 900,
       });
       return;
@@ -252,7 +252,7 @@ export default function ForgeVerbe({
     return (
       <PasDExercice
         texte="Cette leçon n’a pas de verbes à conjuguer pour la forge."
-        onFin={() => session.end({ won: false, headline: 'À bientôt !', delayMs: 0 })}
+        onFin={() => session.end({ won: false, headline: 'À bientôt !', delayMs: 0 })}
       />
     );
   }
@@ -356,7 +356,7 @@ export default function ForgeVerbe({
           {etat === 'juste' && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center gap-2" role="status">
               <p className="font-titre text-2xl font-extrabold text-grass-dark">
-                Forgé ! {pieces <= PIECES.length ? `Nouvelle pièce : ${PIECES[pieces - 1]} 🛡️` : 'Ton chevalier brille ! ✨'}
+                Forgé ! {pieces <= PIECES.length ? `Nouvelle pièce : ${PIECES[pieces - 1]} 🛡️` : 'Ton chevalier brille ! ✨'}
               </p>
               {couleurs && morceaux && <FormeColoree morceaux={morceaux} sujet={q.sujet} />}
             </motion.div>
