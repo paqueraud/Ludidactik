@@ -748,6 +748,17 @@ function division(a: number, b: number, decQ: number): Disposition {
 
 /* ------------------------------------------------------------------ */
 
+/** Décale toute la disposition de `k` colonnes vers la droite (place pour le signe « − » de la division). */
+function decaler(d: Disposition, k: number): Disposition {
+  return {
+    ...d,
+    colonnes: d.colonnes + k,
+    cellules: d.cellules.map((c) => ({ ...c, col: c.col + k })),
+    traits: d.traits.map((t) => ({ ...t, col0: t.col0 + k, col1: t.col1 + k })),
+    etapes: d.etapes.map((e) => ({ ...e, col: e.col + k })),
+  };
+}
+
 /** Disposition complète d'une opération posée. */
 export function disposer(p: Posee): Disposition {
   const [a, b] = p.termes as [number, number];
@@ -759,7 +770,7 @@ export function disposer(p: Posee): Disposition {
     case '×':
       return multiplication(a, b);
     case '÷':
-      return division(a, b, p.decimalesQuotient);
+      return decaler(division(a, b, p.decimalesQuotient), 1);
   }
 }
 
