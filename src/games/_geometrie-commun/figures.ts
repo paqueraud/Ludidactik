@@ -81,6 +81,28 @@ const TYPES: Record<string, Dessin> = {
   },
 };
 
+const poly = (...points: P[]): Dessin => ({ type: 'polygone', points });
+Object.assign(TYPES, {
+  triangle_isocele: poly([0, 4], [6, 4], [3, 0]),
+  triangle_equilateral: poly([0, 5.2], [6, 5.2], [3, 0]),
+  trapeze: poly([1, 0], [5, 0], [7, 3], [0, 3]),
+  trapeze_rectangle: poly([0, 0], [4, 0], [6, 3], [0, 3]),
+  pentagone: poly([3, 0], [5.9, 2.1], [4.8, 5.4], [1.2, 5.4], [0.1, 2.1]),
+  hexagone: poly([1.5, 0], [4.5, 0], [6, 2.6], [4.5, 5.2], [1.5, 5.2], [0, 2.6]),
+});
+
+/** Nom d'une figure (« triangle rectangle ») → dessin type, pour les étiquettes à classer. */
+export function dessinDuNom(nom: string): Dessin | null {
+  const id = nom
+    .toLowerCase()
+    .replace(/^(un|une|le|la|l’|l')\s*/, '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .trim()
+    .replace(/\s+/g, '_');
+  return TYPES[id] ?? null;
+}
+
 const estPoint = (v: unknown): v is P =>
   Array.isArray(v) && v.length === 2 && v.every((n) => typeof n === 'number' && Number.isFinite(n));
 
