@@ -134,7 +134,8 @@ export function CarteSvg({
         const etat = etats[z.id];
         const estFocus = focus === z.id;
         const ocean = carte.dessous?.includes(z.id);
-        const fill = etat ? COULEUR_ETAT[etat] : (z.couleur ?? carte.terre);
+        // au clavier, la zone sélectionnée s'éclaire (visible même pour un océan sous les continents)
+        const fill = etat ? COULEUR_ETAT[etat] : estFocus ? '#FFE89A' : (z.couleur ?? carte.terre);
         const clignote = etat === 'indice' && !reduce && !desactive;
         return (
           <g
