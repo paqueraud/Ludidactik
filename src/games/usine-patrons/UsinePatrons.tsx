@@ -16,7 +16,7 @@ import { ChoiceGrid, Hud } from '@/games/_kit/ui';
 import { type Cell, cle } from '../_geometrie-commun/grille';
 import { type PlanPatron, type Rect, casesEnRects, lirePatron, plierCube } from '../_geometrie-commun/patron';
 import { modeleSolide } from '../_geometrie-commun/solides';
-import { Bravo, Consigne, EnTete, Indice } from '../_geometrie-commun/ui';
+import { Bravo, Consigne, EnTete, Indice, pl } from '../_geometrie-commun/ui';
 import { useManches } from '../_geometrie-commun/useManches';
 import { bravo, dansUnChamp, useBoucle, useRng } from '../_nombres-commun/outils';
 import { Correction, PasDeQuestion } from '../_nombres-commun/ui';
@@ -43,7 +43,9 @@ export default function UsinePatrons(props: GameProps) {
   const m = useManches(props, estPourUsine, {
     manches: MANCHES,
     fin: (g, j, n) =>
-      g ? 'La chaîne de l’usine tourne à plein régime ! 🏭' : `${j} commandes réussies sur ${n} !`,
+      g
+        ? 'La chaîne de l’usine tourne à plein régime ! 🏭'
+        : `${j} ${pl(j, 'commande réussie', 'commandes réussies')} sur ${n} !`,
     autoSuivant: 3400,
   });
   const { item } = m;
@@ -245,7 +247,7 @@ function PosteSolide({
             </Button>
             {outil && (
               <p className="text-center font-bold" aria-live="polite">
-                Tu as compté {marques.length} {quoi}.{' '}
+                Tu as compté {marques.length} {marques.length <= 1 ? quoi.replace(/s$/, '') : quoi}.{' '}
                 {marques.length > 0 && (
                   <button type="button" className="underline" onClick={() => setMarques([])}>
                     Effacer
@@ -339,8 +341,8 @@ function PostePatron({ item, level, actif, paused, phase, onValider, sfx }: Prop
       </section>
       <div className="carte flex min-w-0 flex-1 flex-col items-center gap-3 p-4">
         {phase === 'jeu' && level === 'facile' && (
-          <Button variant="blanc" onClick={() => pli.setCible(pli.cible ? 0 : 1)} disabled={!actif}>
-            {pli.cible ? '↩ Déplier' : '🔧 Essayer de plier'}
+          <Button variant="blanc" onClick={() => pli.setCible(pli.cible ? 0 : 0.5)} disabled={!actif}>
+            {pli.cible ? '↩ Déplier' : '🔧 Commencer à plier'}
           </Button>
         )}
         {phase === 'jeu' && level !== 'facile' && (
@@ -466,6 +468,17 @@ function PosteCompleter({ item, level, actif, paused, phase, onValider, sfx }: P
                     className={!plein && actif ? 'cursor-pointer' : ''}
                     onClick={() => {
                       if (!actif || plein) return;
+                      const touche = [
+                        [1, 0],
+                        [-1, 0],
+                        [0, 1],
+                        [0, -1],
+                      ].some(([dx, dy]) => pleines.has(`${x + dx!},${y + dy!}`));
+                      if (!touche) {
+                        setMessage('Le carré ajouté doit toucher un autre carré par un côté.');
+                        sfx.play('faux');
+                        return;
+                      }
                       setChoix([x, y]);
                       setMessage(null);
                       sfx.play('pop');

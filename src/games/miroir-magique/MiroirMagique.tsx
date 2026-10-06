@@ -22,7 +22,7 @@ import {
   solutionSymetrie,
   trier,
 } from '../_geometrie-commun/grille';
-import { Bravo, Consigne, EnTete, Indice } from '../_geometrie-commun/ui';
+import { Bravo, Consigne, EnTete, Indice, pl } from '../_geometrie-commun/ui';
 import { useManches } from '../_geometrie-commun/useManches';
 import { bravo, dansUnChamp, useBoucle, useRng } from '../_nombres-commun/outils';
 import { Correction, PasDeQuestion } from '../_nombres-commun/ui';
@@ -48,7 +48,10 @@ export default function MiroirMagique(props: GameProps) {
   const rng = useRng();
   const m = useManches(props, estSymetrie, {
     manches: MANCHES,
-    fin: (g, j, n) => (g ? 'Tous les papillons se sont envolés ! 🦋' : `${j} papillons envolés sur ${n} !`),
+    fin: (g, j, n) =>
+      g
+        ? 'Tous les papillons se sont envolés ! 🦋'
+        : `${j} ${pl(j, 'papillon envolé', 'papillons envolés')} sur ${n} !`,
     autoSuivant: 2300,
   });
   const { item } = m;

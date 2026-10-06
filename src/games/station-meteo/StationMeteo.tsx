@@ -16,7 +16,7 @@ import { useAutoSpeak } from '@/games/_kit/session';
 import { ChoiceGrid, Hud } from '@/games/_kit/ui';
 import { Bacs } from '../_geometrie-commun/Bacs';
 import { type PlanDonnees, estDonnees, lireDonnees } from '../_geometrie-commun/graphique';
-import { Bravo, Consigne, EnTete, Indice } from '../_geometrie-commun/ui';
+import { Bravo, Consigne, EnTete, Indice, pl } from '../_geometrie-commun/ui';
 import { useManches } from '../_geometrie-commun/useManches';
 import { bravo, dansUnChamp, useRng } from '../_nombres-commun/outils';
 import { CaseReponse, Correction, PasDeQuestion } from '../_nombres-commun/ui';
@@ -65,7 +65,7 @@ export default function StationMeteo(props: GameProps) {
     fin: (g, j, n) =>
       g
         ? 'Bulletin parfait ! Tu lis les graphiques comme un météorologue ! 🌈'
-        : `${j} bonnes lectures sur ${n} !`,
+        : `${j} ${pl(j, 'bonne lecture', 'bonnes lectures')} sur ${n} !`,
     autoSuivant: 1300,
   });
   const { item } = m;
@@ -220,7 +220,7 @@ function Manche({
           ))}
         </div>
         {level !== 'plus_loin' && (
-          <Indice>Coche chaque {cible} quand tu le comptes : tu n’en oublieras aucun !</Indice>
+          <Indice>Coche chaque {cible} que tu comptes : tu n’en oublieras aucun !</Indice>
         )}
       </div>
     );

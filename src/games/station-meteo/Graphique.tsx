@@ -44,19 +44,21 @@ function lignes(t: string): string[] {
 
 function DonneesCachees({ g }: { g: Graphique }) {
   return (
-    <table className="sr-only">
-      <caption>{g.titre}</caption>
-      <tbody>
-        {g.etiquettes.map((e, i) => (
-          <tr key={e}>
-            <th scope="row">{e}</th>
-            <td>
-              {nombreFr(g.valeurs[i]!)} {g.unite}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="sr-only">
+      <table>
+        <caption>{g.titre}</caption>
+        <tbody>
+          {g.etiquettes.map((e, i) => (
+            <tr key={e}>
+              <th scope="row">{e}</th>
+              <td>
+                {nombreFr(g.valeurs[i]!)} {g.unite}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

@@ -12,7 +12,7 @@ import { useAutoSpeak } from '@/games/_kit/session';
 import { Hud } from '@/games/_kit/ui';
 import { Bacs } from '../_geometrie-commun/Bacs';
 import { type Dessin, cadre, dessinDuNom } from '../_geometrie-commun/figures';
-import { Bravo, Consigne, EnTete } from '../_geometrie-commun/ui';
+import { Bravo, Consigne, EnTete, pl } from '../_geometrie-commun/ui';
 import { useManches } from '../_geometrie-commun/useManches';
 import { bravo, useRng } from '../_nombres-commun/outils';
 import { Correction, PasDeQuestion } from '../_nombres-commun/ui';
@@ -103,7 +103,10 @@ export default function Geometre(props: GameProps) {
   const rng = useRng();
   const m = useManches(props, estPourGeometre, {
     manches: MANCHES,
-    fin: (g, j, n) => (g ? 'Diplôme de géomètre en poche ! 📐' : `${j} défis de géomètre réussis sur ${n} !`),
+    fin: (g, j, n) =>
+      g
+        ? 'Diplôme de géomètre en poche ! 📐'
+        : `${j} ${pl(j, 'défi de géomètre réussi', 'défis de géomètre réussis')} sur ${n} !`,
     autoSuivant: 1500,
   });
   const { item } = m;
@@ -188,7 +191,11 @@ function Manche({
           {phase === 'juste' && <Bravo texte={felicitation} />}
           <Correction
             ouvert={phase === 'faux'}
-            titre={mode === 'figure' ? 'Presque !' : 'Presque ! La bonne réponse est dessinée en vert.'}
+            titre={
+              mode === 'figure' || mode === 'classer'
+                ? 'Presque !'
+                : 'Presque ! La bonne réponse est dessinée en vert.'
+            }
             bonne={bonne}
             explication={item.explication}
             onContinuer={onSuivant}

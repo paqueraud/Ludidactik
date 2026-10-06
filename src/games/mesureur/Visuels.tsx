@@ -817,15 +817,25 @@ export function AngleVue({ mesure, equerre, rot = 0 }: { mesure: number; equerre
 }
 
 /** Repères de la vie courante pour estimer une mesure. */
-export function Reperes({ famille }: { famille: 'longueur' | 'masse' | 'contenance' | 'aire' }) {
+export function Reperes({
+  famille,
+  unites,
+  question,
+}: {
+  famille: 'longueur' | 'masse' | 'contenance' | 'aire';
+  /** Unités présentes dans les choix : on ne montre que les repères dans ces unités. */
+  unites: string[];
+  /** Question posée : un repère qui en est la réponse n'est pas montré. */
+  question: string;
+}) {
   const r = useMemo(
     () =>
       ({
         longueur: [
           '📏 une règle d’écolier : 20 cm',
-          '🚪 une porte : 2 m',
+          '🚪 une porte : environ 2 m',
           '🐜 une fourmi : quelques mm',
-          '🚶 15 min de marche : 1 km',
+          '🚶 15 min de marche : environ 1 km',
         ],
         masse: [
           '🍬 un bonbon : quelques g',
@@ -834,19 +844,25 @@ export function Reperes({ famille }: { famille: 'longueur' | 'masse' | 'contenan
           '🐘 un éléphant : quelques t',
         ],
         contenance: [
-          '🥄 une cuillère : 5 mL',
+          '🥄 une petite cuillère : 5 mL',
           '🥛 un verre : 20 cL',
-          '🍾 une grande bouteille : 1 L',
+          '🧃 une brique de jus : 1 L',
           '🛁 une baignoire : 150 L',
         ],
         aire: [
           '💳 une carte : environ 46 cm²',
-          '📓 une page de cahier : environ 4 dm²',
+          '📓 une page de petit cahier : environ 4 dm²',
           '🚪 une porte : environ 2 m²',
         ],
-      })[famille],
-    [famille],
+      })[famille]
+        .filter((x) => unites.includes(x.split(' ').at(-1)!))
+        .filter((x) => {
+          const objet = x.split(' :')[0]!.split(' ').slice(2).join(' ').toLowerCase();
+          return !question.toLowerCase().includes(objet);
+        }),
+    [famille, unites, question],
   );
+  if (!r.length) return null;
   return (
     <ul className="grid w-full gap-1 rounded-2xl bg-sun/15 p-2 text-sm font-bold sm:grid-cols-2">
       {r.map((x) => (

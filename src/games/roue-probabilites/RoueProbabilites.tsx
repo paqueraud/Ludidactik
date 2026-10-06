@@ -14,7 +14,7 @@ import { ChoiceGrid, Hud } from '@/games/_kit/ui';
 import { useState } from 'react';
 import { Bacs } from '../_geometrie-commun/Bacs';
 import { lireExperience } from '../_geometrie-commun/proba';
-import { Bravo, Consigne, EnTete } from '../_geometrie-commun/ui';
+import { Bravo, Consigne, EnTete, pl } from '../_geometrie-commun/ui';
 import { useManches } from '../_geometrie-commun/useManches';
 import { bravo, useRng } from '../_nombres-commun/outils';
 import { Correction, PasDeQuestion } from '../_nombres-commun/ui';
@@ -26,7 +26,7 @@ const MANCHES: Record<Level, number> = { facile: 5, normal: 6, plus_loin: 7 };
 const PICTOS: Record<string, string> = {
   impossible: '⛔',
   'peu probable': '🤏',
-  probable: '👍',
+  probable: '🙂',
   certain: '✅',
   'possible mais pas certain': '🤔',
 };
@@ -42,7 +42,9 @@ export default function RoueProbabilites(props: GameProps) {
   const m = useManches(props, estProba, {
     manches: MANCHES,
     fin: (g, j, n) =>
-      g ? 'Le hasard n’a plus de secret pour toi ! 🎡' : `${j} bonnes prédictions sur ${n} !`,
+      g
+        ? 'Le hasard n’a plus de secret pour toi ! 🎡'
+        : `${j} ${pl(j, 'bonne prédiction', 'bonnes prédictions')} sur ${n} !`,
     autoSuivant: 1500,
   });
   const { item } = m;
@@ -120,7 +122,7 @@ function Manche({
             <div
               className="h-3 w-full rounded-full bg-gradient-to-r from-coral via-sun to-grass"
               role="img"
-              aria-label="Échelle des probabilités : de impossible à certain"
+              aria-label="Échelle des probabilités : d’impossible à certain"
             />
             <Bacs
               item={item}

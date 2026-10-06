@@ -20,7 +20,13 @@ export function modeUsine(it: Item): ModeUsine | null {
   const choixOk = !!it.choices && it.choices.length >= 2 && it.choices.includes(it.answer);
   if (!choixOk || !modeleSolide(it.shape)) return null;
   if (it.task === 'solide') return 'solide';
-  if (it.task === 'proprietes' && quoiCompter(it.prompt) && !modeleSolide(it.shape)!.boule) return 'compter';
+  if (
+    it.task === 'proprietes' &&
+    quoiCompter(it.prompt) &&
+    !modeleSolide(it.shape)!.boule &&
+    !modeleSolide(it.shape)!.courbes
+  )
+    return 'compter';
   return null;
 }
 

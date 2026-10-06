@@ -280,8 +280,8 @@ export function AtelierFigure({ item, level, actif, phase, onValider, sfx }: Pro
                       Math.abs(angle - 90) < 1
                         ? 'angle droit'
                         : angle < 90
-                          ? 'plus petit que l’équerre'
-                          : 'plus grand que l’équerre'
+                          ? 'plus petit qu’un angle droit'
+                          : 'plus grand qu’un angle droit'
                     }
                     ok={Math.abs(angle - 90) < 1}
                     U={U}
@@ -386,7 +386,13 @@ export function AtelierFigure({ item, level, actif, phase, onValider, sfx }: Pro
                     />
                     <Badge
                       p={m}
-                      texte={`${entier ? '' : '≈ '}${fr(l)} carreau${l >= 2 ? 'x' : ''}`}
+                      texte={
+                        entier
+                          ? `${fr(l)} carreau${l >= 2 ? 'x' : ''}`
+                          : item.lessonId.startsWith('CM2')
+                            ? `≈ ${fr(l)} carreaux`
+                            : `entre ${Math.floor(l)} et ${Math.ceil(l)} carreaux`
+                      }
                       ok
                       U={U}
                     />
@@ -402,7 +408,12 @@ export function AtelierFigure({ item, level, actif, phase, onValider, sfx }: Pro
                 return (
                   <g key={`e${i}`}>
                     <Equerre s={s} a={a} b={b} U={U} />
-                    <Badge p={add(s, vers, -0.7)} texte={ok ? 'droit ✓' : 'pas droit'} ok={ok} U={U} />
+                    <Badge
+                      p={add(s, vers, -0.7)}
+                      texte={ok ? 'angle droit ✓' : 'pas un angle droit'}
+                      ok={ok}
+                      U={U}
+                    />
                   </g>
                 );
               })}

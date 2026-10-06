@@ -30,7 +30,7 @@ import {
   simuler,
   tailleProgramme,
 } from '../_geometrie-commun/robot';
-import { Bravo, Consigne, EnTete, Indice } from '../_geometrie-commun/ui';
+import { Bravo, Consigne, EnTete, Indice, pl } from '../_geometrie-commun/ui';
 import { useManches } from '../_geometrie-commun/useManches';
 import { bravo, dansUnChamp, useBoucle, useRng } from '../_nombres-commun/outils';
 import { Correction, PasDeQuestion } from '../_nombres-commun/ui';
@@ -61,7 +61,7 @@ const DIT: Record<Instr, string> = {
 
 const MESSAGES_ECHEC: Record<Simulation['issue'], string> = {
   cible: '',
-  obstacle: 'Bonk ! Le robot a heurté un rocher.',
+  obstacle: 'Boum ! Le robot a heurté un rocher.',
   sortie: 'Le robot allait sortir du quadrillage : il s’est arrêté au bord.',
   'pas-arrive': 'Le programme est fini, mais le robot n’est pas sur le trésor.',
   depasse: 'Le robot est passé sur le trésor, mais il ne s’y est pas arrêté.',
@@ -73,7 +73,9 @@ export default function RobotCodeur(props: GameProps) {
   const m = useManches(props, estRobot, {
     manches: MANCHES,
     fin: (g, j, n) =>
-      g ? 'Tous les trésors sont trouvés ! Tu es un as du code ! 🏆' : `${j} trésors trouvés sur ${n} !`,
+      g
+        ? 'Tous les trésors sont trouvés ! Tu es un as du code ! 🏆'
+        : `${j} ${pl(j, 'trésor trouvé', 'trésors trouvés')} sur ${n} !`,
     autoSuivant: 1800,
   });
   const { item } = m;
@@ -622,7 +624,7 @@ function Manche({
         )}
         <Correction
           ouvert={faux}
-          titre={`${echec ?? ''} Presque ! Un programme qui marche :`}
+          titre={`${echec ?? ''} Presque !`}
           bonne={plan.exemple}
           aDire={`Un programme qui marche : ${deplier(lireProgramme(plan.exemple))
             .map((i) => DIT[i])
@@ -630,7 +632,10 @@ function Manche({
           explication={item.explication}
           onContinuer={onSuivant}
         >
-          <p className="mt-1 text-sm">Son chemin est dessiné en vert pointillé sur le quadrillage.</p>
+          <p className="mt-1 text-sm">
+            C’est un programme qui marche (il y en a d’autres). Son chemin est dessiné en vert pointillé sur
+            le quadrillage.
+          </p>
         </Correction>
       </div>
     </div>

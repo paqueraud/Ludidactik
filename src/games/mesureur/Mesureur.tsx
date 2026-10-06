@@ -16,7 +16,7 @@ import { useAutoSpeak } from '@/games/_kit/session';
 import { ChoiceGrid, Hud } from '@/games/_kit/ui';
 import { Bacs } from '../_geometrie-commun/Bacs';
 import { type PlanMesure, emojiDe, lireAngles, lireMesure, relation } from '../_geometrie-commun/mesure';
-import { Bravo, Consigne, EnTete, Indice } from '../_geometrie-commun/ui';
+import { Bravo, Consigne, EnTete, Indice, pl } from '../_geometrie-commun/ui';
 import { useManches } from '../_geometrie-commun/useManches';
 import { bravo, useRng } from '../_nombres-commun/outils';
 import { CaseReponse, Correction, PasDeQuestion } from '../_nombres-commun/ui';
@@ -40,7 +40,9 @@ export default function Mesureur(props: GameProps) {
   const m = useManches(props, estPourMesureur, {
     manches: MANCHES,
     fin: (g, j, n) =>
-      g ? 'Mesures parfaites ! Tu as l’œil du Mesureur ! 📏' : `${j} mesures justes sur ${n} !`,
+      g
+        ? 'Mesures parfaites ! Tu as l’œil du Mesureur ! 📏'
+        : `${j} ${pl(j, 'mesure juste', 'mesures justes')} sur ${n} !`,
     autoSuivant: 1300,
   });
   const { item } = m;
@@ -140,7 +142,7 @@ function MancheNumerique({
     aideTexte = rels.length ? `Rappel : ${rels.join(' ; ')}.` : null;
   } else if (plan.type === 'figure' && /périmètre|tour/.test(item.prompt))
     aideTexte = 'Le périmètre, c’est la longueur du tour de la figure.';
-  else if (plan.type === 'figure' && /aire/.test(item.prompt))
+  else if (plan.type === 'figure' && /\baire\b/.test(item.prompt))
     aideTexte = 'L’aire d’un rectangle : on compte les rangées de carrés unités (longueur × largeur).';
   else if (plan.type === 'quadrillage')
     aideTexte = 'Touche chaque carreau pour le compter. Deux demi-carreaux font un carreau.';
@@ -365,7 +367,13 @@ function MancheEstimation({
               {emoji}
             </span>
           )}
-          {level !== 'plus_loin' && <Reperes famille={famille} />}
+          {level !== 'plus_loin' && (
+            <Reperes
+              famille={famille}
+              unites={item.choices.map((c) => c.split(' ').at(-1)!)}
+              question={item.question}
+            />
+          )}
         </section>
       </div>
       <div className="carte flex min-w-0 flex-1 flex-col items-center gap-3 p-4">

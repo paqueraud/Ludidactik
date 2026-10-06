@@ -310,11 +310,14 @@ export function ExperienceVue({
           onClick={() => lancer(10)}
           disabled={!actif || (limite !== null && total >= limite)}
         >
-          × 10
+          Tester 10 fois
         </Button>
       </div>
       {total > 0 && (
         <div className="w-full max-w-md rounded-2xl bg-cream p-2">
+          <p className="text-center text-xs text-ink-soft">
+            Un résultat qui n’est pas encore sorti n’est pas forcément impossible !
+          </p>
           <p className="text-center text-sm font-bold text-ink-soft">
             {total} essai{total > 1 ? 's' : ''}
             {limite !== null ? ` sur ${limite}` : ''}

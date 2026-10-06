@@ -7,7 +7,22 @@ test('Tangram (facile) : la silhouette se remplit, puis on répond', async ({ pa
   await page.goto('/labo/tangram?niveau=facile');
   await expect(page.getByText('Reconstruis la figure avec les pièces !')).toBeVisible();
   const aide = page.getByRole('button', { name: /Placer une pièce/ });
-  for (let k = 0; k < 12 && (await aide.isVisible()); k++) await aide.click();
+  for (let k = 0; k < 3 && (await aide.isVisible()); k++) await aide.click();
+  // Exemple du Labo : un rectangle de 3 × 2 carrés ; on pose les pièces restantes au clavier
+  for (const touche of [
+    'Enter',
+    'ArrowRight',
+    'Enter',
+    'ArrowRight',
+    'Enter',
+    'ArrowDown',
+    'Enter',
+    'ArrowLeft',
+    'Enter',
+    'ArrowLeft',
+    'Enter',
+  ])
+    if (!(await page.getByText(/Figure construite/).isVisible())) await page.keyboard.press(touche);
   await expect(page.getByText(/Figure construite/)).toBeVisible();
   await page.keyboard.press('a');
   await expect(page.getByText(REPONDU).last()).toBeVisible();

@@ -151,7 +151,7 @@ export function cleResultat(t: Tirage): string {
     case 'de':
       return t.faces.length > 1 ? `somme ${t.faces[0]! + t.faces[1]!}` : `${t.faces[0]}`;
     case 'piece':
-      return t.cotes.length > 1 ? `${t.cotes.filter((c) => c === 'pile').length} pile` : t.cotes[0]!;
+      return t.cotes.length > 1 ? `${t.cotes.filter((c) => c === 'pile').length} fois pile` : t.cotes[0]!;
     case 'mixte':
       return `${t.cote} ${t.face}`;
     case 'carte':

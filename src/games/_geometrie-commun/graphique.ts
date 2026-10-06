@@ -152,7 +152,7 @@ export function lisible(v: number, e: Echelle): boolean {
 export function nombreFr(n: number): string {
   const r = Math.round(n * 1000) / 1000;
   const [e, d] = String(Math.abs(r)).split('.');
-  const ent = e!.length > 4 ? e!.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : e!;
+  const ent = e!.length > 3 ? e!.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : e!;
   return `${r < 0 ? '−' : ''}${ent}${d ? `,${d}` : ''}`;
 }
 

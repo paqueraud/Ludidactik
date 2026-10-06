@@ -178,7 +178,7 @@ function AtelierSegment({
         viewBox="0 0 700 250"
         className="block h-auto w-full select-none"
         role="img"
-        aria-label={`Règle graduée de 0 à 15 cm.${a !== null ? ` Premier point à ${a} cm.` : ''}${b !== null ? ` Second point à ${b} cm.` : ''}`}
+        aria-label={`Règle graduée de 0 à ${MAX} cm.${a !== null ? ` Premier point à ${a} cm.` : ''}${b !== null ? ` Second point à ${b} cm.` : ''}`}
         onPointerUp={(e) => {
           if (!actif) return;
           const p = pointSvg(e.currentTarget, e.clientX, e.clientY);

@@ -14,7 +14,7 @@ import type { GameProps } from '@/engine/GameModule';
 import type { Rng } from '@/engine/rng';
 import { useAutoSpeak } from '@/games/_kit/session';
 import { ChoiceGrid, Hud } from '@/games/_kit/ui';
-import { Bravo, Consigne, EnTete, Indice } from '../_geometrie-commun/ui';
+import { Bravo, Consigne, EnTete, Indice, pl } from '../_geometrie-commun/ui';
 import { useManches } from '../_geometrie-commun/useManches';
 import { bravo, dansUnChamp, useRng } from '../_nombres-commun/outils';
 import { Correction, PasDeQuestion } from '../_nombres-commun/ui';
@@ -33,7 +33,7 @@ import {
 } from './pieces';
 
 const MANCHES: Record<Level, number> = { facile: 5, normal: 6, plus_loin: 6 };
-const AIDES: Record<Level, number> = { facile: 99, normal: 1, plus_loin: 0 };
+const AIDES: Record<Level, number> = { facile: 3, normal: 1, plus_loin: 0 };
 const COULEURS = [
   '#FF7A6B',
   '#4FC3F7',
@@ -78,7 +78,9 @@ export default function Tangram(props: GameProps) {
   const m = useManches(props, estPourTangram, {
     manches: MANCHES,
     fin: (g, j, n) =>
-      g ? 'Maître du tangram ! Toutes les figures sont construites. 🧩' : `${j} figures réussies sur ${n} !`,
+      g
+        ? 'Maître du tangram ! Toutes les figures sont construites. 🧩'
+        : `${j} ${pl(j, 'figure réussie', 'figures réussies')} sur ${n} !`,
     autoSuivant: 1500,
   });
   const { item } = m;
@@ -335,24 +337,48 @@ function Manche({
                   strokeDasharray={level === 'plus_loin' ? undefined : '6 5'}
                 />
               ))}
+              {/* figure finie : seulement son contour (les coins des pièces ne sont pas des sommets) */}
+              {fini &&
+                slots.map((s, i) => (
+                  <polygon
+                    key={`c${i}`}
+                    points={pts(s, s.x, s.y, U)}
+                    fill="#24304A"
+                    stroke="#24304A"
+                    strokeWidth="10"
+                    strokeLinejoin="round"
+                  />
+                ))}
+              {fini &&
+                slots.map((s, i) => (
+                  <polygon
+                    key={`f${i}`}
+                    points={pts(s, s.x, s.y, U)}
+                    fill="#4FC3F7"
+                    stroke="#4FC3F7"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                ))}
               {/* pièces placées */}
-              {pieces
-                .filter((p) => p.place !== null)
-                .map((p) => {
-                  const s = slots[p.place!]!;
-                  return (
-                    <motion.polygon
-                      key={`p${p.id}`}
-                      points={pts(s, s.x, s.y, U)}
-                      fill={COULEURS[p.id % COULEURS.length]}
-                      stroke="#24304A"
-                      strokeWidth="3"
-                      strokeLinejoin="round"
-                      initial={reduce ? false : { opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                    />
-                  );
-                })}
+              {!fini &&
+                pieces
+                  .filter((p) => p.place !== null)
+                  .map((p) => {
+                    const s = slots[p.place!]!;
+                    return (
+                      <motion.polygon
+                        key={`p${p.id}`}
+                        points={pts(s, s.x, s.y, U)}
+                        fill={COULEURS[p.id % COULEURS.length]}
+                        stroke="#24304A"
+                        strokeWidth="3"
+                        strokeLinejoin="round"
+                        initial={reduce ? false : { opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      />
+                    );
+                  })}
               {fini && !reduce && (
                 <motion.polygon
                   points={slots.map((s) => pts(s, s.x, s.y, U)).join(' ')}
@@ -394,7 +420,7 @@ function Manche({
                   onClick={() => choisir(p.id)}
                   disabled={!actif}
                   aria-pressed={sel === p.id}
-                  aria-label={`Pièce ${k + 1} : ${p.piece.forme === 'carre' ? 'carré' : p.piece.w === p.piece.h ? 'demi-carré' : 'triangle long'}`}
+                  aria-label={`Pièce ${k + 1} : ${p.piece.forme === 'carre' ? 'carré' : p.piece.w === p.piece.h ? 'petit triangle' : 'grand triangle'}`}
                   className={`flex h-20 w-20 items-center justify-center rounded-2xl border-4 bg-card shadow-pop-sm ${sel === p.id ? 'border-grape ring-4 ring-grape/30' : 'border-white'}`}
                 >
                   <svg viewBox="-0.15 -0.15 2.3 2.3" className="h-14 w-14" aria-hidden>
@@ -420,7 +446,7 @@ function Manche({
               </Button>
               {aides > 0 && (
                 <Button variant="sun" onClick={aider} disabled={!actif}>
-                  💡 Placer une pièce{level === 'normal' ? ' (1 fois)' : ''}
+                  💡 Placer une pièce ({aides})
                 </Button>
               )}
             </div>

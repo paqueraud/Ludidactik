@@ -75,3 +75,6 @@ export function Indice({ children }: { children: ReactNode }) {
     </p>
   );
 }
+
+/** Accord du nombre : singulier pour 0 ou 1 (« 1 papillon envolé »). */
+export const pl = (n: number, singulier: string, pluriel: string) => (n <= 1 ? singulier : pluriel);
