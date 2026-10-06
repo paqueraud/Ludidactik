@@ -148,6 +148,7 @@ function trueFalsePool(index: ContentIndex, lesson: Lesson, level: Level): TrueF
     lessonId: lesson.id,
     statement: q.question,
     answer: /^vrai$/i.test(q.choix[q.bonne]!),
+    meta: q.guillotine ? undefined : { sensible: true },
     explication: q.explication,
   }));
 }

@@ -176,6 +176,8 @@ function mcqToTrueFalse(it: McqItem, rng: Rng): TrueFalseItem {
     statement: `${it.question}\n→ ${shown}`,
     spoken: `${it.spoken ?? it.question} Réponse proposée : ${shown}.`,
     answer: shown === it.choices[it.answerIndex],
+    // thème sensible (guerres, esclavage…) : exclu des jeux de rapidité
+    meta: it.guillotine ? undefined : { sensible: true },
     explication: it.explication,
     lang: it.lang,
     difficulty: it.difficulty,

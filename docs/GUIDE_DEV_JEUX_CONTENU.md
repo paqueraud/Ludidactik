@@ -126,3 +126,12 @@ concernées. Un jeu doit **ignorer** proprement un item qui n'a pas le `meta` at
 | Frise — Machine à remonter le temps | `ordering` | `mode: 'chrono'`, `labels` = dates |
 | Cartes — Tour de France | `map_point` | `map` ∈ `france-regions`, `france-fleuves`, `france-massifs`, `europe`, `monde` |
 | Mots de dictée (mots croisés, bonhomme de neige) | `spelling_word` | `definition` : courte définition d'enfant, fortement recommandée |
+| Thème sensible | tout type | `meta.sensible = true` (posé automatiquement depuis `guillotine: false`) : exclu des jeux de rapidité (Vrai/Faux express) |
+| Cycle (de vie, de l'eau) | `ordering` | `meta.cycle = true` : ordre affiché comme une boucle |
+| Circuit électrique | `classification` | `meta.circuit` : circuit pile-ampoule du Laboratoire |
+| Consigne anglaise | `pairing` / `mcq` | `meta.consigne = 'point to {mot}'` (modèle de Jacques a dit) |
+| Opérations posées | `numeric_answer` | aussi `meta.termes: number[]` (addition de 3-4 nombres), `meta.algorithme = 'cassage'` |
+| Monnaie | `money` | `meta.optimal`, `meta.nbMini` : rendre avec le moins de pièces |
+| Karaoké | `read_aloud` | `meta.objectifs` : objectifs MCLM par niveau |
+| Compréhension | `mcq` | `meta.texte` + `meta.preuve` ; ponctuation : `meta.ponctuationsAcceptees` ; fonctions : `meta.remplacements` ; classes de mots : `meta.contextes` |
+| Cartes | `map_point` | ids : `src/games/_cartes/IDS.md` |
