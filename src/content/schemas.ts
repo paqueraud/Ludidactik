@@ -134,6 +134,8 @@ export const WordEntrySchema = z
     mot: z.string().min(1),
     phrase: z.string().min(3).optional(),
     classeGram: z.string().optional(),
+    /** Courte définition d’enfant (mots croisés, bonhomme de neige). */
+    definition: z.string().min(3).optional(),
   })
   .strict();
 export type WordEntry = z.infer<typeof WordEntrySchema>;

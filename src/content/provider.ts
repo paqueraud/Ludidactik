@@ -87,7 +87,9 @@ function spellingPool(
   if (level === 'plus_loin') chosen = lists.filter((l) => l.niveau !== 'facile');
   if (!chosen.length) chosen = lists;
 
-  let words = chosen.flatMap((l) => l.mots.map((m) => make(m.mot, m.phrase, 'programme')));
+  let words = chosen.flatMap((l) =>
+    l.mots.map((m) => make(m.mot, m.phrase, 'programme', m.definition ? { definition: m.definition } : {})),
+  );
   if (level === 'facile' && !atLevel.length) {
     const short = words.filter((w) => [...w.word].length <= 6);
     if (short.length >= 6) words = short;
