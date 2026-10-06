@@ -159,7 +159,8 @@ export default function ConseilClasse({
       setFini(true);
       sfx.play('fanfare');
       session.end({
-        won: feuilles >= Math.ceil(total / 2),
+        // En EMC, pas d'écran de défaite : l'arbre de la classe ne fait que grandir.
+        won: true,
         headline: `L’arbre de la classe a ${feuilles} feuille${feuilles > 1 ? 's' : ''} !`,
         score: feuilles * 100,
       });

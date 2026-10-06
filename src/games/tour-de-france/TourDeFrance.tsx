@@ -51,6 +51,7 @@ const versEtape = (item: MapPointItem): Etape => {
 };
 
 export default function TourDeFrance({
+  lesson,
   level,
   stream,
   paused,
@@ -89,6 +90,8 @@ export default function TourDeFrance({
   const [fini, setFini] = useState(false);
 
   const carte = etape?.carte;
+  /** Cycle 2 : « plus haut, à gauche… » plutôt que les points cardinaux. */
+  const cycle2 = ['CP', 'CE1', 'CE2'].includes(lesson.classe);
   const texte = etape ? (etape.item.spoken ?? etape.item.prompt) : '';
 
   useEffect(() => {
@@ -107,8 +110,12 @@ export default function TourDeFrance({
   const centreCible = useCallback(
     (depuis: [number, number]) => {
       if (!etape) return depuis;
+      // toutes les parties des zones cibles (le Pacifique est coupé en deux sur le planisphère)
       const cs = etape.cibles
-        .map((id) => etape.carte.zones.find((z) => z.id === id)!.centre)
+        .flatMap((id) => {
+          const z = etape.carte.zones.find((x) => x.id === id)!;
+          return z.centres ?? [z.centre];
+        })
         .sort(
           (a, b) =>
             Math.hypot(a[0] - depuis[0], a[1] - depuis[1]) - Math.hypot(b[0] - depuis[0], b[1] - depuis[1]),
@@ -157,11 +164,11 @@ export default function TourDeFrance({
       }
       sfx.play('glisse');
       setEssais(reste);
-      const dir = phraseDirection(direction(z.centre, centreCible(z.centre)));
+      const dir = phraseDirection(direction(z.centre, centreCible(z.centre)), cycle2);
       setMessage(`Tu as touché : ${z.nom}. ${dir}`);
       if (level === 'facile' && reste === 1) setIndice(true);
     },
-    [etape, phase, paused, fini, level, essais, session, sfx, echec, centreCible],
+    [etape, phase, paused, fini, level, essais, session, sfx, echec, centreCible, cycle2],
   );
 
   const chrono = useChronometre({
@@ -303,6 +310,12 @@ export default function TourDeFrance({
             etats={etats}
             etiquettes={etiquettes}
             onChoisir={choisir}
+            onFond={() => {
+              if (phase === 'jeu' && !paused && !fini)
+                setMessage(
+                  'Ici, ce n’est aucun des lieux du jeu (la mer ou un pays voisin). Essaie encore !',
+                );
+            }}
             desactive={phase !== 'jeu' || paused || fini}
           >
             <Vehicule

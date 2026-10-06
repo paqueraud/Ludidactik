@@ -119,5 +119,6 @@ describe('directions sur une carte', () => {
     expect(direction([0, 0], [-10, 10])).toBe('sud-ouest');
     expect(phraseDirection('est')).toBe('Cherche plus à l’est !');
     expect(phraseDirection('nord-ouest')).toBe('Cherche plus au nord-ouest !');
+    expect(phraseDirection('sud-est', true)).toBe('Cherche plus bas et plus à droite !');
   });
 });

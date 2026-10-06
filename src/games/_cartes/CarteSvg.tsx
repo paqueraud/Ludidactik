@@ -25,6 +25,7 @@ export function CarteSvg({
   etats = {},
   etiquettes,
   onChoisir,
+  onFond,
   desactive = false,
   children,
   className = '',
@@ -34,6 +35,8 @@ export function CarteSvg({
   /** Zones dont le nom est écrit sur la carte. */
   etiquettes?: ReadonlySet<string>;
   onChoisir?: (id: string) => void;
+  /** Toucher en dehors de toute zone (mer, pays de décor). */
+  onFond?: () => void;
   desactive?: boolean;
   /** Éléments superposés (véhicule…), en coordonnées de la carte. */
   children?: ReactNode;
@@ -90,7 +93,12 @@ export function CarteSvg({
           </pattern>
         </defs>
       )}
-      <rect width={carte.largeur} height={carte.hauteur} fill={carte.mer} />
+      <rect
+        width={carte.largeur}
+        height={carte.hauteur}
+        fill={carte.mer}
+        onClick={() => !desactive && onFond?.()}
+      />
       {carte.decor
         .filter((d) => !d.dessus)
         .map((d, i) => (
@@ -105,6 +113,19 @@ export function CarteSvg({
             pointerEvents="none"
           />
         ))}
+      {(carte.encarts?.length ?? 0) > 1 && (
+        <text
+          x={carte.encarts![0]!.x + 2}
+          y={carte.encarts![0]!.y - 8}
+          fontSize={14}
+          fontWeight={700}
+          fill="#24304A"
+          fontFamily="Andika, system-ui, sans-serif"
+          pointerEvents="none"
+        >
+          Outre-mer (pas à la même échelle)
+        </text>
+      )}
       {carte.encarts?.map((e) => (
         <g key={`e-${e.titre}`} pointerEvents="none">
           <rect
@@ -182,6 +203,18 @@ export function CarteSvg({
                     stroke={estFocus ? '#24304A' : '#5B6B8C'}
                     strokeWidth={traitZone * (estFocus ? 3 : 1.2)}
                     strokeDasharray={`${traitZone * 3} ${traitZone * 3}`}
+                  />
+                )}
+                {z.rayonTouche && (
+                  // point bien visible pour les très petits territoires (Malte…)
+                  <circle
+                    cx={z.centre[0]}
+                    cy={z.centre[1]}
+                    r={Math.max(2.5, z.rayonTouche / 4)}
+                    fill={fill}
+                    stroke="#24304A"
+                    strokeWidth={traitZone}
+                    pointerEvents="none"
                   />
                 )}
               </>

@@ -11,6 +11,8 @@ export interface ZoneCarte {
   d: string;
   /** Centre (étiquette, déplacement du véhicule, navigation au clavier). */
   centre: Point;
+  /** Centres de chaque partie (océan Pacifique coupé en deux…) : indices de direction. */
+  centres?: Point[];
   /** Très petit territoire : rayon d'un cercle de touche ajouté (unités SVG). */
   rayonTouche?: number;
   /** Groupe d'appartenance (ex. Amérique du Nord → « amerique »). */

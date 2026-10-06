@@ -8,6 +8,7 @@ import {
   CONTOUR_FRANCE,
   FLEUVES,
   LEMAN,
+  SERRE_PONCON,
   MARONI,
   MASSIFS,
   REGIONS_METRO,
@@ -69,6 +70,7 @@ function surface(
     forme: 'surface',
     d: cheminSurface(anneaux, proj),
     centre: centreSurface(anneaux, proj),
+    centres: anneaux.length > 1 ? anneaux.map((a) => centreSurface([a], proj)) : undefined,
     geo: anneaux,
     ...extra,
   };
@@ -147,7 +149,6 @@ const franceFleuves: Carte = {
     ...voisinsFrance,
     ...fondFrance('#E8F3D8', '#FFFFFF', 1.5),
     decor(guyane.anneaux, projGuyane, { fill: '#E8F3D8', stroke: '#FFFFFF', strokeWidth: 1.5 }),
-    decor([LEMAN], projFrance, { fill: MER, stroke: '#7FC4E6', strokeWidth: 1.5, dessus: true }),
   ],
   encarts: [ENCART_GUYANE],
   zones: [
@@ -159,6 +160,11 @@ const franceFleuves: Carte = {
       centre: centreLigne([f.trace], projFrance),
       geo: [f.trace],
     })),
+    surface('lac-leman', 'Lac Léman', [LEMAN], projFrance, { couleur: '#7CC8EE', rayonTouche: 22 }),
+    surface('lac-de-serre-poncon', 'Lac de Serre-Ponçon', [SERRE_PONCON], projFrance, {
+      couleur: '#7CC8EE',
+      rayonTouche: 18,
+    }),
     {
       id: 'maroni',
       nom: 'Maroni',
@@ -204,7 +210,8 @@ const europe: Carte = {
   ],
   zones: PAYS.map((p, i) =>
     surface(p.id, p.nom, p.anneaux, projEurope, {
-      couleur: p.ue ? PASTELS[i % PASTELS.length] : '#E2DCCB',
+      // hors Union européenne : gris-bleu, bien distinct du décor (ils restent cliquables)
+      couleur: p.ue ? PASTELS[i % PASTELS.length] : '#B9C6DA',
       rayonTouche: p.rayonTouche,
       groupe: p.ue ? 'union-europeenne' : undefined,
     }),
@@ -216,6 +223,9 @@ const europe: Carte = {
     },
   },
 };
+
+// La Norvège est très concave : son étiquette serait sur la Suède.
+for (const z of europe.zones) if (z.id === 'norvege') z.centre = projEurope([8.5, 61.2]);
 
 /* ------------------------------------------------------------------ */
 /* Monde                                                               */

@@ -1,12 +1,12 @@
 /**
  * Le Laboratoire des sciences (CATALOGUE n° 53).
- * Sur la paillasse : ranger des « spécimens » dans des bocaux (classer : vivant / non vivant, états de
+ * Sur la paillasse : ranger des cartes dans des bocaux (classer : vivant / non vivant, états de
  * l'eau, régimes alimentaires…), ou remettre en ordre les étapes d'une expérience ou d'un cycle de vie.
  * Pour les conducteurs / isolants, un petit circuit pile-ampoule montre le résultat de l'expérience
  * après chaque rangement.
- * Facile : 6 spécimens au plus, vérification immédiate, on réessaie (le bon bocal brille).
- * Normal : 8 spécimens, vérification immédiate (le spécimen file dans le bon bocal), 1 indice par expérience.
- * Plus loin : tous les spécimens, on vérifie à la fin, avec un sablier.
+ * Facile : 6 cartes au plus, vérification immédiate, on réessaie (le bon bocal brille).
+ * Normal : 8 cartes, vérification immédiate (la carte file dans le bon bocal), 1 indice par expérience.
+ * Plus loin : toutes les cartes, on vérifie à la fin, avec un sablier.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Eraser, Lightbulb } from 'lucide-react';
@@ -432,15 +432,15 @@ function Classer({
         </div>
       </section>
 
-      {/* Les spécimens à ranger */}
+      {/* Les cartes à ranger */}
       {phase === 'jeu' && (
         <section className="carte flex w-full flex-col items-center gap-3 p-4">
           <p className="text-center text-sm font-bold text-ink-soft">
             {restants.length
-              ? 'Choisis un spécimen (ou tape son numéro), puis touche son bocal (ou tape sa lettre).'
+              ? 'Choisis une carte (ou tape son numéro), puis touche son bocal (ou tape sa lettre).'
               : 'Tout est rangé !'}
           </p>
-          <ul className="flex flex-wrap justify-center gap-2" aria-label="Spécimens à ranger">
+          <ul className="flex flex-wrap justify-center gap-2" aria-label="Cartes à ranger">
             <AnimatePresence initial={false}>
               {restants.map((e, k) => (
                 <motion.li
@@ -459,7 +459,7 @@ function Classer({
                     onClick={() => setSelection(e)}
                     disabled={!actif}
                     aria-pressed={courant === e}
-                    aria-label={`Spécimen ${k + 1} : ${item.elements[e]!.label}`}
+                    aria-label={`Carte ${k + 1} : ${item.elements[e]!.label}`}
                     className={`btn-3d flex min-h-[3.5rem] items-center gap-2 border-2 px-3 py-2 text-base font-bold sm:text-lg ${
                       courant === e
                         ? 'border-sciences bg-sciences/15 ring-4 ring-sun'
@@ -485,7 +485,7 @@ function Classer({
           )}
           {erreurs.length > 0 && level === 'normal' && brille !== null && (
             <p className="rounded-2xl bg-coral/10 px-4 py-2 text-center font-bold" role="status">
-              Presque ! Il allait dans le bocal « {item.categories[brille]} ».
+              Presque ! Cette carte allait dans le bocal « {item.categories[brille]} ».
             </p>
           )}
           <div className="flex flex-wrap justify-center gap-3">

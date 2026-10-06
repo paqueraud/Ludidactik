@@ -8,6 +8,9 @@ bonne région, capitales dans le bon pays, points des continents et des océans)
 Tolérances de `resoudreCible` : majuscules et accents ignorés, article initial ignoré (« la Seine »),
 espaces → tirets, et `atlantique` = `ocean-atlantique`. Utiliser de préférence l'id exact.
 
+`targetLabel` porte **toujours l'article** quand le nom en a un (« la Bretagne », « les Alpes »,
+« l'océan Pacifique », mais « Mayotte ») : le jeu affiche « Bravo, c'est bien la Bretagne ! ».
+
 Exemple :
 
 ```json
@@ -15,7 +18,7 @@ Exemple :
   "kind": "map_point",
   "map": "france-regions",
   "target": "bretagne",
-  "targetLabel": "Bretagne",
+  "targetLabel": "la Bretagne",
   "prompt": "Touche la Bretagne.",
   "explication": "La Bretagne est la région tout à l'ouest, entourée par la mer."
 }
@@ -44,18 +47,22 @@ Exemple :
 | `la-reunion`                 | La Réunion (encart)        |
 | `mayotte`                    | Mayotte (encart)           |
 
+Les encarts d'outre-mer ne sont pas à la même échelle que la métropole (c'est écrit sur la carte).
+
 Groupe : `outre-mer` (les 5 régions d'outre-mer : toucher l'une d'elles est accepté).
 
 ## `france-fleuves` — les fleuves
 
-| id        | nom                                       |
-| --------- | ----------------------------------------- |
-| `seine`   | Seine                                     |
-| `loire`   | Loire                                     |
-| `garonne` | Garonne                                   |
-| `rhone`   | Rhône (le lac Léman est dessiné en décor) |
-| `rhin`    | Rhin                                      |
-| `maroni`  | Maroni (encart Guyane — programme 2026)   |
+| id                    | nom                                                   |
+| --------------------- | ----------------------------------------------------- |
+| `seine`               | Seine                                                 |
+| `loire`               | Loire                                                 |
+| `garonne`             | Garonne                                               |
+| `rhone`               | Rhône (le lac Léman est dessiné en décor)             |
+| `rhin`                | Rhin                                                  |
+| `maroni`              | Maroni (encart Guyane — programme 2026)               |
+| `lac-leman`           | Lac Léman (lac naturel — programme 2026)              |
+| `lac-de-serre-poncon` | Lac de Serre-Ponçon (lac artificiel — programme 2026) |
 
 ## `france-massifs` — les massifs montagneux
 

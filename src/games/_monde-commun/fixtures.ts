@@ -89,7 +89,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'le champignon', category: 0, image: '🍄' },
         { label: 'la cuillère', category: 1, image: '🥄' },
       ],
-      explication: 'Un être vivant naît, grandit, se nourrit, se reproduit et meurt. Un objet, non.',
+      explication:
+        'Un être vivant naît, grandit, se nourrit, se reproduit et meurt. Ce qui n’est pas vivant, non.',
     },
     {
       kind: 'classification',
@@ -117,7 +118,7 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'un trombone en métal', category: 0, image: '📎' },
         { label: 'une gomme', category: 1 },
         { label: 'une clé en métal', category: 0, image: '🔑' },
-        { label: 'un crayon en bois', category: 1, image: '✏️' },
+        { label: 'une règle en bois', category: 1, image: '📏' },
         { label: 'une pièce de monnaie', category: 0, image: '🪙' },
         { label: 'un bouchon en plastique', category: 1 },
       ],
@@ -140,7 +141,7 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'l’air', category: 2, image: '🌬️' },
       ],
       explication:
-        'Un solide garde sa forme, un liquide coule et prend la forme du récipient, un gaz occupe tout l’espace.',
+        'Un solide garde sa forme, un liquide coule et prend la forme du récipient, un gaz occupe tout l’espace. La vapeur d’eau est invisible : la buée que l’on voit, ce sont déjà de petites gouttes d’eau.',
     },
   ],
   mcq: [
@@ -149,7 +150,7 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       id: 'mo-qui-ferry',
       lessonId: L,
       question: 'Qui suis-je ?',
-      choices: ['Jules Ferry', 'Victor Hugo', 'Louis XVI', 'Napoléon Ier'],
+      choices: ['Jules Ferry', 'Victor Hugo', 'Louis Pasteur', 'Napoléon Ier'],
       answerIndex: 0,
       hints: [
         'J’ai vécu au XIXe siècle et j’ai été ministre.',
@@ -175,7 +176,7 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         'J’ai beaucoup voyagé et j’ai été révolté par ce que j’ai vu dans les colonies.',
         'Je me suis battu toute ma vie pour la liberté de tous les êtres humains.',
         'En 1848, je fais signer le décret d’abolition de l’esclavage.',
-        'Mon nom commence par « Victor » ; il est inscrit au Panthéon.',
+        'Mon prénom est Victor ; je repose au Panthéon.',
       ],
       guillotine: false,
       explication:
@@ -212,7 +213,7 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       ],
       answerIndex: 0,
       image: '😢',
-      guillotine: true,
+      guillotine: false,
       explication:
         'Aider quelqu’un qui est triste, c’est être solidaire. Si c’est grave, on prévient un adulte.',
     },
@@ -220,7 +221,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       kind: 'mcq',
       id: 'mo-emc-harcelement',
       lessonId: L,
-      question: 'Depuis plusieurs jours, des élèves se moquent de Tom et le bousculent. Que faut-il faire ?',
+      question:
+        'Depuis plusieurs jours, des élèves se moquent de Yanis et le bousculent. Que faut-il faire ?',
       choices: [
         'En parler tout de suite à un adulte de confiance.',
         'Ne rien dire, ça va passer tout seul.',
@@ -229,15 +231,15 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       ],
       answerIndex: 0,
       image: '🛑',
-      guillotine: true,
+      guillotine: false,
       explication:
-        'Des moqueries répétées, c’est du harcèlement : on dit stop et on en parle à un adulte (maîtresse, parents). En France, on peut aussi appeler le 3018.',
+        'Des moqueries répétées, c’est du harcèlement : on dit stop et on en parle à un adulte (maitresse ou maitre, parents). On peut aussi appeler le 3018, c’est gratuit.',
     },
     {
       kind: 'mcq',
       id: 'mo-emc-debat',
       lessonId: L,
-      question: 'Pendant le conseil de classe, Malo n’est pas d’accord avec toi. Que fais-tu ?',
+      question: 'Pendant le conseil de classe, Aïcha n’est pas d’accord avec toi. Que fais-tu ?',
       choices: [
         'J’écoute son idée, puis je donne la mienne calmement.',
         'Je lui coupe la parole et je crie plus fort.',
@@ -245,7 +247,7 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       ],
       answerIndex: 0,
       image: '🗣️',
-      guillotine: true,
+      guillotine: false,
       explication:
         'Dans un débat, chacun a le droit de donner son avis : on écoute l’autre et on parle à son tour, sans se moquer.',
     },
@@ -372,6 +374,7 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       ],
       relation: 'mot → image',
       lang: 'en-GB',
+      meta: { consigne: 'point to {mot}' },
       explication:
         'Red = rouge, blue = bleu, green = vert, yellow = jaune, orange = orange, purple = violet.',
     },
@@ -408,7 +411,7 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       prompt: 'Touche la Bretagne.',
       map: 'france-regions',
       target: 'bretagne',
-      targetLabel: 'Bretagne',
+      targetLabel: 'la Bretagne',
       explication: 'La Bretagne est la région tout à l’ouest, entourée par la mer sur trois côtés.',
     },
     {

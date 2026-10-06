@@ -142,10 +142,26 @@ describe('france-regions', () => {
 });
 
 describe('france-fleuves et france-massifs', () => {
-  it('les 5 fleuves (+ le Maroni)', () => {
-    const ids = CARTES['france-fleuves']!.zones.map((z) => z.id).sort();
-    expect(ids).toEqual(['garonne', 'loire', 'maroni', 'rhin', 'rhone', 'seine']);
-    expect(CARTES['france-fleuves']!.zones.every((z) => z.forme === 'ligne')).toBe(true);
+  it('les 5 fleuves (+ le Maroni) et 2 grands lacs', () => {
+    const carte = CARTES['france-fleuves']!;
+    const fleuves = carte.zones
+      .filter((z) => z.forme === 'ligne')
+      .map((z) => z.id)
+      .sort();
+    expect(fleuves).toEqual(['garonne', 'loire', 'maroni', 'rhin', 'rhone', 'seine']);
+    const lacs = carte.zones
+      .filter((z) => z.forme === 'surface')
+      .map((z) => z.id)
+      .sort();
+    expect(lacs).toEqual(['lac-de-serre-poncon', 'lac-leman']);
+    expect(contient(carte, 'lac-leman', [6.5, 46.4])).toBe(true);
+    expect(contient(carte, 'lac-de-serre-poncon', [6.3, 44.52])).toBe(true);
+  });
+  it('le Pacifique, coupé en deux, a un centre par partie', () => {
+    const z = CARTES.monde!.zones.find((x) => x.id === 'ocean-pacifique')!;
+    expect(z.centres).toHaveLength(2);
+    const [a, b] = z.centres!;
+    expect(Math.sign(a![0] - 540)).not.toBe(Math.sign(b![0] - 540));
   });
   it('les 6 massifs', () => {
     const carte = CARTES['france-massifs']!;

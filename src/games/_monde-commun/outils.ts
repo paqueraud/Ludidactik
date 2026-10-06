@@ -122,9 +122,24 @@ export function direction(a: readonly [number, number], b: readonly [number, num
   return ns || eo || 'tout près';
 }
 
-/** Phrase d'indice : « Cherche plus au nord-est ! » */
-export function phraseDirection(dir: string): string {
+const SIMPLE: Record<string, string> = {
+  nord: 'plus haut',
+  sud: 'plus bas',
+  est: 'plus à droite',
+  ouest: 'plus à gauche',
+};
+
+/**
+ * Phrase d'indice : « Cherche plus au nord-est ! » (cycle 3) ou, pour les plus jeunes (`simple`),
+ * « Cherche plus haut et plus à droite ! ».
+ */
+export function phraseDirection(dir: string, simple = false): string {
   if (dir === 'tout près') return 'Tu es tout près !';
+  if (simple)
+    return `Cherche ${dir
+      .split('-')
+      .map((d) => SIMPLE[d] ?? d)
+      .join(' et ')} !`;
   return `Cherche plus ${dir.startsWith('e') || dir.startsWith('o') ? 'à l’' : 'au '}${dir} !`;
 }
 

@@ -95,6 +95,7 @@ function Silhouette({ revele, image, reduce }: { revele: boolean; image?: string
 }
 
 export default function QuiSuisJe({
+  lesson,
   level,
   stream,
   paused,
@@ -118,6 +119,8 @@ export default function QuiSuisJe({
     for (let i = 0; i < essais; i++) {
       const it: Item = stream.next();
       if (!estDevinette(it) || it.kind !== 'mcq') continue;
+      // EMC : une situation de vie n'est pas une devinette — seulement les vraies devinettes à indices
+      if (lesson.matiere === 'emc' && !it.hints?.length) continue;
       if (it.id === dernier.current && (stream.size ?? 2) > 1) continue;
       if (it.hints?.length) {
         repli = it;
@@ -133,7 +136,7 @@ export default function QuiSuisJe({
       indices: repli.hints?.length ? repli.hints.slice(0, 5) : [repli.question],
       ...r,
     };
-  }, [stream, level, rng]);
+  }, [stream, level, rng, lesson.matiere]);
 
   const [m, setM] = useState<Mystere | null>(tirer);
   const [manche, setManche] = useState(1);

@@ -274,6 +274,11 @@ function AppelImage({
   }, [actif, appel.options, pieges, toucher, immobile]);
 
   const masque = appel.mot.replace(/[A-Za-z]/g, '•');
+  // le mot est caché (Normal, Plus loin) tant qu'on n'a pas demandé à le voir
+  const phraseAffichee =
+    voir || etat
+      ? phrase
+      : phrase.replace(new RegExp(appel.mot.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), masque);
 
   return (
     <section className="carte flex w-full flex-col items-center gap-4 p-4 sm:p-6">
@@ -285,8 +290,7 @@ function AppelImage({
             lang="en"
             aria-live="polite"
           >
-            {appel.simon ? 'Simon says: ' : ''}
-            {voir || etat ? appel.mot : <span aria-label="mot caché">{masque}</span>}!
+            {phraseAffichee}
           </p>
           {!voir && !etat && (
             <Button
@@ -713,7 +717,8 @@ function AppelOral({
             </Button>
             <Button
               variant="blanc"
-              onClick={() => conclure(false, 'auto-évaluation : pas encore')}
+              // auto-évaluation honnête : pas pénalisée, on passe simplement à la suite
+              onClick={() => onFini({ ok: false, points: 0 })}
               disabled={!actif}
             >
               Pas encore 🔁

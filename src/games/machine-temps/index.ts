@@ -8,7 +8,7 @@ const jeu: GameModule = {
   titre: 'La Machine à remonter le temps',
   description: 'Range les cartes sur la frise : si l’ordre est juste, la machine voyage dans le temps !',
   consigne:
-    'Touche les cartes dans l’ordre, de la plus ancienne à la plus récente : elles se posent sur la frise. Quand toutes les cases sont pleines, lance la machine. Si l’ordre est juste, elle voyage et les dates apparaissent !',
+    'Touche les cartes dans le bon ordre (pour une frise : de la plus ancienne à la plus récente) : elles se posent sur la frise. Quand toutes les cases sont pleines, lance la machine. Si l’ordre est juste, elle voyage et les dates apparaissent !',
   icone: '🕰️',
   couleur: 'from-histoire to-grape',
   modalites: ['regarder', 'manipuler'],

@@ -1,4 +1,4 @@
-/** Logique pure des jeux n° 50 à 56 : filtres d'items, appels de Jacques a dit, circuit du Laboratoire. */
+﻿/** Logique pure des jeux n° 50 à 56 : filtres d'items, appels de Jacques a dit, circuit du Laboratoire. */
 import { describe, expect, it } from 'vitest';
 import type { ClassificationItem, Item } from '@/content/schemas';
 import { createRng } from '@/engine/rng';
@@ -11,7 +11,7 @@ import machineJeu from '../machine-temps';
 import quiJeu from '../qui-suis-je';
 import tourJeu from '../tour-de-france';
 import vraiFauxJeu from '../vrai-faux';
-import { appelsDe, estAnglais, phraseSimon } from '../jacques-a-dit/appels';
+import { appelsDe, consigneDe, estAnglais, phraseSimon } from '../jacques-a-dit/appels';
 import { categorieAllumee, estExperience } from '../laboratoire/filtre';
 import { estDevinette } from '../qui-suis-je/filtre';
 import { MONDE_FIXTURES } from './fixtures';
@@ -140,6 +140,17 @@ describe('Jacques a dit : les appels', () => {
     if (a?.type !== 'image') throw new Error();
     expect(phraseSimon(a)).toBe(`Simon says: ${a.mot}!`);
     expect(phraseSimon({ ...a, simon: false })).toMatch(/^Touch your \w+!$/);
+  });
+  it('une consigne anglaise correcte pour un nom seul', () => {
+    expect(consigneDe('dog')).toBe('touch the dog');
+    expect(consigneDe('red', 'point to {mot}')).toBe('point to red');
+    expect(consigneDe('touch your nose', 'point to {mot}')).toBe('touch your nose');
+    const [a] = appelsDe(parId('mo-en-couleurs'), 'facile', createRng(3));
+    if (a?.type !== 'image') throw new Error();
+    expect(phraseSimon(a)).toBe(`Simon says: point to ${a.mot}!`);
+    const [b] = appelsDe(parId('mo-en-animaux'), 'facile', createRng(3));
+    if (b?.type !== 'image') throw new Error();
+    expect(phraseSimon(b)).toBe(`Simon says: touch the ${b.mot}!`);
   });
   it('QCM et oral : un seul appel', () => {
     const rng = createRng(2);

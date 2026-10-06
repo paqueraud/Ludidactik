@@ -27,7 +27,9 @@ export const IDS_CARTES: Record<string, { zones: string[]; groupes?: Record<stri
     ],
     groupes: { 'outre-mer': ['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'] },
   },
-  'france-fleuves': { zones: ['seine', 'loire', 'garonne', 'rhone', 'rhin', 'maroni'] },
+  'france-fleuves': {
+    zones: ['seine', 'loire', 'garonne', 'rhone', 'rhin', 'maroni', 'lac-leman', 'lac-de-serre-poncon'],
+  },
   'france-massifs': { zones: ['alpes', 'pyrenees', 'massif-central', 'jura', 'vosges', 'massif-corse'] },
   europe: {
     zones: [
