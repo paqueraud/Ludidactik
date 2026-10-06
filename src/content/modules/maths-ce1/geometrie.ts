@@ -83,6 +83,13 @@ const FIGURES: { id: string; nom: string; image: string; cotes: string; niv: Lev
   },
 ];
 
+/** Noms qui seraient AUSSI justes (un carré est un rectangle, un triangle rectangle est un triangle). */
+const PROCHES: Record<string, string[]> = {
+  carre: ['rectangle', 'losange'],
+  triangle_rectangle: ['triangle'],
+  rectangle: [],
+};
+
 const figuresShape: ItemGen = (level, rng, ctx) => {
   const figs = auNiveau(level, FIGURES);
   const forme = level === 'facile' ? 0 : rng.int(0, 2);
@@ -91,7 +98,7 @@ const figuresShape: ItemGen = (level, rng, ctx) => {
     const choices = rng.shuffle([
       f.nom,
       ...rng
-        .shuffle(figs.filter((x) => x.id !== f.id).map((x) => x.nom))
+        .shuffle(figs.filter((x) => x.id !== f.id && !(PROCHES[f.id] ?? []).includes(x.id)).map((x) => x.nom))
         .slice(0, level === 'facile' ? 2 : 3),
     ]);
     return make(ctx, 'geometry_shape', `nommer-${f.id}`, {

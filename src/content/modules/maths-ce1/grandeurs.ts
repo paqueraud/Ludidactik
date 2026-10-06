@@ -57,7 +57,8 @@ const longMesure: ItemGen = (level, rng, ctx) => {
 };
 
 const longConvertir: ItemGen = (level, rng, ctx) => {
-  if (level === 'facile' && rng.chance(0.6)) return longMesure(level, rng, ctx);
+  // mesurer avec la règle : surtout en facile, mais aussi en normal (cm) et en plus loin (mm)
+  if (rng.chance(level === 'facile' ? 0.6 : 0.3)) return longMesure(level, rng, ctx);
   type C = { p: string; a: number; u: string; e: string; d: number };
   const formes: (() => C)[] = [
     () => ({ p: '1 m = … cm', a: 100, u: 'cm', e: '1 mètre, c’est 100 centimètres.', d: 0.2 }),

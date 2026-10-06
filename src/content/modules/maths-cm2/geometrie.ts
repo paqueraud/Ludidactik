@@ -294,8 +294,29 @@ function dessinDroites(label: string, cat: 0 | 1 | 2, rng: Rng) {
     const dec: Pt = dir[1] === 0 ? [0, 2] : [2, 0];
     return { d1, d2: [add(d1[0], dec), add(d1[1], dec)] };
   }
+  // Sécantes non perpendiculaires : angle nettement différent de 90° (entre 30° et 65°), lisible à l'œil
+  const angle = (a: Pt, b: Pt) =>
+    (Math.acos(Math.abs(a[0] * b[0] + a[1] * b[1]) / (Math.hypot(...a) * Math.hypot(...b))) * 180) / Math.PI;
+  const CANDIDATS: Pt[] = [
+    [4, 0],
+    [0, 4],
+    [4, 2],
+    [2, 4],
+    [4, -2],
+    [-2, 4],
+    [3, 1],
+    [1, 3],
+    [4, 1],
+    [1, 4],
+    [4, -1],
+    [-1, 4],
+    [3, -1],
+    [-1, 3],
+  ];
   const autre: Pt =
-    cat === 0 ? [-dir[1], dir[0]] : dir[0] === 0 || dir[1] === 0 ? [3, 2] : [dir[0], -dir[1] - 1];
+    cat === 0
+      ? [-dir[1], dir[0]]
+      : (CANDIDATS.find((c) => angle(dir, c) >= 30 && angle(dir, c) <= 65) ?? [3, 1]);
   return { d1, d2: [sub(o, autre), add(o, autre)] };
 }
 
