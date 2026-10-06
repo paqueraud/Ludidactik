@@ -187,9 +187,9 @@
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Orthographe lexicale (dictée)",
-   "titre": "Mots invariables (listes analogiques : tôt/aussitôt/plutôt ; ici/là-bas/loin/près)",
+   "titre": "Les mots invariables",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : mémoriser un corpus organisé de mots invariables (listes analogiques)",
    "periodes": [
     1,
     2,
@@ -198,39 +198,40 @@
     5
    ],
    "niveaux": {
-    "facile": "10 mots",
-    "normal": "~40 mots",
-    "plus_loin": "60+ mots"
+    "facile": "10 mots courts (avec, dans, sur, ici…)",
+    "normal": "une quarantaine de mots (toujours, beaucoup, aussitôt…)",
+    "plus_loin": "une soixantaine de mots (aujourd’hui, longtemps, quelquefois…)"
    },
    "itemKinds": [
-    "spelling_word"
+    "fill_blank",
+    "spelling_word",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "peche-homophones",
     "ascension",
     "appareil-photo",
     "lettres-en-vrac",
     "bonhomme-de-neige",
-    "wordle",
+    "wordle-mots",
     "mots-croises",
     "dictee-duel"
    ],
    "source": {
-    "kind": "static",
-    "file": "data/dictees/ce1_mots.json",
-    "filter": {
-     "lessonId": "CE1.FR.ORTH.INVARIABLES"
-    }
+    "kind": "generator",
+    "generator": "conjugaison/mots-invariables"
    },
-   "rappel": "Les mots invariables ne changent jamais : ni au pluriel, ni au féminin. Je les apprends par cœur."
+   "rappel": "Les mots invariables ne changent jamais : ni au pluriel, ni au féminin. Je les apprends par cœur.",
+   "contenus": "Listes analogiques (tôt/aussitôt/plutôt ; ici/là-bas/loin/près) et mots invariables fréquents."
   },
   {
    "id": "CE1.FR.ORTH.MUETTE",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Orthographe lexicale (dictée)",
-   "titre": "Lettre muette finale par mot de la même famille (blanc/blanche, chant/chanter, surpris/surprise)",
+   "titre": "La lettre muette à la fin d’un mot",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : être capable d’anticiper une lettre muette finale à l’aide d’un mot de la même famille",
    "periodes": [
     1,
     2,
@@ -239,33 +240,38 @@
     5
    ],
    "niveaux": {
-    "facile": "choix parmi 2",
-    "normal": "écrire le mot",
-    "plus_loin": "dérivés moins transparents (sang/sanguin)"
+    "facile": "mots très transparents (petit → petite), peu de choix",
+    "normal": "mots du programme (blanc/blanche, sang/sanguin, chant/chanter)",
+    "plus_loin": "dérivés moins transparents (plomb/plombier, sirop/sirupeux)"
    },
    "itemKinds": [
-    "spelling_word",
-    "fill_blank"
+    "fill_blank",
+    "mcq",
+    "pairing",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "chasse-lettres-muettes",
+    "attrape-bulles",
     "ascension",
-    "appareil-photo"
+    "appareil-photo",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_orth_muette"
+    "generator": "conjugaison/lettres-muettes"
    },
-   "rappel": "Pour trouver la lettre muette à la fin d’un mot, je cherche un mot de la même famille : chant → chanter."
+   "rappel": "Pour trouver la lettre muette à la fin d’un mot, je cherche un mot de la même famille : chant → chanter.",
+   "contenus": "Trouver la lettre muette finale grâce à un mot de la même famille (blanc/blanche, sang/sanguin, chant/chanter, surpris/surprise)."
   },
   {
    "id": "CE1.FR.ORTH.ACCENTS",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Orthographe lexicale (dictée)",
-   "titre": "Accents é/è/ê",
+   "titre": "Les accents : é, è, ê",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : mémoriser l’orthographe des mots fréquents ; tenir compte des accents",
    "periodes": [
     1,
     2,
@@ -274,30 +280,30 @@
     5
    ],
    "niveaux": {
-    "facile": "é/è",
-    "normal": "é/è/ê dans mots fréquents",
-    "plus_loin": "ë, ï, ç"
+    "facile": "é ou è",
+    "normal": "é, è, ê dans des mots fréquents",
+    "plus_loin": "ë, ï, ç, â, ô, î"
    },
    "itemKinds": [
+    "fill_blank",
+    "mcq",
+    "pairing",
     "spelling_word"
    ],
    "jeuxSuggeres": [
+    "peche-homophones",
+    "attrape-bulles",
     "ascension",
     "appareil-photo",
-    "lettres-en-vrac",
-    "bonhomme-de-neige",
-    "wordle",
-    "mots-croises",
-    "dictee-duel"
+    "dictee-duel",
+    "memory-familles"
    ],
    "source": {
-    "kind": "static",
-    "file": "data/dictees/ce1_mots.json",
-    "filter": {
-     "lessonId": "CE1.FR.ORTH.ACCENTS"
-    }
+    "kind": "generator",
+    "generator": "conjugaison/accents"
    },
-   "rappel": "é fait « é » comme dans été ; è et ê font « è » comme dans mère et fête."
+   "rappel": "é fait « é » comme dans été ; è et ê font « è » comme dans mère et fête.",
+   "contenus": "Tenir compte des accents ; tréma et cédille pour aller plus loin."
   },
   {
    "id": "CE1.FR.ORTH.LISTES_PARENTS",
@@ -442,9 +448,9 @@
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Grammaire & orthographe grammaticale",
-   "titre": "Le groupe nominal et la chaîne d'accords (dét. + nom + adj. ; pluriel -s, féminin -e)",
+   "titre": "Les accords dans le groupe nominal",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : comprendre le lien entre le déterminant, le nom et l’adjectif dans la chaîne d’accords",
    "periodes": [
     1,
     2,
@@ -453,32 +459,38 @@
     5
    ],
    "niveaux": {
-    "facile": "singulier/pluriel du nom",
-    "normal": "accords dans le GN",
-    "plus_loin": "pluriels en -x, féminins irréguliers"
+    "facile": "le nom au singulier ou au pluriel (les chats)",
+    "normal": "accorder l’adjectif : -e au féminin, -s au pluriel",
+    "plus_loin": "pluriels en -x et en -aux, féminins particuliers (programme du CE2)"
    },
    "itemKinds": [
-    "fill_blank"
+    "classification",
+    "fill_blank",
+    "mcq",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "train-des-accords",
-    "peche-homophones",
-    "ascension"
+    "train-accords",
+    "attrape-bulles",
+    "chef-orchestre",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_gram_gn"
+    "generator": "conjugaison/accords-gn"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Dans le groupe nominal, le nom commande : le déterminant et l’adjectif prennent son genre et son nombre (les petites fleurs).",
+   "contenus": "Chaîne d’accords déterminant + nom + adjectif : pluriel en -s, féminin en -e."
   },
   {
    "id": "CE1.FR.GRAM.SV",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Grammaire & orthographe grammaticale",
-   "titre": "Accord sujet-verbe (pluriel -nt)",
+   "titre": "Accorder le verbe avec son sujet",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : identifier la relation sujet-verbe (groupe sujet + verbe)",
    "periodes": [
     1,
     2,
@@ -487,23 +499,28 @@
     5
    ],
    "niveaux": {
-    "facile": "il/ils",
-    "normal": "sujet GN ↔ verbe",
-    "plus_loin": "sujet éloigné du verbe"
+    "facile": "il ou ils, elle ou elles",
+    "normal": "sujet groupe nominal (les enfants jouent)",
+    "plus_loin": "sujet éloigné du verbe (les enfants du quartier jouent)"
    },
    "itemKinds": [
-    "fill_blank"
+    "fill_blank",
+    "mcq",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "train-des-accords",
-    "peche-homophones",
-    "ascension"
+    "train-accords",
+    "attrape-bulles",
+    "chef-orchestre",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_gram_sv"
+    "generator": "conjugaison/accord-sujet-verbe"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je cherche le sujet en demandant « Qui est-ce qui… ? » ; s’il est au pluriel, le verbe prend -nt : ils jouent.",
+   "contenus": "Accord sujet-verbe : il/ils, sujet groupe nominal, sujet éloigné."
   },
   {
    "id": "CE1.FR.GRAM.SUBST",
@@ -545,9 +562,9 @@
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Grammaire & orthographe grammaticale",
-   "titre": "a/à, et/est, son/sont, on/ont",
+   "titre": "a ou à ? et ou est ? son ou sont ? on ou ont ?",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : orthographe grammaticale, relation sujet-verbe, être et avoir au présent (les homophones ne sont pas nommés par le programme)",
    "periodes": [
     1,
     2,
@@ -557,32 +574,35 @@
    ],
    "niveaux": {
     "facile": "a/à, et/est",
-    "normal": "+ son/sont, on/ont",
-    "plus_loin": "ces/ses, ou/où"
+    "normal": "a/à, et/est, son/sont, on/ont",
+    "plus_loin": "aussi ces/ses et ou/où"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "peche-homophones",
-    "vrai-faux",
-    "ascension"
+    "attrape-bulles",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_gram_homophones"
+    "generator": "conjugaison/homophones"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour choisir, je remplace : « a » par « avait », « est » par « était », « sont » par « étaient », « ont » par « avaient ».",
+   "contenus": "Homophones grammaticaux avec l’astuce du remplacement (avait, était, étaient, avaient)."
   },
   {
    "id": "CE1.FR.CONJ.INFINITIF",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Trouver l'infinitif (radical + terminaison, 1er groupe)",
+   "titre": "Trouver l’infinitif d’un verbe",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : identifier le radical et la terminaison d’un verbe du premier groupe conjugué et trouver son infinitif",
    "periodes": [
     1,
     2,
@@ -591,35 +611,39 @@
     5
    ],
    "niveaux": {
-    "facile": "présent",
-    "normal": "tous temps étudiés (« ils plieront, tu as plié → plier »)",
-    "plus_loin": "2e groupe"
+    "facile": "verbes en -er au présent",
+    "normal": "présent, imparfait, futur, passé composé (ils plieront, tu as plié → plier)",
+    "plus_loin": "verbes du 2e groupe (finir) et passé simple (elles plièrent)"
    },
    "itemKinds": [
+    "classification",
     "fill_blank",
+    "mcq",
     "oral_answer",
     "pairing"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "chef-orchestre",
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_conj_infinitif"
+    "generator": "conjugaison/infinitif"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour trouver l’infinitif, je dis « il faut… » devant le verbe : tu as plié → il faut plier.",
+   "contenus": "Radical et terminaison d’un verbe du 1er groupe conjugué ; trouver son infinitif (ils plieront, tu as plié → plier)."
   },
   {
    "id": "CE1.FR.CONJ.PRESENT",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Présent : être, avoir, 1er groupe",
+   "titre": "Le présent : être, avoir et les verbes en -er",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : conjuguer au présent de l’indicatif être, avoir et les verbes du premier groupe",
    "periodes": [
     1,
     2,
@@ -628,146 +652,156 @@
     5
    ],
    "niveaux": {
-    "facile": "je/tu/il",
-    "normal": "toutes personnes",
-    "plus_loin": "aller, faire, dire (CE2)"
+    "facile": "je, tu, il/elle/on",
+    "normal": "toutes les personnes",
+    "plus_loin": "aller, faire, dire (programme du CE2) ; nous mangeons, nous commençons"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_conj_present"
+    "generator": "conjugaison/present"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Au présent, les verbes en -er se terminent par -e, -es, -e, -ons, -ez, -ent ; être et avoir s’apprennent par cœur.",
+   "contenus": "Présent de l’indicatif de être, avoir et des verbes du 1er groupe."
   },
   {
    "id": "CE1.FR.CONJ.IMPARFAIT",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Imparfait : être, avoir, 1er groupe",
+   "titre": "L’imparfait : être, avoir et les verbes en -er",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : conjuguer à l’imparfait de l’indicatif être, avoir et les verbes du premier groupe",
    "periodes": [
-    1,
     2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "3e pers.",
-    "normal": "toutes personnes",
-    "plus_loin": "-ger/-cer (mangeait, commençait)"
+    "facile": "il/elle, ils/elles",
+    "normal": "toutes les personnes",
+    "plus_loin": "verbes en -ger, -cer et -ier (il mangeait, il commençait, nous pliions)"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_conj_imparfait"
+    "generator": "conjugaison/imparfait"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "À l’imparfait, on ajoute toujours -ais, -ais, -ait, -ions, -iez, -aient au radical : je chantais, nous chantions.",
+   "contenus": "Imparfait de l’indicatif de être, avoir et des verbes du 1er groupe."
   },
   {
    "id": "CE1.FR.CONJ.FUTUR",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Futur : être, avoir, 1er groupe",
+   "titre": "Le futur : être, avoir et les verbes en -er",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : conjuguer au futur de l’indicatif être, avoir et les verbes du premier groupe",
    "periodes": [
-    1,
-    2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "3e pers.",
-    "normal": "toutes personnes",
-    "plus_loin": "aller, faire, venir"
+    "facile": "il/elle, ils/elles",
+    "normal": "toutes les personnes",
+    "plus_loin": "aller, faire, venir (j’irai, je ferai, je viendrai)"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_conj_futur"
+    "generator": "conjugaison/futur"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Au futur, on garde l’infinitif et on ajoute -ai, -as, -a, -ons, -ez, -ont : je chanterai ; être → je serai, avoir → j’aurai.",
+   "contenus": "Futur de l’indicatif de être, avoir et des verbes du 1er groupe."
   },
   {
    "id": "CE1.FR.CONJ.PASSE_COMPOSE",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Passé composé avec avoir (1er groupe), être/avoir",
+   "titre": "Le passé composé",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : conjuguer au passé composé de l’indicatif être, avoir et les verbes du premier groupe",
    "periodes": [
-    1,
-    2,
-    3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "j'ai + PP",
-    "normal": "toutes personnes",
-    "plus_loin": "PP avec être (accord)"
+    "facile": "j’ai, tu as, il a + participe passé",
+    "normal": "toutes les personnes avec avoir (j’ai été, j’ai eu, nous avons joué)",
+    "plus_loin": "verbes conjugués avec être et accord du participe passé (elle est tombée)"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_conj_passe_compose"
+    "generator": "conjugaison/passe-compose"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Au passé composé, j’écris l’auxiliaire avoir au présent, puis le participe passé : j’ai chanté, nous avons eu.",
+   "contenus": "Passé composé de être, avoir et des verbes du 1er groupe : auxiliaire + participe passé."
   },
   {
    "id": "CE1.FR.CONJ.TEMPS",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Passé / présent / futur : repérer le temps d'une phrase (« Simon parle / parlait / parlera à Nora »)",
+   "titre": "Passé, présent ou futur ?",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Conjugaison",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : observer les transformations liées au changement de temps ; conjuguer au présent, à l’imparfait, au futur et au passé composé",
    "periodes": [
     1,
     2,
@@ -776,26 +810,29 @@
     5
    ],
    "niveaux": {
-    "facile": "indices temporels (hier, demain)",
-    "normal": "identifier le temps",
-    "plus_loin": "transformer une phrase de temps"
+    "facile": "avec un indice de temps (hier, aujourd’hui, demain)",
+    "normal": "sans indice : je regarde le verbe",
+    "plus_loin": "transformer une phrase au passé ou au futur"
    },
    "itemKinds": [
+    "classification",
     "fill_blank",
-    "oral_answer",
-    "pairing"
+    "mcq",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "chef-orchestre",
+    "attrape-bulles",
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_conj_temps"
+    "generator": "conjugaison/temps"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je regarde le verbe : si l’action est déjà passée, c’est le passé ; si elle se passe maintenant, le présent ; si elle se passera plus tard, le futur.",
+   "contenus": "Repérer le temps d’une phrase (« Simon parle / parlait / parlera à Nora ») ; transformer une phrase."
   },
   {
    "id": "CE1.FR.VOC.AFFIXES",
