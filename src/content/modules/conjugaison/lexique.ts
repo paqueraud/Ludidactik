@@ -23,7 +23,7 @@ const v = (inf: string, compl: string[], extra: Partial<VerbeLex> = {}): VerbeLe
 });
 
 export const ETRE_AVOIR: Record<'être' | 'avoir', VerbeLex> = {
-  être: v('être', ['en retard', 'à l’heure', 'en vacances', 'en avance', 'de bonne humeur'], {
+  être: v('être', ['en retard', 'à l’heure', 'en avance', 'de bonne humeur'], {
     imp: ['à l’heure', 'au rendez-vous', 'en avance'],
   }),
   avoir: v('avoir', ['un vélo', 'faim', 'de la chance', 'un chat', 'une idée', 'froid', 'soif'], {
@@ -87,7 +87,7 @@ export const PREMIER_IER: VerbeLex[] = [
 export const PREMIER_CER_GER: VerbeLex[] = [
   v('manger', ['une pomme', 'des crêpes', 'à la cantine', 'une glace']),
   v('nager', ['dans la piscine', 'dans la mer', 'très vite']),
-  v('ranger', ['la classe', 'les jouets', 'la chambre', 'les crayons']),
+  v('ranger', ['le garage', 'les jouets', 'la chambre', 'les crayons']),
   v('voyager', ['en train', 'en avion', 'autour du monde']),
   v('partager', ['le goûter', 'les bonbons', 'le gâteau']),
   v('plonger', ['dans le lac', 'dans la piscine']),
@@ -125,7 +125,7 @@ export const PREMIER_ETRE: VerbeLex[] = [
 export const DEUXIEME: VerbeLex[] = [
   v('finir', ['le puzzle', 'la course', 'le repas', 'les exercices']),
   v('choisir', ['un livre', 'une glace à la fraise', 'la bonne réponse']),
-  v('grandir', ['très vite', 'à la campagne', 'beaucoup'], { sansImperatif: true }),
+  v('grandir', ['très vite', 'à la campagne'], { sansImperatif: true }),
   v('réussir', ['l’exercice', 'le gâteau', 'le tour de magie']),
   v('remplir', ['le seau', 'la bouteille', 'la grille']),
   v('obéir', ['aux règles du jeu', 'à l’arbitre']),
@@ -149,7 +149,7 @@ export const IRREGULIERS_BO: VerbeLex[] = [
   v('voir', ['un arc-en-ciel', 'la mer', 'un écureuil', 'le spectacle'], { sansImperatif: true }),
   v('vouloir', ['un chocolat chaud', 'jouer dehors', 'un chien', 'une glace'], { sansImperatif: true }),
   v('prendre', ['le bus', 'un parapluie', 'une photo', 'le train']),
-  v('revenir', ['de vacances', 'à la maison', 'du marché']),
+  v('revenir', ['de vacances', 'à la maison', 'de la plage']),
   v('apprendre', ['une poésie', 'à nager', 'la leçon']),
   v('comprendre', ['la consigne', 'la règle du jeu', 'la question']),
 ];

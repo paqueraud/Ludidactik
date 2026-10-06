@@ -60,7 +60,14 @@ const NORMAL: VerbeLex[] = [
   ...DEUXIEME,
   ...fois(3, IRREGULIERS_BO),
 ];
-const PLUS_LOIN: VerbeLex[] = [...NORMAL, ...fois(2, PREMIER_RADICAL), ...fois(3, AUTRES_TROISIEME)];
+/** Plus loin : surtout des verbes au radical changeant et d'autres verbes du 3e groupe. */
+const PLUS_LOIN: VerbeLex[] = [
+  ...fois(4, PREMIER_RADICAL),
+  ...fois(5, AUTRES_TROISIEME),
+  ...IRREGULIERS_BO,
+  ...DEUXIEME,
+  ...EA,
+];
 const VERBES_ETRE: VerbeLex[] = [...PREMIER_ETRE, lex('aller'), lex('venir'), lex('revenir')];
 
 const TOUTES: readonly Personne[] = PERSONNES;
@@ -112,7 +119,7 @@ const PC: PlanParNiveau = {
 const PQP: PlanParNiveau = {
   facile: plan(['plus_que_parfait'], [...PREMIER_SIMPLES, ...DEUXIEME, ...fois(2, EA)]),
   normal: plan(['plus_que_parfait'], [...NORMAL, ...fois(3, VERBES_ETRE)], TOUTES, { negation: 0.2 }),
-  plus_loin: plan(['plus_que_parfait'], [...PLUS_LOIN, ...fois(3, VERBES_ETRE)], TOUTES, { negation: 0.4 }),
+  plus_loin: plan(['plus_que_parfait'], [...PLUS_LOIN, ...fois(3, VERBES_ETRE)], TOUTES, { negation: 0.6 }),
 };
 
 const IMP_PERSONNES: readonly Personne[] = [1, 3, 4];
@@ -298,16 +305,16 @@ const MARQUES_PLAN: Record<Level, Plan> = {
     sujets: 'pronoms',
     indicateur: 0.5,
   }),
-  plus_loin: plan(TEMPS_MARQUES, [...PREMIER_SIMPLES, ...fois(3, PREMIER_RADICAL), ...DEUXIEME], TOUTES, {
+  plus_loin: plan(TEMPS_MARQUES, [...PREMIER_SIMPLES, ...fois(6, PREMIER_RADICAL), ...DEUXIEME], TOUTES, {
     sujets: 'pronoms',
     indicateur: 0.5,
   }),
 };
 
 /** Un tirage dont la forme se découpe (radical + marques). */
-function tirageMarques(level: Level, rng: Rng) {
+function tirageMarques(level: Level, rng: Rng, temps: Temps[] = TEMPS_MARQUES) {
   for (let i = 0; i < 100; i++) {
-    const t = tirer(MARQUES_PLAN[level], rng);
+    const t = tirer({ ...MARQUES_PLAN[level], temps }, rng);
     const d = decomposer(t.verbe.inf, t.temps, t.p);
     if (!d || d.radical.length < 1) continue;
     const forme = formesDe(t)[0]!;
@@ -317,17 +324,33 @@ function tirageMarques(level: Level, rng: Rng) {
 }
 
 const RAPPEL_MARQUES =
-  'Une forme verbale = radical + marque du temps (-ai- ou -i- à l’imparfait, -r- au futur, rien au présent) + marque de la personne (-s, -t, -ons, -ez, -ent…).';
+  'Une forme verbale = radical + marque du temps (-ai- ou -i- à l’imparfait, -r- au futur) + marque de la personne (-s, -t, -ons, -ez, -ent à l’imparfait ; -ai, -as, -a, -ons, -ez, -ont au futur).';
+
+/** Découpage expliqué : au futur, on montre l'infinitif (ou le radical du futur) suivi des marques. */
+function decoupage(
+  avecPr: string,
+  d: { radical: string; temps: string; personne: string },
+  temps: Temps,
+): string {
+  if (temps === 'futur')
+    return `« ${avecPr} » : -${d.temps}- est la marque du futur et -${d.personne} la marque de la personne.`;
+  return `« ${avecPr} » = ${d.radical} (radical) + ${d.temps ? `${d.temps} (marque de l’imparfait) + ` : ''}${d.personne} (marque de la personne).`;
+}
 
 function marquesQcm(level: Level, rng: Rng, ctx: GenContext): ItemOf<'mcq'> {
-  const { t, d, avecPr } = tirageMarques(level, rng);
+  const radical = level === 'plus_loin' && rng.chance(0.7);
+  const { t, d, avecPr } = tirageMarques(
+    level,
+    rng,
+    radical ? ['present', 'imparfait'] : ['imparfait', 'futur'],
+  );
   const tiret = (x: string) => `-${x}-`;
   const fin = (x: string) => `-${x}`;
   const rad = (x: string) => `${x}-`;
   const quoi =
     level === 'facile'
       ? rng.pick(['terminaison', 'personne'])
-      : level === 'plus_loin' && t.temps !== 'futur' && rng.chance(0.5)
+      : radical
         ? 'radical'
         : d.temps
           ? rng.pick(['temps', 'personne'])
@@ -335,7 +358,7 @@ function marquesQcm(level: Level, rng: Rng, ctx: GenContext): ItemOf<'mcq'> {
   const autresPers = PERSONNES.map((q) => decomposer(t.verbe.inf, t.temps, q)?.personne).filter(
     (x): x is string => !!x && x !== d.personne,
   );
-  const explication = `${RAPPEL_MARQUES} « ${avecPr} » = ${d.radical} + ${d.temps ? `${d.temps} (marque ${t.temps === 'futur' ? 'du futur' : 'de l’imparfait'}) + ` : ''}${d.personne} (marque de la personne).`;
+  const explication = `${RAPPEL_MARQUES} ${decoupage(avecPr, d, t.temps)}`;
   if (quoi === 'terminaison') {
     const term = d.temps + d.personne;
     return mcq(ctx, rng, 'terminaison', {
@@ -383,9 +406,9 @@ function marquesQcm(level: Level, rng: Rng, ctx: GenContext): ItemOf<'mcq'> {
 }
 
 function marquesVraiFaux(level: Level, rng: Rng, ctx: GenContext): ItemOf<'true_false'> {
-  const { t, d, avecPr } = tirageMarques(level, rng);
+  const { t, d, avecPr } = tirageMarques(level, rng, ['imparfait', 'futur']);
   const vrai = rng.chance(0.5);
-  const explication = `${RAPPEL_MARQUES} « ${avecPr} » = ${d.radical} + ${d.temps ? `${d.temps} + ` : ''}${d.personne}.`;
+  const explication = `${RAPPEL_MARQUES} ${decoupage(avecPr, d, t.temps)}`;
   if (d.temps && rng.chance(0.5)) {
     const dit = vrai ? d.temps : rng.pick(['ai', 'i', 'r'].filter((x) => x !== d.temps));
     return vraiFaux(ctx, 'marque-temps', {
@@ -455,6 +478,28 @@ function marquesClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'cla
     prompt: 'Range chaque verbe selon sa marque du temps.',
     categories: cats,
     elements: rng.shuffle(elements),
+    explication: RAPPEL_MARQUES,
+    difficulty: level === 'facile' ? 0.35 : 0.55,
+  });
+}
+
+/** Paires forme ↔ marque du temps. */
+function marquesPaires(level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> {
+  const v = rng.pick(MARQUES_PLAN[level].verbes.filter((x) => groupe(x.inf) === 1));
+  const f = (temps: Temps, p: Personne) => avecPronom(p, formes(v.inf, temps, p)[0]!);
+  const pPres = rng.pick<Personne>([3, 4, 5]);
+  const pImpSg = rng.pick<Personne>([0, 1, 2, 5]);
+  const pImpPl = rng.pick<Personne>([3, 4]);
+  const pFut = rng.pick<Personne>([0, 1, 2, 3, 4, 5]);
+  return make(ctx, 'pairing', 'marques', {
+    prompt: `Associe chaque forme du verbe « ${v.inf} » à sa marque du temps.`,
+    pairs: [
+      { left: f('present', pPres), right: 'pas de marque (présent)' },
+      { left: f('imparfait', pImpSg), right: '-ai- (imparfait)' },
+      { left: f('imparfait', pImpPl), right: '-i- (imparfait)' },
+      { left: f('futur', pFut), right: '-r- (futur)' },
+    ],
+    relation: 'forme → marque du temps',
     explication: RAPPEL_MARQUES,
     difficulty: level === 'facile' ? 0.35 : 0.55,
   });
@@ -723,7 +768,7 @@ export const CONJ_CM2: Record<string, LessonContent> = {
     gens: {
       ...impGens,
       fill_blank: (level, rng, ctx) =>
-        level === 'plus_loin' && rng.chance(0.5)
+        level === 'plus_loin' && rng.chance(0.8)
           ? impTrouPlusLoin(rng, ctx)
           : impGens.fill_blank(level, rng, ctx),
     },
@@ -734,6 +779,7 @@ export const CONJ_CM2: Record<string, LessonContent> = {
       true_false: marquesVraiFaux,
       classification: marquesClassement,
       fill_blank: marquesTrou,
+      pairing: marquesPaires,
     },
   },
   'CM2.FR.CONJ.CONCORD': {

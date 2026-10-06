@@ -28,7 +28,16 @@ import {
   type VerbeLex,
   lex,
 } from './lexique';
-import { AU_TEMPS, PERSONNES, type Personne, type Temps, avecPronom, formes, groupe } from './moteur';
+import {
+  AU_TEMPS,
+  NOM_TEMPS,
+  PERSONNES,
+  type Personne,
+  type Temps,
+  avecPronom,
+  formes,
+  groupe,
+} from './moteur';
 import { clamp01, distinctsPar, make, mcq, trou, vraiFaux } from './util';
 
 const fois = <T>(n: number, x: T[]): T[] => Array.from({ length: n }, () => x).flat();
@@ -54,6 +63,7 @@ const plan = (
   sujets: 'varies',
   indicateur,
   voisins: ['present', 'imparfait', 'futur'],
+  piegesAccord: false,
 });
 
 const PRESENT: PlanParNiveau = {
@@ -61,7 +71,7 @@ const PRESENT: PlanParNiveau = {
   normal: plan(['present'], BASE_IER, TOUTES),
   plus_loin: plan(
     ['present'],
-    [...BASE_IER, ...fois(3, [lex('aller'), lex('faire'), lex('dire')]), ...PREMIER_CER_GER],
+    [...PREMIER_SIMPLES, ...fois(8, [lex('aller'), lex('faire'), lex('dire')]), ...fois(3, PREMIER_CER_GER)],
     TOUTES,
   ),
 };
@@ -69,13 +79,21 @@ const PRESENT: PlanParNiveau = {
 const IMPARFAIT: PlanParNiveau = {
   facile: plan(['imparfait'], BASE, IL_ILS),
   normal: plan(['imparfait'], BASE, TOUTES),
-  plus_loin: plan(['imparfait'], [...BASE, ...PREMIER_CER_GER, ...PREMIER_CER_GER, ...PREMIER_IER], TOUTES),
+  plus_loin: plan(
+    ['imparfait'],
+    [...PREMIER_SIMPLES, ...fois(3, PREMIER_CER_GER), ...fois(5, PREMIER_IER)],
+    TOUTES,
+  ),
 };
 
 const FUTUR: PlanParNiveau = {
   facile: plan(['futur'], BASE_IER, IL_ILS),
   normal: plan(['futur'], BASE_IER, TOUTES),
-  plus_loin: plan(['futur'], [...BASE_IER, ...fois(3, [lex('aller'), lex('faire'), lex('venir')])], TOUTES),
+  plus_loin: plan(
+    ['futur'],
+    [...PREMIER_SIMPLES, ...fois(10, [lex('aller'), lex('faire'), lex('venir')])],
+    TOUTES,
+  ),
 };
 
 const PASSE_COMPOSE: PlanParNiveau = {
@@ -83,7 +101,7 @@ const PASSE_COMPOSE: PlanParNiveau = {
   normal: plan(['passe_compose'], BASE_IER, TOUTES),
   plus_loin: plan(
     ['passe_compose'],
-    [...BASE_IER, ...fois(3, [...PREMIER_ETRE, lex('aller'), lex('venir')])],
+    [...PREMIER_SIMPLES, ...fois(6, [...PREMIER_ETRE, lex('aller'), lex('venir')])],
     TOUTES,
   ),
 };
@@ -172,6 +190,24 @@ function tempsVraiFaux(level: Level, rng: Rng, ctx: GenContext): ItemOf<'true_fa
   });
 }
 
+/** Paires forme ↔ temps (présent, imparfait, futur, passé composé). */
+function tempsPaires(level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> {
+  const t0 = tirer({ ...TEMPS_PLAN[level], sujets: 'pronoms' }, rng);
+  const pairs = rng.shuffle(TEMPS_CE1).map((temps) => {
+    const t = { ...t0, temps, negation: false };
+    const f = formesDe(t)[0]!;
+    return { left: avecPronom(t.p, f, pronomDe(t)), right: NOM_TEMPS[temps] };
+  });
+  return make(ctx, 'pairing', 'temps', {
+    prompt: `Associe chaque forme du verbe « ${t0.verbe.inf} » à son temps.`,
+    pairs,
+    relation: 'forme → temps',
+    explication:
+      'Imparfait : -ais, -ait… ; futur : on entend le r (-rai, -ra…) ; passé composé : avoir + participe passé.',
+    difficulty: level === 'facile' ? 0.3 : 0.5,
+  });
+}
+
 /** Phrase à transformer (plus loin) ou à compléter d'après l'indicateur de temps. */
 function tempsTrou(level: Level, rng: Rng, ctx: GenContext): ItemOf<'fill_blank'> {
   if (level !== 'plus_loin') return itemTrou(ctx, rng, tirer({ ...TEMPS_PLAN[level], indicateur: 1 }, rng));
@@ -208,7 +244,7 @@ const INFINITIF_PLAN: Record<Level, Plan> = {
     plan(TEMPS_CE1, [...BASE_SANS_ETRE_AVOIR, ...fois(2, [ETRE_AVOIR.être, ETRE_AVOIR.avoir])], TOUTES, 0.3),
   ),
   plus_loin: pronoms(
-    plan([...TEMPS_CE1, 'passe_simple'], [...BASE_SANS_ETRE_AVOIR, ...DEUXIEME, ...DEUXIEME], TOUTES, 0.3),
+    plan([...TEMPS_CE1, 'passe_simple'], [...PREMIER_SIMPLES, ...fois(3, DEUXIEME)], TOUTES, 0.3),
   ),
 };
 
@@ -229,7 +265,7 @@ function tirageInfinitif(level: Level, rng: Rng) {
     {
       ...p,
       temps:
-        level === 'plus_loin' && rng.chance(0.25)
+        level === 'plus_loin' && rng.chance(0.4)
           ? ['passe_simple']
           : p.temps.filter((x) => x !== 'passe_simple'),
     },
@@ -350,6 +386,7 @@ export const CONJ_CE1: Record<string, LessonContent> = {
       classification: tempsClassement,
       true_false: tempsVraiFaux,
       fill_blank: tempsTrou,
+      pairing: tempsPaires,
     },
   },
   'CE1.FR.CONJ.INFINITIF': {

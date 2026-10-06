@@ -247,13 +247,15 @@
    "itemKinds": [
     "fill_blank",
     "mcq",
+    "pairing",
     "spelling_word"
    ],
    "jeuxSuggeres": [
     "chasse-lettres-muettes",
     "attrape-bulles",
     "ascension",
-    "appareil-photo"
+    "appareil-photo",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -285,6 +287,7 @@
    "itemKinds": [
     "fill_blank",
     "mcq",
+    "pairing",
     "spelling_word"
    ],
    "jeuxSuggeres": [
@@ -292,7 +295,8 @@
     "attrape-bulles",
     "ascension",
     "appareil-photo",
-    "dictee-duel"
+    "dictee-duel",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -463,12 +467,14 @@
     "classification",
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "train-accords",
     "attrape-bulles",
-    "chef-orchestre"
+    "chef-orchestre",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -500,12 +506,14 @@
    "itemKinds": [
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "train-accords",
     "attrape-bulles",
-    "chef-orchestre"
+    "chef-orchestre",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -572,11 +580,13 @@
    "itemKinds": [
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "peche-homophones",
-    "attrape-bulles"
+    "attrape-bulles",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -808,12 +818,14 @@
     "classification",
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "chef-orchestre",
     "attrape-bulles",
-    "forge-du-verbe"
+    "forge-du-verbe",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",

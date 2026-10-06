@@ -382,3 +382,23 @@ describe('conjugaison — réponses justes', () => {
       }
   });
 });
+
+describe('conjugaison — jeux jouables', () => {
+  it('chaque leçon propose plusieurs jeux, et chaque jeu reçoit des items à chaque niveau', async () => {
+    const { gamesForLesson } = await import('@/games/registry');
+    const { content } = await import('@/content');
+    const { createStream } = await import('@/content/provider');
+    for (const lesson of mesLecons) {
+      const ctx = { parentLists: [] };
+      const jeux = gamesForLesson(lesson, ctx);
+      expect(jeux.length, lesson.id).toBeGreaterThanOrEqual(3);
+      for (const { game, kind } of jeux)
+        for (const level of LEVELS) {
+          const st = createStream(content, lesson, kind, level, createRng(3), ctx, game.filterItem);
+          expect(st, `${lesson.id} · ${game.id} · ${level}`).not.toBeNull();
+          for (let i = 0; i < 5; i++)
+            expect(game.filterItem?.(st!.next()) ?? true, `${lesson.id} · ${game.id} · ${level}`).toBe(true);
+        }
+    }
+  }, 120_000);
+});

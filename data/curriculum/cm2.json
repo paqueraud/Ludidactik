@@ -471,12 +471,14 @@
     "classification",
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "train-accords",
     "attrape-bulles",
-    "chef-orchestre"
+    "chef-orchestre",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -508,12 +510,14 @@
    "itemKinds": [
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "train-accords",
     "attrape-bulles",
-    "chef-orchestre"
+    "chef-orchestre",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -545,12 +549,14 @@
    "itemKinds": [
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "train-accords",
     "attrape-bulles",
-    "chef-orchestre"
+    "chef-orchestre",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -582,11 +588,13 @@
    "itemKinds": [
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "peche-homophones",
-    "attrape-bulles"
+    "attrape-bulles",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
@@ -1021,12 +1029,14 @@
     "classification",
     "fill_blank",
     "mcq",
+    "pairing",
     "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
     "chef-orchestre",
-    "attrape-bulles"
+    "attrape-bulles",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",

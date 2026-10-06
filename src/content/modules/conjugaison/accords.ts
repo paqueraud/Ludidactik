@@ -334,8 +334,8 @@ const formeAdj = (a: Adjectif, g: Genre, pl: boolean) => (g === 'm' ? (pl ? a.mp
 const formesAdj = (a: Adjectif) => [...new Set([a.m, a.f, a.mp, a.fp])];
 
 const DETS: Record<Genre, { sg: string[]; pl: string[] }> = {
-  m: { sg: ['le', 'un', 'mon', 'ce'], pl: ['les', 'des', 'mes', 'ces'] },
-  f: { sg: ['la', 'une', 'ma', 'cette'], pl: ['les', 'des', 'mes', 'ces'] },
+  m: { sg: ['le', 'un', 'mon'], pl: ['les', 'des', 'mes'] },
+  f: { sg: ['la', 'une', 'ma'], pl: ['les', 'des', 'mes'] },
 };
 
 const CADRES_GN = [
@@ -402,7 +402,7 @@ function itemGN(ctx: GenContext, rng: Rng, mode: ModeGN, difficulte: number): It
       nbChoix: 3,
       explication: p
         ? `Le déterminant « ${det} » montre que le nom est au pluriel : ${regle} → ${det} ${forme}.`
-        : `Le déterminant « ${det} » montre que le nom est au singulier : pas de s → ${det} ${forme}.`,
+        : `Le déterminant « ${det} » montre que le nom est au singulier : pas de ${n.special && n.special !== 'al' ? 'x' : 's'} → ${det} ${forme}.`,
       difficulty: difficulte,
       meta: { groupe: [det, '___'], lemme: n.sg },
     });
@@ -412,7 +412,14 @@ function itemGN(ctx: GenContext, rng: Rng, mode: ModeGN, difficulte: number): It
     const a = rng.pick(NOMS_ANIMES);
     const g: Genre = rng.chance(0.6) ? 'f' : 'm';
     const forme = g === 'f' ? a.f : a.m;
-    const det = g === 'f' ? rng.pick(['la', 'une', 'cette']) : rng.pick(['le', 'un', 'ce']);
+    // pas d'élision à gérer : devant une voyelle (acteur, explorateur), seulement un / une
+    const det = commenceParVoyelle(forme)
+      ? g === 'f'
+        ? 'une'
+        : 'un'
+      : g === 'f'
+        ? rng.pick(['la', 'une'])
+        : rng.pick(['le', 'un']);
     const regle =
       a.type === 'trice'
         ? 'beaucoup de noms en -teur font leur féminin en -trice'
@@ -469,7 +476,7 @@ function itemGN(ctx: GenContext, rng: Rng, mode: ModeGN, difficulte: number): It
       { gn: 'les roues', g: 'f', pl: true, cdn: 'du vélo', adjs: ['noir', 'rond', 'neuf'] },
       { gn: 'le jardin', g: 'm', pl: false, cdn: 'des voisins', adjs: ['grand', 'joli', 'vert'] },
       { gn: 'les murs', g: 'm', pl: true, cdn: 'de la cabane', adjs: ['blanc', 'gris', 'bleu'] },
-      { gn: 'la robe', g: 'f', pl: false, cdn: 'des princesses', adjs: ['bleu', 'rouge', 'long'] },
+      { gn: 'les tours', g: 'f', pl: true, cdn: 'du château', adjs: ['grand', 'gris', 'rond'] },
     ];
     const x = rng.pick(noyaux);
     const a = rng.pick([...ADJ_REGULIERS, ...ADJ_SPECIAUX].filter((y) => x.adjs.includes(y.m)));
@@ -504,16 +511,24 @@ function itemGN(ctx: GenContext, rng: Rng, mode: ModeGN, difficulte: number): It
   const gn: GN = { det, nom: nomForme, adj: '___', avant: a.avant, g: n.g, pl: p };
   const mots = motsGN(gn);
   const marques =
-    n.g === 'f' && p
-      ? 'on ajoute -e et -s'
-      : n.g === 'f'
-        ? 'on ajoute -e'
-        : p
+    p && n.g === 'm' && forme === a.m
+      ? `« ${a.m} » se termine déjà par ${a.m.slice(-1)} : il ne change pas au pluriel`
+      : !p && n.g === 'f' && forme === a.m
+        ? `« ${a.m} » se termine déjà par e : il ne change pas au féminin`
+        : p && n.g === 'f' && a.f === a.m
           ? 'on ajoute -s'
-          : 'pas de marque';
-  const regle = a.special
-    ? `cet adjectif a une forme particulière au ${GENRE_NOMBRE(n.g, p)} (${formesAdj(a).join(', ')})`
-    : marques;
+          : n.g === 'f' && p
+            ? 'on ajoute -e et -s'
+            : n.g === 'f'
+              ? 'on ajoute -e'
+              : p
+                ? 'on ajoute -s'
+                : 'pas de marque';
+  const special =
+    n.g === 'm' && !p
+      ? 'au masculin singulier, l’adjectif garde sa forme de base'
+      : `au ${GENRE_NOMBRE(n.g, p)}, on écrit « ${forme} » (${a.m}, ${a.f}, ${a.mp}, ${a.fp})`;
+  const regle = a.special ? special : marques;
   return trou(ctx, rng, `gn-adj-${mode}`, {
     sentence: cadre(mots.join(' ')),
     answer: forme,
@@ -533,10 +548,9 @@ const MODES_GN: Record<string, Record<Level, readonly (readonly [number, ModeGN]
       [0.7, 'adj'],
     ],
     plus_loin: [
-      [0.2, 'adj'],
-      [0.3, 'x'],
-      [0.15, 'al'],
-      [0.35, 'special'],
+      [0.35, 'x'],
+      [0.2, 'al'],
+      [0.45, 'special'],
     ],
   },
   CM2: {
@@ -553,10 +567,10 @@ const MODES_GN: Record<string, Record<Level, readonly (readonly [number, ModeGN]
       [0.15, 'cdn'],
     ],
     plus_loin: [
-      [0.5, 'couleur'],
-      [0.15, 'cdn'],
-      [0.15, 'special'],
-      [0.2, 'anime'],
+      [0.7, 'couleur'],
+      [0.1, 'cdn'],
+      [0.1, 'special'],
+      [0.1, 'anime'],
     ],
   },
 };
@@ -582,7 +596,9 @@ function gnQcm(classe: 'CE1' | 'CM2') {
         .map((c) => groupe.join(' ').replace('___', c));
       if (faux.length < 1) continue;
       return mcq(ctx, rng, 'gn', {
-        question: 'Quel groupe nominal est bien accordé ?',
+        question: /^\p{Lu}/u.test(groupe[0]!)
+          ? 'Quelle phrase est bien accordée ?'
+          : 'Quel groupe nominal est bien accordé ?',
         good: juste,
         wrong: faux,
         explication: it.explication,
@@ -603,7 +619,7 @@ function gnVraiFaux(classe: 'CE1' | 'CM2') {
       if (!vrai && !faux.length) continue;
       const montre = vrai ? it.answer : rng.pick(faux);
       return vraiFaux(ctx, 'gn', {
-        statement: `Ce groupe nominal est bien accordé : « ${groupe.join(' ').replace('___', montre)} »`,
+        statement: `${/^\p{Lu}/u.test(groupe[0]!) ? 'Cette phrase est bien accordée' : 'Ce groupe nominal est bien accordé'} : « ${groupe.join(' ').replace('___', montre)} »`,
         answer: vrai,
         explication: it.explication,
         difficulty: it.difficulty ?? 0.5,
@@ -683,7 +699,7 @@ const SUJETS_ELOIGNES: Sujet[] = [
   { texte: 'les enfants du quartier', p: 5, fem: false, pronom: false },
   { texte: 'le directeur des écoles', p: 2, fem: false, pronom: false },
   { texte: 'les filles de la chorale', p: 5, fem: true, pronom: false },
-  { texte: 'le capitaine des joueuses', p: 2, fem: false, pronom: false },
+  { texte: 'la capitaine des joueuses', p: 2, fem: true, pronom: false },
 ];
 
 const TEMPS_SV: Record<string, Record<Level, Temps[]>> = {
@@ -813,7 +829,7 @@ function itemSV(
       groupe = [...(indic ? s.texte : majuscule(s.texte)).split(' '), '___'];
       pourquoi =
         mode === 'eloigne'
-          ? `le sujet est « ${s.texte} » : le nom principal est « ${s.texte.split(' ')[1]} » (${p === 5 ? 'pluriel' : 'singulier'}), pas le nom qui suit « de »`
+          ? `le sujet est « ${s.texte} » : le nom principal est « ${s.texte.split(' ')[1]} », pas le nom qui suit « de » ou « des »`
           : `le sujet est « ${s.texte} »`;
       break;
     }
@@ -829,8 +845,10 @@ function itemSV(
         phrase = (v) => `${debut} ${v} ${s.texte}.`;
         groupe = ['___', ...s.texte.split(' ')];
       } else {
-        phrase = (v) => `« Bonjour ! » ${v} ${s.texte}.`;
-        const { bonne, fausses } = formesSV('dire', temps === 'futur' ? 'present' : temps, p);
+        const tD: Temps = temps === 'futur' ? 'present' : temps;
+        const avant = tD === 'imparfait' ? 'Chaque matin, ' : tD === 'passe_simple' ? 'Ce jour-là, ' : '';
+        phrase = (v) => `${avant}“Bonjour !” ${v} ${s.texte}.`;
+        const { bonne, fausses } = formesSV('dire', tD, p);
         return trou(ctx, rng, 'sv-inverse-dire', {
           sentence: phrase('___'),
           answer: bonne,
@@ -1016,15 +1034,15 @@ type ModePP = 'etre' | 'avoir' | 'codPronom' | 'codQue';
 const MODES_PP: Record<Level, readonly (readonly [number, ModePP])[]> = {
   facile: [[1, 'etre']],
   normal: [
-    [0.45, 'etre'],
-    [0.35, 'avoir'],
-    [0.2, 'codPronom'],
+    [0.35, 'etre'],
+    [0.3, 'avoir'],
+    [0.35, 'codPronom'],
   ],
   plus_loin: [
-    [0.2, 'etre'],
-    [0.2, 'avoir'],
+    [0.1, 'etre'],
+    [0.1, 'avoir'],
     [0.3, 'codPronom'],
-    [0.3, 'codQue'],
+    [0.5, 'codQue'],
   ],
 };
 
@@ -1146,6 +1164,127 @@ function ppVraiFaux(level: Level, rng: Rng, ctx: GenContext): ItemOf<'true_false
 /* Export                                                              */
 /* ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ */
+/* Paires (Memory)                                                     */
+/* ------------------------------------------------------------------ */
+
+/** GN : singulier ↔ pluriel (CM2 : aussi masculin ↔ féminin des noms de personnes). */
+function gnPaires(classe: 'CE1' | 'CM2') {
+  return (level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> => {
+    const anime = classe === 'CM2' && level !== 'facile' && rng.chance(0.4);
+    if (anime) {
+      const noms = distinctsPar(
+        rng,
+        NOMS_ANIMES.filter((a) => !commenceParVoyelle(a.m)),
+        5,
+        (a) => a.m,
+      );
+      return make(ctx, 'pairing', 'gn-genre', {
+        prompt: 'Associe chaque nom masculin à son féminin.',
+        pairs: noms.map((a) => ({ left: `un ${a.m}`, right: `une ${a.f}` })),
+        relation: 'masculin → féminin',
+        explication:
+          'Beaucoup de noms en -eur font leur féminin en -euse (danseur, danseuse) ou en -trice (acteur, actrice).',
+        difficulty: 0.5,
+      });
+    }
+    const pool: Nom[] =
+      level === 'facile'
+        ? NOMS_REGULIERS
+        : level === 'normal' && classe === 'CE1'
+          ? NOMS_REGULIERS
+          : [...NOMS_X, ...NOMS_AL, ...(classe === 'CM2' ? [] : NOMS_REGULIERS.slice(0, 6))];
+    const noms = distinctsPar(rng, pool, 5, (n) => n.sg);
+    const avecAdj = level !== 'facile';
+    const pairs = noms.map((n) => {
+      const cands = [...ADJ_REGULIERS, ...ADJ_SPECIAUX].filter(
+        (x) => !x.anime && nomsPour(x).some((y) => y.sg === n.sg),
+      );
+      const a = avecAdj && cands.length ? rng.pick(cands) : undefined;
+      const det = n.g === 'f' ? 'la' : 'le';
+      if (!a || commenceParVoyelle(a.avant ? a.m : n.sg))
+        return {
+          left: `${commenceParVoyelle(n.sg) ? (n.g === 'f' ? 'une' : 'un') : det} ${n.sg}`,
+          right: `les ${n.pl}`,
+        };
+      const sg = a.avant
+        ? `${det} ${formeAdj(a, n.g, false)} ${n.sg}`
+        : `${det} ${n.sg} ${formeAdj(a, n.g, false)}`;
+      const pl = a.avant ? `les ${formeAdj(a, n.g, true)} ${n.pl}` : `les ${n.pl} ${formeAdj(a, n.g, true)}`;
+      return { left: sg, right: pl };
+    });
+    return make(ctx, 'pairing', 'gn-nombre', {
+      prompt: 'Associe chaque groupe au singulier au même groupe au pluriel.',
+      pairs,
+      relation: 'singulier → pluriel',
+      explication:
+        'Au pluriel, toute la chaîne s’accorde : le déterminant, le nom et l’adjectif (le petit chat → les petits chats).',
+      difficulty: DIFF_GN[level],
+    });
+  };
+}
+
+/** Sujet-verbe : chaque sujet avec la forme du verbe qui s'accorde avec lui. */
+function svPaires(classe: 'CE1' | 'CM2') {
+  return (level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> => {
+    const temps = rng.pick(TEMPS_SV[classe]![level]);
+    const v = rng.pick(classe === 'CE1' ? VERBES_SV : VERBES_SV_CM2);
+    const loin = level === 'plus_loin';
+    const sg = rng.pick(loin ? SUJETS_ELOIGNES.filter((s) => s.p === 2) : [...PRENOMS, ...GN_SINGULIER]);
+    const pl = rng.pick(loin ? SUJETS_ELOIGNES.filter((s) => s.p === 5) : GN_PLURIEL);
+    const sujets: { texte: string; p: Personne }[] = [
+      { texte: 'tu', p: 1 },
+      { texte: sg.texte, p: 2 },
+      { texte: 'nous', p: 3 },
+      { texte: 'vous', p: 4 },
+      { texte: pl.texte, p: 5 },
+    ];
+    const pairs = distinctsPar(
+      rng,
+      sujets.map((s) => ({ left: majuscule(s.texte), right: conjuguer(v.inf, temps, s.p) })),
+      5,
+      (x) => x.right,
+    );
+    return make(ctx, 'pairing', 'sv', {
+      prompt: `Associe chaque sujet à la forme du verbe « ${v.inf} » qui s’accorde avec lui.`,
+      pairs,
+      relation: 'sujet → verbe',
+      explication: `${QUI} ; avec un sujet au pluriel (ils, elles), le verbe se termine par -nt.`,
+      difficulty: { facile: 0.25, normal: 0.5, plus_loin: 0.7 }[level],
+    });
+  };
+}
+
+/** Participe passé avec être : chaque sujet avec le participe bien accordé. */
+function ppPaires(level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> {
+  const v = rng.pick(VERBES_PP_ETRE);
+  const temps: Temps = level === 'plus_loin' && rng.chance(0.5) ? 'plus_que_parfait' : 'passe_compose';
+  const choisir = (fem: boolean, plur: boolean) =>
+    rng.pick(
+      [...PRENOMS, ...GN_SINGULIER, ...GN_PLURIEL].filter((s) => !!s.fem === fem && (s.p === 5) === plur),
+    );
+  const pairs = (
+    [
+      [false, false],
+      [true, false],
+      [false, true],
+      [true, true],
+    ] as const
+  ).map(([fem, plur]) => {
+    const s = choisir(fem, plur);
+    const aux = conjuguer('être', temps === 'passe_compose' ? 'present' : 'imparfait', s.p);
+    return { left: `${majuscule(s.texte)} ${aux}`, right: participePasse(v.inf, { fem, plur }) };
+  });
+  return make(ctx, 'pairing', 'pp', {
+    prompt: `Associe chaque début de phrase au participe passé de « ${v.inf} » bien accordé.`,
+    pairs,
+    relation: 'sujet + être → participe passé',
+    explication:
+      'Avec l’auxiliaire être, le participe passé s’accorde avec le sujet : -e au féminin, -s au pluriel.',
+    difficulty: { facile: 0.3, normal: 0.5, plus_loin: 0.7 }[level],
+  });
+}
+
 export const ACCORDS: Record<string, LessonContent> = {
   'CE1.FR.GRAM.GN': {
     gens: {
@@ -1153,6 +1292,7 @@ export const ACCORDS: Record<string, LessonContent> = {
       mcq: gnQcm('CE1'),
       true_false: gnVraiFaux('CE1'),
       classification: gnClassement('CE1'),
+      pairing: gnPaires('CE1'),
     },
   },
   'CM2.FR.ORTH.GN': {
@@ -1161,9 +1301,24 @@ export const ACCORDS: Record<string, LessonContent> = {
       mcq: gnQcm('CM2'),
       true_false: gnVraiFaux('CM2'),
       classification: gnClassement('CM2'),
+      pairing: gnPaires('CM2'),
     },
   },
-  'CE1.FR.GRAM.SV': { gens: { fill_blank: svTrou('CE1'), mcq: svQcm('CE1'), true_false: svVraiFaux('CE1') } },
-  'CM2.FR.ORTH.SV': { gens: { fill_blank: svTrou('CM2'), mcq: svQcm('CM2'), true_false: svVraiFaux('CM2') } },
-  'CM2.FR.ORTH.PP': { gens: { fill_blank: ppTrou, mcq: ppQcm, true_false: ppVraiFaux } },
+  'CE1.FR.GRAM.SV': {
+    gens: {
+      fill_blank: svTrou('CE1'),
+      mcq: svQcm('CE1'),
+      true_false: svVraiFaux('CE1'),
+      pairing: svPaires('CE1'),
+    },
+  },
+  'CM2.FR.ORTH.SV': {
+    gens: {
+      fill_blank: svTrou('CM2'),
+      mcq: svQcm('CM2'),
+      true_false: svVraiFaux('CM2'),
+      pairing: svPaires('CM2'),
+    },
+  },
+  'CM2.FR.ORTH.PP': { gens: { fill_blank: ppTrou, mcq: ppQcm, true_false: ppVraiFaux, pairing: ppPaires } },
 };

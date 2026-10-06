@@ -9,7 +9,7 @@
 import type { Rng } from '@/engine/rng';
 import type { GenContext, LessonContent } from '../../registry';
 import type { ItemOf, Level } from '../../schemas';
-import { distracteurs, make, mcq, trou, vraiFaux } from './util';
+import { distinctsPar, distracteurs, make, mcq, trou, vraiFaux } from './util';
 
 /* ------------------------------------------------------------------ */
 /* Lettre muette finale                                                */
@@ -236,6 +236,17 @@ const regleAccent = (x: MotAccent): string => {
   }
 };
 
+const ASTUCE_ACCENT: Record<string, string> = {
+  é: 'Écoute bien le son : « é » s’écrit é ; « è » s’écrit è ou ê.',
+  è: 'Écoute bien le son : « é » s’écrit é ; « è » s’écrit è ou ê.',
+  ê: 'Écoute bien le son : « é » s’écrit é ; « è » s’écrit è ou ê.',
+  ë: 'Le tréma ( ¨ ) sépare deux voyelles qu’on prononce l’une après l’autre.',
+  ï: 'Le tréma ( ¨ ) sépare deux voyelles qu’on prononce l’une après l’autre.',
+  ç: 'Devant a, o, u, il faut une cédille pour que le c chante « s ».',
+  â: 'Certains mots prennent un accent circonflexe : souviens-toi de ce mot.',
+  ô: 'Certains mots prennent un accent circonflexe : souviens-toi de ce mot.',
+};
+
 function accentTrou(level: Level, rng: Rng, ctx: GenContext): ItemOf<'fill_blank'> {
   const x = rng.pick(ACCENTS[level]);
   return trou(ctx, rng, 'accent', {
@@ -243,7 +254,7 @@ function accentTrou(level: Level, rng: Rng, ctx: GenContext): ItemOf<'fill_blank
     answer: x.mot,
     wrong: fautesAccent(x, level),
     nbChoix: 3,
-    hint: 'Écoute bien le son : « é » s’écrit é ; « è » s’écrit è ou ê.',
+    hint: ASTUCE_ACCENT[x.cible] ?? 'Regarde bien les accents : ce mot s’apprend par cœur.',
     explication: regleAccent(x),
     difficulty: { facile: 0.25, normal: 0.5, plus_loin: 0.75 }[level],
   });
@@ -385,7 +396,11 @@ function invTrou(level: Level, rng: Rng, ctx: GenContext): ItemOf<'fill_blank'> 
     answer: capi(x.mot),
     wrong: x.fautes.map(capi),
     nbChoix: 3,
-    hint: x.astuce ?? 'Un mot invariable ne change jamais : souviens-toi de son orthographe.',
+    // l'astuce ne doit pas donner la réponse (« Comme loin et près… » pour « près »)
+    hint:
+      x.astuce && !x.astuce.includes(`« ${x.mot} »`)
+        ? x.astuce
+        : 'Un mot invariable ne change jamais : souviens-toi de son orthographe.',
     explication: regleInv(x),
     difficulty: { facile: 0.25, normal: 0.5, plus_loin: 0.75 }[level],
   });
@@ -403,9 +418,33 @@ function invVraiFaux(level: Level, rng: Rng, ctx: GenContext): ItemOf<'true_fals
   });
 }
 
+function muettePaires(level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> {
+  const mots = distinctsPar(rng, MUETTES[level], 5, (x) => x.mot);
+  return make(ctx, 'pairing', 'famille', {
+    prompt: 'Associe chaque mot au mot de sa famille qui fait entendre la lettre muette.',
+    pairs: mots.map((x) => ({ left: x.mot, right: x.famille })),
+    relation: 'mot → mot de la même famille',
+    explication: 'Pour trouver la lettre muette, je cherche un mot de la même famille : chant → chanter.',
+    difficulty: { facile: 0.25, normal: 0.5, plus_loin: 0.75 }[level],
+  });
+}
+
+function accentPaires(level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> {
+  const mots = distinctsPar(rng, ACCENTS[level], 4, (x) => x.mot);
+  return make(ctx, 'pairing', 'accent', {
+    prompt: 'Associe chaque phrase au mot bien écrit qui la complète.',
+    pairs: mots.map((x) => ({ left: x.phrase.replace('{}', '___'), right: x.mot })),
+    relation: 'phrase → mot',
+    explication: 'Regarde bien les accents : é (été), è (mère), ê (fête).',
+    difficulty: { facile: 0.25, normal: 0.5, plus_loin: 0.75 }[level],
+  });
+}
+
 export const ORTHO_CE1: Record<string, LessonContent> = {
-  'CE1.FR.ORTH.MUETTE': { gens: { fill_blank: muetteTrou, mcq: muetteQcm } },
-  'CE1.FR.ORTH.ACCENTS': { gens: { fill_blank: accentTrou, mcq: accentQcm, spelling_word: accentMot } },
+  'CE1.FR.ORTH.MUETTE': { gens: { fill_blank: muetteTrou, mcq: muetteQcm, pairing: muettePaires } },
+  'CE1.FR.ORTH.ACCENTS': {
+    gens: { fill_blank: accentTrou, mcq: accentQcm, spelling_word: accentMot, pairing: accentPaires },
+  },
   'CE1.FR.ORTH.INVARIABLES': { gens: { fill_blank: invTrou, true_false: invVraiFaux } },
 };
 

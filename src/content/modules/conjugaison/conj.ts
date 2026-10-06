@@ -51,6 +51,8 @@ export interface Plan {
   indicateur?: number;
   /** Temps simples dont on tire des formes fausses (distracteurs) : seulement des temps connus de la classe. */
   voisins?: readonly Temps[];
+  /** Proposer des participes passés accordés à tort avec avoir (as cherchés) : pas au CE1. */
+  piegesAccord?: boolean;
 }
 
 export type PlanParNiveau = Record<Level, Plan>;
@@ -69,6 +71,7 @@ export interface Tirage {
   indicateur?: string;
   /** Temps des distracteurs. */
   voisins: readonly Temps[];
+  piegesAccord: boolean;
 }
 
 /** Sujet de la personne p. */
@@ -84,11 +87,15 @@ function tirerSujet(rng: Rng, p: Personne, varies: boolean, eviterOn: boolean): 
 const TEMPS_SIMPLES_PROCHES: Temps[] = ['present', 'imparfait', 'futur', 'passe_simple'];
 const INDICATEURS_ETAT = ['Aujourd’hui', 'Maintenant', 'En ce moment'];
 
-const OUVERTURES_NOUS = ['Tous ensemble', 'Vite', 'Maintenant', 'Allez'];
+/** Ouvertures qui désignent sans ambiguïté « nous » (« Tous ensemble » pourrait s'adresser à « vous »). */
+const OUVERTURES_NOUS = ['Toi et moi', 'Nous deux'];
+/** Compléments impossibles à la forme négative sans changer l'article (pas un dessin → pas de dessin). */
+const INDEFINI = /^(un|une|des|du|de la|de l’)\s/;
 
 /** Tire une situation conjugable (verbe, temps, personne, sujet, complément). */
 export function tirer(plan: Plan, rng: Rng): Tirage {
   const voisins = plan.voisins ?? TEMPS_SIMPLES_PROCHES;
+  const piegesAccord = plan.piegesAccord ?? true;
   for (let essai = 0; essai < 50; essai++) {
     const verbe = rng.pick(plan.verbes);
     const temps = rng.pick(plan.temps);
@@ -103,8 +110,10 @@ export function tirer(plan: Plan, rng: Rng): Tirage {
       if (p === 1) apostrophe = rng.pick(APOSTROPHES_SG).texte;
       else if (p === 4) apostrophe = rng.pick(APOSTROPHES_PL).texte;
       else apostrophe = rng.pick(OUVERTURES_NOUS);
-      return { verbe, temps, p, sujet: null, apostrophe, negation: false, compl, voisins };
+      return { verbe, temps, p, sujet: null, apostrophe, negation: false, compl, voisins, piegesAccord };
     }
+    // un verbe d'état ou de goût sonne mal au passé simple (« elle aima les fraises »)
+    if (temps === 'passe_simple' && verbe.etat) continue;
     const accordEtre = estCompose(temps) && auxiliaire(verbe.inf) === 'être';
     const sujet = tirerSujet(rng, p, plan.sujets === 'varies', accordEtre);
     let apostrophe: string | undefined;
@@ -121,7 +130,8 @@ export function tirer(plan: Plan, rng: Rng): Tirage {
         fem = a.fem;
       }
     }
-    const negation = estCompose(temps) && rng.chance(plan.negation ?? 0);
+    const complsNeg = verbe.compl.filter((c) => !INDEFINI.test(c));
+    const negation = estCompose(temps) && complsNeg.length > 0 && rng.chance(plan.negation ?? 0);
     const indics = temps === 'present' && verbe.etat ? INDICATEURS_ETAT : INDICATEURS[temps];
     const indicateur =
       !apostrophe && rng.chance(plan.indicateur ?? 1) && indics.length ? rng.pick(indics) : undefined;
@@ -133,9 +143,10 @@ export function tirer(plan: Plan, rng: Rng): Tirage {
       apostrophe,
       fem,
       negation,
-      compl: rng.pick(verbe.compl),
+      compl: rng.pick(negation ? complsNeg : verbe.compl),
       indicateur,
       voisins,
+      piegesAccord,
     };
   }
   throw new Error('Aucun tirage possible pour ce plan');
@@ -223,9 +234,22 @@ function tableau(inf: string, temps: Temps): string {
 }
 
 /** Règle du temps pour ce verbe, en une phrase d'enfant. */
-export function regle(inf: string, temps: Temps): string {
+export function regle(inf: string, temps: Temps, p?: Personne): string {
   const g = groupe(inf);
-  const fam = familleRadical(inf);
+  let fam = familleRadical(inf);
+  // la particularité n'est rappelée que si elle concerne la personne demandée
+  const muette = p === undefined || [0, 1, 2, 5].includes(p);
+  if (temps === 'present' && (fam === 'cer' || fam === 'ger') && p !== undefined && p !== 3) fam = null;
+  if (
+    temps === 'present' &&
+    ['yer', 'double', 'egrave', 'eaigu'].includes(fam ?? '') &&
+    !muette &&
+    p !== undefined
+  )
+    fam = fam === 'eaigu' || fam === 'egrave' || fam === 'double' || fam === 'yer' ? null : fam;
+  if (temps === 'imparfait' && (fam === 'cer' || fam === 'ger') && p !== undefined && (p === 3 || p === 4))
+    fam = null;
+  if (temps === 'imparfait' && fam === 'ier' && p !== undefined && p !== 3 && p !== 4) fam = null;
   switch (temps) {
     case 'present':
       if (g === 0 || g === 3) return `Le verbe ${inf} au présent se sait par cœur : ${tableau(inf, temps)}.`;
@@ -268,8 +292,14 @@ export function regle(inf: string, temps: Temps): string {
         return `Au futur, on écrit ${je} (ou, en orthographe rectifiée, avec un è) ; terminaisons -ai, -as, -a, -ons, -ez, -ont.`;
       return 'Au futur, on garde l’infinitif et on ajoute -ai, -as, -a, -ons, -ez, -ont : on entend le r.';
     }
-    case 'conditionnel':
-      return 'Au conditionnel présent, on prend le radical du futur et les terminaisons de l’imparfait : -rais, -rais, -rait, -rions, -riez, -raient.';
+    case 'conditionnel': {
+      const je = avecPronom(0, formes(inf, 'conditionnel', 0)[0]!);
+      const base =
+        'Au conditionnel présent, on prend le radical du futur et les terminaisons de l’imparfait : -rais, -rais, -rait, -rions, -riez, -raient';
+      if (g === 0 || g === 3 || fam === 'yer' || fam === 'double' || fam === 'egrave' || fam === 'eaigu')
+        return `${base} (${je}).`;
+      return `${base}.`;
+    }
     case 'passe_simple': {
       const il = formes(inf, 'passe_simple', 2)[0]!;
       const fam2 = g === 1 || inf === 'aller' ? 'a' : /ut$/.test(il) ? 'u' : /int$/.test(il) ? 'in' : 'i';
@@ -286,7 +316,9 @@ export function regle(inf: string, temps: Temps): string {
       return `Au ${NOM_TEMPS[temps]}, on écrit l’auxiliaire avoir ${tAux}, puis le participe passé « ${pp} ».`;
     }
     case 'imperatif':
-      if (g === 1 || inf === 'aller')
+      if (inf === 'aller')
+        return 'À l’impératif, il n’y a pas de sujet : va !, allons !, allez ! (pas de s à « va »).';
+      if (g === 1)
         return 'À l’impératif, il n’y a pas de sujet ; à la 2e personne du singulier, les verbes en -er ne prennent pas de s (chante !).';
       return `À l’impératif, il n’y a pas de sujet : ${formes(inf, 'imperatif', 1)[0]} !, ${formes(inf, 'imperatif', 3)[0]} !, ${formes(inf, 'imperatif', 4)[0]} !`;
   }
@@ -295,12 +327,13 @@ export function regle(inf: string, temps: Temps): string {
 /** Explication complète d'un tirage : règle + phrase juste (+ accord avec être, + négation). */
 export function explication(t: Tirage): string {
   const [bonne] = formesDe(t);
-  let txt = regle(t.verbe.inf, t.temps);
+  let txt = regle(t.verbe.inf, t.temps, t.p);
   if (estCompose(t.temps) && auxiliaire(t.verbe.inf) === 'être' && t.fem !== undefined) {
-    const qui = t.apostrophe ?? t.sujet?.texte ?? '';
     const genre = t.fem ? 'féminin' : 'masculin';
     const nombre = t.p >= 3 ? 'pluriel' : 'singulier';
-    txt += ` Ici, le sujet (${qui}) est ${genre} ${nombre}.`;
+    if (t.apostrophe && t.sujet)
+      txt += ` Ici, « ${t.sujet.texte} » désigne ${t.apostrophe.replace(/^(Les|Mes)\b/, (m) => m.toLowerCase())} : ${genre} ${nombre}.`;
+    else txt += ` Ici, le sujet (${t.sujet?.texte ?? ''}) est ${genre} ${nombre}.`;
   }
   if (t.negation) txt += ' À la forme négative, ne… pas encadre l’auxiliaire.';
   return `${txt} → ${phraseAvec(t, bonne!)}`;
@@ -317,8 +350,11 @@ export function formesFausses(t: Tirage): string[] {
   const out: string[] = [];
   // autres personnes, même temps
   const persos = t.temps === 'imperatif' ? PERSONNES_IMPERATIF : PERSONNES;
-  for (const q of persos)
-    if (q !== t.p) out.push(...formes(inf, t.temps, q, { fem: t.fem, negation: t.negation }));
+  for (const q of persos) {
+    // « Noé, chantez ! » serait juste (vouvoiement) : pas de 2e personne du pluriel pour « tu »
+    if (q === t.p || (t.temps === 'imperatif' && t.p === 1 && q === 4)) continue;
+    out.push(...formes(inf, t.temps, q, { fem: t.fem, negation: t.negation }));
+  }
   if (t.temps === 'imperatif') {
     // erreur fréquente : le -s du présent à la 2e personne (chantes !)
     if (t.p === 1) out.push(...formes(inf, 'present', 1));
@@ -338,8 +374,9 @@ export function formesFausses(t: Tirage): string[] {
       t.negation ? `${commenceParVoyelle(a) ? 'n’' : 'ne '}${a} pas ${x}` : `${a} ${x}`;
     out.push(ne(mauvaisAux, pp));
     if (groupe(inf) === 1 && inf !== 'aller') out.push(ne(auxOk, inf));
-    for (const fem of [false, true])
-      for (const plur of [false, true]) out.push(ne(auxOk, participePasse(inf, { fem, plur })));
+    if (aux === 'être' || t.piegesAccord)
+      for (const fem of [false, true])
+        for (const plur of [false, true]) out.push(ne(auxOk, participePasse(inf, { fem, plur })));
   }
   // je : garder la même élision que la bonne réponse (« J’___ » / « Je ___ »)
   const voyelle = commenceParVoyelle(ok[0]!);
@@ -418,7 +455,10 @@ export function itemPaires(ctx: GenContext, rng: Rng, plan: Plan): ItemOf<'pairi
     if (pairs.length >= 3) {
       const inf = t.verbe.inf;
       return make(ctx, 'pairing', 'paires', {
-        prompt: `Associe chaque sujet à la bonne forme du verbe ${inf} ${AU_TEMPS[t.temps]}.`,
+        prompt:
+          t.temps === 'imperatif'
+            ? `Associe chaque personne à la bonne forme du verbe ${inf} à l’impératif présent.`
+            : `Associe chaque sujet à la bonne forme du verbe ${inf} ${AU_TEMPS[t.temps]}.`,
         pairs,
         relation: 'sujet → forme conjuguée',
         explication: regle(inf, t.temps),
@@ -484,7 +524,7 @@ export function itemQcm(ctx: GenContext, rng: Rng, plan: Plan): ItemOf<'mcq'> {
       question: `Quel pronom sujet convient ? ${phrase}`,
       good: pronomBon,
       wrong: autres,
-      explication: `La terminaison de « ${bonne} » va avec « ${pronomBon} ». ${regle(t.verbe.inf, t.temps)}`,
+      explication: `La terminaison de « ${bonne} » va avec « ${pronomBon} ». ${regle(t.verbe.inf, t.temps, t.p)}`,
       difficulty: difficulte(t),
     });
   }
@@ -525,7 +565,7 @@ export function itemOral(ctx: GenContext, rng: Rng, plan: Plan): ItemOf<'oral_an
     prompt,
     answer: toutes[0]!,
     accepted: toutes,
-    explication: `${regle(t.verbe.inf, t.temps)} → ${toutes[0]}`,
+    explication: `${regle(t.verbe.inf, t.temps, t.p)} → ${toutes[0]}`,
     difficulty: difficulte(t),
   });
 }

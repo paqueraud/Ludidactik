@@ -10,7 +10,7 @@ import type { GenContext, LessonContent } from '../../registry';
 import type { ItemOf, Level } from '../../schemas';
 import { PREMIER_SIMPLES, PRENOMS } from './lexique';
 import { conjuguer, participePasse } from './moteur';
-import { majuscule, mcq, trou, vraiFaux } from './util';
+import { majuscule, make, mcq, trou, vraiFaux } from './util';
 
 interface Phrase {
   /** Phrase avec « ___ » à la place de l'homophone. */
@@ -56,6 +56,7 @@ const A: Serie = {
     ),
     ...ph(
       'à',
+      'Je vais ___ l’école.',
       'Nous allons ___ la piscine.',
       'Léa joue ___ la marelle.',
       'Je mange une tarte ___ la fraise.',
@@ -93,6 +94,8 @@ const EST: Serie = {
     ),
     ...ph(
       'et',
+      'Un chat ___ un chien.',
+      'Papa ___ maman chantent.',
       'Tom ___ Léa jouent au ballon.',
       'J’ai un chat ___ un chien.',
       'Il mange une pomme ___ une poire.',
@@ -183,6 +186,7 @@ const CES: Serie = {
   phrases: [
     ...ph(
       'ces',
+      'Vois ___ nuages-là !',
       '___ montagnes-là sont très hautes.',
       'Regarde ___ étoiles, là-haut !',
       '___ nuages noirs annoncent la pluie.',
@@ -243,6 +247,7 @@ const OU: Serie = {
   phrases: [
     ...ph(
       'ou',
+      'Du lait ___ du jus ?',
       'Tu veux du lait ___ du jus ?',
       'Il viendra lundi ___ mardi.',
       'Préfères-tu le chocolat ___ la vanille ?',
@@ -457,7 +462,7 @@ function serieTerminaison(rng: Rng): { serie: Serie; phrase: Phrase } {
       id: 'terminaisons',
       mots,
       astuce:
-        'Remplace par « vendre », « vendu », « vendez » ou « vendait » pour trouver la bonne terminaison.',
+        'Remplace par « vendre », « vendu », « vendez », « vendait » ou « vendais » pour trouver la bonne terminaison.',
       regles: {},
       phrases: [phrase],
     },
@@ -474,12 +479,12 @@ const SERIES: Record<'CE1' | 'CM2', Record<Level, Choix[]>> = {
   CE1: {
     facile: [A, EST],
     normal: [A, EST, SONT, ONT],
-    plus_loin: [A, EST, SONT, ONT, CES, OU],
+    plus_loin: [CES, CES, CES, OU, OU, OU, SONT, ONT],
   },
   CM2: {
     facile: [A, EST, SONT, ONT],
     normal: [A, EST, SONT, ONT, CES4, LEUR, OU, CE, 'terminaisons', 'terminaisons'],
-    plus_loin: [CES4, LEUR, CE, 'terminaisons', QUAND, QUAND, PEU, PEU, SANS, SANS],
+    plus_loin: [QUAND, QUAND, QUAND, PEU, PEU, PEU, SANS, SANS, SANS, CES4],
   },
 };
 
@@ -545,12 +550,51 @@ function homQcm(classe: 'CE1' | 'CM2') {
   };
 }
 
+/** Paires phrase ↔ mot : deux ou trois séries différentes, une phrase par mot. */
+function homPaires(classe: 'CE1' | 'CM2') {
+  return (level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> => {
+    const series = SERIES[classe][level].filter((c): c is Serie => c !== 'terminaisons');
+    const choisies: Serie[] = [];
+    for (const s of rng.shuffle(series)) {
+      if (choisies.some((c) => c.mots.some((m) => s.mots.includes(m)))) continue;
+      choisies.push(s);
+      if (choisies.flatMap((c) => c.mots).length >= 4) break;
+    }
+    const pairs = choisies.flatMap((s) =>
+      s.mots.map((m) => {
+        // de préférence des phrases courtes (cartes du Dobble : 24 caractères au plus)
+        const toutes = s.phrases.filter((x) => x.r === m);
+        const courtes = toutes.filter((x) => x.p.length <= 24);
+        const ph = rng.pick(courtes.length && rng.chance(0.8) ? courtes : toutes);
+        return { left: ph.p, right: enTete(ph.p) ? majuscule(m) : m };
+      }),
+    );
+    return make(ctx, 'pairing', 'homophones', {
+      prompt: 'Associe chaque phrase au mot qui la complète.',
+      pairs: pairs.slice(0, 6),
+      relation: 'phrase → homophone',
+      explication: choisies.map((s) => s.astuce).join(' '),
+      difficulty: DIFF[level],
+    });
+  };
+}
+
 export const HOMOPHONES: Record<string, LessonContent> = {
   'CE1.FR.GRAM.HOMOPHONES': {
-    gens: { fill_blank: homTrou('CE1'), true_false: homVraiFaux('CE1'), mcq: homQcm('CE1') },
+    gens: {
+      fill_blank: homTrou('CE1'),
+      true_false: homVraiFaux('CE1'),
+      mcq: homQcm('CE1'),
+      pairing: homPaires('CE1'),
+    },
   },
   'CM2.FR.ORTH.HOMOPHONES': {
-    gens: { fill_blank: homTrou('CM2'), true_false: homVraiFaux('CM2'), mcq: homQcm('CM2') },
+    gens: {
+      fill_blank: homTrou('CM2'),
+      true_false: homVraiFaux('CM2'),
+      mcq: homQcm('CM2'),
+      pairing: homPaires('CM2'),
+    },
   },
 };
 
