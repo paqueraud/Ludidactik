@@ -19,7 +19,7 @@ import type { Carte } from '../_cartes/types';
 import { parNiveau, useGameSession } from '../_kit/session';
 import { Feedback, Hud } from '../_kit/ui';
 import { useChronometre } from '../_monde-commun/hooks';
-import { direction, phraseDirection } from '../_monde-commun/outils';
+import { direction, insecable, phraseDirection } from '../_monde-commun/outils';
 import { BarreTemps, EtatVide } from '../_monde-commun/ui';
 import { tirerItem } from '../_orthographe-commun/lettres';
 import { useVoixEnPause } from '../_orthographe-commun/hooks';
@@ -253,7 +253,7 @@ export default function TourDeFrance({
           <div className="flex items-start gap-3">
             <SpeakButton text={texte} label="Écouter la consigne" />
             <h2 className="font-titre text-2xl font-extrabold leading-snug sm:text-3xl" aria-live="polite">
-              {etape.item.prompt}
+              {insecable(etape.item.prompt)}
             </h2>
           </div>
           {Number.isFinite(CHRONO_S[level]) && phase === 'jeu' && (

@@ -17,7 +17,7 @@ import { parNiveau, useEnterKey, useGameSession } from '../_kit/session';
 import { Feedback, Hud } from '../_kit/ui';
 import { PlateauOrdre } from '../_monde-commun/PlateauOrdre';
 import { useChronometre, useOrdre, useRng } from '../_monde-commun/hooks';
-import { estFrise, restreindreOrdre, sousOrdre, verifierOrdre } from '../_monde-commun/outils';
+import { estFrise, insecable, restreindreOrdre, sousOrdre, verifierOrdre } from '../_monde-commun/outils';
 import { BarreTemps, EtatVide } from '../_monde-commun/ui';
 import { tirerItem } from '../_orthographe-commun/lettres';
 import { useVoixEnPause } from '../_orthographe-commun/hooks';
@@ -275,7 +275,7 @@ function Frise({
     <section className="carte flex w-full flex-col items-center gap-4 p-4 sm:p-6">
       <div className="flex w-full items-start justify-center gap-3">
         <SpeakButton text={texteALire(item)} label="Écouter la consigne et les cartes" />
-        <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">{item.prompt}</h2>
+        <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">{insecable(item.prompt)}</h2>
       </div>
       {level === 'plus_loin' && phase === 'jeu' && (
         <BarreTemps fraction={chrono.fraction} label="Sablier" />

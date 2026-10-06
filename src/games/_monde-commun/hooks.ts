@@ -136,23 +136,36 @@ export function useOrdre({ n, rng, actif }: { n: number; rng: Rng; actif: boolea
 
 /**
  * Chronomètre global (secondes restantes) qui se fige en pause ou quand `actif` est faux.
- * `onFin` est appelé une fois à 0. `ajouter` donne du temps.
+ * `onFin` est appelé une fois à 0. Changer `cle` relance le chronomètre (nouvelle manche).
  */
 export function useChronometre({
   dureeS,
   actif,
   paused,
   onFin,
+  cle,
 }: {
   dureeS: number;
   actif: boolean;
   paused: boolean;
   onFin: () => void;
+  cle?: unknown;
 }) {
   const [restantMs, setRestantMs] = useState(dureeS * 1000);
   const fin = useRef(onFin);
   fin.current = onFin;
   const termine = useRef(false);
+  const premiere = useRef(true);
+
+  useEffect(() => {
+    if (premiere.current) {
+      premiere.current = false;
+      return;
+    }
+    termine.current = false;
+    setRestantMs(dureeS * 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cle]);
 
   useEffect(() => {
     if (!actif || paused || termine.current || !Number.isFinite(dureeS)) return;
@@ -171,7 +184,7 @@ export function useChronometre({
       });
     }, 100);
     return () => clearInterval(id);
-  }, [actif, paused, dureeS]);
+  }, [actif, paused, dureeS, cle]);
 
   return { restantMs, fraction: Number.isFinite(dureeS) ? restantMs / (dureeS * 1000) : 1 };
 }

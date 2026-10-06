@@ -123,3 +123,12 @@ export function phraseDirection(dir: string): string {
   if (dir === 'tout près') return 'Tu es tout près !';
   return `Cherche plus ${dir.startsWith('e') || dir.startsWith('o') ? 'à l’' : 'au '}${dir} !`;
 }
+
+/* ------------------------------------------------------------------ */
+/* Typographie                                                         */
+/* ------------------------------------------------------------------ */
+
+/** Espaces insécables de la typographie française (« ? », « ! », « : », guillemets) : pas de « ? » seul en début de ligne. */
+export function insecable(s: string): string {
+  return s.replace(/ ([?!:;»])/g, '\u00A0$1').replace(/« /g, '«\u00A0');
+}
