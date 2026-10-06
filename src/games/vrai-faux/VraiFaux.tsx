@@ -38,7 +38,7 @@ const SEUIL = 90;
 const estVF = (it: { kind: string }): it is TrueFalseItem => it.kind === 'true_false';
 
 /** Multiplicateur de combo selon la série en cours. */
-export const combo = (serie: number) => (serie >= 6 ? 3 : serie >= 3 ? 2 : 1);
+const combo = (serie: number) => (serie >= 6 ? 3 : serie >= 3 ? 2 : 1);
 
 export default function VraiFaux({
   level,
@@ -218,7 +218,9 @@ export default function VraiFaux({
     <div className="mx-auto flex max-w-3xl flex-col items-center gap-3 px-3 pb-6 pt-2 sm:px-6">
       <div className="flex w-full flex-wrap items-center justify-between gap-2">
         <Hud>
-          {Number.isFinite(CHRONO_S[level]) ? `Sprint ${sprint} / ${SPRINTS[level]}` : `Carte ${n} / ${total}`}
+          {Number.isFinite(CHRONO_S[level])
+            ? `Sprint ${sprint} / ${SPRINTS[level]}`
+            : `Carte ${n} / ${total}`}
         </Hud>
         <Hud className={mult > 1 ? 'bg-sun' : ''}>
           <span aria-hidden>🔥</span> Combo ×{mult}
@@ -239,8 +241,14 @@ export default function VraiFaux({
       {/* La pile de cartes */}
       <div className="relative w-full max-w-md" style={{ minHeight: '17rem' }}>
         {/* cartes dessous (décor) */}
-        <div className="absolute inset-x-4 top-4 h-60 rotate-2 rounded-card bg-white/60 shadow-soft" aria-hidden />
-        <div className="absolute inset-x-2 top-2 h-60 -rotate-1 rounded-card bg-white/80 shadow-soft" aria-hidden />
+        <div
+          className="absolute inset-x-4 top-4 h-60 rotate-2 rounded-card bg-white/60 shadow-soft"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-x-2 top-2 h-60 -rotate-1 rounded-card bg-white/80 shadow-soft"
+          aria-hidden
+        />
         <AnimatePresence mode="popLayout" custom={sortie}>
           <motion.div
             key={`${n}-${item.id}`}
@@ -279,7 +287,9 @@ export default function VraiFaux({
                 {item.image}
               </span>
             )}
-            <p className="font-titre text-2xl font-extrabold leading-snug sm:text-3xl">{insecable(item.statement)}</p>
+            <p className="font-titre text-2xl font-extrabold leading-snug sm:text-3xl">
+              {insecable(item.statement)}
+            </p>
             <SpeakButton
               text={item.spoken ?? item.statement}
               lang={item.lang}
@@ -299,7 +309,11 @@ export default function VraiFaux({
           onClick={() => repondre(false)}
           disabled={!!etat || paused || fini}
           className={`btn-3d flex min-h-[4.5rem] items-center justify-center gap-2 bg-coral text-2xl font-extrabold text-white ${
-            etat && donne === false ? (item.answer === false ? 'ring-4 ring-grass' : 'ring-4 ring-ink/40') : ''
+            etat && donne === false
+              ? item.answer === false
+                ? 'ring-4 ring-grass'
+                : 'ring-4 ring-ink/40'
+              : ''
           }`}
         >
           <ThumbsDown aria-hidden /> Faux

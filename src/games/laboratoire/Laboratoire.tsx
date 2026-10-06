@@ -24,7 +24,7 @@ import { insecable, restreindreOrdre, sousOrdre, verifierOrdre } from '../_monde
 import { BarreTemps, EtatVide, Pastille } from '../_monde-commun/ui';
 import { useVoixEnPause } from '../_orthographe-commun/hooks';
 import { BocalSvg, CircuitSvg } from './Decor';
-import { estExperience } from './filtre';
+import { categorieAllumee, estExperience } from './filtre';
 
 const EXPERIENCES: Record<Level, number> = { facile: 4, normal: 5, plus_loin: 6 };
 const MAX_SPECIMENS: Record<Level, number> = { facile: 6, normal: 8, plus_loin: 16 };
@@ -33,16 +33,7 @@ const BONUS: Record<Level, number> = { facile: 1, normal: 1, plus_loin: 1.5 };
 const LETTRES = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 type Experience =
-  | { type: 'classer'; item: ClassificationItem; ordre: number[] }
-  | { type: 'ordonner'; item: OrderingItem };
-
-/** Catégorie « l'ampoule s'allume » d'un tri conducteurs / isolants (−1 si ce n'est pas un circuit). */
-export function categorieAllumee(item: ClassificationItem): number {
-  const circuit =
-    item.meta?.circuit === true || item.categories.some((c) => /conducteur|isolant/i.test(c));
-  if (!circuit) return -1;
-  return item.categories.findIndex((c) => /conducteur|s.allume/i.test(c) && !/isolant|[ée]teint/i.test(c));
-}
+  { type: 'classer'; item: ClassificationItem; ordre: number[] } | { type: 'ordonner'; item: OrderingItem };
 
 type Resultat = { juste: boolean; points: number };
 
@@ -124,7 +115,17 @@ export default function Laboratoire({
     return <EtatVide icone="🧪" jeu="Le Laboratoire" besoin="d’éléments à classer ou d’étapes à ordonner" />;
   }
 
-  const commun = { level, paused, session, sfx, speech, lectureAuto, fini, onResultat: resultat, onSuivant: suivant };
+  const commun = {
+    level,
+    paused,
+    session,
+    sfx,
+    speech,
+    lectureAuto,
+    fini,
+    onResultat: resultat,
+    onSuivant: suivant,
+  };
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6">
@@ -211,7 +212,9 @@ function Classer({
     (r: Record<number, number>, errs: number[]) => {
       const fausses = ordre.filter((e) => r[e] !== item.elements[e]!.category);
       const juste = errs.length === 0 && fausses.length === 0;
-      const donne = ordre.map((e) => `${item.elements[e]!.label} → ${item.categories[r[e] ?? 0]}`).join(' ; ');
+      const donne = ordre
+        .map((e) => `${item.elements[e]!.label} → ${item.categories[r[e] ?? 0]}`)
+        .join(' ; ');
       const attendu = ordre
         .map((e) => `${item.elements[e]!.label} → ${item.categories[item.elements[e]!.category]}`)
         .join(' ; ');
@@ -342,17 +345,20 @@ function Classer({
       <section className="carte flex w-full flex-col gap-2 p-4">
         <div className="flex items-start justify-center gap-3">
           <SpeakButton text={texte} label="Écouter la consigne" />
-          <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">{insecable(item.prompt)}</h2>
+          <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">
+            {insecable(item.prompt)}
+          </h2>
         </div>
-        {level === 'plus_loin' && phase === 'jeu' && <BarreTemps fraction={chrono.fraction} label="Sablier" />}
+        {level === 'plus_loin' && phase === 'jeu' && (
+          <BarreTemps fraction={chrono.fraction} label="Sablier" />
+        )}
       </section>
 
       {/* La paillasse */}
       <section
         className="relative overflow-hidden rounded-card border-4 border-white p-3 shadow-soft sm:p-4"
         style={{
-          background:
-            'linear-gradient(180deg,#DDF4F1 0%,#DDF4F1 62%,#B98B62 62%,#A97452 100%)',
+          background: 'linear-gradient(180deg,#DDF4F1 0%,#DDF4F1 62%,#B98B62 62%,#A97452 100%)',
         }}
         aria-label="La paillasse du laboratoire"
       >
@@ -371,7 +377,11 @@ function Classer({
                   className="group flex w-full max-w-[11rem] flex-col items-center rounded-3xl p-1 outline-none focus-visible:ring-4 focus-visible:ring-sun"
                 >
                   <div className="relative w-full max-w-[7.5rem]">
-                    <BocalSvg index={ci} remplissage={nbParBocal[ci]! / Math.max(1, ordre.length / item.categories.length)} brille={brille === ci} />
+                    <BocalSvg
+                      index={ci}
+                      remplissage={nbParBocal[ci]! / Math.max(1, ordre.length / item.categories.length)}
+                      brille={brille === ci}
+                    />
                     <div className="absolute inset-x-3 bottom-3 top-6 flex flex-wrap content-end justify-center gap-0.5 overflow-hidden text-xl sm:text-2xl">
                       {ordre
                         .filter((e) => ranges[e] === ci)
@@ -380,7 +390,11 @@ function Classer({
                             key={e}
                             initial={reduce ? false : { y: -40, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
-                            className={erreurs.includes(e) || (revele && item.elements[e]!.category !== ci) ? 'rounded-full ring-2 ring-coral' : ''}
+                            className={
+                              erreurs.includes(e) || (revele && item.elements[e]!.category !== ci)
+                                ? 'rounded-full ring-2 ring-coral'
+                                : ''
+                            }
                             title={item.elements[e]!.label}
                             aria-hidden
                           >
@@ -390,7 +404,10 @@ function Classer({
                     </div>
                   </div>
                   <span className="mt-1 flex items-center gap-1 rounded-xl bg-white/90 px-2 py-1 text-center text-sm font-bold leading-tight shadow-pop-sm sm:text-base">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink font-titre text-xs text-white" aria-hidden>
+                    <span
+                      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink font-titre text-xs text-white"
+                      aria-hidden
+                    >
                       {LETTRES[ci]}
                     </span>
                     {c}
@@ -430,7 +447,11 @@ function Classer({
                   key={e}
                   layout={!reduce}
                   initial={reduce ? false : { opacity: 0, scale: 0.8 }}
-                  animate={secoue === e && !reduce ? { x: [0, -10, 10, -6, 0], opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+                  animate={
+                    secoue === e && !reduce
+                      ? { x: [0, -10, 10, -6, 0], opacity: 1, scale: 1 }
+                      : { opacity: 1, scale: 1 }
+                  }
                   exit={reduce ? undefined : { opacity: 0, y: -30 }}
                 >
                   <button
@@ -440,7 +461,9 @@ function Classer({
                     aria-pressed={courant === e}
                     aria-label={`Spécimen ${k + 1} : ${item.elements[e]!.label}`}
                     className={`btn-3d flex min-h-[3.5rem] items-center gap-2 border-2 px-3 py-2 text-base font-bold sm:text-lg ${
-                      courant === e ? 'border-sciences bg-sciences/15 ring-4 ring-sun' : 'border-sciences/40 bg-card'
+                      courant === e
+                        ? 'border-sciences bg-sciences/15 ring-4 ring-sun'
+                        : 'border-sciences/40 bg-card'
                     }`}
                   >
                     <Pastille n={k + 1} />
@@ -481,7 +504,12 @@ function Classer({
                 >
                   Tout reprendre
                 </Button>
-                <Button variant="grass" size="lg" onClick={verifierFin} disabled={!actif || restants.length > 0}>
+                <Button
+                  variant="grass"
+                  size="lg"
+                  onClick={verifierFin}
+                  disabled={!actif || restants.length > 0}
+                >
                   Vérifier l’expérience
                 </Button>
               </>
@@ -594,10 +622,19 @@ function Ordonner({
     <section className="carte flex w-full flex-col items-center gap-4 p-4 sm:p-6">
       <div className="flex w-full items-start justify-center gap-3">
         <SpeakButton text={texte} label="Écouter la consigne et les étapes" />
-        <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">{insecable(item.prompt)}</h2>
+        <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">
+          {insecable(item.prompt)}
+        </h2>
       </div>
       {level === 'plus_loin' && phase === 'jeu' && <BarreTemps fraction={chrono.fraction} label="Sablier" />}
-      <PlateauOrdre item={item} ordre={ordre} bienPlaces={bien} reveler={phase !== 'jeu'} theme="labo" actif={actif} />
+      <PlateauOrdre
+        item={item}
+        ordre={ordre}
+        bienPlaces={bien}
+        reveler={phase !== 'jeu'}
+        theme="labo"
+        actif={actif}
+      />
       {message && phase === 'jeu' && (
         <p className="rounded-2xl bg-sun/25 px-4 py-2 text-center font-bold" role="status">
           {message}

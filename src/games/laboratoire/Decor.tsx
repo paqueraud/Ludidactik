@@ -4,7 +4,15 @@ import { motion } from 'framer-motion';
 const COULEURS_BOCAL = ['#7BD389', '#4FC3F7', '#FFD45C', '#FF7A6B', '#8E7CFF', '#E0A458'];
 
 /** Bocal en verre : couvercle coloré, liquide qui monte avec le nombre d'éléments rangés. */
-export function BocalSvg({ index, remplissage, brille }: { index: number; remplissage: number; brille: boolean }) {
+export function BocalSvg({
+  index,
+  remplissage,
+  brille,
+}: {
+  index: number;
+  remplissage: number;
+  brille: boolean;
+}) {
   const c = COULEURS_BOCAL[index % COULEURS_BOCAL.length]!;
   const h = 18 + Math.min(1, remplissage) * 52;
   return (
@@ -48,9 +56,18 @@ export function CircuitSvg({
 }) {
   const fil = allume ? '#D69600' : '#24304A';
   return (
-    <svg viewBox="0 0 220 150" className="block h-auto w-full" role="img" aria-label={
-      allume === null ? 'Circuit : pile, fils et ampoule' : allume ? 'L’ampoule s’allume' : 'L’ampoule reste éteinte'
-    }>
+    <svg
+      viewBox="0 0 220 150"
+      className="block h-auto w-full"
+      role="img"
+      aria-label={
+        allume === null
+          ? 'Circuit : pile, fils et ampoule'
+          : allume
+            ? 'L’ampoule s’allume'
+            : 'L’ampoule reste éteinte'
+      }
+    >
       {/* fils */}
       <path d="M40 110 V40 H100" fill="none" stroke={fil} strokeWidth="4" strokeLinejoin="round" />
       <path d="M140 40 H180 V110 H150" fill="none" stroke={fil} strokeWidth="4" strokeLinejoin="round" />
@@ -58,7 +75,9 @@ export function CircuitSvg({
       {/* pile */}
       <rect x="70" y="96" width="62" height="28" rx="6" fill="#FFD45C" stroke="#24304A" strokeWidth="2.5" />
       <rect x="132" y="104" width="8" height="12" rx="2" fill="#24304A" />
-      <text x="101" y="115" textAnchor="middle" fontSize="12" fontWeight="800" fill="#24304A">PILE</text>
+      <text x="101" y="115" textAnchor="middle" fontSize="12" fontWeight="800" fill="#24304A">
+        PILE
+      </text>
       <path d="M140 110 H150" stroke={fil} strokeWidth="4" />
       {/* ampoule */}
       {allume && !reduce && (
@@ -73,13 +92,37 @@ export function CircuitSvg({
         />
       )}
       {allume && reduce && <circle cx="120" cy="34" r="30" fill="#FFE97A" opacity="0.5" />}
-      <circle cx="120" cy="30" r="16" fill={allume ? '#FFE14D' : '#F2F5FA'} stroke="#24304A" strokeWidth="2.5" />
+      <circle
+        cx="120"
+        cy="30"
+        r="16"
+        fill={allume ? '#FFE14D' : '#F2F5FA'}
+        stroke="#24304A"
+        strokeWidth="2.5"
+      />
       <path d="M113 30 Q120 20 127 30" fill="none" stroke={allume ? '#D96B00' : '#9AA6B8'} strokeWidth="2" />
       <rect x="112" y="44" width="16" height="10" rx="2" fill="#9AA6B8" stroke="#24304A" strokeWidth="2" />
       <path d="M100 40 H112 M128 40 H140" stroke={fil} strokeWidth="4" />
       {/* l'objet testé, entre les deux pinces */}
-      <rect x="20" y="58" width="40" height="34" rx="8" fill="#FFFFFF" stroke="#24304A" strokeWidth="2" strokeDasharray={objet ? undefined : '4 4'} />
-      <text x="40" y="80" textAnchor="middle" fontSize={objet && [...objet].length <= 2 ? 20 : 9} fontWeight="700" fill="#24304A">
+      <rect
+        x="20"
+        y="58"
+        width="40"
+        height="34"
+        rx="8"
+        fill="#FFFFFF"
+        stroke="#24304A"
+        strokeWidth="2"
+        strokeDasharray={objet ? undefined : '4 4'}
+      />
+      <text
+        x="40"
+        y="80"
+        textAnchor="middle"
+        fontSize={objet && [...objet].length <= 2 ? 20 : 9}
+        fontWeight="700"
+        fill="#24304A"
+      >
         {objet ?? '?'}
       </text>
     </svg>

@@ -64,7 +64,9 @@ export const estCycle = (it: OrderingItem) =>
 /** Garde la bonne réponse et `n - 1` distracteurs, dans un ordre mélangé. */
 export function reduireChoix(item: Pick<McqItem, 'choices' | 'answerIndex'>, n: number, rng: Rng) {
   const bonne = item.choices[item.answerIndex]!;
-  const autres = rng.shuffle(item.choices.filter((_, i) => i !== item.answerIndex)).slice(0, Math.max(1, n - 1));
+  const autres = rng
+    .shuffle(item.choices.filter((_, i) => i !== item.answerIndex))
+    .slice(0, Math.max(1, n - 1));
   const choices = rng.shuffle([bonne, ...autres]);
   return { choices, answerIndex: choices.indexOf(bonne) };
 }
@@ -81,7 +83,9 @@ export function estEmoji(s: string): boolean {
 
 /** Paires « mot anglais ↔ image » (Jacques a dit). */
 export const estPaireImage = (it: Item): it is PairingItem =>
-  it.kind === 'pairing' && it.pairs.length >= 2 && it.pairs.every((p) => estEmoji(p.right) && !estEmoji(p.left));
+  it.kind === 'pairing' &&
+  it.pairs.length >= 2 &&
+  it.pairs.every((p) => estEmoji(p.right) && !estEmoji(p.left));
 
 /** Normalise une transcription orale ou une saisie pour comparaison (minuscules, sans accents ni ponctuation). */
 export function normaliserOral(s: string): string {

@@ -31,14 +31,13 @@ const INDICES: Record<Level, number> = { facile: Infinity, normal: 1, plus_loin:
 const BONUS: Record<Level, number> = { facile: 1, normal: 1, plus_loin: 1.5 };
 
 /** Bonne réponse lisible : « 1. … (1792) », une ligne par carte. */
-export function ordreAttendu(item: OrderingItem): string {
+function ordreAttendu(item: OrderingItem): string {
   return item.elements
     .map((e, i) => `${i + 1}. ${e}${item.labels?.[i] ? ` (${item.labels[i]})` : ''}`)
     .join('\n');
 }
 
-const texteALire = (item: OrderingItem) =>
-  `${item.prompt} Les cartes : ${item.elements.join(' ; ')}.`;
+const texteALire = (item: OrderingItem) => `${item.prompt} Les cartes : ${item.elements.join(' ; ')}.`;
 
 export default function MachineTemps({
   level,
@@ -144,7 +143,13 @@ export default function MachineTemps({
         className="mx-auto w-full max-w-2xl overflow-hidden rounded-card border-4 border-white shadow-soft"
         aria-label={`La machine a fait ${reussies} voyage${reussies > 1 ? 's' : ''}`}
       >
-        <MachineSvg position={reussies / total} etapes={total} voyage={voyage} panne={panne} reduce={reduce} />
+        <MachineSvg
+          position={reussies / total}
+          etapes={total}
+          voyage={voyage}
+          panne={panne}
+          reduce={reduce}
+        />
       </section>
       <Frise
         key={`${manche}-${item.id}`}
@@ -275,11 +280,11 @@ function Frise({
     <section className="carte flex w-full flex-col items-center gap-4 p-4 sm:p-6">
       <div className="flex w-full items-start justify-center gap-3">
         <SpeakButton text={texteALire(item)} label="Écouter la consigne et les cartes" />
-        <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">{insecable(item.prompt)}</h2>
+        <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">
+          {insecable(item.prompt)}
+        </h2>
       </div>
-      {level === 'plus_loin' && phase === 'jeu' && (
-        <BarreTemps fraction={chrono.fraction} label="Sablier" />
-      )}
+      {level === 'plus_loin' && phase === 'jeu' && <BarreTemps fraction={chrono.fraction} label="Sablier" />}
 
       <PlateauOrdre
         item={item}

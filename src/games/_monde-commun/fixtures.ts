@@ -32,7 +32,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       prompt: 'Range les membres de la famille du plus âgé au plus jeune.',
       elements: ['l’arrière-grand-mère', 'la grand-mère', 'la maman', 'l’enfant'],
       mode: 'chrono',
-      explication: 'Chaque génération naît après la précédente : arrière-grands-parents, grands-parents, parents, enfants.',
+      explication:
+        'Chaque génération naît après la précédente : arrière-grands-parents, grands-parents, parents, enfants.',
     },
     {
       kind: 'ordering',
@@ -42,17 +43,25 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       elements: ['la bougie', 'la lampe à pétrole', 'l’ampoule électrique', 'la lampe à LED'],
       labels: ['il y a très longtemps', 'vers 1860', 'vers 1880', 'aujourd’hui'],
       mode: 'chrono',
-      explication: 'On s’éclairait à la bougie, puis à la lampe à pétrole ; l’ampoule électrique arrive vers 1880, la lampe à LED est récente.',
+      explication:
+        'On s’éclairait à la bougie, puis à la lampe à pétrole ; l’ampoule électrique arrive vers 1880, la lampe à LED est récente.',
     },
     {
       kind: 'ordering',
       id: 'mo-cycle-grenouille',
       lessonId: L,
       prompt: 'Remets le cycle de vie de la grenouille dans l’ordre.',
-      elements: ['les œufs', 'le têtard', 'le têtard avec des pattes', 'la jeune grenouille', 'la grenouille adulte'],
+      elements: [
+        'les œufs',
+        'le têtard',
+        'le têtard avec des pattes',
+        'la jeune grenouille',
+        'la grenouille adulte',
+      ],
       mode: 'etapes',
       meta: { cycle: true },
-      explication: 'Les œufs donnent des têtards ; leurs pattes poussent, la queue disparaît et ils deviennent des grenouilles qui pondront à leur tour.',
+      explication:
+        'Les œufs donnent des têtards ; leurs pattes poussent, la queue disparaît et ils deviennent des grenouilles qui pondront à leur tour.',
     },
     {
       kind: 'ordering',
@@ -61,7 +70,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       prompt: 'On chauffe un glaçon dans une casserole : remets les étapes dans l’ordre.',
       elements: ['de la glace (solide)', 'de l’eau (liquide)', 'de la vapeur d’eau (gaz)'],
       mode: 'etapes',
-      explication: 'En chauffant, la glace fond et devient de l’eau liquide, puis l’eau bout et devient de la vapeur.',
+      explication:
+        'En chauffant, la glace fond et devient de l’eau liquide, puis l’eau bout et devient de la vapeur.',
     },
   ],
   classification: [
@@ -112,7 +122,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'un bouchon en plastique', category: 1 },
       ],
       meta: { circuit: true },
-      explication: 'Les métaux laissent passer le courant électrique (conducteurs) ; le bois, le plastique et le caoutchouc ne le laissent pas passer (isolants).',
+      explication:
+        'Les métaux laissent passer le courant électrique (conducteurs) ; le bois, le plastique et le caoutchouc ne le laissent pas passer (isolants).',
     },
     {
       kind: 'classification',
@@ -128,7 +139,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         { label: 'l’huile', category: 1 },
         { label: 'l’air', category: 2, image: '🌬️' },
       ],
-      explication: 'Un solide garde sa forme, un liquide coule et prend la forme du récipient, un gaz occupe tout l’espace.',
+      explication:
+        'Un solide garde sa forme, un liquide coule et prend la forme du récipient, un gaz occupe tout l’espace.',
     },
   ],
   mcq: [
@@ -148,7 +160,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       ],
       image: '🏫',
       guillotine: true,
-      explication: 'Jules Ferry a fait voter les lois de 1881-1882 : l’école primaire devient gratuite, laïque et obligatoire.',
+      explication:
+        'Jules Ferry a fait voter les lois de 1881-1882 : l’école primaire devient gratuite, laïque et obligatoire.',
     },
     {
       kind: 'mcq',
@@ -165,7 +178,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
         'Mon nom commence par « Victor » ; il est inscrit au Panthéon.',
       ],
       guillotine: false,
-      explication: 'Victor Schœlcher a obtenu l’abolition définitive de l’esclavage dans les colonies françaises en 1848.',
+      explication:
+        'Victor Schœlcher a obtenu l’abolition définitive de l’esclavage dans les colonies françaises en 1848.',
     },
     {
       kind: 'mcq',
@@ -183,7 +197,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       ],
       image: '🐸',
       guillotine: true,
-      explication: 'La grenouille pond des œufs dans l’eau ; le têtard se transforme en grenouille : c’est une métamorphose.',
+      explication:
+        'La grenouille pond des œufs dans l’eau ; le têtard se transforme en grenouille : c’est une métamorphose.',
     },
     {
       kind: 'mcq',
@@ -198,7 +213,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       answerIndex: 0,
       image: '😢',
       guillotine: true,
-      explication: 'Aider quelqu’un qui est triste, c’est être solidaire. Si c’est grave, on prévient un adulte.',
+      explication:
+        'Aider quelqu’un qui est triste, c’est être solidaire. Si c’est grave, on prévient un adulte.',
     },
     {
       kind: 'mcq',
@@ -214,7 +230,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       answerIndex: 0,
       image: '🛑',
       guillotine: true,
-      explication: 'Des moqueries répétées, c’est du harcèlement : on dit stop et on en parle à un adulte (maîtresse, parents). En France, on peut aussi appeler le 3018.',
+      explication:
+        'Des moqueries répétées, c’est du harcèlement : on dit stop et on en parle à un adulte (maîtresse, parents). En France, on peut aussi appeler le 3018.',
     },
     {
       kind: 'mcq',
@@ -229,7 +246,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       answerIndex: 0,
       image: '🗣️',
       guillotine: true,
-      explication: 'Dans un débat, chacun a le droit de donner son avis : on écoute l’autre et on parle à son tour, sans se moquer.',
+      explication:
+        'Dans un débat, chacun a le droit de donner son avis : on écoute l’autre et on parle à son tour, sans se moquer.',
     },
     {
       kind: 'mcq',
@@ -274,7 +292,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       statement: 'L’Afrique est un océan.',
       answer: false,
       image: '🌍',
-      explication: 'L’Afrique est un continent. Les océans sont l’Atlantique, le Pacifique, l’Indien, l’Arctique et l’Austral.',
+      explication:
+        'L’Afrique est un continent. Les océans sont l’Atlantique, le Pacifique, l’Indien, l’Arctique et l’Austral.',
     },
     {
       kind: 'true_false',
@@ -353,7 +372,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       ],
       relation: 'mot → image',
       lang: 'en-GB',
-      explication: 'Red = rouge, blue = bleu, green = vert, yellow = jaune, orange = orange, purple = violet.',
+      explication:
+        'Red = rouge, blue = bleu, green = vert, yellow = jaune, orange = orange, purple = violet.',
     },
   ],
   oral_answer: [
@@ -409,7 +429,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       map: 'france-fleuves',
       target: 'loire',
       targetLabel: 'la Loire',
-      explication: 'La Loire est le plus long fleuve de France : elle se jette dans l’océan Atlantique, près de Saint-Nazaire.',
+      explication:
+        'La Loire est le plus long fleuve de France : elle se jette dans l’océan Atlantique, près de Saint-Nazaire.',
     },
     {
       kind: 'map_point',
@@ -419,7 +440,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       map: 'france-massifs',
       target: 'alpes',
       targetLabel: 'les Alpes',
-      explication: 'Les Alpes sont à l’est, à la frontière avec l’Italie et la Suisse ; le mont Blanc s’y trouve.',
+      explication:
+        'Les Alpes sont à l’est, à la frontière avec l’Italie et la Suisse ; le mont Blanc s’y trouve.',
     },
     {
       kind: 'map_point',
@@ -429,7 +451,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       map: 'europe',
       target: 'italie',
       targetLabel: 'l’Italie',
-      explication: 'L’Italie a la forme d’une botte, au sud-est de la France. C’est un pays fondateur de l’Union européenne.',
+      explication:
+        'L’Italie a la forme d’une botte, au sud-est de la France. C’est un pays fondateur de l’Union européenne.',
     },
     {
       kind: 'map_point',
@@ -439,7 +462,8 @@ export const MONDE_FIXTURES: Partial<Record<ItemKind, Item[]>> = {
       map: 'monde',
       target: 'amerique',
       targetLabel: 'l’Amérique',
-      explication: 'L’Amérique est à l’ouest de l’océan Atlantique ; elle a deux parties : l’Amérique du Nord et l’Amérique du Sud.',
+      explication:
+        'L’Amérique est à l’ouest de l’océan Atlantique ; elle a deux parties : l’Amérique du Nord et l’Amérique du Sud.',
     },
     {
       kind: 'map_point',

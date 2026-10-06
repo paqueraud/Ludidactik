@@ -7,6 +7,7 @@
  */
 import { motion, useReducedMotion } from 'framer-motion';
 import { type KeyboardEvent, type ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import { zoneVoisine } from './navigation';
 import type { Carte, ZoneCarte } from './types';
 
 export type EtatZone = 'juste' | 'faux' | 'trouve' | 'indice';
@@ -18,34 +19,6 @@ const COULEUR_ETAT: Record<EtatZone, string> = {
   indice: '#FFD45C',
 };
 const FLEUVE = '#2F86D6';
-
-/** Zone voisine dans une direction (cône de ±60°), la plus proche. */
-export function zoneVoisine(
-  zones: Pick<ZoneCarte, 'id' | 'centre'>[],
-  depuis: string,
-  dir: 'gauche' | 'droite' | 'haut' | 'bas',
-): string | null {
-  const z0 = zones.find((z) => z.id === depuis);
-  if (!z0) return zones[0]?.id ?? null;
-  const [vx, vy] = { gauche: [-1, 0], droite: [1, 0], haut: [0, -1], bas: [0, 1] }[dir];
-  let best: string | null = null;
-  let bestScore = Infinity;
-  for (const z of zones) {
-    if (z.id === z0.id) continue;
-    const dx = z.centre[0] - z0.centre[0];
-    const dy = z.centre[1] - z0.centre[1];
-    const dist = Math.hypot(dx, dy);
-    if (dist === 0) continue;
-    const cos = (dx * vx! + dy * vy!) / dist;
-    if (cos < 0.5) continue;
-    const score = dist * (2 - cos);
-    if (score < bestScore) {
-      bestScore = score;
-      best = z.id;
-    }
-  }
-  return best;
-}
 
 export function CarteSvg({
   carte,
@@ -90,9 +63,9 @@ export function CarteSvg({
       choisir(id);
       return;
     }
-    const dir = (
-      { ArrowLeft: 'gauche', ArrowRight: 'droite', ArrowUp: 'haut', ArrowDown: 'bas' } as const
-    )[e.key as 'ArrowLeft'];
+    const dir = ({ ArrowLeft: 'gauche', ArrowRight: 'droite', ArrowUp: 'haut', ArrowDown: 'bas' } as const)[
+      e.key as 'ArrowLeft'
+    ];
     if (!dir) return;
     e.preventDefault();
     const v = zoneVoisine(carte.zones, id, dir);
@@ -227,7 +200,9 @@ export function CarteSvg({
                 <motion.path
                   d={z.d}
                   fill="none"
-                  stroke={etat ? (etat === 'faux' ? '#E2574C' : etat === 'indice' ? '#E0A400' : '#2E8C48') : FLEUVE}
+                  stroke={
+                    etat ? (etat === 'faux' ? '#E2574C' : etat === 'indice' ? '#E0A400' : '#2E8C48') : FLEUVE
+                  }
                   strokeWidth={traitZone * (etat ? 8 : 6)}
                   strokeLinecap="round"
                   strokeLinejoin="round"

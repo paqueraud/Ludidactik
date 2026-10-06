@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { FIXTURES } from '@/games/_kit/fixtures';
-import { zoneVoisine } from './CarteSvg';
+import { zoneVoisine } from './navigation';
 import { CARTES, getCarte, resoudreCible } from './cartes';
 import { type LonLat, dansPolygone } from './geo';
 import { IDS_CARTES } from './ids';
@@ -15,7 +15,9 @@ function contient(carte: Carte, id: string, pt: LonLat): boolean {
 
 /** Zones de surface qui contiennent le point. */
 function zonesEn(carte: Carte, pt: LonLat): string[] {
-  return carte.zones.filter((z) => z.forme === 'surface' && z.geo?.some((a) => dansPolygone(pt, a))).map((z) => z.id);
+  return carte.zones
+    .filter((z) => z.forme === 'surface' && z.geo?.some((a) => dansPolygone(pt, a)))
+    .map((z) => z.id);
 }
 
 describe('cartes : structure', () => {
@@ -44,8 +46,12 @@ describe('cartes : structure', () => {
     for (const carte of Object.values(CARTES)) {
       const legere = IDS_CARTES[carte.id]!;
       expect([...legere.zones].sort()).toEqual(carte.zones.map((z) => z.id).sort());
-      const groupes = Object.fromEntries(Object.entries(carte.groupes ?? {}).map(([k, g]) => [k, [...g.zones].sort()]));
-      const groupesLegers = Object.fromEntries(Object.entries(legere.groupes ?? {}).map(([k, g]) => [k, [...g].sort()]));
+      const groupes = Object.fromEntries(
+        Object.entries(carte.groupes ?? {}).map(([k, g]) => [k, [...g.zones].sort()]),
+      );
+      const groupesLegers = Object.fromEntries(
+        Object.entries(legere.groupes ?? {}).map(([k, g]) => [k, [...g].sort()]),
+      );
       expect(groupesLegers).toEqual(groupes);
     }
   });
@@ -202,8 +208,7 @@ describe('europe', () => {
 
 describe('monde', () => {
   const carte = CARTES.monde!;
-  const terres = (pt: LonLat) =>
-    zonesEn(carte, pt).filter((id) => !carte.dessous?.includes(id));
+  const terres = (pt: LonLat) => zonesEn(carte, pt).filter((id) => !carte.dessous?.includes(id));
   const mers = (pt: LonLat) => zonesEn(carte, pt).filter((id) => carte.dessous?.includes(id));
 
   it('6 continents (l’Amérique en deux parties) et 5 océans', () => {
@@ -266,7 +271,9 @@ describe('navigation au clavier', () => {
   it('chaque zone a au moins une voisine', () => {
     for (const carte of Object.values(CARTES)) {
       for (const z of carte.zones) {
-        const v = (['gauche', 'droite', 'haut', 'bas'] as const).map((d) => zoneVoisine(carte.zones, z.id, d));
+        const v = (['gauche', 'droite', 'haut', 'bas'] as const).map((d) =>
+          zoneVoisine(carte.zones, z.id, d),
+        );
         expect(v.some(Boolean), `${carte.id}/${z.id}`).toBe(true);
       }
     }

@@ -53,7 +53,10 @@ export function PlateauOrdre({
     <div className="flex w-full flex-col gap-4">
       {/* Les cases */}
       <div>
-        <div className="mb-1 flex items-center justify-between px-1 text-sm font-bold text-ink-soft" aria-hidden>
+        <div
+          className="mb-1 flex items-center justify-between px-1 text-sm font-bold text-ink-soft"
+          aria-hidden
+        >
           <span>{debut}</span>
           <span className={`mx-2 h-1 flex-1 rounded-full bg-current opacity-30 ${st.fleche}`} />
           <span>{finTxt} ➜</span>

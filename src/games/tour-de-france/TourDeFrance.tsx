@@ -32,7 +32,7 @@ const POINTS = [0, 100, 60, 30];
 const BONUS: Record<Level, number> = { facile: 1, normal: 1, plus_loin: 1.5 };
 
 /** Item jouable : carte connue et cible présente sur cette carte. */
-export const estEtape = (it: { kind: string }): it is MapPointItem => {
+const estEtape = (it: { kind: string }): it is MapPointItem => {
   if (it.kind !== 'map_point') return false;
   const m = it as MapPointItem;
   const carte = getCarte(m.map);
@@ -49,7 +49,6 @@ const versEtape = (item: MapPointItem): Etape => {
   const carte = getCarte(item.map)!;
   return { item, carte, cibles: resoudreCible(carte, item.target) ?? [] };
 };
-
 
 export default function TourDeFrance({
   level,
@@ -110,7 +109,10 @@ export default function TourDeFrance({
       if (!etape) return depuis;
       const cs = etape.cibles
         .map((id) => etape.carte.zones.find((z) => z.id === id)!.centre)
-        .sort((a, b) => Math.hypot(a[0] - depuis[0], a[1] - depuis[1]) - Math.hypot(b[0] - depuis[0], b[1] - depuis[1]));
+        .sort(
+          (a, b) =>
+            Math.hypot(a[0] - depuis[0], a[1] - depuis[1]) - Math.hypot(b[0] - depuis[0], b[1] - depuis[1]),
+        );
       return cs[0] ?? depuis;
     },
     [etape],
@@ -221,9 +223,7 @@ export default function TourDeFrance({
   }, [etape, trouves, phase]);
 
   if (!etape || !carte) {
-    return (
-      <EtatVide icone="🗺️" jeu="Le Tour de France" besoin="de lieux à trouver sur une carte" />
-    );
+    return <EtatVide icone="🗺️" jeu="Le Tour de France" besoin="de lieux à trouver sur une carte" />;
   }
 
   const pos = vehicule ?? [carte.largeur * 0.5, carte.hauteur * 0.5];

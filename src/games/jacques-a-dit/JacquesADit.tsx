@@ -94,7 +94,10 @@ export default function JacquesADit({
         sfx.play('fanfare');
         session.end({
           won: j >= Math.ceil(n / 2),
-          headline: j === n ? 'Simon est épaté : sans faute !' : `${j} bonne${j > 1 ? 's' : ''} réponse${j > 1 ? 's' : ''} sur ${n} !`,
+          headline:
+            j === n
+              ? 'Simon est épaté : sans faute !'
+              : `${j} bonne${j > 1 ? 's' : ''} réponse${j > 1 ? 's' : ''} sur ${n} !`,
           score: p,
           delayMs: 600,
         });
@@ -107,11 +110,27 @@ export default function JacquesADit({
   );
 
   if (!n) {
-    return <EtatVide icone="🧢" jeu="Jacques a dit" besoin="de mots anglais avec des images, ou de questions d’anglais" />;
+    return (
+      <EtatVide
+        icone="🧢"
+        jeu="Jacques a dit"
+        besoin="de mots anglais avec des images, ou de questions d’anglais"
+      />
+    );
   }
 
   const a = appels[index]!;
-  const commun: PropsAppel = { level, paused, fini, session, sfx, speech, lectureAuto, onHumeur: setHumeur, onFini: finAppel };
+  const commun: PropsAppel = {
+    level,
+    paused,
+    fini,
+    session,
+    sfx,
+    speech,
+    lectureAuto,
+    onHumeur: setHumeur,
+    onFini: finAppel,
+  };
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6">
@@ -128,7 +147,11 @@ export default function JacquesADit({
           <Ludo size={84} pose={humeur === 'joie' ? 'joie' : humeur === 'pense' ? 'pense' : 'salut'} />
         </div>
         <p className="mb-2 font-titre text-lg font-bold text-anglais sm:text-xl">
-          {a.type === 'image' ? 'Simon says… (en anglais)' : a.type === 'oral' ? 'Your turn! À toi de parler.' : 'Listen! Écoute bien.'}
+          {a.type === 'image'
+            ? 'Simon says… (en anglais)'
+            : a.type === 'oral'
+              ? 'Your turn! À toi de parler.'
+              : 'Listen! Écoute bien.'}
         </p>
       </div>
       {a.type === 'image' && <AppelImage key={index} appel={a} {...commun} />}
@@ -257,7 +280,11 @@ function AppelImage({
       <Bulle className="w-full border-2 border-anglais/30">
         <div className="flex flex-wrap items-center gap-3">
           <SpeakButton text={phrase} lang={EN} label="Réécouter Simon" />
-          <p className="min-w-0 flex-1 font-titre text-2xl font-extrabold sm:text-3xl" lang="en" aria-live="polite">
+          <p
+            className="min-w-0 flex-1 font-titre text-2xl font-extrabold sm:text-3xl"
+            lang="en"
+            aria-live="polite"
+          >
             {appel.simon ? 'Simon says: ' : ''}
             {voir || etat ? appel.mot : <span aria-label="mot caché">{masque}</span>}!
           </p>
@@ -274,7 +301,9 @@ function AppelImage({
           )}
         </div>
       </Bulle>
-      {Number.isFinite(CHRONO_S[level]) && !etat && <BarreTemps fraction={chrono.fraction} label="Temps pour réagir" />}
+      {Number.isFinite(CHRONO_S[level]) && !etat && (
+        <BarreTemps fraction={chrono.fraction} label="Temps pour réagir" />
+      )}
 
       <div
         className={`mx-auto grid w-full gap-3 ${
@@ -304,7 +333,10 @@ function AppelImage({
               whileTap={reduce ? undefined : { scale: 0.9 }}
               className={`btn-3d relative flex aspect-square min-h-[4.5rem] items-center justify-center bg-card text-5xl sm:text-6xl ${style}`}
             >
-              <span className="absolute left-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-ink font-titre text-xs text-white" aria-hidden>
+              <span
+                className="absolute left-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-ink font-titre text-xs text-white"
+                aria-hidden
+              >
                 {i + 1}
               </span>
               <span aria-hidden>{em}</span>
@@ -319,7 +351,9 @@ function AppelImage({
       )}
 
       <AnimatePresence>
-        {etat === 'juste' && <Feedback state="juste" message={`Yes! Bravo : ${appel.mot} = ${appel.cible}`} />}
+        {etat === 'juste' && (
+          <Feedback state="juste" message={`Yes! Bravo : ${appel.mot} = ${appel.cible}`} />
+        )}
         {etat === 'piege-ok' && (
           <Feedback state="juste" message="Bien vu ! Simon n’avait pas dit « Simon says » 😉" />
         )}
@@ -387,7 +421,10 @@ function AppelQcm({
     },
     [etat, paused, fini, appel, session, onHumeur, sfx],
   );
-  const suivant = useCallback(() => onFini({ ok: etat === 'juste', points: etat === 'juste' ? 10 : 0 }), [onFini, etat]);
+  const suivant = useCallback(
+    () => onFini({ ok: etat === 'juste', points: etat === 'juste' ? 10 : 0 }),
+    [onFini, etat],
+  );
 
   useEffect(() => {
     if (etat !== 'juste' || paused) return;
@@ -440,7 +477,12 @@ function AppelQcm({
         </div>
       ) : (
         <>
-          <SpeakButton text={appel.choices.join(', ')} lang={EN} label="Écouter les mots en anglais" size={40} />
+          <SpeakButton
+            text={appel.choices.join(', ')}
+            lang={EN}
+            label="Écouter les mots en anglais"
+            size={40}
+          />
           <div className="w-full" lang="en">
             <ChoiceGrid
               choices={appel.choices}
@@ -572,7 +614,10 @@ function AppelOral({
     conclure(false, res[0]!);
   }, [actif, ecoute, speech, appel.item.accepted, essais, conclure, reponse]);
 
-  const suivant = useCallback(() => onFini({ ok: etat === 'juste', points: etat === 'juste' ? 15 : 0 }), [onFini, etat]);
+  const suivant = useCallback(
+    () => onFini({ ok: etat === 'juste', points: etat === 'juste' ? 15 : 0 }),
+    [onFini, etat],
+  );
 
   useEffect(() => {
     if (etat !== 'juste' || paused) return;
@@ -597,7 +642,9 @@ function AppelOral({
     <section className="carte flex w-full flex-col items-center gap-4 p-4 sm:p-6">
       <div className="flex w-full items-start justify-center gap-3">
         <SpeakButton text={appel.item.spoken ?? appel.item.prompt} label="Écouter la consigne" />
-        <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">{insecable(appel.item.prompt)}</h2>
+        <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">
+          {insecable(appel.item.prompt)}
+        </h2>
       </div>
 
       {(modele || etat) && (
@@ -609,10 +656,14 @@ function AppelOral({
         </div>
       )}
       {!modele && !etat && level === 'normal' && (
-        <Button variant="blanc" onClick={() => {
-          setModele(true);
-          void speech.speak(reponse, { lang: EN });
-        }} disabled={!actif}>
+        <Button
+          variant="blanc"
+          onClick={() => {
+            setModele(true);
+            void speech.speak(reponse, { lang: EN });
+          }}
+          disabled={!actif}
+        >
           Écouter le modèle
         </Button>
       )}
@@ -630,7 +681,9 @@ function AppelOral({
           >
             <Mic size={44} aria-hidden />
           </motion.button>
-          <p className="font-bold text-ink-soft">{ecoute ? 'Je t’écoute… Speak!' : 'Touche le micro (ou M) et parle en anglais.'}</p>
+          <p className="font-bold text-ink-soft">
+            {ecoute ? 'Je t’écoute… Speak!' : 'Touche le micro (ou M) et parle en anglais.'}
+          </p>
         </div>
       )}
 
@@ -658,7 +711,11 @@ function AppelOral({
             <Button variant="grass" onClick={() => conclure(true, 'auto-évaluation : oui')} disabled={!actif}>
               Oui, pareil 👍
             </Button>
-            <Button variant="blanc" onClick={() => conclure(false, 'auto-évaluation : pas encore')} disabled={!actif}>
+            <Button
+              variant="blanc"
+              onClick={() => conclure(false, 'auto-évaluation : pas encore')}
+              disabled={!actif}
+            >
               Pas encore 🔁
             </Button>
           </div>

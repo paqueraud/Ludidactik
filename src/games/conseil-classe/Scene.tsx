@@ -8,7 +8,17 @@ const PEAUX = ['#F5C9A4', '#8D5A3B', '#E8B48A', '#C68A5E'];
 const CHEVEUX = ['#3B2A1E', '#1F1A17', '#C9772E', '#6B4226'];
 const PULLS = ['#FF7A6B', '#4FC3F7', '#7BD389', '#8E7CFF'];
 
-function Eleve({ x, i, parle, humeur }: { x: number; i: number; parle: boolean; humeur: 'calme' | 'content' | 'pense' }) {
+function Eleve({
+  x,
+  i,
+  parle,
+  humeur,
+}: {
+  x: number;
+  i: number;
+  parle: boolean;
+  humeur: 'calme' | 'content' | 'pense';
+}) {
   const peau = PEAUX[i % 4]!;
   return (
     <g transform={`translate(${x} 14)`}>
@@ -19,7 +29,10 @@ function Eleve({ x, i, parle, humeur }: { x: number; i: number; parle: boolean; 
       {i % 2 === 0 ? (
         <path d="M-20 90 Q-20 68 0 68 Q20 68 20 90 Q12 78 0 80 Q-12 78 -20 90 Z" fill={CHEVEUX[i % 4]} />
       ) : (
-        <path d="M-21 96 Q-24 66 0 68 Q24 66 21 96 Q22 80 10 78 Q0 84 -10 78 Q-22 80 -21 96 Z" fill={CHEVEUX[i % 4]} />
+        <path
+          d="M-21 96 Q-24 66 0 68 Q24 66 21 96 Q22 80 10 78 Q0 84 -10 78 Q-22 80 -21 96 Z"
+          fill={CHEVEUX[i % 4]}
+        />
       )}
       {/* yeux */}
       <circle cx="-7" cy="94" r="2.4" fill="#24304A" />
@@ -73,14 +86,26 @@ export function ConseilScene({
       <rect width="400" height="170" fill="url(#cc-mur)" />
       {/* tableau et guirlande */}
       <rect x="20" y="8" width="150" height="56" rx="6" fill="#2F5D50" stroke="#8D5A3B" strokeWidth="5" />
-      <text x="95" y="32" textAnchor="middle" fontSize="13" fontWeight="700" fill="#FFFFFF" fontFamily="Andika, system-ui">
+      <text
+        x="95"
+        y="32"
+        textAnchor="middle"
+        fontSize="13"
+        fontWeight="700"
+        fill="#FFFFFF"
+        fontFamily="Andika, system-ui"
+      >
         Conseil de classe
       </text>
       <text x="95" y="51" textAnchor="middle" fontSize="11" fill="#CFE8DD" fontFamily="Andika, system-ui">
         On s’écoute, on se respecte
       </text>
       {Array.from({ length: 9 }, (_, i) => (
-        <path key={i} d={`M${190 + i * 14} 10 l7 12 l7 -12 Z`} fill={['#5C78DC', '#FFFFFF', '#FF7A6B'][i % 3]} />
+        <path
+          key={i}
+          d={`M${190 + i * 14} 10 l7 12 l7 -12 Z`}
+          fill={['#5C78DC', '#FFFFFF', '#FF7A6B'][i % 3]}
+        />
       ))}
       {/* arbre de la classe */}
       <rect x="333" y="70" width="10" height="44" rx="4" fill="#8D5A3B" />

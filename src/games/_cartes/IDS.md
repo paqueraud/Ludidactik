@@ -11,56 +11,62 @@ espaces → tirets, et `atlantique` = `ocean-atlantique`. Utiliser de préféren
 Exemple :
 
 ```json
-{ "kind": "map_point", "map": "france-regions", "target": "bretagne", "targetLabel": "Bretagne",
-  "prompt": "Touche la Bretagne.", "explication": "La Bretagne est la région tout à l'ouest, entourée par la mer." }
+{
+  "kind": "map_point",
+  "map": "france-regions",
+  "target": "bretagne",
+  "targetLabel": "Bretagne",
+  "prompt": "Touche la Bretagne.",
+  "explication": "La Bretagne est la région tout à l'ouest, entourée par la mer."
+}
 ```
 
 ## `france-regions` — les 18 régions (découpage de 2016)
 
-| id | nom |
-|---|---|
-| `hauts-de-france` | Hauts-de-France |
-| `normandie` | Normandie |
-| `ile-de-france` | Île-de-France |
-| `grand-est` | Grand Est |
-| `bretagne` | Bretagne |
-| `pays-de-la-loire` | Pays de la Loire |
-| `centre-val-de-loire` | Centre-Val de Loire |
-| `bourgogne-franche-comte` | Bourgogne-Franche-Comté |
-| `nouvelle-aquitaine` | Nouvelle-Aquitaine |
-| `auvergne-rhone-alpes` | Auvergne-Rhône-Alpes |
-| `occitanie` | Occitanie |
+| id                           | nom                        |
+| ---------------------------- | -------------------------- |
+| `hauts-de-france`            | Hauts-de-France            |
+| `normandie`                  | Normandie                  |
+| `ile-de-france`              | Île-de-France              |
+| `grand-est`                  | Grand Est                  |
+| `bretagne`                   | Bretagne                   |
+| `pays-de-la-loire`           | Pays de la Loire           |
+| `centre-val-de-loire`        | Centre-Val de Loire        |
+| `bourgogne-franche-comte`    | Bourgogne-Franche-Comté    |
+| `nouvelle-aquitaine`         | Nouvelle-Aquitaine         |
+| `auvergne-rhone-alpes`       | Auvergne-Rhône-Alpes       |
+| `occitanie`                  | Occitanie                  |
 | `provence-alpes-cote-d-azur` | Provence-Alpes-Côte d'Azur |
-| `corse` | Corse |
-| `guadeloupe` | Guadeloupe (encart) |
-| `martinique` | Martinique (encart) |
-| `guyane` | Guyane (encart) |
-| `la-reunion` | La Réunion (encart) |
-| `mayotte` | Mayotte (encart) |
+| `corse`                      | Corse                      |
+| `guadeloupe`                 | Guadeloupe (encart)        |
+| `martinique`                 | Martinique (encart)        |
+| `guyane`                     | Guyane (encart)            |
+| `la-reunion`                 | La Réunion (encart)        |
+| `mayotte`                    | Mayotte (encart)           |
 
 Groupe : `outre-mer` (les 5 régions d'outre-mer : toucher l'une d'elles est accepté).
 
 ## `france-fleuves` — les fleuves
 
-| id | nom |
-|---|---|
-| `seine` | Seine |
-| `loire` | Loire |
-| `garonne` | Garonne |
-| `rhone` | Rhône (le lac Léman est dessiné en décor) |
-| `rhin` | Rhin |
-| `maroni` | Maroni (encart Guyane — programme 2026) |
+| id        | nom                                       |
+| --------- | ----------------------------------------- |
+| `seine`   | Seine                                     |
+| `loire`   | Loire                                     |
+| `garonne` | Garonne                                   |
+| `rhone`   | Rhône (le lac Léman est dessiné en décor) |
+| `rhin`    | Rhin                                      |
+| `maroni`  | Maroni (encart Guyane — programme 2026)   |
 
 ## `france-massifs` — les massifs montagneux
 
-| id | nom |
-|---|---|
-| `alpes` | Alpes |
-| `pyrenees` | Pyrénées (de part et d'autre de la frontière) |
-| `massif-central` | Massif central |
-| `jura` | Jura |
-| `vosges` | Vosges |
-| `massif-corse` | Massif corse |
+| id               | nom                                           |
+| ---------------- | --------------------------------------------- |
+| `alpes`          | Alpes                                         |
+| `pyrenees`       | Pyrénées (de part et d'autre de la frontière) |
+| `massif-central` | Massif central                                |
+| `jura`           | Jura                                          |
+| `vosges`         | Vosges                                        |
+| `massif-corse`   | Massif corse                                  |
 
 ## `europe` — les pays
 
@@ -79,20 +85,20 @@ non cliquable. Les très petits pays (Luxembourg, Malte, Chypre, Slovénie) ont 
 
 ## `monde` — continents et océans
 
-| id | nom |
-|---|---|
-| `afrique` | Afrique |
+| id                 | nom                                                                       |
+| ------------------ | ------------------------------------------------------------------------- |
+| `afrique`          | Afrique                                                                   |
 | `amerique-du-nord` | Amérique du Nord (avec l'Amérique centrale, les Caraïbes et le Groenland) |
-| `amerique-du-sud` | Amérique du Sud |
-| `asie` | Asie |
-| `europe` | Europe |
-| `oceanie` | Océanie |
-| `antarctique` | Antarctique |
-| `ocean-atlantique` | Océan Atlantique |
-| `ocean-pacifique` | Océan Pacifique |
-| `ocean-indien` | Océan Indien |
-| `ocean-arctique` | Océan Arctique |
-| `ocean-austral` | Océan Austral |
+| `amerique-du-sud`  | Amérique du Sud                                                           |
+| `asie`             | Asie                                                                      |
+| `europe`           | Europe                                                                    |
+| `oceanie`          | Océanie                                                                   |
+| `antarctique`      | Antarctique                                                               |
+| `ocean-atlantique` | Océan Atlantique                                                          |
+| `ocean-pacifique`  | Océan Pacifique                                                           |
+| `ocean-indien`     | Océan Indien                                                              |
+| `ocean-arctique`   | Océan Arctique                                                            |
+| `ocean-austral`    | Océan Austral                                                             |
 
 Groupe : `amerique` (Amérique du Nord + Amérique du Sud) → pour les « 6 continents » de l'école :
 `afrique`, `amerique`, `antarctique`, `asie`, `europe`, `oceanie`.

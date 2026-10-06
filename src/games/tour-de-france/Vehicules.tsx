@@ -43,7 +43,12 @@ function CampingCar() {
     <g>
       <ellipse cx="50" cy="76" rx="44" ry="6" fill="#24304A" opacity="0.18" />
       {/* cellule */}
-      <path d="M8 28 Q8 16 20 16 H70 Q80 16 84 28 L92 42 Q96 46 96 52 V64 Q96 68 92 68 H12 Q8 68 8 64 Z" fill="#FFFFFF" stroke="#24304A" strokeWidth="3" />
+      <path
+        d="M8 28 Q8 16 20 16 H70 Q80 16 84 28 L92 42 Q96 46 96 52 V64 Q96 68 92 68 H12 Q8 68 8 64 Z"
+        fill="#FFFFFF"
+        stroke="#24304A"
+        strokeWidth="3"
+      />
       {/* capucine */}
       <path d="M20 16 Q22 6 34 6 H64 Q72 6 74 16 Z" fill="#FFD45C" stroke="#24304A" strokeWidth="3" />
       {/* bande colorée */}
@@ -71,7 +76,12 @@ function Avion() {
       {/* aile arrière */}
       <path d="M38 40 L22 22 H30 L52 40 Z" fill="#8E7CFF" stroke="#24304A" strokeWidth="2.5" />
       {/* fuselage */}
-      <path d="M10 44 Q10 34 24 34 H80 Q96 36 98 46 Q96 56 80 56 H24 Q10 56 10 44 Z" fill="#FFFFFF" stroke="#24304A" strokeWidth="3" />
+      <path
+        d="M10 44 Q10 34 24 34 H80 Q96 36 98 46 Q96 56 80 56 H24 Q10 56 10 44 Z"
+        fill="#FFFFFF"
+        stroke="#24304A"
+        strokeWidth="3"
+      />
       {/* aile */}
       <path d="M44 48 L64 72 H74 L60 48 Z" fill="#8E7CFF" stroke="#24304A" strokeWidth="2.5" />
       {/* dérive */}

@@ -3,7 +3,9 @@ import { expect, test } from '@playwright/test';
 import { surveillerErreurs } from './_monde';
 
 for (const niveau of ['facile', 'normal', 'plus_loin']) {
-  test(`Machine à remonter le temps (${niveau}) : poser les cartes et lancer la machine`, async ({ page }) => {
+  test(`Machine à remonter le temps (${niveau}) : poser les cartes et lancer la machine`, async ({
+    page,
+  }) => {
     const erreurs = surveillerErreurs(page);
     await page.goto(`/labo/machine-temps?niveau=${niveau}`);
     await expect(page.getByRole('button', { name: /^Carte 1 :/ })).toBeVisible();

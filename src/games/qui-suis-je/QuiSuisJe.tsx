@@ -76,7 +76,15 @@ function Silhouette({ revele, image, reduce }: { revele: boolean; image?: string
           >
             <circle cx="50" cy="34" r="18" fill="#3A3F66" />
             <path d="M18 96 Q18 58 50 58 Q82 58 82 96 Z" fill="#3A3F66" />
-            <text x="50" y="44" textAnchor="middle" fontSize="28" fontWeight="800" fill="#FFD45C" fontFamily="'Baloo 2', system-ui">
+            <text
+              x="50"
+              y="44"
+              textAnchor="middle"
+              fontSize="28"
+              fontWeight="800"
+              fill="#FFD45C"
+              fontFamily="'Baloo 2', system-ui"
+            >
               ?
             </text>
           </motion.svg>
@@ -145,7 +153,12 @@ export default function QuiSuisJe({
   const enJeu = Math.max(1, Math.round((5 * (nbIndices - vus + 1)) / nbIndices));
 
   const titre = avecIndices ? m!.item.question : 'Devinette';
-  const texteIndices = m ? m.indices.slice(0, vus).map((t, i) => `Indice ${i + 1} : ${t}`).join(' ') : '';
+  const texteIndices = m
+    ? m.indices
+        .slice(0, vus)
+        .map((t, i) => `Indice ${i + 1} : ${t}`)
+        .join(' ')
+    : '';
   const texteChoix = m ? m.choices.map((c, i) => `${'ABCDEF'[i]} : ${c}.`).join(' ') : '';
 
   useEffect(() => {
@@ -271,7 +284,9 @@ export default function QuiSuisJe({
           <Silhouette revele={!!etat} image={m.item.image} reduce={reduce} />
           <div className="flex items-start justify-center gap-3">
             <SpeakButton text={`${titre}. ${texteIndices}`} label="Écouter les indices" />
-            <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">{insecable(titre)}</h2>
+            <h2 className="text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl">
+              {insecable(titre)}
+            </h2>
           </div>
           {avecIndices ? (
             <ol className="flex flex-col gap-2" aria-live="polite">
@@ -292,7 +307,9 @@ export default function QuiSuisJe({
               ))}
             </ol>
           ) : (
-            <p className="rounded-2xl bg-sun/25 px-4 py-3 text-center text-xl font-bold">{insecable(m.item.question)}</p>
+            <p className="rounded-2xl bg-sun/25 px-4 py-3 text-center text-xl font-bold">
+              {insecable(m.item.question)}
+            </p>
           )}
           {avecIndices && !etat && (
             <div className="flex flex-wrap items-center justify-center gap-3">
@@ -300,7 +317,12 @@ export default function QuiSuisJe({
                 En jeu : {enJeu} {enJeu > 1 ? 'points' : 'point'}
               </span>
               {vus < nbIndices && level !== 'plus_loin' && (
-                <Button variant="sun" icon={<Lightbulb aria-hidden />} onClick={indiceSuivant} disabled={paused}>
+                <Button
+                  variant="sun"
+                  icon={<Lightbulb aria-hidden />}
+                  onClick={indiceSuivant}
+                  disabled={paused}
+                >
                   Indice suivant
                 </Button>
               )}
@@ -322,12 +344,13 @@ export default function QuiSuisJe({
             reveal={etat ? { correct: m.answerIndex, chosen: choisi } : null}
             disabled={paused || fini}
           />
-          {etat === 'juste' && (
-            <Feedback state="juste" message={`Bravo, mystère résolu ! +${gain} points`} />
+          {!etat && barres.length > 0 && (
+            <p className="rounded-2xl bg-sun/25 px-4 py-2 text-center font-bold" role="status">
+              Presque ! Ce n’est pas {m.choices[barres[barres.length - 1]!]}. Un nouvel indice va t’aider.
+            </p>
           )}
-          {etat === 'juste' && (
-            <p className="text-center">{m.item.explication}</p>
-          )}
+          {etat === 'juste' && <Feedback state="juste" message={`Bravo, mystère résolu ! +${gain} points`} />}
+          {etat === 'juste' && <p className="text-center">{m.item.explication}</p>}
           {etat === 'faux' && (
             <Feedback
               state="faux"

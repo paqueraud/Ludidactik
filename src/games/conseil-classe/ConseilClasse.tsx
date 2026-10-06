@@ -103,7 +103,10 @@ export default function ConseilClasse({
       } else {
         sfx.play('pop');
       }
-      if (ouvrir) void speech.speak(`${juste ? 'Bravo !' : `On en discute : la meilleure réponse est ${attendu}.`} ${s.item.explication}`);
+      if (ouvrir)
+        void speech.speak(
+          `${juste ? 'Bravo !' : `On en discute : la meilleure réponse est ${attendu}.`} ${s.item.explication}`,
+        );
     },
     [s, etat, paused, fini, session, level, sfx, speech],
   );
@@ -190,7 +193,13 @@ export default function ConseilClasse({
   );
 
   if (!s) {
-    return <EtatVide icone="🤝" jeu="Le Conseil de la classe" besoin="de situations ou d’affirmations à discuter" />;
+    return (
+      <EtatVide
+        icone="🤝"
+        jeu="Le Conseil de la classe"
+        besoin="de situations ou d’affirmations à discuter"
+      />
+    );
   }
 
   const bonne = s.type === 'qcm' ? s.choices[s.answerIndex]! : s.item.answer ? 'C’est vrai.' : 'C’est faux.';
@@ -226,7 +235,10 @@ export default function ConseilClasse({
                 {s.item.image}
               </span>
             )}
-            <p className="flex-1 font-titre text-xl font-extrabold leading-snug sm:text-2xl" aria-live="polite">
+            <p
+              className="flex-1 font-titre text-xl font-extrabold leading-snug sm:text-2xl"
+              aria-live="polite"
+            >
               {insecable(enonce)}
             </p>
             <SpeakButton text={texte} label="Écouter la situation" />
@@ -267,7 +279,11 @@ export default function ConseilClasse({
                   disabled={!!etat || paused || fini}
                   className={`btn-3d flex min-h-[4.5rem] items-center justify-center gap-2 bg-card text-xl font-extrabold ${style}`}
                 >
-                  {v ? <ThumbsUp className="text-grass-dark" aria-hidden /> : <ThumbsDown className="text-coral-dark" aria-hidden />}
+                  {v ? (
+                    <ThumbsUp className="text-grass-dark" aria-hidden />
+                  ) : (
+                    <ThumbsDown className="text-coral-dark" aria-hidden />
+                  )}
                   {v ? 'C’est vrai' : 'C’est faux'}
                 </button>
               );
@@ -284,7 +300,9 @@ export default function ConseilClasse({
               role="status"
             >
               <p className="font-titre text-xl font-extrabold">
-                {etat === 'juste' ? 'Bravo ! Le conseil est d’accord avec toi. 🌱' : 'Presque ! On en discute ensemble.'}
+                {etat === 'juste'
+                  ? 'Bravo ! Le conseil est d’accord avec toi. 🌱'
+                  : 'Presque ! On en discute ensemble.'}
               </p>
               {etat === 'faux' && (
                 <p className="mt-1 text-lg font-bold">

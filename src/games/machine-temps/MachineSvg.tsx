@@ -40,7 +40,11 @@ export function MachineSvg({
       {/* silhouettes d'époques : château, moulin, usine, immeubles */}
       <g fill="#24304A" opacity="0.13">
         <path d="M18 92 V62 h8 v-8 h6 v8 h8 v-8 h6 v8 h8 v30 Z" />
-        <path d="M120 92 V66 l10 -8 l10 8 V92 Z M130 58 l-14 -12 M130 58 l14 -12 M130 58 l-12 14 M130 58 l12 14" stroke="#24304A" strokeWidth="3" />
+        <path
+          d="M120 92 V66 l10 -8 l10 8 V92 Z M130 58 l-14 -12 M130 58 l14 -12 M130 58 l-12 14 M130 58 l12 14"
+          stroke="#24304A"
+          strokeWidth="3"
+        />
         <path d="M205 92 V70 l14 -8 v8 l14 -8 v8 l14 -8 V92 Z M240 62 V40 h7 v22" />
         <path d="M300 92 V52 h18 V92 Z M322 92 V40 h20 V92 Z M346 92 V60 h16 V92 Z" />
       </g>
@@ -68,14 +72,26 @@ export function MachineSvg({
       <text x="20" y="24" fontSize="13" fontWeight="700" fill="#7A5A2E" fontFamily="Andika, system-ui">
         Passé
       </text>
-      <text x="380" y="24" fontSize="13" fontWeight="700" fill="#1F6FA8" textAnchor="end" fontFamily="Andika, system-ui">
+      <text
+        x="380"
+        y="24"
+        fontSize="13"
+        fontWeight="700"
+        fill="#1F6FA8"
+        textAnchor="end"
+        fontFamily="Andika, system-ui"
+      >
         Présent
       </text>
 
       {/* la machine */}
       <motion.g
         initial={false}
-        animate={{ x, y: voyage && !reduce ? [0, -14, 0] : 0, rotate: panne && !reduce ? [0, -4, 4, -2, 0] : 0 }}
+        animate={{
+          x,
+          y: voyage && !reduce ? [0, -14, 0] : 0,
+          rotate: panne && !reduce ? [0, -4, 4, -2, 0] : 0,
+        }}
         transition={{
           x: { duration: reduce ? 0 : 1.6, ease: 'easeInOut' },
           y: { duration: 0.8, repeat: voyage && !reduce ? 1 : 0 },
@@ -118,7 +134,12 @@ export function MachineSvg({
         <circle cx="-16" cy="98" r="2.5" fill="#FFD45C" />
         <circle cx="16" cy="98" r="2.5" fill="#FFD45C" />
         {/* corps */}
-        <path d="M-30 92 Q-34 58 -6 50 L10 50 Q34 56 30 92 Z" fill="#8E7CFF" stroke="#5E48C8" strokeWidth="2.5" />
+        <path
+          d="M-30 92 Q-34 58 -6 50 L10 50 Q34 56 30 92 Z"
+          fill="#8E7CFF"
+          stroke="#5E48C8"
+          strokeWidth="2.5"
+        />
         <path d="M-24 90 Q-26 70 -10 62" stroke="#B9AEFF" strokeWidth="4" fill="none" strokeLinecap="round" />
         {/* hublot */}
         <circle cx="4" cy="70" r="11" fill="url(#mt-hublot)" stroke="#FFD45C" strokeWidth="3" />
@@ -132,7 +153,15 @@ export function MachineSvg({
           {/* cercle invisible : le centre de rotation est celui du cadran */}
           <circle cx="-17" cy="76" r="6" fill="none" />
           <line x1="-17" y1="76" x2="-17" y2="71" stroke="#24304A" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="-17" y1="76" x2="-13.5" y2="77" stroke="#24304A" strokeWidth="1.5" strokeLinecap="round" />
+          <line
+            x1="-17"
+            y1="76"
+            x2="-13.5"
+            y2="77"
+            stroke="#24304A"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
         </motion.g>
         {/* engrenage */}
         <motion.g

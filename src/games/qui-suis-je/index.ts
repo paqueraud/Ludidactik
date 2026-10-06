@@ -6,7 +6,8 @@ const jeu: GameModule = {
   id: 'qui-suis-je',
   numero: 52,
   titre: 'Qui suis-je ?',
-  description: 'Un personnage mystère se dévoile indice après indice : trouve-le avec le moins d’indices possible !',
+  description:
+    'Un personnage mystère se dévoile indice après indice : trouve-le avec le moins d’indices possible !',
   consigne:
     'Lis le premier indice. Tu peux répondre tout de suite ou demander un autre indice. Attention : plus tu prends d’indices, moins tu gagnes de points !',
   icone: '🕵️',

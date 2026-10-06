@@ -1,5 +1,5 @@
 /** Filtre léger (chargé avec le registre) : quels items se jouent au Laboratoire ? */
-import type { Item } from '@/content/schemas';
+import type { ClassificationItem, Item } from '@/content/schemas';
 
 /**
  * Classements (sauf ceux d'autres conventions : fonctions dans la phrase, probabilités) et suites
@@ -12,3 +12,10 @@ export const estExperience = (it: Item): boolean => {
   const proba = ['impossible', 'peu probable', 'probable', 'certain'];
   return !it.categories.every((c) => proba.includes(c));
 };
+
+/** Catégorie « l'ampoule s'allume » d'un tri conducteurs / isolants (−1 si ce n'est pas un circuit). */
+export function categorieAllumee(item: ClassificationItem): number {
+  const circuit = item.meta?.circuit === true || item.categories.some((c) => /conducteur|isolant/i.test(c));
+  if (!circuit) return -1;
+  return item.categories.findIndex((c) => /conducteur|s.allume/i.test(c) && !/isolant|[ée]teint/i.test(c));
+}

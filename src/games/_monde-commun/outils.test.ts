@@ -83,9 +83,7 @@ describe('ordres', () => {
     expect(estFrise(cycle!)).toBe(true);
     expect(cycle!.kind === 'ordering' && estCycle(cycle!)).toBe(true);
     expect(etapes!.kind === 'ordering' && estCycle(etapes!)).toBe(false);
-    expect(
-      estFrise({ ...chrono!, kind: 'ordering', mode: 'croissant' } as never),
-    ).toBe(false);
+    expect(estFrise({ ...chrono!, kind: 'ordering', mode: 'croissant' } as never)).toBe(false);
   });
 });
 
