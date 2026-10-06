@@ -231,6 +231,20 @@ function sample(src: Native, rng: Rng, n: number, target: number): Item[] {
   return rng.shuffle(src.pool).slice(0, n);
 }
 
+/** La règle produit-elle des items à partir de ce générateur ? (10 essais) */
+function canDeriveFromGen(
+  rule: NonNullable<(typeof DERIVATIONS)[ItemKind]>[number],
+  src: { gen: (t: number) => Item },
+  rng: Rng,
+  lessonId: string,
+): boolean {
+  for (let i = 0; i < 10; i++) {
+    const d = rule.one ? rule.one(src.gen(0.5), rng) : rule.many!(sample(src, rng, 10, 0.5), lessonId);
+    if (d) return true;
+  }
+  return false;
+}
+
 /** Construit les items dérivés d'un pool fini (pour compter et pour les flux finis). */
 function derivedPool(
   kind: ItemKind,
@@ -246,7 +260,11 @@ function derivedPool(
     if (!native.includes(rule.from)) continue;
     const src = nativeSource(index, lesson, rule.from, level, rng, ctx);
     if (!src) continue;
-    if ('gen' in src) return 'infini';
+    if ('gen' in src) {
+      // on vérifie que la dérivation fonctionne vraiment sur ce générateur
+      if (canDeriveFromGen(rule, src, rng, lesson.id)) return 'infini';
+      continue;
+    }
     if (rule.one) {
       const items = src.pool.map((it) => rule.one!(it, rng)).filter((x): x is Item => !!x);
       if (items.length) return items;
@@ -355,6 +373,7 @@ export function createStream(
     const src = nativeSource(index, lesson, rule.from, level, rng, ctx);
     if (!src) continue;
     if ('gen' in src) {
+      if (!canDeriveFromGen(rule, src, rng, lesson.id)) continue;
       return {
         size: null,
         next(target = 0.5) {

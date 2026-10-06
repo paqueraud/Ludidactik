@@ -115,6 +115,12 @@ const RECTIFICATIONS: ReadonlyArray<readonly [string, string]> = [
 ];
 
 /** Mots où l'accent circonflexe sur i/u reste obligatoire (distinction de sens). */
+/**
+ * Les rectifications de 1990 conservent le circonflexe au passé simple (nous fîmes, vous dîtes,
+ * nous fûmes) et au subjonctif imparfait (qu'il fût).
+ */
+const PASSE_SIMPLE_CIRC = /(îmes|îtes|ûmes|ûtes|înmes|întes)$|^(fût|eût|dût|pût|fît|dît|vît|prît|vînt|tînt)$/;
+
 const CIRCUMFLEX_KEPT = new Set([
   'dû',
   'mûr',
@@ -138,7 +144,9 @@ export function acceptedSpellings(expected: string): string[] {
   // Circonflexe sur i et u : facultatif depuis 1990 (sauf exceptions)
   const words = base.split(' ');
   const noCirc = words.map((w) =>
-    CIRCUMFLEX_KEPT.has(w.toLowerCase()) ? w : w.replace(/î/g, 'i').replace(/û/g, 'u'),
+    CIRCUMFLEX_KEPT.has(w.toLowerCase()) || PASSE_SIMPLE_CIRC.test(w.toLowerCase())
+      ? w
+      : w.replace(/î/g, 'i').replace(/û/g, 'u'),
   );
   out.add(noCirc.join(' '));
   for (const [a, b] of RECTIFICATIONS) {

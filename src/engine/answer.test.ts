@@ -49,6 +49,9 @@ describe('orthographe', () => {
     expect(checkSpelling('connaitre', 'connaître').correct).toBe(true);
     expect(acceptedSpellings('oignon')).toContain('ognon');
     expect(checkSpelling('sur', 'sûr').correct).toBe(false);
+    // le circonflexe du passé simple est conservé en 1990
+    expect(checkSpelling('vous dites', 'vous dîtes').correct).toBe(false);
+    expect(checkSpelling('nous fimes', 'nous fîmes').correct).toBe(false);
   });
   it('accepte oe pour œ et les apostrophes typographiques', () => {
     expect(checkSpelling('coeur', 'cœur').correct).toBe(true);
