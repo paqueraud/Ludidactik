@@ -168,7 +168,11 @@ export function CarteSvg({
             aria-disabled={desactive || undefined}
             data-zone={z.id}
             className={`outline-none ${desactive ? '' : 'cursor-pointer hover:opacity-80'}`}
-            onClick={() => choisir(z.id)}
+            onClick={(e) => {
+              // au toucher / à la souris, pas de contour de focus (réservé au clavier)
+              (e.currentTarget as SVGGElement).blur();
+              choisir(z.id);
+            }}
             onKeyDown={(e) => onKey(e, z.id)}
             onFocus={() => setFocus(z.id)}
             onBlur={() => setFocus((f) => (f === z.id ? null : f))}

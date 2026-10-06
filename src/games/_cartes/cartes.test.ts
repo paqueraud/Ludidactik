@@ -3,6 +3,7 @@ import { FIXTURES } from '@/games/_kit/fixtures';
 import { zoneVoisine } from './CarteSvg';
 import { CARTES, getCarte, resoudreCible } from './cartes';
 import { type LonLat, dansPolygone } from './geo';
+import { IDS_CARTES } from './ids';
 import type { Carte } from './types';
 
 /** La zone contient-elle ce point (lon/lat) ? */
@@ -38,6 +39,16 @@ describe('cartes : structure', () => {
       }
     });
   }
+
+  it('la liste légère des ids (ids.ts) concorde avec les cartes', () => {
+    for (const carte of Object.values(CARTES)) {
+      const legere = IDS_CARTES[carte.id]!;
+      expect([...legere.zones].sort()).toEqual(carte.zones.map((z) => z.id).sort());
+      const groupes = Object.fromEntries(Object.entries(carte.groupes ?? {}).map(([k, g]) => [k, [...g.zones].sort()]));
+      const groupesLegers = Object.fromEntries(Object.entries(legere.groupes ?? {}).map(([k, g]) => [k, [...g].sort()]));
+      expect(groupesLegers).toEqual(groupes);
+    }
+  });
 
   it('les cartes attendues existent', () => {
     expect(Object.keys(CARTES).sort()).toEqual(

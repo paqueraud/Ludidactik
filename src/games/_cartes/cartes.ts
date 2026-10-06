@@ -34,6 +34,7 @@ import {
   OCEANIE,
   OCEANS,
 } from './monde-geo';
+import { resoudreId } from './ids';
 import type { Carte, DecorCarte, EncartCarte, ZoneCarte } from './types';
 
 const MER = '#BFE6F7';
@@ -284,25 +285,10 @@ export const CONTOUR_FRANCE_SVG = cheminSurface([CONTOUR_FRANCE, CONTOUR_CORSE],
 
 export const getCarte = (id: string): Carte | undefined => CARTES[id];
 
-const normaliser = (s: string) =>
-  s
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/[’'\s_]+/g, '-')
-    .replace(/^(l|le|la|les)-/, '');
-
 /**
  * Zones qui correspondent à la cible d'un item (`target`) : id exact, groupe (« amerique »),
  * ou variante tolérée (accents, « atlantique » pour « ocean-atlantique »). null = cible inconnue.
  */
 export function resoudreCible(carte: Carte, cible: string): string[] | null {
-  const ids = new Set(carte.zones.map((z) => z.id));
-  const essais = [cible, normaliser(cible), `ocean-${normaliser(cible).replace(/^ocean-/, '')}`];
-  for (const e of essais) {
-    if (ids.has(e)) return [e];
-    const g = carte.groupes?.[e];
-    if (g) return g.zones.filter((z) => ids.has(z));
-  }
-  return null;
+  return resoudreId(carte.id, cible);
 }
