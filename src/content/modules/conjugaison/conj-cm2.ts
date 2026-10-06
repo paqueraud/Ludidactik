@@ -10,7 +10,17 @@
 import type { Rng } from '@/engine/rng';
 import type { GenContext, LessonContent } from '../../registry';
 import type { ItemOf, Level } from '../../schemas';
-import { type Plan, type PlanParNiveau, formeAvecPronom, formesDe, gensConjugaison, itemTrou, phraseAvec, regle, tirer } from './conj';
+import {
+  type Plan,
+  type PlanParNiveau,
+  formeAvecPronom,
+  formesDe,
+  gensConjugaison,
+  itemTrou,
+  phraseAvec,
+  regle,
+  tirer,
+} from './conj';
 import {
   AUTRES_TROISIEME,
   DEUXIEME,
@@ -54,7 +64,14 @@ const PLUS_LOIN: VerbeLex[] = [...NORMAL, ...fois(2, PREMIER_RADICAL), ...fois(3
 const VERBES_ETRE: VerbeLex[] = [...PREMIER_ETRE, lex('aller'), lex('venir'), lex('revenir')];
 
 const TOUTES: readonly Personne[] = PERSONNES;
-const VOISINS: Temps[] = ['present', 'imparfait', 'futur', 'passe_simple', 'passe_compose', 'plus_que_parfait'];
+const VOISINS: Temps[] = [
+  'present',
+  'imparfait',
+  'futur',
+  'passe_simple',
+  'passe_compose',
+  'plus_que_parfait',
+];
 
 const plan = (
   temps: Temps[],
@@ -118,14 +135,46 @@ const IMPERATIF: PlanParNiveau = {
 /* ------------------------------------------------------------------ */
 
 const EMPLOIS_COND: { phrase: string; emploi: string; pourquoi: string }[] = [
-  { phrase: 'Je voudrais un verre d’eau, s’il vous plaît.', emploi: 'la politesse', pourquoi: 'on demande gentiment' },
-  { phrase: 'Pourriez-vous m’aider à porter ce sac ?', emploi: 'la politesse', pourquoi: 'on demande gentiment' },
-  { phrase: 'Nous aimerions visiter le musée.', emploi: 'la politesse', pourquoi: 'on exprime un souhait poliment' },
-  { phrase: 'Si j’avais des ailes, je volerais jusqu’aux nuages.', emploi: 'une supposition', pourquoi: 'c’est imaginé, avec « si »' },
-  { phrase: 'Si nous gagnions, nous ferions la fête.', emploi: 'une supposition', pourquoi: 'c’est imaginé, avec « si »' },
-  { phrase: 'S’il neigeait, les enfants feraient un bonhomme de neige.', emploi: 'une supposition', pourquoi: 'c’est imaginé, avec « si »' },
-  { phrase: 'Tu pourrais fermer la fenêtre, s’il te plaît ?', emploi: 'la politesse', pourquoi: 'on demande gentiment' },
-  { phrase: 'Si le chat parlait, il raconterait ses aventures.', emploi: 'une supposition', pourquoi: 'c’est imaginé, avec « si »' },
+  {
+    phrase: 'Je voudrais un verre d’eau, s’il vous plaît.',
+    emploi: 'la politesse',
+    pourquoi: 'on demande gentiment',
+  },
+  {
+    phrase: 'Pourriez-vous m’aider à porter ce sac ?',
+    emploi: 'la politesse',
+    pourquoi: 'on demande gentiment',
+  },
+  {
+    phrase: 'Nous aimerions visiter le musée.',
+    emploi: 'la politesse',
+    pourquoi: 'on exprime un souhait poliment',
+  },
+  {
+    phrase: 'Si j’avais des ailes, je volerais jusqu’aux nuages.',
+    emploi: 'une supposition',
+    pourquoi: 'c’est imaginé, avec « si »',
+  },
+  {
+    phrase: 'Si nous gagnions, nous ferions la fête.',
+    emploi: 'une supposition',
+    pourquoi: 'c’est imaginé, avec « si »',
+  },
+  {
+    phrase: 'S’il neigeait, les enfants feraient un bonhomme de neige.',
+    emploi: 'une supposition',
+    pourquoi: 'c’est imaginé, avec « si »',
+  },
+  {
+    phrase: 'Tu pourrais fermer la fenêtre, s’il te plaît ?',
+    emploi: 'la politesse',
+    pourquoi: 'on demande gentiment',
+  },
+  {
+    phrase: 'Si le chat parlait, il raconterait ses aventures.',
+    emploi: 'une supposition',
+    pourquoi: 'c’est imaginé, avec « si »',
+  },
 ];
 const EMPLOIS = ['la politesse', 'une supposition', 'un ordre'];
 
@@ -136,12 +185,20 @@ function condTrouPlusLoin(rng: Rng, ctx: GenContext): ItemOf<'fill_blank'> {
     const inf = rng.pick(['vouloir', 'aimer']);
     const p = rng.pick<Personne>([0, 3]);
     const forme = conjuguer(inf, 'conditionnel', p);
-    const compl = inf === 'vouloir' ? rng.pick(['un verre d’eau', 'une part de gâteau', 'un renseignement']) : rng.pick(['visiter le musée', 'parler à la directrice', 'goûter ce gâteau']);
+    const compl =
+      inf === 'vouloir'
+        ? rng.pick(['un verre d’eau', 'une part de gâteau', 'un renseignement'])
+        : rng.pick(['visiter le musée', 'parler à la directrice', 'goûter ce gâteau']);
     const suj = p === 0 ? (/^[aeiou]/.test(forme) ? 'J’' : 'Je ') : 'Nous ';
     return trou(ctx, rng, 'politesse', {
       sentence: `${suj}___ (${inf}, conditionnel présent) ${compl}, s’il vous plaît.`,
       answer: forme,
-      wrong: [conjuguer(inf, 'futur', p), conjuguer(inf, 'imparfait', p), conjuguer(inf, 'present', p), ...PERSONNES.filter((q) => q !== p).map((q) => conjuguer(inf, 'conditionnel', q))],
+      wrong: [
+        conjuguer(inf, 'futur', p),
+        conjuguer(inf, 'imparfait', p),
+        conjuguer(inf, 'present', p),
+        ...PERSONNES.filter((q) => q !== p).map((q) => conjuguer(inf, 'conditionnel', q)),
+      ],
       explication: `Pour demander poliment, on emploie le conditionnel présent : radical du futur + -ais, -ais, -ait, -ions, -iez, -aient. → ${suj}${forme} ${compl}, s’il vous plaît.`,
       difficulty: 0.6,
       conjugaison: { sujet: p === 0 ? 'je' : 'nous', verbe: inf, temps: NOM_TEMPS.conditionnel },
@@ -275,7 +332,9 @@ function marquesQcm(level: Level, rng: Rng, ctx: GenContext): ItemOf<'mcq'> {
         : d.temps
           ? rng.pick(['temps', 'personne'])
           : 'personne';
-  const autresPers = PERSONNES.map((q) => decomposer(t.verbe.inf, t.temps, q)?.personne).filter((x): x is string => !!x && x !== d.personne);
+  const autresPers = PERSONNES.map((q) => decomposer(t.verbe.inf, t.temps, q)?.personne).filter(
+    (x): x is string => !!x && x !== d.personne,
+  );
   const explication = `${RAPPEL_MARQUES} « ${avecPr} » = ${d.radical} + ${d.temps ? `${d.temps} (marque ${t.temps === 'futur' ? 'du futur' : 'de l’imparfait'}) + ` : ''}${d.personne} (marque de la personne).`;
   if (quoi === 'terminaison') {
     const term = d.temps + d.personne;
@@ -288,8 +347,15 @@ function marquesQcm(level: Level, rng: Rng, ctx: GenContext): ItemOf<'mcq'> {
     });
   }
   if (quoi === 'radical') {
-    const radicaux = PERSONNES.map((q) => decomposer(t.verbe.inf, t.temps, q)?.radical).filter((x): x is string => !!x);
-    const pieges = [d.radical + d.temps, d.radical.slice(0, -1), t.verbe.inf.slice(0, -2), `${t.verbe.inf.slice(0, -2)}e`];
+    const radicaux = PERSONNES.map((q) => decomposer(t.verbe.inf, t.temps, q)?.radical).filter(
+      (x): x is string => !!x,
+    );
+    const pieges = [
+      d.radical + d.temps,
+      d.radical.slice(0, -1),
+      t.verbe.inf.slice(0, -2),
+      `${t.verbe.inf.slice(0, -2)}e`,
+    ];
     return mcq(ctx, rng, 'radical', {
       question: `Quel est le radical de « ${avecPr} » ?`,
       good: rad(d.radical),
@@ -329,7 +395,9 @@ function marquesVraiFaux(level: Level, rng: Rng, ctx: GenContext): ItemOf<'true_
       difficulty: 0.5,
     });
   }
-  const autres = PERSONNES.map((q) => decomposer(t.verbe.inf, t.temps, q)?.personne).filter((x): x is string => !!x && x !== d.personne);
+  const autres = PERSONNES.map((q) => decomposer(t.verbe.inf, t.temps, q)?.personne).filter(
+    (x): x is string => !!x && x !== d.personne,
+  );
   const dit = vrai || !autres.length ? d.personne : rng.pick(autres);
   return vraiFaux(ctx, 'marque-personne', {
     statement: `Dans « ${avecPr} », la marque de la personne est « -${dit} ».`,
@@ -343,7 +411,10 @@ function marquesVraiFaux(level: Level, rng: Rng, ctx: GenContext): ItemOf<'true_
 function marquesClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'classification'> {
   if (level === 'plus_loin' && rng.chance(0.6)) {
     for (let essai = 0; essai < 40; essai++) {
-      const verbe = rng.pick([...PREMIER_RADICAL.filter((v) => !['payer', 'préférer'].includes(v.inf)), lex('venir')]);
+      const verbe = rng.pick([
+        ...PREMIER_RADICAL.filter((v) => !['payer', 'préférer'].includes(v.inf)),
+        lex('venir'),
+      ]);
       const temps: Temps = 'present';
       const formesP = PERSONNES.map((p) => ({ p, f: formes(verbe.inf, temps, p)[0]! }));
       const rads = formesP.map(({ p, f }) => {
@@ -355,7 +426,10 @@ function marquesClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'cla
       });
       const cats = [...new Set(rads)];
       if (cats.length < 2 || cats.length > 3) continue;
-      const elements = formesP.map(({ p, f }, i) => ({ label: avecPronom(p, f), category: cats.indexOf(rads[i]!) }));
+      const elements = formesP.map(({ p, f }, i) => ({
+        label: avecPronom(p, f),
+        category: cats.indexOf(rads[i]!),
+      }));
       return make(ctx, 'classification', 'radicaux', {
         prompt: `Range les formes de « ${verbe.inf} » ${AU_TEMPS[temps]} selon leur radical.`,
         categories: cats.map((c) => `${c}-`),
@@ -399,12 +473,24 @@ function marquesTrou(level: Level, rng: Rng, ctx: GenContext): ItemOf<'fill_blan
 const TEMPS_CONCORD: Record<Level, Temps[]> = {
   facile: ['present', 'imparfait', 'futur'],
   normal: ['present', 'imparfait', 'futur', 'passe_simple', 'passe_compose', 'plus_que_parfait'],
-  plus_loin: ['present', 'imparfait', 'futur', 'passe_simple', 'passe_compose', 'plus_que_parfait', 'conditionnel', 'imperatif'],
+  plus_loin: [
+    'present',
+    'imparfait',
+    'futur',
+    'passe_simple',
+    'passe_compose',
+    'plus_que_parfait',
+    'conditionnel',
+    'imperatif',
+  ],
 };
 const NOM_COURT: Record<Temps, string> = { ...NOM_TEMPS, imperatif: 'impératif présent' };
 
 function concordPlan(level: Level): Plan {
-  return plan(TEMPS_CONCORD[level], level === 'facile' ? FACILE : NORMAL, TOUTES, { indicateur: 0, sujets: 'pronoms' });
+  return plan(TEMPS_CONCORD[level], level === 'facile' ? FACILE : NORMAL, TOUTES, {
+    indicateur: 0,
+    sujets: 'pronoms',
+  });
 }
 
 /** Temps (parmi `candidats`) où la forme est juste pour cette personne : pour éviter les ambiguïtés (il finit). */
@@ -420,7 +506,8 @@ function tirageConcord(level: Level, rng: Rng, sansInfinitif = false) {
     const t = tirer(concordPlan(level), rng);
     const forme = formesDe(t)[0]!;
     if (sansInfinitif && t.temps === 'passe_simple' && HOMOGRAPHES.test(forme)) continue;
-    if (t.temps !== 'imperatif' && tempsPossibles(t.verbe.inf, t.p, forme, TEMPS_CONCORD[level]).length > 1) continue;
+    if (t.temps !== 'imperatif' && tempsPossibles(t.verbe.inf, t.p, forme, TEMPS_CONCORD[level]).length > 1)
+      continue;
     return { t, forme, phrase: phraseAvec(t, forme) };
   }
   throw new Error('Tirage impossible');
@@ -435,7 +522,9 @@ const indiceTemps = (t: Temps, inf: string): string => {
     case 'futur':
       return 'on reconnaît la marque -r- du futur (-rai, -ras, -ra…)';
     case 'passe_simple':
-      return `c’est un temps simple du récit : ${regle(inf, 'passe_simple').replace(/^Au passé simple, /, '').replace(/\.$/, '')}`;
+      return `c’est un temps simple du récit : ${regle(inf, 'passe_simple')
+        .replace(/^Au passé simple, /, '')
+        .replace(/\.$/, '')}`;
     case 'passe_compose':
       return 'auxiliaire au présent + participe passé';
     case 'plus_que_parfait':
@@ -480,7 +569,8 @@ function concordPaires(level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing
     for (let i = 0; i < 50; i++) {
       const t = tirer({ ...base, temps: [temps] }, rng);
       const f = formesDe(t)[0]!;
-      if (temps !== 'imperatif' && tempsPossibles(t.verbe.inf, t.p, f, TEMPS_CONCORD[level]).length > 1) continue;
+      if (temps !== 'imperatif' && tempsPossibles(t.verbe.inf, t.p, f, TEMPS_CONCORD[level]).length > 1)
+        continue;
       if (temps === 'passe_simple' && HOMOGRAPHES.test(f)) continue;
       const left = temps === 'imperatif' ? `${f} !` : formeAvecPronom(t, f);
       if (left.length > 24 || pairs.some((x) => x.left === left)) continue;
@@ -492,15 +582,20 @@ function concordPaires(level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing
     prompt: 'Associe chaque verbe conjugué à son temps.',
     pairs,
     relation: 'forme conjuguée → temps',
-    explication: 'Je regarde la terminaison (-ais, -rai, -a, -èrent…) et je cherche s’il y a un auxiliaire (temps composé).',
+    explication:
+      'Je regarde la terminaison (-ais, -rai, -a, -èrent…) et je cherche s’il y a un auxiliaire (temps composé).',
     difficulty: 0.6,
   });
 }
 
 function concordClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'classification'> {
   const simplesComposes = level !== 'facile' && rng.chance(0.4);
-  const cats = simplesComposes ? ['temps simple', 'temps composé'] : TEMPS_CONCORD[level].slice(0, level === 'facile' ? 3 : 4).map((x) => NOM_COURT[x]);
-  const tempsOk = simplesComposes ? TEMPS_CONCORD[level].filter((x) => x !== 'imperatif') : TEMPS_CONCORD[level].slice(0, cats.length);
+  const cats = simplesComposes
+    ? ['temps simple', 'temps composé']
+    : TEMPS_CONCORD[level].slice(0, level === 'facile' ? 3 : 4).map((x) => NOM_COURT[x]);
+  const tempsOk = simplesComposes
+    ? TEMPS_CONCORD[level].filter((x) => x !== 'imperatif')
+    : TEMPS_CONCORD[level].slice(0, cats.length);
   const vus = new Set<string>();
   const elements: { label: string; category: number }[] = [];
   for (let i = 0; i < 400 && elements.length < 7; i++) {
@@ -508,13 +603,19 @@ function concordClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'cla
     if (!tempsOk.includes(t.temps)) continue;
     const label = formeAvecPronom(t, forme);
     if (vus.has(label) || label.length > 32) continue;
-    const category = simplesComposes ? (['passe_compose', 'plus_que_parfait'].includes(t.temps) ? 1 : 0) : tempsOk.indexOf(t.temps);
+    const category = simplesComposes
+      ? ['passe_compose', 'plus_que_parfait'].includes(t.temps)
+        ? 1
+        : 0
+      : tempsOk.indexOf(t.temps);
     if (elements.filter((e) => e.category === category).length >= (simplesComposes ? 4 : 2)) continue;
     vus.add(label);
     elements.push({ label, category });
   }
   return make(ctx, 'classification', simplesComposes ? 'simples' : 'temps', {
-    prompt: simplesComposes ? 'Range chaque verbe : temps simple ou temps composé ?' : 'Range chaque verbe selon son temps.',
+    prompt: simplesComposes
+      ? 'Range chaque verbe : temps simple ou temps composé ?'
+      : 'Range chaque verbe selon son temps.',
     categories: cats,
     elements: rng.shuffle(elements),
     explication: simplesComposes
@@ -526,15 +627,60 @@ function concordClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'cla
 
 /** Choisir le temps dans un récit (plus loin). */
 const RECITS: { phrase: string; bonne: string; fausses: string[]; pourquoi: string }[] = [
-  { phrase: 'Léa lisait tranquillement quand, soudain, le téléphone ___ (sonner).', bonne: 'sonna', fausses: ['sonnait', 'sonnera'], pourquoi: 'une action soudaine et courte dans un récit au passé se met au passé simple' },
-  { phrase: 'Chaque matin, le vieux pêcheur ___ (partir) en mer avant l’aube.', bonne: 'partait', fausses: ['partit', 'partira'], pourquoi: 'une habitude dans le passé se met à l’imparfait' },
-  { phrase: 'Il faisait nuit et la pluie ___ (tomber) sans arrêt.', bonne: 'tombait', fausses: ['tomba', 'tombera'], pourquoi: 'une description dans le passé se met à l’imparfait' },
-  { phrase: 'Les enfants jouaient dans la clairière ; tout à coup, un renard ___ (sortir) du bois.', bonne: 'sortit', fausses: ['sortait', 'sortira'], pourquoi: 'une action soudaine (tout à coup) se met au passé simple' },
-  { phrase: 'Quand nous sommes arrivés à la gare, le train ___ (partir) depuis longtemps.', bonne: 'était parti', fausses: ['partira', 'partirait'], pourquoi: 'une action passée qui a eu lieu avant une autre action passée se met au plus-que-parfait' },
-  { phrase: 'Le prince ouvrit la porte, ___ (entrer) et salua la reine.', bonne: 'entra', fausses: ['entrait', 'entrera'], pourquoi: 'une suite d’actions dans un récit au passé se met au passé simple' },
-  { phrase: 'Autrefois, les enfants ___ (aller) à l’école à pied.', bonne: 'allaient', fausses: ['allèrent', 'iront'], pourquoi: 'une habitude du passé (autrefois) se met à l’imparfait' },
-  { phrase: 'Nora se promenait dans le parc quand elle ___ (faire) une découverte extraordinaire.', bonne: 'fit', fausses: ['fera', 'faisait'], pourquoi: 'l’action qui surgit pendant une autre action se met au passé simple' },
-  { phrase: 'Tom était fatigué, car il ___ (marcher) toute la journée.', bonne: 'avait marché', fausses: ['marchera', 'marcherait'], pourquoi: 'l’action qui s’est passée avant (il était fatigué à cause d’elle) se met au plus-que-parfait' },
+  {
+    phrase: 'Léa lisait tranquillement quand, soudain, le téléphone ___ (sonner).',
+    bonne: 'sonna',
+    fausses: ['sonnait', 'sonnera'],
+    pourquoi: 'une action soudaine et courte dans un récit au passé se met au passé simple',
+  },
+  {
+    phrase: 'Chaque matin, le vieux pêcheur ___ (partir) en mer avant l’aube.',
+    bonne: 'partait',
+    fausses: ['partit', 'partira'],
+    pourquoi: 'une habitude dans le passé se met à l’imparfait',
+  },
+  {
+    phrase: 'Il faisait nuit et la pluie ___ (tomber) sans arrêt.',
+    bonne: 'tombait',
+    fausses: ['tomba', 'tombera'],
+    pourquoi: 'une description dans le passé se met à l’imparfait',
+  },
+  {
+    phrase: 'Les enfants jouaient dans la clairière ; tout à coup, un renard ___ (sortir) du bois.',
+    bonne: 'sortit',
+    fausses: ['sortait', 'sortira'],
+    pourquoi: 'une action soudaine (tout à coup) se met au passé simple',
+  },
+  {
+    phrase: 'Quand nous sommes arrivés à la gare, le train ___ (partir) depuis longtemps.',
+    bonne: 'était parti',
+    fausses: ['partira', 'partirait'],
+    pourquoi: 'une action passée qui a eu lieu avant une autre action passée se met au plus-que-parfait',
+  },
+  {
+    phrase: 'Le prince ouvrit la porte, ___ (entrer) et salua la reine.',
+    bonne: 'entra',
+    fausses: ['entrait', 'entrera'],
+    pourquoi: 'une suite d’actions dans un récit au passé se met au passé simple',
+  },
+  {
+    phrase: 'Autrefois, les enfants ___ (aller) à l’école à pied.',
+    bonne: 'allaient',
+    fausses: ['allèrent', 'iront'],
+    pourquoi: 'une habitude du passé (autrefois) se met à l’imparfait',
+  },
+  {
+    phrase: 'Nora se promenait dans le parc quand elle ___ (faire) une découverte extraordinaire.',
+    bonne: 'fit',
+    fausses: ['fera', 'faisait'],
+    pourquoi: 'l’action qui surgit pendant une autre action se met au passé simple',
+  },
+  {
+    phrase: 'Tom était fatigué, car il ___ (marcher) toute la journée.',
+    bonne: 'avait marché',
+    fausses: ['marchera', 'marcherait'],
+    pourquoi: 'l’action qui s’est passée avant (il était fatigué à cause d’elle) se met au plus-que-parfait',
+  },
 ];
 
 function recitQcm(rng: Rng, ctx: GenContext): ItemOf<'mcq'> {
@@ -566,7 +712,9 @@ export const CONJ_CM2: Record<string, LessonContent> = {
     gens: {
       ...condGens,
       fill_blank: (level, rng, ctx) =>
-        level === 'plus_loin' && rng.chance(0.6) ? condTrouPlusLoin(rng, ctx) : condGens.fill_blank(level, rng, ctx),
+        level === 'plus_loin' && rng.chance(0.6)
+          ? condTrouPlusLoin(rng, ctx)
+          : condGens.fill_blank(level, rng, ctx),
       mcq: (level, rng, ctx) =>
         level === 'plus_loin' && rng.chance(0.5) ? condQcmPlusLoin(rng, ctx) : condGens.mcq(level, rng, ctx),
     },
@@ -575,13 +723,25 @@ export const CONJ_CM2: Record<string, LessonContent> = {
     gens: {
       ...impGens,
       fill_blank: (level, rng, ctx) =>
-        level === 'plus_loin' && rng.chance(0.5) ? impTrouPlusLoin(rng, ctx) : impGens.fill_blank(level, rng, ctx),
+        level === 'plus_loin' && rng.chance(0.5)
+          ? impTrouPlusLoin(rng, ctx)
+          : impGens.fill_blank(level, rng, ctx),
     },
   },
   'CM2.FR.CONJ.MARQUES': {
-    gens: { mcq: marquesQcm, true_false: marquesVraiFaux, classification: marquesClassement, fill_blank: marquesTrou },
+    gens: {
+      mcq: marquesQcm,
+      true_false: marquesVraiFaux,
+      classification: marquesClassement,
+      fill_blank: marquesTrou,
+    },
   },
   'CM2.FR.CONJ.CONCORD': {
-    gens: { mcq: concordQcm, true_false: concordVraiFaux, pairing: concordPaires, classification: concordClassement },
+    gens: {
+      mcq: concordQcm,
+      true_false: concordVraiFaux,
+      pairing: concordPaires,
+      classification: concordClassement,
+    },
   },
 };

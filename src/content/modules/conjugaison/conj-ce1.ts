@@ -8,7 +8,16 @@
 import type { Rng } from '@/engine/rng';
 import type { GenContext, LessonContent } from '../../registry';
 import type { ItemOf, Level } from '../../schemas';
-import { type Plan, type PlanParNiveau, formesDe, gensConjugaison, itemTrou, phraseAvec, pronomDe, tirer } from './conj';
+import {
+  type Plan,
+  type PlanParNiveau,
+  formesDe,
+  gensConjugaison,
+  itemTrou,
+  phraseAvec,
+  pronomDe,
+  tirer,
+} from './conj';
 import {
   DEUXIEME,
   ETRE_AVOIR,
@@ -33,7 +42,12 @@ const TOUTES: readonly Personne[] = PERSONNES;
 const IL_ILS: readonly Personne[] = [2, 5];
 const JE_TU_IL: readonly Personne[] = [0, 1, 2];
 
-const plan = (temps: Temps[], verbes: VerbeLex[], personnes: readonly Personne[], indicateur = 0.7): Plan => ({
+const plan = (
+  temps: Temps[],
+  verbes: VerbeLex[],
+  personnes: readonly Personne[],
+  indicateur = 0.7,
+): Plan => ({
   temps,
   verbes,
   personnes,
@@ -138,7 +152,8 @@ function tempsClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'class
     prompt: 'Range chaque phrase : passé, présent ou futur ?',
     categories: [...EPOQUES],
     elements: rng.shuffle(elements),
-    explication: 'Je cherche le verbe et je me demande : l’action est-elle déjà passée, se passe-t-elle maintenant ou se passera-t-elle plus tard ?',
+    explication:
+      'Je cherche le verbe et je me demande : l’action est-elle déjà passée, se passe-t-elle maintenant ou se passera-t-elle plus tard ?',
     difficulty: level === 'facile' ? 0.3 : 0.6,
   });
 }
@@ -163,7 +178,11 @@ function tempsTrou(level: Level, rng: Rng, ctx: GenContext): ItemOf<'fill_blank'
   // Transformer : « Aujourd'hui, Léa chante. Demain, Léa ___ (chanter, futur). »
   const t = tirer({ ...TEMPS_PLAN.plus_loin, temps: ['present'], indicateur: 0 }, rng);
   const cible = rng.pick<Temps>(['imparfait', 'futur', 'passe_compose']);
-  const tc = { ...t, temps: cible, indicateur: rng.pick(cible === 'futur' ? ['Demain'] : cible === 'imparfait' ? ['Autrefois'] : ['Hier']) };
+  const tc = {
+    ...t,
+    temps: cible,
+    indicateur: rng.pick(cible === 'futur' ? ['Demain'] : cible === 'imparfait' ? ['Autrefois'] : ['Hier']),
+  };
   const base = phraseAvec({ ...t, indicateur: 'Aujourd’hui' }, formesDe(t)[0]!);
   const it = itemTrou(ctx, rng, tc);
   return trou(ctx, rng, 'transforme', {
@@ -206,7 +225,16 @@ const conseilInfinitif = (inf: string) => {
 
 function tirageInfinitif(level: Level, rng: Rng) {
   const p = INFINITIF_PLAN[level];
-  const t = tirer({ ...p, temps: level === 'plus_loin' && rng.chance(0.25) ? ['passe_simple'] : p.temps.filter((x) => x !== 'passe_simple') }, rng);
+  const t = tirer(
+    {
+      ...p,
+      temps:
+        level === 'plus_loin' && rng.chance(0.25)
+          ? ['passe_simple']
+          : p.temps.filter((x) => x !== 'passe_simple'),
+    },
+    rng,
+  );
   // passé simple : seulement les 3es personnes (« elles plièrent »)
   if (t.temps === 'passe_simple' && t.p !== 2 && t.p !== 5) return tirageInfinitif(level, rng);
   const forme = formesDe(t)[0]!;
@@ -267,7 +295,12 @@ function infPaires(level: Level, rng: Rng, ctx: GenContext): ItemOf<'pairing'> {
 function infClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'classification'> {
   for (let essai = 0; essai < 30; essai++) {
     const tirages = Array.from({ length: 40 }, () => tirageInfinitif(level, rng));
-    const infs = distinctsPar(rng, tirages.map((x) => x.t.verbe.inf), 3, (x) => x);
+    const infs = distinctsPar(
+      rng,
+      tirages.map((x) => x.t.verbe.inf),
+      3,
+      (x) => x,
+    );
     if (infs.length < 3) continue;
     const elements = distinctsPar(
       rng,
@@ -280,7 +313,8 @@ function infClassement(level: Level, rng: Rng, ctx: GenContext): ItemOf<'classif
       prompt: 'Range chaque verbe conjugué sous son infinitif.',
       categories: infs,
       elements,
-      explication: 'Pour trouver l’infinitif, je dis « il faut… » devant le verbe : nous chantions → il faut chanter.',
+      explication:
+        'Pour trouver l’infinitif, je dis « il faut… » devant le verbe : nous chantions → il faut chanter.',
       difficulty: level === 'facile' ? 0.3 : 0.55,
     });
   }

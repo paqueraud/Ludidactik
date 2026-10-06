@@ -442,7 +442,10 @@ export function participePasse(inf: string, accord: { fem?: boolean; plur?: bool
 }
 
 /** Accorde un participe passé (ou un adjectif régulier) : pris → prise, prises ; allé → allées. */
-export function accorderParticipe(pp: string, { fem = false, plur = false }: { fem?: boolean; plur?: boolean }) {
+export function accorderParticipe(
+  pp: string,
+  { fem = false, plur = false }: { fem?: boolean; plur?: boolean },
+) {
   if (pp === 'été') return pp; // été est invariable
   let out = pp;
   if (fem) out += 'e';

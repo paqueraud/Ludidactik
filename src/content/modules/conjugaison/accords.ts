@@ -14,7 +14,14 @@ import type { Rng } from '@/engine/rng';
 import type { GenContext, LessonContent } from '../../registry';
 import type { ItemOf, Level } from '../../schemas';
 import { GN_PLURIEL, GN_SINGULIER, PRENOMS, type Sujet, type VerbeLex, lex } from './lexique';
-import { type Personne, type Temps, accorderParticipe, commenceParVoyelle, conjuguer, participePasse } from './moteur';
+import {
+  type Personne,
+  type Temps,
+  accorderParticipe,
+  commenceParVoyelle,
+  conjuguer,
+  participePasse,
+} from './moteur';
 import { clamp01, distinctsPar, majuscule, make, mcq, pondere, trou, vraiFaux } from './util';
 
 /* ------------------------------------------------------------------ */
@@ -33,7 +40,13 @@ interface Nom {
   fautes?: string[];
 }
 
-const nom = (sg: string, g: Genre, pl = `${sg}s`, special?: string, fautes?: string[]): Nom => ({ sg, pl, g, special, fautes });
+const nom = (sg: string, g: Genre, pl = `${sg}s`, special?: string, fautes?: string[]): Nom => ({
+  sg,
+  pl,
+  g,
+  special,
+  fautes,
+});
 
 const NOMS_REGULIERS: Nom[] = [
   nom('chat', 'm'),
@@ -129,8 +142,42 @@ function adj(m: string, opts: Partial<Adjectif> = {}): Adjectif {
   return { m, f, mp, fp, ...opts };
 }
 
-const OBJETS_COULEUR = ['ballon', 'vélo', 'crayon', 'cahier', 'sac', 'cartable', 'livre', 'robe', 'voiture', 'chemise', 'valise', 'jupe', 'chaise', 'table'];
-const SOMBRES = ['chat', 'chien', 'lapin', 'cartable', 'sac', 'crayon', 'ballon', 'vélo', 'robe', 'voiture', 'chemise', 'valise', 'jupe', 'chaise', 'nuage', 'poisson', 'chapeau', 'manteau'];
+const OBJETS_COULEUR = [
+  'ballon',
+  'vélo',
+  'crayon',
+  'cahier',
+  'sac',
+  'cartable',
+  'livre',
+  'robe',
+  'voiture',
+  'chemise',
+  'valise',
+  'jupe',
+  'chaise',
+  'table',
+];
+const SOMBRES = [
+  'chat',
+  'chien',
+  'lapin',
+  'cartable',
+  'sac',
+  'crayon',
+  'ballon',
+  'vélo',
+  'robe',
+  'voiture',
+  'chemise',
+  'valise',
+  'jupe',
+  'chaise',
+  'nuage',
+  'poisson',
+  'chapeau',
+  'manteau',
+];
 
 const ADJ_REGULIERS: Adjectif[] = [
   adj('petit', { avant: true }),
@@ -139,7 +186,22 @@ const ADJ_REGULIERS: Adjectif[] = [
   adj('noir', { noms: SOMBRES }),
   adj('vert', { noms: [...OBJETS_COULEUR, 'pomme'] }),
   adj('bleu', { noms: [...OBJETS_COULEUR, 'fleur', 'poisson'] }),
-  adj('gris', { noms: ['chat', 'lapin', 'nuage', 'sac', 'cartable', 'voiture', 'chemise', 'valise', 'jupe', 'manteau', 'poisson', 'tortue'] }),
+  adj('gris', {
+    noms: [
+      'chat',
+      'lapin',
+      'nuage',
+      'sac',
+      'cartable',
+      'voiture',
+      'chemise',
+      'valise',
+      'jupe',
+      'manteau',
+      'poisson',
+      'tortue',
+    ],
+  }),
   adj('rond', { noms: ['ballon', 'table', 'pomme', 'chapeau'] }),
   adj('lourd', { noms: ['sac', 'cartable', 'valise', 'livre', 'table', 'chaise'] }),
   adj('rouge', { noms: [...OBJETS_COULEUR, 'pomme', 'fleur', 'poisson'] }),
@@ -158,7 +220,24 @@ const ADJ_SPECIAUX: Adjectif[] = [
   adj('joyeux', { f: 'joyeuse', special: true, anime: true }),
   adj('heureux', { f: 'heureuse', special: true, anime: true }),
   adj('sportif', { f: 'sportive', special: true, anime: true }),
-  adj('neuf', { f: 'neuve', special: true, noms: ['vélo', 'cartable', 'robe', 'voiture', 'sac', 'livre', 'cahier', 'jupe', 'chemise', 'valise', 'manteau', 'chapeau'] }),
+  adj('neuf', {
+    f: 'neuve',
+    special: true,
+    noms: [
+      'vélo',
+      'cartable',
+      'robe',
+      'voiture',
+      'sac',
+      'livre',
+      'cahier',
+      'jupe',
+      'chemise',
+      'valise',
+      'manteau',
+      'chapeau',
+    ],
+  }),
   adj('long', { f: 'longue', special: true, noms: ['robe', 'jupe', 'crayon', 'manteau'] }),
   adj('doux', { f: 'douce', special: true, noms: ['chat', 'lapin', 'poupée'] }),
 ];
@@ -184,7 +263,13 @@ const NOMS_DIVERS: Nom[] = [
   nom('geste', 'm'),
 ];
 
-const NOMS_ANIMES_ADJ: Nom[] = [nom('garçon', 'm'), nom('fille', 'f'), nom('chien', 'm'), nom('tortue', 'f'), nom('lapin', 'm')];
+const NOMS_ANIMES_ADJ: Nom[] = [
+  nom('garçon', 'm'),
+  nom('fille', 'f'),
+  nom('chien', 'm'),
+  nom('tortue', 'f'),
+  nom('lapin', 'm'),
+];
 
 /** Noms compatibles avec un adjectif. */
 function nomsPour(a: Adjectif): Nom[] {
@@ -195,14 +280,54 @@ function nomsPour(a: Adjectif): Nom[] {
 }
 
 /** Adjectifs de couleur : accordés (rose, violet) ou invariables (orange, marron, couleurs composées). */
-const COULEURS: { forme: (g: Genre, pl: boolean) => string; base: string; invariable: boolean; pourquoi: string }[] = [
-  { base: 'orange', invariable: true, forme: () => 'orange', pourquoi: 'orange est aussi le nom d’un fruit : il reste invariable' },
-  { base: 'marron', invariable: true, forme: () => 'marron', pourquoi: 'marron est aussi le nom d’un fruit : il reste invariable' },
-  { base: 'bleu foncé', invariable: true, forme: () => 'bleu foncé', pourquoi: 'une couleur composée de deux mots reste invariable' },
-  { base: 'vert clair', invariable: true, forme: () => 'vert clair', pourquoi: 'une couleur composée de deux mots reste invariable' },
-  { base: 'rose', invariable: false, forme: (_g, pl) => (pl ? 'roses' : 'rose'), pourquoi: 'rose est une exception : il s’accorde comme un adjectif' },
-  { base: 'violet', invariable: false, forme: (g, pl) => `${g === 'f' ? 'violette' : 'violet'}${pl ? 's' : ''}`, pourquoi: 'violet est un vrai adjectif de couleur : il s’accorde' },
-  { base: 'vert', invariable: false, forme: (g, pl) => `vert${g === 'f' ? 'e' : ''}${pl ? 's' : ''}`, pourquoi: 'vert est un vrai adjectif de couleur : il s’accorde' },
+const COULEURS: {
+  forme: (g: Genre, pl: boolean) => string;
+  base: string;
+  invariable: boolean;
+  pourquoi: string;
+}[] = [
+  {
+    base: 'orange',
+    invariable: true,
+    forme: () => 'orange',
+    pourquoi: 'orange est aussi le nom d’un fruit : il reste invariable',
+  },
+  {
+    base: 'marron',
+    invariable: true,
+    forme: () => 'marron',
+    pourquoi: 'marron est aussi le nom d’un fruit : il reste invariable',
+  },
+  {
+    base: 'bleu foncé',
+    invariable: true,
+    forme: () => 'bleu foncé',
+    pourquoi: 'une couleur composée de deux mots reste invariable',
+  },
+  {
+    base: 'vert clair',
+    invariable: true,
+    forme: () => 'vert clair',
+    pourquoi: 'une couleur composée de deux mots reste invariable',
+  },
+  {
+    base: 'rose',
+    invariable: false,
+    forme: (_g, pl) => (pl ? 'roses' : 'rose'),
+    pourquoi: 'rose est une exception : il s’accorde comme un adjectif',
+  },
+  {
+    base: 'violet',
+    invariable: false,
+    forme: (g, pl) => `${g === 'f' ? 'violette' : 'violet'}${pl ? 's' : ''}`,
+    pourquoi: 'violet est un vrai adjectif de couleur : il s’accorde',
+  },
+  {
+    base: 'vert',
+    invariable: false,
+    forme: (g, pl) => `vert${g === 'f' ? 'e' : ''}${pl ? 's' : ''}`,
+    pourquoi: 'vert est un vrai adjectif de couleur : il s’accorde',
+  },
 ];
 
 const formeAdj = (a: Adjectif, g: Genre, pl: boolean) => (g === 'm' ? (pl ? a.mp : a.m) : pl ? a.fp : a.f);
@@ -221,7 +346,8 @@ const CADRES_GN = [
   (gn: string) => `Sur l’image, on voit ${gn}.`,
 ];
 
-const GENRE_NOMBRE = (g: Genre, pl: boolean) => `${g === 'm' ? 'masculin' : 'féminin'} ${pl ? 'pluriel' : 'singulier'}`;
+const GENRE_NOMBRE = (g: Genre, pl: boolean) =>
+  `${g === 'm' ? 'masculin' : 'féminin'} ${pl ? 'pluriel' : 'singulier'}`;
 
 interface GN {
   det: string;
@@ -296,11 +422,7 @@ function itemGN(ctx: GenContext, rng: Rng, mode: ModeGN, difficulte: number): It
     return trou(ctx, rng, 'gn-anime', {
       sentence: cadre(`${det} ___`),
       answer: forme,
-      wrong: [
-        a.m,
-        a.f,
-        ...(a.type === 'trice' ? [a.m.replace(/eur$/, 'euse')] : []),
-      ],
+      wrong: [a.m, a.f, ...(a.type === 'trice' ? [a.m.replace(/eur$/, 'euse')] : [])],
       nbChoix: 3,
       explication:
         g === 'f'
@@ -311,11 +433,22 @@ function itemGN(ctx: GenContext, rng: Rng, mode: ModeGN, difficulte: number): It
     });
   }
   if (mode === 'couleur') {
-    const n = rng.pick([...NOMS_REGULIERS, ...NOMS_X].filter((x) => [...OBJETS_COULEUR, 'manteau', 'chapeau'].includes(x.sg)));
+    const n = rng.pick(
+      [...NOMS_REGULIERS, ...NOMS_X].filter((x) => [...OBJETS_COULEUR, 'manteau', 'chapeau'].includes(x.sg)),
+    );
     const c = rng.pick(COULEURS);
     const forme = c.forme(n.g, true);
     const det = rng.pick(['les', 'des', 'mes', 'ces']);
-    const wrong = [c.base, `${c.base}s`, c.forme(n.g, false), c.forme(n.g === 'm' ? 'f' : 'm', true), ...(c.invariable && !c.base.includes(' ') ? [`${c.base}s`] : []), ...(c.base.includes(' ') ? [c.base.replace(' ', 's ') + 's', c.base.split(' ')[0] + 's ' + c.base.split(' ')[1]] : [])];
+    const wrong = [
+      c.base,
+      `${c.base}s`,
+      c.forme(n.g, false),
+      c.forme(n.g === 'm' ? 'f' : 'm', true),
+      ...(c.invariable && !c.base.includes(' ') ? [`${c.base}s`] : []),
+      ...(c.base.includes(' ')
+        ? [c.base.replace(' ', 's ') + 's', c.base.split(' ')[0] + 's ' + c.base.split(' ')[1]]
+        : []),
+    ];
     return trou(ctx, rng, 'gn-couleur', {
       sentence: cadre(`${det} ${n.pl} ___`),
       answer: forme,
@@ -362,7 +495,12 @@ function itemGN(ctx: GenContext, rng: Rng, mode: ModeGN, difficulte: number): It
   const forme = formeAdj(a, n.g, p);
   const nomForme = p ? n.pl : n.sg;
   const det = tirerDet(rng, n.g, p, a.avant ? forme : nomForme, !!a.avant);
-  if (!det || (!p && a.avant && commenceParVoyelle(forme)) || (!p && commenceParVoyelle(nomForme) && !a.avant)) return itemGN(ctx, rng, mode, difficulte);
+  if (
+    !det ||
+    (!p && a.avant && commenceParVoyelle(forme)) ||
+    (!p && commenceParVoyelle(nomForme) && !a.avant)
+  )
+    return itemGN(ctx, rng, mode, difficulte);
   const gn: GN = { det, nom: nomForme, adj: '___', avant: a.avant, g: n.g, pl: p };
   const mots = motsGN(gn);
   const marques =
@@ -439,7 +577,9 @@ function gnQcm(classe: 'CE1' | 'CM2') {
       const it = gnTrou(classe)(level, rng, ctx);
       const groupe = it.meta!.groupe as string[];
       const juste = groupe.join(' ').replace('___', it.answer);
-      const faux = (it.choices ?? []).filter((c) => c !== it.answer).map((c) => groupe.join(' ').replace('___', c));
+      const faux = (it.choices ?? [])
+        .filter((c) => c !== it.answer)
+        .map((c) => groupe.join(' ').replace('___', c));
       if (faux.length < 1) continue;
       return mcq(ctx, rng, 'gn', {
         question: 'Quel groupe nominal est bien accordé ?',
@@ -489,12 +629,15 @@ function gnClassement(classe: 'CE1' | 'CM2') {
       if (parGenre && pl) continue;
       const fem = ['la', 'une', 'ma', 'cette'].includes(det);
       const cat = parGenre ? (fem ? 1 : 0) : pl ? 1 : 0;
-      if (vus.has(label) || label.length > 32 || elements.filter((e) => e.category === cat).length >= 3) continue;
+      if (vus.has(label) || label.length > 32 || elements.filter((e) => e.category === cat).length >= 3)
+        continue;
       vus.add(label);
       elements.push({ label, category: cat });
     }
     return make(ctx, 'classification', parGenre ? 'genre' : 'nombre', {
-      prompt: parGenre ? 'Range chaque groupe nominal : masculin ou féminin ?' : 'Range chaque groupe nominal : singulier ou pluriel ?',
+      prompt: parGenre
+        ? 'Range chaque groupe nominal : masculin ou féminin ?'
+        : 'Range chaque groupe nominal : singulier ou pluriel ?',
       categories: parGenre ? ['masculin', 'féminin'] : ['singulier', 'pluriel'],
       elements: rng.shuffle(elements),
       explication: parGenre
@@ -509,8 +652,26 @@ function gnClassement(classe: 'CE1' | 'CM2') {
 /* Accord sujet-verbe                                                  */
 /* ------------------------------------------------------------------ */
 
-const VERBES_SV = ['chanter', 'jouer', 'danser', 'parler', 'regarder', 'dessiner', 'marcher', 'travailler', 'chercher', 'préparer', 'ramasser', 'raconter', 'arroser', 'grimper'].map(lex);
-const VERBES_SV_CM2 = [...VERBES_SV, ...['finir', 'choisir', 'réfléchir', 'faire', 'prendre', 'dire', 'vouloir', 'venir'].map(lex)];
+const VERBES_SV = [
+  'chanter',
+  'jouer',
+  'danser',
+  'parler',
+  'regarder',
+  'dessiner',
+  'marcher',
+  'travailler',
+  'chercher',
+  'préparer',
+  'ramasser',
+  'raconter',
+  'arroser',
+  'grimper',
+].map(lex);
+const VERBES_SV_CM2 = [
+  ...VERBES_SV,
+  ...['finir', 'choisir', 'réfléchir', 'faire', 'prendre', 'dire', 'vouloir', 'venir'].map(lex),
+];
 
 /** Sujets éloignés du verbe : nom noyau + complément (« Les enfants de la classe »). */
 const SUJETS_ELOIGNES: Sujet[] = [
@@ -526,8 +687,16 @@ const SUJETS_ELOIGNES: Sujet[] = [
 ];
 
 const TEMPS_SV: Record<string, Record<Level, Temps[]>> = {
-  CE1: { facile: ['present'], normal: ['present', 'present', 'imparfait', 'futur'], plus_loin: ['present', 'imparfait', 'futur'] },
-  CM2: { facile: ['present', 'imparfait', 'futur'], normal: ['present', 'imparfait', 'futur', 'passe_simple'], plus_loin: ['present', 'imparfait', 'futur', 'passe_simple'] },
+  CE1: {
+    facile: ['present'],
+    normal: ['present', 'present', 'imparfait', 'futur'],
+    plus_loin: ['present', 'imparfait', 'futur'],
+  },
+  CM2: {
+    facile: ['present', 'imparfait', 'futur'],
+    normal: ['present', 'imparfait', 'futur', 'passe_simple'],
+    plus_loin: ['present', 'imparfait', 'futur', 'passe_simple'],
+  },
 };
 
 type ModeSV = 'pronom' | 'gn' | 'eloigne' | 'inverse' | 'pronomCod' | 'attribut' | 'multiple';
@@ -573,18 +742,33 @@ function formesSV(inf: string, temps: Temps, p: Personne): { bonne: string; faus
 
 const QUI = 'Je cherche le sujet en demandant « Qui est-ce qui… ? »';
 
-function itemSV(ctx: GenContext, rng: Rng, classe: 'CE1' | 'CM2', level: Level, mode: ModeSV): ItemOf<'fill_blank'> {
+function itemSV(
+  ctx: GenContext,
+  rng: Rng,
+  classe: 'CE1' | 'CM2',
+  level: Level,
+  mode: ModeSV,
+): ItemOf<'fill_blank'> {
   const temps = rng.pick(TEMPS_SV[classe]![level]);
   const verbe: VerbeLex = rng.pick(classe === 'CE1' ? VERBES_SV : VERBES_SV_CM2);
   const compl = rng.pick(verbe.compl);
   const inf = verbe.inf;
-  const indic = temps === 'imparfait' ? 'Autrefois, ' : temps === 'futur' ? 'Demain, ' : temps === 'passe_simple' ? 'Soudain, ' : '';
+  const indic =
+    temps === 'imparfait'
+      ? 'Autrefois, '
+      : temps === 'futur'
+        ? 'Demain, '
+        : temps === 'passe_simple'
+          ? 'Soudain, '
+          : '';
   const diff = { facile: 0.25, normal: 0.5, plus_loin: 0.75 }[level];
 
   if (mode === 'attribut') {
     // sujet + être + attribut : l'attribut s'accorde avec le sujet
     const s = rng.pick([...GN_SINGULIER, ...GN_PLURIEL, ...PRENOMS]);
-    const a = rng.pick([...ADJ_REGULIERS, ...ADJ_SPECIAUX].filter((x) => x.anime || ['grand', 'petit'].includes(x.m)));
+    const a = rng.pick(
+      [...ADJ_REGULIERS, ...ADJ_SPECIAUX].filter((x) => x.anime || ['grand', 'petit'].includes(x.m)),
+    );
     const g: Genre = s.fem ? 'f' : 'm';
     const pl = s.p === 5;
     const tA: Temps = temps === 'passe_simple' ? 'imparfait' : temps;
@@ -619,7 +803,10 @@ function itemSV(ctx: GenContext, rng: Rng, classe: 'CE1' | 'CM2', level: Level, 
     }
     case 'gn':
     case 'eloigne': {
-      const s = mode === 'gn' ? rng.pick([...PRENOMS, ...GN_SINGULIER, ...GN_PLURIEL, ...GN_PLURIEL]) : rng.pick(SUJETS_ELOIGNES);
+      const s =
+        mode === 'gn'
+          ? rng.pick([...PRENOMS, ...GN_SINGULIER, ...GN_PLURIEL, ...GN_PLURIEL])
+          : rng.pick(SUJETS_ELOIGNES);
       p = s.p;
       sujetTxt = s.texte;
       phrase = (v) => `${indic}${indic ? s.texte : majuscule(s.texte)} ${v} ${compl}.`;
@@ -674,7 +861,12 @@ function itemSV(ctx: GenContext, rng: Rng, classe: 'CE1' | 'CM2', level: Level, 
       const { bonne, fausses } = formesSV(vc.inf, temps === 'passe_simple' ? 'present' : temps, 5);
       const ind = temps === 'imparfait' ? 'Autrefois, ' : temps === 'futur' ? 'Demain, ' : '';
       const debutS = ind ? s.texte : majuscule(s.texte);
-      const pronFaux = pr === 'nous' ? conjuguer(vc.inf, temps === 'passe_simple' ? 'present' : temps, 3) : pr === 'vous' ? conjuguer(vc.inf, temps === 'passe_simple' ? 'present' : temps, 4) : null;
+      const pronFaux =
+        pr === 'nous'
+          ? conjuguer(vc.inf, temps === 'passe_simple' ? 'present' : temps, 3)
+          : pr === 'vous'
+            ? conjuguer(vc.inf, temps === 'passe_simple' ? 'present' : temps, 4)
+            : null;
       return trou(ctx, rng, 'sv-pronom', {
         sentence: `${ind}${debutS} ${pr} ___.`,
         answer: bonne,
@@ -778,8 +970,32 @@ function svQcm(classe: 'CE1' | 'CM2') {
 /* Participe passé (CM2)                                               */
 /* ------------------------------------------------------------------ */
 
-const VERBES_PP_ETRE = ['arriver', 'tomber', 'rester', 'entrer', 'rentrer', 'aller', 'venir', 'revenir', 'partir', 'sortir'].map(lex);
-const VERBES_PP_AVOIR = ['manger', 'chanter', 'ranger', 'finir', 'choisir', 'faire', 'prendre', 'dire', 'voir', 'apprendre', 'dessiner', 'préparer'].map(lex);
+const VERBES_PP_ETRE = [
+  'arriver',
+  'tomber',
+  'rester',
+  'entrer',
+  'rentrer',
+  'aller',
+  'venir',
+  'revenir',
+  'partir',
+  'sortir',
+].map(lex);
+const VERBES_PP_AVOIR = [
+  'manger',
+  'chanter',
+  'ranger',
+  'finir',
+  'choisir',
+  'faire',
+  'prendre',
+  'dire',
+  'voir',
+  'apprendre',
+  'dessiner',
+  'préparer',
+].map(lex);
 
 /** COD placés avant le verbe : « Ces photos, je les ai prises. » / « La tarte que Léa a faite ». */
 const COD_AVANT: { nom: string; g: Genre; pl: boolean; inf: string; pron: string; fin: string }[] = [
@@ -814,7 +1030,12 @@ const MODES_PP: Record<Level, readonly (readonly [number, ModePP])[]> = {
 
 const formesPP = (inf: string) => {
   const pp = participePasse(inf);
-  const out = [pp, accorderParticipe(pp, { fem: true }), accorderParticipe(pp, { plur: true }), accorderParticipe(pp, { fem: true, plur: true })];
+  const out = [
+    pp,
+    accorderParticipe(pp, { fem: true }),
+    accorderParticipe(pp, { plur: true }),
+    accorderParticipe(pp, { fem: true, plur: true }),
+  ];
   return [...new Set(out)];
 };
 
@@ -873,7 +1094,10 @@ function itemPP(ctx: GenContext, rng: Rng, level: Level, mode: ModePP): ItemOf<'
       nbChoix: 4,
       explication: `Avec avoir, le participe passé s’accorde avec le COD quand il est placé avant le verbe : « ${c.pron === 'l’' ? 'l’' : c.pron} » remplace ${qui} → ${forme}.`,
       difficulty: diff,
-      meta: { groupe: [...N.split(' '), ...(pr === 'l’' ? [`l’${aux}`] : [pr.trim(), aux]), '___'], lemme: pp },
+      meta: {
+        groupe: [...N.split(' '), ...(pr === 'l’' ? [`l’${aux}`] : [pr.trim(), aux]), '___'],
+        lemme: pp,
+      },
     });
   }
   const [det, ...reste] = c.nom.split(' ');
@@ -889,7 +1113,8 @@ function itemPP(ctx: GenContext, rng: Rng, level: Level, mode: ModePP): ItemOf<'
   });
 }
 
-const ppTrou = (level: Level, rng: Rng, ctx: GenContext) => itemPP(ctx, rng, level, pondere(rng, MODES_PP[level]));
+const ppTrou = (level: Level, rng: Rng, ctx: GenContext) =>
+  itemPP(ctx, rng, level, pondere(rng, MODES_PP[level]));
 
 function ppQcm(level: Level, rng: Rng, ctx: GenContext): ItemOf<'mcq'> {
   const it = ppTrou(level, rng, ctx);
@@ -923,10 +1148,20 @@ function ppVraiFaux(level: Level, rng: Rng, ctx: GenContext): ItemOf<'true_false
 
 export const ACCORDS: Record<string, LessonContent> = {
   'CE1.FR.GRAM.GN': {
-    gens: { fill_blank: gnTrou('CE1'), mcq: gnQcm('CE1'), true_false: gnVraiFaux('CE1'), classification: gnClassement('CE1') },
+    gens: {
+      fill_blank: gnTrou('CE1'),
+      mcq: gnQcm('CE1'),
+      true_false: gnVraiFaux('CE1'),
+      classification: gnClassement('CE1'),
+    },
   },
   'CM2.FR.ORTH.GN': {
-    gens: { fill_blank: gnTrou('CM2'), mcq: gnQcm('CM2'), true_false: gnVraiFaux('CM2'), classification: gnClassement('CM2') },
+    gens: {
+      fill_blank: gnTrou('CM2'),
+      mcq: gnQcm('CM2'),
+      true_false: gnVraiFaux('CM2'),
+      classification: gnClassement('CM2'),
+    },
   },
   'CE1.FR.GRAM.SV': { gens: { fill_blank: svTrou('CE1'), mcq: svQcm('CE1'), true_false: svVraiFaux('CE1') } },
   'CM2.FR.ORTH.SV': { gens: { fill_blank: svTrou('CM2'), mcq: svQcm('CM2'), true_false: svVraiFaux('CM2') } },

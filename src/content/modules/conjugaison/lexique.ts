@@ -16,7 +16,11 @@ export interface VerbeLex {
   etat?: boolean;
 }
 
-const v = (inf: string, compl: string[], extra: Partial<VerbeLex> = {}): VerbeLex => ({ inf, compl, ...extra });
+const v = (inf: string, compl: string[], extra: Partial<VerbeLex> = {}): VerbeLex => ({
+  inf,
+  compl,
+  ...extra,
+});
 
 export const ETRE_AVOIR: Record<'être' | 'avoir', VerbeLex> = {
   être: v('être', ['en retard', 'à l’heure', 'en vacances', 'en avance', 'de bonne humeur'], {
@@ -34,7 +38,10 @@ export const PREMIER_SIMPLES: VerbeLex[] = [
   v('jouer', ['au ballon', 'aux cartes', 'dans la cour', 'du piano']),
   v('parler', ['à la maîtresse', 'très doucement', 'avec le voisin', 'au téléphone']),
   v('regarder', ['les étoiles', 'un dessin animé', 'par la fenêtre', 'les oiseaux']),
-  v('aimer', ['les fraises', 'la musique', 'les histoires de pirates', 'le chocolat'], { sansImperatif: true, etat: true }),
+  v('aimer', ['les fraises', 'la musique', 'les histoires de pirates', 'le chocolat'], {
+    sansImperatif: true,
+    etat: true,
+  }),
   v('écouter', ['de la musique', 'une histoire', 'la maîtresse', 'le chant des oiseaux', 'la radio']),
   v('marcher', ['dans la forêt', 'jusqu’à l’école', 'sur la plage', 'très vite']),
   v('dessiner', ['un dragon', 'une maison', 'un bateau', 'la mer']),
@@ -59,7 +66,10 @@ export const PREMIER_SIMPLES: VerbeLex[] = [
   v('arroser', ['les fleurs', 'le jardin', 'les tomates']),
   v('réparer', ['le vélo', 'la cabane', 'le jouet cassé']),
   v('aider', ['le voisin', 'la maîtresse', 'les plus petits']),
-  v('habiter', ['à la campagne', 'près de la mer', 'dans un grand immeuble', 'à Lyon'], { sansImperatif: true, etat: true }),
+  v('habiter', ['à la campagne', 'près de la mer', 'dans un grand immeuble', 'à Lyon'], {
+    sansImperatif: true,
+    etat: true,
+  }),
   v('rêver', ['de voyages', 'd’un grand château', 'de la mer'], { sansImperatif: true }),
   v('visiter', ['un château', 'le musée', 'une ferme']),
   v('cuisiner', ['une soupe', 'des crêpes', 'un bon repas']),

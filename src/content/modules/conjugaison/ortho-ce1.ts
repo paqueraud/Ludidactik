@@ -23,7 +23,12 @@ interface Muette {
   phrase: string;
 }
 
-const m = (mot: string, famille: string, phrase: string): Muette => ({ mot, lettre: mot.slice(-1), famille, phrase });
+const m = (mot: string, famille: string, phrase: string): Muette => ({
+  mot,
+  lettre: mot.slice(-1),
+  famille,
+  phrase,
+});
 
 const MUETTES: Record<Level, Muette[]> = {
   facile: [
@@ -90,7 +95,15 @@ function muetteTrou(level: Level, rng: Rng, ctx: GenContext): ItemOf<'fill_blank
   const x = rng.pick(MUETTES[level]);
   const prefixe = x.mot.slice(0, x.mot.length - x.lettre.length);
   const sentence = x.phrase.replace('{}', `${prefixe}___`);
-  const proches: Record<string, string[]> = { t: ['d', 's'], d: ['t', 's'], s: ['x', 't'], p: ['b', 't'], c: ['g', 't'], g: ['c', 'd'], b: ['p', 'd'] };
+  const proches: Record<string, string[]> = {
+    t: ['d', 's'],
+    d: ['t', 's'],
+    s: ['x', 't'],
+    p: ['b', 't'],
+    c: ['g', 't'],
+    g: ['c', 'd'],
+    b: ['p', 'd'],
+  };
   return trou(ctx, rng, 'muette', {
     sentence,
     answer: x.lettre,
@@ -181,7 +194,7 @@ const ACCENTS: Record<Level, MotAccent[]> = {
     ac('château', 'Le roi habite dans un {}.'),
     ac('gâteau', 'Mamie prépare un {}.'),
     ac('hôpital', 'Le docteur travaille à l’{}.'),
-    ac('île', 'Le bateau arrive sur une {}.'),
+    ac('âne', 'L’{} mange du foin.'),
     ac('bâton', 'Le chien rapporte le {}.'),
     ac('fenêtre', 'Ouvre la {}, il fait chaud.'),
   ],
@@ -273,7 +286,12 @@ interface Invariable {
 }
 
 const TOT = 'Comme « tôt » : aussitôt, plutôt, bientôt s’écrivent avec ô et un t muet.';
-const inv = (mot: string, fautes: string[], phrase: string, astuce?: string): Invariable => ({ mot, fautes, phrase, astuce });
+const inv = (mot: string, fautes: string[], phrase: string, astuce?: string): Invariable => ({
+  mot,
+  fautes,
+  phrase,
+  astuce,
+});
 
 const INVARIABLES: Record<Level, Invariable[]> = {
   facile: [
@@ -284,8 +302,18 @@ const INVARIABLES: Record<Level, Invariable[]> = {
     inv('pour', ['pourt', 'pours'], 'Ce cadeau est {} toi.'),
     inv('très', ['trè', 'tré'], 'Il fait {} chaud.'),
     inv('ici', ['issi', 'icit'], 'Viens {}, s’il te plaît.'),
-    inv('loin', ['loins', 'louin'], 'La mer est {} de chez moi.', 'Comme « loin » et « près », les mots qui disent où ne changent jamais.'),
-    inv('près', ['prè', 'prés'], 'J’habite {} de l’école.', 'Comme « loin » et « près », les mots qui disent où ne changent jamais.'),
+    inv(
+      'loin',
+      ['loins', 'louin'],
+      'La mer est {} de chez moi.',
+      'Comme « loin » et « près », les mots qui disent où ne changent jamais.',
+    ),
+    inv(
+      'près',
+      ['prè', 'prés'],
+      'J’habite {} de l’école.',
+      'Comme « loin » et « près », les mots qui disent où ne changent jamais.',
+    ),
     inv('hier', ['hiers', 'hièr'], '{}, il a plu toute la journée.'),
   ],
   normal: [
@@ -297,7 +325,12 @@ const INVARIABLES: Record<Level, Invariable[]> = {
     inv('aussitôt', ['aussitot', 'ausitôt'], 'Le chat est parti {}.', TOT),
     inv('plutôt', ['plutot', 'plustôt'], 'Je préfère {} la mer.', TOT),
     inv('bientôt', ['bientot', 'bientôs'], 'Ce sera {} les vacances.', TOT),
-    inv('là-bas', ['la-bas', 'là-ba'], 'Regarde le bateau, {} !', 'Comme « ici », « là-bas » dit où : il ne change jamais (là-bas prend un accent sur le à).'),
+    inv(
+      'là-bas',
+      ['la-bas', 'là-ba'],
+      'Regarde le bateau, {} !',
+      'Comme « ici », « là-bas » dit où : il ne change jamais (là-bas prend un accent sur le à).',
+    ),
     inv('demain', ['demin', 'deumain'], '{}, nous irons au cirque.'),
     inv('maintenant', ['maintenan', 'maintenent'], 'Range ta chambre {} !'),
     inv('encore', ['encor', 'enquore'], 'Je veux {} du gâteau.'),
@@ -331,14 +364,17 @@ const INVARIABLES: Record<Level, Invariable[]> = {
 };
 
 /** Plus loin : aussi les mots du niveau normal. */
-const invPool = (level: Level) => (level === 'plus_loin' ? [...INVARIABLES.plus_loin, ...INVARIABLES.normal] : INVARIABLES[level]);
+const invPool = (level: Level) =>
+  level === 'plus_loin' ? [...INVARIABLES.plus_loin, ...INVARIABLES.normal] : INVARIABLES[level];
 
 const regleInv = (x: Invariable) =>
   `${x.astuce ?? 'C’est un mot invariable : il ne change jamais, je l’apprends par cœur.'} On écrit « ${x.mot} ».`;
 
 /** La phrase commence par le trou : majuscule. */
 const avecMot = (phrase: string, mot: string) =>
-  phrase.startsWith('{}') ? mot[0]!.toUpperCase() + mot.slice(1) + phrase.slice(2) : phrase.replace('{}', mot);
+  phrase.startsWith('{}')
+    ? mot[0]!.toUpperCase() + mot.slice(1) + phrase.slice(2)
+    : phrase.replace('{}', mot);
 
 function invTrou(level: Level, rng: Rng, ctx: GenContext): ItemOf<'fill_blank'> {
   const x = rng.pick(invPool(level));

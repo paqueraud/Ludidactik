@@ -452,9 +452,9 @@
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Orthographe",
-   "titre": "Chaîne d'accords dans le GN",
+   "titre": "Les accords dans le groupe nominal",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM2 : consolider la chaîne d’accords dans le groupe nominal ; rencontrer quelques variations particulières",
    "periodes": [
     1,
     2,
@@ -463,32 +463,36 @@
     5
    ],
    "niveaux": {
-    "facile": "régulier",
-    "normal": "variations particulières (-al/-aux, -eau/-eaux, féminins en -euse/-trice)",
-    "plus_loin": "adjectifs de couleur"
+    "facile": "accords réguliers (-e, -s)",
+    "normal": "pluriels en -x et en -aux, féminins particuliers, nom noyau et complément du nom",
+    "plus_loin": "adjectifs de couleur (des robes orange, des vélos bleu foncé)"
    },
    "itemKinds": [
-    "fill_blank"
+    "classification",
+    "fill_blank",
+    "mcq",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "train-des-accords",
-    "peche-homophones",
-    "ascension"
+    "train-accords",
+    "attrape-bulles",
+    "chef-orchestre"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_orth_gn"
+    "generator": "conjugaison/accords-gn"
    },
-   "rappel": "Dans le groupe nominal, le déterminant, le nom et l’adjectif s’accordent ensemble en genre et en nombre."
+   "rappel": "Dans le groupe nominal, le déterminant, le nom et l’adjectif s’accordent ensemble en genre et en nombre.",
+   "contenus": "Chaîne d’accords dans le groupe nominal ; variations particulières (-al/-aux, -eau/-eaux, féminins en -euse/-trice) ; adjectifs de couleur pour aller plus loin."
   },
   {
    "id": "CM2.FR.ORTH.SV",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Orthographe",
-   "titre": "Accord sujet-verbe (sujet inversé, éloigné) & sujet-attribut",
+   "titre": "Accorder le verbe et l’attribut avec le sujet",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM2 : repérer les groupes sujets inversés ; appliquer la chaîne d’accords sujet/verbe et sujet/attribut du sujet",
    "periodes": [
     1,
     2,
@@ -497,32 +501,35 @@
     5
    ],
    "niveaux": {
-    "facile": "sujet proche",
-    "normal": "inversé/éloigné",
-    "plus_loin": "sujets multiples"
+    "facile": "sujet proche du verbe",
+    "normal": "sujet inversé ou éloigné, pronom devant le verbe, attribut du sujet",
+    "plus_loin": "plusieurs sujets (Léa et moi → nous)"
    },
    "itemKinds": [
-    "fill_blank"
+    "fill_blank",
+    "mcq",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "train-des-accords",
-    "peche-homophones",
-    "ascension"
+    "train-accords",
+    "attrape-bulles",
+    "chef-orchestre"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_orth_sv"
+    "generator": "conjugaison/accord-sujet-verbe"
    },
-   "rappel": "Le verbe s’accorde avec son sujet : je trouve le sujet en posant la question « Qui est-ce qui ? »."
+   "rappel": "Le verbe s’accorde avec son sujet : je trouve le sujet en posant la question « Qui est-ce qui ? ».",
+   "contenus": "Accord sujet-verbe (sujet inversé, éloigné, pronom placé devant le verbe) et accord sujet-attribut."
   },
   {
    "id": "CM2.FR.ORTH.PP",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Orthographe",
-   "titre": "Participe passé : avec être (accord sujet), avec avoir (accord COD placé avant, verbes étudiés)",
+   "titre": "L’accord du participe passé",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM2 : accorder le participe passé avec le sujet (auxiliaire être) et avec le COD pour les verbes étudiés (auxiliaire avoir)",
    "periodes": [
     1,
     2,
@@ -531,32 +538,35 @@
     5
    ],
    "niveaux": {
-    "facile": "être",
-    "normal": "être + avoir/COD",
-    "plus_loin": "cas des pronoms"
+    "facile": "avec l’auxiliaire être",
+    "normal": "avec être et avec avoir ; COD placé avant (je les ai prises)",
+    "plus_loin": "COD placé avant avec « que » (les fleurs qu’il a choisies)"
    },
    "itemKinds": [
-    "fill_blank"
+    "fill_blank",
+    "mcq",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "train-des-accords",
-    "peche-homophones",
-    "ascension"
+    "train-accords",
+    "attrape-bulles",
+    "chef-orchestre"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_orth_pp"
+    "generator": "conjugaison/participe-passe"
    },
-   "rappel": "Avec être, le participe passé s’accorde avec le sujet ; avec avoir, il ne s’accorde pas avec le sujet."
+   "rappel": "Avec être, le participe passé s’accorde avec le sujet ; avec avoir, il ne s’accorde pas avec le sujet (seulement avec le COD placé avant : les photos que j’ai prises).",
+   "contenus": "Participe passé avec être (accord avec le sujet) et avec avoir (accord avec le COD placé avant, pour les verbes étudiés)."
   },
   {
    "id": "CM2.FR.ORTH.HOMOPHONES",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Orthographe",
-   "titre": "a/à, et/est, son/sont, on/ont, ces/ses/c'est/s'est, leur/leurs, ou/où, ce/se, -é/-er/-ez/-ait/-ais, quand/quant/qu'en",
+   "titre": "Les homophones grammaticaux",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, orthographe grammaticale : accord sujet-verbe, participe passé, terminaisons verbales (les homophones ne sont pas nommés par le programme)",
    "periodes": [
     1,
     2,
@@ -565,24 +575,25 @@
     5
    ],
    "niveaux": {
-    "facile": "4 couples",
-    "normal": "10 séries",
-    "plus_loin": "peu/peut/peux, sans/s'en/cent…"
+    "facile": "a/à, et/est, son/sont, on/ont",
+    "normal": "les 10 séries (ces/ses/c’est/s’est, leur/leurs, ou/où, ce/se, -é/-er/-ez/-ait/-ais…)",
+    "plus_loin": "quand/quant/qu’en, peu/peut/peux, sans/s’en/cent"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "true_false"
    ],
    "jeuxSuggeres": [
     "peche-homophones",
-    "vrai-faux",
-    "ascension"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_orth_homophones"
+    "generator": "conjugaison/homophones"
    },
-   "rappel": "Pour choisir entre a/à, et/est, son/sont…, je remplace par un autre mot : avait, était…"
+   "rappel": "Pour choisir entre a/à, et/est, son/sont…, je remplace par un autre mot : avait, était…",
+   "contenus": "a/à, et/est, son/sont, on/ont, ces/ses/c’est/s’est, leur/leurs, ou/où, ce/se, -é/-er/-ez/-ait/-ais ; pour aller plus loin : quand/quant/qu’en, peu/peut/peux, sans/s’en/cent."
   },
   {
    "id": "CM2.FR.ORTH.MOTS",
@@ -667,9 +678,9 @@
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Présent",
+   "titre": "Le présent de l’indicatif",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM1-CM2 : présent de l’indicatif de être, avoir, des 1er et 2e groupes et de faire, aller, dire, venir, pouvoir, voir, vouloir, prendre",
    "periodes": [
     1,
     2,
@@ -678,35 +689,39 @@
     5
    ],
    "niveaux": {
-    "facile": "être, avoir, 1er gr.",
-    "normal": "+ 2e gr. + 8 irréguliers BO",
-    "plus_loin": "autres 3e gr."
+    "facile": "être, avoir, verbes en -er",
+    "normal": "aussi le 2e groupe et les verbes irréguliers du programme",
+    "plus_loin": "autres verbes du 3e groupe (partir, mettre, écrire, lire) ; verbes en -yer, -eler, -eter"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_present"
+    "generator": "conjugaison/present"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Au présent : -e, -es, -e, -ons, -ez, -ent pour les verbes en -er ; -is, -is, -it, -issons, -issez, -issent pour finir ; les verbes irréguliers s’apprennent par cœur.",
+   "contenus": "Être, avoir, verbes des 1er et 2e groupes, faire, aller, dire, venir, pouvoir, voir, vouloir, prendre (consolidation du CM1)."
   },
   {
    "id": "CM2.FR.CONJ.IMPARFAIT",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Imparfait",
+   "titre": "L’imparfait",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM1-CM2 : imparfait de l’indicatif des verbes du programme",
    "periodes": [
     1,
     2,
@@ -715,35 +730,39 @@
     5
    ],
    "niveaux": {
-    "facile": "idem",
-    "normal": "idem",
-    "plus_loin": "—"
+    "facile": "être, avoir, verbes en -er",
+    "normal": "aussi le 2e groupe, les verbes irréguliers et les verbes en -cer, -ger, -ier",
+    "plus_loin": "autres verbes du 3e groupe ; verbes en -yer, -eler, -eter"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_imparfait"
+    "generator": "conjugaison/imparfait"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "À l’imparfait, tous les verbes prennent -ais, -ais, -ait, -ions, -iez, -aient : je finissais, nous faisions.",
+   "contenus": "Imparfait de l’indicatif des verbes du programme (consolidation du CM1)."
   },
   {
    "id": "CM2.FR.CONJ.PASSE_SIMPLE",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Passé simple (3es personnes en priorité puis toutes)",
+   "titre": "Le passé simple",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM2 : conjugaisons à mémoriser et à maîtriser, passé simple de être, avoir, des 1er et 2e groupes et des verbes irréguliers du programme",
    "periodes": [
     1,
     2,
@@ -752,35 +771,39 @@
     5
    ],
    "niveaux": {
-    "facile": "3e sing., 1er gr.",
-    "normal": "3es pers. tous verbes BO",
-    "plus_loin": "toutes personnes"
+    "facile": "il/elle, verbes en -er",
+    "normal": "il/elle et ils/elles, tous les verbes du programme",
+    "plus_loin": "toutes les personnes (nous chantâmes, vous chantâtes)"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_passe_simple"
+    "generator": "conjugaison/passe-simple"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Au passé simple : il chanta, ils chantèrent ; il finit, ils finirent ; il fut, il eut, il vint, il prit.",
+   "contenus": "Passé simple des verbes du programme : 3es personnes en priorité, puis toutes les personnes."
   },
   {
    "id": "CM2.FR.CONJ.FUTUR",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Futur",
+   "titre": "Le futur",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM1-CM2 : futur de l’indicatif des verbes du programme",
    "periodes": [
     1,
     2,
@@ -789,72 +812,78 @@
     5
    ],
    "niveaux": {
-    "facile": "idem",
-    "normal": "idem",
-    "plus_loin": "—"
+    "facile": "être, avoir, verbes en -er",
+    "normal": "aussi le 2e groupe et les verbes irréguliers du programme",
+    "plus_loin": "verbes en -yer, -eler, -eter (je nettoierai, j’appellerai) et autres verbes du 3e groupe"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_futur"
+    "generator": "conjugaison/futur"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Au futur, on ajoute -ai, -as, -a, -ons, -ez, -ont à l’infinitif (je chanterai) ou à un radical à connaître (j’irai, je ferai, je viendrai, je verrai).",
+   "contenus": "Futur de l’indicatif des verbes du programme (consolidation du CM1)."
   },
   {
    "id": "CM2.FR.CONJ.CONDITIONNEL",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Conditionnel présent",
+   "titre": "Pour aller plus loin (6e) : le conditionnel présent",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, 6e : conditionnel présent (conjugaison à maîtriser en 6e, proposée ici pour aller plus loin)",
    "periodes": [
-    1,
-    2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "1er gr.",
-    "normal": "verbes BO",
-    "plus_loin": "emplois (politesse, hypothèse)"
+    "facile": "Pour aller plus loin (6e) : verbes en -er",
+    "normal": "Pour aller plus loin (6e) : verbes du programme",
+    "plus_loin": "Pour aller plus loin (6e) : emplois (politesse, supposition avec « si »)"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_conditionnel"
+    "generator": "conjugaison/conditionnel"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Au conditionnel présent, je prends le radical du futur et les terminaisons de l’imparfait : je chanterais, nous ferions.",
+   "contenus": "Conditionnel présent (programme de 6e) : radical du futur + terminaisons de l’imparfait ; emplois (politesse, supposition)."
   },
   {
    "id": "CM2.FR.CONJ.PC",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Passé composé (aux. + PP, choix être/avoir)",
+   "titre": "Le passé composé",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM2 : temps composés (auxiliaire + participe passé), accord du participe passé avec être, forme négative des temps composés",
    "periodes": [
     1,
     2,
@@ -863,35 +892,39 @@
     5
    ],
    "niveaux": {
-    "facile": "avoir",
-    "normal": "être/avoir + accords",
-    "plus_loin": "forme négative (ne…pas encadre l'auxiliaire)"
+    "facile": "avec l’auxiliaire avoir",
+    "normal": "avoir ou être, accord du participe passé, forme négative (je n’ai pas chanté)",
+    "plus_loin": "autres verbes du 3e groupe, forme négative plus fréquente"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_pc"
+    "generator": "conjugaison/passe-compose"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Passé composé = auxiliaire avoir ou être au présent + participe passé ; avec être, le participe passé s’accorde avec le sujet : elles sont parties.",
+   "contenus": "Auxiliaire avoir ou être + participe passé ; accord avec être ; forme négative (ne… pas encadre l’auxiliaire)."
   },
   {
    "id": "CM2.FR.CONJ.PQP",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Plus-que-parfait",
+   "titre": "Le plus-que-parfait",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM2 : conjugaisons à mémoriser et à maîtriser, plus-que-parfait ; temps composés",
    "periodes": [
     1,
     2,
@@ -900,72 +933,78 @@
     5
    ],
    "niveaux": {
-    "facile": "avoir",
-    "normal": "être/avoir",
-    "plus_loin": "négation"
+    "facile": "avec l’auxiliaire avoir",
+    "normal": "avoir ou être, accord du participe passé, forme négative",
+    "plus_loin": "autres verbes du 3e groupe, forme négative plus fréquente"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_pqp"
+    "generator": "conjugaison/plus-que-parfait"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Plus-que-parfait = auxiliaire avoir ou être à l’imparfait + participe passé : j’avais chanté, elle était partie.",
+   "contenus": "Auxiliaire avoir ou être à l’imparfait + participe passé ; forme négative."
   },
   {
    "id": "CM2.FR.CONJ.IMPERATIF",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Impératif présent",
+   "titre": "Pour aller plus loin (6e) : l’impératif présent",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, 6e : impératif présent (conjugaison à maîtriser en 6e, proposée ici pour aller plus loin)",
    "periodes": [
-    1,
-    2,
     3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "1er gr.",
-    "normal": "verbes BO",
-    "plus_loin": "pronoms (prends-le)"
+    "facile": "Pour aller plus loin (6e) : verbes en -er",
+    "normal": "Pour aller plus loin (6e) : verbes du programme (sois, aie, va, fais, dis, viens, prends)",
+    "plus_loin": "Pour aller plus loin (6e) : avec un pronom (range-la, prends-le, vas-y)"
    },
    "itemKinds": [
     "fill_blank",
+    "mcq",
     "oral_answer",
-    "pairing"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "memory-familles",
+    "perroquet-savant",
+    "attrape-bulles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_imperatif"
+    "generator": "conjugaison/imperatif"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "À l’impératif, il n’y a pas de sujet : chante !, chantons !, chantez ! (pas de s à « chante »).",
+   "contenus": "Impératif présent (programme de 6e) : pas de sujet, trois personnes ; pronoms compléments (range-la, vas-y)."
   },
   {
    "id": "CM2.FR.CONJ.MARQUES",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Radical, marque de temps, marque de personne ; variations de radical",
+   "titre": "Radical, marque du temps et marque de la personne",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM2 : identifier dans la terminaison des verbes conjugués la marque de temps et la marque de personne ; variations du radical",
    "periodes": [
     1,
     2,
@@ -974,35 +1013,36 @@
     5
    ],
    "niveaux": {
-    "facile": "repérer terminaison",
-    "normal": "colorer temps/personne",
-    "plus_loin": "verbes en -yer, -eler/-eter"
+    "facile": "repérer la terminaison et la marque de la personne",
+    "normal": "repérer la marque du temps et la marque de la personne",
+    "plus_loin": "variations du radical (j’appelle / nous appelons, je nettoie / nous nettoyons)"
    },
    "itemKinds": [
+    "classification",
     "fill_blank",
-    "oral_answer",
-    "pairing"
+    "mcq",
+    "true_false"
    ],
    "jeuxSuggeres": [
     "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "chef-orchestre",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_marques"
+    "generator": "conjugaison/marques"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Une forme verbale = radical + marque du temps (-ai-, -i-, -r-) + marque de la personne (-s, -t, -ons, -ez, -ent) : chant-ai-s.",
+   "contenus": "Identifier dans la terminaison la marque du temps et la marque de la personne ; variations du radical."
   },
   {
    "id": "CM2.FR.CONJ.CONCORD",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Conjugaison",
-   "titre": "Reconnaître le temps et le mode d'un verbe",
+   "titre": "Reconnaître le temps d’un verbe",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Conjugaison",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, terminologie du verbe (temps simples et composés, modes indicatif et impératif) ; conjugaisons du CM1 et du CM2",
    "periodes": [
     1,
     2,
@@ -1011,26 +1051,28 @@
     5
    ],
    "niveaux": {
-    "facile": "3 temps",
-    "normal": "tous temps BO",
-    "plus_loin": "choisir le temps dans un récit"
+    "facile": "présent, imparfait, futur",
+    "normal": "aussi le passé simple, le passé composé et le plus-que-parfait",
+    "plus_loin": "modes conditionnel et impératif (6e) ; choisir le temps dans un récit"
    },
    "itemKinds": [
-    "fill_blank",
-    "oral_answer",
-    "pairing"
+    "classification",
+    "mcq",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "forge-du-verbe",
-    "robot-calculateur",
-    "memory",
-    "vrai-faux"
+    "chef-orchestre",
+    "memory-familles",
+    "dobble-mots",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_conj_concord"
+    "generator": "conjugaison/temps"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour reconnaître le temps, je regarde la terminaison (-ais, -rai, -a, -èrent…) et je cherche s’il y a un auxiliaire (temps composé).",
+   "contenus": "Temps et mode d’un verbe conjugué (temps simples et composés) ; choisir le temps dans un récit."
   },
   {
    "id": "CM2.FR.VOC.POLYSEMIE",

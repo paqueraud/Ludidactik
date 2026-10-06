@@ -92,7 +92,8 @@ export function tirer(plan: Plan, rng: Rng): Tirage {
   for (let essai = 0; essai < 50; essai++) {
     const verbe = rng.pick(plan.verbes);
     const temps = rng.pick(plan.temps);
-    const persos = temps === 'imperatif' ? plan.personnes.filter((p) => PERSONNES_IMPERATIF.includes(p)) : plan.personnes;
+    const persos =
+      temps === 'imperatif' ? plan.personnes.filter((p) => PERSONNES_IMPERATIF.includes(p)) : plan.personnes;
     if (!persos.length) continue;
     const p = rng.pick(persos);
     if (temps === 'imperatif') {
@@ -124,7 +125,18 @@ export function tirer(plan: Plan, rng: Rng): Tirage {
     const indics = temps === 'present' && verbe.etat ? INDICATEURS_ETAT : INDICATEURS[temps];
     const indicateur =
       !apostrophe && rng.chance(plan.indicateur ?? 1) && indics.length ? rng.pick(indics) : undefined;
-    return { verbe, temps, p, sujet, apostrophe, fem, negation, compl: rng.pick(verbe.compl), indicateur, voisins };
+    return {
+      verbe,
+      temps,
+      p,
+      sujet,
+      apostrophe,
+      fem,
+      negation,
+      compl: rng.pick(verbe.compl),
+      indicateur,
+      voisins,
+    };
   }
   throw new Error('Aucun tirage possible pour ce plan');
 }
@@ -147,7 +159,8 @@ export function pronomDe(t: Tirage): string {
 }
 
 /** Libellé de la parenthèse (« chanter, imparfait » ; « ranger, impératif présent »). */
-const parenthese = (t: Tirage) => `(${t.verbe.inf}, ${NOM_TEMPS[t.temps]}${t.negation ? ', forme négative' : ''})`;
+const parenthese = (t: Tirage) =>
+  `(${t.verbe.inf}, ${NOM_TEMPS[t.temps]}${t.negation ? ', forme négative' : ''})`;
 
 /** Sujet écrit devant le trou ou la forme (« J’ » si élision). */
 function sujetEcrit(t: Tirage, forme: string): string {
@@ -216,27 +229,43 @@ export function regle(inf: string, temps: Temps): string {
   switch (temps) {
     case 'present':
       if (g === 0 || g === 3) return `Le verbe ${inf} au présent se sait par cœur : ${tableau(inf, temps)}.`;
-      if (g === 2) return 'Au présent, les verbes comme finir se terminent par -is, -is, -it, -issons, -issez, -issent.';
-      if (fam === 'cer') return 'Au présent, les verbes en -er se terminent par -e, -es, -e, -ons, -ez, -ent ; devant -ons, le c prend une cédille (nous commençons).';
-      if (fam === 'ger') return 'Au présent, les verbes en -er se terminent par -e, -es, -e, -ons, -ez, -ent ; devant -ons, on garde un e après le g (nous mangeons).';
-      if (fam === 'yer') return 'Au présent, les verbes en -yer changent le y en i devant un e muet (je nettoie, nous nettoyons).';
-      if (fam === 'double') return 'Au présent, appeler et jeter doublent le l ou le t devant un e muet (j’appelle, nous appelons).';
-      if (fam === 'egrave' || fam === 'eaigu') return 'Au présent, le e (ou le é) du radical devient è devant un e muet (j’achète, je préfère, mais nous achetons).';
+      if (g === 2)
+        return 'Au présent, les verbes comme finir se terminent par -is, -is, -it, -issons, -issez, -issent.';
+      if (fam === 'cer')
+        return 'Au présent, les verbes en -er se terminent par -e, -es, -e, -ons, -ez, -ent ; devant -ons, le c prend une cédille (nous commençons).';
+      if (fam === 'ger')
+        return 'Au présent, les verbes en -er se terminent par -e, -es, -e, -ons, -ez, -ent ; devant -ons, on garde un e après le g (nous mangeons).';
+      if (fam === 'yer')
+        return 'Au présent, les verbes en -yer changent le y en i devant un e muet (je nettoie, nous nettoyons).';
+      if (fam === 'double')
+        return 'Au présent, appeler et jeter doublent le l ou le t devant un e muet (j’appelle, nous appelons).';
+      if (fam === 'egrave' || fam === 'eaigu')
+        return 'Au présent, le e (ou le é) du radical devient è devant un e muet (j’achète, je préfère, mais nous achetons).';
       return 'Au présent, les verbes en -er se terminent par -e, -es, -e, -ons, -ez, -ent.';
     case 'imparfait':
-      if (inf === 'être') return 'À l’imparfait, être devient « ét- » + -ais, -ais, -ait, -ions, -iez, -aient (j’étais).';
-      if (g === 2) return 'À l’imparfait, les verbes comme finir prennent -iss- puis -ais, -ais, -ait, -ions, -iez, -aient (je finissais).';
-      if (fam === 'cer') return 'À l’imparfait, on ajoute -ais, -ais, -ait, -ions, -iez, -aient ; devant a, le c prend une cédille (je commençais, nous commencions).';
-      if (fam === 'ger') return 'À l’imparfait, on ajoute -ais, -ais, -ait, -ions, -iez, -aient ; devant a, on garde un e après le g (je mangeais, nous mangions).';
-      if (fam === 'ier') return 'À l’imparfait, on ajoute -ions et -iez au radical qui finit déjà par i : nous pliions, vous pliiez.';
+      if (inf === 'être')
+        return 'À l’imparfait, être devient « ét- » + -ais, -ais, -ait, -ions, -iez, -aient (j’étais).';
+      if (g === 2)
+        return 'À l’imparfait, les verbes comme finir prennent -iss- puis -ais, -ais, -ait, -ions, -iez, -aient (je finissais).';
+      if (fam === 'cer')
+        return 'À l’imparfait, on ajoute -ais, -ais, -ait, -ions, -iez, -aient ; devant a, le c prend une cédille (je commençais, nous commencions).';
+      if (fam === 'ger')
+        return 'À l’imparfait, on ajoute -ais, -ais, -ait, -ions, -iez, -aient ; devant a, on garde un e après le g (je mangeais, nous mangions).';
+      if (fam === 'ier')
+        return 'À l’imparfait, on ajoute -ions et -iez au radical qui finit déjà par i : nous pliions, vous pliiez.';
       return 'À l’imparfait, on ajoute toujours -ais, -ais, -ait, -ions, -iez, -aient au radical.';
     case 'futur': {
       const je = avecPronom(0, formes(inf, 'futur', 0)[0]!);
-      if (g === 0 || g === 3) return `Au futur, ${inf} change de radical (${je}) ; les terminaisons sont -ai, -as, -a, -ons, -ez, -ont.`;
-      if (fam === 'yer') return `Au futur, le y devient i (${je}), puis on ajoute -ai, -as, -a, -ons, -ez, -ont.`;
-      if (fam === 'double') return `Au futur, ${inf} double sa consonne (${je}), puis on ajoute -ai, -as, -a, -ons, -ez, -ont.`;
-      if (fam === 'egrave') return `Au futur, le e devient è (${je}), puis on ajoute -ai, -as, -a, -ons, -ez, -ont.`;
-      if (fam === 'eaigu') return `Au futur, on écrit ${je} (ou, en orthographe rectifiée, avec un è) ; terminaisons -ai, -as, -a, -ons, -ez, -ont.`;
+      if (g === 0 || g === 3)
+        return `Au futur, ${inf} change de radical (${je}) ; les terminaisons sont -ai, -as, -a, -ons, -ez, -ont.`;
+      if (fam === 'yer')
+        return `Au futur, le y devient i (${je}), puis on ajoute -ai, -as, -a, -ons, -ez, -ont.`;
+      if (fam === 'double')
+        return `Au futur, ${inf} double sa consonne (${je}), puis on ajoute -ai, -as, -a, -ons, -ez, -ont.`;
+      if (fam === 'egrave')
+        return `Au futur, le e devient è (${je}), puis on ajoute -ai, -as, -a, -ons, -ez, -ont.`;
+      if (fam === 'eaigu')
+        return `Au futur, on écrit ${je} (ou, en orthographe rectifiée, avec un è) ; terminaisons -ai, -as, -a, -ons, -ez, -ont.`;
       return 'Au futur, on garde l’infinitif et on ajoute -ai, -as, -a, -ons, -ez, -ont : on entend le r.';
     }
     case 'conditionnel':
@@ -281,7 +310,6 @@ export function explication(t: Tirage): string {
 /* Distracteurs                                                        */
 /* ------------------------------------------------------------------ */
 
-
 /** Formes fausses plausibles pour un tirage (jamais une forme acceptée). */
 export function formesFausses(t: Tirage): string[] {
   const inf = t.verbe.inf;
@@ -289,7 +317,8 @@ export function formesFausses(t: Tirage): string[] {
   const out: string[] = [];
   // autres personnes, même temps
   const persos = t.temps === 'imperatif' ? PERSONNES_IMPERATIF : PERSONNES;
-  for (const q of persos) if (q !== t.p) out.push(...formes(inf, t.temps, q, { fem: t.fem, negation: t.negation }));
+  for (const q of persos)
+    if (q !== t.p) out.push(...formes(inf, t.temps, q, { fem: t.fem, negation: t.negation }));
   if (t.temps === 'imperatif') {
     // erreur fréquente : le -s du présent à la 2e personne (chantes !)
     if (t.p === 1) out.push(...formes(inf, 'present', 1));
@@ -305,16 +334,16 @@ export function formesFausses(t: Tirage): string[] {
     const mauvaisAux = formes(aux === 'être' ? 'avoir' : 'être', tAux, t.p)[0]!;
     const auxOk = formes(aux, tAux, t.p)[0]!;
     const pp = participePasse(inf);
-    const ne = (a: string, x: string) => (t.negation ? `${commenceParVoyelle(a) ? 'n’' : 'ne '}${a} pas ${x}` : `${a} ${x}`);
+    const ne = (a: string, x: string) =>
+      t.negation ? `${commenceParVoyelle(a) ? 'n’' : 'ne '}${a} pas ${x}` : `${a} ${x}`;
     out.push(ne(mauvaisAux, pp));
     if (groupe(inf) === 1 && inf !== 'aller') out.push(ne(auxOk, inf));
-    for (const fem of [false, true]) for (const plur of [false, true]) out.push(ne(auxOk, participePasse(inf, { fem, plur })));
+    for (const fem of [false, true])
+      for (const plur of [false, true]) out.push(ne(auxOk, participePasse(inf, { fem, plur })));
   }
   // je : garder la même élision que la bonne réponse (« J’___ » / « Je ___ »)
   const voyelle = commenceParVoyelle(ok[0]!);
-  return out.filter(
-    (f) => !ok.includes(f) && (t.sujet?.texte !== 'je' || commenceParVoyelle(f) === voyelle),
-  );
+  return out.filter((f) => !ok.includes(f) && (t.sujet?.texte !== 'je' || commenceParVoyelle(f) === voyelle));
 }
 
 /* ------------------------------------------------------------------ */
@@ -365,7 +394,15 @@ export function itemPaires(ctx: GenContext, rng: Rng, plan: Plan): ItemOf<'pairi
     const fem = rng.chance(0.5);
     const cand = persos.map((p) => {
       const pronom =
-        p === 2 ? (fem ? 'elle' : 'il') : p === 5 ? (fem ? 'elles' : 'ils') : ['je', 'tu', '', 'nous', 'vous', ''][p]!;
+        p === 2
+          ? fem
+            ? 'elle'
+            : 'il'
+          : p === 5
+            ? fem
+              ? 'elles'
+              : 'ils'
+            : ['je', 'tu', '', 'nous', 'vous', ''][p]!;
       const f = formes(t.verbe.inf, t.temps, p, { fem: p === 2 || p === 5 ? fem : false })[0];
       if (!f) return null;
       const left =
@@ -419,8 +456,7 @@ export function itemQcm(ctx: GenContext, rng: Rng, plan: Plan): ItemOf<'mcq'> {
     const t = tirer(plan, rng);
     const [bonne] = formesDe(t);
     const voyelle = commenceParVoyelle(bonne!);
-    const parSujet =
-      rng.chance(0.5) && t.temps !== 'imperatif' && !(t.p === 0 && voyelle) && !t.apostrophe;
+    const parSujet = rng.chance(0.5) && t.temps !== 'imperatif' && !(t.p === 0 && voyelle) && !t.apostrophe;
     if (!parSujet) {
       const fausses = formesFausses(t);
       if (fausses.length < 1) continue;
@@ -488,7 +524,7 @@ export function itemOral(ctx: GenContext, rng: Rng, plan: Plan): ItemOf<'oral_an
   return make(ctx, 'oral_answer', 'oral', {
     prompt,
     answer: toutes[0]!,
-    accepted: [...new Set([...toutes, ...toutes.map((x) => x.replace(/’/g, "'"))])],
+    accepted: toutes,
     explication: `${regle(t.verbe.inf, t.temps)} → ${toutes[0]}`,
     difficulty: difficulte(t),
   });

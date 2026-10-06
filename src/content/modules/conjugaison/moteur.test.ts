@@ -333,7 +333,9 @@ describe('moteur de conjugaison — tableaux de référence', () => {
         expect(attendu.length).toBe(personnes.length);
         personnes.forEach((p, i) => {
           // genre masculin pour les temps composés avec être
-          expect(conjuguer(verbe, temps as Temps, p, { fem: false }), `${verbe} ${temps} ${p}`).toBe(attendu[i]);
+          expect(conjuguer(verbe, temps as Temps, p, { fem: false }), `${verbe} ${temps} ${p}`).toBe(
+            attendu[i],
+          );
         });
       });
     }
@@ -374,7 +376,9 @@ describe('moteur de conjugaison — cas particuliers', () => {
 
   it('négation des temps composés', () => {
     expect(conjuguer('chanter', 'passe_compose', 0, { negation: true })).toBe('n’ai pas chanté');
-    expect(conjuguer('aller', 'passe_compose', 3, { negation: true, fem: true })).toBe('ne sommes pas allées');
+    expect(conjuguer('aller', 'passe_compose', 3, { negation: true, fem: true })).toBe(
+      'ne sommes pas allées',
+    );
     expect(conjuguer('finir', 'plus_que_parfait', 5, { negation: true })).toBe('n’avaient pas fini');
   });
 
@@ -429,7 +433,11 @@ describe('moteur de conjugaison — cas particuliers', () => {
     expect(decomposer('chanter', 'imparfait', 2)).toEqual({ radical: 'chant', temps: 'ai', personne: 't' });
     expect(decomposer('finir', 'futur', 5)).toEqual({ radical: 'fini', temps: 'r', personne: 'ont' });
     expect(decomposer('aller', 'futur', 0)).toEqual({ radical: 'i', temps: 'r', personne: 'ai' });
-    expect(decomposer('chanter', 'conditionnel', 4)).toEqual({ radical: 'chante', temps: 'ri', personne: 'ez' });
+    expect(decomposer('chanter', 'conditionnel', 4)).toEqual({
+      radical: 'chante',
+      temps: 'ri',
+      personne: 'ez',
+    });
     expect(decomposer('chanter', 'present', 5)).toEqual({ radical: 'chant', temps: '', personne: 'ent' });
     expect(decomposer('appeler', 'present', 5)).toEqual({ radical: 'appell', temps: '', personne: 'ent' });
     expect(decomposer('faire', 'present', 0)).toBeNull();

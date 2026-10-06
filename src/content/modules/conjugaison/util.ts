@@ -2,6 +2,7 @@
  * Outils communs du module « conjugaison » : identifiants stables (hachage du contenu essentiel),
  * construction d'items, QCM, mise en forme des phrases. Fonctions pures.
  */
+import { checkSpelling } from '@/engine/answer';
 import type { Rng } from '@/engine/rng';
 import type { GenContext } from '../../registry';
 import type { ItemKind, ItemOf } from '../../schemas';
@@ -55,12 +56,16 @@ export function make<K extends ItemKind>(
   } as ItemOf<K>;
 }
 
-/** Garde au plus `n` distracteurs distincts, différents des réponses acceptées. */
+/**
+ * Garde au plus `n` distracteurs distincts, différents des réponses acceptées — y compris des graphies que
+ * le correcteur accepterait (rectifications de 1990 : « ile » pour « île »).
+ */
 export function distracteurs(rng: Rng, candidats: string[], interdits: string[], n: number): string[] {
   const bloque = new Set(interdits.map((x) => x.toLowerCase()));
   const out: string[] = [];
   for (const c of rng.shuffle([...new Set(candidats)])) {
     if (!c || bloque.has(c.toLowerCase())) continue;
+    if (interdits.some((i) => checkSpelling(c, i).correct)) continue;
     bloque.add(c.toLowerCase());
     out.push(c);
     if (out.length >= n) break;
