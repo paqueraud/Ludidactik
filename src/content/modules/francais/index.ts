@@ -1,7 +1,19 @@
 /**
  * Module de contenu « francais » — voir docs/GUIDE_DEV_JEUX_CONTENU.md.
- * Associe chaque id de leçon à ses générateurs (gens) ou banques (pools) par type d'item.
+ * Grammaire, vocabulaire, lecture et oral du CE1 (BO n°41 du 31/10/2024) et du CM2 (BO n°16 du 17/04/2025).
+ * La conjugaison, les accords et les homophones relèvent d'un autre module.
  */
 import type { ContentModule } from '../../registry';
+import { GRAMMAIRE_CE1 } from './grammaire-ce1';
+import { LECTURE_CE1 } from './lecture-ce1';
+import { ORAL_CE1 } from './oral-ce1';
+import { ORTHOGRAPHE } from './orthographe';
+import { VOCABULAIRE_CE1 } from './vocabulaire-ce1';
 
-export const contenu: ContentModule = {};
+export const contenu: ContentModule = {
+  ...LECTURE_CE1,
+  ...GRAMMAIRE_CE1,
+  ...VOCABULAIRE_CE1,
+  ...ORAL_CE1,
+  ...ORTHOGRAPHE,
+};

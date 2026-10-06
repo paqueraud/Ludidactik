@@ -15,79 +15,104 @@
    "lessonId": "CM2.FR.ORTH.MOTS",
    "mots": [
     {
-     "mot": "cependant"
+     "mot": "cependant",
+     "definition": "pourtant, malgré cela"
     },
     {
-     "mot": "pourtant"
+     "mot": "pourtant",
+     "definition": "malgré cela"
     },
     {
-     "mot": "néanmoins"
+     "mot": "néanmoins",
+     "definition": "malgré tout"
     },
     {
-     "mot": "désormais"
+     "mot": "désormais",
+     "definition": "à partir de maintenant"
     },
     {
-     "mot": "dorénavant"
+     "mot": "dorénavant",
+     "definition": "à partir d’aujourd’hui"
     },
     {
-     "mot": "parmi"
+     "mot": "parmi",
+     "definition": "au milieu de plusieurs"
     },
     {
-     "mot": "malgré"
+     "mot": "malgré",
+     "definition": "sans tenir compte de"
     },
     {
-     "mot": "lorsque"
+     "mot": "lorsque",
+     "definition": "au moment où"
     },
     {
-     "mot": "puisque"
+     "mot": "puisque",
+     "definition": "étant donné que"
     },
     {
-     "mot": "auparavant"
+     "mot": "auparavant",
+     "definition": "avant, plus tôt"
     },
     {
-     "mot": "aussitôt"
+     "mot": "aussitôt",
+     "definition": "tout de suite"
     },
     {
-     "mot": "autrefois"
+     "mot": "autrefois",
+     "definition": "il y a très longtemps"
     },
     {
-     "mot": "davantage"
+     "mot": "davantage",
+     "definition": "plus, encore plus"
     },
     {
-     "mot": "environ"
+     "mot": "environ",
+     "definition": "à peu près"
     },
     {
-     "mot": "longtemps"
+     "mot": "longtemps",
+     "definition": "pendant une longue durée"
     },
     {
-     "mot": "parfois"
+     "mot": "parfois",
+     "definition": "de temps à autre"
     },
     {
-     "mot": "quelquefois"
+     "mot": "quelquefois",
+     "definition": "de temps en temps"
     },
     {
-     "mot": "tandis que"
+     "mot": "tandis que",
+     "definition": "pendant que, alors que"
     },
     {
-     "mot": "volontiers"
+     "mot": "volontiers",
+     "definition": "avec plaisir"
     },
     {
-     "mot": "d'abord"
+     "mot": "d'abord",
+     "definition": "en premier"
     },
     {
-     "mot": "presque"
+     "mot": "presque",
+     "definition": "pas tout à fait"
     },
     {
-     "mot": "toutefois"
+     "mot": "toutefois",
+     "definition": "cependant, malgré cela"
     },
     {
-     "mot": "plusieurs"
+     "mot": "plusieurs",
+     "definition": "plus d’un"
     },
     {
-     "mot": "certes"
+     "mot": "certes",
+     "definition": "bien sûr, c’est vrai"
     },
     {
-     "mot": "beaucoup"
+     "mot": "beaucoup",
+     "definition": "en grande quantité"
     }
    ]
   },
@@ -104,64 +129,84 @@
    "lessonId": "CM2.FR.VOC.UNIVERS",
    "mots": [
     {
-     "mot": "révolution"
+     "mot": "révolution",
+     "definition": "un grand changement, souvent par la révolte"
     },
     {
-     "mot": "république"
+     "mot": "république",
+     "definition": "un régime sans roi, où le peuple élit ses dirigeants"
     },
     {
-     "mot": "citoyen"
+     "mot": "citoyen",
+     "definition": "un membre d’un pays, avec des droits et des devoirs"
     },
     {
-     "mot": "monarchie"
+     "mot": "monarchie",
+     "definition": "un régime dirigé par un roi ou une reine"
     },
     {
-     "mot": "empereur"
+     "mot": "empereur",
+     "definition": "le souverain qui dirige un empire"
     },
     {
-     "mot": "suffrage"
+     "mot": "suffrage",
+     "definition": "le vote"
     },
     {
-     "mot": "démocratie"
+     "mot": "démocratie",
+     "definition": "un régime où le peuple choisit ses dirigeants"
     },
     {
-     "mot": "laïcité"
+     "mot": "laïcité",
+     "definition": "la séparation des religions et de l’État"
     },
     {
-     "mot": "industrie"
+     "mot": "industrie",
+     "definition": "l’activité des usines qui fabriquent des produits"
     },
     {
-     "mot": "ouvrier"
+     "mot": "ouvrier",
+     "definition": "une personne qui travaille de ses mains, souvent à l’usine"
     },
     {
-     "mot": "usine"
+     "mot": "usine",
+     "definition": "un bâtiment où des machines fabriquent des objets"
     },
     {
-     "mot": "syndicat"
+     "mot": "syndicat",
+     "definition": "un groupe qui défend les droits des travailleurs"
     },
     {
-     "mot": "armistice"
+     "mot": "armistice",
+     "definition": "l’accord qui arrête les combats"
     },
     {
-     "mot": "résistance"
+     "mot": "résistance",
+     "definition": "la lutte contre l’occupant"
     },
     {
-     "mot": "occupation"
+     "mot": "occupation",
+     "definition": "la présence d’une armée étrangère dans un pays"
     },
     {
-     "mot": "constitution"
+     "mot": "constitution",
+     "definition": "le texte qui fixe les règles d’un pays"
     },
     {
-     "mot": "liberté"
+     "mot": "liberté",
+     "definition": "le droit d’agir sans être empêché"
     },
     {
-     "mot": "égalité"
+     "mot": "égalité",
+     "definition": "les mêmes droits pour tous"
     },
     {
-     "mot": "fraternité"
+     "mot": "fraternité",
+     "definition": "l’entraide entre les personnes"
     },
     {
-     "mot": "souveraineté"
+     "mot": "souveraineté",
+     "definition": "le pouvoir suprême, qui appartient au peuple"
     }
    ]
   },
@@ -178,64 +223,84 @@
    "lessonId": "CM2.FR.VOC.UNIVERS",
    "mots": [
     {
-     "mot": "énergie"
+     "mot": "énergie",
+     "definition": "ce qui permet de produire mouvement, chaleur ou lumière"
     },
     {
-     "mot": "électricité"
+     "mot": "électricité",
+     "definition": "une énergie qui circule dans les fils"
     },
     {
-     "mot": "température"
+     "mot": "température",
+     "definition": "la mesure du chaud et du froid"
     },
     {
-     "mot": "thermomètre"
+     "mot": "thermomètre",
+     "definition": "l’instrument qui mesure la température"
     },
     {
-     "mot": "oxygène"
+     "mot": "oxygène",
+     "definition": "le gaz de l’air que nous respirons"
     },
     {
-     "mot": "digestion"
+     "mot": "digestion",
+     "definition": "la transformation des aliments dans le corps"
     },
     {
-     "mot": "respiration"
+     "mot": "respiration",
+     "definition": "l’entrée et la sortie de l’air dans les poumons"
     },
     {
-     "mot": "circulation"
+     "mot": "circulation",
+     "definition": "le trajet du sang dans le corps"
     },
     {
-     "mot": "squelette"
+     "mot": "squelette",
+     "definition": "l’ensemble des os du corps"
     },
     {
-     "mot": "muscle"
+     "mot": "muscle",
+     "definition": "il se contracte pour faire bouger le corps"
     },
     {
-     "mot": "écosystème"
+     "mot": "écosystème",
+     "definition": "un milieu et les êtres vivants qui y vivent"
     },
     {
-     "mot": "environnement"
+     "mot": "environnement",
+     "definition": "tout ce qui nous entoure"
     },
     {
-     "mot": "biodiversité"
+     "mot": "biodiversité",
+     "definition": "la variété des êtres vivants"
     },
     {
-     "mot": "atmosphère"
+     "mot": "atmosphère",
+     "definition": "la couche d’air qui entoure la Terre"
     },
     {
-     "mot": "planète"
+     "mot": "planète",
+     "definition": "un astre qui tourne autour d’une étoile"
     },
     {
-     "mot": "satellite"
+     "mot": "satellite",
+     "definition": "un objet qui tourne autour d’une planète"
     },
     {
-     "mot": "volcan"
+     "mot": "volcan",
+     "definition": "une montagne d’où sort la lave"
     },
     {
-     "mot": "séisme"
+     "mot": "séisme",
+     "definition": "un tremblement de terre"
     },
     {
-     "mot": "végétal"
+     "mot": "végétal",
+     "definition": "une plante"
     },
     {
-     "mot": "mammifère"
+     "mot": "mammifère",
+     "definition": "un animal dont la femelle allaite ses petits"
     }
    ]
   },
@@ -252,64 +317,84 @@
    "lessonId": "CM2.FR.VOC.UNIVERS",
    "mots": [
     {
-     "mot": "perpendiculaire"
+     "mot": "perpendiculaire",
+     "definition": "qui forme un angle droit"
     },
     {
-     "mot": "parallèle"
+     "mot": "parallèle",
+     "definition": "se dit de droites qui ne se croisent jamais"
     },
     {
-     "mot": "périmètre"
+     "mot": "périmètre",
+     "definition": "la longueur du contour d’une figure"
     },
     {
-     "mot": "diamètre"
+     "mot": "diamètre",
+     "definition": "un segment qui traverse le cercle par son centre"
     },
     {
-     "mot": "rayon"
+     "mot": "rayon",
+     "definition": "un segment qui va du centre au cercle"
     },
     {
-     "mot": "quadrilatère"
+     "mot": "quadrilatère",
+     "definition": "une figure à quatre côtés"
     },
     {
-     "mot": "losange"
+     "mot": "losange",
+     "definition": "un quadrilatère aux quatre côtés égaux"
     },
     {
-     "mot": "trapèze"
+     "mot": "trapèze",
+     "definition": "un quadrilatère avec deux côtés parallèles"
     },
     {
-     "mot": "hexagone"
+     "mot": "hexagone",
+     "definition": "un polygone à six côtés"
     },
     {
-     "mot": "pentagone"
+     "mot": "pentagone",
+     "definition": "un polygone à cinq côtés"
     },
     {
-     "mot": "triangle"
+     "mot": "triangle",
+     "definition": "un polygone à trois côtés"
     },
     {
-     "mot": "équilatéral"
+     "mot": "équilatéral",
+     "definition": "se dit d’un triangle aux trois côtés égaux"
     },
     {
-     "mot": "isocèle"
+     "mot": "isocèle",
+     "definition": "se dit d’un triangle qui a deux côtés égaux"
     },
     {
-     "mot": "rectangle"
+     "mot": "rectangle",
+     "definition": "un quadrilatère à quatre angles droits"
     },
     {
-     "mot": "numérateur"
+     "mot": "numérateur",
+     "definition": "le nombre au-dessus de la barre d’une fraction"
     },
     {
-     "mot": "dénominateur"
+     "mot": "dénominateur",
+     "definition": "le nombre sous la barre d’une fraction"
     },
     {
-     "mot": "quotient"
+     "mot": "quotient",
+     "definition": "le résultat d’une division"
     },
     {
-     "mot": "dividende"
+     "mot": "dividende",
+     "definition": "le nombre que l’on divise"
     },
     {
-     "mot": "diviseur"
+     "mot": "diviseur",
+     "definition": "le nombre par lequel on divise"
     },
     {
-     "mot": "centième"
+     "mot": "centième",
+     "definition": "une part sur cent"
     }
    ]
   },
@@ -325,64 +410,84 @@
    "lessonId": "CM2.FR.ORTH.MOTS",
    "mots": [
     {
-     "mot": "accueil"
+     "mot": "accueil",
+     "definition": "la façon de recevoir quelqu’un"
     },
     {
-     "mot": "appétit"
+     "mot": "appétit",
+     "definition": "l’envie de manger"
     },
     {
-     "mot": "attention"
+     "mot": "attention",
+     "definition": "le fait d’être concentré"
     },
     {
-     "mot": "commencer"
+     "mot": "commencer",
+     "definition": "faire le début de quelque chose"
     },
     {
-     "mot": "différence"
+     "mot": "différence",
+     "definition": "ce qui distingue deux choses"
     },
     {
-     "mot": "difficile"
+     "mot": "difficile",
+     "definition": "qui n’est pas facile"
     },
     {
-     "mot": "collection"
+     "mot": "collection",
+     "definition": "des objets du même genre rassemblés"
     },
     {
-     "mot": "honneur"
+     "mot": "honneur",
+     "definition": "la dignité, l’estime des autres"
     },
     {
-     "mot": "innocent"
+     "mot": "innocent",
+     "definition": "qui n’a rien fait de mal"
     },
     {
-     "mot": "immense"
+     "mot": "immense",
+     "definition": "très grand"
     },
     {
-     "mot": "intelligent"
+     "mot": "intelligent",
+     "definition": "qui comprend vite et bien"
     },
     {
-     "mot": "occasion"
+     "mot": "occasion",
+     "definition": "un moment favorable"
     },
     {
-     "mot": "offrir"
+     "mot": "offrir",
+     "definition": "donner en cadeau"
     },
     {
-     "mot": "personne"
+     "mot": "personne",
+     "definition": "un être humain"
     },
     {
-     "mot": "terrible"
+     "mot": "terrible",
+     "definition": "qui fait très peur"
     },
     {
-     "mot": "nécessaire"
+     "mot": "nécessaire",
+     "definition": "dont on a besoin"
     },
     {
-     "mot": "bouteille"
+     "mot": "bouteille",
+     "definition": "un récipient au col étroit"
     },
     {
-     "mot": "colonne"
+     "mot": "colonne",
+     "definition": "un pilier, ou une rangée verticale"
     },
     {
-     "mot": "appartement"
+     "mot": "appartement",
+     "definition": "un logement dans un immeuble"
     },
     {
-     "mot": "addition"
+     "mot": "addition",
+     "definition": "le calcul où l’on ajoute"
     }
    ]
   },
@@ -398,40 +503,52 @@
    "lessonId": "CM2.FR.ORTH.MOTS",
    "mots": [
     {
-     "mot": "émotion"
+     "mot": "émotion",
+     "definition": "ce qu’on ressent : joie, peur, colère…"
     },
     {
-     "mot": "attention"
+     "mot": "attention",
+     "definition": "le fait d’être concentré"
     },
     {
-     "mot": "opération"
+     "mot": "opération",
+     "definition": "un calcul, ou une intervention chirurgicale"
     },
     {
-     "mot": "expression"
+     "mot": "expression",
+     "definition": "une façon de dire les choses"
     },
     {
-     "mot": "permission"
+     "mot": "permission",
+     "definition": "l’autorisation de faire quelque chose"
     },
     {
-     "mot": "télévision"
+     "mot": "télévision",
+     "definition": "l’appareil qui montre des émissions"
     },
     {
-     "mot": "décision"
+     "mot": "décision",
+     "definition": "un choix que l’on fait"
     },
     {
-     "mot": "explosion"
+     "mot": "explosion",
+     "definition": "un éclatement violent et bruyant"
     },
     {
-     "mot": "profession"
+     "mot": "profession",
+     "definition": "un métier"
     },
     {
-     "mot": "émission"
+     "mot": "émission",
+     "definition": "un programme de radio ou de télévision"
     },
     {
-     "mot": "conversation"
+     "mot": "conversation",
+     "definition": "un échange de paroles"
     },
     {
-     "mot": "invention"
+     "mot": "invention",
+     "definition": "une chose créée pour la première fois"
     }
    ]
   },
@@ -446,49 +563,64 @@
    "lessonId": "CM2.FR.ORTH.MOTS",
    "mots": [
     {
-     "mot": "maintenant"
+     "mot": "maintenant",
+     "definition": "en ce moment"
     },
     {
-     "mot": "toujours"
+     "mot": "toujours",
+     "definition": "tout le temps"
     },
     {
-     "mot": "aujourd'hui"
+     "mot": "aujourd'hui",
+     "definition": "ce jour-ci"
     },
     {
-     "mot": "beaucoup"
+     "mot": "beaucoup",
+     "definition": "en grande quantité"
     },
     {
-     "mot": "pendant"
+     "mot": "pendant",
+     "definition": "au cours de"
     },
     {
-     "mot": "quelque"
+     "mot": "quelque",
+     "definition": "un certain, un peu de"
     },
     {
-     "mot": "chaque"
+     "mot": "chaque",
+     "definition": "tous, pris un par un"
     },
     {
-     "mot": "pourquoi"
+     "mot": "pourquoi",
+     "definition": "pour quelle raison"
     },
     {
-     "mot": "comment"
+     "mot": "comment",
+     "definition": "de quelle manière"
     },
     {
-     "mot": "combien"
+     "mot": "combien",
+     "definition": "quelle quantité"
     },
     {
-     "mot": "ensemble"
+     "mot": "ensemble",
+     "definition": "les uns avec les autres"
     },
     {
-     "mot": "dehors"
+     "mot": "dehors",
+     "definition": "à l’extérieur"
     },
     {
-     "mot": "dessous"
+     "mot": "dessous",
+     "definition": "en bas, sous quelque chose"
     },
     {
-     "mot": "dessus"
+     "mot": "dessus",
+     "definition": "en haut, sur quelque chose"
     },
     {
-     "mot": "hier"
+     "mot": "hier",
+     "definition": "le jour avant aujourd’hui"
     }
    ]
   },
@@ -505,49 +637,64 @@
    "lessonId": "CM2.FR.ORTH.MOTS",
    "mots": [
     {
-     "mot": "accommoder"
+     "mot": "accommoder",
+     "definition": "adapter, préparer un plat"
     },
     {
-     "mot": "apparemment"
+     "mot": "apparemment",
+     "definition": "d’après ce que l’on voit"
     },
     {
-     "mot": "conscience"
+     "mot": "conscience",
+     "definition": "le fait de savoir ce que l’on fait"
     },
     {
-     "mot": "exceptionnellement"
+     "mot": "exceptionnellement",
+     "definition": "de façon rare, inhabituelle"
     },
     {
-     "mot": "hypothèse"
+     "mot": "hypothèse",
+     "definition": "une idée que l’on veut vérifier"
     },
     {
-     "mot": "parallélépipède"
+     "mot": "parallélépipède",
+     "definition": "un solide à six faces, comme un pavé"
     },
     {
-     "mot": "phénomène"
+     "mot": "phénomène",
+     "definition": "un fait que l’on observe"
     },
     {
-     "mot": "rythme"
+     "mot": "rythme",
+     "definition": "une répétition régulière de sons ou de gestes"
     },
     {
-     "mot": "symétrie"
+     "mot": "symétrie",
+     "definition": "deux moitiés pareilles de chaque côté d’un axe"
     },
     {
-     "mot": "mystérieux"
+     "mot": "mystérieux",
+     "definition": "qu’on ne comprend pas, secret"
     },
     {
-     "mot": "atmosphère"
+     "mot": "atmosphère",
+     "definition": "la couche d’air qui entoure la Terre"
     },
     {
-     "mot": "chrysalide"
+     "mot": "chrysalide",
+     "definition": "l’enveloppe où la chenille devient papillon"
     },
     {
-     "mot": "labyrinthe"
+     "mot": "labyrinthe",
+     "definition": "un chemin compliqué où l’on se perd"
     },
     {
-     "mot": "enthousiasme"
+     "mot": "enthousiasme",
+     "definition": "une grande joie, un grand entrain"
     },
     {
-     "mot": "catastrophe"
+     "mot": "catastrophe",
+     "definition": "un très grand malheur"
     }
    ]
   }
