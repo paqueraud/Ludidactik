@@ -65,7 +65,8 @@ export function lireExperience(texte: string): Experience | null {
   }
   const cartes = t.match(/parmi (\d+) cartes/);
   if (cartes && Number(cartes[1]) <= 12) return { type: 'cartes', n: Number(cartes[1]) };
-  if (/\bdé\b/.test(t)) return { type: 'de' };
+  // (\b ne fonctionne pas après « é » : on teste les lettres voisines à la main)
+  if (/(^|[^a-zà-ÿ])dé([^a-zà-ÿ]|$)/.test(t)) return { type: 'de' };
   if (/\bpièce\b/.test(t)) return { type: 'piece' };
   return null;
 }
