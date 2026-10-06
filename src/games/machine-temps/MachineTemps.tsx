@@ -148,7 +148,7 @@ export default function MachineTemps({
           etapes={total}
           voyage={voyage}
           panne={panne}
-          reduce={reduce}
+          reduce={reduce || paused}
         />
       </section>
       <Frise

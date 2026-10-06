@@ -53,6 +53,8 @@ export interface Carte {
   /** Groupes de zones ciblables par un seul id (« amerique » = Amérique du Nord + du Sud). */
   groupes?: Record<string, { nom: string; zones: string[] }>;
   encarts?: EncartCarte[];
+  /** Motif dessiné par-dessus les zones de surface (petits sommets pour les massifs). */
+  motif?: 'montagnes';
   /** Les zones « surface » sont dessinées dans cet ordre ; les océans d'abord (dessous). */
   dessous?: string[];
 }

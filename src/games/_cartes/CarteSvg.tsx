@@ -82,6 +82,14 @@ export function CarteSvg({
       role="group"
       aria-label={carte.titre}
     >
+      {carte.motif === 'montagnes' && (
+        <defs>
+          <pattern id={`motif-${carte.id}`} width="34" height="26" patternUnits="userSpaceOnUse">
+            <path d="M2 22 L11 8 L20 22 Z M16 22 L24 11 L32 22 Z" fill="#B8865A" opacity="0.55" />
+            <path d="M9 11 L11 8 L13 11 Z M22 14 L24 11 L26 14 Z" fill="#FFFFFF" opacity="0.9" />
+          </pattern>
+        </defs>
+      )}
       <rect width={carte.largeur} height={carte.hauteur} fill={carte.mer} />
       {carte.decor
         .filter((d) => !d.dessus)
@@ -127,7 +135,7 @@ export function CarteSvg({
         const estFocus = focus === z.id;
         const ocean = carte.dessous?.includes(z.id);
         const fill = etat ? COULEUR_ETAT[etat] : (z.couleur ?? carte.terre);
-        const clignote = etat === 'indice' && !reduce;
+        const clignote = etat === 'indice' && !reduce && !desactive;
         return (
           <g
             key={z.id}
@@ -162,6 +170,7 @@ export function CarteSvg({
                   animate={clignote ? { opacity: [1, 0.45, 1] } : { opacity: 1 }}
                   transition={clignote ? { duration: 0.9, repeat: Infinity } : { duration: 0.2 }}
                 />
+                {carte.motif && <path d={z.d} fill={`url(#motif-${carte.id})`} pointerEvents="none" />}
                 {z.rayonTouche && (
                   <circle
                     cx={z.centre[0]}

@@ -177,6 +177,7 @@ const franceMassifs: Carte = {
   hauteur: FR_H,
   mer: MER,
   terre: '#E9C99A',
+  motif: 'montagnes',
   decor: [...voisinsFrance, ...fondFrance('#EAF4DC', '#FFFFFF', 1.5)],
   zones: MASSIFS.map((m) => surface(m.id, m.nom, m.anneaux, projFrance, { couleur: '#E3BD8A' })),
 };
