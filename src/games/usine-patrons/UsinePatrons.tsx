@@ -404,7 +404,7 @@ function PosteCompleter({ item, level, actif, paused, phase, onValider, sfx }: P
     setMessage(null);
     pli.setCible(0);
   };
-  const cellules = choix ? [...plan.cells, choix] : plan.cells;
+  const cellules = useMemo(() => (choix ? [...plan.cells, choix] : plan.cells), [choix, plan]);
   const marquees = useMemo(() => {
     if (!plie || pli.t < 0.95) return new Set<number>();
     const d = new Set(plierCube(cellules).doublons);

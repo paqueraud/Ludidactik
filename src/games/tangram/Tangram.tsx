@@ -153,7 +153,10 @@ function Manche({
   const [aides, setAides] = useState(AIDES[level]);
   const [choisi, setChoisi] = useState<number | null>(null);
   const actif = phase === 'jeu' && !paused;
-  const occupes = new Set(pieces.filter((p) => p.place !== null).map((p) => p.place!));
+  const occupes = useMemo(
+    () => new Set(pieces.filter((p) => p.place !== null).map((p) => p.place!)),
+    [pieces],
+  );
   const fini = occupes.size === slots.length;
   const U = 70;
   const [cols, rows] = [w + 2, h + 2];
