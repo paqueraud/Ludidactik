@@ -2562,9 +2562,9 @@
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Le temps",
-   "titre": "Jour, semaine, mois, année, saisons ; calendrier",
+   "titre": "Le calendrier : jours, mois et saisons",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans le temps",
    "periodes": [
     1,
     2,
@@ -2578,30 +2578,34 @@
     "plus_loin": "siècles (introduction)"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "machine-temps",
-    "vrai-faux"
+    "guillotine",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory-familles"
    ],
    "source": {
-    "kind": "static",
-    "file": "data/questions/ce1_questions.json",
-    "filter": {
-     "lessonId": "CE1.QLM.TEMPS.CALENDRIER"
-    }
+    "kind": "generator",
+    "generator": "monde-ce1/temps-calendrier"
    },
-   "rappel": "Une semaine a 7 jours, une année a 12 mois et 4 saisons."
+   "rappel": "Une semaine a 7 jours, une année a 12 mois et 4 saisons.",
+   "contenus": "Jour, semaine, mois, année, saisons ; calendrier"
   },
   {
    "id": "CE1.QLM.TEMPS.FRISE",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Le temps",
-   "titre": "Avant/après, frise chronologique, générations (parents, grands-parents)",
+   "titre": "Avant, après : la frise et ma famille",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans le temps",
    "periodes": [
     1,
     2,
@@ -2615,27 +2619,34 @@
     "plus_loin": "frise d'objets d'autrefois"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "machine-temps",
-    "vrai-faux"
+    "guillotine",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_temps_frise"
+    "generator": "monde-ce1/temps-frise"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Sur une frise, on range les évènements du plus ancien (à gauche) au plus récent (à droite) ; mes grands-parents sont nés avant mes parents, qui sont nés avant moi.",
+   "contenus": "Avant/après, frise chronologique, générations (parents, grands-parents)"
   },
   {
    "id": "CE1.QLM.TEMPS.AUTREFOIS",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Le temps",
-   "titre": "Évolution des modes de vie (école, transports, maison, objets d'autrefois)",
+   "titre": "La vie d’autrefois et d’aujourd’hui",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans le temps",
    "periodes": [
     1,
     2,
@@ -2649,30 +2660,33 @@
     "plus_loin": "dater approximativement"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification"
    ],
    "jeuxSuggeres": [
     "machine-temps",
-    "vrai-faux"
+    "guillotine",
+    "qui-suis-je",
+    "vrai-faux",
+    "laboratoire"
    ],
    "source": {
-    "kind": "static",
-    "file": "data/questions/ce1_questions.json",
-    "filter": {
-     "lessonId": "CE1.QLM.TEMPS.AUTREFOIS"
-    }
+    "kind": "generator",
+    "generator": "monde-ce1/temps-autrefois"
    },
-   "rappel": "Autrefois, il n’y avait pas d’électricité partout, ni voiture, ni téléphone portable : les objets changent avec le temps."
+   "rappel": "Autrefois, il n’y avait pas d’électricité partout, ni voiture, ni téléphone portable : les objets changent avec le temps.",
+   "contenus": "Évolution des modes de vie (école, transports, maison, objets d'autrefois)"
   },
   {
    "id": "CE1.QLM.ESPACE.PLANS",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "L'espace",
-   "titre": "Se repérer : plan de la classe, du quartier, maquette, photo",
+   "titre": "Se repérer : gauche, droite et plans",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans l’espace",
    "periodes": [
     1,
     2,
@@ -2686,28 +2700,31 @@
     "plus_loin": "légende, échelle (intro)"
    },
    "itemKinds": [
-    "map_point",
-    "mcq"
+    "mcq",
+    "true_false",
+    "pairing"
    ],
    "jeuxSuggeres": [
-    "tour-de-france",
-    "robot-codeur",
-    "vrai-faux"
+    "qui-suis-je",
+    "vrai-faux",
+    "memory-familles",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_espace_plans"
+    "generator": "monde-ce1/espace-plans"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un plan est un dessin d’un lieu vu d’au-dessus ; sa légende explique ce que veulent dire les symboles.",
+   "contenus": "Se repérer : plan de la classe, du quartier, maquette, photo"
   },
   {
    "id": "CE1.QLM.ESPACE.MONDE",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "L'espace",
-   "titre": "Globe, planisphère, continents, océans, la France",
+   "titre": "Le globe : continents, océans et la France",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans l’espace",
    "periodes": [
     1,
     2,
@@ -2721,28 +2738,32 @@
     "plus_loin": "pays européens voisins"
    },
    "itemKinds": [
-    "map_point",
-    "mcq"
+    "mcq",
+    "true_false",
+    "classification",
+    "map_point"
    ],
    "jeuxSuggeres": [
     "tour-de-france",
-    "robot-codeur",
-    "vrai-faux"
+    "qui-suis-je",
+    "vrai-faux",
+    "laboratoire"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_espace_monde"
+    "generator": "monde-ce1/espace-monde"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Sur la Terre, il y a 6 continents et 5 océans ; la France est en Europe.",
+   "contenus": "Globe, planisphère, continents, océans, la France"
   },
   {
    "id": "CE1.QLM.ESPACE.PAYSAGES",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "L'espace",
-   "titre": "Paysages : ville, campagne, montagne, littoral",
+   "titre": "Les paysages : ville, campagne, montagne, littoral",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans l’espace",
    "periodes": [
     1,
     2,
@@ -2756,28 +2777,32 @@
     "plus_loin": "activités humaines"
    },
    "itemKinds": [
-    "map_point",
-    "mcq"
+    "mcq",
+    "true_false",
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
-    "tour-de-france",
-    "robot-codeur",
-    "vrai-faux"
+    "laboratoire",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_espace_paysages"
+    "generator": "monde-ce1/espace-paysages"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Il existe différents paysages : la ville, la campagne, la montagne et le littoral (le bord de mer).",
+   "contenus": "Paysages : ville, campagne, montagne, littoral"
   },
   {
    "id": "CE1.QLM.VIVANT.CARACT",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Le vivant",
-   "titre": "Vivant / non-vivant ; besoins des animaux et des végétaux",
+   "titre": "Vivant ou non vivant ?",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : questionner le monde du vivant",
    "periodes": [
     1,
     2,
@@ -2786,34 +2811,37 @@
     5
    ],
    "niveaux": {
-    "facile": "2 catégories",
-    "normal": "critères (naît, grandit, se nourrit, se reproduit, meurt)",
-    "plus_loin": "—"
+    "facile": "vivant / non vivant",
+    "normal": "animal, végétal, non vivant ; critères (naît, grandit, se nourrit, se reproduit, meurt)",
+    "plus_loin": "besoins des plantes, expériences, cas difficiles"
    },
    "itemKinds": [
-    "classification",
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification"
    ],
    "jeuxSuggeres": [
     "laboratoire",
+    "qui-suis-je",
     "vrai-faux",
-    "qui-suis-je"
+    "machine-temps"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_vivant_caract"
+    "generator": "monde-ce1/vivant-caracteristiques"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un être vivant naît, grandit, se nourrit, se reproduit et meurt ; il a besoin d’eau, d’air et de nourriture.",
+   "contenus": "Vivant / non-vivant ; besoins des animaux et des végétaux"
   },
   {
    "id": "CE1.QLM.VIVANT.CYCLES",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Le vivant",
-   "titre": "Cycles de vie (grenouille, papillon, poule, plante)",
+   "titre": "Les cycles de vie",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : questionner le monde du vivant",
    "periodes": [
     1,
     2,
@@ -2827,29 +2855,34 @@
     "plus_loin": "métamorphose / croissance"
    },
    "itemKinds": [
-    "classification",
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "laboratoire",
+    "machine-temps",
+    "qui-suis-je",
     "vrai-faux",
-    "qui-suis-je"
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_vivant_cycles"
+    "generator": "monde-ce1/vivant-cycles"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Chaque être vivant a un cycle de vie ; certains animaux changent de forme en grandissant : c’est la métamorphose.",
+   "contenus": "Cycles de vie (grenouille, papillon, poule, plante)"
   },
   {
    "id": "CE1.QLM.VIVANT.ALIM",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Le vivant",
-   "titre": "Régimes alimentaires des animaux, chaînes simples",
+   "titre": "Qui mange quoi ? Régimes et chaînes alimentaires",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : questionner le monde du vivant",
    "periodes": [
     1,
     2,
@@ -2863,29 +2896,33 @@
     "plus_loin": "réseaux"
    },
    "itemKinds": [
-    "classification",
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "laboratoire",
+    "qui-suis-je",
     "vrai-faux",
-    "qui-suis-je"
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_vivant_alim"
+    "generator": "monde-ce1/vivant-alimentation"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "L’herbivore mange des végétaux, le carnivore mange d’autres animaux et l’omnivore mange de tout.",
+   "contenus": "Régimes alimentaires des animaux, chaînes simples"
   },
   {
    "id": "CE1.QLM.CORPS.SANTE",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Le corps et la santé",
-   "titre": "Hygiène, dents, alimentation équilibrée, sommeil, activité physique",
+   "titre": "Prendre soin de son corps",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : reconnaître des comportements favorables à sa santé",
    "periodes": [
     1,
     2,
@@ -2899,29 +2936,33 @@
     "plus_loin": "squelette, articulations"
    },
    "itemKinds": [
-    "classification",
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "laboratoire",
+    "qui-suis-je",
     "vrai-faux",
-    "qui-suis-je"
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_corps_sante"
+    "generator": "monde-ce1/corps-sante"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour être en forme, je me lave les mains, je me brosse les dents, je dors bien, je bouge et je mange varié.",
+   "contenus": "Hygiène, dents, alimentation équilibrée, sommeil, activité physique"
   },
   {
    "id": "CE1.QLM.MATIERE.EAU",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "La matière",
-   "titre": "États de l'eau (solide/liquide/gazeux), changements d'état",
+   "titre": "L’eau : glace, liquide, vapeur",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : questionner le monde de la matière",
    "periodes": [
     1,
     2,
@@ -2935,29 +2976,33 @@
     "plus_loin": "ébullition, évaporation, 0 °C / 100 °C"
    },
    "itemKinds": [
-    "classification",
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "laboratoire",
+    "qui-suis-je",
     "vrai-faux",
-    "qui-suis-je"
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_matiere_eau"
+    "generator": "monde-ce1/matiere-eau"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "L’eau peut être solide (la glace), liquide ou gazeuse (la vapeur) : la glace fond quand il fait chaud, l’eau gèle quand il fait très froid.",
+   "contenus": "États de l'eau (solide/liquide/gazeux), changements d'état"
   },
   {
    "id": "CE1.QLM.OBJETS.ELEC",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Les objets",
-   "titre": "Objets électriques, circuit simple, sécurité électrique",
+   "titre": "L’électricité et le circuit électrique",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : questionner le monde des objets (circuits électriques simples, sécurité)",
    "periodes": [
     1,
     2,
@@ -2971,29 +3016,32 @@
     "plus_loin": "conducteurs/isolants"
    },
    "itemKinds": [
-    "classification",
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification"
    ],
    "jeuxSuggeres": [
     "laboratoire",
+    "qui-suis-je",
     "vrai-faux",
-    "qui-suis-je"
+    "machine-temps"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_objets_elec"
+    "generator": "monde-ce1/objets-electricite"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "L’ampoule s’allume seulement si le circuit est fermé ; l’électricité des prises est dangereuse : on fait les expériences avec une pile.",
+   "contenus": "Objets électriques, circuit simple, sécurité électrique"
   },
   {
    "id": "CE1.QLM.OBJETS.NUMERIQUE",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
    "domaine": "Les objets",
-   "titre": "Usages du numérique, sécurité",
+   "titre": "Les écrans et le numérique",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : commencer à s’approprier un environnement numérique",
    "periodes": [
     1,
     2,
@@ -3002,34 +3050,38 @@
     5
    ],
    "niveaux": {
-    "facile": "—",
-    "normal": "—",
-    "plus_loin": "—"
+    "facile": "objets numériques",
+    "normal": "usages et règles de sécurité",
+    "plus_loin": "photos, informations vraies ou fausses"
    },
    "itemKinds": [
-    "classification",
+    "mcq",
+    "true_false",
     "ordering",
-    "mcq"
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "laboratoire",
+    "qui-suis-je",
     "vrai-faux",
-    "qui-suis-je"
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_qlm_objets_numerique"
+    "generator": "monde-ce1/objets-numerique"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Devant un écran, je ne donne rien de personnel et j’en parle à un adulte si quelque chose me gêne ou me fait peur.",
+   "contenus": "Usages du numérique, sécurité"
   },
   {
    "id": "CE1.EMC.REGLES",
    "classe": "CE1",
    "matiere": "emc",
    "domaine": "Vivre ensemble",
-   "titre": "Règles de vie, droits & devoirs à l'école",
+   "titre": "Les règles de vie de la classe",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
    "periodes": [
     1,
     2,
@@ -3044,29 +3096,31 @@
    },
    "itemKinds": [
     "mcq",
-    "pairing",
-    "classification"
+    "true_false",
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "conseil-classe",
-    "memory",
-    "vrai-faux"
+    "qui-suis-je",
+    "vrai-faux",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_emc_regles"
+    "generator": "monde-ce1/emc-regles"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "situations, choix respectueux"
+   "rappel": "Les règles nous permettent de bien vivre ensemble : j’ai des droits, et aussi des devoirs.",
+   "contenus": "Règles de vie, droits & devoirs à l'école — situations, choix respectueux"
   },
   {
    "id": "CE1.EMC.EMOTIONS",
    "classe": "CE1",
    "matiere": "emc",
    "domaine": "Vivre ensemble",
-   "titre": "Identifier et exprimer ses émotions",
+   "titre": "Mes émotions",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
    "periodes": [
     1,
     2,
@@ -3081,29 +3135,32 @@
    },
    "itemKinds": [
     "mcq",
-    "pairing",
-    "classification"
+    "true_false",
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "conseil-classe",
-    "memory",
-    "vrai-faux"
+    "dobble-mots",
+    "qui-suis-je",
+    "vrai-faux",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_emc_emotions"
+    "generator": "monde-ce1/emc-emotions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "Dobble des émotions, situations"
+   "rappel": "Toutes les émotions sont normales : je peux dire ce que je ressens avec des mots, sans faire mal.",
+   "contenus": "Identifier et exprimer ses émotions — Dobble des émotions, situations"
   },
   {
    "id": "CE1.EMC.SYMBOLES",
    "classe": "CE1",
    "matiere": "emc",
    "domaine": "Vivre ensemble",
-   "titre": "Symboles de la République : drapeau bleu-blanc-rouge, Marianne, devise « Liberté, Égalité, Fraternité », Marseillaise, 14 juillet",
+   "titre": "Les symboles de la République",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
    "periodes": [
     1,
     2,
@@ -3118,32 +3175,31 @@
    },
    "itemKinds": [
     "mcq",
-    "pairing",
-    "classification"
+    "true_false",
+    "pairing"
    ],
    "jeuxSuggeres": [
+    "guillotine",
     "conseil-classe",
-    "memory",
+    "qui-suis-je",
+    "memory-familles",
     "vrai-faux"
    ],
    "source": {
-    "kind": "static",
-    "file": "data/questions/ce1_questions.json",
-    "filter": {
-     "lessonId": "CE1.EMC.SYMBOLES"
-    }
+    "kind": "generator",
+    "generator": "monde-ce1/emc-symboles"
    },
    "rappel": "Les symboles de la République sont le drapeau bleu-blanc-rouge, Marianne, la devise « Liberté, Égalité, Fraternité », La Marseillaise et le 14 juillet.",
-   "contenus": "Memory, Vrai/Faux"
+   "contenus": "Symboles de la République : drapeau bleu-blanc-rouge, Marianne, devise « Liberté, Égalité, Fraternité », Marseillaise, 14 juillet — Memory, Vrai/Faux"
   },
   {
    "id": "CE1.EMC.RESPECT",
    "classe": "CE1",
    "matiere": "emc",
    "domaine": "Vivre ensemble",
-   "titre": "Respect d'autrui, harcèlement (dire stop, en parler à un adulte), égalité filles-garçons",
+   "titre": "Respecter les autres",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
    "periodes": [
     1,
     2,
@@ -3158,29 +3214,31 @@
    },
    "itemKinds": [
     "mcq",
-    "pairing",
-    "classification"
+    "true_false",
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "conseil-classe",
-    "memory",
-    "vrai-faux"
+    "qui-suis-je",
+    "vrai-faux",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_emc_respect"
+    "generator": "monde-ce1/emc-respect"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "Conseil de la classe"
+   "rappel": "Si quelqu’un m’embête, je dis « stop » et j’en parle à un adulte de confiance. Les filles et les garçons ont les mêmes droits.",
+   "contenus": "Respect d'autrui, harcèlement (dire stop, en parler à un adulte), égalité filles-garçons — Conseil de la classe"
   },
   {
    "id": "CE1.EMC.ENVIRONNEMENT",
    "classe": "CE1",
    "matiere": "emc",
    "domaine": "Vivre ensemble",
-   "titre": "Gestes éco-citoyens, tri des déchets",
+   "titre": "Protéger la planète : trier ses déchets",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
    "periodes": [
     1,
     2,
@@ -3195,27 +3253,29 @@
    },
    "itemKinds": [
     "mcq",
-    "pairing",
-    "classification"
+    "true_false",
+    "classification",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "conseil-classe",
-    "memory",
-    "vrai-faux"
+    "qui-suis-je",
+    "vrai-faux",
+    "memory-familles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_emc_environnement"
+    "generator": "monde-ce1/emc-environnement"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "Tri sélectif (classification)"
+   "rappel": "Je trie mes déchets et je ne gaspille ni l’eau ni l’électricité : c’est bon pour la planète.",
+   "contenus": "Gestes éco-citoyens, tri des déchets — Tri sélectif (classification)"
   },
   {
    "id": "CE1.EN.GREETINGS",
    "classe": "CE1",
    "matiere": "anglais",
    "domaine": "Anglais",
-   "titre": "Saluer, se présenter (Hello, My name is…, How are you?)",
+   "titre": "Hello! Saluer et se présenter",
    "programme": "en_vigueur",
    "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
    "periodes": [
@@ -3231,26 +3291,30 @@
     "plus_loin": "dialogue"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "pairing",
     "oral_answer"
    ],
    "jeuxSuggeres": [
     "jacques-a-dit",
-    "memory",
+    "memory-familles",
+    "dobble-mots",
     "vrai-faux"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_en_greetings"
+    "generator": "monde-ce1/anglais-greetings"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour saluer, on dit « Hello! » ; pour se présenter, « My name is… » ; pour partir, « Goodbye! ».",
+   "contenus": "Saluer, se présenter (Hello, My name is…, How are you?)"
   },
   {
    "id": "CE1.EN.NUMBERS",
    "classe": "CE1",
    "matiere": "anglais",
    "domaine": "Anglais",
-   "titre": "Nombres 1-20",
+   "titre": "Numbers : compter de 1 à 20",
    "programme": "en_vigueur",
    "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
    "periodes": [
@@ -3263,29 +3327,33 @@
    "niveaux": {
     "facile": "1-10",
     "normal": "1-20",
-    "plus_loin": "20-100 par dizaines"
+    "plus_loin": "dizaines jusqu’à 100 ; pièges -teen / -ty"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "pairing",
     "oral_answer"
    ],
    "jeuxSuggeres": [
     "jacques-a-dit",
-    "memory",
+    "memory-familles",
+    "dobble-mots",
     "vrai-faux"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_en_numbers"
+    "generator": "monde-ce1/anglais-numbers"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "One, two, three… twenty. Attention : « thirteen » (13) n’est pas « thirty » (30) !",
+   "contenus": "Nombres 1-20"
   },
   {
    "id": "CE1.EN.COLOURS",
    "classe": "CE1",
    "matiere": "anglais",
    "domaine": "Anglais",
-   "titre": "Couleurs",
+   "titre": "Colours : les couleurs",
    "programme": "en_vigueur",
    "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
    "periodes": [
@@ -3301,26 +3369,30 @@
     "plus_loin": "phrases (It's red)"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "pairing",
     "oral_answer"
    ],
    "jeuxSuggeres": [
     "jacques-a-dit",
-    "memory",
+    "memory-familles",
+    "dobble-mots",
     "vrai-faux"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_en_colours"
+    "generator": "monde-ce1/anglais-colours"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Red, blue, green, yellow… En anglais britannique, on écrit « colour » et « grey ».",
+   "contenus": "Couleurs"
   },
   {
    "id": "CE1.EN.ANIMALS",
    "classe": "CE1",
    "matiere": "anglais",
    "domaine": "Anglais",
-   "titre": "Animaux",
+   "titre": "Animals : les animaux",
    "programme": "en_vigueur",
    "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
    "periodes": [
@@ -3336,26 +3408,30 @@
     "plus_loin": "I like… / I don't like…"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "pairing",
     "oral_answer"
    ],
    "jeuxSuggeres": [
     "jacques-a-dit",
-    "memory",
+    "memory-familles",
+    "dobble-mots",
     "vrai-faux"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_en_animals"
+    "generator": "monde-ce1/anglais-animals"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Dog, cat, bird, fish… Pour dire qu’on aime un animal : « I like cats. »",
+   "contenus": "Animaux"
   },
   {
    "id": "CE1.EN.BODY",
    "classe": "CE1",
    "matiere": "anglais",
    "domaine": "Anglais",
-   "titre": "Le corps (Simon says)",
+   "titre": "Simon says : les parties du corps",
    "programme": "en_vigueur",
    "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
    "periodes": [
@@ -3371,26 +3447,30 @@
     "plus_loin": "consignes enchaînées"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "pairing",
     "oral_answer"
    ],
    "jeuxSuggeres": [
     "jacques-a-dit",
-    "memory",
+    "memory-familles",
+    "dobble-mots",
     "vrai-faux"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_en_body"
+    "generator": "monde-ce1/anglais-body"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Head, eyes, ears, nose, mouth… « Simon says: touch your nose! »",
+   "contenus": "Le corps (Simon says)"
   },
   {
    "id": "CE1.EN.DAYS",
    "classe": "CE1",
    "matiere": "anglais",
    "domaine": "Anglais",
-   "titre": "Jours, mois, météo",
+   "titre": "Jours, mois et météo",
    "programme": "en_vigueur",
    "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
    "periodes": [
@@ -3401,31 +3481,35 @@
     5
    ],
    "niveaux": {
-    "facile": "jours",
-    "normal": "mois",
-    "plus_loin": "date complète"
+    "facile": "jours de la semaine, météo simple",
+    "normal": "mois, météo",
+    "plus_loin": "date complète (Today is Monday, the third of December)"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "pairing",
     "oral_answer"
    ],
    "jeuxSuggeres": [
     "jacques-a-dit",
-    "memory",
+    "memory-familles",
+    "dobble-mots",
     "vrai-faux"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_en_days"
+    "generator": "monde-ce1/anglais-days"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "En anglais, les jours et les mois prennent une majuscule : Monday, January.",
+   "contenus": "Jours, mois, météo"
   },
   {
    "id": "CE1.EN.FAMILY",
    "classe": "CE1",
    "matiere": "anglais",
    "domaine": "Anglais",
-   "titre": "Famille, vêtements, nourriture",
+   "titre": "La famille, les vêtements, la nourriture",
    "programme": "en_vigueur",
    "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
    "periodes": [
@@ -3436,24 +3520,28 @@
     5
    ],
    "niveaux": {
-    "facile": "—",
-    "normal": "—",
-    "plus_loin": "—"
+    "facile": "la famille",
+    "normal": "famille, vêtements, nourriture",
+    "plus_loin": "phrases (This is my…, I’ve got…, I like…)"
    },
    "itemKinds": [
+    "mcq",
+    "true_false",
     "pairing",
     "oral_answer"
    ],
    "jeuxSuggeres": [
     "jacques-a-dit",
-    "memory",
+    "memory-familles",
+    "dobble-mots",
     "vrai-faux"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_en_family"
+    "generator": "monde-ce1/anglais-family"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Mum, Dad, brother, sister… Pour présenter quelqu’un : « This is my mum. »",
+   "contenus": "Famille, vêtements, nourriture"
   }
  ]
 }
