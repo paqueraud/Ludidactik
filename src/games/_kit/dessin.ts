@@ -1,7 +1,7 @@
 /**
  * Items qui n'ont de sens qu'avec un support dessiné ou affiché à côté de l'énoncé (règle graduée,
  * graphique, balance, figure, quadrillage, terrain du robot, plaques et barres à construire, texte de
- * compréhension, dictée de nombres…). Les jeux génériques (Grand Prix, Tables Ninja, Attrape-bulles,
+ * compréhension, phrase à ponctuer, dictée de nombres…). Les jeux génériques (Grand Prix, Tables Ninja, Attrape-bulles,
  * Robot calculateur, Compte est bon, Vrai/Faux, Memory, Dobble…) ne savent pas afficher ce support :
  * ils les écartent avec `sansDessin` dans leur `filterItem`.
  * (`meta.glisse`, `meta.posee`, `meta.complement`… restent jouables : l'énoncé écrit « 3,45 × 100 »
@@ -22,6 +22,8 @@ export const CLES_DESSIN = [
   'texte',
   'dictee',
   'circuit',
+  // phrase à ponctuer ou à analyser (Feu tricolore, Labo des fonctions) : affichée à part de la question
+  'phrase',
 ] as const;
 
 export function besoinDessin(item: Item): boolean {

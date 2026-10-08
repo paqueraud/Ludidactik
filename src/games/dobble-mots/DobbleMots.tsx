@@ -48,7 +48,12 @@ const EM_PAR_CARACTERE = 0.62;
 function tailleEtiquette(mot: string, voulue: number, largeurCarte: number): number {
   const plusLong = Math.max(...mot.split(/\s+/).map((m) => [...m].length), 1);
   const place = largeurCarte * LARGEUR_ETIQUETTE - MARGES_ETIQUETTE;
-  return Math.max(11, Math.min(voulue, place / (plusLong * EM_PAR_CARACTERE)));
+  // une expression tient sur deux lignes au plus
+  const total = [...mot].length;
+  return Math.max(
+    11,
+    Math.min(voulue, place / (plusLong * EM_PAR_CARACTERE), (2 * place) / (total * EM_PAR_CARACTERE)),
+  );
 }
 
 /** Diamètre affiché de la carte (px), suivi au redimensionnement. */
@@ -90,11 +95,11 @@ function Carte({
   reduite: boolean;
 }) {
   const places = useMemo(() => dispositionCarte(mots.length, createRng(seed)), [mots.length, seed]);
-  const [ref, largeur] = useLargeur(270);
+  const [ref, largeur] = useLargeur(300);
   return (
     <motion.div
       ref={ref}
-      className="relative aspect-square w-[min(70vw,270px)] rounded-full border-[6px] border-white shadow-soft sm:w-[340px]"
+      className="relative aspect-square w-[min(84vw,300px)] rounded-full border-[6px] border-white shadow-soft sm:w-[340px]"
       style={{
         background: `radial-gradient(circle at 35% 30%, #FFFFFF 0%, #FFF8EC 55%, ${cote === 'A' ? '#DDF3FF' : '#FFE3DF'} 100%)`,
       }}
@@ -119,6 +124,8 @@ function Carte({
               left: `${p.x}%`,
               top: `${p.y}%`,
               transform: 'translate(-50%, -50%)',
+              // largeur propre de l'étiquette (sinon elle se replie mot à mot près du bord de la carte)
+              width: 'max-content',
               maxWidth: `${LARGEUR_ETIQUETTE * 100}%`,
             }}
           >

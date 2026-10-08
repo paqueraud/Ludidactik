@@ -89,8 +89,9 @@ export function estLaPaire(m: MancheDobble, a: string, b: string): boolean {
 }
 
 /**
- * Position des mots sur une carte ronde (coordonnées en % du diamètre, rotation en degrés) :
- * un mot au centre et les autres en couronne, légèrement tournés comme au Dobble.
+ * Position des mots sur une carte ronde (coordonnées en % du diamètre, rotation en degrés) : les
+ * étiquettes s'étagent de haut en bas, en zigzag et légèrement tournées comme au Dobble, pour qu'aucune
+ * ne cache sa voisine même quand les mots sont longs.
  */
 export function dispositionCarte(
   n: number,
@@ -98,21 +99,19 @@ export function dispositionCarte(
 ): { x: number; y: number; rot: number; taille: number }[] {
   const out: { x: number; y: number; rot: number; taille: number }[] = [];
   if (n <= 0) return out;
-  const centre = n >= 4;
-  const couronne = centre ? n - 1 : n;
-  const r = n <= 2 ? 22 : n <= 3 ? 25 : 30;
-  const depart = rng.next() * Math.PI * 2;
-  if (centre) out.push({ x: 50, y: 50, rot: rng.int(-12, 12), taille: 1 });
-  for (let i = 0; i < couronne; i++) {
-    const a = depart + (i / couronne) * Math.PI * 2;
+  const haut = n <= 2 ? 34 : n <= 3 ? 26 : 18;
+  const pas = n > 1 ? (100 - 2 * haut) / (n - 1) : 0;
+  const gauche = rng.chance(0.5);
+  for (let i = 0; i < n; i++) {
+    const cote = (i % 2 === 0) === gauche ? -1 : 1;
     out.push({
-      x: 50 + Math.cos(a) * r,
-      y: 50 + Math.sin(a) * r,
-      rot: rng.int(-20, 20),
-      taille: 0.85 + rng.next() * 0.3,
+      x: 50 + cote * rng.int(4, 9),
+      y: n > 1 ? haut + i * pas : 50,
+      rot: rng.int(-8, 8),
+      taille: 0.9 + rng.next() * 0.2,
     });
   }
-  return rng.shuffle(out);
+  return out;
 }
 
 /* ------------------------------------------------------------------ */

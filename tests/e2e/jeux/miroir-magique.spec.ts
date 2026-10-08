@@ -6,8 +6,8 @@ test('Miroir magique (facile) : le bon dessin fait s’envoler le papillon', asy
   const erreurs = surveillerErreurs(page);
   await page.goto('/labo/miroir-magique?niveau=facile');
   await expect(page.getByRole('button', { name: /Vérifier/ })).toBeVisible();
-  // Exemple du Labo : cases (1,1) (2,1) (2,2) (3,3), axe vertical sur 8 colonnes
-  for (const c of ['6,1', '5,1', '5,2', '4,3'])
+  // Premier exemple du Labo (CE1) : cases (2,1) (2,2) (1,3) (2,3), axe vertical sur 8 colonnes
+  for (const c of ['5,1', '5,2', '6,3', '5,3'])
     await page.locator(`[data-case="${c}"]`).click({ force: true });
   await page.getByRole('button', { name: /Vérifier/ }).click();
   await expect(page.getByText(/papillon s’envole/)).toBeVisible();

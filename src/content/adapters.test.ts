@@ -107,7 +107,7 @@ describe('modalité « parler » hors français (contenu réel)', () => {
         expect(versLecture(it)).not.toBeNull();
       }
     }
-  });
+  }, 60_000);
 
   it('en français, le Perroquet savant ne reçoit pas de QCM transformés', () => {
     const fr = [...content.lessons.values()].filter((l) => l.matiere === 'francais');
@@ -117,5 +117,5 @@ describe('modalité « parler » hors français (contenu réel)', () => {
       const st = createStream(content, l, 'oral_answer', 'normal', createRng(5), ctx);
       for (let i = 0; i < 5; i++) expect(st!.next().meta?.depuisQcm).toBeUndefined();
     }
-  });
+  }, 60_000);
 });

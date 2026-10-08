@@ -31,7 +31,7 @@ export function versLecture(it: Item): ALire | null {
     const choix = Array.isArray(it.meta?.choix) ? (it.meta.choix as unknown[]).map(String) : null;
     return {
       item: it,
-      consigne: normalizeText(it.prompt),
+      consigne: it.prompt.trim(),
       motALire: null,
       reponse: it.answer,
       acceptes: [...new Set([it.answer, ...it.accepted])],

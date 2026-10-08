@@ -212,9 +212,18 @@ function numericsToPairing(items: NumericItem[], lessonId: string): PairingItem 
  * transforme pas en vrai/faux, paires ou réponse orale, qui ne savent pas afficher ce support.
  */
 const avecSupport = (it: McqItem) =>
-  ['texte', 'graphique', 'figure', 'quadrillage', 'mesure', 'balance', 'robot', 'enquete', 'circuit'].some(
-    (k) => it.meta?.[k] !== undefined,
-  );
+  [
+    'texte',
+    'graphique',
+    'figure',
+    'quadrillage',
+    'mesure',
+    'balance',
+    'robot',
+    'enquete',
+    'circuit',
+    'phrase',
+  ].some((k) => it.meta?.[k] !== undefined);
 
 /**
  * La question renvoie aux choix (« Lequel… », « Quel est l'intrus ? », « … parmi ces mots ») ou aux
