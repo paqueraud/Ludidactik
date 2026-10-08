@@ -384,7 +384,7 @@ const INSTITUTIONS: Fiche = {
       niv: 'f',
       s: 'Le maire porte une écharpe tricolore lors des cérémonies.',
       v: true,
-      e: 'Elle est bleu, blanc, rouge.',
+      e: 'Elle est tricolore : bleu, blanc, rouge.',
     },
     {
       id: 'cinq',

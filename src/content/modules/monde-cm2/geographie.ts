@@ -652,9 +652,9 @@ const REPERES: Fiche = {
     {
       id: 'nb-regions',
       niv: 'n',
-      q: 'Combien la France compte-t-elle de régions ?',
+      q: 'Combien la France compte-t-elle de régions en tout, outre-mer compris ?',
       r: '18',
-      f: ['13', '27', '101'],
+      f: ['22', '27', '101'],
       e: 'La France compte 18 régions : 13 en métropole et 5 en outre-mer.',
     },
     {
@@ -1594,9 +1594,9 @@ const GE26_T1: Fiche = {
     {
       id: 'nb-regions',
       niv: 'f',
-      q: 'Combien la France compte-t-elle de régions ?',
+      q: 'Combien la France compte-t-elle de régions en tout, outre-mer compris ?',
       r: '18',
-      f: ['5', '27', '101'],
+      f: ['22', '27', '101'],
       e: 'La France compte 18 régions administratives : 13 en métropole et 5 en outre-mer.',
     },
     {
@@ -1764,7 +1764,7 @@ const GE26_T2: Fiche = {
     },
     {
       id: 'serre-poncon',
-      niv: 'p',
+      niv: 'n',
       map: 'france-fleuves',
       target: 'lac-de-serre-poncon',
       label: 'le lac de Serre-Ponçon',
@@ -1819,7 +1819,7 @@ const GE26_T2: Fiche = {
       niv: 'n',
       q: 'Lequel de ces lacs est un lac naturel ?',
       r: 'Le lac Léman',
-      f: ['Le lac de Serre-Ponçon', 'Un bassin de piscine', 'Une retenue de barrage'],
+      f: ['Le lac de Serre-Ponçon', 'Le lac de Vouglans', 'Le lac du Der'],
       e: 'Le lac Léman est naturel ; le lac de Serre-Ponçon a été créé par un barrage.',
     },
     {
@@ -1998,6 +1998,8 @@ const GE26_T2: Fiche = {
 };
 
 const UE_FONDATEURS = PAYS_UE.filter((p) => p[4]);
+/** Les quatre pays membres ajoutés aux six fondateurs au niveau Normal (dix pays). */
+const DIX = ['espagne', 'portugal', 'grece', 'pologne'];
 
 const GE26_T3: Fiche = {
   lecon: 'CM2.GE26.T3',
@@ -2047,8 +2049,9 @@ const GE26_T3: Fiche = {
     ...lieuxPays((p) => p[4], 'f').map((l) =>
       l.niv === 'f' ? { ...l, prompt: `Touche ${l.label}, un des six pays fondateurs.` } : l,
     ),
-    ...lieuxPays((p) => !p[4] && p[3] !== 'p', 'n'),
-    ...lieuxPays((p) => !p[4] && p[3] === 'p', 'p'),
+    // BO 2026 : « dix pays membres de l'UE (dont les six pays fondateurs) » au niveau Normal
+    ...lieuxPays((p) => DIX.includes(p[0]), 'n'),
+    ...lieuxPays((p) => !p[4] && !DIX.includes(p[0]), 'p'),
     {
       id: 'suisse',
       niv: 'p',

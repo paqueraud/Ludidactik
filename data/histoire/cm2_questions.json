@@ -145,14 +145,14 @@
     "1799"
    ],
    "bonne": 0,
-   "explication": "Louis XVI est guillotiné le 21 janvier 1793.",
+   "explication": "Louis XVI est exécuté le 21 janvier 1793.",
    "guillotine": false
   },
   {
    "id": "q010",
    "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
    "programme": "2020",
-   "niveau": "plus_loin",
+   "niveau": "facile",
    "type": "mcq",
    "question": "Quelle est la devise de la République, dont l’idée est née pendant la Révolution ?",
    "choix": [
@@ -508,7 +508,7 @@
     "Oui, parfois très jeunes",
     "Non, jamais",
     "Seulement le dimanche",
-    "Seulement les rois"
+    "Seulement pendant les vacances"
    ],
    "bonne": 0,
    "explication": "Beaucoup d'enfants travaillaient dans les mines et les usines ; des lois ont peu à peu limité ce travail.",
@@ -909,7 +909,7 @@
    "type": "mcq",
    "question": "Qui obtient le droit de vote en 1848 ?",
    "choix": [
-    "Tous les hommes",
+    "Tous les hommes adultes",
     "Toutes les femmes",
     "Seulement le roi",
     "Les enfants"
@@ -1009,7 +1009,7 @@
    "programme": "2026",
    "niveau": "normal",
    "type": "mcq",
-   "question": "Quelle maladie le vaccin de Pasteur permet-il de soigner à la fin du XIXe siècle ?",
+   "question": "Contre quelle maladie Louis Pasteur met-il au point un vaccin à la fin du XIXe siècle ?",
    "choix": [
     "La rage",
     "La grippe",
@@ -1060,12 +1060,12 @@
    "programme": "2026",
    "niveau": "normal",
    "type": "mcq",
-   "question": "Quelle grande bataille a lieu à Verdun ?",
+   "question": "En quelle année a lieu la bataille de Verdun ?",
    "choix": [
-    "Une bataille de 1916",
-    "Une bataille de 1789",
-    "Une bataille de 1944",
-    "Une bataille de 1870"
+    "1916",
+    "1789",
+    "1944",
+    "1870"
    ],
    "bonne": 0,
    "explication": "La bataille de Verdun dure de février à décembre 1916.",

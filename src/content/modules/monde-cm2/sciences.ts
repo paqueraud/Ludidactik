@@ -34,7 +34,7 @@ const MATIERE: Fiche = {
         ['le sel', 0, '🧂'],
         ['le sucre', 0, '🍬'],
         ['le café soluble', 0, '☕'],
-        ['le sirop', 0],
+        ['le sucre en morceau', 0],
         ['le sable', 1, '🏖️'],
         ['l’huile', 1],
         ['les cailloux', 1, '🪨'],
@@ -1507,7 +1507,7 @@ const CORPS: Fiche = {
         ['le crâne', 0],
         ['le tibia', 0],
         ['le biceps', 1, '💪'],
-        ['le mollet', 1],
+        ['le muscle du mollet', 1],
         ['le genou', 2],
         ['le coude', 2],
         ['l’épaule', 2],
@@ -1647,7 +1647,7 @@ const CORPS: Fiche = {
       q: 'Qu’est-ce que la puberté ?',
       r: 'La période où le corps de l’enfant se transforme peu à peu en corps d’adulte',
       f: ['Une maladie de l’enfance', 'Le moment où l’on perd ses dents de lait', 'Une période de vacances'],
-      e: 'La puberté commence en général entre 9 et 14 ans ; chacun a son propre rythme.',
+      e: 'La puberté commence en général entre 8 et 14 ans ; chacun a son propre rythme.',
     },
     {
       id: 'qui-coeur',
@@ -1824,7 +1824,11 @@ const ECOSYS: Fiche = {
       id: 'roles',
       niv: 'n',
       prompt: 'Producteur, consommateur ou décomposeur ?',
-      cats: ['producteur (végétal)', 'consommateur (animal)', 'décomposeur'],
+      cats: [
+        'producteur (végétal)',
+        'consommateur (mange d’autres êtres vivants)',
+        'décomposeur (recycle les restes)',
+      ],
       els: [
         ['l’herbe', 0, '🌿'],
         ['le chêne', 0, '🌳'],
@@ -2096,8 +2100,8 @@ const TERRE: Fiche = {
     {
       id: 'planetes',
       niv: 'n',
-      prompt: 'Planète rocheuse ou planète géante gazeuse ?',
-      cats: ['planète rocheuse', 'planète géante gazeuse'],
+      prompt: 'Planète rocheuse ou planète géante ?',
+      cats: ['planète rocheuse', 'planète géante'],
       els: [
         ['Mercure', 0],
         ['Vénus', 0],
@@ -2108,7 +2112,7 @@ const TERRE: Fiche = {
         ['Uranus', 1],
         ['Neptune', 1],
       ],
-      e: 'Les quatre planètes proches du Soleil sont rocheuses ; les quatre plus lointaines sont des géantes gazeuses.',
+      e: 'Les quatre planètes proches du Soleil sont rocheuses ; les quatre plus lointaines sont des planètes géantes.',
     },
     {
       id: 'risques',
@@ -2438,7 +2442,7 @@ const TECHNO: Fiche = {
         ['le sac de caisse', 2, '🛍️'],
         ['le pot de yaourt', 2],
         ['la vitre', 3, '🪟'],
-        ['la bouteille de jus en verre', 3, '🍾'],
+        ['le bocal en verre', 3, '🫙'],
       ],
       e: 'On choisit le matériau selon ce que doit faire l’objet : solidité, légèreté, transparence…',
     },
@@ -2525,7 +2529,7 @@ const TECHNO: Fiche = {
       prompt: 'Remets dans l’ordre le programme d’un lampadaire automatique.',
       els: [
         'Lire le capteur de lumière.',
-        'Si il fait sombre, allumer la lampe.',
+        'S’il fait sombre, allumer la lampe.',
         'Sinon, éteindre la lampe.',
         'Attendre une minute.',
         'Recommencer depuis le début.',

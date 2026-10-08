@@ -985,10 +985,10 @@ const ENERGIES: Fiche = {
     {
       id: 'train',
       niv: 'f',
-      label: 'Première ligne de chemin de fer pour voyageurs en France',
+      label: 'Première ligne de chemin de fer pour voyageurs au départ de Paris',
       date: '1837',
       t: 1837.08,
-      e: 'En 1837, la première ligne pour voyageurs relie Paris à Saint-Germain-en-Laye.',
+      e: 'En 1837, la première ligne pour voyageurs au départ de Paris relie Paris à Saint-Germain-en-Laye.',
     },
     { id: 'telephone', niv: 'p', label: 'Invention du téléphone par Graham Bell', date: '1876', t: 1876 },
     {
@@ -1179,7 +1179,7 @@ const ENERGIES: Fiche = {
     {
       id: 'marseille',
       niv: 'p',
-      s: 'La première ligne de chemin de fer pour voyageurs en France relie Paris à Marseille.',
+      s: 'La première ligne de chemin de fer pour voyageurs au départ de Paris relie Paris à Marseille.',
       v: false,
       e: 'Elle relie Paris à Saint-Germain-en-Laye, en 1837.',
     },
@@ -1488,7 +1488,7 @@ const VILLE: Fiche = {
     {
       id: 'train',
       niv: 'f',
-      label: 'Première ligne de chemin de fer pour voyageurs en France',
+      label: 'Première ligne de chemin de fer pour voyageurs au départ de Paris',
       date: '1837',
       t: 1837.08,
     },

@@ -440,7 +440,7 @@ const DESCRIBE: Fiche = {
       niv: 'n',
       prompt: 'Écoute et touche le bon visage.',
       relation: 'mot → image',
-      consigne: 'point to {mot}',
+      consigne: 'point to the {mot} face',
       pairs: [
         ['happy', '😀'],
         ['sad', '😢'],
@@ -685,7 +685,7 @@ const TIME_DATES: Fiche = {
       niv: 'n',
       prompt: 'Écoute le temps qu’il fait et touche la bonne image.',
       relation: 'mot → image',
-      consigne: 'point to {mot}',
+      consigne: 'point to the {mot} weather',
       pairs: [
         ['sunny', '🌞'],
         ['rainy', '🌧️'],
@@ -853,12 +853,12 @@ const TIME_DATES: Fiche = {
       e: 'Il y a sept jours dans une semaine.',
     },
     {
-      id: 'sunday',
+      id: 'tuesday',
       niv: 'f',
-      s: 'Sunday comes after Monday.',
-      spoken: 'Sunday comes after Monday.',
+      s: 'Tuesday comes after Wednesday.',
+      spoken: 'Tuesday comes after Wednesday.',
       v: false,
-      e: 'Sunday (dimanche) vient avant Monday (lundi).',
+      e: 'Tuesday (mardi) vient avant Wednesday (mercredi).',
     },
     {
       id: 'twelve',
@@ -978,7 +978,7 @@ const ROUTINES: Fiche = {
         'He does his homework.',
         'He goes to bed.',
       ],
-      labels: ['7:00', '8:30', '12:00', '4:30', '5:00', '8:30 pm'],
+      labels: ['7:00 am', '8:30 am', '12:00', '4:30 pm', '5:00 pm', '8:30 pm'],
       e: 'Le matin, Tom se lève et va à l’école ; il déjeune à la cantine, rentre, fait ses devoirs puis va au lit.',
     },
   ],
@@ -1787,7 +1787,7 @@ const COUNTRIES: Fiche = {
       niv: 'n',
       q: 'I’m from France. I’m…',
       r: 'French',
-      f: ['France', 'English', 'Frenchy'],
+      f: ['France', 'English', 'Frenchish'],
       e: 'Je viens de France : je suis « French ».',
     }),
     {
