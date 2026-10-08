@@ -285,7 +285,11 @@ const TAILLE_PAIRES: Record<Level, number> = { facile: 3, normal: 4, plus_loin: 
 function tirerEvts(evts: readonly Evt[], k: number, rng: Rng): Evt[] | null {
   const out: Evt[] = [];
   for (const e of rng.shuffle(evts)) {
-    if (out.some((o) => o.t === e.t || o.date === e.date || o.label === e.label || (!!e.excl && o.excl === e.excl)))
+    if (
+      out.some(
+        (o) => o.t === e.t || o.date === e.date || o.label === e.label || (!!e.excl && o.excl === e.excl),
+      )
+    )
       continue;
     out.push(e);
     if (out.length === k) break;
@@ -379,11 +383,15 @@ export const qcmDe = (f: Fiche): Qcm[] => [...(f.qcm ?? []), ...qcmAnnees(f)];
 export function contenuDe(f: Fiche): LessonContent {
   const pools: Partial<Record<ItemKind, ItemPool>> = {};
   const qcm = qcmDe(f);
-  if (qcm.length) pools.mcq = (level, rng, ctx) => duNiveau(qcm, level, 4).map((q) => mcq(f, q, level, rng, ctx));
-  if (f.vf?.length) pools.true_false = (level, _rng, ctx) => duNiveau(f.vf!, level, 4).map((v) => trueFalse(f, v, ctx));
-  if (f.lieux?.length) pools.map_point = (level, _rng, ctx) => duNiveau(f.lieux!, level, 3).map((l) => mapPoint(f, l, ctx));
+  if (qcm.length)
+    pools.mcq = (level, rng, ctx) => duNiveau(qcm, level, 4).map((q) => mcq(f, q, level, rng, ctx));
+  if (f.vf?.length)
+    pools.true_false = (level, _rng, ctx) => duNiveau(f.vf!, level, 4).map((v) => trueFalse(f, v, ctx));
+  if (f.lieux?.length)
+    pools.map_point = (level, _rng, ctx) => duNiveau(f.lieux!, level, 3).map((l) => mapPoint(f, l, ctx));
   if (f.classements?.length)
-    pools.classification = (level, _rng, ctx) => duNiveau(f.classements!, level).map((c) => classification(f, c, ctx));
+    pools.classification = (level, _rng, ctx) =>
+      duNiveau(f.classements!, level).map((c) => classification(f, c, ctx));
   if (f.evts?.length || f.etapes?.length)
     pools.ordering = (level, rng, ctx) => [
       ...(f.evts?.length ? frises(f, level, rng, ctx) : []),
@@ -392,8 +400,13 @@ export function contenuDe(f: Fiche): LessonContent {
   if (f.evts?.length || f.paires?.length)
     pools.pairing = (level, rng, ctx) => [
       ...(f.evts?.length ? pairesDates(f, level, rng, ctx) : []),
-      ...duNiveau(f.paires ?? [], level, f.evts?.length ? 0 : 1).map((p) => pairing(f, p, ctx)),
+      // Plus loin : toutes les paires (les jeux de mémoire restent jouables, avec plus de cartes)
+      ...(level === 'plus_loin'
+        ? (f.paires ?? [])
+        : duNiveau(f.paires ?? [], level, f.evts?.length ? 0 : 1)
+      ).map((p) => pairing(f, p, ctx)),
     ];
-  if (f.oral?.length) pools.oral_answer = (level, _rng, ctx) => duNiveau(f.oral!, level, 3).map((o) => oral(f, o, ctx));
+  if (f.oral?.length)
+    pools.oral_answer = (level, _rng, ctx) => duNiveau(f.oral!, level, 3).map((o) => oral(f, o, ctx));
   return { pools };
 }

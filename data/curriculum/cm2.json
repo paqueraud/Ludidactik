@@ -1269,32 +1269,31 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Le temps de la République",
-   "titre": "Le temps de la République — 1892 : la République fête ses 100 ans",
+   "titre": "1892 : la République fête ses 100 ans",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 1 « Le temps de la République »",
    "periodes": [
     1,
-    2,
-    3,
-    4,
-    5
+    2
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1303,7 +1302,7 @@
      "lessonId": "CM2.HI20.T1.REPUBLIQUE100"
     }
    },
-   "rappel": "La Ire République est proclamée en 1792 ; ses symboles sont Marianne, le drapeau bleu-blanc-rouge, la devise et La Marseillaise.",
+   "rappel": "La République est proclamée en 1792 ; ses symboles sont Marianne, le drapeau bleu-blanc-rouge, la devise, La Marseillaise et le 14 Juillet (fête nationale depuis 1880).",
    "contenus": "1792 proclamation de la Ire République ; symboles (Marianne, drapeau, devise, Marseillaise, 14 juillet fête nationale depuis 1880) ; IIIe République (1870)"
   },
   {
@@ -1311,32 +1310,31 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Le temps de la République",
-   "titre": "L'école primaire au temps de Jules Ferry",
+   "titre": "L’école au temps de Jules Ferry",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 1 « Le temps de la République »",
    "periodes": [
     1,
-    2,
-    3,
-    4,
-    5
+    2
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1353,32 +1351,31 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Le temps de la République",
-   "titre": "Des républicains, des démocrates et des citoyens",
+   "titre": "Républicains, démocrates et citoyens",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 1 « Le temps de la République »",
    "periodes": [
     1,
-    2,
-    3,
-    4,
-    5
+    2
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1387,7 +1384,7 @@
      "lessonId": "CM2.HI20.T1.CITOYENS"
     }
    },
-   "rappel": "Le droit de vote s’élargit peu à peu : tous les hommes en 1848, les femmes en 1944.",
+   "rappel": "Le droit de vote s’élargit peu à peu : tous les hommes en 1848, les femmes en 1944, les jeunes de 18 ans en 1974 ; depuis 1905, l’État est laïque.",
    "contenus": "suffrage universel masculin 1848 ; abolition de l'esclavage 1848 (Victor Schœlcher) ; loi de 1905 séparation des Églises et de l'État ; droit de vote des femmes 1944 (1er vote 1945) ; Ve République 1958 ; majorité à 18 ans 1974"
   },
   {
@@ -1395,32 +1392,32 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "L'âge industriel en France",
-   "titre": "L'âge industriel — énergies et machines",
+   "titre": "L’âge industriel : énergies et machines",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 2 « L’âge industriel en France »",
    "periodes": [
-    1,
     2,
-    3,
-    4,
-    5
+    3
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1437,32 +1434,32 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "L'âge industriel en France",
-   "titre": "Le travail à la mine, à l'usine, à l'atelier, au grand magasin",
+   "titre": "Travailler à la mine, à l’usine, à l’atelier, au grand magasin",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 2 « L’âge industriel en France »",
    "periodes": [
-    1,
     2,
-    3,
-    4,
-    5
+    3
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1471,7 +1468,7 @@
      "lessonId": "CM2.HI20.T2.TRAVAIL"
     }
    },
-   "rappel": "À l’âge industriel, les ouvriers, et même des enfants, travaillent de longues journées dans les mines et les usines.",
+   "rappel": "À l’âge industriel, ouvriers et ouvrières travaillent de longues journées dans les mines et les usines ; ils obtiennent le droit de grève (1864) et de créer des syndicats (1884).",
    "contenus": "travail des enfants, ouvriers, Germinal (Zola, évocation), syndicats, grèves"
   },
   {
@@ -1479,32 +1476,31 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "L'âge industriel en France",
-   "titre": "La ville industrielle ; le monde rural",
+   "titre": "La ville industrielle et le monde rural",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 2 « L’âge industriel en France »",
    "periodes": [
-    1,
     2,
-    3,
-    4,
-    5
+    3
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1513,7 +1509,7 @@
      "lessonId": "CM2.HI20.T2.VILLE"
     }
    },
-   "rappel": "Beaucoup de paysans quittent les campagnes pour travailler en ville : c’est l’exode rural.",
+   "rappel": "Beaucoup de paysans partent travailler en ville : c’est l’exode rural ; en 1931, plus de la moitié des Français vivent en ville.",
    "contenus": "exode rural, urbanisation, Haussmann, transformations des campagnes"
   },
   {
@@ -1523,30 +1519,27 @@
    "domaine": "La France, des guerres mondiales à l’Union européenne",
    "titre": "Deux guerres mondiales au XXe siècle",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 3 « La France, des guerres mondiales à l’Union européenne »",
    "periodes": [
-    1,
-    2,
-    3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "guillotine",
+    "memory-familles",
     "machine-temps",
     "qui-suis-je",
-    "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1555,7 +1548,7 @@
      "lessonId": "CM2.HI20.T3.GUERRES"
     }
    },
-   "rappel": "La Première Guerre mondiale (1914-1918) et la Seconde (1939-1945) ont fait des millions de victimes.",
+   "rappel": "La Première Guerre mondiale (1914-1918) et la Seconde (1939-1945) ont fait des millions de victimes ; on se souvient de l’armistice du 11 novembre 1918 et de la fin de la guerre en Europe, le 8 mai 1945.",
    "contenus": "1914-1918, poilus, Verdun 1916, armistice 11 novembre 1918 ; 1939-1945, appel du 18 juin 1940, Occupation, Résistance (Jean Moulin), génocide des Juifs (Shoah), débarquement 6 juin 1944, 8 mai 1945"
   },
   {
@@ -1565,30 +1558,30 @@
    "domaine": "La France, des guerres mondiales à l’Union européenne",
    "titre": "La construction européenne",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 3 « La France, des guerres mondiales à l’Union européenne »",
    "periodes": [
-    1,
-    2,
-    3,
-    4,
     5
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
+    "map_point",
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
+    "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1597,7 +1590,7 @@
      "lessonId": "CM2.HI20.T3.EUROPE"
     }
    },
-   "rappel": "En 1957, six pays signent le traité de Rome : c’est le début de la construction européenne.",
+   "rappel": "Après 1945, des pays d’Europe s’unissent pour garder la paix : traité de Rome en 1957 (6 pays), Union européenne en 1992 (Maastricht), euro en pièces et billets en 2002.",
    "contenus": "1951 CECA, 1957 traité de Rome (6 fondateurs : France, RFA, Italie, Belgique, Pays-Bas, Luxembourg), 1992 Maastricht, 2002 euro en pièces/billets, 27 pays"
   },
   {
@@ -1605,32 +1598,30 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Rappel du CM1",
-   "titre": "Rappel CM1 : 1789, la Révolution française (Facile/Normal en révision)",
+   "titre": "Rappel du CM1 : 1789, la Révolution française",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — rappel du CM1, thème 3 « Le temps de la Révolution et de l’Empire »",
    "periodes": [
-    1,
-    2,
-    3,
-    4,
-    5
+    1
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1639,7 +1630,7 @@
      "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION"
     }
    },
-   "rappel": "En 1789, la Révolution française met fin à la monarchie absolue ; la Bastille est prise le 14 juillet 1789.",
+   "rappel": "En 1789, la Révolution met fin à la monarchie absolue : la Bastille est prise le 14 juillet et la Déclaration des droits de l’homme affirme que nous naissons libres et égaux en droits.",
    "contenus": "États généraux (5 mai 1789), serment du Jeu de paume, prise de la Bastille (14 juillet 1789), abolition des privilèges (4 août), DDHC (26 août), Louis XVI, fin de la monarchie absolue, 1792 République, 1793 exécution de Louis XVI, Terreur"
   },
   {
@@ -1647,28 +1638,30 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Histoire de France, de 1792 à nos jours",
-   "titre": "De la République à l'Empire (1792-1815)",
+   "titre": "De la République à l’Empire (1792-1815)",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, thème 1",
    "periodes": [
     1
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1685,28 +1678,32 @@
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Histoire de France, de 1792 à nos jours",
-   "titre": "Vers une France républicaine : IIe (1848-1852) et IIIe République (1870-1914)",
+   "titre": "La France devient républicaine (1848-1914)",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, thème 2",
    "periodes": [
     2
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
+    "map_point",
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
+    "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1716,35 +1713,37 @@
     }
    },
    "rappel": "En 1848, tous les hommes obtiennent le droit de vote et l’esclavage est définitivement aboli.",
-   "contenus": "1848 suffrage universel masculin + abolition définitive ; 1882-1886 lois Ferry ; 9 déc. 1905 séparation des Églises et de l'État ; symboles ; empire colonial"
+   "contenus": "1848 suffrage universel masculin et abolition définitive de l’esclavage ; 1882-1886 lois Ferry sur l’École ; 9 décembre 1905 séparation des Églises et de l’État ; liberté de la presse (1881) ; symboles de la République ; empire colonial (localisation sur un planisphère)"
   },
   {
    "id": "CM2.HI26.T3",
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Histoire de France, de 1792 à nos jours",
-   "titre": "L'âge industriel en France au XIXe s.",
+   "titre": "L’âge industriel en France au XIXe siècle",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, thème 3",
    "periodes": [
     2
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1753,36 +1752,36 @@
      "lessonId": "CM2.HI26.T3"
     }
    },
-   "rappel": "Au XIXe siècle, les machines, le chemin de fer et les usines changent la vie des Français.",
-   "contenus": "locomotive (Stephenson), vaccin contre la rage (Pasteur, 1885), droit de grève (1864), liberté syndicale (1884) ; ouvriers, bourgeois, urbanisation"
+   "rappel": "Au XIXe siècle, les machines à vapeur, le chemin de fer et les usines transforment la vie ; les ouvriers luttent pour leurs droits et Pasteur invente le vaccin contre la rage.",
+   "contenus": "Début XIXe : locomotive (Stephenson) ; fin XIXe : vaccin contre la rage (Pasteur) ; seconde moitié du XIXe : droit de grève et liberté syndicale (années 1864, 1884, 1885 en Plus loin seulement) ; ouvriers, bourgeois, urbanisation, société encore rurale"
   },
   {
    "id": "CM2.HI26.T4",
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Histoire de France, de 1792 à nos jours",
-   "titre": "La France dans la Première Guerre mondiale",
+   "titre": "La France dans la Première Guerre mondiale (1914-1918)",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, thème 4",
    "periodes": [
     3
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "guillotine",
+    "memory-familles",
     "machine-temps",
     "qui-suis-je",
-    "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1792,35 +1791,35 @@
     }
    },
    "rappel": "De 1914 à 1918, les poilus combattent dans les tranchées ; l’armistice est signé le 11 novembre 1918.",
-   "contenus": "1914-1918, front nord et est, poilus, guerre de mouvement/position, armistice 11/11/1918, ~10 M de morts dont ~1,4 M de Français"
+   "contenus": "1914-1918 ; une grande bataille (Verdun, 1916) ; 11 novembre 1918 armistice ; front du nord et de l’est ; poilus, tranchées ; guerre de mouvement / de position ; rôle des femmes, mobilisation des colonies ; bilan : 10 millions de morts au combat dont 1,4 million de Français"
   },
   {
    "id": "CM2.HI26.T5",
    "classe": "CM2",
    "matiere": "histoire",
    "domaine": "Histoire de France, de 1792 à nos jours",
-   "titre": "La France pendant la Seconde Guerre mondiale",
+   "titre": "La France pendant la Seconde Guerre mondiale (1939-1945)",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, thème 5",
    "periodes": [
     4
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "guillotine",
+    "memory-familles",
     "machine-temps",
     "qui-suis-je",
-    "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1830,7 +1829,7 @@
     }
    },
    "rappel": "Le 18 juin 1940, le général de Gaulle appelle à continuer le combat ; la guerre en Europe s’arrête le 8 mai 1945.",
-   "contenus": "18 juin 1940, Vichy (Pétain), collaboration, Résistance (de Gaulle, Jean Moulin), rafle du Vel d'Hiv 1942, 6 juin 1944, 8 mai 1945, génocide des Juifs"
+   "contenus": "« drôle de guerre », défaite de juin 1940 ; 18 juin 1940 appel du général de Gaulle ; régime de Vichy (Pétain), collaboration ; Résistance (de Gaulle, Jean Moulin) ; 1942 rafle du Vel d’Hiv ; persécution des Tsiganes ; Justes parmi les Nations ; 6 juin 1944 ; 8 mai 1945 ; bilan : 60 à 70 millions de morts, dont 6 millions de Juifs (60 % des Juifs d’Europe)"
   },
   {
    "id": "CM2.HI26.T6",
@@ -1839,26 +1838,28 @@
    "domaine": "Histoire de France, de 1792 à nos jours",
    "titre": "La France depuis 1945",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, thème 6",
    "periodes": [
     5
    ],
    "niveaux": {
-    "facile": "QCM à 2 choix, faits essentiels",
-    "normal": "QCM à 4 choix, dates repères du programme",
-    "plus_loin": "saisie de dates, questions « pourquoi ? », liens de cause"
+    "facile": "QCM à 2 choix, faits essentiels, frises courtes",
+    "normal": "QCM à 4 choix, dates et repères du programme, frises de 4 événements",
+    "plus_loin": "saisie des années, questions « pourquoi ? », liens de cause, frises longues"
    },
    "itemKinds": [
     "mcq",
-    "true_false",
-    "ordering"
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "guillotine",
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "memory"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "static",
@@ -1868,7 +1869,7 @@
     }
    },
    "rappel": "Depuis 1945, les femmes votent, la Ve République est fondée en 1958 et la France construit l’Europe.",
-   "contenus": "1944 droit de vote des femmes, Sécurité sociale, 1957 traité de Rome, 1958 Ve République, 1965 droits des femmes (travail, compte bancaire), 2002 (euro fiduciaire ; BO : « 2000 : l'euro remplace le franc » — vérifier formulation PDF)"
+   "contenus": "1944 droit de vote des femmes ; Sécurité sociale ; 1957 traité de Rome créant la CEE ; 1958 Ve République avec le général de Gaulle ; 1965 droits des femmes (travail, compte bancaire) ; repère BO « 2000 : l’euro remplace le franc » (pièces et billets en 2002, accepté en Plus loin)"
   },
   {
    "id": "CM2.GE20.T1.DEPLACER",
@@ -1877,33 +1878,35 @@
    "domaine": "Géographie",
    "titre": "Se déplacer",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — géographie, thème 1 « Se déplacer »",
    "periodes": [
     1,
-    2,
-    3,
-    4,
-    5
+    2
    ],
    "niveaux": {
-    "facile": "repères essentiels, 2 choix",
+    "facile": "repères essentiels, 2 choix, lieux connus",
     "normal": "repères du programme, 4 choix",
-    "plus_loin": "localiser sans aide, expliquer"
+    "plus_loin": "localiser sans aide (par la capitale), expliquer"
    },
    "itemKinds": [
     "map_point",
-    "mcq"
+    "mcq",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
     "tour-de-france",
     "qui-suis-je",
-    "vrai-faux"
+    "vrai-faux",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ge20_t1_deplacer"
+    "generator": "monde-cm2/geographie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
+   "rappel": "On se déplace à pied, à vélo, en voiture, en train ou en avion ; chaque moyen de transport a ses infrastructures : la route, la gare, le port, l’aéroport.",
    "contenus": "au quotidien en France / dans un autre lieu du monde ; d'une ville à l'autre (France, Europe, monde) ; modes de transport, réseaux, aéroports, LGV"
   },
   {
@@ -1911,35 +1914,35 @@
    "classe": "CM2",
    "matiere": "geographie",
    "domaine": "Géographie",
-   "titre": "Communiquer grâce à l'Internet",
+   "titre": "Communiquer grâce à Internet",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — géographie, thème 2 « Communiquer d’un bout à l’autre du monde grâce à l’Internet »",
    "periodes": [
-    1,
-    2,
-    3,
-    4,
-    5
+    3
    ],
    "niveaux": {
-    "facile": "repères essentiels, 2 choix",
+    "facile": "repères essentiels, 2 choix, lieux connus",
     "normal": "repères du programme, 4 choix",
-    "plus_loin": "localiser sans aide, expliquer"
+    "plus_loin": "localiser sans aide (par la capitale), expliquer"
    },
    "itemKinds": [
     "map_point",
-    "mcq"
+    "mcq",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
     "tour-de-france",
     "qui-suis-je",
-    "vrai-faux"
+    "vrai-faux",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ge20_t2_internet"
+    "generator": "monde-cm2/geographie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
+   "rappel": "Internet relie le monde grâce à des câbles sous-marins, des antennes et des satellites, mais tout le monde n’y a pas accès de la même façon.",
    "contenus": "réseaux, câbles sous-marins, satellites, inégalités de connexion"
   },
   {
@@ -1949,33 +1952,33 @@
    "domaine": "Géographie",
    "titre": "Mieux habiter",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — géographie, thème 3 « Mieux habiter »",
    "periodes": [
-    1,
-    2,
-    3,
     4,
     5
    ],
    "niveaux": {
-    "facile": "repères essentiels, 2 choix",
+    "facile": "repères essentiels, 2 choix, lieux connus",
     "normal": "repères du programme, 4 choix",
-    "plus_loin": "localiser sans aide, expliquer"
+    "plus_loin": "localiser sans aide (par la capitale), expliquer"
    },
    "itemKinds": [
-    "map_point",
-    "mcq"
+    "mcq",
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
-    "tour-de-france",
+    "memory-familles",
     "qui-suis-je",
-    "vrai-faux"
+    "vrai-faux",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ge20_t3_habiter"
+    "generator": "monde-cm2/geographie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
+   "rappel": "Mieux habiter, c’est aménager sa ville en respectant la nature : trier et recycler, circuler à vélo, garder des arbres et des jardins.",
    "contenus": "nature en ville, recycler, écoquartier"
   },
   {
@@ -1983,9 +1986,9 @@
    "classe": "CM2",
    "matiere": "geographie",
    "domaine": "Repères sur la carte",
-   "titre": "Repères cartographiques (transversal, Tour de France)",
+   "titre": "Les repères sur la carte : régions, fleuves, montagnes, pays d’Europe, continents et océans",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2)",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — repères géographiques du cycle 3",
    "periodes": [
     1,
     2,
@@ -1994,24 +1997,29 @@
     5
    ],
    "niveaux": {
-    "facile": "repères essentiels, 2 choix",
+    "facile": "repères essentiels, 2 choix, lieux connus",
     "normal": "repères du programme, 4 choix",
-    "plus_loin": "localiser sans aide, expliquer"
+    "plus_loin": "localiser sans aide (par la capitale), expliquer"
    },
    "itemKinds": [
     "map_point",
-    "mcq"
+    "mcq",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
     "tour-de-france",
     "qui-suis-je",
-    "vrai-faux"
+    "vrai-faux",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ge_reperes"
+    "generator": "monde-cm2/geographie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
+   "rappel": "Je sais situer les grandes régions et leurs capitales, les fleuves, les montagnes, les pays de l’Union européenne, les continents et les océans.",
    "contenus": "régions & capitales, fleuves (Seine, Loire, Garonne, Rhône, Rhin), massifs (Alpes, Pyrénées, Massif central, Jura, Vosges, Corse), océans & continents, pays de l'UE & capitales"
   },
   {
@@ -2019,117 +2027,124 @@
    "classe": "CM2",
    "matiere": "geographie",
    "domaine": "Géographie",
-   "titre": "Organisation du territoire français",
+   "titre": "L’organisation du territoire français",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, géographie, thème 1",
    "periodes": [
     1,
-    2,
-    3,
-    4,
-    5
+    2
    ],
    "niveaux": {
-    "facile": "repères essentiels, 2 choix",
+    "facile": "repères essentiels, 2 choix, lieux connus",
     "normal": "repères du programme, 4 choix",
-    "plus_loin": "localiser sans aide, expliquer"
+    "plus_loin": "localiser sans aide (par la capitale), expliquer"
    },
    "itemKinds": [
     "map_point",
-    "mcq"
+    "mcq",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
     "tour-de-france",
     "qui-suis-je",
-    "vrai-faux"
+    "vrai-faux",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ge26_t1"
+    "generator": "monde-cm2/geographie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "5 grandes agglomérations, axes autoroutiers/LGV, 18 régions & capitales, département de l'élève (réglage parent : département) ; commune, département, région"
+   "rappel": "La France est découpée en communes, départements et régions : 18 régions avec leur capitale ; les grandes villes sont reliées par des autoroutes et des lignes TGV.",
+   "contenus": "5 principales agglomérations (Paris, Lyon, Marseille, Lille, Toulouse) ; axes autoroutiers et ferroviaires (TGV) ; 18 régions et leur capitale régionale ; commune, département, région. Le département de l’élève (réglage parent) reste à prévoir."
   },
   {
    "id": "CM2.GE26.T2",
    "classe": "CM2",
    "matiere": "geographie",
    "domaine": "Géographie",
-   "titre": "Usages de l'eau douce en France",
+   "titre": "Les usages de l’eau douce en France",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, géographie, thème 2",
    "periodes": [
-    1,
-    2,
     3,
-    4,
-    5
+    4
    ],
    "niveaux": {
-    "facile": "repères essentiels, 2 choix",
+    "facile": "repères essentiels, 2 choix, lieux connus",
     "normal": "repères du programme, 4 choix",
-    "plus_loin": "localiser sans aide, expliquer"
+    "plus_loin": "localiser sans aide (par la capitale), expliquer"
    },
    "itemKinds": [
     "map_point",
-    "mcq"
+    "mcq",
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
     "tour-de-france",
     "qui-suis-je",
-    "vrai-faux"
+    "vrai-faux",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ge26_t2"
+    "generator": "monde-cm2/geographie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "fleuves (Garonne, Loire, Maroni, Rhin, Rhône, Seine), massifs (Alpes, Corse, Jura, Massif central, Pyrénées, Vosges), 2 grands lacs ; conflits d'usages, nappe phréatique"
+   "rappel": "L’eau douce est une ressource limitée : on l’utilise à la maison, pour l’agriculture, l’industrie, l’énergie et les loisirs, et il faut la partager.",
+   "contenus": "Fleuves (Garonne, Loire, Maroni, Rhin, Rhône, Seine) ; massifs (Alpes, Corse, Jura, Massif central, Pyrénées, Vosges) ; deux grands lacs dont un lac naturel (Léman, Serre-Ponçon) ; usages, conflits d’usages, nappe phréatique"
   },
   {
    "id": "CM2.GE26.T3",
    "classe": "CM2",
    "matiere": "geographie",
    "domaine": "Géographie",
-   "titre": "L'Union européenne",
+   "titre": "L’Union européenne",
    "programme": "2026",
-   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027)",
+   "boRef": "BO n°22 du 28/05/2026 — Programme d’histoire-géographie du cycle 3 (CM2 à la rentrée 2027) — CM2, géographie, thème 3",
    "periodes": [
-    1,
-    2,
-    3,
-    4,
     5
    ],
    "niveaux": {
-    "facile": "repères essentiels, 2 choix",
+    "facile": "repères essentiels, 2 choix, lieux connus",
     "normal": "repères du programme, 4 choix",
-    "plus_loin": "localiser sans aide, expliquer"
+    "plus_loin": "localiser sans aide (par la capitale), expliquer"
    },
    "itemKinds": [
     "map_point",
-    "mcq"
+    "mcq",
+    "ordering",
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
     "tour-de-france",
     "qui-suis-je",
-    "vrai-faux"
+    "vrai-faux",
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_ge26_t3"
+    "generator": "monde-cm2/geographie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "Europe (continent) ≠ UE ; 10 pays membres dont 6 fondateurs ; 1957 Rome, 1992 Maastricht"
+   "rappel": "L’Europe est un continent ; l’Union européenne réunit 27 pays, dont les 6 fondateurs du traité de Rome (1957), et elle est née à Maastricht en 1992.",
+   "contenus": "Europe (continent) ≠ Union européenne ; localiser et nommer dix pays membres de l’UE dont les six fondateurs (l’UE compte 27 membres) ; 1957 traité de Rome ; 1992 traité de Maastricht ; un aménagement financé par l’UE"
   },
   {
    "id": "CM2.SC.MATIERE",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "Matière, mouvement, énergie, information",
-   "titre": "Matière : états, mélanges, solutions, masse/volume",
+   "titre": "La matière : solide, liquide, gaz et mélanges",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « Matière, mouvement, énergie, information »",
    "periodes": [
     1,
     2,
@@ -2138,35 +2153,42 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "puzzle-phrases",
+    "dobble-mots",
+    "memory-familles",
+    "machine-temps",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_matiere"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "Laboratoire (classification), Vrai/Faux"
+   "rappel": "La matière existe sous trois états (solide, liquide, gaz) ; elle peut changer d’état et se mélanger, et elle a toujours une masse.",
+   "contenus": "états de la matière, changements d’état, mélanges et solutions (dissolution), masse et volume, séparer des mélanges"
   },
   {
    "id": "CM2.SC.ENERGIE",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "Matière, mouvement, énergie, information",
-   "titre": "Sources d'énergie (renouvelables ou non), chaînes d'énergie",
+   "titre": "Les sources d’énergie",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « Matière, mouvement, énergie, information »",
    "periodes": [
     1,
     2,
@@ -2175,34 +2197,42 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "puzzle-phrases",
+    "dobble-mots",
+    "memory-familles",
+    "machine-temps",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_energie"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le soleil, le vent et l’eau sont des énergies renouvelables ; le pétrole, le charbon, le gaz et l’uranium s’épuisent : il faut économiser l’énergie.",
+   "contenus": "sources d’énergie renouvelables ou non, chaînes d’énergie (éolienne, barrage, dynamo), économies d’énergie"
   },
   {
    "id": "CM2.SC.MOUVEMENT",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "Matière, mouvement, énergie, information",
-   "titre": "Mouvements, vitesse",
+   "titre": "Les mouvements et la vitesse",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « Matière, mouvement, énergie, information »",
    "periodes": [
     1,
     2,
@@ -2211,34 +2241,40 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_mouvement"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un mouvement a une trajectoire (droite, en cercle, courbe) et une vitesse : vitesse moyenne = distance ÷ durée, en km/h.",
+   "contenus": "trajectoires rectiligne, circulaire, courbe ; mouvement accéléré, uniforme, ralenti ; vitesse moyenne ; mouvement relatif"
   },
   {
    "id": "CM2.SC.SIGNAL",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "Matière, mouvement, énergie, information",
-   "titre": "Signaux et information (lumineux, sonores, électriques)",
+   "titre": "Les signaux et l’information",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « Matière, mouvement, énergie, information »",
    "periodes": [
     1,
     2,
@@ -2247,34 +2283,39 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "memory-familles",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_signal"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un signal (lumineux, sonore, électrique) transmet une information d’un émetteur à un récepteur ; la lumière va beaucoup plus vite que le son.",
+   "contenus": "signaux lumineux, sonores, électriques ; code Morse ; détecteurs ; vitesse de la lumière et du son"
   },
   {
    "id": "CM2.SC.VIVANT.CLASSER",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "Le vivant, sa diversité et son fonctionnement",
-   "titre": "Classer le vivant (groupes emboîtés selon attributs)",
+   "titre": "Classer les êtres vivants",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « Le vivant, sa diversité et les fonctions qui le caractérisent »",
    "periodes": [
     1,
     2,
@@ -2283,34 +2324,40 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_vivant_classer"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "On classe les êtres vivants selon les caractères qu’ils possèdent (squelette, poils, plumes, écailles, nombre de pattes), en groupes emboîtés.",
+   "contenus": "vertébrés / invertébrés ; mammifères, oiseaux, poissons, reptiles, amphibiens ; insectes, arachnides ; groupes emboîtés"
   },
   {
    "id": "CM2.SC.VIVANT.CORPS",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "Le vivant, sa diversité et son fonctionnement",
-   "titre": "Corps humain : digestion, respiration, circulation, mouvement, alimentation, puberté (traitement sobre et scientifique, réglage parent)",
+   "titre": "Le corps humain : digestion, respiration, circulation, mouvement, alimentation",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « Le vivant, sa diversité et les fonctions qui le caractérisent »",
    "periodes": [
     1,
     2,
@@ -2319,34 +2366,42 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "puzzle-phrases",
+    "dobble-mots",
+    "memory-familles",
+    "machine-temps",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_vivant_corps"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Les aliments sont digérés, le dioxygène est respiré, le cœur fait circuler le sang dans tout le corps, et les muscles font bouger les os.",
+   "contenus": "digestion, respiration, circulation, mouvement (os, muscles, articulations), alimentation équilibrée ; puberté traitée sobrement (2 items marqués meta.puberte, masquables par un futur réglage parent)"
   },
   {
    "id": "CM2.SC.VIVANT.ECOSYS",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "Le vivant, sa diversité et son fonctionnement",
-   "titre": "Chaînes et réseaux alimentaires, décomposeurs, biodiversité",
+   "titre": "Chaînes alimentaires et biodiversité",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « Le vivant, sa diversité et les fonctions qui le caractérisent »",
    "periodes": [
     1,
     2,
@@ -2355,34 +2410,42 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "puzzle-phrases",
+    "dobble-mots",
+    "memory-familles",
+    "machine-temps",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_vivant_ecosys"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Une chaîne alimentaire commence toujours par un végétal ; la flèche veut dire « est mangé par » ; les décomposeurs recyclent la matière morte.",
+   "contenus": "producteurs, consommateurs, décomposeurs ; chaînes et réseaux alimentaires ; régimes alimentaires ; biodiversité"
   },
   {
    "id": "CM2.SC.TERRE",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "La planète Terre",
-   "titre": "Système solaire, rotation/révolution, jour/nuit, saisons, phénomènes géologiques, risques",
+   "titre": "La Terre dans le système solaire",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « La planète Terre. Les êtres vivants dans leur environnement »",
    "periodes": [
     1,
     2,
@@ -2391,34 +2454,41 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "puzzle-phrases",
+    "memory-familles",
+    "machine-temps",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_terre"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "La Terre tourne sur elle-même en 24 heures (jour et nuit) et autour du Soleil en un an ; son axe penché explique les saisons.",
+   "contenus": "système solaire, rotation et révolution, jour et nuit, saisons, phases de la Lune, séismes, volcans, risques"
   },
   {
    "id": "CM2.SC.TECHNO",
    "classe": "CM2",
    "matiere": "sciences",
    "domaine": "Matériaux et objets techniques",
-   "titre": "Objets techniques, fonctions, matériaux, programmation simple",
+   "titre": "Objets techniques, matériaux et programmation",
    "programme": "2020",
-   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie",
+   "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Sciences et technologie — « Matériaux et objets techniques »",
    "periodes": [
     1,
     2,
@@ -2427,26 +2497,32 @@
     5
    ],
    "niveaux": {
-    "facile": "notions essentielles, 2 choix",
-    "normal": "notions du programme",
-    "plus_loin": "expliquer, relier les notions"
+    "facile": "notions essentielles, 2 choix, classements simples",
+    "normal": "notions du programme, 4 choix, étapes et chaînes",
+    "plus_loin": "expliquer, relier les notions, calculs simples"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "ordering",
-    "mcq"
+    "pairing",
+    "true_false"
    ],
    "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "machine-temps",
+    "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "qui-suis-je"
+    "attrape-bulles"
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_sc_techno"
+    "generator": "monde-cm2/sciences"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "Robot codeur"
+   "rappel": "Un objet technique répond à un besoin ; on choisit ses matériaux selon leurs propriétés, et un programme est une suite d’instructions dans un ordre précis.",
+   "contenus": "fonction d’usage, familles de matériaux, conducteurs et isolants, évolution des objets, conception, algorithmes simples"
   },
   {
    "id": "CM2.MA.NUM.GRANDS",
@@ -4174,6 +4250,651 @@
    },
    "rappel": "Je compte toutes les issues possibles, puis celles qui conviennent : un dé a 3 faces paires sur 6, donc j’ai 3 chances sur 6 d’obtenir un nombre pair.",
    "contenus": "Vocabulaire impossible / possible / certain / probable / peu probable / une chance sur deux ; issues d’une expérience (dé, pièce, sac de billes, roue, cartes) ; « a chances sur b » quand les issues ont toutes la même chance ; comparer des probabilités ; indépendance (le dé ne se souvient pas) ; deux issues ne veulent pas dire une chance sur deux ; expériences en deux étapes avec un tableau ou un arbre. Pour aller plus loin : écriture en fraction (6e), deux dés, trois pièces."
+  },
+  {
+   "id": "CM2.EMC.VALEURS",
+   "classe": "CM2",
+   "matiere": "emc",
+   "domaine": "Acquérir et partager les valeurs de la République",
+   "titre": "Les valeurs et les symboles de la République",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, symboles, 2 choix",
+    "normal": "valeurs, institutions et droits attendus au CM2, 4 choix",
+    "plus_loin": "justifier, textes de référence, nuances"
+   },
+   "itemKinds": [
+    "mcq",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "memory-familles",
+    "guillotine",
+    "qui-suis-je",
+    "conseil-classe",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/emc"
+   },
+   "rappel": "La République a une devise (Liberté, Égalité, Fraternité), un drapeau, un hymne, une fête nationale et un symbole, Marianne ; la laïcité permet à chacun de croire ou de ne pas croire.",
+   "contenus": "devise, Marianne, drapeau, Marseillaise, 14 Juillet, laïcité, charte de la laïcité"
+  },
+  {
+   "id": "CM2.EMC.INSTITUTIONS",
+   "classe": "CM2",
+   "matiere": "emc",
+   "domaine": "Construire une culture civique",
+   "titre": "Qui décide ? Le maire, le président, le Parlement",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, symboles, 2 choix",
+    "normal": "valeurs, institutions et droits attendus au CM2, 4 choix",
+    "plus_loin": "justifier, textes de référence, nuances"
+   },
+   "itemKinds": [
+    "mcq",
+    "ordering",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "memory-familles",
+    "guillotine",
+    "qui-suis-je",
+    "conseil-classe",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/emc"
+   },
+   "rappel": "Le maire et le conseil municipal dirigent la commune ; le président de la République est élu pour 5 ans ; le Parlement (députés et sénateurs) vote les lois.",
+   "contenus": "commune, maire, conseil municipal, président de la République, Parlement (Assemblée nationale, Sénat), élections, vote"
+  },
+  {
+   "id": "CM2.EMC.DROITS",
+   "classe": "CM2",
+   "matiere": "emc",
+   "domaine": "Respecter autrui",
+   "titre": "Les droits de l’enfant et l’égalité filles-garçons",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, symboles, 2 choix",
+    "normal": "valeurs, institutions et droits attendus au CM2, 4 choix",
+    "plus_loin": "justifier, textes de référence, nuances"
+   },
+   "itemKinds": [
+    "mcq",
+    "ordering",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "memory-familles",
+    "guillotine",
+    "qui-suis-je",
+    "conseil-classe",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/emc"
+   },
+   "rappel": "Depuis 1989, la Convention internationale des droits de l’enfant protège tous les enfants du monde ; les filles et les garçons ont les mêmes droits.",
+   "contenus": "Convention internationale des droits de l’enfant (20 novembre 1989), droits et devoirs, égalité filles-garçons, le 119"
+  },
+  {
+   "id": "CM2.EMC.HARCELEMENT",
+   "classe": "CM2",
+   "matiere": "emc",
+   "domaine": "Respecter autrui",
+   "titre": "Dire non au harcèlement et au cyberharcèlement",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, symboles, 2 choix",
+    "normal": "valeurs, institutions et droits attendus au CM2, 4 choix",
+    "plus_loin": "justifier, textes de référence, nuances"
+   },
+   "itemKinds": [
+    "mcq",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "memory-familles",
+    "qui-suis-je",
+    "conseil-classe",
+    "vrai-faux"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/emc"
+   },
+   "rappel": "Des moqueries ou des violences répétées, c’est du harcèlement : on ne garde pas le secret, on en parle à un adulte de confiance ou on appelle le 3018.",
+   "contenus": "harcèlement, cyberharcèlement, victime, témoin, adulte de confiance, 3018"
+  },
+  {
+   "id": "CM2.EMC.NUMERIQUE",
+   "classe": "CM2",
+   "matiere": "emc",
+   "domaine": "Construire l’esprit critique",
+   "titre": "Internet : se protéger et vérifier les informations",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, symboles, 2 choix",
+    "normal": "valeurs, institutions et droits attendus au CM2, 4 choix",
+    "plus_loin": "justifier, textes de référence, nuances"
+   },
+   "itemKinds": [
+    "mcq",
+    "ordering",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "memory-familles",
+    "guillotine",
+    "qui-suis-je",
+    "conseil-classe",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/emc"
+   },
+   "rappel": "Sur Internet, je garde mes informations personnelles et mon mot de passe secrets, je demande l’accord avant de publier une photo et je vérifie la source d’une information.",
+   "contenus": "mot de passe, données personnelles, droit à l’image, inconnus en ligne, arnaques, fausses informations, sources"
+  },
+  {
+   "id": "CM2.EMC.ENGAGEMENT",
+   "classe": "CM2",
+   "matiere": "emc",
+   "domaine": "S’engager",
+   "titre": "S’engager : délégués, solidarité, planète",
+   "programme": "en_vigueur",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "situations simples, symboles, 2 choix",
+    "normal": "valeurs, institutions et droits attendus au CM2, 4 choix",
+    "plus_loin": "justifier, textes de référence, nuances"
+   },
+   "itemKinds": [
+    "mcq",
+    "ordering",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "memory-familles",
+    "guillotine",
+    "qui-suis-je",
+    "conseil-classe",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/emc"
+   },
+   "rappel": "On s’engage en votant pour des délégués, en aidant les autres et en protégeant la planète ; on respecte le résultat d’un vote.",
+   "contenus": "élection des délégués, vote secret, éco-délégués, bénévolat, solidarité, écogestes"
+  },
+  {
+   "id": "CM2.EN.PRESENTER",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "Parler de soi",
+   "titre": "Se présenter : nom, âge, famille, goûts",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "Pour me présenter : « Hello! My name is… I’m ten. I live in… I like… »",
+   "contenus": "Hello, My name is, I’m ten, I live in, I’ve got a brother, I like / I don’t like, family"
+  },
+  {
+   "id": "CM2.EN.DESCRIBE",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "Décrire",
+   "titre": "Décrire une personne : corps, vêtements, émotions",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "En anglais, l’adjectif se place avant le nom : « a blue T-shirt », « She’s got long hair ».",
+   "contenus": "body, clothes, colours, feelings, tall / short, he’s got / she’s got"
+  },
+  {
+   "id": "CM2.EN.TIME_DATES",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "Le temps et les dates",
+   "titre": "L’heure, les jours, les mois, les saisons et la météo",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "It’s three o’clock = il est trois heures ; half past three = trois heures et demie ; en anglais, les jours et les mois prennent une majuscule : Monday, July.",
+   "contenus": "days of the week, months, seasons, o’clock / half past, the date, weather"
+  },
+  {
+   "id": "CM2.EN.NUMBERS",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "Les nombres",
+   "titre": "Les nombres en anglais jusqu’à 100",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "Attention : thirteen (13) / thirty (30), fourteen (14) / forty (40) ; on met un trait d’union : forty-seven.",
+   "contenus": "nombres de 0 à 100, -teen / -ty, calculs simples"
+  },
+  {
+   "id": "CM2.EN.ROUTINES",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "La vie quotidienne",
+   "titre": "Ma journée : les routines",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "ordering",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "Au présent simple, avec he, she ou it, le verbe prend un -s : I get up, he gets up.",
+   "contenus": "wake up, get dressed, have breakfast, go to school, do homework, go to bed ; présent simple"
+  },
+  {
+   "id": "CM2.EN.SCHOOL",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "L’école",
+   "titre": "L’école : objets, matières et consignes",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "En classe : « Stand up, sit down, open your book, raise your hand » ; my favourite subject is…",
+   "contenus": "school objects, school subjects, classroom language"
+  },
+  {
+   "id": "CM2.EN.FOOD",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "La nourriture",
+   "titre": "La nourriture et les repas",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "I’m hungry = j’ai faim ; I’m thirsty = j’ai soif ; Would you like…? sert à proposer poliment.",
+   "contenus": "food, drinks, meals, I like / I don’t like, Would you like…?, How much is it?"
+  },
+  {
+   "id": "CM2.EN.COUNTRIES",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "Le monde anglophone",
+   "titre": "Les pays et les nationalités",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "map_point",
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "tour-de-france",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "Le Royaume-Uni réunit l’Angleterre, l’Écosse, le pays de Galles et l’Irlande du Nord ; les nationalités prennent une majuscule : French, English.",
+   "contenus": "countries, nationalities, capitals, Where are you from?, I’m from…"
+  },
+  {
+   "id": "CM2.EN.CAN_HAVE_GOT",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "Capacités et possessions",
+   "titre": "I can… / I’ve got… : ce que je sais faire, ce que j’ai",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "« I can swim » = je sais nager ; « I’ve got a dog » = j’ai un chien ; he has got, she can.",
+   "contenus": "can / can’t, have got / has got, pets, actions"
+  },
+  {
+   "id": "CM2.EN.CULTURE",
+   "classe": "CM2",
+   "matiere": "anglais",
+   "domaine": "Culture",
+   "titre": "Les fêtes et la culture des pays anglophones",
+   "programme": "en_vigueur",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "mots isolés avec images, 2 choix, phrases modèles",
+    "normal": "phrases courtes à comprendre et à dire (A1)",
+    "plus_loin": "structures (has got, can, -s du présent), réponses complètes (A1+)"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "pairing",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "dobble-mots",
+    "memory-familles",
+    "jacques-a-dit",
+    "vrai-faux",
+    "attrape-bulles"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "monde-cm2/anglais"
+   },
+   "rappel": "Halloween (31 octobre), Bonfire Night (5 novembre), Thanksgiving, Christmas, St Patrick’s Day (17 mars) : chaque fête a ses traditions.",
+   "contenus": "Halloween, Bonfire Night (Guy Fawkes), Thanksgiving, Christmas, Easter, St Patrick’s Day, Pancake Day ; symboles de Londres"
   }
  ]
 }
