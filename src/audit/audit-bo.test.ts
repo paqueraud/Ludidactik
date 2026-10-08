@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Audit de conformité BO (/verifier-bo).
  * - Toujours : contrôles rapides des métadonnées du curriculum (boRef, niveaux, rappel, titres).
  * - Avec `AUDIT_BO=1` (et `AUDIT_OUT=<dossier>`) : audit complet de chaque leçon (items à chaque niveau,
@@ -117,6 +117,7 @@ describe.runIf(COMPLET)('Audit BO — rapport complet', () => {
                 jeux: a.niveaux[lv].jeux.length,
                 erreurs: a.niveaux[lv].erreurs,
                 bornes: a.niveaux[lv].bornes,
+                distracteurs: a.niveaux[lv].distracteurs,
               },
             ]),
           ),

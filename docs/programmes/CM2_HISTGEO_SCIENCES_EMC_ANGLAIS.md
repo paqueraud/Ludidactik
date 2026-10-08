@@ -21,10 +21,10 @@ Facile = QCM 2 choix + images ; Normal = 4 choix + dates repères BO ; Plus loin
 |---|---|---|
 | CM2.HI26.T1 | De la République à l'Empire (1792-1815) — P1 | mars 1792 pétition des femmes (Pauline Léon) ; avril 1792 Marseillaise ; sept. 1792 République ; 1794 1re abolition de l'esclavage ; 1802 rétablissement ; 2 déc. 1804 sacre de Napoléon Ier ; Code civil, lycées, préfets |
 | CM2.HI26.T2 | Vers une France républicaine : IIe (1848-1852) et IIIe République (1870-1914) — P2 | 1848 suffrage universel masculin + abolition définitive ; 1882-1886 lois Ferry ; 9 déc. 1905 séparation des Églises et de l'État ; symboles ; empire colonial |
-| CM2.HI26.T3 | L'âge industriel en France au XIXe s. — P2 | locomotive (Stephenson), vaccin contre la rage (Pasteur, 1885), droit de grève (1864), liberté syndicale (1884) ; ouvriers, bourgeois, urbanisation |
-| CM2.HI26.T4 | La France dans la Première Guerre mondiale — P3 | 1914-1918, front nord et est, poilus, guerre de mouvement/position, armistice 11/11/1918, ~10 M de morts dont ~1,4 M de Français |
-| CM2.HI26.T5 | La France pendant la Seconde Guerre mondiale — P4 | 18 juin 1940, Vichy (Pétain), collaboration, Résistance (de Gaulle, Jean Moulin), rafle du Vel d'Hiv 1942, 6 juin 1944, 8 mai 1945, génocide des Juifs |
-| CM2.HI26.T6 | La France depuis 1945 — P5 | 1944 droit de vote des femmes, Sécurité sociale, 1957 traité de Rome, 1958 Ve République, 1965 droits des femmes (travail, compte bancaire), 2002 (euro fiduciaire ; BO : « 2000 : l'euro remplace le franc » — vérifier formulation PDF) |
+| CM2.HI26.T3 | L'âge industriel en France au XIXe s. — P2 | repères BO datés par période : début du XIXe s. locomotive (Stephenson) ; seconde moitié du XIXe s. droit de grève et liberté syndicale ; fin du XIXe s. vaccin contre la rage (Pasteur). Années précises (1825, 1864, 1884, 1885) exigées seulement en Plus loin ; ouvriers, bourgeois, urbanisation |
+| CM2.HI26.T4 | La France dans la Première Guerre mondiale — P3 | 1914-1918, front nord et est, poilus, guerre de mouvement/position, armistice 11/11/1918, ~10 M de morts dont ~1,4 M de Français ; une grande bataille en France (Verdun) ; rôle des femmes |
+| CM2.HI26.T5 | La France pendant la Seconde Guerre mondiale — P4 | 18 juin 1940, Vichy (Pétain), collaboration, Résistance (de Gaulle, Jean Moulin), rafle du Vel d'Hiv 1942, 6 juin 1944, 8 mai 1945, génocide des Juifs ; drôle de guerre ; bilan : 60 à 70 M de morts dont 6 M de Juifs ; persécution des Tsiganes ; Justes parmi les Nations |
+| CM2.HI26.T6 | La France depuis 1945 — P5 | 1944 droit de vote des femmes, Sécurité sociale, 1957 traité de Rome, 1958 Ve République, 1965 droits des femmes (travail, compte bancaire), 1957 traité de Rome créant la CEE, 1958 Ve République avec le général de Gaulle ; **repère BO : « 2000 : l'euro remplace le franc »** (citation exacte BO n°22-2026, p. 8) — exactitude historique : monnaie scripturale en 1999, pièces et billets le 1er janvier 2002 (dit dans les explications) |
 
 ## C. Géographie
 ### Programme 2020 (en vigueur) 
@@ -39,8 +39,8 @@ Facile = QCM 2 choix + images ; Normal = 4 choix + dates repères BO ; Plus loin
 | Id | Leçon | Contenus |
 |---|---|---|
 | CM2.GE26.T1 | Organisation du territoire français | 5 grandes agglomérations, axes autoroutiers/LGV, 18 régions & capitales, département de l'élève (réglage parent : département) ; commune, département, région |
-| CM2.GE26.T2 | Usages de l'eau douce en France | fleuves (Garonne, Loire, Maroni, Rhin, Rhône, Seine), massifs (Alpes, Corse, Jura, Massif central, Pyrénées, Vosges), 2 grands lacs ; conflits d'usages, nappe phréatique |
-| CM2.GE26.T3 | L'Union européenne | Europe (continent) ≠ UE ; 10 pays membres dont 6 fondateurs ; 1957 Rome, 1992 Maastricht |
+| CM2.GE26.T2 | Usages de l'eau douce en France | fleuves (Garonne, Loire, Maroni, Rhin, Rhône, Seine), massifs (Alpes, Corse, Jura, Massif central, Pyrénées, Vosges), 2 grands lacs dont un lac naturel ; conflits d'usages, nappe phréatique |
+| CM2.GE26.T3 | L'Union européenne | Europe (continent) ≠ UE (27 membres) ; localiser et nommer **10 pays membres, dont les 6 fondateurs** ; 1957 Rome, 1992 Maastricht ; un aménagement réalisé avec le soutien de l'UE dans la région de l'école |
 
 ## D. Sciences et technologie — programme 2020 (cycle 3, en vigueur ; nouveau programme au CM2 en 2027)
 | Id | Leçon | Contenus |
@@ -55,8 +55,8 @@ Facile = QCM 2 choix + images ; Normal = 4 choix + dates repères BO ; Plus loin
 | CM2.SC.TERRE | Système solaire, rotation/révolution, jour/nuit, saisons, phénomènes géologiques, risques | — |
 | CM2.SC.TECHNO | Objets techniques, fonctions, matériaux, programmation simple | Robot codeur |
 
-## E. EMC (vérifier version en vigueur)
+## E. EMC (programme 2018 consolidé en 2020 ; version en vigueur à faire confirmer : voir AUDIT_BO_2026-10-08.md)
 Valeurs et symboles de la République (devise, Marianne, hymne, drapeau, 14 juillet, laïcité), institutions simples (maire, conseil municipal, président, Parlement — niveau CM), droits de l'enfant (CIDE 1989), égalité filles-garçons, lutte contre le harcèlement et le cyberharcèlement, sécurité numérique et esprit critique (vraie/fausse info), engagement (élections de délégués, développement durable). Jeux : Conseil de la classe, Vrai/Faux, Memory des symboles, Qui suis-je.
 
-## F. Anglais (CM2 — attendus de fin d'année Éduscol + programme LVER 2026 à vérifier)
+## F. Anglais (CM2 — attendus de fin d'année ; programme LVER BO n°12-2026 : niveau A1 consolidé en fin de CM2, date d'application à faire confirmer)
 Se présenter (âge, famille, goûts), décrire (physique, vêtements), heure, dates, nombres jusqu'à 100, routines quotidiennes, matières scolaires, nourriture, pays & nationalités, animaux, météo, can/can't, have got, there is/are, présent simple (3e pers. -s), questions (What/Where/When/Who/How much), culture (fêtes : Halloween, Thanksgiving, Guy Fawkes, St Patrick).

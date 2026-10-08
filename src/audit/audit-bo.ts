@@ -86,20 +86,27 @@ export function describeItem(it: Item): string {
 }
 
 /** Tous les textes d'un item (pour les contrôles de bornes). */
-function texts(it: Item): string[] {
+function texts(it: Item, part: 'coeur' | 'distracteurs'): string[] {
   const out: string[] = [];
+  const coeur = part === 'coeur';
   const add = (...s: (string | number | undefined)[]) => {
-    for (const x of s) if (x !== undefined) out.push(String(x));
+    if (coeur) for (const x of s) if (x !== undefined) out.push(String(x));
+  };
+  /** Distracteurs : choix faux (QCM, phrase à trou) et vrai/faux faux (l'affirmation montre un distracteur). */
+  const addD = (...s: string[]) => {
+    if (!coeur) out.push(...s);
   };
   switch (it.kind) {
     case 'numeric_answer':
       add(it.prompt, it.answer);
       break;
     case 'mcq':
-      add(it.question, ...it.choices);
+      add(it.question, it.choices[it.answerIndex]);
+      addD(...it.choices.filter((_, i) => i !== it.answerIndex));
       break;
     case 'true_false':
-      add(it.statement);
+      if (it.answer) add(it.statement);
+      else addD(it.statement);
       break;
     case 'ordering':
       add(it.prompt, ...it.elements);
@@ -111,7 +118,8 @@ function texts(it: Item): string[] {
       add(it.prompt, ...it.pairs.flatMap((p) => [p.left, p.right]));
       break;
     case 'fill_blank':
-      add(it.sentence, it.answer, ...(it.choices ?? []));
+      add(it.sentence, it.answer);
+      addD(...(it.choices ?? []).filter((c) => c !== it.answer));
       break;
     case 'number_line':
       add(it.prompt, it.display, it.max);
@@ -126,7 +134,9 @@ function texts(it: Item): string[] {
       add(it.prompt, it.answer);
       break;
     case 'geometry_shape':
-      add(it.prompt, it.answer, ...(it.choices ?? []));
+      // symétrie / tracé : la réponse est une liste de coordonnées de cases (« 4,3;5,3 »), pas un nombre
+      add(it.prompt, ...(it.grid ? [] : [it.answer]));
+      addD(...(it.choices ?? []).filter((c) => c !== it.answer));
       break;
     default:
       break;
@@ -145,10 +155,15 @@ function nombres(s: string): { valeur: number; decimales: number }[] {
 }
 
 /** Écarts aux bornes BO de la classe (maths uniquement). */
-export function horsBornes(lesson: Lesson, level: Level, it: Item): string[] {
+export function horsBornes(
+  lesson: Lesson,
+  level: Level,
+  it: Item,
+  part: 'coeur' | 'distracteurs' = 'coeur',
+): string[] {
   if (lesson.matiere !== 'maths' || level === 'plus_loin') return [];
   const out: string[] = [];
-  const all = texts(it);
+  const all = texts(it, part);
   const denoms: number[] = [];
   for (const s of all) for (const m of s.matchAll(/(\d+)\s*\/\s*(\d+)/g)) denoms.push(Number(m[2]));
   if (it.kind === 'visual_fraction') denoms.push(it.denominator);
@@ -156,7 +171,8 @@ export function horsBornes(lesson: Lesson, level: Level, it: Item): string[] {
     for (const s of all)
       for (const n of nombres(s)) {
         if (n.valeur > 1000) out.push(`entier > 1 000 (${n.valeur})`);
-        if (n.decimales > 0 && !/€/.test(s)) out.push(`nombre à virgule hors monnaie (${s.slice(0, 40)})`);
+        if (n.decimales > 0 && !/€/.test(s) && !texts(it, 'coeur').some((t) => /€/.test(t)))
+          out.push(`nombre à virgule hors monnaie (${s.slice(0, 40)})`);
       }
     for (const d of denoms)
       if (![2, 3, 4, 5, 6, 8, 10].includes(d)) out.push(`dénominateur ${d} hors liste CE1`);
@@ -175,6 +191,8 @@ export interface LevelStat {
   items: number;
   erreurs: string[];
   bornes: string[];
+  /** Distracteurs hors bornes (souvent produits par les adaptateurs : erreur « × 10 », dénominateurs ajoutés). */
+  distracteurs: string[];
   /** Clés d'items tirés (comparaison des niveaux). */
   cles: Set<string>;
   /** Jeux jouables (contenu suffisant) à ce niveau. */
@@ -246,7 +264,14 @@ export function auditLesson(lesson: Lesson): LessonAudit {
   const niveaux = {} as Record<Level, LevelStat>;
   for (const level of LEVELS) {
     const { out, erreurs } = sampleLesson(lesson, level);
-    const st: LevelStat = { items: out.length, erreurs: [...erreurs], bornes: [], cles: new Set(), jeux: [] };
+    const st: LevelStat = {
+      items: out.length,
+      erreurs: [...erreurs],
+      bornes: [],
+      distracteurs: [],
+      cles: new Set(),
+      jeux: [],
+    };
     for (const { kind, item } of out) {
       const errs = checkItem(item);
       if (errs.length) st.erreurs.push(`${kind} ${item.id} : ${errs.join(' ; ')}`);
@@ -254,8 +279,11 @@ export function auditLesson(lesson: Lesson): LessonAudit {
       if (/^TODO/.test(item.explication)) st.erreurs.push(`${kind} ${item.id} : explication TODO`);
       for (const b of horsBornes(lesson, level, item))
         st.bornes.push(`${kind} : ${b} — ${describeItem(item).slice(0, 120)}`);
+      for (const b of horsBornes(lesson, level, item, 'distracteurs'))
+        st.distracteurs.push(`${kind}${item.id.includes('~') ? ' (dérivé)' : ''} : ${b}`);
       st.cles.add(`${kind}|${describeItem(item)}`);
     }
+    st.distracteurs = [...new Set(st.distracteurs)].slice(0, 4);
     st.erreurs = [...new Set(st.erreurs)].slice(0, 8);
     st.bornes = [...new Set(st.bornes)].slice(0, 6);
     niveaux[level] = st;
@@ -296,8 +324,11 @@ export function auditLesson(lesson: Lesson): LessonAudit {
         );
     }
   }
-  for (const level of ['facile', 'normal'] as const)
+  for (const level of ['facile', 'normal'] as const) {
     if (niveaux[level].bornes.length) problemes.push(`bornes BO dépassées au niveau ${level}`);
+    if (niveaux[level].distracteurs.length)
+      avertissements.push(`distracteurs hors bornes (${level}) : ${niveaux[level].distracteurs.join(', ')}`);
+  }
 
   const a = niveaux.facile.cles;
   const b = niveaux.plus_loin.cles;
