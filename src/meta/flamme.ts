@@ -2,7 +2,8 @@
  * Flamme de série (GAMIFICATION §4) : nombre de jours où l'enfant a réussi au moins un défi.
  * Pas de culpabilisation : chaque semaine (du lundi au dimanche), 2 jours sans défi sont
  * automatiquement « gelés » (la flamme les traverse sans s'éteindre). Aujourd'hui ne compte comme
- * manqué qu'une fois la journée finie.
+ * manqué qu'une fois la journée finie. Pendant les vacances scolaires (`estVacances`), la flamme est
+ * gelée : les jours sans défi sont traversés sans consommer les gels de la semaine.
  */
 import { addDays, lundiDe } from './dates';
 
@@ -17,14 +18,23 @@ export interface Flamme {
   gels: string[];
   /** Gels encore disponibles cette semaine. */
   gelsRestants: number;
+  /** Jours de vacances traversés sans défi dans la série en cours (inclus aussi dans `gels`). */
+  vacances: string[];
+  /** Aujourd'hui est un jour de vacances : la flamme se repose. */
+  enVacances: boolean;
 }
 
-export function calculerFlamme(joursActifs: Iterable<string>, today: string): Flamme {
+export function calculerFlamme(
+  joursActifs: Iterable<string>,
+  today: string,
+  estVacances: (day: string) => boolean = () => false,
+): Flamme {
   const actifs = new Set(joursActifs);
   const aujourdhui = actifs.has(today);
   const premier = [...actifs].sort()[0];
   const gelsParSemaine = new Map<string, number>();
   const gels: string[] = [];
+  const vacances = new Set<string>();
   let jours = aujourdhui ? 1 : 0;
   let plusAncien = aujourdhui ? today : null;
   if (premier !== undefined) {
@@ -32,6 +42,11 @@ export function calculerFlamme(joursActifs: Iterable<string>, today: string): Fl
       if (actifs.has(day)) {
         jours++;
         plusAncien = day;
+        continue;
+      }
+      if (estVacances(day)) {
+        vacances.add(day);
+        gels.push(day);
         continue;
       }
       const semaine = lundiDe(day);
@@ -43,11 +58,13 @@ export function calculerFlamme(joursActifs: Iterable<string>, today: string): Fl
   }
   // Les gels plus anciens que le premier jour de la série n'en font pas partie.
   const gelsSerie = plusAncien === null ? [] : gels.filter((d) => d > plusAncien!);
-  const gelsCetteSemaine = gelsSerie.filter((d) => lundiDe(d) === lundiDe(today)).length;
+  const gelsCetteSemaine = gelsSerie.filter((d) => lundiDe(d) === lundiDe(today) && !vacances.has(d)).length;
   return {
     jours,
     aujourdhui,
     gels: gelsSerie,
     gelsRestants: Math.max(0, GELS_PAR_SEMAINE - gelsCetteSemaine),
+    vacances: gelsSerie.filter((d) => vacances.has(d)),
+    enVacances: estVacances(today),
   };
 }

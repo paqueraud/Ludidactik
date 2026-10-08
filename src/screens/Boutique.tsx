@@ -10,6 +10,7 @@ import { Avatar } from '@/avatar/Avatar';
 import { type AvatarConfig, BOUTIQUE, COFFRE, COMPAGNONS, LIBELLES, avecObjet } from '@/avatar/parts';
 import { Screen } from '@/components/Layout';
 import { Button, LudiCoin, SpeakButton } from '@/components/ui';
+import { BoutiqueRobes } from '@/meta/BoutiqueRobes';
 import { acheter, useInventaire } from '@/services/meta';
 import { updateProfile } from '@/services/profiles';
 import { sfx } from '@/services/sfx';
@@ -169,6 +170,11 @@ function BoutiqueInner({ profile }: { profile: Profile }) {
               <Carte key={id} id={id} prix={prix} />
             ))}
           </ul>
+          <h2 className="mb-2 flex items-center gap-2 text-2xl">
+            <span aria-hidden>🐴</span> L’écurie : robes de ton cheval
+          </h2>
+          <p className="mb-2 text-ink-soft">Ton cheval du Grand Prix portera la robe que tu choisis.</p>
+          <BoutiqueRobes profile={profile} possedes={possedes} onMessage={setMessage} />
           <h2 className="mb-2 flex items-center gap-2 text-2xl">
             <Sparkles aria-hidden /> Trésors du coffre
           </h2>

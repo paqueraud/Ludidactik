@@ -25,6 +25,8 @@ export interface Profile {
   enCours: string[];
   /** Limite de temps de jeu quotidienne en minutes (null = illimité ; absent = 30 min par défaut). */
   limiteMinutes?: number | null;
+  /** Robe du cheval portée au Grand Prix (id de `src/meta/robes.ts` ; absente = robe de base). */
+  robe?: string;
   creeLe: number;
   derniereConnexion: number;
 }

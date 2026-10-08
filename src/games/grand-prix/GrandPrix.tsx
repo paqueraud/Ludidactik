@@ -14,6 +14,7 @@ import { itemKey } from '@/content/provider';
 import type { Level, NumericItem } from '@/content/schemas';
 import { checkNumeric, formatNumber } from '@/engine/answer';
 import type { GameProps } from '@/engine/GameModule';
+import { type MotifRobe, robeParId } from '@/meta/robes';
 import { vibrate } from '@/services/sfx';
 import { type Gait, Horse } from './Horse';
 
@@ -33,7 +34,10 @@ interface Runner {
   robe: string;
   criniere: string;
   tapis: string;
+  motif?: MotifRobe;
+  motifCouleur?: string;
 }
+type Monture = Omit<Runner, 'id' | 'nom'>;
 const BOT_RUNNERS: Runner[] = [
   { id: 'tonnerre', nom: 'Tonnerre', robe: '#5D4037', criniere: '#2B1D14', tapis: '#4FC3F7' },
   { id: 'comete', nom: 'Comète', robe: '#ECEFF1', criniere: '#B0BEC5', tapis: '#8E7CFF' },
@@ -225,7 +229,7 @@ export default function GrandPrix({
             key: 'ghost',
             nom: 'Ton record',
             p: ghostProgress(ghost, t, N),
-            runner: { robe: '#B0BEC5', criniere: '#90A4AE', tapis: '#fff' },
+            runner: { robe: '#B0BEC5', criniere: '#90A4AE', tapis: '#fff' } as Monture,
             ghost: true,
           },
         ]
@@ -241,7 +245,7 @@ export default function GrandPrix({
       key: 'moi',
       nom: profile.prenom,
       p: correct / N,
-      runner: { robe: '#C68642', criniere: '#5A3825', tapis: profile.avatar.haut },
+      runner: { ...robeParId(profile.robe), tapis: profile.avatar.haut } as Monture,
       ghost: false,
       moi: true,
     },
@@ -310,6 +314,8 @@ export default function GrandPrix({
                     robe={lane.runner.robe}
                     criniere={lane.runner.criniere}
                     tapis={lane.runner.tapis}
+                    motif={lane.runner.motif}
+                    motifCouleur={lane.runner.motifCouleur}
                     ghost={lane.ghost}
                     gait={
                       'moi' in lane && lane.moi

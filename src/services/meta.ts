@@ -14,6 +14,8 @@ import { LECONS_TABLES, type StatsBadges, badgesObtenus } from '@/meta/badges';
 import { addDays, dayKey, estWeekEnd, hashSeed, periodeActuelle } from '@/meta/dates';
 import { LUDIS_BOSS, LUDIS_PAR_DEFI, type LeconCandidate, contenuCoffre, tirerDefis } from '@/meta/defis';
 import { calculerFlamme } from '@/meta/flamme';
+import { itemIdRobe, possedeRobe, prixRobe } from '@/meta/robes';
+import { estEnVacances } from '@/meta/vacances';
 import { SEUIL_GEMME } from '@/meta/ile';
 import { lessonSummary } from './profiles';
 import {
@@ -24,6 +26,7 @@ import {
   type ProgressRow,
   db as defaultDb,
 } from './storage/db';
+import { lireReglageVacances } from './vacances';
 import { listesDuProfil } from './wordLists';
 
 const JOUR_MS = 86_400_000;
@@ -304,10 +307,14 @@ export async function synchroniserGemmes(
 const jourActif = (r: DailyChallengeRow) => r.defis.some((d) => d.fait) || !!r.boss?.gagne;
 
 export async function flammeDe(profileId: string, today: string = dayKey(), db: LudidactikDB = defaultDb) {
-  const rows = await db.dailyChallenges.where('profileId').equals(profileId).toArray();
+  const [rows, vacances] = await Promise.all([
+    db.dailyChallenges.where('profileId').equals(profileId).toArray(),
+    lireReglageVacances(db),
+  ]);
   return calculerFlamme(
     rows.filter(jourActif).map((r) => r.day),
     today,
+    estEnVacances(vacances),
   );
 }
 
@@ -367,6 +374,7 @@ export async function statsBadges(profileId: string, db: LudidactikDB = defaultD
   const flamme = calculerFlamme(
     journees.filter(jourActif).map((r) => r.day),
     today,
+    estEnVacances(await lireReglageVacances(db)),
   ).jours;
   return {
     partiesParJeu,
@@ -417,7 +425,7 @@ export async function acheter(
   itemId: string,
   db: LudidactikDB = defaultDb,
 ): Promise<ResultatAchat> {
-  const prix = BOUTIQUE[itemId as keyof typeof BOUTIQUE];
+  const prix = BOUTIQUE[itemId as keyof typeof BOUTIQUE] ?? prixRobe(itemId);
   if (prix === undefined) return 'inconnu';
   let res = 'inconnu' as ResultatAchat;
   await db.transaction('rw', [db.profiles, db.inventory], async () => {
@@ -438,6 +446,31 @@ export async function acheter(
   });
   if (res === 'ok') await verifierBadges(profileId, db);
   return res;
+}
+
+/** Le cheval du Grand Prix porte cette robe (offerte ou déjà achetée). */
+export async function porterRobe(
+  profileId: string,
+  robeId: string,
+  db: LudidactikDB = defaultDb,
+): Promise<boolean> {
+  let ok = false;
+  await db.transaction('rw', [db.profiles, db.inventory], async () => {
+    const inventaire = (await db.inventory.where('profileId').equals(profileId).toArray()).map(
+      (i) => i.itemId,
+    );
+    if (!possedeRobe(robeId, inventaire) || !(await db.profiles.get(profileId))) return;
+    await db.profiles.update(profileId, { robe: robeId });
+    ok = true;
+  });
+  return ok;
+}
+
+/** Achète une robe de cheval puis la fait porter. */
+export async function acheterRobe(profileId: string, robeId: string, db: LudidactikDB = defaultDb) {
+  const r = await acheter(profileId, itemIdRobe(robeId), db);
+  if (r === 'ok') await porterRobe(profileId, robeId, db);
+  return r;
 }
 
 export function useInventaire(profileId: string | undefined): string[] | undefined {

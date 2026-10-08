@@ -17,6 +17,7 @@ import { OngletProfils } from './OngletProfils';
 import { OngletProgression } from './OngletProgression';
 import { OngletReglages } from './OngletReglages';
 import { OngletTemps } from './OngletTemps';
+import { OngletVacances } from './OngletVacances';
 import { AucunProfil } from './ui';
 
 const ONGLETS = [
@@ -25,6 +26,7 @@ const ONGLETS = [
   { id: 'temps', label: 'Temps d’écran', icone: '⏱️' },
   { id: 'progression', label: 'Progression', icone: '📈' },
   { id: 'reglages', label: 'Réglages', icone: '⚙️' },
+  { id: 'vacances', label: 'Vacances', icone: '🏖️' },
   { id: 'profils', label: 'Profils et sauvegarde', icone: '👨‍👩‍👧' },
 ] as const;
 type Onglet = (typeof ONGLETS)[number]['id'];
@@ -130,6 +132,8 @@ function ContenuParents() {
         <OngletProgression {...props} />
       ) : onglet === 'reglages' ? (
         <OngletReglages />
+      ) : onglet === 'vacances' ? (
+        <OngletVacances />
       ) : (
         <OngletProfils profiles={profiles} />
       )}

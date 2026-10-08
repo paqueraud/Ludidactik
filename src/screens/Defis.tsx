@@ -90,6 +90,11 @@ function DefisInner({ profile }: { profile: Profile }) {
               ? `Ta flamme : ${flamme.jours} jour${flamme.jours > 1 ? 's' : ''}`
               : 'Allume ta flamme !'}
           </h2>
+          {flamme?.enVacances && (
+            <p role="status" className="w-full rounded-2xl bg-sky/30 px-3 py-2 font-bold">
+              🏖️ C’est les vacances, ta flamme se repose ! Elle ne s’éteindra pas, même sans défi.
+            </p>
+          )}
           <span className="text-sm text-ink-soft">
             Un défi réussi par jour l’entretient. 2 jours de repos par semaine sont gelés : elle ne s’éteint
             pas.
@@ -100,7 +105,16 @@ function DefisInner({ profile }: { profile: Profile }) {
             const actif = !!actifs?.has(d);
             const gele = !!flamme?.gels.includes(d);
             const estAujourdhui = d === today;
-            const etat = actif ? 'défi réussi' : gele ? 'jour gelé' : d > today ? 'à venir' : 'pas de défi';
+            const vacances = !!flamme?.vacances.includes(d) || (d === today && !!flamme?.enVacances);
+            const etat = actif
+              ? 'défi réussi'
+              : vacances
+                ? 'vacances, flamme au repos'
+                : gele
+                  ? 'jour gelé'
+                  : d > today
+                    ? 'à venir'
+                    : 'pas de défi';
             return (
               <li
                 key={d}
