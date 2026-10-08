@@ -6,6 +6,7 @@
  */
 import type { Rng } from '@/engine/rng';
 import type { ParentWordList } from '@/services/storage/db';
+import { listeJouable, phrasesDictee } from './listes-parents';
 import { DERIVATIONS } from './adapters';
 import type { Item, McqItem, SpellingItem, TrueFalseItem } from './items';
 import { CONTENU_CHARGE as CONTENU, type GenContext } from './registry';
@@ -75,11 +76,26 @@ function spellingPool(
   });
 
   if (lesson.source.kind === 'parents') {
-    return ctx.parentLists.flatMap((l) =>
+    // Mots des listes ; texte de dictée découpé en phrases (Normal : mots + phrases ; Plus loin : phrases seules)
+    const mots = ctx.parentLists.flatMap((l) =>
       l.mots.map((m) =>
         make(m.mot, m.phrase, 'parents', { audioKey: m.audioKey, id: `parents:${l.id}:${m.mot}` }),
       ),
     );
+    const phrases =
+      level === 'facile' && mots.length
+        ? []
+        : ctx.parentLists.flatMap((l) =>
+            phrasesDictee(l.dictee).map((ph, i) =>
+              make(ph, undefined, 'parents', {
+                id: `parents:${l.id}:dictee:${i}`,
+                isSentence: true,
+                explication: 'Relis ta phrase : majuscule, accords, ponctuation.',
+              }),
+            ),
+          );
+    if (level === 'plus_loin' && phrases.length) return phrases;
+    return [...mots, ...phrases];
   }
 
   const lists = index.wordLists.filter((l) => l.lessonId === lesson.id);
@@ -207,7 +223,7 @@ function nativeKinds(index: ContentIndex, lesson: Lesson, ctx: ProviderContext):
   for (const k of Object.keys(mod?.pools ?? {})) kinds.add(k as ItemKind);
   if (
     lesson.source.kind === 'parents'
-      ? ctx.parentLists.some((l) => l.mots.length)
+      ? ctx.parentLists.some(listeJouable)
       : index.wordLists.some((l) => l.lessonId === lesson.id)
   )
     kinds.add('spelling_word');

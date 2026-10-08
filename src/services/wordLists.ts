@@ -3,14 +3,24 @@
  * Les listes deviennent des items `spelling_word` pour les leçons `*.FR.ORTH.LISTES_PARENTS`.
  */
 import type { Classe } from '@/content/schemas';
+import { listeJouable } from '@/content/listes-parents';
 import { type LudidactikDB, type ParentWordList, type Profile, db as defaultDb } from './storage/db';
 
 /** Identifiant de la leçon « Mes mots de la semaine » d'une classe. */
 export const lessonListesParents = (classe: Classe) => `${classe}.FR.ORTH.LISTES_PARENTS`;
 
-/** Listes visibles par un profil (vide = tous les profils). */
-export const listesDuProfil = (lists: ParentWordList[], profileId: string) =>
-  lists.filter((l) => l.mots.length > 0 && (l.profileIds.length === 0 || l.profileIds.includes(profileId)));
+/**
+ * Listes visibles par un profil :
+ * - liste destinée explicitement à cet enfant → toujours visible (quelle que soit sa classe) ;
+ * - liste « pour tous les enfants » → visible si sa classe est celle de l'enfant (ou si elle n'en a pas).
+ */
+export const listesDuProfil = (lists: ParentWordList[], profileId: string, classe?: string) =>
+  lists.filter(
+    (l) =>
+      listeJouable(l) &&
+      (l.profileIds.includes(profileId) ||
+        (l.profileIds.length === 0 && (!l.classe || !classe || l.classe === classe))),
+  );
 
 /** Date de dernière modification d'une liste. */
 export const dateListe = (l: ParentWordList) => l.modifieLe ?? l.creeLe;
@@ -51,3 +61,5 @@ export function destinataires(list: ParentWordList, profiles: Profile[]): string
     .filter((x): x is string => !!x);
   return noms.length ? noms.join(', ') : 'Aucun enfant';
 }
+
+export { listeJouable, motsAbsents, phrasesDictee } from '@/content/listes-parents';

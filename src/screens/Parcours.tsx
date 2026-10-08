@@ -39,10 +39,10 @@ function useProviderContext(profile: Profile): ProviderContext {
   const afficherPuberte = useSettings((s) => s.puberte);
   return useMemo(
     () => ({
-      parentLists: listesDuProfil(lists ?? [], profile.id),
+      parentLists: listesDuProfil(lists ?? [], profile.id, profile.classe),
       masquerPuberte: !afficherPuberte,
     }),
-    [lists, profile.id, afficherPuberte],
+    [lists, profile.id, profile.classe, afficherPuberte],
   );
 }
 

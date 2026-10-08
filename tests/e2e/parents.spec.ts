@@ -54,7 +54,14 @@ test.describe('espace parents', () => {
     await expect(page.getByRole('status')).toContainText('5 mots ajoutés');
     await expect(page.getByRole('status')).toContainText('doublon ignoré : maison');
     await expect(page.getByRole('heading', { name: '5 mots dans la liste' })).toBeVisible();
+    // classe de la dictée et texte complet
+    await page.getByRole('radio', { name: 'CE1', exact: true }).check();
+    await page.getByLabel('Dictée complète (facultatif)').fill('La maison est grande. Le chocolat est bon !');
+    await expect(page.getByText('2 phrases')).toBeVisible();
+    await expect(page.getByText(/absents du texte/)).toContainText('école, jardin, Paris');
     await page.getByRole('button', { name: 'Enregistrer la liste' }).click();
+    await expect(page.getByText('Dictée CE1')).toBeVisible();
+    await expect(page.locator('p', { hasText: 'Dictée complète :' })).toContainText('2 phrases');
     await expect(page.getByText('maison, chocolat, école, jardin, Paris')).toBeVisible();
 
     // 3. Un réglage : couper les sons (conservé après rechargement + déverrouillage)
@@ -102,12 +109,13 @@ test.describe('espace parents', () => {
     await expect(raccourci.getByText('Nouveaux mots !')).toBeVisible();
     await raccourci.getByRole('button', { name: "L'Ascension" }).click(); // 1
     await page.getByRole('button', { name: 'C’est parti !' }).click(); // 2
-    await expect(page.getByText(/Écris le mot que tu entends/)).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByText(/Écris (le mot|la phrase) que tu entends/)).toBeVisible({ timeout: 10_000 });
     // une réponse fausse révèle le mot attendu : il vient bien de la liste des parents
     await page.keyboard.type('zzz');
     await page.keyboard.press('Enter');
     const attendu = await page.locator('span.text-grass-dark.font-titre').first().textContent();
-    expect(LISTE).toContain(attendu?.trim());
+    // un mot de la liste ou une phrase de la dictée complète
+    expect([...LISTE, 'La maison est grande.', 'Le chocolat est bon !']).toContain(attendu?.trim());
 
     // la leçon apparaît aussi en tête de la liste des leçons de français
     await page.goto('/jouer/CE1/francais');

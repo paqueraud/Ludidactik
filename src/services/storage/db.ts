@@ -104,7 +104,15 @@ export interface ParentWordList {
   creeLe: number;
   /** Dernière modification (badge « Nouveaux mots ! » côté enfant). */
   modifieLe?: number;
+  /** Classe de la dictée (absente pour les anciennes listes : toutes classes). */
+  classe?: ClasseDictee;
+  /** Texte complet de la dictée (phrases contenant les mots), joué en « dictée de phrases ». */
+  dictee?: string;
 }
+
+/** Classes proposées pour une dictée de parent. */
+export const CLASSES_DICTEE = ['CE1', 'CE2', 'CM1', 'CM2'] as const;
+export type ClasseDictee = (typeof CLASSES_DICTEE)[number];
 
 /** Temps de jeu réel (parties) par profil et par jour (GAMIFICATION §8). */
 export interface ScreenTimeRow {

@@ -51,7 +51,7 @@ function niveauPropose(rows: ProgressRow[]): Level {
 
 async function providerContext(profile: Profile, opts: OptionsMeta, db: LudidactikDB) {
   const ctx: ProviderContext = {
-    parentLists: listesDuProfil(await db.wordLists.toArray(), profile.id),
+    parentLists: listesDuProfil(await db.wordLists.toArray(), profile.id, profile.classe),
     masquerPuberte: opts.masquerPuberte,
   };
   return ctx;

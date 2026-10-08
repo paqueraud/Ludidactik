@@ -24,7 +24,8 @@ import { addPlayTime, useLimitStatus } from '@/services/screenTime';
 import { musique } from '@/services/musique';
 import { sfx, vibrate } from '@/services/sfx';
 import { speech } from '@/services/speech';
-import { type ParentWordList, type RecordRow, db, progressKey } from '@/services/storage/db';
+import { type RecordRow, db, progressKey } from '@/services/storage/db';
+import { listesDuProfil } from '@/services/wordLists';
 import { useSettings } from '@/stores/settings';
 import { Adaptivity } from './adaptivity';
 import type { AnswerEvent, GameSummary } from './GameModule';
@@ -71,9 +72,7 @@ export function GameHost() {
     if (!profile || !lesson || !game) return;
     let cancelled = false;
     (async () => {
-      const lists = (await db.wordLists.toArray()).filter(
-        (l: ParentWordList) => l.profileIds.length === 0 || l.profileIds.includes(profile.id),
-      );
+      const lists = listesDuProfil(await db.wordLists.toArray(), profile.id, profile.classe);
       const aRevoir = await dueItems(profile.id);
       const rec = (await db.records.get(progressKey(profile.id, lesson.id, game.id, level))) ?? null;
       if (cancelled) return;

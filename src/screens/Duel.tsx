@@ -109,7 +109,7 @@ function useCtx(profile: Profile): ProviderContext {
   const lists = useLiveQuery(() => db.wordLists.toArray(), []);
   const puberte = useSettings((s) => s.puberte);
   return useMemo(
-    () => ({ parentLists: listesDuProfil(lists ?? [], profile.id), masquerPuberte: !puberte }),
+    () => ({ parentLists: listesDuProfil(lists ?? [], profile.id, profile.classe), masquerPuberte: !puberte }),
     [lists, profile.id, puberte],
   );
 }

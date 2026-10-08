@@ -5,9 +5,22 @@ import { useRef, useState } from 'react';
 import { Button } from '@/components/ui';
 import { useProfiles } from '@/services/profiles';
 import { speech } from '@/services/speech';
-import { type ParentWord, type ParentWordList, type Profile, db } from '@/services/storage/db';
+import {
+  CLASSES_DICTEE,
+  type ParentWord,
+  type ParentWordList,
+  type Profile,
+  db,
+} from '@/services/storage/db';
 import { dayKey } from '@/services/screenTime';
-import { deleteRecording, deleteWordList, destinataires, saveWordList } from '@/services/wordLists';
+import {
+  deleteRecording,
+  deleteWordList,
+  destinataires,
+  motsAbsents,
+  phrasesDictee,
+  saveWordList,
+} from '@/services/wordLists';
 import { Enregistreur, enregistrementPossible } from './Enregistreur';
 import { Section, champ } from './ui';
 import { cleMot, nettoyerMot, parseWordPaste } from './wordPaste';
@@ -26,8 +39,10 @@ function libelleSemaine(semaine?: string): string | null {
   return `Semaine du ${d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}`;
 }
 
-const nouvelleListe = (): ParentWordList => ({
+/** Nouvelle liste ; la classe proposée est celle du premier enfant (CE2/CM1 possibles). */
+const nouvelleListe = (profiles: Profile[]): ParentWordList => ({
   id: crypto.randomUUID(),
+  classe: profiles[0]?.classe === 'CM2' ? 'CM2' : 'CE1',
   titre: 'Mots de la semaine',
   semaine: lundi(),
   profileIds: [],
@@ -62,7 +77,11 @@ export function OngletMots() {
         </>
       }
       actions={
-        <Button variant="grass" icon={<Plus aria-hidden />} onClick={() => setEdition(nouvelleListe())}>
+        <Button
+          variant="grass"
+          icon={<Plus aria-hidden />}
+          onClick={() => setEdition(nouvelleListe(profiles))}
+        >
           Nouvelle liste
         </Button>
       }
@@ -73,7 +92,12 @@ export function OngletMots() {
       <ul className="grid gap-3 md:grid-cols-2">
         {listes?.map((l) => (
           <li key={l.id} className="flex flex-col gap-2 rounded-2xl border-2 border-ink/10 bg-cream p-4">
-            <div className="font-titre text-xl font-bold">{l.titre}</div>
+            <div className="flex items-center gap-2 font-titre text-xl font-bold">
+              {l.titre}
+              {l.classe && (
+                <span className="rounded-full bg-grape px-2 text-sm text-white">Dictée {l.classe}</span>
+              )}
+            </div>
             <div className="text-sm text-ink-soft">
               {[libelleSemaine(l.semaine), destinataires(l, profiles)].filter(Boolean).join(' · ')}
             </div>
@@ -88,6 +112,12 @@ export function OngletMots() {
                 .join(', ')}
               {l.mots.length > 8 ? '…' : ''}
             </p>
+            {phrasesDictee(l.dictee).length > 0 && (
+              <p className="text-sm">
+                <strong>Dictée complète :</strong> {phrasesDictee(l.dictee).length} phrase
+                {phrasesDictee(l.dictee).length > 1 ? 's' : ''}
+              </p>
+            )}
             {aSupprimer === l.id ? (
               <div className="flex flex-wrap items-center gap-2" role="alert">
                 <span className="font-bold">Supprimer cette liste et ses enregistrements ?</span>
@@ -188,9 +218,10 @@ function EditeurListe({
     const mots = liste.mots
       .map((m) => ({ ...m, mot: nettoyerMot(m.mot), phrase: m.phrase?.trim() || undefined }))
       .filter((m) => m.mot);
-    if (!mots.length) return;
+    const dictee = liste.dictee?.trim() || undefined;
+    if (!mots.length && !dictee) return;
     setEnCours(true);
-    await saveWordList({ ...liste, titre: liste.titre.trim() || 'Mots de la semaine', mots });
+    await saveWordList({ ...liste, titre: liste.titre.trim() || 'Mots de la semaine', mots, dictee });
     await nettoyerNouvelles(new Set(mots.map((m) => m.audioKey).filter((k): k is string => !!k)));
     onFermer();
   };
@@ -233,6 +264,31 @@ function EditeurListe({
           />
         </div>
       </div>
+
+      <fieldset className="mt-4">
+        <legend className="font-bold">Dictée de quelle classe ?</legend>
+        <div className="mt-1 flex flex-wrap gap-2" role="radiogroup">
+          {CLASSES_DICTEE.map((c) => (
+            <label
+              key={c}
+              className="flex min-h-touch cursor-pointer items-center gap-2 rounded-full bg-cream px-4"
+            >
+              <input
+                type="radio"
+                name="classe-dictee"
+                className="h-5 w-5"
+                checked={liste.classe === c}
+                onChange={() => setListe({ ...liste, classe: c })}
+              />
+              {c}
+            </label>
+          ))}
+        </div>
+        <p className="mt-1 text-sm text-ink-soft">
+          Une liste « pour tous les enfants » n’apparaît qu’aux enfants de cette classe. Pour une dictée de
+          CE2 ou de CM1, cochez ci-dessous les enfants qui doivent la travailler.
+        </p>
+      </fieldset>
 
       <fieldset className="mt-4">
         <legend className="font-bold">Pour quels enfants ?</legend>
@@ -404,12 +460,18 @@ function EditeurListe({
         ))}
       </ol>
 
+      <DicteeComplete
+        texte={liste.dictee ?? ''}
+        mots={liste.mots.map((m) => m.mot)}
+        onChange={(dictee) => setListe({ ...liste, dictee })}
+      />
+
       <div className="mt-5 flex flex-wrap gap-3">
         <Button
           variant="grass"
           size="lg"
           icon={<Save aria-hidden />}
-          disabled={!liste.mots.some((m) => m.mot.trim()) || enCours}
+          disabled={(!liste.mots.some((m) => m.mot.trim()) && !liste.dictee?.trim()) || enCours}
           onClick={() => void enregistrer()}
         >
           Enregistrer la liste
@@ -419,5 +481,62 @@ function EditeurListe({
         </Button>
       </div>
     </Section>
+  );
+}
+
+/** Texte complet de la dictée : joué phrase par phrase (Normal : mots + phrases ; Plus loin : phrases seules). */
+function DicteeComplete({
+  texte,
+  mots,
+  onChange,
+}: {
+  texte: string;
+  mots: string[];
+  onChange(t: string): void;
+}) {
+  const phrases = phrasesDictee(texte);
+  const absents = texte.trim() ? motsAbsents(texte, mots) : [];
+  return (
+    <div className="mt-5 flex flex-col gap-2 rounded-2xl bg-cream p-4">
+      <label htmlFor="dictee-complete" className="text-xl font-bold">
+        Dictée complète (facultatif)
+      </label>
+      <p className="text-sm text-ink-soft">
+        Écrivez ou collez le texte de la dictée, avec les mots de la liste. Votre enfant l’écrira phrase par
+        phrase (L’Ascension, l’Appareil photo…) : au niveau Normal avec les mots, au niveau « Pour aller plus
+        loin » la dictée seule.
+      </p>
+      <textarea
+        id="dictee-complete"
+        className={`${champ} min-h-[140px] bg-card`}
+        value={texte}
+        maxLength={2000}
+        spellCheck
+        placeholder="Exemple : Le petit chat dort près de la cheminée. Ce matin, il a bu tout son lait."
+        onChange={(e) => onChange(e.target.value)}
+      />
+      {phrases.length > 0 && (
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="font-bold">
+            {phrases.length} phrase{phrases.length > 1 ? 's' : ''}
+          </span>
+          <Button
+            variant="sky"
+            icon={<Volume2 size={18} aria-hidden />}
+            onClick={async () => {
+              for (const ph of phrases) await speech.speak(ph, { queue: true, rate: speech.rate * 0.8 });
+            }}
+          >
+            Écouter la dictée
+          </Button>
+        </div>
+      )}
+      {absents.length > 0 && (
+        <p role="status" className="rounded-2xl bg-sun/25 p-3 text-sm">
+          Mot{absents.length > 1 ? 's' : ''} de la liste absent{absents.length > 1 ? 's' : ''} du texte :{' '}
+          <strong>{absents.join(', ')}</strong>
+        </p>
+      )}
+    </div>
   );
 }
