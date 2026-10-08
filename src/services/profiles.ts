@@ -4,7 +4,15 @@ import type { AvatarConfig } from '@/avatar/parts';
 import type { Classe, Level } from '@/content/schemas';
 import { useSession } from '@/stores/session';
 import { createAuth } from './auth';
-import { type Profile, type ProgressRow, type RecordRow, db, progressKey } from './storage/db';
+import {
+  LIMITE_PAR_DEFAUT,
+  type LudidactikDB,
+  type Profile,
+  type ProgressRow,
+  type RecordRow,
+  db,
+  progressKey,
+} from './storage/db';
 
 export async function createProfile(input: {
   prenom: string;
@@ -23,6 +31,7 @@ export async function createProfile(input: {
     xp: 0,
     ludis: 0,
     enCours: [],
+    limiteMinutes: LIMITE_PAR_DEFAUT,
     creeLe: now,
     derniereConnexion: now,
   };
@@ -37,6 +46,49 @@ export async function toggleEnCours(profile: Profile, lessonId: string) {
     ? profile.enCours.filter((l) => l !== lessonId)
     : [...profile.enCours, lessonId];
   await db.profiles.update(profile.id, { enCours });
+}
+
+/** Espace parents : nouveau mot de passe (texte ou image) pour un enfant qui l'a oublié. */
+export async function resetPassword(id: string, type: 'texte' | 'image', secret: string) {
+  await db.profiles.update(id, { auth: await createAuth(type, secret) });
+}
+
+/**
+ * Supprime un profil et toutes ses données (progression, records, journal, révisions, temps d'écran).
+ * Une liste de mots destinée à ce seul enfant est supprimée aussi (sinon elle deviendrait « pour tous »).
+ */
+export async function deleteProfile(id: string, base: LudidactikDB = db): Promise<void> {
+  await base.transaction(
+    'rw',
+    [
+      base.profiles,
+      base.progress,
+      base.records,
+      base.attempts,
+      base.leitner,
+      base.screenTime,
+      base.wordLists,
+      base.audio,
+    ],
+    async () => {
+      await base.progress.where('profileId').equals(id).delete();
+      await base.records.where('profileId').equals(id).delete();
+      await base.attempts.where('profileId').equals(id).delete();
+      await base.leitner.where('profileId').equals(id).delete();
+      await base.screenTime.where('profileId').equals(id).delete();
+      for (const l of await base.wordLists.toArray()) {
+        if (!l.profileIds.includes(id)) continue;
+        const reste = l.profileIds.filter((p) => p !== id);
+        if (reste.length) await base.wordLists.update(l.id, { profileIds: reste });
+        else {
+          const keys = l.mots.map((m) => m.audioKey).filter((k): k is string => !!k);
+          if (keys.length) await base.audio.bulkDelete(keys);
+          await base.wordLists.delete(l.id);
+        }
+      }
+      await base.profiles.delete(id);
+    },
+  );
 }
 
 /** Profil connecté (null pendant le chargement ou si personne n'est connecté). */

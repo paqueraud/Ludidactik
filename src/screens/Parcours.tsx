@@ -22,6 +22,7 @@ import {
 } from '@/services/profiles';
 import { sfx } from '@/services/sfx';
 import { db } from '@/services/storage/db';
+import { dateListe, lessonListesParents, listesDuProfil } from '@/services/wordLists';
 import { useSettings } from '@/stores/settings';
 
 /** Garde : exige un profil connecté. */
@@ -34,13 +35,84 @@ export function AvecProfil({ children }: { children: (p: Profile) => ReactNode }
 
 function useProviderContext(profile: Profile): ProviderContext {
   const lists = useLiveQuery(() => db.wordLists.toArray(), []);
+  const afficherPuberte = useSettings((s) => s.puberte);
   return useMemo(
     () => ({
-      parentLists: (lists ?? []).filter(
-        (l) => l.profileIds.length === 0 || l.profileIds.includes(profile.id),
-      ),
+      parentLists: listesDuProfil(lists ?? [], profile.id),
+      masquerPuberte: !afficherPuberte,
     }),
-    [lists, profile.id],
+    [lists, profile.id, afficherPuberte],
+  );
+}
+
+/** Des mots plus récents que la dernière partie de l'enfant sur « Mes mots de la semaine » ? */
+function useNouveauxMots(profile: Profile, classe: Classe, ctx: ProviderContext): boolean {
+  const progress = useProgress(profile.id);
+  const derniere = Math.max(
+    0,
+    ...(progress?.get(lessonListesParents(classe)) ?? []).map((r) => r.lastPlayed),
+  );
+  return progress !== undefined && ctx.parentLists.some((l) => dateListe(l) > derniere);
+}
+
+/**
+ * Raccourci « Mes mots de la semaine » : les jeux d'orthographe sur les listes des parents,
+ * lancés en 2 touches (jeu → « C'est parti ! ») depuis le choix de la classe ou des matières.
+ */
+function MotsDeLaSemaine({ profile, classe }: { profile: Profile; classe: Classe }) {
+  const navigate = useNavigate();
+  const ctx = useProviderContext(profile);
+  const nouveaux = useNouveauxMots(profile, classe, ctx);
+  const lesson = getLesson(lessonListesParents(classe));
+  if (!lesson || !ctx.parentLists.length) return null;
+  const jeux = gamesForLesson(lesson, ctx);
+  if (!jeux.length) return null;
+  const nbMots = new Set(ctx.parentLists.flatMap((l) => l.mots.map((m) => m.mot.toLowerCase()))).size;
+  const lessonUrl = `/jouer/${classe}/${lesson.matiere}/${encodeURIComponent(lesson.id)}`;
+  return (
+    <section
+      aria-labelledby="mots-semaine-titre"
+      className="carte mb-4 bg-gradient-to-r from-coral/25 to-sun/30 p-4"
+    >
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        <span className="text-3xl" aria-hidden>
+          📝
+        </span>
+        <h2 id="mots-semaine-titre" className="font-titre text-2xl font-extrabold">
+          Mes mots de la semaine
+        </h2>
+        {nouveaux && (
+          <span className="animate-wiggle rounded-full bg-coral px-3 py-0.5 text-sm font-bold text-white">
+            Nouveaux mots !
+          </span>
+        )}
+        <span className="text-sm font-bold text-ink-soft">
+          {nbMots} mot{nbMots > 1 ? 's' : ''} préparé{nbMots > 1 ? 's' : ''} par tes parents
+        </span>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {jeux.map(({ game }) => (
+          <button
+            key={game.id}
+            type="button"
+            onClick={() => {
+              sfx.play('pop');
+              navigate(`/partie/${encodeURIComponent(lesson.id)}/${game.id}/normal`);
+            }}
+            className="btn-3d flex min-h-btn items-center gap-2 bg-card px-4 text-lg"
+          >
+            <span aria-hidden>{game.icone}</span>
+            {game.titre}
+          </button>
+        ))}
+        <Link
+          to={lessonUrl}
+          className="flex min-h-btn items-center rounded-btn px-4 font-bold text-ink-soft underline"
+        >
+          Choisir le niveau
+        </Link>
+      </div>
+    </section>
   );
 }
 
@@ -62,6 +134,7 @@ export function Classes() {
     <AvecProfil>
       {(profile) => (
         <Screen titre="Choisis ta classe" retour="/">
+          <MotsDeLaSemaine profile={profile} classe={profile.classe} />
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {CLASSES.map((c, i) => {
               const active = CLASSES_ACTIVES.includes(c);
@@ -134,6 +207,7 @@ function MatieresInner({
   const progress = useProgress(profile.id);
   return (
     <Screen titre={`${classe} : choisis une matière`} retour="/jouer">
+      <MotsDeLaSemaine profile={profile} classe={classe} />
       <Link
         to="/jeux"
         className="carte mb-4 flex items-center gap-3 bg-gradient-to-r from-grape/40 to-sky/40 p-4 font-titre text-xl font-bold"
@@ -231,6 +305,7 @@ function LeconsInner({
   const navigate = useNavigate();
   const progress = useProgress(profile.id);
   const ctx = useProviderContext(profile);
+  const nouveauxMots = useNouveauxMots(profile, classe, ctx);
   const [periode, setPeriode] = useState<number | 'toutes'>('toutes');
   const enCoursSeul = matiere === 'en-cours';
   const meta = enCoursSeul ? { label: 'Mes leçons en cours', icone: '📌' } : MATIERE_META[matiere as Matiere];
@@ -240,6 +315,12 @@ function LeconsInner({
     ? profile.enCours.map(getLesson).filter((l): l is Lesson => !!l && l.classe === classe)
     : lessonsOf(classe, programmeHG, matiere as Matiere);
   if (periode !== 'toutes') lecons = lecons.filter((l) => l.periodes.includes(periode));
+  // « Mes mots de la semaine » en tête quand les parents ont préparé une liste
+  const idListes = lessonListesParents(classe);
+  if (ctx.parentLists.length) {
+    const i = lecons.findIndex((l) => l.id === idListes);
+    if (i > 0) lecons = [lecons[i]!, ...lecons.slice(0, i), ...lecons.slice(i + 1)];
+  }
   const domaines = [...new Set(lecons.map((l) => l.domaine))];
   const pActuelle = periodeActuelle();
 
@@ -299,7 +380,14 @@ function LeconsInner({
                           {Math.round(m * 100)}
                         </ProgressRing>
                         <span className="min-w-0">
-                          <span className="block text-lg font-bold leading-snug">{l.titre}</span>
+                          <span className="block text-lg font-bold leading-snug">
+                            {l.titre}
+                            {l.id === idListes && nouveauxMots && (
+                              <span className="ml-2 inline-block rounded-full bg-coral px-2 align-middle text-sm text-white">
+                                Nouveaux mots !
+                              </span>
+                            )}
+                          </span>
                           <span className="mt-1 flex flex-wrap items-center gap-2 text-sm">
                             {LEVELS.map((lv) => (
                               <span

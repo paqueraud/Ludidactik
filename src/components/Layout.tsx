@@ -77,11 +77,25 @@ interface ScreenProps {
   children: ReactNode;
   hills?: boolean;
   large?: boolean;
+  /** Écran adulte (espace parents) : pas de pastille du profil enfant connecté. */
+  adulte?: boolean;
+  /** Éléments supplémentaires à droite de la barre du haut. */
+  actions?: ReactNode;
 }
 
-export function Screen({ titre, aLire, retour, children, hills = true, large = false }: ScreenProps) {
+export function Screen({
+  titre,
+  aLire,
+  retour,
+  children,
+  hills = true,
+  large = false,
+  adulte = false,
+  actions,
+}: ScreenProps) {
   const navigate = useNavigate();
-  const profile = useCurrentProfile();
+  const connecte = useCurrentProfile();
+  const profile = adulte ? null : connecte;
   const lvl = profile ? playerLevel(profile.xp) : null;
   return (
     <div className="min-h-dvh pb-28">
@@ -114,6 +128,7 @@ export function Screen({ titre, aLire, retour, children, hills = true, large = f
             {titre && <h1 className="truncate text-xl sm:text-2xl">{titre}</h1>}
             {titre && <SpeakButton text={aLire ?? titre} size={40} />}
           </div>
+          {actions}
           {profile && lvl && (
             <Link
               to="/profil"

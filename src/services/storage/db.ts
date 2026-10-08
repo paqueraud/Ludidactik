@@ -23,6 +23,8 @@ export interface Profile {
   ludis: number;
   /** Leçons « en cours » (choisies par l'enfant ou le parent). */
   enCours: string[];
+  /** Limite de temps de jeu quotidienne en minutes (null = illimité ; absent = 30 min par défaut). */
+  limiteMinutes?: number | null;
   creeLe: number;
   derniereConnexion: number;
 }
@@ -90,6 +92,18 @@ export interface ParentWordList {
   profileIds: string[];
   mots: ParentWord[];
   creeLe: number;
+  /** Dernière modification (badge « Nouveaux mots ! » côté enfant). */
+  modifieLe?: number;
+}
+
+/** Temps de jeu réel (parties) par profil et par jour (GAMIFICATION §8). */
+export interface ScreenTimeRow {
+  key: string; // `${profileId}|${AAAA-MM-JJ}`
+  profileId: string;
+  day: string; // AAAA-MM-JJ (heure locale)
+  ms: number;
+  /** Temps supplémentaire accordé par un parent ce jour-là (ms). */
+  bonusMs: number;
 }
 
 export interface AudioRow {
@@ -103,6 +117,9 @@ export interface SettingRow {
   value: unknown;
 }
 
+/** Limite quotidienne par défaut (minutes). */
+export const LIMITE_PAR_DEFAUT = 30;
+
 export class LudidactikDB extends Dexie {
   profiles!: EntityTable<Profile, 'id'>;
   progress!: EntityTable<ProgressRow, 'key'>;
@@ -112,6 +129,7 @@ export class LudidactikDB extends Dexie {
   wordLists!: EntityTable<ParentWordList, 'id'>;
   audio!: EntityTable<AudioRow, 'key'>;
   settings!: EntityTable<SettingRow, 'key'>;
+  screenTime!: EntityTable<ScreenTimeRow, 'key'>;
 
   constructor(name = 'ludidactik') {
     super(name);
@@ -125,6 +143,23 @@ export class LudidactikDB extends Dexie {
       audio: 'key',
       settings: 'key',
     });
+    // v2 (Phase 6, espace parents) : temps d'écran quotidien, limite par profil, date de modification des listes.
+    this.version(2)
+      .stores({ screenTime: 'key, profileId, [profileId+day]' })
+      .upgrade(async (tx) => {
+        await tx
+          .table('profiles')
+          .toCollection()
+          .modify((p: Profile) => {
+            if (p.limiteMinutes === undefined) p.limiteMinutes = LIMITE_PAR_DEFAUT;
+          });
+        await tx
+          .table('wordLists')
+          .toCollection()
+          .modify((l: ParentWordList) => {
+            l.modifieLe ??= l.creeLe;
+          });
+      });
   }
 }
 
