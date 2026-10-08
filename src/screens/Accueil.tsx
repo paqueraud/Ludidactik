@@ -50,7 +50,7 @@ export function Accueil() {
   const ly = useTransform(sy, (v) => v * 10);
 
   return (
-    <div
+    <main
       className="relative flex min-h-dvh flex-col items-center justify-center gap-6 overflow-hidden px-4 py-10 text-center"
       onPointerMove={(e) => {
         if (reduce) return;
@@ -109,6 +109,6 @@ export function Accueil() {
       <p className="max-w-md text-sm text-ink-soft">
         Sans publicité, sans achat, et tout reste sur cet appareil.
       </p>
-    </div>
+    </main>
   );
 }
