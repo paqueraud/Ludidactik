@@ -622,8 +622,8 @@ function genClassesClasser(level: Level, rng: Rng, ctx: GenContext): Item {
   const choisis: [string, Classe, string][] = [];
   for (const ph of phrases)
     for (const [mot, c] of ph) {
-      if (c === 'x' || !permises.includes(c) || vus.has(mot)) continue;
-      vus.add(mot);
+      if (c === 'x' || !permises.includes(c) || vus.has(mot.toLowerCase())) continue;
+      vus.add(mot.toLowerCase());
       choisis.push([mot, cat(c), texteClasses(ph)]);
     }
   const max = parNiv(level, { facile: 6, normal: 10, plus_loin: 12 });
@@ -637,7 +637,9 @@ function genClassesClasser(level: Level, rng: Rng, ctx: GenContext): Item {
     prompt: 'Range chaque mot dans sa classe. Regarde la phrase si tu hésites.',
     categories: noms,
     elements: garde.map(([m, c]): [string, number] => [m, cats.indexOf(c)]),
-    explication: cats.map((c) => DEF_CLASSES[c]).join(' '),
+    explication: facile
+      ? 'Le nom désigne une personne, un animal ou une chose (Zoé, frère, pomme) ; le verbe change quand on dit la phrase hier ou demain.'
+      : cats.map((c) => DEF_CLASSES[c]).join(' '),
     difficulty: diff(level, cats.length / 7),
     meta: { contextes: Object.fromEntries(garde.map(([m, , p]) => [m, p])) },
   });
@@ -806,9 +808,15 @@ function genSubstClasser(level: Level, rng: Rng, ctx: GenContext): Item {
     const p = rng.pick(PHRASES.filter((x) => x.c.some(([, , pr]) => pr)));
     return labo(ctx, rng, level, p, 'Trouve la place de chaque groupe, puis remplace-le par un pronom.');
   }
-  const n = parNiv(level, { facile: 6, normal: 8, plus_loin: 10 });
-  const choisis = tirer(rng, GN_PRONOMS, n);
+  const n = parNiv(level, { facile: 1, normal: 2, plus_loin: 2 });
   const pr: Pron[] = ['il', 'elle', 'ils', 'elles'];
+  const choisis = pr.flatMap((p) =>
+    tirer(
+      rng,
+      GN_PRONOMS.filter(([, x]) => x === p),
+      n + (level === 'plus_loin' && rng.chance(0.5) ? 1 : 0),
+    ),
+  );
   return classer(ctx, rng, `gn-${choisis.map(([x]) => x).join('|')}`, {
     prompt: 'Range chaque groupe selon le pronom qui peut le remplacer.',
     categories: pr,

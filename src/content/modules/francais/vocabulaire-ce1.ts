@@ -39,7 +39,7 @@ const DERIVES: [string, string, string, Niv][] = [
   ['relire', 'lire de nouveau', 're-', 'f'],
   ['démonter', 'défaire ce qui était monté', 'dé-', 'n'],
   ['déranger', 'mettre en désordre', 'dé-', 'n'],
-  ['défaire', 'faire le contraire de faire', 'dé-', 'n'],
+  ['défaire', 'enlever ce qui avait été fait (un nœud)', 'dé-', 'n'],
   ['invisible', 'qu’on ne peut pas voir', 'in-', 'n'],
   ['inconnu', 'que l’on ne connaît pas', 'in-', 'n'],
   ['impossible', 'qu’on ne peut pas faire', 'in-', 'n'],
@@ -296,10 +296,14 @@ function genContrairesQcm(level: Level, rng: Rng, ctx: GenContext): Item {
   }
   const liste = contrairesDe(level);
   const [a, b] = rng.pick(liste);
+  // aucun autre contraire valable de « a » parmi les choix (monter : descendre / démonter)
+  const valables = [...CONTRAIRES_SIMPLES, ...CONTRAIRES_PREFIXES]
+    .filter(([x, y]) => x === a || y === a)
+    .map(([x, y]) => (x === a ? y : x));
   const pieges = [
     ...liste.filter(([x]) => x !== a).map(([, y]) => y),
     ...SYNONYMES.filter(([x]) => x === a).map(([, y]) => y),
-  ];
+  ].filter((w) => !valables.includes(w));
   return qcm(ctx, rng, `contr-${a}`, {
     question: `Quel est le contraire de ${g(a)} ?`,
     good: b,
@@ -379,7 +383,7 @@ function genGeneriqueQcm(level: Level, rng: Rng, ctx: GenContext): Item {
     const intrus = rng.pick(FAMILLES[autre]!);
     const membres = tirer(rng, FAMILLES[c]!, 3);
     return qcm(ctx, rng, `intrus-${c}-${intrus}`, {
-      question: `Quel mot n’est pas de la même famille que les autres ?`,
+      question: 'Quel mot n’appartient pas à la même catégorie que les autres ?',
       good: intrus,
       wrong: membres,
       max: 4,
@@ -555,9 +559,7 @@ const REGISTRES: [string, string, string][] = [
   ['des godasses', 'des chaussures', 'des souliers'],
   ['piquer', 'voler', 'dérober'],
   ['bouffer', 'manger', 'se restaurer'],
-  ['se balader', 'se promener', 'flâner'],
   ['le boulot', 'le travail', 'le labeur'],
-  ['se marrer', 'rire', 's’esclaffer'],
 ];
 const FAMILIER_COURANT: [string, string][] = [
   ['un pote', 'un ami'],
@@ -663,7 +665,7 @@ function genNiveauxQcm(level: Level, rng: Rng, ctx: GenContext): Item {
   const t = rng.pick(REGISTRES);
   const k = rng.int(0, 2);
   return qcm(ctx, rng, `reg-${t[k]}`, {
-    question: `De quel niveau de langue est le mot ${g(t[k]!)} ?`,
+    question: `À quel niveau de langue appartient ${g(t[k]!)} ?`,
     good: NOMS_REG[k]!,
     wrong: NOMS_REG,
     fixedOrder: NOMS_REG,
@@ -879,7 +881,7 @@ function genThemesQcm(level: Level, rng: Rng, ctx: GenContext): Item {
       question: phrase,
       good: bon,
       wrong: autres,
-      explication: `On dit qu’une personne est ${g(bon)} quand elle se comporte ainsi.`,
+      explication: `Quand on se comporte ainsi, on est ${g(bon)}.`,
       difficulty: diff(level, 0.8),
     });
   }

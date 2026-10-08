@@ -231,7 +231,6 @@ const GRAPHIES: [string, string, 'f' | 'n' | 'p'][] = [
   ['qu', '[k]', 'f'],
   ['ain', '[in]', 'f'],
   ['en', '[an]', 'f'],
-  ['oi', '[wa]', 'f'],
   ['ei', '[è]', 'n'],
   ['ein', '[in]', 'n'],
   ['œu', '[eu]', 'n'],
@@ -268,8 +267,9 @@ function genGraphies(level: Level, rng: Rng, ctx: GenContext): Item {
     prompt: 'Associe chaque graphie au son qu’elle fait.',
     pairs,
     relation: 'graphie → son',
-    explication:
-      'Un même son peut s’écrire de plusieurs façons : eau et au font [o], ph fait [f], ain et ein font [in].',
+    explication: `Un même son peut s’écrire de plusieurs façons : ${pairs
+      .map((p) => `${p.left.replace(/ \(.*\)$/, '')} se lit ${p.right}`)
+      .join(', ')}.`,
     difficulty: diff(level, rng.next()),
   });
 }
@@ -525,12 +525,21 @@ function genTrouScg(level: Level, rng: Rng, ctx: GenContext): Item {
   const [phrase, rep, fam] = rng.pick(TROUS_SCG.filter(([, , , n]) => okNiv(level, n)));
   const [deux, trois, hint] = CHOIX_SCG[fam];
   const mot = phrase.replace('___', rep);
+  const suite = phrase.split('___')[1]![0]!;
+  const sonNaturel =
+    rep === 'c'
+      ? `devant « ${suite} », le « c » fait déjà ${/[eiy]/.test(suite) ? '[s]' : '[k]'} : pas de cédille`
+      : rep === 'g' && fam === 'ge'
+        ? `devant « ${suite} », le « g » fait déjà [j] : pas besoin d’ajouter « e »`
+        : rep === 'g'
+          ? `devant « ${suite} », le « g » fait déjà [g] : pas besoin d’ajouter « u »`
+          : null;
   return trou(ctx, rng, `scg-${phrase}`, {
     sentence: phrase,
     answer: rep,
     choices: level === 'plus_loin' ? trois : deux,
     hint,
-    explication: `On écrit « ${mot} ». ${hint}`,
+    explication: sonNaturel ? `On écrit « ${mot} » : ${sonNaturel}.` : `On écrit « ${mot} ». ${hint}`,
     difficulty: diff(level, rng.next()),
     spoken: mot,
   });
