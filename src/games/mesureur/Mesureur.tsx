@@ -13,7 +13,7 @@ import type { ClassificationItem, Item, Level, McqItem, NumericItem } from '@/co
 import { checkNumeric, formatNumber } from '@/engine/answer';
 import type { GameProps } from '@/engine/GameModule';
 import { useAutoSpeak } from '@/games/_kit/session';
-import { ChoiceGrid, Hud } from '@/games/_kit/ui';
+import { CASE_TACTILE, ChoiceGrid, DefilementGrille, Hud } from '@/games/_kit/ui';
 import { Bacs } from '../_geometrie-commun/Bacs';
 import { type PlanMesure, emojiDe, lireAngles, lireMesure, relation } from '../_geometrie-commun/mesure';
 import { Bravo, Consigne, EnTete, Indice, pl } from '../_geometrie-commun/ui';
@@ -191,11 +191,14 @@ function MancheNumerique({
     case 'quadrillage':
       visuel = (
         <div className="flex w-full flex-col items-center gap-1">
-          <QuadrillageAire
-            plan={plan.quadrillage}
-            marques={marques}
-            onMarquer={actif ? marquer : undefined}
-          />
+          {/* carreaux d'au moins CASE_TACTILE px : défilement dans le cadre sur petit écran */}
+          <DefilementGrille largeurMin={(plan.quadrillage.cols + 0.25) * CASE_TACTILE}>
+            <QuadrillageAire
+              plan={plan.quadrillage}
+              marques={marques}
+              onMarquer={actif ? marquer : undefined}
+            />
+          </DefilementGrille>
           {marques.length > 0 && (
             <p className="text-center font-bold" aria-live="polite">
               Tu as touché {marques.length} morceau{marques.length > 1 ? 'x' : ''}.{' '}

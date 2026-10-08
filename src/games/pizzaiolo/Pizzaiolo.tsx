@@ -61,8 +61,12 @@ export default function Pizzaiolo(props: GameProps) {
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
   const item = courant?.valeur ?? null;
-  const f: Frac = item ? { n: item.numerator, d: item.denominator } : { n: 0, d: 1 };
-  const o: Frac | null = item?.other ? { n: item.other.numerator, d: item.other.denominator } : null;
+  // fractions stables d'un rendu à l'autre (dépendances des hooks ci-dessous)
+  const f: Frac = useMemo(() => (item ? { n: item.numerator, d: item.denominator } : { n: 0, d: 1 }), [item]);
+  const o: Frac | null = useMemo(
+    () => (item?.other ? { n: item.other.numerator, d: item.other.denominator } : null),
+    [item],
+  );
   const garniture: Garniture = GARNITURES[(manche * 3 + f.n + f.d) % GARNITURES.length]!.id;
   const nomGarniture = GARNITURES.find((g) => g.id === garniture)!;
   const k = unitesNecessaires(f);

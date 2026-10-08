@@ -11,7 +11,7 @@ import { Button } from '@/components/ui';
 import type { GeometryItem, Level } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
 import { useAutoSpeak } from '@/games/_kit/session';
-import { Hud } from '@/games/_kit/ui';
+import { CASE_TACTILE, DefilementGrille, Hud } from '@/games/_kit/ui';
 import {
   type Axe,
   type Cell,
@@ -233,200 +233,202 @@ function Manche({
         className="overflow-hidden rounded-card border-4 border-white bg-gradient-to-b from-grape/25 via-sky/15 to-cream shadow-soft"
         aria-label="Le quadrillage du miroir magique"
       >
-        <svg
-          viewBox={`${-M} ${-M} ${W + 2 * M} ${H + 2 * M}`}
-          className="mx-auto block h-auto max-h-[62vh] w-full touch-manipulation select-none"
-          role="img"
-          aria-label={`Quadrillage de ${g.cols} colonnes et ${g.rows} lignes, axe ${axe}, ${choix.size} case${choix.size > 1 ? 's' : ''} coloriée${choix.size > 1 ? 's' : ''}`}
-        >
-          <defs>
-            <radialGradient id="miroir-aile" cx="0.3" cy="0.3" r="0.9">
-              <stop offset="0" stopColor="#B4A8FF" />
-              <stop offset="1" stopColor="#7B63F2" />
-            </radialGradient>
-          </defs>
-          <rect x={0} y={0} width={W} height={H} rx="10" fill="#FFFFFF" opacity="0.92" />
-          {/* cases (cibles tactiles) */}
-          {toutes.map(([x, y]) => {
-            const k = `${x},${y}`;
-            const choisie = choix.has(k);
-            const marqueFaux = marques?.faux.includes(k);
-            return (
-              <rect
-                key={k}
-                data-case={k}
-                x={x * S + 1}
-                y={y * S + 1}
-                width={S - 2}
-                height={S - 2}
-                rx="6"
-                fill={
-                  juste && choisie
-                    ? 'transparent'
-                    : choisie
-                      ? marqueFaux
-                        ? '#FF9A8E'
-                        : '#FFC93C'
-                      : faux && solSet.has(k)
-                        ? '#BDECC6'
-                        : 'transparent'
-                }
-                stroke={faux && solSet.has(k) ? '#2E8C48' : 'none'}
-                strokeWidth={3}
-                strokeDasharray={faux && solSet.has(k) && !choisie ? '6 4' : undefined}
-                onClick={() => {
-                  setClavier(false);
-                  setCurseur([x, y]);
-                  basculer([x, y]);
-                }}
-                className={actif && !donnees.has(k) ? 'cursor-pointer' : ''}
-              />
-            );
-          })}
-          {/* quadrillage */}
-          {Array.from({ length: g.cols + 1 }, (_, i) => (
-            <line
-              key={`v${i}`}
-              x1={i * S}
-              y1={0}
-              x2={i * S}
-              y2={H}
-              stroke="#9AA8C7"
-              strokeWidth="1.5"
-              pointerEvents="none"
-            />
-          ))}
-          {Array.from({ length: g.rows + 1 }, (_, i) => (
-            <line
-              key={`h${i}`}
-              x1={0}
-              y1={i * S}
-              x2={W}
-              y2={i * S}
-              stroke="#9AA8C7"
-              strokeWidth="1.5"
-              pointerEvents="none"
-            />
-          ))}
-          {/* croix sur les cases fausses */}
-          {marques?.faux.map((k) => {
-            const [x, y] = k.split(',').map(Number) as Cell;
-            return (
-              <g key={`x${k}`} pointerEvents="none" stroke="#CD3E30" strokeWidth="4" strokeLinecap="round">
-                <line x1={x * S + 14} y1={y * S + 14} x2={x * S + S - 14} y2={y * S + S - 14} />
-                <line x1={x * S + S - 14} y1={y * S + 14} x2={x * S + 14} y2={y * S + S - 14} />
-              </g>
-            );
-          })}
-          {/* la figure (et le papillon quand c'est juste) */}
-          <g
-            transform={transfoAiles}
-            opacity={juste ? Math.max(0, 1 - Math.max(0, vol - 0.75) * 4) : 1}
-            pointerEvents="none"
+        <DefilementGrille largeurMin={((W + 2 * M) / S) * CASE_TACTILE}>
+          <svg
+            viewBox={`${-M} ${-M} ${W + 2 * M} ${H + 2 * M}`}
+            className="mx-auto block h-auto max-h-[62vh] w-full touch-manipulation select-none"
+            role="img"
+            aria-label={`Quadrillage de ${g.cols} colonnes et ${g.rows} lignes, axe ${axe}, ${choix.size} case${choix.size > 1 ? 's' : ''} coloriée${choix.size > 1 ? 's' : ''}`}
           >
-            {g.cells.map(([x, y]) => (
-              <rect
-                key={`d${x},${y}`}
-                x={x * S + 1}
-                y={y * S + 1}
-                width={S - 2}
-                height={S - 2}
-                rx="6"
-                fill="url(#miroir-aile)"
+            <defs>
+              <radialGradient id="miroir-aile" cx="0.3" cy="0.3" r="0.9">
+                <stop offset="0" stopColor="#B4A8FF" />
+                <stop offset="1" stopColor="#7B63F2" />
+              </radialGradient>
+            </defs>
+            <rect x={0} y={0} width={W} height={H} rx="10" fill="#FFFFFF" opacity="0.92" />
+            {/* cases (cibles tactiles) */}
+            {toutes.map(([x, y]) => {
+              const k = `${x},${y}`;
+              const choisie = choix.has(k);
+              const marqueFaux = marques?.faux.includes(k);
+              return (
+                <rect
+                  key={k}
+                  data-case={k}
+                  x={x * S + 1}
+                  y={y * S + 1}
+                  width={S - 2}
+                  height={S - 2}
+                  rx="6"
+                  fill={
+                    juste && choisie
+                      ? 'transparent'
+                      : choisie
+                        ? marqueFaux
+                          ? '#FF9A8E'
+                          : '#FFC93C'
+                        : faux && solSet.has(k)
+                          ? '#BDECC6'
+                          : 'transparent'
+                  }
+                  stroke={faux && solSet.has(k) ? '#2E8C48' : 'none'}
+                  strokeWidth={3}
+                  strokeDasharray={faux && solSet.has(k) && !choisie ? '6 4' : undefined}
+                  onClick={() => {
+                    setClavier(false);
+                    setCurseur([x, y]);
+                    basculer([x, y]);
+                  }}
+                  className={actif && !donnees.has(k) ? 'cursor-pointer' : ''}
+                />
+              );
+            })}
+            {/* quadrillage */}
+            {Array.from({ length: g.cols + 1 }, (_, i) => (
+              <line
+                key={`v${i}`}
+                x1={i * S}
+                y1={0}
+                x2={i * S}
+                y2={H}
+                stroke="#9AA8C7"
+                strokeWidth="1.5"
+                pointerEvents="none"
               />
             ))}
-            {juste &&
-              [...choix].map((k) => {
-                const [x, y] = k.split(',').map(Number) as Cell;
-                return (
-                  <rect
-                    key={`c${k}`}
-                    x={x * S + 1}
-                    y={y * S + 1}
-                    width={S - 2}
-                    height={S - 2}
-                    rx="6"
-                    fill="#FFC93C"
-                  />
-                );
-              })}
-          </g>
-          {/* le miroir */}
-          <motion.line
-            x1={ax1}
-            y1={ay1}
-            x2={ax2}
-            y2={ay2}
-            stroke="#8FD3FF"
-            strokeWidth="16"
-            strokeLinecap="round"
-            pointerEvents="none"
-            initial={{ opacity: 0.45 }}
-            animate={reduce || paused ? { opacity: 0.45 } : { opacity: [0.3, 0.65, 0.3] }}
-            transition={{ duration: 2.2, repeat: Infinity }}
-          />
-          <line
-            x1={ax1}
-            y1={ay1}
-            x2={ax2}
-            y2={ay2}
-            stroke="#FFFFFF"
-            strokeWidth="5"
-            strokeLinecap="round"
-            opacity="0.9"
-            pointerEvents="none"
-          />
-          <line
-            x1={ax1}
-            y1={ay1}
-            x2={ax2}
-            y2={ay2}
-            stroke="#4FA3F7"
-            strokeWidth="3"
-            strokeDasharray="10 7"
-            pointerEvents="none"
-          />
-          {/* repères de distance (Facile) */}
-          {casesRepere.map((c, i) => (
-            <text
-              key={i}
-              x={c.x}
-              y={c.y}
-              textAnchor="middle"
-              fontSize="20"
-              fontWeight="800"
-              fill="#6048DC"
-              fontFamily="Baloo 2, sans-serif"
+            {Array.from({ length: g.rows + 1 }, (_, i) => (
+              <line
+                key={`h${i}`}
+                x1={0}
+                y1={i * S}
+                x2={W}
+                y2={i * S}
+                stroke="#9AA8C7"
+                strokeWidth="1.5"
+                pointerEvents="none"
+              />
+            ))}
+            {/* croix sur les cases fausses */}
+            {marques?.faux.map((k) => {
+              const [x, y] = k.split(',').map(Number) as Cell;
+              return (
+                <g key={`x${k}`} pointerEvents="none" stroke="#CD3E30" strokeWidth="4" strokeLinecap="round">
+                  <line x1={x * S + 14} y1={y * S + 14} x2={x * S + S - 14} y2={y * S + S - 14} />
+                  <line x1={x * S + S - 14} y1={y * S + 14} x2={x * S + 14} y2={y * S + S - 14} />
+                </g>
+              );
+            })}
+            {/* la figure (et le papillon quand c'est juste) */}
+            <g
+              transform={transfoAiles}
+              opacity={juste ? Math.max(0, 1 - Math.max(0, vol - 0.75) * 4) : 1}
+              pointerEvents="none"
             >
-              {c.t}
-            </text>
-          ))}
-          {/* curseur clavier */}
-          {clavier && actif && (
-            <rect
-              x={curseur[0] * S - 2}
-              y={curseur[1] * S - 2}
-              width={S + 4}
-              height={S + 4}
-              rx="8"
-              fill="none"
-              stroke="#8E7CFF"
+              {g.cells.map(([x, y]) => (
+                <rect
+                  key={`d${x},${y}`}
+                  x={x * S + 1}
+                  y={y * S + 1}
+                  width={S - 2}
+                  height={S - 2}
+                  rx="6"
+                  fill="url(#miroir-aile)"
+                />
+              ))}
+              {juste &&
+                [...choix].map((k) => {
+                  const [x, y] = k.split(',').map(Number) as Cell;
+                  return (
+                    <rect
+                      key={`c${k}`}
+                      x={x * S + 1}
+                      y={y * S + 1}
+                      width={S - 2}
+                      height={S - 2}
+                      rx="6"
+                      fill="#FFC93C"
+                    />
+                  );
+                })}
+            </g>
+            {/* le miroir */}
+            <motion.line
+              x1={ax1}
+              y1={ay1}
+              x2={ax2}
+              y2={ay2}
+              stroke="#8FD3FF"
+              strokeWidth="16"
+              strokeLinecap="round"
+              pointerEvents="none"
+              initial={{ opacity: 0.45 }}
+              animate={reduce || paused ? { opacity: 0.45 } : { opacity: [0.3, 0.65, 0.3] }}
+              transition={{ duration: 2.2, repeat: Infinity }}
+            />
+            <line
+              x1={ax1}
+              y1={ay1}
+              x2={ax2}
+              y2={ay2}
+              stroke="#FFFFFF"
               strokeWidth="5"
+              strokeLinecap="round"
+              opacity="0.9"
               pointerEvents="none"
             />
-          )}
-          {juste && !reduce && vol > 0.5 && (
-            <text
-              x={cx}
-              y={cy - (vol - 0.5) * H * 2}
-              textAnchor="middle"
-              fontSize="64"
-              opacity={1 - Math.max(0, vol - 0.85) * 6}
-            >
-              🦋
-            </text>
-          )}
-        </svg>
+            <line
+              x1={ax1}
+              y1={ay1}
+              x2={ax2}
+              y2={ay2}
+              stroke="#4FA3F7"
+              strokeWidth="3"
+              strokeDasharray="10 7"
+              pointerEvents="none"
+            />
+            {/* repères de distance (Facile) */}
+            {casesRepere.map((c, i) => (
+              <text
+                key={i}
+                x={c.x}
+                y={c.y}
+                textAnchor="middle"
+                fontSize="20"
+                fontWeight="800"
+                fill="#6048DC"
+                fontFamily="Baloo 2, sans-serif"
+              >
+                {c.t}
+              </text>
+            ))}
+            {/* curseur clavier */}
+            {clavier && actif && (
+              <rect
+                x={curseur[0] * S - 2}
+                y={curseur[1] * S - 2}
+                width={S + 4}
+                height={S + 4}
+                rx="8"
+                fill="none"
+                stroke="#8E7CFF"
+                strokeWidth="5"
+                pointerEvents="none"
+              />
+            )}
+            {juste && !reduce && vol > 0.5 && (
+              <text
+                x={cx}
+                y={cy - (vol - 0.5) * H * 2}
+                textAnchor="middle"
+                fontSize="64"
+                opacity={1 - Math.max(0, vol - 0.85) * 6}
+              >
+                🦋
+              </text>
+            )}
+          </svg>
+        </DefilementGrille>
       </section>
 
       <div className="carte flex flex-col items-center gap-3 p-4">

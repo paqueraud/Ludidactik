@@ -10,7 +10,7 @@
  */
 import { motion } from 'framer-motion';
 import { Check, Lightbulb, Volume2 } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LetterKeyboard, usePhysicalKeyboard } from '@/components/Keypads';
 import { Button, SpeakButton } from '@/components/ui';
 import type { Item, Level, SpellingItem } from '@/content/schemas';
@@ -19,7 +19,7 @@ import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
 import { parNiveau, useGameSession } from '../_kit/session';
 import { useVoixEnPause } from '../_orthographe-commun/hooks';
-import { Hud } from '../_kit/ui';
+import { CASE_TACTILE, DefilementGrille, Hud } from '../_kit/ui';
 import { collecterMots, estMot, melanger, motSimple } from '../_orthographe-commun/lettres';
 import { type Placement, casesDe, genererGrille, grilleDeLettres } from '../_orthographe-commun/mots-croises';
 import { DiffMot } from '../_orthographe-commun/ui';
@@ -90,6 +90,20 @@ export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, sp
   const [enregistres] = useState(() => new Set<number>());
 
   const p = placements[sel];
+  const grilleRef = useRef<HTMLDivElement>(null);
+
+  // Petit écran : la case où l'on écrit reste visible dans la grille qui défile
+  useEffect(() => {
+    const caseC = p ? casesDe(p)[curseur] : undefined;
+    const grilleEl = grilleRef.current;
+    const cadre = grilleEl?.parentElement?.parentElement;
+    if (!caseC || !grilleEl || !cadre || cadre.scrollWidth <= cadre.clientWidth) return;
+    const el = grilleEl.querySelector<HTMLElement>(`[data-case="${k(caseC[0], caseC[1])}"]`);
+    if (!el) return;
+    const gauche = el.offsetLeft - cadre.scrollLeft;
+    if (gauche < 0 || gauche + el.offsetWidth > cadre.clientWidth)
+      cadre.scrollTo({ left: el.offsetLeft - cadre.clientWidth / 2 + el.offsetWidth / 2 });
+  }, [p, curseur]);
 
   useEffect(() => {
     session.startQuestion();
@@ -377,62 +391,66 @@ export default function MotsCroises({ level, stream, paused, onAnswer, onEnd, sp
           />
         </div>
 
-        {/* La grille */}
-        <div
-          className="grid w-full gap-[3px] rounded-xl bg-ink/80 p-[3px]"
-          style={{
-            gridTemplateColumns: `repeat(${grille.cols}, minmax(0, 1fr))`,
-            maxWidth: `${grille.cols * 3.2}rem`,
-          }}
-          role="grid"
-          aria-label={`Grille de mots croisés : ${grille.lignes} lignes et ${grille.cols} colonnes`}
-        >
-          {lettresAttendues.map((ligne, l) =>
-            ligne.map((attendue, c) => {
-              if (!attendue)
-                return <div key={k(l, c)} className="aspect-square rounded-[3px] bg-ink/0" aria-hidden />;
-              const cle = k(l, c);
-              const valeur = fini === 'solution' ? attendue : (saisie.get(cle) ?? '');
-              const ecrite = saisie.get(cle) ?? '';
-              const dansSel = casesSel.has(cle);
-              const estCurseur = caseCurseur && caseCurseur[0] === l && caseCurseur[1] === c;
-              const juste = placements.some(
-                (pl, i) => resultats.get(i) === 'juste' && casesDe(pl).some(([a, b]) => a === l && b === c),
-              );
-              const fausse = faussesVues.has(cle) || (fini === 'solution' && ecrite && ecrite !== attendue);
-              const corrigee = fini === 'solution' && !juste && ecrite !== attendue;
-              return (
-                <button
-                  key={cle}
-                  type="button"
-                  onClick={() => toucherCase(l, c)}
-                  className={`relative flex aspect-square items-center justify-center rounded-[3px] font-titre font-extrabold leading-none ${
-                    juste
-                      ? 'bg-grass/40 text-grass-dark'
-                      : fausse && fini !== 'solution'
-                        ? 'bg-sun text-ink'
-                        : estCurseur
-                          ? 'bg-sun/60 text-ink'
-                          : dansSel
-                            ? 'bg-sky/30 text-ink'
-                            : 'bg-card text-ink'
-                  } ${donnees.has(cle) && !juste ? 'text-grape' : ''} ${corrigee ? 'text-coral-dark' : ''}`}
-                  style={{ fontSize: `clamp(0.85rem, ${Math.min(5.5, 62 / grille.cols)}vw, 1.6rem)` }}
-                  aria-label={`Case ${l + 1}-${c + 1}${valeur ? ` : ${valeur}` : ' vide'}`}
-                >
-                  {numeros.has(cle) && (
-                    <span className="absolute left-0.5 top-0 text-[0.6rem] font-bold leading-tight text-ink-soft sm:text-xs">
-                      {numeros.get(cle)}
-                    </span>
-                  )}
-                  <motion.span key={valeur} initial={{ scale: 0.5 }} animate={{ scale: 1 }}>
-                    {valeur}
-                  </motion.span>
-                </button>
-              );
-            }),
-          )}
-        </div>
+        {/* La grille (défile dans son cadre sur petit écran : cases ≥ CASE_TACTILE px) */}
+        <DefilementGrille largeurMin={grille.cols * (CASE_TACTILE + 3) + 3}>
+          <div
+            ref={grilleRef}
+            className="mx-auto grid w-full gap-[3px] rounded-xl bg-ink/80 p-[3px]"
+            style={{
+              gridTemplateColumns: `repeat(${grille.cols}, minmax(0, 1fr))`,
+              maxWidth: `${grille.cols * 3.2}rem`,
+            }}
+            role="grid"
+            aria-label={`Grille de mots croisés : ${grille.lignes} lignes et ${grille.cols} colonnes`}
+          >
+            {lettresAttendues.map((ligne, l) =>
+              ligne.map((attendue, c) => {
+                if (!attendue)
+                  return <div key={k(l, c)} className="aspect-square rounded-[3px] bg-ink/0" aria-hidden />;
+                const cle = k(l, c);
+                const valeur = fini === 'solution' ? attendue : (saisie.get(cle) ?? '');
+                const ecrite = saisie.get(cle) ?? '';
+                const dansSel = casesSel.has(cle);
+                const estCurseur = caseCurseur && caseCurseur[0] === l && caseCurseur[1] === c;
+                const juste = placements.some(
+                  (pl, i) => resultats.get(i) === 'juste' && casesDe(pl).some(([a, b]) => a === l && b === c),
+                );
+                const fausse = faussesVues.has(cle) || (fini === 'solution' && ecrite && ecrite !== attendue);
+                const corrigee = fini === 'solution' && !juste && ecrite !== attendue;
+                return (
+                  <button
+                    key={cle}
+                    type="button"
+                    data-case={cle}
+                    onClick={() => toucherCase(l, c)}
+                    className={`relative flex aspect-square items-center justify-center rounded-[3px] font-titre font-extrabold leading-none ${
+                      juste
+                        ? 'bg-grass/40 text-grass-dark'
+                        : fausse && fini !== 'solution'
+                          ? 'bg-sun text-ink'
+                          : estCurseur
+                            ? 'bg-sun/60 text-ink'
+                            : dansSel
+                              ? 'bg-sky/30 text-ink'
+                              : 'bg-card text-ink'
+                    } ${donnees.has(cle) && !juste ? 'text-grape' : ''} ${corrigee ? 'text-coral-dark' : ''}`}
+                    style={{ fontSize: `clamp(1.1rem, ${Math.min(5.5, 62 / grille.cols)}vw, 1.6rem)` }}
+                    aria-label={`Case ${l + 1}-${c + 1}${valeur ? ` : ${valeur}` : ' vide'}`}
+                  >
+                    {numeros.has(cle) && (
+                      <span className="absolute left-0.5 top-0 text-[0.6rem] font-bold leading-tight text-ink-soft sm:text-xs">
+                        {numeros.get(cle)}
+                      </span>
+                    )}
+                    <motion.span key={valeur} initial={{ scale: 0.5 }} animate={{ scale: 1 }}>
+                      {valeur}
+                    </motion.span>
+                  </button>
+                );
+              }),
+            )}
+          </div>
+        </DefilementGrille>
 
         {/* Mot sélectionné */}
         {p && itemSel && !fini && (

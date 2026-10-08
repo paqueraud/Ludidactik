@@ -11,6 +11,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { CASE_TACTILE, DefilementGrille } from '../_kit/ui';
 import { dansUnChamp } from '../_nombres-commun/outils';
 
 export type P = [number, number];
@@ -115,7 +116,7 @@ export function Papier({
     },
     [onNoeud, ref, U, cols, rows],
   );
-  return (
+  const papier = (
     <svg
       ref={ref}
       viewBox={`${-M} ${-M} ${W + 2 * M} ${H + 2 * M}`}
@@ -151,6 +152,12 @@ export function Papier({
         />
       )}
     </svg>
+  );
+  // papier interactif : nœuds espacés d'au moins CASE_TACTILE px (défilement sur petit écran)
+  return onNoeud ? (
+    <DefilementGrille largeurMin={((W + 2 * M) / U) * CASE_TACTILE}>{papier}</DefilementGrille>
+  ) : (
+    papier
   );
 }
 
