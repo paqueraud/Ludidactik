@@ -301,7 +301,7 @@ const GREETINGS: Lecon = {
           en: 'I’m fine',
           fr: 'je vais bien',
           n: 'f',
-          img: '🙂',
+          img: '👍',
           acc: ['i am fine', 'fine', 'i’m ok', 'i’m good'],
         },
         { en: 'I’m tired', fr: 'je suis fatigué(e)', n: 'n', img: '😴', acc: ['i am tired', 'tired'] },

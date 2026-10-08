@@ -596,7 +596,7 @@
    "domaine": "Orthographe",
    "titre": "Les homophones grammaticaux",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, orthographe grammaticale : accord sujet-verbe, participe passé, terminaisons verbales (les homophones ne sont pas nommés par le programme)",
+   "boRef": "BO n°16 du 17/04/2025 — Français, cycle 3, CM2 : orthographe grammaticale — accord sujet-verbe, accord du participe passé, terminaisons verbales (é / er / ez / ait / ais), déterminants et pronoms (ces / ses, leur / leurs)",
    "periodes": [
     1,
     2,
@@ -1295,7 +1295,7 @@
     "generator": "francais/vocabulaire-synonymes"
    },
    "rappel": "Un synonyme a presque le même sens, un antonyme le sens contraire ; je choisis le mot le plus juste.",
-   "contenus": "Paires de synonymes et d’antonymes, gradations, registres."
+   "contenus": "Au CM2, synonymes et antonymes servent au réemploi du vocabulaire étudié ; leur étude explicite est un objectif de 6e (BO n°16 du 17/04/2025)."
   },
   {
    "id": "CM2.HI20.T1.REPUBLIQUE100",
@@ -1377,7 +1377,7 @@
     }
    },
    "rappel": "Avec les lois de Jules Ferry (1881-1882), l’école primaire devient gratuite, laïque et obligatoire.",
-   "contenus": "lois Ferry 1881-1882 : école gratuite, laïque, obligatoire (6-13 ans) ; hussards noirs ; certificat d'études"
+   "contenus": "lois Ferry 1881-1882 : école gratuite, laïque, obligatoire (6-13 ans) ; hussards noirs ; certificat d’études"
   },
   {
    "id": "CM2.HI20.T1.CITOYENS",
@@ -1418,13 +1418,13 @@
     }
    },
    "rappel": "Le droit de vote s’élargit peu à peu : tous les hommes en 1848, les femmes en 1944, les jeunes de 18 ans en 1974 ; depuis 1905, l’État est laïque.",
-   "contenus": "suffrage universel masculin 1848 ; abolition de l'esclavage 1848 (Victor Schœlcher) ; loi de 1905 séparation des Églises et de l'État ; droit de vote des femmes 1944 (1er vote 1945) ; Ve République 1958 ; majorité à 18 ans 1974"
+   "contenus": "suffrage universel masculin 1848 ; abolition de l’esclavage 1848 (Victor Schœlcher) ; loi de 1905 séparation des Églises et de l’État ; droit de vote des femmes 1944 (1er vote 1945) ; Ve République 1958 ; majorité à 18 ans 1974"
   },
   {
    "id": "CM2.HI20.T2.ENERGIES",
    "classe": "CM2",
    "matiere": "histoire",
-   "domaine": "L'âge industriel en France",
+   "domaine": "L’âge industriel en France",
    "titre": "L’âge industriel : énergies et machines",
    "programme": "2020",
    "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 2 « L’âge industriel en France »",
@@ -1466,7 +1466,7 @@
    "id": "CM2.HI20.T2.TRAVAIL",
    "classe": "CM2",
    "matiere": "histoire",
-   "domaine": "L'âge industriel en France",
+   "domaine": "L’âge industriel en France",
    "titre": "Travailler à la mine, à l’usine, à l’atelier, au grand magasin",
    "programme": "2020",
    "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 2 « L’âge industriel en France »",
@@ -1508,7 +1508,7 @@
    "id": "CM2.HI20.T2.VILLE",
    "classe": "CM2",
    "matiere": "histoire",
-   "domaine": "L'âge industriel en France",
+   "domaine": "L’âge industriel en France",
    "titre": "La ville industrielle et le monde rural",
    "programme": "2020",
    "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 3 — Histoire et géographie (CM2) — thème 2 « L’âge industriel en France »",
@@ -1704,7 +1704,7 @@
     }
    },
    "rappel": "En 1792, la République est proclamée ; en 1804, Napoléon Bonaparte devient empereur des Français.",
-   "contenus": "mars 1792 pétition des femmes (Pauline Léon) ; avril 1792 Marseillaise ; sept. 1792 République ; 1794 1re abolition de l'esclavage ; 1802 rétablissement ; 2 déc. 1804 sacre de Napoléon Ier ; Code civil, lycées, préfets"
+   "contenus": "mars 1792 pétition des femmes (Pauline Léon) ; avril 1792 Marseillaise ; sept. 1792 République ; 1794 1re abolition de l’esclavage ; 1802 rétablissement ; 2 déc. 1804 sacre de Napoléon Ier ; Code civil, lycées, préfets"
   },
   {
    "id": "CM2.HI26.T2",
@@ -1940,7 +1940,7 @@
     "generator": "monde-cm2/geographie"
    },
    "rappel": "On se déplace à pied, à vélo, en voiture, en train ou en avion ; chaque moyen de transport a ses infrastructures : la route, la gare, le port, l’aéroport.",
-   "contenus": "au quotidien en France / dans un autre lieu du monde ; d'une ville à l'autre (France, Europe, monde) ; modes de transport, réseaux, aéroports, LGV"
+   "contenus": "au quotidien en France / dans un autre lieu du monde ; d’une ville à l’autre (France, Europe, monde) ; modes de transport, réseaux, aéroports, LGV"
   },
   {
    "id": "CM2.GE20.T2.INTERNET",
@@ -2053,7 +2053,7 @@
     "generator": "monde-cm2/geographie"
    },
    "rappel": "Je sais situer les grandes régions et leurs capitales, les fleuves, les montagnes, les pays de l’Union européenne, les continents et les océans.",
-   "contenus": "régions & capitales, fleuves (Seine, Loire, Garonne, Rhône, Rhin), massifs (Alpes, Pyrénées, Massif central, Jura, Vosges, Corse), océans & continents, pays de l'UE & capitales"
+   "contenus": "régions & capitales, fleuves (Seine, Loire, Garonne, Rhône, Rhin), massifs (Alpes, Pyrénées, Massif central, Jura, Vosges, Corse), océans & continents, pays de l’UE & capitales"
   },
   {
    "id": "CM2.GE26.T1",
@@ -2959,7 +2959,7 @@
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Tables + / ×, moitiés des impairs ≤ 15 (7,5), relations entre fractions usuelles",
+   "titre": "Les faits numériques à connaitre",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -2975,9 +2975,7 @@
     "plus_loin": "carrés ≤ 12×12"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -2991,14 +2989,15 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.faits"
    },
-   "rappel": "Je connais mes tables par cœur ; la moitié de 7, c’est 3,5 car 3,5 + 3,5 = 7."
+   "rappel": "Je connais mes tables par cœur ; la moitié de 7, c’est 3,5 car 3,5 + 3,5 = 7.",
+   "contenus": "Tables d’addition et de multiplication, moitiés des nombres impairs jusqu’à 15 (7,5), relations entre fractions usuelles."
   },
   {
    "id": "CM2.MA.CM.DEC_ENTIER",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Décimal ± entier (avec/sans retenue)",
+   "titre": "Ajouter ou enlever un entier à un nombre décimal",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3014,9 +3013,7 @@
     "plus_loin": "décimal ± décimal"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -3030,14 +3027,15 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.dec_entier"
    },
-   "rappel": "J’ajoute ou j’enlève l’entier à la partie entière ; les dixièmes ne bougent pas : 7,5 + 8 = 15,5."
+   "rappel": "J’ajoute ou j’enlève l’entier à la partie entière ; les dixièmes ne bougent pas : 7,5 + 8 = 15,5.",
+   "contenus": "Décimal ± entier sans retenue ; décimal + entier avec retenue (la soustraction avec retenue est « plus loin »)."
   },
   {
    "id": "CM2.MA.CM.X10_DEC",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "× et ÷ par 10, 100, 1 000 sur décimaux",
+   "titre": "Multiplier et diviser par 10, 100, 1 000",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3063,14 +3061,15 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.x10_dec"
    },
-   "rappel": "Multiplier par 10, 100 ou 1 000, c’est décaler chaque chiffre de 1, 2 ou 3 rangs vers la gauche : 3,45 × 100 = 345."
+   "rappel": "Multiplier par 10, 100 ou 1 000, c’est décaler chaque chiffre de 1, 2 ou 3 rangs vers la gauche : 3,45 × 100 = 345.",
+   "contenus": "× et ÷ par 10, 100, 1 000 sur les entiers et les décimaux ; × 0,1 et × 0,01 en « plus loin » (6e)."
   },
   {
    "id": "CM2.MA.CM.ADD_DEC",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Somme de deux décimaux < 10 à 1 décimale",
+   "titre": "Ajouter deux nombres décimaux",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3086,9 +3085,7 @@
     "plus_loin": "2 décimales"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -3102,14 +3099,15 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.add_dec"
    },
-   "rappel": "J’ajoute les unités ensemble et les dixièmes ensemble ; 10 dixièmes font 1 unité : 3,7 + 2,6 = 6,3."
+   "rappel": "J’ajoute les unités ensemble et les dixièmes ensemble ; 10 dixièmes font 1 unité : 3,7 + 2,6 = 6,3.",
+   "contenus": "Somme de deux décimaux inférieurs à 10 ayant un chiffre après la virgule."
   },
   {
    "id": "CM2.MA.CM.PLUS99",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "± 8, 9, 18, 19, 28, 29 … 98, 99",
+   "titre": "Ajouter ou enlever 9, 19, 99…",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3125,9 +3123,7 @@
     "plus_loin": "±999"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -3141,14 +3137,15 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.plus99"
    },
-   "rappel": "Ajouter 99, c’est ajouter 100 puis enlever 1 ; ajouter 28, c’est ajouter 30 puis enlever 2."
+   "rappel": "Ajouter 99, c’est ajouter 100 puis enlever 1 ; ajouter 28, c’est ajouter 30 puis enlever 2.",
+   "contenus": "± 8, 9, 18, 19, 28, 29 … 98, 99 (ajouter 10, 20… 100 puis corriger)."
   },
   {
    "id": "CM2.MA.CM.MULT_RONDS",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "30 × 400, 700 × 6 000",
+   "titre": "Multiplier des nombres ronds",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3164,9 +3161,7 @@
     "plus_loin": "milliers × milliers"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -3180,14 +3175,15 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.mult_ronds"
    },
-   "rappel": "Je multiplie les chiffres puis j’ajoute les zéros : 30 × 400 → 3 × 4 = 12, et 3 zéros : 12 000."
+   "rappel": "Je multiplie les chiffres puis j’ajoute les zéros : 30 × 400 → 3 × 4 = 12, et 3 zéros : 12 000.",
+   "contenus": "30 × 400 ; 700 × 6 000 : on multiplie les chiffres, puis les dizaines, centaines, milliers."
   },
   {
    "id": "CM2.MA.CM.DISTRIB",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Distributivité cas simples (23 × 4, 12 × 15)",
+   "titre": "Calculer un produit en décomposant",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3203,9 +3199,7 @@
     "plus_loin": "×99, ×101"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -3219,14 +3213,15 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.distrib"
    },
-   "rappel": "Je décompose : 23 × 4 = 20 × 4 + 3 × 4 = 80 + 12 = 92."
+   "rappel": "Je décompose : 23 × 4 = 20 × 4 + 3 × 4 = 80 + 12 = 92.",
+   "contenus": "Distributivité dans des cas simples : 23 × 4 = 20 × 4 + 3 × 4 ; 12 × 15."
   },
   {
    "id": "CM2.MA.CM.DOUBLE_MOITIE_DEC",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Double / moitié d'un décimal (cas simples)",
+   "titre": "Double et moitié d’un nombre décimal",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3242,9 +3237,7 @@
     "plus_loin": "13,5"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -3265,7 +3258,7 @@
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Diviser un entier par 4 ou 8 (moitié de la moitié)",
+   "titre": "Diviser par 4 ou par 8",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3281,9 +3274,7 @@
     "plus_loin": "÷16"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -3297,14 +3288,15 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.div4_8"
    },
-   "rappel": "Diviser par 4, c’est prendre la moitié de la moitié ; diviser par 8, c’est prendre la moitié trois fois."
+   "rappel": "Diviser par 4, c’est prendre la moitié de la moitié ; diviser par 8, c’est prendre la moitié trois fois.",
+   "contenus": "Diviser un entier par 4 ou 8 : la moitié de la moitié (de la moitié)."
   },
   {
    "id": "CM2.MA.CM.X5_X50",
    "classe": "CM2",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "× 5 et × 50 sur décimaux (×10 ÷2)",
+   "titre": "Multiplier par 5 et par 50",
    "programme": "2025",
    "boRef": "BO n°16 du 17/04/2025 — Programme de mathématiques du cycle 3 — Calcul mental (procédures BO 2025)",
    "periodes": [
@@ -3320,9 +3312,7 @@
     "plus_loin": "×25"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -3336,7 +3326,8 @@
     "kind": "generator",
     "generator": "cm2.ma.cm.x5_x50"
    },
-   "rappel": "Multiplier par 5, c’est multiplier par 10 puis prendre la moitié : 3,2 × 5 → 32 ÷ 2 = 16."
+   "rappel": "Multiplier par 5, c’est multiplier par 10 puis prendre la moitié : 3,2 × 5 → 32 ÷ 2 = 16.",
+   "contenus": "× 5 = × 10 puis ÷ 2 ; × 50 = × 100 puis ÷ 2, sur des entiers et des décimaux."
   },
   {
    "id": "CM2.MA.OP.ESTIMER",
@@ -4291,7 +4282,7 @@
    "domaine": "Acquérir et partager les valeurs de la République",
    "titre": "Les valeurs et les symboles de la République",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -4331,7 +4322,7 @@
    "domaine": "Construire une culture civique",
    "titre": "Qui décide ? Le maire, le président, le Parlement",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -4372,7 +4363,7 @@
    "domaine": "Respecter autrui",
    "titre": "Les droits de l’enfant et l’égalité filles-garçons",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -4413,7 +4404,7 @@
    "domaine": "Respecter autrui",
    "titre": "Dire non au harcèlement et au cyberharcèlement",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -4451,7 +4442,7 @@
    "domaine": "Construire l’esprit critique",
    "titre": "Internet : se protéger et vérifier les informations",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -4492,7 +4483,7 @@
    "domaine": "S’engager",
    "titre": "S’engager : délégués, solidarité, planète",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 3 en vigueur (BO n°31 du 30/07/2020, programme consolidé ; version 2024 à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 3 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -4533,7 +4524,7 @@
    "domaine": "Parler de soi",
    "titre": "Se présenter : nom, âge, famille, goûts",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4573,7 +4564,7 @@
    "domaine": "Décrire",
    "titre": "Décrire une personne : corps, vêtements, émotions",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4613,7 +4604,7 @@
    "domaine": "Le temps et les dates",
    "titre": "L’heure, les jours, les mois, les saisons et la météo",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4653,7 +4644,7 @@
    "domaine": "Les nombres",
    "titre": "Les nombres en anglais jusqu’à 100",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4693,7 +4684,7 @@
    "domaine": "La vie quotidienne",
    "titre": "Ma journée : les routines",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4734,7 +4725,7 @@
    "domaine": "L’école",
    "titre": "L’école : objets, matières et consignes",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4774,7 +4765,7 @@
    "domaine": "La nourriture",
    "titre": "La nourriture et les repas",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4814,7 +4805,7 @@
    "domaine": "Le monde anglophone",
    "titre": "Les pays et les nationalités",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4856,7 +4847,7 @@
    "domaine": "Capacités et possessions",
    "titre": "I can… / I’ve got… : ce que je sais faire, ce que j’ai",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -4896,7 +4887,7 @@
    "domaine": "Culture",
    "titre": "Les fêtes et la culture des pays anglophones",
    "programme": "en_vigueur",
-   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 selon le programme LVER du BO n°12 du 19/03/2026 (date d’application à vérifier)",
+   "boRef": "Programme de langues vivantes du cycle 3 (BO n°31 du 30/07/2020) — niveau A1 visé, A1 consolidé en fin de CM2 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,

@@ -11,6 +11,8 @@ export type CalcSpec = Omit<NumericItem, 'id' | 'lessonId' | 'kind'>;
 export type CalcGenerator = (level: Level, rng: Rng) => CalcSpec;
 
 const f = (n: number) => formatNumber(n);
+/** « 1 dizaine », « 3 dizaines ». */
+const pl = (n: number, mot: string) => `${n} ${mot}${Math.abs(n) >= 2 ? 's' : ''}`;
 /** Version orale : « 3,5 » se lit « 3 virgule 5 ». */
 const say = (n: number) => formatNumber(n).replace(/ /g, ' ').replace(',', ' virgule ');
 const decimalsOf = (n: number) => {
@@ -53,10 +55,25 @@ const ce1TablesAdd: CalcGenerator = (level, rng) => {
     const b = rng.int(1, 10 - a);
     return plus(a, b, (a + b) / 10, `${a} + ${b} = ${a + b}.`);
   }
-  const a = rng.int(2, 9);
-  const b = rng.int(2, 9);
+  if (level === 'plus_loin' && rng.chance(0.25)) {
+    // trois termes, somme ≤ 20 : je cherche d'abord le 10
+    const x = rng.int(2, 8);
+    const y = 10 - x;
+    const z = rng.int(2, 9);
+    const [p, q, r] = rng.shuffle([x, y, z]);
+    return spec(
+      `${p} + ${q} + ${r}`,
+      `${p} plus ${q} plus ${r}`,
+      x + y + z,
+      `Je cherche les deux nombres qui font 10 : ${x} + ${y} = 10, puis 10 + ${z} = ${10 + z}.`,
+      0.9,
+    );
+  }
+  // Plus loin : toujours avec passage de la dizaine (résultats de 11 à 18), sans la forme directe
+  const a = level === 'plus_loin' ? rng.int(4, 9) : rng.int(2, 9);
+  const b = level === 'plus_loin' ? rng.int(Math.max(2, 11 - a), 9) : rng.int(2, 9);
   const c = a + b;
-  const form = rng.int(0, level === 'normal' ? 2 : 3);
+  const form = level === 'normal' ? rng.int(0, 2) : rng.int(1, 3);
   const d = c / 18;
   if (form === 0) return plus(a, b, d, `${a} + ${b} = ${c}.`);
   if (form === 1)
@@ -90,7 +107,7 @@ const ce1Complements: CalcGenerator = (level, rng) => {
         `${a} + … = 100`,
         `${a} plus combien égale 100 ?`,
         100 - a,
-        `${a / 10} dizaines + ${(100 - a) / 10} dizaines = 10 dizaines = 100.`,
+        `${pl(a / 10, 'dizaine')} + ${pl((100 - a) / 10, 'dizaine')} = 10 dizaines = 100.`,
         0.3,
       );
     }
@@ -111,7 +128,7 @@ const ce1Complements: CalcGenerator = (level, rng) => {
         `${f(a)} + … = 1 000`,
         `${a} plus combien égale 1000 ?`,
         1000 - a,
-        `${a / 100} centaines + ${(1000 - a) / 100} centaines = 10 centaines = 1 000.`,
+        `${pl(a / 100, 'centaine')} + ${pl((1000 - a) / 100, 'centaine')} = 10 centaines = 1 000.`,
         0.5,
       );
     }
@@ -269,7 +286,7 @@ const ce1DizCent: CalcGenerator = (level, rng) => {
         n,
         k * 10,
         0.3,
-        `J’ajoute ${k} dizaines : ${d} + ${k} = ${d + k} dizaines, donc ${n + k * 10}.`,
+        `J’ajoute ${pl(k, 'dizaine')} : ${d} + ${k} = ${pl(d + k, 'dizaine')}, donc ${n + k * 10}.`,
       );
     }
     const k = rng.int(1, 9 - c);
@@ -277,7 +294,7 @@ const ce1DizCent: CalcGenerator = (level, rng) => {
       n,
       k * 100,
       0.3,
-      `J’ajoute ${k} centaines : ${c} + ${k} = ${c + k} centaines, donc ${n + k * 100}.`,
+      `J’ajoute ${pl(k, 'centaine')} : ${c} + ${k} = ${pl(c + k, 'centaine')}, donc ${n + k * 100}.`,
     );
   }
   if (level === 'normal') {
@@ -291,13 +308,13 @@ const ce1DizCent: CalcGenerator = (level, rng) => {
         n,
         k * 10,
         0.6,
-        `${n} + ${k * 10} : ${k} dizaines de plus, je passe la centaine → ${n + k * 10}.`,
+        `${n} + ${k * 10} : ${pl(k, 'dizaine')} de plus, je passe la centaine → ${n + k * 10}.`,
       );
     }
     if (form === 1) {
       const n = rng.int(300, 999);
       const k = rng.int(1, Math.floor(n / 100) - 1);
-      return minus(n, k * 100, 0.5, `J’enlève ${k} centaines : ${n} − ${k * 100} = ${n - k * 100}.`);
+      return minus(n, k * 100, 0.5, `J’enlève ${pl(k, 'centaine')} : ${n} − ${k * 100} = ${n - k * 100}.`);
     }
     const d = rng.int(0, 5);
     const n = rng.int(2, 9) * 100 + d * 10 + rng.int(0, 9);
@@ -306,7 +323,7 @@ const ce1DizCent: CalcGenerator = (level, rng) => {
       n,
       k * 10,
       0.7,
-      `J’enlève ${k} dizaines, je descends sous la centaine : ${n} − ${k * 10} = ${n - k * 10}.`,
+      `J’enlève ${pl(k, 'dizaine')}, je descends sous la centaine : ${n} − ${k * 10} = ${n - k * 10}.`,
     );
   }
   // Plus loin : deux étapes
@@ -326,7 +343,12 @@ const ce1X10: CalcGenerator = (level, rng) => {
   if (level === 'plus_loin') {
     if (rng.chance(0.5)) {
       const n = rng.int(1, 9);
-      return times(n, 100, 0.8, `${n} × 100 = ${n * 100} : ${n} unités deviennent ${n} centaines.`);
+      return times(
+        n,
+        100,
+        0.8,
+        `${n} × 100 = ${n * 100} : ${n === 1 ? '1 unité devient 1 centaine' : `${n} unités deviennent ${n} centaines`}.`,
+      );
     }
     const n = rng.int(10, 99);
     return spec(`… × 10 = ${n * 10}`, `combien fois 10 égale ${n * 10} ?`, n, `${n} × 10 = ${n * 10}.`, 0.9);
@@ -529,22 +551,40 @@ const cm2DecEntier: CalcGenerator = (level, rng) => {
 const cm2X10Dec: CalcGenerator = (level, rng) => {
   const p = rng.pick([10, 100, 1000]);
   const rangs = String(p).length - 1;
-  const why = (op: string) =>
-    `${op} par ${f(p)}, c’est décaler chaque chiffre de ${rangs} rang${rangs > 1 ? 's' : ''} vers la ${op === 'Multiplier' ? 'gauche' : 'droite'}.`;
+  const why = (op: string, calcul: string) =>
+    `${op} par ${f(p)}, c’est décaler chaque chiffre de ${rangs} rang${rangs > 1 ? 's' : ''} vers la ${op === 'Multiplier' ? 'gauche' : 'droite'} : ${calcul}.`;
   if (level === 'facile') {
     const n = rng.int(2, 99);
-    if (rng.chance(0.6)) return times(n, p, 0.3, why('Multiplier'));
-    return spec(`${f(n * p)} ÷ ${f(p)}`, `${n * p} divisé par ${p}`, n, why('Diviser'), 0.3);
+    if (rng.chance(0.6)) return times(n, p, 0.3, why('Multiplier', `${f(n)} × ${f(p)} = ${f(n * p)}`));
+    return spec(
+      `${f(n * p)} ÷ ${f(p)}`,
+      `${n * p} divisé par ${p}`,
+      n,
+      why('Diviser', `${f(n * p)} ÷ ${f(p)} = ${f(n)}`),
+      0.3,
+    );
   }
   if (level === 'normal') {
     const x = rng.int(11, 999) / 100;
-    if (rng.chance(0.5)) return times(x, p, 0.6, why('Multiplier'));
+    if (rng.chance(0.5))
+      return times(x, p, 0.6, why('Multiplier', `${f(x)} × ${f(p)} = ${f(roundTo(x * p, 3))}`));
     const n = rng.int(3, 999);
-    return spec(`${f(n)} ÷ ${f(p)}`, `${n} divisé par ${p}`, n / p, why('Diviser'), 0.7);
+    return spec(
+      `${f(n)} ÷ ${f(p)}`,
+      `${n} divisé par ${p}`,
+      n / p,
+      why('Diviser', `${f(n)} ÷ ${f(p)} = ${f(roundTo(n / p, 3))}`),
+      0.7,
+    );
   }
   const q = rng.pick([0.1, 0.01]);
   const n = rng.int(12, 999);
-  return times(n, q, 0.9, `Multiplier par ${f(q)}, c’est diviser par ${f(Math.round(1 / q))}.`);
+  return times(
+    n,
+    q,
+    0.9,
+    `Multiplier par ${f(q)}, c’est diviser par ${f(Math.round(1 / q))} : ${f(n)} × ${f(q)} = ${f(roundTo(n * q, 3))} (notion de 6e).`,
+  );
 };
 
 const cm2AddDec: CalcGenerator = (level, rng) => {
@@ -610,7 +650,7 @@ const cm2MultRonds: CalcGenerator = (level, rng) => {
     a,
     b,
     level === 'facile' ? 0.3 : level === 'normal' ? 0.6 : 0.9,
-    `${da} × ${db} = ${da * db}, puis j’ajoute ${z} zéro${z > 1 ? 's' : ''} : ${f(a * b)}.`,
+    `${da} × ${db} = ${da * db} et ${f(10 ** zeros(a))} × ${f(10 ** zeros(b))} = ${f(10 ** z)}, donc ${f(a)} × ${f(b)} = ${da * db} × ${f(10 ** z)} = ${f(a * b)}.`,
   );
 };
 

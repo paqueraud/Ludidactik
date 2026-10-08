@@ -265,7 +265,7 @@ export function regle(inf: string, temps: Temps, p?: Personne): string {
         return 'Au présent, appeler et jeter doublent le l ou le t devant un e muet (j’appelle, nous appelons).';
       if (fam === 'egrave' || fam === 'eaigu')
         return 'Au présent, le e (ou le é) du radical devient è devant un e muet (j’achète, je préfère, mais nous achetons).';
-      return 'Au présent, les verbes en -er se terminent par -e, -es, -e, -ons, -ez, -ent.';
+      return 'Au présent, les verbes en -er se terminent par -e, -es, -e, -ons, -ez, -ent (être et avoir se savent par cœur : je suis, j’ai).';
     case 'imparfait':
       if (inf === 'être')
         return 'À l’imparfait, être devient « ét- » + -ais, -ais, -ait, -ions, -iez, -aient (j’étais).';
@@ -290,7 +290,7 @@ export function regle(inf: string, temps: Temps, p?: Personne): string {
         return `Au futur, le e devient è (${je}), puis on ajoute -ai, -as, -a, -ons, -ez, -ont.`;
       if (fam === 'eaigu')
         return `Au futur, on écrit ${je} (ou, en orthographe rectifiée, avec un è) ; terminaisons -ai, -as, -a, -ons, -ez, -ont.`;
-      return 'Au futur, on garde l’infinitif et on ajoute -ai, -as, -a, -ons, -ez, -ont : on entend le r.';
+      return 'Au futur, on garde l’infinitif et on ajoute -ai, -as, -a, -ons, -ez, -ont : on entend le r (attention : être devient je serai, avoir devient j’aurai).';
     }
     case 'conditionnel': {
       const je = avecPronom(0, formes(inf, 'conditionnel', 0)[0]!);

@@ -236,6 +236,8 @@ const quatreTypes = (
         ? extra.true_false(level, rng, ctx)
         : versVraiFaux(ctx, rng, gen(level, rng)),
   },
+  // Pas de Memory dérivé : des énoncés entiers sur des cartes sont illisibles (audit BO du 08/10/2026).
+  pools: { pairing: () => [] },
 });
 
 /* ------------------------------------------------------------------ */

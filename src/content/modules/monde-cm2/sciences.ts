@@ -1861,7 +1861,8 @@ const ECOSYS: Fiche = {
     {
       id: 'lapin',
       niv: 'f',
-      prompt: 'Chaîne alimentaire : range du végétal à l’animal qui mange les autres (« est mangé par »).',
+      prompt:
+        'Chaîne alimentaire : range du végétal jusqu’au dernier mangeur (chaque flèche veut dire « est mangé par »).',
       els: ['l’herbe', 'le lapin', 'le renard'],
       e: 'L’herbe est mangée par le lapin, qui est mangé par le renard.',
     },
@@ -2476,7 +2477,7 @@ const TECHNO: Fiche = {
         ['la trottinette', 1, '🛴'],
         ['la voiture', 1, '🚗'],
         ['le téléphone', 2, '📱'],
-        ['l’ordinateur', 2, '💻'],
+        ['le talkie-walkie', 2],
       ],
       e: 'Un objet technique est fabriqué pour répondre à un besoin : c’est sa fonction d’usage.',
     },

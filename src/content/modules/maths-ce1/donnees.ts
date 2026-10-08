@@ -152,14 +152,15 @@ const donneesNumeric: ItemGen = (level, rng, ctx) => {
     const fruits = ['🍎', '🍌', '🍓'];
     const reponses = Array.from({ length: rng.int(10, 18) }, () => rng.pick(fruits));
     const f = rng.pick(fruits);
+    const nomFruit = ({ '🍎': 'pommes', '🍌': 'bananes', '🍓': 'fraises' } as Record<string, string>)[f]!;
     const n = reponses.filter((x) => x === f).length;
-    const q = `Pour construire le diagramme en barres (1 carreau = 1 élève), combien de carreaux de haut doit mesurer la barre ${f} ?`;
+    const q = `Pour construire le diagramme en barres (1 carreau = 1 élève), combien de carreaux de haut doit mesurer la barre des ${nomFruit} ${f} ?`;
     return numeric(ctx, `construire-${reponses.join('')}-${f}`, {
       prompt: `Voici les réponses de l’enquête « fruit préféré » : ${reponses.join(' ')}.\n${q}`,
-      spoken: `Compte les ${f} dans les réponses de l’enquête.`,
+      spoken: `Compte les ${nomFruit} dans les réponses de l’enquête.`,
       answer: n,
       unit: 'carreaux',
-      explication: `On compte les ${f} : il y en a ${n}, donc la barre monte jusqu’à ${n}.`,
+      explication: `On compte les ${nomFruit} ${f} : il y en a ${n}, donc la barre monte jusqu’à ${n}.`,
       difficulty: 0.45,
       meta: { question: q, enquete: reponses, aConstruire: f },
     });

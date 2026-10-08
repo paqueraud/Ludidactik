@@ -10,6 +10,14 @@ import { DENOMS_CE1, clamp01, de, frac, fractionEnMots, make, mcq, numeric, parN
 
 type Shape = ItemOf<'visual_fraction'>['shape'];
 const SHAPES: Shape[] = ['pizza', 'barre', 'tablette'];
+/** Dénominateurs du BO au CE1 (2, 3, 4, 5, 6, 8, 10) : distracteurs choisis parmi eux. */
+const DENOMS_BO = [2, 3, 4, 5, 6, 8, 10];
+/** Dénominateur voisin dans la liste du BO (sens +1 ou −1, en rebondissant aux extrémités). */
+function denomVoisin(d: number, sens: 1 | -1): number {
+  const i = DENOMS_BO.indexOf(d);
+  const j = i + sens < 0 || i + sens >= DENOMS_BO.length ? i - sens : i + sens;
+  return DENOMS_BO[j] ?? (d === 2 ? 3 : 2);
+}
 const DE_LA: Record<Shape, string> = {
   pizza: 'de la pizza',
   barre: 'de la bande',
@@ -146,7 +154,7 @@ const unitQcm: ItemGen = (level, rng, ctx) => {
     return mcq(ctx, rng, `part-${d}-${objet}`, {
       question: `On partage ${objet} en ${d} parts égales. Quelle fraction représente une part ?`,
       good: frac(1, d),
-      wrong: [frac(d, 1), frac(1, d === 10 ? 8 : d + 1), frac(1, d === 2 ? 4 : d - 1), String(d)],
+      wrong: [frac(d, 1), frac(1, denomVoisin(d, 1)), frac(1, denomVoisin(d, -1)), String(d)],
       explication: `Une part sur ${d} parts égales, c’est ${frac(1, d)} (${fractionEnMots(1, d)}).`,
       difficulty: 0.3,
     });
@@ -316,7 +324,7 @@ const nonUnitQcm: ItemGen = (level, rng, ctx) => {
   return mcq(ctx, rng, `egal1-${d2}`, {
     question: 'Quelle fraction est égale à 1 (le tout) ?',
     good: frac(d2, d2),
-    wrong: [frac(1, d2), frac(d2 - 1, d2), frac(1, 1 + d2)].filter((x) => x !== frac(d2, d2)),
+    wrong: [frac(1, d2), frac(d2 - 1, d2), frac(2, d2)].filter((x) => x !== frac(d2, d2)),
     explication: `${frac(d2, d2)} : on prend les ${d2} parts sur ${d2}, c’est le tout entier.`,
     difficulty: 0.4,
   });

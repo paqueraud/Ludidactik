@@ -120,6 +120,8 @@ const deuxTypes = (gen: (level: Level, rng: Rng) => Pb): LessonContent => ({
     bar_model: (level, rng, ctx) => versBarModel(ctx, rng, gen(level, rng)),
     numeric_answer: (level, rng, ctx) => versNumeric(ctx, gen(level, rng)),
   },
+  // Pas de Memory dérivé : des énoncés entiers sur des cartes sont illisibles (audit BO du 08/10/2026).
+  pools: { pairing: () => [] },
 });
 
 /* ------------------------------------------------------------------ */
@@ -339,7 +341,7 @@ function pbDeuxEtapesEntiers(level: Level, rng: Rng): Pb {
   const r = a + b - c;
   const lieu = rng.pick([
     ['la bibliothèque de la classe', 'livres', 'Le professeur en apporte', 'Les élèves en empruntent'],
-    ['le car', 'passagers', 'Au premier arrêt,', 'Au deuxième arrêt,'],
+    ['le train', 'passagers', 'À la première gare,', 'À la deuxième gare,'],
   ] as const);
   const [ou, obj, ajout, retrait] = lieu;
   const st =
@@ -352,7 +354,7 @@ function pbDeuxEtapesEntiers(level: Level, rng: Rng): Pb {
     question:
       obj === 'livres'
         ? `Combien y a-t-il de livres dans ${ou} maintenant ?`
-        : `Combien y a-t-il de passagers dans le car maintenant ?`,
+        : `Combien y a-t-il de passagers dans le train maintenant ?`,
     answer: r,
     structure: 'deux-etapes',
     bars: [

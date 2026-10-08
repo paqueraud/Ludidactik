@@ -338,7 +338,7 @@ function genCultureOrdre(level: Level, rng: Rng, ctx: GenContext): Item {
     prompt: `Remets dans l’ordre les étapes de l’histoire « ${titre} ».`,
     elements: level === 'facile' ? etapes.slice(0, 3) : etapes,
     mode: 'etapes',
-    explication: `On se rappelle l’histoire de « ${titre} » : chaque étape entraîne la suivante.`,
+    explication: `On se rappelle l’histoire « ${titre} » : chaque étape entraîne la suivante.`,
     difficulty: diff(level, rng.next()),
   });
 }

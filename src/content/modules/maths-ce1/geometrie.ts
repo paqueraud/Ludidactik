@@ -592,6 +592,93 @@ const tracerQcm: ItemGen = (level, rng, ctx) => {
   });
 };
 
+/** Affirmations sur les instruments (vrai/faux natif : évite des dérivations sans la règle dessinée). */
+const OUTILS_VF: { s: string; v: boolean; e: string; niv: Level }[] = [
+  { s: 'Pour tracer un cercle, j’utilise le compas.', v: true, e: OUTILS[1]!.e, niv: 'facile' },
+  { s: 'Pour tracer un cercle, j’utilise l’équerre.', v: false, e: OUTILS[1]!.e, niv: 'facile' },
+  { s: 'Pour tracer un angle droit, j’utilise l’équerre.', v: true, e: OUTILS[0]!.e, niv: 'facile' },
+  { s: 'Pour tracer un angle droit, j’utilise le compas.', v: false, e: OUTILS[0]!.e, niv: 'facile' },
+  {
+    s: 'Pour tracer un segment de 5 cm, je fais un point en face du 0 et un point en face du 5.',
+    v: true,
+    e: 'On part toujours du 0 de la règle graduée : du 0 au 5, il y a 5 cm.',
+    niv: 'facile',
+  },
+  {
+    s: 'Pour tracer un segment de 5 cm, je fais un point en face du 1 et un point en face du 5.',
+    v: false,
+    e: 'Du 1 au 5, il n’y a que 4 cm : on part toujours du 0 de la règle graduée.',
+    niv: 'normal',
+  },
+  {
+    s: 'Le milieu d’un segment est à la même distance des deux bouts.',
+    v: true,
+    e: 'Le milieu partage le segment en deux parties de même longueur.',
+    niv: 'normal',
+  },
+  {
+    s: 'Pour vérifier que trois points sont alignés, je pose la règle : elle doit passer par les trois points.',
+    v: true,
+    e: OUTILS[3]!.e,
+    niv: 'normal',
+  },
+  {
+    s: 'Le coin de l’équerre permet de vérifier un angle droit.',
+    v: true,
+    e: OUTILS[0]!.e,
+    niv: 'normal',
+  },
+  {
+    s: 'Pour tracer un cercle, je pique la pointe du compas sur un point du cercle.',
+    v: false,
+    e: 'Je pique la pointe du compas sur le centre du cercle, pas sur le cercle.',
+    niv: 'plus_loin',
+  },
+  {
+    s: 'Un segment de 12 cm a son milieu à 6 cm de chaque bout.',
+    v: true,
+    e: 'La moitié de 12 cm, c’est 6 cm.',
+    niv: 'plus_loin',
+  },
+  {
+    s: 'Un segment de 9 cm a son milieu à 4 cm de chaque bout.',
+    v: false,
+    e: 'La moitié de 9 cm, c’est 4 cm et demi (4,5 cm), pas 4 cm.',
+    niv: 'plus_loin',
+  },
+];
+
+const tracerVraiFaux: ItemGen = (level, rng, ctx) => {
+  const ordre: Level[] = ['facile', 'normal', 'plus_loin'];
+  const o = rng.pick(OUTILS_VF.filter((x) => ordre.indexOf(x.niv) <= ordre.indexOf(level)));
+  return make(ctx, 'true_false', `outil-vf-${o.s}`, {
+    statement: o.s,
+    answer: o.v,
+    explication: o.e,
+    difficulty: o.niv === 'facile' ? 0.25 : o.niv === 'normal' ? 0.45 : 0.7,
+  });
+};
+
+/** Paires instrument ↔ usage (Memory) : remplace la dérivation depuis des mesures sans règle dessinée. */
+const tracerPaires: ItemGen = (level, rng, ctx) => {
+  const toutes = [
+    { left: 'le compas', right: 'tracer un cercle' },
+    { left: 'l’équerre', right: 'tracer un angle droit' },
+    { left: 'la règle graduée', right: 'mesurer une longueur' },
+    { left: 'le pliage', right: 'trouver le milieu d’un segment' },
+    ...(level === 'facile' ? [] : [{ left: 'la règle', right: 'vérifier un alignement' }]),
+  ];
+  const paires = rng.shuffle(toutes).slice(0, level === 'facile' ? 3 : 4);
+  return make(ctx, 'pairing', `outils-${paires.map((p) => p.left).join('|')}`, {
+    prompt: 'Associe chaque outil à ce qu’il permet de faire.',
+    pairs: paires,
+    relation: 'outil → usage',
+    explication:
+      'Le compas trace les cercles, l’équerre les angles droits, la règle graduée mesure, la règle vérifie un alignement et le pliage donne le milieu d’un segment.',
+    difficulty: level === 'facile' ? 0.2 : 0.4,
+  });
+};
+
 const ETAPES: { titre: string; etapes: string[]; niv: Level }[] = [
   {
     titre: 'Remets dans l’ordre les étapes pour reproduire une figure sur le quadrillage.',
@@ -1338,6 +1425,8 @@ export const GEOMETRIE: Record<string, LessonContent> = {
       mcq: tracerQcm,
       ordering: tracerOrdre,
       numeric_answer: tracerNumeric,
+      true_false: tracerVraiFaux,
+      pairing: tracerPaires,
     },
   },
   'CE1.MA.GEO.SYMETRIE': {
