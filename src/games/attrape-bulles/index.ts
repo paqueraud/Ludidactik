@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
 import { pasSensible } from '../_kit/sensible';
+import { sansDessin } from '../_kit/dessin';
 
 const jeu: GameModule = {
   id: 'attrape-bulles',
@@ -20,6 +21,7 @@ const jeu: GameModule = {
   // jeu de rapidité : jamais de thème sensible (guerres, esclavage…)
   filterItem: (it) =>
     pasSensible(it) &&
+    sansDessin(it) &&
     (it.kind === 'numeric_answer' ||
       (it.kind === 'mcq' && !it.meta?.texte && it.choices.every((c) => c.length <= 40))),
   component: lazy(() => import('./AttrapeBulles')),

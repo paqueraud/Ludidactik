@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
 import { pasSensible } from '../_kit/sensible';
+import { sansDessin } from '../_kit/dessin';
 
 const SYMBOLES = ['<', '=', '>'];
 
@@ -21,6 +22,7 @@ const jeu: GameModule = {
   minItems: 4,
   filterItem: (it) =>
     pasSensible(it) &&
+    sansDessin(it) &&
     (it.kind === 'numeric_answer' ||
       (it.kind === 'mcq' &&
         typeof it.meta?.gauche === 'string' &&

@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
+import { sansDessin } from '../_kit/dessin';
 
 const jeu: GameModule = {
   id: 'fusee-complements',
@@ -18,6 +19,8 @@ const jeu: GameModule = {
   minItems: 1,
   // Leçons de compléments (et calcul mental qui suggère ce jeu) ; les items `meta.complement` ont leur réservoir gradué.
   lessons: (l) => /COMPLEMENT/.test(l.id) || l.jeuxSuggeres.includes('fusee-complements'),
+  // jeu générique : pas d'item qui a besoin d'un dessin (règle, graphique…)
+  filterItem: sansDessin,
   component: lazy(() => import('./FuseeComplements')),
 };
 

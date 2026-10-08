@@ -22,14 +22,28 @@ import type { ItemKind } from './schemas';
 /* Distracteurs                                                        */
 /* ------------------------------------------------------------------ */
 
-/** Erreurs plausibles d'enfant pour un résultat numérique (±1, ±10, chiffres inversés…). */
+/** Plus grand nombre du programme de la classe de la leçon (CE1 : 1 000 ; CM2 : 999 999 999). */
+function borneClasse(lessonId: string): number {
+  if (/^(CP|CE1)\./.test(lessonId)) return 1000;
+  if (/^CE2\./.test(lessonId)) return 10_000;
+  return 999_999_999;
+}
+
+/** Leçons où l'erreur « × 10 / ÷ 10 » est une erreur typique (numération, × 10, × 100, décimaux). */
+const LECON_DIX = /\.NUM\.|X10|X100|DIX|GLISSE|DEC/;
+
+/**
+ * Erreurs plausibles d'enfant pour un résultat numérique (±1, ±10, chiffres inversés ; « × 10 » dans
+ * les leçons de numération), sans sortir des nombres du programme de la classe.
+ */
 export function numericDistractors(item: NumericItem, rng: Rng, count = 3): number[] {
   const a = item.answer;
   const step = item.decimals > 0 ? 10 ** -item.decimals : 1;
+  const max = Math.max(a, borneClasse(item.lessonId));
   const candidates = new Set<number>();
   const add = (x: number) => {
     const v = Math.round(x * 1000) / 1000;
-    if (v >= 0 && v !== a && (item.decimals > 0 || Number.isInteger(v))) candidates.add(v);
+    if (v >= 0 && v <= max && v !== a && (item.decimals > 0 || Number.isInteger(v))) candidates.add(v);
   };
   add(a + step);
   add(a - step);
@@ -41,9 +55,12 @@ export function numericDistractors(item: NumericItem, rng: Rng, count = 3): numb
     [sw[sw.length - 1], sw[sw.length - 2]] = [sw[sw.length - 2]!, sw[sw.length - 1]!];
     add(Number(sw.join('')));
   }
-  add(a * 10);
-  if (a >= 10) add(a / 10);
+  if (LECON_DIX.test(item.lessonId)) {
+    add(a * 10);
+    if (a >= 10) add(a / 10);
+  }
   add(a + 2 * step);
+  add(a - 2 * step);
   return rng.shuffle([...candidates]).slice(0, count);
 }
 
@@ -169,7 +186,7 @@ function numericsToPairing(items: NumericItem[], lessonId: string): PairingItem 
   const pairs: PairingItem['pairs'] = [];
   for (const it of items) {
     // carte de Memory / Dobble : énoncé autonome et court
-    if (!enonceAutonome(it) || it.prompt.length > 40) continue;
+    if (!enonceAutonome(it) || it.prompt.length > 60) continue;
     const l = it.prompt;
     const r = formatNumber(it.answer);
     if (seenL.has(l) || seenR.has(r)) continue;
@@ -194,10 +211,21 @@ function numericsToPairing(items: NumericItem[], lessonId: string): PairingItem 
  * QCM qui n'a de sens qu'avec un support affiché à côté (texte de compréhension) : on ne le
  * transforme pas en vrai/faux, paires ou réponse orale, qui ne savent pas afficher ce support.
  */
-const avecSupport = (it: McqItem) => it.meta?.texte !== undefined;
+const avecSupport = (it: McqItem) =>
+  ['texte', 'graphique', 'figure', 'quadrillage', 'mesure', 'balance', 'robot', 'enquete', 'circuit'].some(
+    (k) => it.meta?.[k] !== undefined,
+  );
+
+/**
+ * La question renvoie aux choix (« Lequel… », « Quel est l'intrus ? », « … parmi ces mots ») ou aux
+ * indices (devinette) : sans la liste affichée, un vrai/faux ou une carte de Memory serait insoluble.
+ */
+const RENVOIE_AUX_CHOIX =
+  /^(lequel|laquelle|lesquel(le)?s)\b|\b(intrus|parmi|ces (mots|phrases|nombres|propositions|images|réponses)|ci-dessous|suivant(e|s|es)?)\b|\bn['’]\S+ pas\b|\bne \S+ pas\b/i;
+const seulSansChoix = (it: McqItem) => !it.hints?.length && !RENVOIE_AUX_CHOIX.test(it.question);
 
 function mcqToTrueFalse(it: McqItem, rng: Rng): TrueFalseItem | null {
-  if (avecSupport(it)) return null;
+  if (avecSupport(it) || !seulSansChoix(it)) return null;
   const truth = rng.chance(0.5);
   const wrong = it.choices.filter((_, i) => i !== it.answerIndex);
   const shown = truth || !wrong.length ? it.choices[it.answerIndex]! : rng.pick(wrong);
@@ -257,13 +285,15 @@ function mcqsToPairing(items: McqItem[], lessonId: string): PairingItem | null {
   const seenL = new Set<string>();
   const seenR = new Set<string>();
   let sensible = false;
+  const explications: string[] = [];
   for (const it of items) {
-    if (avecSupport(it)) continue;
+    if (avecSupport(it) || !seulSansChoix(it)) continue;
     const r = it.choices[it.answerIndex]!;
     if (it.question.length > 70 || r.length > 40 || seenL.has(it.question) || seenR.has(r)) continue;
     seenL.add(it.question);
     seenR.add(r);
     pairs.push({ left: it.question, right: r });
+    explications.push(it.explication);
     if (!it.guillotine || it.meta?.sensible) sensible = true;
     if (pairs.length >= 5) break;
   }
@@ -277,7 +307,8 @@ function mcqsToPairing(items: McqItem[], lessonId: string): PairingItem | null {
     relation: 'question → réponse',
     // une question sensible (guerres, esclavage…) : paires exclues des jeux de rapidité
     ...(sensible ? { meta: { sensible: true } } : {}),
-    explication: 'Relis bien chaque question avant de chercher sa réponse.',
+    // les explications des questions d'origine (la règle de chaque paire)
+    explication: [...new Set(explications)].join(' '),
   };
 }
 

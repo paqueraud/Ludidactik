@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
+import { sansDessin } from '../_kit/dessin';
 
 const jeu: GameModule = {
   id: 'memory-familles',
@@ -16,7 +17,7 @@ const jeu: GameModule = {
   classes: ['CE1', 'CE2', 'CM1', 'CM2'],
   dureeCible: 240,
   minItems: 1,
-  filterItem: (item) => item.kind === 'pairing' && item.pairs.length >= 3,
+  filterItem: (item) => item.kind === 'pairing' && item.pairs.length >= 3 && sansDessin(item),
   component: lazy(() => import('./MemoryFamilles')),
 };
 

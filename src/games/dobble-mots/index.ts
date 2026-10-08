@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
 import { pasSensible } from '../_kit/sensible';
+import { sansDessin } from '../_kit/dessin';
 
 const jeu: GameModule = {
   id: 'dobble-mots',
@@ -21,6 +22,7 @@ const jeu: GameModule = {
   // jeu de réflexes (sablier) : jamais de thème sensible
   filterItem: (item) =>
     pasSensible(item) &&
+    sansDessin(item) &&
     item.kind === 'pairing' &&
     item.pairs.length >= 3 &&
     item.pairs.every((p) => p.left.length <= 24 && p.right.length <= 24),
