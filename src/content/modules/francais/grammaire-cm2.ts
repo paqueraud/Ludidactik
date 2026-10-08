@@ -273,12 +273,12 @@ export const PHRASES_CM2: PhraseAnalysee[] = [
     n: 'p',
   },
   {
-    p: 'Comme il était malade, Hugo est resté chez lui.',
-    v: 'est resté',
+    p: 'Comme il était malade, Hugo a dormi toute la journée.',
+    v: 'a dormi',
     g: [
       ['Comme il était malade', 'CCC', 'proposition'],
       ['Hugo', 'S', 'nom propre'],
-      ['chez lui', 'CCL', 'GNP'],
+      ['toute la journée', 'CCT', 'GN'],
     ],
     n: 'p',
   },
@@ -738,8 +738,8 @@ function genSujetQcm(level: Level, rng: Rng, ctx: GenContext): Item {
     good: suj,
     wrong: [...autres, x.v, ...(inv ? [] : [suj.split(' ').slice(-1)[0]!])],
     explication: inv
-      ? `Le sujet est placé après le verbe : c’est ${g(suj)} qui ${x.v.replace(/^a /, 'a ')}. On le trouve en posant « Qui est-ce qui ${x.v} ? ».`
-      : `On le trouve en posant « Qui est-ce qui ${x.v} ? » : c’est ${g(suj)}.`,
+      ? `Le sujet est placé après le verbe : c’est ${g(suj)}. On le trouve en posant la question « Qui est-ce qui… ? » devant le verbe ${g(x.v)}.`
+      : `On pose la question « Qui est-ce qui… ? » devant le verbe ${g(x.v)} : c’est ${g(suj)}.`,
     difficulty: diff(level, inv ? 0.7 : 0.3),
   });
 }
