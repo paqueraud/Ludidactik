@@ -5,10 +5,13 @@
  */
 import type { ContentModule } from '../../registry';
 import { GRAMMAIRE_CE1 } from './grammaire-ce1';
+import { GRAMMAIRE_CM2 } from './grammaire-cm2';
 import { LECTURE_CE1 } from './lecture-ce1';
+import { LECTURE_CM2 } from './lecture-cm2';
 import { ORAL_CE1 } from './oral-ce1';
 import { ORTHOGRAPHE } from './orthographe';
 import { VOCABULAIRE_CE1 } from './vocabulaire-ce1';
+import { VOCABULAIRE_CM2 } from './vocabulaire-cm2';
 
 export const contenu: ContentModule = {
   ...LECTURE_CE1,
@@ -16,4 +19,7 @@ export const contenu: ContentModule = {
   ...VOCABULAIRE_CE1,
   ...ORAL_CE1,
   ...ORTHOGRAPHE,
+  ...GRAMMAIRE_CM2,
+  ...VOCABULAIRE_CM2,
+  ...LECTURE_CM2,
 };

@@ -17,7 +17,7 @@ export interface MetaLecon {
 }
 
 const BO_CE1 = 'BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1';
-export const BO_CM2 = 'BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2';
+const BO_CM2 = 'BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2';
 
 export const META: Record<string, MetaLecon> = {
   /* ------------------------------ CE1 ------------------------------ */
@@ -258,5 +258,256 @@ export const META: Record<string, MetaLecon> = {
     boRef: `${BO_CE1} — Oral : dire pour être compris (d’abord, pour commencer, ensuite, enfin, pour terminer)`,
     contenus: 'Remettre un récit dans l’ordre, choisir le bon connecteur, le dire à voix haute.',
     generateur: 'francais/oral-dire',
+  },
+
+  /* ------------------------------ CM2 ------------------------------ */
+  'CM2.FR.LEC.FLUENCE': {
+    titre: 'Lire à voix haute avec fluidité',
+    rappel: 'Je lis par groupes de sens, je respecte la ponctuation et je fais les liaisons.',
+    niveaux: {
+      facile: '90 mots par minute',
+      normal: '120 mots par minute (attendu de fin de CM2), liaisons et ponctuation',
+      plus_loin: '130 mots par minute (attendu de 6e), liaisons interdites',
+    },
+    boRef: `${BO_CM2} — Lecture : lire correctement en ciblant 120 mots par minute en moyenne`,
+    contenus:
+      'Karaoké de lecture sur des textes originaux ou du patrimoine (data/lecture/textes.json) ; liaisons obligatoires et interdites.',
+    generateur: 'francais/lecture-fluence',
+  },
+  'CM2.FR.LEC.COMP': {
+    titre: 'Comprendre un texte : ce qui est dit et ce qu’on devine',
+    rappel:
+      'Je cherche dans le texte les indices qui prouvent ma réponse, même quand elle n’est pas écrite directement.',
+    niveaux: {
+      facile: 'textes courts, informations explicites et premières inférences',
+      normal: 'textes longs (récit, documentaire, fable) : implicite, inférences, reprises',
+      plus_loin: 'documents composites : rapprocher deux documents',
+    },
+    boRef: `${BO_CM2} — Lecture : restituer l’essentiel d’un texte qui contient des informations explicites et implicites ; rapprocher deux documents`,
+    contenus:
+      'Textes originaux et du patrimoine (La Fontaine, d’après Victor Hugo) ; preuve dans le texte ; genres ; ordre des étapes.',
+    generateur: 'francais/lecture-comprehension',
+  },
+  'CM2.FR.LEC.CULTURE': {
+    titre: 'Culture littéraire : héros, contes, fables et romans',
+    rappel:
+      'Je reconnais les grandes œuvres, leurs auteurs et leur genre : conte, fable, roman, poème, théâtre.',
+    niveaux: {
+      facile: 'personnages et contes célèbres',
+      normal: 'genres, œuvres et auteurs ; morales de La Fontaine',
+      plus_loin: 'théâtre, poésie, romans d’aventure ; citations',
+    },
+    boRef: `${BO_CM2} — Lecture et culture littéraire : lire au moins 3 œuvres du patrimoine (héros et héroïnes, merveilleux, morale, poésie)`,
+    contenus:
+      'Œuvres du domaine public (La Fontaine, Perrault, Grimm, Andersen, Verne, Hugo, Carroll, Collodi, Homère, Molière) ; personnages mystères (indices).',
+    generateur: 'francais/lecture-culture',
+  },
+  'CM2.FR.GRAM.TYPES': {
+    titre: 'Types et formes de phrases',
+    rappel:
+      'Une phrase a un type (déclaratif, interrogatif, impératif) et une ou plusieurs formes (négative, exclamative) ; aux temps composés, la négation encadre l’auxiliaire.',
+    niveaux: {
+      facile: 'ponctuation et types de phrases',
+      normal: 'transformer : forme négative, y compris aux temps composés',
+      plus_loin: 'ne… jamais, ne… rien, personne ne… ; phrases à plusieurs formes',
+    },
+    boRef: `${BO_CM2} — Grammaire : connaître les trois types de phrases et leurs formes (corpus de plus en plus complexes)`,
+    contenus:
+      'Ponctuation (Feu tricolore), types, transformation négative (négation aux temps composés), questions avec inversion.',
+    generateur: 'francais/grammaire-types',
+  },
+  'CM2.FR.GRAM.SUJET': {
+    titre: 'Trouver le sujet, même quand il est après le verbe',
+    rappel:
+      'Pour trouver le sujet, je demande « Qui est-ce qui… ? » devant le verbe : il peut être placé après le verbe (sujet inversé).',
+    niveaux: {
+      facile: 'sujets variés : groupe nominal, pronom, nom propre',
+      normal: 'sujet inversé simple (Dans la forêt vivait un bûcheron)',
+      plus_loin: 'sujet inversé dans des phrases plus longues, sujet infinitif',
+    },
+    boRef: `${BO_CM2} — Grammaire : consolider les types de sujets ; identifier le sujet inversé dans des cas simples`,
+    contenus:
+      'Nature des sujets (GN, pronom, nom propre, infinitif) ; sujet inversé ; manipulations du Labo des fonctions.',
+    generateur: 'francais/grammaire-sujet',
+  },
+  'CM2.FR.GRAM.GROUPES': {
+    titre: 'Groupe sujet, groupe verbal, groupe circonstanciel',
+    rappel:
+      'Le groupe sujet dit de qui on parle, le groupe verbal ce qu’on en dit ; le groupe circonstanciel se déplace et se supprime.',
+    niveaux: {
+      facile: 'groupe sujet et groupe verbal',
+      normal: 'avec le groupe circonstanciel',
+      plus_loin: 'phrases longues à plusieurs groupes circonstanciels',
+    },
+    boRef: `${BO_CM2} — Grammaire : consolider l’identification du groupe sujet, du groupe verbal, du groupe circonstanciel`,
+    contenus: 'Découpage en groupes, déplacement et suppression (Labo des fonctions).',
+    generateur: 'francais/grammaire-groupes',
+  },
+  'CM2.FR.GRAM.COD_COI': {
+    titre: 'Le COD et le COI',
+    rappel:
+      'Le COD suit le verbe sans préposition (le, la, les) ; le COI est introduit par à ou de (lui, leur, en).',
+    niveaux: {
+      facile: 'reconnaître le COD',
+      normal: 'COD ou COI ; les remplacer par un pronom (le, la, les, lui, leur, en)',
+      plus_loin: 'phrases à plusieurs compléments',
+    },
+    boRef: `${BO_CM2} — Grammaire : différencier COD et COI ; identifier les pronoms personnels compléments d’objet`,
+    contenus: 'Labo des fonctions (remplacement par un pronom) ; pronoms compléments au niveau normal.',
+    generateur: 'francais/grammaire-cod-coi',
+  },
+  'CM2.FR.GRAM.ATTRIBUT': {
+    titre: 'L’attribut du sujet',
+    rappel:
+      'Après un verbe d’état (être, sembler, devenir, paraître, rester), l’attribut dit comment est le sujet ; ce n’est pas un COD.',
+    niveaux: {
+      facile: 'avec le verbe être',
+      normal: 'attribut ou COD ?',
+      plus_loin: 'sembler, devenir, paraître, rester…',
+    },
+    boRef: `${BO_CM2} — Grammaire : différencier attribut du sujet et complément d’objet`,
+    contenus: 'Verbes d’état ; contrastes « Mon frère devient champion / regarde un champion ».',
+    generateur: 'francais/grammaire-attribut',
+  },
+  'CM2.FR.GRAM.CC': {
+    titre: 'Les compléments circonstanciels : quand, où, pourquoi',
+    rappel:
+      'Le CC de temps répond à « quand ? », le CC de lieu à « où ? », le CC de cause à « pourquoi ? » ; on peut le déplacer ou le supprimer.',
+    niveaux: {
+      facile: 'temps et lieu',
+      normal: 'temps, lieu et cause',
+      plus_loin: 'avec la manière (notion de 6e)',
+    },
+    boRef: `${BO_CM2} — Grammaire : différencier les compléments circonstanciels de temps, de lieu, de cause`,
+    contenus: 'Classement de CC (avec contexte), Labo des fonctions, question associée.',
+    generateur: 'francais/grammaire-cc',
+  },
+  'CM2.FR.GRAM.NATURE_FONCTION': {
+    titre: 'Nature ou fonction ?',
+    rappel:
+      'La nature dit ce qu’est le mot (nom, verbe…) ; la fonction dit le rôle qu’il joue dans la phrase (sujet, COD…).',
+    niveaux: {
+      facile: 'trouver la nature',
+      normal: 'distinguer nature et fonction',
+      plus_loin: 'nature et fonction d’un même groupe',
+    },
+    boRef: `${BO_CM2} — Grammaire : connaître et distinguer les notions de nature et de fonction`,
+    contenus: 'Tri d’étiquettes nature / fonction ; analyse de groupes dans des phrases.',
+    generateur: 'francais/grammaire-nature-fonction',
+  },
+  'CM2.FR.GRAM.CLASSES': {
+    titre: 'Prépositions, conjonctions et pronoms',
+    rappel:
+      'La préposition introduit un groupe (dans la boîte), la conjonction de subordination une proposition (quand il pleut) ; le pronom personnel change selon sa fonction (il, le, lui).',
+    niveaux: {
+      facile: 'prépositions et pronoms',
+      normal: 'prépositions, conjonctions de subordination, pronoms sujets et compléments',
+      plus_loin: 'avec les adverbes et les pronoms relatifs',
+    },
+    boRef: `${BO_CM2} — Grammaire : identifier les prépositions, les conjonctions de subordination, les pronoms personnels sujets et compléments`,
+    contenus: 'Mots donnés dans leur phrase (Chef d’orchestre) ; variations du pronom personnel.',
+    generateur: 'francais/grammaire-classes',
+  },
+  'CM2.FR.GRAM.GN': {
+    titre: 'Enrichir le nom : épithète et complément du nom',
+    rappel:
+      'Pour enrichir un nom, j’ajoute un adjectif épithète (une pomme rouge) ou un complément du nom introduit par une préposition (une tasse en porcelaine).',
+    niveaux: {
+      facile: 'adjectif épithète ou complément du nom',
+      normal: 'épithète, complément du nom, attribut du sujet',
+      plus_loin: 'avec la proposition relative (6e)',
+    },
+    boRef: `${BO_CM2} — Grammaire : aborder l’expansion du nom et le complément du nom ; différencier épithète et attribut du sujet`,
+    contenus: 'Expansions du nom, épithète / attribut (Labo des fonctions), compléter un nom.',
+    generateur: 'francais/grammaire-gn',
+  },
+  'CM2.FR.GRAM.COMPLEXE': {
+    titre: 'Phrase simple ou phrase complexe ?',
+    rappel: 'Je compte les verbes conjugués : un seul, la phrase est simple ; plusieurs, elle est complexe.',
+    niveaux: {
+      facile: 'compter les verbes conjugués',
+      normal: 'distinguer phrase simple et phrase complexe (pièges : infinitif, temps composés)',
+      plus_loin: 'propositions juxtaposées, coordonnées, subordonnées (6e)',
+    },
+    boRef: `${BO_CM2} — Grammaire : distinguer phrase simple et phrase complexe à partir du repérage des verbes conjugués`,
+    contenus:
+      'Compter les verbes conjugués ; classer des phrases ; liaison des propositions en Pour aller plus loin.',
+    generateur: 'francais/grammaire-complexe',
+  },
+  'CM2.FR.ORTH.MOTS': {
+    titre: 'Les mots à savoir écrire',
+    rappel:
+      'Je pense aux familles de mots et aux régularités (consonnes doubles, -tion/-sion) pour bien écrire.',
+    niveaux: {
+      facile: 'mots courants de révision',
+      normal: 'listes du CM2 : invariables, consonnes doubles, -tion / -sion',
+      plus_loin: 'mots difficiles (6e)',
+    },
+    boRef: `${BO_CM2} — Vocabulaire : écrire correctement les mots fréquents en s’appuyant sur les régularités et la formation`,
+    contenus:
+      'Listes data/dictees/cm2_mots.json (avec définitions) ; mot ↔ définition ; classement par régularité ou par sens.',
+  },
+  'CM2.FR.VOC.POLYSEMIE': {
+    titre: 'Les mots qui ont plusieurs sens',
+    rappel: 'Un mot peut avoir plusieurs sens : c’est la phrase qui me dit lequel choisir.',
+    niveaux: {
+      facile: 'mots à deux sens',
+      normal: 'mots à plusieurs sens dans des contextes variés',
+      plus_loin: 'homonymes (ver, verre, vert)',
+    },
+    boRef: `${BO_CM2} — Vocabulaire : approfondir la notion de polysémie ; utiliser les mots polysémiques dans différents contextes`,
+    contenus: 'Feuille, carte, pièce, opération, racine, volume… ; homonymes en Pour aller plus loin.',
+    generateur: 'francais/vocabulaire-polysemie',
+  },
+  'CM2.FR.VOC.MORPHO': {
+    titre: 'Familles de mots, préfixes et suffixes',
+    rappel: 'Les mots d’une même famille ont le même radical ; préfixes et suffixes changent le sens du mot.',
+    niveaux: {
+      facile: 'familles de mots, intrus',
+      normal: 'préfixes et suffixes, sens des mots dérivés',
+      plus_loin: 'racines grecques et latines ; mots simples, dérivés, composés (6e)',
+    },
+    boRef: `${BO_CM2} — Vocabulaire : approfondir les relations morphologiques et sémantiques entre les mots`,
+    contenus: 'Radicaux, affixes (re-, dé-, pré-, -able, -ment…), racines (hydro-, géo-, -logie, -vore).',
+    generateur: 'francais/vocabulaire-morphologie',
+  },
+  'CM2.FR.VOC.UNIVERS': {
+    titre: 'Les mots des sciences, de l’histoire, des arts…',
+    rappel: 'Les mots de chaque matière ont un sens précis : je les apprends avec leur orthographe.',
+    niveaux: {
+      facile: 'deux domaines',
+      normal: 'définitions des mots de chaque domaine',
+      plus_loin: 'réemployer le mot précis dans une phrase',
+    },
+    boRef: `${BO_CM2} — Vocabulaire : acquérir un vocabulaire précis dans différents univers de référence`,
+    contenus: 'Histoire, sciences, mathématiques, arts, émotions ; listes data/dictees/cm2_mots.json.',
+    generateur: 'francais/vocabulaire-univers',
+  },
+  'CM2.FR.VOC.DICO': {
+    titre: 'Utiliser le dictionnaire',
+    rappel:
+      'Dans le dictionnaire, les mots sont rangés lettre après lettre ; l’article donne la nature du mot et ses sens numérotés.',
+    niveaux: {
+      facile: 'ordre alphabétique, abréviations',
+      normal: 'lire un article : abréviations et sens',
+      plus_loin: 'choisir le bon sens selon la phrase',
+    },
+    boRef: `${BO_CM2} — Vocabulaire : utiliser des dictionnaires`,
+    contenus:
+      'Ordre alphabétique (jusqu’à la 4e lettre), n. m., n. f., v., adj., syn., contr. ; sens numérotés.',
+    generateur: 'francais/vocabulaire-dictionnaire',
+  },
+  'CM2.FR.VOC.SYN_ANT': {
+    titre: 'Synonymes, antonymes et nuances',
+    rappel:
+      'Un synonyme a presque le même sens, un antonyme le sens contraire ; je choisis le mot le plus juste.',
+    niveaux: {
+      facile: 'synonymes et antonymes courants',
+      normal: 'nuances (fatigué, épuisé)',
+      plus_loin: 'registres de langue (familier, courant, soutenu)',
+    },
+    boRef: `${BO_CM2} — Vocabulaire : réemployer le vocabulaire étudié (synonymes et antonymes : objectif explicite de 6e)`,
+    contenus: 'Paires de synonymes et d’antonymes, gradations, registres.',
+    generateur: 'francais/vocabulaire-synonymes',
   },
 };

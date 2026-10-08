@@ -8,9 +8,9 @@
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Lecture",
-   "titre": "Lire avec fluidité (Karaoké)",
+   "titre": "Lire à voix haute avec fluidité",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Lecture",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Lecture : lire correctement en ciblant 120 mots par minute en moyenne",
    "periodes": [
     1,
     2,
@@ -19,11 +19,12 @@
     5
    ],
    "niveaux": {
-    "facile": "90 MCLM",
-    "normal": "120 MCLM, liaisons, ponctuation",
-    "plus_loin": "140 MCLM + expressivité"
+    "facile": "90 mots par minute",
+    "normal": "120 mots par minute (attendu de fin de CM2), liaisons et ponctuation",
+    "plus_loin": "130 mots par minute (attendu de 6e), liaisons interdites"
    },
    "itemKinds": [
+    "oral_answer",
     "read_aloud"
    ],
    "jeuxSuggeres": [
@@ -31,18 +32,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_lec_fluence"
+    "generator": "francais/lecture-fluence"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je lis par groupes de sens, je respecte la ponctuation et je fais les liaisons.",
+   "contenus": "Karaoké de lecture sur des textes originaux ou du patrimoine (data/lecture/textes.json) ; liaisons obligatoires et interdites."
   },
   {
    "id": "CM2.FR.LEC.COMP",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Lecture",
-   "titre": "Comprendre : explicite/implicite, inférences, genres littéraires",
+   "titre": "Comprendre un texte : ce qui est dit et ce qu’on devine",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Lecture",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Lecture : restituer l’essentiel d’un texte qui contient des informations explicites et implicites ; rapprocher deux documents",
    "periodes": [
     1,
     2,
@@ -51,9 +53,9 @@
     5
    ],
    "niveaux": {
-    "facile": "texte court",
-    "normal": "texte long, inférences",
-    "plus_loin": "documents composites, comparer 2 documents"
+    "facile": "textes courts, informations explicites et premières inférences",
+    "normal": "textes longs (récit, documentaire, fable) : implicite, inférences, reprises",
+    "plus_loin": "documents composites : rapprocher deux documents"
    },
    "itemKinds": [
     "mcq",
@@ -65,18 +67,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_lec_comp"
+    "generator": "francais/lecture-comprehension"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je cherche dans le texte les indices qui prouvent ma réponse, même quand elle n’est pas écrite directement.",
+   "contenus": "Textes originaux et du patrimoine (La Fontaine, d’après Victor Hugo) ; preuve dans le texte ; genres ; ordre des étapes."
   },
   {
    "id": "CM2.FR.LEC.CULTURE",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Lecture",
-   "titre": "Culture littéraire : héros/héroïnes, merveilleux, morale (fables), poésie, autres vies, rapport aux autres",
+   "titre": "Culture littéraire : héros, contes, fables et romans",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Lecture",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Lecture et culture littéraire : lire au moins 3 œuvres du patrimoine (héros et héroïnes, merveilleux, morale, poésie)",
    "periodes": [
     1,
     2,
@@ -85,12 +88,14 @@
     5
    ],
    "niveaux": {
-    "facile": "personnages célèbres",
-    "normal": "genres & œuvres",
-    "plus_loin": "auteurs & citations courtes libres de droits (La Fontaine, Hugo…)"
+    "facile": "personnages et contes célèbres",
+    "normal": "genres, œuvres et auteurs ; morales de La Fontaine",
+    "plus_loin": "théâtre, poésie, romans d’aventure ; citations"
    },
    "itemKinds": [
     "mcq",
+    "pairing",
+    "classification",
     "ordering"
    ],
    "jeuxSuggeres": [
@@ -99,18 +104,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_lec_culture"
+    "generator": "francais/lecture-culture"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je reconnais les grandes œuvres, leurs auteurs et leur genre : conte, fable, roman, poème, théâtre.",
+   "contenus": "Œuvres du domaine public (La Fontaine, Perrault, Grimm, Andersen, Verne, Hugo, Carroll, Collodi, Homère, Molière) ; personnages mystères (indices)."
   },
   {
    "id": "CM2.FR.GRAM.TYPES",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "Types & formes de phrases (corpus complexes)",
+   "titre": "Types et formes de phrases",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : connaître les trois types de phrases et leurs formes (corpus de plus en plus complexes)",
    "periodes": [
     1,
     2,
@@ -119,13 +125,15 @@
     5
    ],
    "niveaux": {
-    "facile": "3 types",
-    "normal": "transformations",
-    "plus_loin": "phrases à forme multiple"
+    "facile": "ponctuation et types de phrases",
+    "normal": "transformer : forme négative, y compris aux temps composés",
+    "plus_loin": "ne… jamais, ne… rien, personne ne… ; phrases à plusieurs formes"
    },
    "itemKinds": [
+    "mcq",
     "ordering",
-    "mcq"
+    "true_false",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
@@ -133,18 +141,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_types"
+    "generator": "francais/grammaire-types"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Une phrase a un type (déclaratif, interrogatif, impératif) et une ou plusieurs formes (négative, exclamative) ; aux temps composés, la négation encadre l’auxiliaire.",
+   "contenus": "Ponctuation (Feu tricolore), types, transformation négative (négation aux temps composés), questions avec inversion."
   },
   {
    "id": "CM2.FR.GRAM.SUJET",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "Sujets variés, sujet inversé",
+   "titre": "Trouver le sujet, même quand il est après le verbe",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : consolider les types de sujets ; identifier le sujet inversé dans des cas simples",
    "periodes": [
     1,
     2,
@@ -153,13 +162,13 @@
     5
    ],
    "niveaux": {
-    "facile": "sujet GN/pronom",
-    "normal": "sujet inversé simple",
-    "plus_loin": "sujet inversé complexe"
+    "facile": "sujets variés : groupe nominal, pronom, nom propre",
+    "normal": "sujet inversé simple (Dans la forêt vivait un bûcheron)",
+    "plus_loin": "sujet inversé dans des phrases plus longues, sujet infinitif"
    },
    "itemKinds": [
     "classification",
-    "fill_blank"
+    "mcq"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
@@ -168,18 +177,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_sujet"
+    "generator": "francais/grammaire-sujet"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour trouver le sujet, je demande « Qui est-ce qui… ? » devant le verbe : il peut être placé après le verbe (sujet inversé).",
+   "contenus": "Nature des sujets (GN, pronom, nom propre, infinitif) ; sujet inversé ; manipulations du Labo des fonctions."
   },
   {
    "id": "CM2.FR.GRAM.GROUPES",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "GS, GV, groupe circonstanciel",
+   "titre": "Groupe sujet, groupe verbal, groupe circonstanciel",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : consolider l’identification du groupe sujet, du groupe verbal, du groupe circonstanciel",
    "periodes": [
     1,
     2,
@@ -188,13 +198,13 @@
     5
    ],
    "niveaux": {
-    "facile": "repérer GS/GV",
-    "normal": "+ CC",
-    "plus_loin": "phrase longue"
+    "facile": "groupe sujet et groupe verbal",
+    "normal": "avec le groupe circonstanciel",
+    "plus_loin": "phrases longues à plusieurs groupes circonstanciels"
    },
    "itemKinds": [
     "classification",
-    "fill_blank"
+    "mcq"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
@@ -203,18 +213,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_groupes"
+    "generator": "francais/grammaire-groupes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le groupe sujet dit de qui on parle, le groupe verbal ce qu’on en dit ; le groupe circonstanciel se déplace et se supprime.",
+   "contenus": "Découpage en groupes, déplacement et suppression (Labo des fonctions)."
   },
   {
    "id": "CM2.FR.GRAM.COD_COI",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "COD vs COI",
+   "titre": "Le COD et le COI",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : différencier COD et COI ; identifier les pronoms personnels compléments d’objet",
    "periodes": [
     1,
     2,
@@ -223,12 +234,13 @@
     5
    ],
    "niveaux": {
-    "facile": "COD",
-    "normal": "COD/COI",
-    "plus_loin": "pronoms compléments"
+    "facile": "reconnaître le COD",
+    "normal": "COD ou COI ; les remplacer par un pronom (le, la, les, lui, leur, en)",
+    "plus_loin": "phrases à plusieurs compléments"
    },
    "itemKinds": [
     "classification",
+    "mcq",
     "fill_blank"
    ],
    "jeuxSuggeres": [
@@ -238,18 +250,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_cod_coi"
+    "generator": "francais/grammaire-cod-coi"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le COD suit le verbe sans préposition (le, la, les) ; le COI est introduit par à ou de (lui, leur, en).",
+   "contenus": "Labo des fonctions (remplacement par un pronom) ; pronoms compléments au niveau normal."
   },
   {
    "id": "CM2.FR.GRAM.ATTRIBUT",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "Attribut du sujet vs complément d'objet ; verbes d'état",
+   "titre": "L’attribut du sujet",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : différencier attribut du sujet et complément d’objet",
    "periodes": [
     1,
     2,
@@ -258,13 +271,13 @@
     5
    ],
    "niveaux": {
-    "facile": "être + adj",
-    "normal": "attribut/COD",
-    "plus_loin": "sembler, devenir, paraître…"
+    "facile": "avec le verbe être",
+    "normal": "attribut ou COD ?",
+    "plus_loin": "sembler, devenir, paraître, rester…"
    },
    "itemKinds": [
     "classification",
-    "fill_blank"
+    "mcq"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
@@ -273,18 +286,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_attribut"
+    "generator": "francais/grammaire-attribut"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Après un verbe d’état (être, sembler, devenir, paraître, rester), l’attribut dit comment est le sujet ; ce n’est pas un COD.",
+   "contenus": "Verbes d’état ; contrastes « Mon frère devient champion / regarde un champion »."
   },
   {
    "id": "CM2.FR.GRAM.CC",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "CC de temps, lieu, cause",
+   "titre": "Les compléments circonstanciels : quand, où, pourquoi",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : différencier les compléments circonstanciels de temps, de lieu, de cause",
    "periodes": [
     1,
     2,
@@ -293,13 +307,13 @@
     5
    ],
    "niveaux": {
-    "facile": "temps/lieu",
-    "normal": "+ cause",
-    "plus_loin": "CC manière/but (6e)"
+    "facile": "temps et lieu",
+    "normal": "temps, lieu et cause",
+    "plus_loin": "avec la manière (notion de 6e)"
    },
    "itemKinds": [
     "classification",
-    "fill_blank"
+    "mcq"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
@@ -308,18 +322,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_cc"
+    "generator": "francais/grammaire-cc"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le CC de temps répond à « quand ? », le CC de lieu à « où ? », le CC de cause à « pourquoi ? » ; on peut le déplacer ou le supprimer.",
+   "contenus": "Classement de CC (avec contexte), Labo des fonctions, question associée."
   },
   {
    "id": "CM2.FR.GRAM.NATURE_FONCTION",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "Nature (classe) vs fonction",
+   "titre": "Nature ou fonction ?",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : connaître et distinguer les notions de nature et de fonction",
    "periodes": [
     1,
     2,
@@ -328,12 +343,13 @@
     5
    ],
    "niveaux": {
-    "facile": "nature",
-    "normal": "distinguer",
-    "plus_loin": "analyse complète"
+    "facile": "trouver la nature",
+    "normal": "distinguer nature et fonction",
+    "plus_loin": "nature et fonction d’un même groupe"
    },
    "itemKinds": [
-    "classification"
+    "classification",
+    "mcq"
    ],
    "jeuxSuggeres": [
     "chef-orchestre",
@@ -341,18 +357,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_nature_fonction"
+    "generator": "francais/grammaire-nature-fonction"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "La nature dit ce qu’est le mot (nom, verbe…) ; la fonction dit le rôle qu’il joue dans la phrase (sujet, COD…).",
+   "contenus": "Tri d’étiquettes nature / fonction ; analyse de groupes dans des phrases."
   },
   {
    "id": "CM2.FR.GRAM.CLASSES",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "Prépositions, conjonctions de subordination, pronoms personnels sujets/compléments (variations)",
+   "titre": "Prépositions, conjonctions et pronoms",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : identifier les prépositions, les conjonctions de subordination, les pronoms personnels sujets et compléments",
    "periodes": [
     1,
     2,
@@ -361,12 +378,14 @@
     5
    ],
    "niveaux": {
-    "facile": "prépositions",
-    "normal": "les 3",
-    "plus_loin": "adverbes, pronoms relatifs"
+    "facile": "prépositions et pronoms",
+    "normal": "prépositions, conjonctions de subordination, pronoms sujets et compléments",
+    "plus_loin": "avec les adverbes et les pronoms relatifs"
    },
    "itemKinds": [
-    "classification"
+    "classification",
+    "mcq",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "chef-orchestre",
@@ -374,18 +393,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_classes"
+    "generator": "francais/grammaire-classes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "La préposition introduit un groupe (dans la boîte), la conjonction de subordination une proposition (quand il pleut) ; le pronom personnel change selon sa fonction (il, le, lui).",
+   "contenus": "Mots donnés dans leur phrase (Chef d’orchestre) ; variations du pronom personnel."
   },
   {
    "id": "CM2.FR.GRAM.GN",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "Expansions du nom : adjectif, GN prépositionnel, complément du nom ; épithète vs attribut",
+   "titre": "Enrichir le nom : épithète et complément du nom",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : aborder l’expansion du nom et le complément du nom ; différencier épithète et attribut du sujet",
    "periodes": [
     1,
     2,
@@ -394,11 +414,13 @@
     5
    ],
    "niveaux": {
-    "facile": "adjectif",
-    "normal": "complément du nom, épithète/attribut",
-    "plus_loin": "proposition relative"
+    "facile": "adjectif épithète ou complément du nom",
+    "normal": "épithète, complément du nom, attribut du sujet",
+    "plus_loin": "avec la proposition relative (6e)"
    },
    "itemKinds": [
+    "classification",
+    "mcq",
     "fill_blank"
    ],
    "jeuxSuggeres": [
@@ -408,18 +430,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_gn"
+    "generator": "francais/grammaire-gn"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour enrichir un nom, j’ajoute un adjectif épithète (une pomme rouge) ou un complément du nom introduit par une préposition (une tasse en porcelaine).",
+   "contenus": "Expansions du nom, épithète / attribut (Labo des fonctions), compléter un nom."
   },
   {
    "id": "CM2.FR.GRAM.COMPLEXE",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Grammaire",
-   "titre": "Phrase simple / complexe (repérer les verbes conjugués)",
+   "titre": "Phrase simple ou phrase complexe ?",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Grammaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Grammaire : distinguer phrase simple et phrase complexe à partir du repérage des verbes conjugués",
    "periodes": [
     1,
     2,
@@ -428,13 +451,13 @@
     5
    ],
    "niveaux": {
-    "facile": "compter les verbes",
-    "normal": "distinguer",
-    "plus_loin": "juxtaposition/coordination/subordination"
+    "facile": "compter les verbes conjugués",
+    "normal": "distinguer phrase simple et phrase complexe (pièges : infinitif, temps composés)",
+    "plus_loin": "propositions juxtaposées, coordonnées, subordonnées (6e)"
    },
    "itemKinds": [
-    "classification",
-    "fill_blank"
+    "mcq",
+    "classification"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
@@ -443,9 +466,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_gram_complexe"
+    "generator": "francais/grammaire-complexe"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je compte les verbes conjugués : un seul, la phrase est simple ; plusieurs, elle est complexe.",
+   "contenus": "Compter les verbes conjugués ; classer des phrases ; liaison des propositions en Pour aller plus loin."
   },
   {
    "id": "CM2.FR.ORTH.GN",
@@ -589,9 +613,9 @@
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Orthographe",
-   "titre": "Mots fréquents, régularités, formation (data/dictees/cm2_mots.json)",
+   "titre": "Les mots à savoir écrire",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Orthographe",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Vocabulaire : écrire correctement les mots fréquents en s’appuyant sur les régularités et la formation",
    "periodes": [
     1,
     2,
@@ -600,11 +624,13 @@
     5
    ],
    "niveaux": {
-    "facile": "10 mots",
-    "normal": "liste CM2",
-    "plus_loin": "mots 6e"
+    "facile": "mots courants de révision",
+    "normal": "listes du CM2 : invariables, consonnes doubles, -tion / -sion",
+    "plus_loin": "mots difficiles (6e)"
    },
    "itemKinds": [
+    "pairing",
+    "classification",
     "spelling_word"
    ],
    "jeuxSuggeres": [
@@ -623,7 +649,8 @@
      "lessonId": "CM2.FR.ORTH.MOTS"
     }
    },
-   "rappel": "Je pense aux familles de mots et aux régularités (consonnes doubles, -tion/-sion) pour bien écrire."
+   "rappel": "Je pense aux familles de mots et aux régularités (consonnes doubles, -tion/-sion) pour bien écrire.",
+   "contenus": "Listes data/dictees/cm2_mots.json (avec définitions) ; mot ↔ définition ; classement par régularité ou par sens."
   },
   {
    "id": "CM2.FR.ORTH.LISTES_PARENTS",
@@ -1037,9 +1064,9 @@
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Polysémie selon le contexte (disciplinaire)",
+   "titre": "Les mots qui ont plusieurs sens",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Vocabulaire : approfondir la notion de polysémie ; utiliser les mots polysémiques dans différents contextes",
    "periodes": [
     1,
     2,
@@ -1048,13 +1075,13 @@
     5
    ],
    "niveaux": {
-    "facile": "2 sens",
-    "normal": "contextes variés",
-    "plus_loin": "homonymes"
+    "facile": "mots à deux sens",
+    "normal": "mots à plusieurs sens dans des contextes variés",
+    "plus_loin": "homonymes (ver, verre, vert)"
    },
    "itemKinds": [
-    "pairing",
     "mcq",
+    "pairing",
     "classification"
    ],
    "jeuxSuggeres": [
@@ -1064,18 +1091,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_voc_polysemie"
+    "generator": "francais/vocabulaire-polysemie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un mot peut avoir plusieurs sens : c’est la phrase qui me dit lequel choisir.",
+   "contenus": "Feuille, carte, pièce, opération, racine, volume… ; homonymes en Pour aller plus loin."
   },
   {
    "id": "CM2.FR.VOC.MORPHO",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Familles, préfixes, suffixes, racines (étymologie latine/grecque)",
+   "titre": "Familles de mots, préfixes et suffixes",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Vocabulaire : approfondir les relations morphologiques et sémantiques entre les mots",
    "periodes": [
     1,
     2,
@@ -1084,9 +1112,9 @@
     5
    ],
    "niveaux": {
-    "facile": "familles",
-    "normal": "dérivation",
-    "plus_loin": "racines grecques/latines (hydro-, -logie…)"
+    "facile": "familles de mots, intrus",
+    "normal": "préfixes et suffixes, sens des mots dérivés",
+    "plus_loin": "racines grecques et latines ; mots simples, dérivés, composés (6e)"
    },
    "itemKinds": [
     "pairing",
@@ -1100,18 +1128,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_voc_morpho"
+    "generator": "francais/vocabulaire-morphologie"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Les mots d’une même famille ont le même radical ; préfixes et suffixes changent le sens du mot.",
+   "contenus": "Radicaux, affixes (re-, dé-, pré-, -able, -ment…), racines (hydro-, géo-, -logie, -vore)."
   },
   {
    "id": "CM2.FR.VOC.UNIVERS",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Lexique des univers de référence (sciences, histoire, arts, émotions, argumentation)",
+   "titre": "Les mots des sciences, de l’histoire, des arts…",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Vocabulaire : acquérir un vocabulaire précis dans différents univers de référence",
    "periodes": [
     1,
     2,
@@ -1120,14 +1149,15 @@
     5
    ],
    "niveaux": {
-    "facile": "images",
-    "normal": "définitions",
-    "plus_loin": "réemploi"
+    "facile": "deux domaines",
+    "normal": "définitions des mots de chaque domaine",
+    "plus_loin": "réemployer le mot précis dans une phrase"
    },
    "itemKinds": [
-    "pairing",
+    "classification",
     "mcq",
-    "classification"
+    "pairing",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -1136,18 +1166,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_voc_univers"
+    "generator": "francais/vocabulaire-univers"
    },
-   "rappel": "Les mots de chaque matière ont un sens précis : je les apprends avec leur orthographe."
+   "rappel": "Les mots de chaque matière ont un sens précis : je les apprends avec leur orthographe.",
+   "contenus": "Histoire, sciences, mathématiques, arts, émotions ; listes data/dictees/cm2_mots.json."
   },
   {
    "id": "CM2.FR.VOC.DICO",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Dictionnaire : article, abréviations, sens",
+   "titre": "Utiliser le dictionnaire",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Vocabulaire : utiliser des dictionnaires",
    "periodes": [
     1,
     2,
@@ -1156,14 +1187,14 @@
     5
    ],
    "niveaux": {
-    "facile": "ordre alpha",
-    "normal": "lire un article",
-    "plus_loin": "choisir le bon sens"
+    "facile": "ordre alphabétique, abréviations",
+    "normal": "lire un article : abréviations et sens",
+    "plus_loin": "choisir le bon sens selon la phrase"
    },
    "itemKinds": [
-    "pairing",
+    "ordering",
     "mcq",
-    "classification"
+    "pairing"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -1172,18 +1203,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_voc_dico"
+    "generator": "francais/vocabulaire-dictionnaire"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Dans le dictionnaire, les mots sont rangés lettre après lettre ; l’article donne la nature du mot et ses sens numérotés.",
+   "contenus": "Ordre alphabétique (jusqu’à la 4e lettre), n. m., n. f., v., adj., syn., contr. ; sens numérotés."
   },
   {
    "id": "CM2.FR.VOC.SYN_ANT",
    "classe": "CM2",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Synonymes, antonymes, registres",
+   "titre": "Synonymes, antonymes et nuances",
    "programme": "2025",
-   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3 — Vocabulaire",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Vocabulaire : réemployer le vocabulaire étudié (synonymes et antonymes : objectif explicite de 6e)",
    "periodes": [
     1,
     2,
@@ -1192,9 +1224,9 @@
     5
    ],
    "niveaux": {
-    "facile": "—",
-    "normal": "nuances",
-    "plus_loin": "registres"
+    "facile": "synonymes et antonymes courants",
+    "normal": "nuances (fatigué, épuisé)",
+    "plus_loin": "registres de langue (familier, courant, soutenu)"
    },
    "itemKinds": [
     "pairing",
@@ -1208,9 +1240,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:cm2_fr_voc_syn_ant"
+    "generator": "francais/vocabulaire-synonymes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un synonyme a presque le même sens, un antonyme le sens contraire ; je choisis le mot le plus juste.",
+   "contenus": "Paires de synonymes et d’antonymes, gradations, registres."
   },
   {
    "id": "CM2.HI20.T1.REPUBLIQUE100",
