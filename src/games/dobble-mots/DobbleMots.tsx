@@ -6,7 +6,7 @@
  * Plus loin : 5 mots, sablier rapide. Le sablier qui se vide n'enlève rien : on montre la paire.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { SpeakButton } from '@/components/ui';
 import type { Level, PairingItem } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
@@ -34,6 +34,39 @@ const ESSAIS: Record<Level, number> = { facile: 2, normal: 1, plus_loin: 1 };
 const LETTRES = ['A', 'B', 'C', 'D', 'E'];
 // teintes foncées : contraste AA sur fond blanc
 const TEINTES = ['#1A6E99', '#B8372B', '#25703A', '#5B45C9', '#8A5410'];
+/** Largeur max d'une étiquette (fraction du diamètre de la carte). */
+const LARGEUR_ETIQUETTE = 0.66;
+/** Place prise par la pastille de touche, l'espace et les marges intérieures (px). */
+const MARGES_ETIQUETTE = 46;
+/** Largeur moyenne d'un caractère (en em) de la police de titre en extra-gras (estimation prudente). */
+const EM_PAR_CARACTERE = 0.62;
+
+/**
+ * Taille de police (px) d'une étiquette : la taille voulue, réduite pour que le mot le plus long tienne
+ * sur une ligne (un mot n'est jamais coupé ; les expressions peuvent passer à la ligne entre les mots).
+ */
+function tailleEtiquette(mot: string, voulue: number, largeurCarte: number): number {
+  const plusLong = Math.max(...mot.split(/\s+/).map((m) => [...m].length), 1);
+  const place = largeurCarte * LARGEUR_ETIQUETTE - MARGES_ETIQUETTE;
+  return Math.max(11, Math.min(voulue, place / (plusLong * EM_PAR_CARACTERE)));
+}
+
+/** Diamètre affiché de la carte (px), suivi au redimensionnement. */
+function useLargeur(defaut: number) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [largeur, setLargeur] = useState(defaut);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const maj = () => el.offsetWidth > 0 && setLargeur(el.offsetWidth);
+    maj();
+    if (typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(maj);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return [ref, largeur] as const;
+}
 
 function Carte({
   mots,
@@ -57,8 +90,10 @@ function Carte({
   reduite: boolean;
 }) {
   const places = useMemo(() => dispositionCarte(mots.length, createRng(seed)), [mots.length, seed]);
+  const [ref, largeur] = useLargeur(270);
   return (
     <motion.div
+      ref={ref}
       className="relative aspect-square w-[min(70vw,270px)] rounded-full border-[6px] border-white shadow-soft sm:w-[340px]"
       style={{
         background: `radial-gradient(circle at 35% 30%, #FFFFFF 0%, #FFF8EC 55%, ${cote === 'A' ? '#DDF3FF' : '#FFE3DF'} 100%)`,
@@ -79,8 +114,13 @@ function Carte({
         return (
           <div
             key={m}
-            className="absolute max-w-[62%]"
-            style={{ left: `${p.x}%`, top: `${p.y}%`, transform: 'translate(-50%, -50%)' }}
+            className="absolute"
+            style={{
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+              transform: 'translate(-50%, -50%)',
+              maxWidth: `${LARGEUR_ETIQUETTE * 100}%`,
+            }}
           >
             <motion.button
               type="button"
@@ -97,7 +137,7 @@ function Carte({
               }`}
               style={{
                 rotate: p.rot,
-                fontSize: `${(mots.length >= 5 ? 1.05 : 1.25) * p.taille}rem`,
+                fontSize: `${tailleEtiquette(m, (mots.length >= 5 ? 16.8 : 20) * p.taille, largeur)}px`,
                 minHeight: 48,
               }}
               whileTap={reduite ? undefined : { scale: 0.9 }}
@@ -112,8 +152,13 @@ function Carte({
                 {touche}
               </span>
               <span
-                className="[overflow-wrap:anywhere]"
-                style={{ color: estBon ? '#fff' : TEINTES[i % TEINTES.length] }}
+                className="whitespace-normal"
+                style={{
+                  color: estBon ? '#fff' : TEINTES[i % TEINTES.length],
+                  hyphens: 'none',
+                  wordBreak: 'keep-all',
+                  overflowWrap: 'normal',
+                }}
               >
                 {m}
               </span>

@@ -184,16 +184,54 @@ function mcqToTrueFalse(it: McqItem, rng: Rng): TrueFalseItem {
   };
 }
 
+/** Leçons où un QCM peut devenir une réponse orale : ni français (homophones…), ni maths, ni anglais. */
+const ORAL_DEPUIS_QCM_EXCLU = /^[A-Z0-9]+\.(FR|MA|EN)\./;
+/** Article en tête de réponse : à l'oral, « la Loire » ou « Loire » sont acceptés. */
+const ARTICLE = /^(?:(?:le|la|les|un|une|des|du|de la|au|aux)\s+|l'|de l')/i;
+
+/**
+ * QCM → réponse orale (questionner le monde, EMC, histoire, géographie, sciences) : seulement si la
+ * bonne réponse est courte (≤ 3 mots), écrite (ni symbole ni emoji) et le thème n'est pas sensible.
+ * Les choix restent visibles (`meta.choix`) : l'enfant dit la bonne réponse à voix haute.
+ */
+export function mcqToOral(it: McqItem): OralItem | null {
+  if (ORAL_DEPUIS_QCM_EXCLU.test(it.lessonId)) return null;
+  if (it.lang && !it.lang.startsWith('fr')) return null;
+  if (!it.guillotine || it.meta?.sensible) return null;
+  const rep = normalizeText(it.choices[it.answerIndex] ?? '').replace(/[.!…]+$/u, '');
+  if (!rep || !/[\p{L}\d]/u.test(rep) || /\p{Extended_Pictographic}/u.test(rep)) return null;
+  if (rep.split(' ').length > 3) return null;
+  const accepted = new Set<string>([rep, rep.toLowerCase()]);
+  const sansArticle = rep.replace(ARTICLE, '').trim();
+  if (sansArticle && sansArticle !== rep) accepted.add(sansArticle).add(sansArticle.toLowerCase());
+  if (it.typedAnswer) accepted.add(normalizeText(it.typedAnswer));
+  if (/^\d+$/.test(rep) && Number(rep) <= 999_999_999)
+    for (const g of graphiesNombre(Number(rep))) accepted.add(g);
+  return {
+    kind: 'oral_answer',
+    id: `${it.id}~oral`,
+    lessonId: it.lessonId,
+    prompt: it.question,
+    answer: rep,
+    accepted: [...accepted],
+    explication: it.explication,
+    difficulty: it.difficulty,
+    meta: { depuisQcm: true, choix: it.choices, ...(it.image ? { image: it.image } : {}) },
+  };
+}
+
 function mcqsToPairing(items: McqItem[], lessonId: string): PairingItem | null {
   const pairs: PairingItem['pairs'] = [];
   const seenL = new Set<string>();
   const seenR = new Set<string>();
+  let sensible = false;
   for (const it of items) {
     const r = it.choices[it.answerIndex]!;
     if (it.question.length > 70 || r.length > 40 || seenL.has(it.question) || seenR.has(r)) continue;
     seenL.add(it.question);
     seenR.add(r);
     pairs.push({ left: it.question, right: r });
+    if (!it.guillotine || it.meta?.sensible) sensible = true;
     if (pairs.length >= 5) break;
   }
   if (pairs.length < 3) return null;
@@ -204,6 +242,8 @@ function mcqsToPairing(items: McqItem[], lessonId: string): PairingItem | null {
     prompt: 'Associe chaque question à sa réponse.',
     pairs,
     relation: 'question → réponse',
+    // une question sensible (guerres, esclavage…) : paires exclues des jeux de rapidité
+    ...(sensible ? { meta: { sensible: true } } : {}),
     explication: 'Relis bien chaque question avant de chercher sa réponse.',
   };
 }
@@ -298,7 +338,10 @@ export const DERIVATIONS: Partial<
     { from: 'fill_blank', one: (it, rng) => fillBlankToTrueFalse(it as FillBlankItem, rng) },
     { from: 'spelling_word', one: (it, rng) => spellingToTrueFalse(it as SpellingItem, rng) },
   ],
-  oral_answer: [{ from: 'numeric_answer', one: (it) => numericToOral(it as NumericItem) }],
+  oral_answer: [
+    { from: 'numeric_answer', one: (it) => numericToOral(it as NumericItem) },
+    { from: 'mcq', one: (it) => mcqToOral(it as McqItem) },
+  ],
   pairing: [
     { from: 'numeric_answer', many: (items, id) => numericsToPairing(items as NumericItem[], id) },
     { from: 'mcq', many: (items, id) => mcqsToPairing(items as McqItem[], id) },

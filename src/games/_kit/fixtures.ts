@@ -3,10 +3,15 @@
  * chaque mini-jeu indépendamment du contenu des leçons, et aux tests E2E de fumée.
  */
 import type { Item, ItemKind } from '@/content/schemas';
+import { EXEMPLES_CALCUL } from '../_calcul-commun/fixtures';
+import { EXEMPLES as EXEMPLES_GEOMETRIE } from '../_geometrie-commun/fixtures';
+import { LANGUE_FIXTURES } from '../_langue-commun/fixtures';
+import { MONDE_FIXTURES } from '../_monde-commun/fixtures';
 
 const L = 'LABO';
 
-export const FIXTURES: Record<ItemKind, Item[]> = {
+/** Exemples de base de chaque type (leur ordre fixe le tirage du Labo, graine 42). */
+const BASE: Record<ItemKind, Item[]> = {
   numeric_answer: [
     {
       kind: 'numeric_answer',
@@ -755,3 +760,43 @@ export const FIXTURES: Record<ItemKind, Item[]> = {
     },
   ],
 };
+
+/**
+ * Exemples des familles de jeux (calcul, langue, géométrie, monde) : formes `meta` spécialisées
+ * (GUIDE §6), pour que chaque jeu ait au moins un exercice adapté dans le Labo.
+ * Ajoutés À LA FIN de chaque tableau ; un id déjà présent n'est pas dupliqué.
+ */
+const COMPLEMENTS: Item[] = [
+  ...EXEMPLES_CALCUL,
+  ...Object.values(LANGUE_FIXTURES).flat(),
+  // géométrie, mesures, données : toutes les figures et classements ; pour les QCM et les calculs
+  // (partagés avec les jeux génériques), seulement un exemple par jeu spécialisé
+  ...(EXEMPLES_GEOMETRIE.geometry_shape ?? []),
+  ...(EXEMPLES_GEOMETRIE.classification ?? []),
+  ...[...(EXEMPLES_GEOMETRIE.numeric_answer ?? []), ...(EXEMPLES_GEOMETRIE.mcq ?? [])].filter((i) =>
+    [
+      ':hm8eac', // station météo : diagramme en barres (calcul)
+      ':mav3sy', // mesureur : règle virtuelle
+      ':1c06je', // station météo : QCM sur un graphique
+      ':10idrqd', // roue des probabilités : QCM
+      ':2jerar', // mesureur : estimation
+    ].some((s) => i.id.endsWith(s)),
+  ),
+  ...Object.values(MONDE_FIXTURES).flat(),
+];
+
+function fusionner(base: Record<ItemKind, Item[]>, extra: Item[]): Record<ItemKind, Item[]> {
+  const out = Object.fromEntries(Object.entries(base).map(([k, v]) => [k, [...v]])) as Record<
+    ItemKind,
+    Item[]
+  >;
+  const ids = new Set(Object.values(base).flatMap((v) => v.map((i) => i.id)));
+  for (const it of extra) {
+    if (ids.has(it.id)) continue;
+    ids.add(it.id);
+    out[it.kind].push(it);
+  }
+  return out;
+}
+
+export const FIXTURES: Record<ItemKind, Item[]> = fusionner(BASE, COMPLEMENTS);

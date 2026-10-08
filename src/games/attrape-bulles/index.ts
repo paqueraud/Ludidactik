@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
+import { pasSensible } from '../_kit/sensible';
 
 const jeu: GameModule = {
   id: 'attrape-bulles',
@@ -16,9 +17,11 @@ const jeu: GameModule = {
   dureeCible: 180,
   minItems: 4,
   // Questions à choix courts : les textes très longs (compréhension de texte) ne tiennent pas dans une bulle.
+  // jeu de rapidité : jamais de thème sensible (guerres, esclavage…)
   filterItem: (it) =>
-    it.kind === 'numeric_answer' ||
-    (it.kind === 'mcq' && !it.meta?.texte && it.choices.every((c) => c.length <= 40)),
+    pasSensible(it) &&
+    (it.kind === 'numeric_answer' ||
+      (it.kind === 'mcq' && !it.meta?.texte && it.choices.every((c) => c.length <= 40))),
   component: lazy(() => import('./AttrapeBulles')),
 };
 

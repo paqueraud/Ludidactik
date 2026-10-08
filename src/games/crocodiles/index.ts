@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
+import { pasSensible } from '../_kit/sensible';
 
 const SYMBOLES = ['<', '=', '>'];
 
@@ -19,11 +20,12 @@ const jeu: GameModule = {
   dureeCible: 150,
   minItems: 4,
   filterItem: (it) =>
-    it.kind === 'numeric_answer' ||
-    (it.kind === 'mcq' &&
-      typeof it.meta?.gauche === 'string' &&
-      typeof it.meta?.droite === 'string' &&
-      it.choices.every((c) => SYMBOLES.includes(c))),
+    pasSensible(it) &&
+    (it.kind === 'numeric_answer' ||
+      (it.kind === 'mcq' &&
+        typeof it.meta?.gauche === 'string' &&
+        typeof it.meta?.droite === 'string' &&
+        it.choices.every((c) => SYMBOLES.includes(c)))),
   lessons: (l) => /COMPARER/.test(l.id) || l.jeuxSuggeres.includes('crocodiles'),
   component: lazy(() => import('./Crocodiles')),
 };

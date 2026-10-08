@@ -10,14 +10,35 @@ export interface ALire {
   motALire: string | null;
   reponse: string;
   acceptes: string[];
+  /** Question venue d'un QCM (monde, EMC, histoire, sciences) : choix affichés, à dire à voix haute. */
+  choix: string[] | null;
+  /** Illustration (emoji) de la question. */
+  image: string | null;
 }
+
+/** Réponse orale dérivée d'un QCM par l'adaptateur (`meta.depuisQcm`, `meta.choix`). */
+const depuisQcm = (it: Item): boolean => it.kind === 'oral_answer' && it.meta?.depuisQcm === true;
 
 /** Lecture en français (pas l'anglais : Jacques a dit ; pas les nombres : Robot calculateur). */
 export const estLecture = (it: Item): it is OralItem =>
-  it.kind === 'oral_answer' && (!it.lang || it.lang === 'fr-FR') && parseNumber(it.answer) === null;
+  it.kind === 'oral_answer' &&
+  (!it.lang || it.lang === 'fr-FR') &&
+  (parseNumber(it.answer) === null || depuisQcm(it));
 
 export function versLecture(it: Item): ALire | null {
   if (!estLecture(it)) return null;
+  if (depuisQcm(it)) {
+    const choix = Array.isArray(it.meta?.choix) ? (it.meta.choix as unknown[]).map(String) : null;
+    return {
+      item: it,
+      consigne: normalizeText(it.prompt),
+      motALire: null,
+      reponse: it.answer,
+      acceptes: [...new Set([it.answer, ...it.accepted])],
+      choix: choix && choix.length >= 2 ? choix : null,
+      image: typeof it.meta?.image === 'string' ? it.meta.image : null,
+    };
+  }
   const prompt = normalizeText(it.prompt);
   const rep = normalizeText(it.answer);
   const contient = prompt.toLowerCase().includes(rep.toLowerCase());
@@ -37,5 +58,7 @@ export function versLecture(it: Item): ALire | null {
     motALire: contient ? it.answer : null,
     reponse: it.answer,
     acceptes: [...new Set([it.answer, ...it.accepted])],
+    choix: null,
+    image: null,
   };
 }

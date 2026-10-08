@@ -44,8 +44,10 @@ const TEINTES = [
 interface Question {
   item: Item;
   texte: string;
+  /** Lu en français (la consigne, même pour un item d'anglais). */
   aDire: string;
-  lang?: string;
+  /** Item d'anglais : seulement le mot (ou les choix) à lire avec la voix anglaise. */
+  anglais?: string;
   image?: string;
   choix: string[];
   bonne: number;
@@ -65,11 +67,15 @@ type Etat = { type: 'jeu' } | { type: 'juste' } | { type: 'faux'; choix: number 
 
 function versQuestion(it: Item, rng: Rng, level: Level): Question | null {
   if (it.kind === 'mcq') {
+    const enAnglais = it.lang?.startsWith('en') ?? false;
+    // anglais : la question (française) est lue en français ; seul le mot anglais (`spoken`) ou, à
+    // défaut, les choix écrits en anglais sont lus avec la voix anglaise
+    const choixLisibles = it.choices.filter((c) => !/\p{Extended_Pictographic}/u.test(c));
     return {
       item: it,
       texte: it.question,
-      aDire: it.spoken ?? it.question,
-      lang: it.lang,
+      aDire: enAnglais ? it.question : (it.spoken ?? it.question),
+      anglais: enAnglais ? (it.spoken ?? (choixLisibles.join(', ') || undefined)) : undefined,
       image: it.image,
       choix: it.choices,
       bonne: it.answerIndex,
@@ -151,7 +157,10 @@ export default function AttrapeBulles({
   useEffect(() => {
     if (!q) return;
     startQuestion();
-    if (lectureAuto && !paused) void speech.speak(q.aDire, { lang: q.lang });
+    if (lectureAuto && !paused)
+      void speech.speak(q.aDire).then(() => {
+        if (q.anglais) return speech.speak(q.anglais, { lang: 'en-GB', queue: true });
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q]);
 
@@ -290,11 +299,20 @@ export default function AttrapeBulles({
 
       <div className="carte flex flex-col items-center gap-2 p-4">
         <div className="flex items-start justify-center gap-3">
-          <SpeakButton
-            text={`${q.aDire}. ${q.item.kind === 'mcq' ? q.choix.join(', ') : ''}`}
-            lang={q.lang}
-            label="Écouter la question"
-          />
+          <div className="flex flex-col gap-2">
+            <SpeakButton
+              text={q.anglais ? q.aDire : `${q.aDire}. ${q.item.kind === 'mcq' ? q.choix.join(', ') : ''}`}
+              label="Écouter la question"
+            />
+            {q.anglais && (
+              <SpeakButton
+                text={q.anglais}
+                lang="en-GB"
+                label="Écouter en anglais"
+                className="bg-sky-dark text-white"
+              />
+            )}
+          </div>
           <p
             className="whitespace-pre-line text-center font-titre text-2xl font-extrabold leading-snug sm:text-3xl"
             aria-live="polite"
