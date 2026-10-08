@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from '@/avatar/Avatar';
 import { playerLevel } from '@/engine/score';
+import { PastilleFlamme } from '@/meta/IconeFlamme';
 import { useCurrentProfile } from '@/services/profiles';
 import { sfx } from '@/services/sfx';
 import { LudiCoin, SpeakButton } from './ui';
@@ -117,7 +118,7 @@ export function Screen({
             </button>
           ) : (
             <Link
-              to="/"
+              to={profile ? '/accueil' : '/'}
               className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-cream"
               aria-label="Accueil"
             >
@@ -129,6 +130,7 @@ export function Screen({
             {titre && <SpeakButton text={aLire ?? titre} size={40} />}
           </div>
           {actions}
+          {profile && <PastilleFlamme profileId={profile.id} />}
           {profile && lvl && (
             <Link
               to="/profil"

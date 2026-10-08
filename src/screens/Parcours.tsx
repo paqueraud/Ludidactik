@@ -129,7 +129,7 @@ export function Classes() {
   return (
     <AvecProfil>
       {(profile) => (
-        <Screen titre="Choisis ta classe" retour="/">
+        <Screen titre="Choisis ta classe" retour="/accueil">
           <MotsDeLaSemaine profile={profile} classe={profile.classe} />
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {CLASSES.map((c, i) => {

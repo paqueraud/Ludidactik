@@ -94,7 +94,7 @@ export function Accueil() {
         size="xl"
         variant="grass"
         icon={<Play size={30} aria-hidden />}
-        onClick={() => navigate(connecte ? '/jouer' : '/profils')}
+        onClick={() => navigate(connecte ? '/accueil' : '/profils')}
         autoFocus
       >
         Jouer

@@ -21,7 +21,7 @@ export function SalleDeJeux() {
   return (
     <AvecProfil>
       {() => (
-        <Screen titre={`La salle de jeux (${GAMES.length} jeux)`} retour="/jouer" large>
+        <Screen titre={`La salle de jeux (${GAMES.length} jeux)`} retour="/accueil" large>
           <div className="mb-4 flex flex-wrap gap-2" role="group" aria-label="Comment veux-tu apprendre ?">
             {(['toutes', ...MODALITIES] as const).map((m) => (
               <button

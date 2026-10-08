@@ -5,7 +5,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Pause, Play, RotateCcw, X } from 'lucide-react';
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Confetti } from '@/components/Confetti';
 import { PauseDouce } from '@/components/PauseDouce';
 import { Sky } from '@/components/Layout';
@@ -16,6 +16,8 @@ import { LEVEL_META } from '@/content/meta';
 import { type ItemStream, type ProviderContext, createStream } from '@/content/provider';
 import { LEVELS, type Level } from '@/content/schemas';
 import { gamesForLesson, getGame } from '@/games/registry';
+import { NotificationsMeta } from '@/meta/NotificationsMeta';
+import { type ApresPartie, apresPartie } from '@/services/meta';
 import { useCurrentProfile } from '@/services/profiles';
 import { type SavedResult, dueItems, saveGameResult, updateLeitner } from '@/services/results';
 import { addPlayTime, useLimitStatus } from '@/services/screenTime';
@@ -33,6 +35,9 @@ type Phase = 'chargement' | 'consigne' | 'decompte' | 'jeu' | 'bilan';
 export function GameHost() {
   const { lessonId = '', gameId = '', level: levelParam = 'normal' } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  /** Partie lancée depuis un écran du méta-jeu (défis du jour) : on y revient à la fin. */
+  const retourMeta = (location.state as { retour?: string; retourLabel?: string } | null) ?? null;
   const profile = useCurrentProfile();
   const lectureAutoSetting = useSettings((s) => s.lectureAuto);
   const afficherPuberte = useSettings((s) => s.puberte);
@@ -50,14 +55,15 @@ export function GameHost() {
     summary: GameSummary;
     saved: SavedResult;
     erreurs: AnswerEvent[];
+    meta: ApresPartie | null;
   } | null>(null);
 
   const lectureAuto =
     lectureAutoSetting === 'oui' ||
     (lectureAutoSetting === 'auto' && (profile?.classe === 'CE1' || profile?.classe === 'CP'));
-  const backUrl = lesson
-    ? `/jouer/${lesson.classe}/${lesson.matiere}/${encodeURIComponent(lesson.id)}`
-    : '/jouer';
+  const backUrl =
+    retourMeta?.retour ??
+    (lesson ? `/jouer/${lesson.classe}/${lesson.matiere}/${encodeURIComponent(lesson.id)}` : '/jouer');
 
   // Chargement : listes parentales, items à revoir, record
   useEffect(() => {
@@ -138,9 +144,9 @@ export function GameHost() {
       }
       s.xp += xpForAnswer(e.correct, s.streak, level);
       adaptivity.current.record(e.correct);
-      if (profile) void updateLeitner(profile.id, e.itemKey, e.correct);
+      if (profile) void updateLeitner(profile.id, e.itemKey, e.correct, undefined, lesson?.id);
     },
-    [level, profile],
+    [level, profile, lesson?.id],
   );
 
   const onEnd = useCallback(
@@ -163,7 +169,14 @@ export function GameHost() {
         stars,
         xp: stats.current.xp,
       });
-      setBilan({ summary, saved, erreurs: stats.current.erreurs.slice(-5) });
+      // Méta-jeu : défi du jour validé, gemme de l'île, badges (une erreur ici ne bloque jamais le bilan)
+      const meta = await apresPartie({
+        profileId: profile.id,
+        lessonId: lesson.id,
+        gameId: game.id,
+        stars,
+      }).catch(() => null);
+      setBilan({ summary, saved, erreurs: stats.current.erreurs.slice(-5), meta });
       setPhase('bilan');
     },
     [profile, lesson, game, level],
@@ -329,11 +342,12 @@ export function GameHost() {
               ? () =>
                   navigate(
                     `/partie/${encodeURIComponent(lesson.id)}/${game.id}/${LEVELS[LEVELS.indexOf(level) + 1]}`,
-                    { replace: true },
+                    { replace: true, state: retourMeta },
                   )
               : undefined
           }
           onQuit={() => navigate(backUrl)}
+          quitLabel={retourMeta?.retourLabel}
         />
       )}
 
@@ -383,22 +397,26 @@ function Bilan({
   summary,
   saved,
   erreurs,
+  meta,
   level,
   limiteAtteinte,
   onPauseDouce,
   onReplay,
   onNextLevel,
   onQuit,
+  quitLabel = 'Autres jeux',
 }: {
   summary: GameSummary;
   saved: SavedResult;
   erreurs: AnswerEvent[];
+  meta: ApresPartie | null;
   level: Level;
   limiteAtteinte: boolean;
   onPauseDouce(): void;
   onReplay(): void;
   onNextLevel?: () => void;
   onQuit(): void;
+  quitLabel?: string;
 }) {
   const [shown, setShown] = useState(0);
   useEffect(() => {
@@ -474,6 +492,7 @@ function Bilan({
           🏆 Nouveau record !
         </motion.div>
       )}
+      {meta && <NotificationsMeta meta={meta} />}
       {erreurs.length > 0 && (
         <div className="carte w-full p-4 text-left">
           <h2 className="mb-2 text-xl">À revoir</h2>
@@ -506,7 +525,7 @@ function Bilan({
             </Button>
           )}
           <Button variant="blanc" size="lg" onClick={onQuit}>
-            Autres jeux
+            {quitLabel}
           </Button>
         </div>
       )}

@@ -311,6 +311,15 @@ export async function flammeDe(profileId: string, today: string = dayKey(), db: 
   );
 }
 
+/** Jours où un défi (ou le boss) a été réussi. */
+export function useJoursActifs(profileId: string | undefined): Set<string> | undefined {
+  return useLiveQuery(async () => {
+    if (!profileId) return new Set<string>();
+    const rows = await defaultDb.dailyChallenges.where('profileId').equals(profileId).toArray();
+    return new Set(rows.filter(jourActif).map((r) => r.day));
+  }, [profileId]);
+}
+
 export function useFlamme(profileId: string | undefined) {
   return useLiveQuery(async () => (profileId ? flammeDe(profileId) : undefined), [profileId]);
 }

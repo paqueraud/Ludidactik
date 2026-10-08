@@ -184,3 +184,10 @@ export function randomAvatar(rand: () => number = Math.random): AvatarConfig {
     compagnon: pick(free(COMPAGNONS)),
   };
 }
+
+/** Avatar portant une pièce donnée (accessoire ou compagnon). */
+export function avecObjet(avatar: AvatarConfig, objet: string): AvatarConfig {
+  return (COMPAGNONS as readonly string[]).includes(objet)
+    ? { ...avatar, compagnon: objet as Compagnon }
+    : { ...avatar, accessoire: objet as Accessoire };
+}

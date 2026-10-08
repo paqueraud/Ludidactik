@@ -46,7 +46,7 @@ export function CreerProfil() {
     });
     sfx.play('fanfare');
     login(p.id);
-    navigate('/jouer', { replace: true });
+    navigate('/accueil', { replace: true });
   };
 
   const titres: Record<Etape, string> = {
