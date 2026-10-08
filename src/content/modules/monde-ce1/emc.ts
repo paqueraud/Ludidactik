@@ -909,7 +909,7 @@ const SYM_VF: VF[] = [
 const SYM_PAIRES: Record<Level, Appariement[]> = (() => {
   const a = (n: 'f' | 'n' | 'p', nb: number): Appariement => ({
     id: 'symboles',
-    prompt: 'Associe chaque symbole de la République à ce qu’il est.',
+    prompt: 'Associe chaque symbole à ce qu’il est.',
     relation: 'symbole → description',
     duos: [
       { l: 'le drapeau', r: 'bleu, blanc, rouge', n },
@@ -919,13 +919,13 @@ const SYM_PAIRES: Record<Level, Appariement[]> = (() => {
       { l: 'la devise', r: 'Liberté, Égalité, Fraternité', n },
       { l: 'un animal symbole', r: 'le coq', n },
     ],
-    ex: 'Drapeau tricolore, Marseillaise, 14 juillet, Marianne et la devise « Liberté, Égalité, Fraternité » sont les symboles de la République.',
+    ex: 'Drapeau tricolore, Marseillaise, 14 juillet, Marianne et la devise « Liberté, Égalité, Fraternité » sont les symboles de la République. Le coq est un symbole ancien de la France, mais pas un symbole officiel de la République.',
     nb,
   });
   // variante aux étiquettes courtes (Dobble des mots)
   const b = (n: 'f' | 'n' | 'p', nb: number): Appariement => ({
     id: 'symboles-courts',
-    prompt: 'Associe chaque symbole de la République à ce qu’il est.',
+    prompt: 'Associe chaque symbole à ce qu’il est.',
     relation: 'symbole → description',
     duos: [
       { l: 'le drapeau', r: 'bleu, blanc, rouge', n },
@@ -935,7 +935,7 @@ const SYM_PAIRES: Record<Level, Appariement[]> = (() => {
       { l: 'un animal symbole', r: 'le coq', n },
       { l: 'le bonnet de Marianne', r: 'le bonnet phrygien', n },
     ],
-    ex: 'Le drapeau tricolore, La Marseillaise, le 14 juillet et Marianne (avec son bonnet phrygien) sont des symboles de la République.',
+    ex: 'Le drapeau tricolore, La Marseillaise, le 14 juillet et Marianne (avec son bonnet phrygien) sont des symboles de la République. Le coq est un symbole ancien de la France, mais pas un symbole officiel de la République.',
     nb,
   });
   return {
@@ -1041,15 +1041,15 @@ const RESP_QCM: Q[] = [
     q: 'Mathis adore la danse. Des élèves se moquent de lui. Que dis-tu ?',
     ok: '« Chacun a le droit d’aimer ce qu’il veut. »',
     ko: ['« La danse, c’est pour les filles. »', '« Tu as raison, c’est bizarre. »'],
-    img: '💃',
+    img: '🕺',
     ex: 'Les goûts n’ont pas de genre : chacun peut aimer la danse, le foot ou le dessin.',
   },
   {
     n: 'n',
     id: 'accent',
-    q: 'Arthur se moque de la façon de parler de Nour. Que fais-tu ?',
-    ok: 'je dis à Arthur que ce n’est pas gentil et je vais voir Nour',
-    ko: ['je rigole avec Arthur', 'j’imite Nour aussi'],
+    q: 'Arthur se moque de Chloé parce qu’elle bégaie un peu. Que fais-tu ?',
+    ok: 'je dis à Arthur que ce n’est pas gentil et je vais voir Chloé',
+    ko: ['je rigole avec Arthur', 'j’imite Chloé aussi'],
     ex: 'Nos différences sont une richesse : on ne se moque jamais de quelqu’un.',
   },
   {
@@ -1194,7 +1194,7 @@ const RESP_VF: VF[] = [
     id: 'danse',
     s: 'Les garçons peuvent aimer la danse.',
     v: true,
-    img: '💃',
+    img: '🕺',
     ex: 'Les goûts n’ont pas de genre.',
   },
   {
@@ -1252,7 +1252,7 @@ const RESP_TRIS: Record<Level, Tri[]> = {
         { label: 'prêter mon crayon', c: RP, n: 'n', img: '✏️' },
         { label: 'dire « merci »', c: RP, n: 'n' },
         { label: 'inviter un élève seul à jouer', c: RP, n: 'n' },
-        { label: 'laisser une fille jouer au foot', c: RP, n: 'n', img: '⚽' },
+        { label: 'jouer au foot avec les filles et les garçons', c: RP, n: 'n', img: '⚽' },
         { label: 'dire stop quand on n’aime pas un jeu', c: RP, n: 'n', img: '✋' },
         { label: 'se moquer d’un camarade', c: NRP, n: 'n' },
         { label: 'refuser qu’un garçon joue à la corde à sauter', c: NRP, n: 'n' },
@@ -1357,7 +1357,7 @@ const ENV_TRIS: Record<Level, Tri[]> = {
         { label: 'l’assiette cassée', c: OM, n: 'p', img: '🍽️' },
         { label: 'les piles usagées', c: COLL, n: 'p', img: '🔋' },
         { label: 'le vieux téléphone portable', c: COLL, n: 'p', img: '📱' },
-        { label: 'l’ampoule usagée', c: COLL, n: 'p', img: '💡' },
+        { label: 'l’ampoule LED usagée', c: COLL, n: 'p', img: '💡' },
       ],
       ex: 'Attention : la vaisselle cassée ne va pas avec le verre. Les piles, ampoules et appareils électriques se rapportent en magasin ou à la déchetterie.',
       nb: 10,
