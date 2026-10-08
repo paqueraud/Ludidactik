@@ -21,8 +21,22 @@ export const ACCESSOIRES = [
   'couronne',
   'bonnet_phrygien',
   'casque_alpi',
+  'toque_pizzaiolo',
+  'casque_jockey',
+  'chapeau_magicien',
+  'fleur',
+  'antennes',
 ] as const;
-export const COMPAGNONS = ['aucun', 'chat', 'renard', 'dragon', 'robot', 'lapin'] as const;
+export const COMPAGNONS = [
+  'aucun',
+  'chat',
+  'renard',
+  'dragon',
+  'robot',
+  'lapin',
+  'tortue',
+  'poussin',
+] as const;
 
 export type Visage = (typeof VISAGES)[number];
 export type Yeux = (typeof YEUX)[number];
@@ -93,12 +107,26 @@ export const DEFAULT_AVATAR: AvatarConfig = {
 
 /** Pièces réservées à la boutique (achetées avec des Ludis, jamais avec de l'argent réel). */
 export const BOUTIQUE: Partial<Record<Accessoire | Compagnon, number>> = {
-  couronne: 120,
   bonnet_phrygien: 80,
   casque_alpi: 80,
-  dragon: 150,
+  toque_pizzaiolo: 80,
+  casque_jockey: 80,
   robot: 100,
+  couronne: 120,
+  dragon: 150,
 };
+
+/** Pièces « trésor » : jamais vendues, on les trouve seulement dans le coffre des défis du jour. */
+export const COFFRE: readonly (Accessoire | Compagnon)[] = [
+  'chapeau_magicien',
+  'fleur',
+  'antennes',
+  'tortue',
+  'poussin',
+];
+
+/** Pièces qu'il faut posséder (boutique ou coffre) pour les porter. */
+export const PIECES_VERROUILLEES: ReadonlySet<string> = new Set([...Object.keys(BOUTIQUE), ...COFFRE]);
 
 export const LIBELLES: Record<string, string> = {
   rond: 'Rond',
@@ -126,7 +154,14 @@ export const LIBELLES: Record<string, string> = {
   noeud: 'Nœud',
   couronne: 'Couronne',
   bonnet_phrygien: 'Bonnet phrygien',
-  casque_alpi: "Casque d'alpiniste",
+  casque_alpi: 'Casque d’alpiniste',
+  toque_pizzaiolo: 'Toque de pizzaïolo',
+  casque_jockey: 'Casque de jockey',
+  chapeau_magicien: 'Chapeau de magicien',
+  fleur: 'Fleur',
+  antennes: 'Antennes d’abeille',
+  tortue: 'Tortue',
+  poussin: 'Poussin',
   chat: 'Chat',
   renard: 'Renard',
   dragon: 'Dragon',
@@ -136,7 +171,7 @@ export const LIBELLES: Record<string, string> = {
 
 export function randomAvatar(rand: () => number = Math.random): AvatarConfig {
   const pick = <T>(l: readonly T[]) => l[Math.floor(rand() * l.length)]!;
-  const free = <T extends string>(l: readonly T[]) => l.filter((x) => !(x in BOUTIQUE));
+  const free = <T extends string>(l: readonly T[]) => l.filter((x) => !PIECES_VERROUILLEES.has(x));
   return {
     visage: pick(VISAGES),
     teint: pick(TEINTS),

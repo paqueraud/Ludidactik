@@ -17,6 +17,10 @@ const TABLES = [
   'wordLists',
   'settings',
   'screenTime',
+  'dailyChallenges',
+  'inventory',
+  'badges',
+  'gems',
 ] as const;
 
 const BackupSchema = z.object({

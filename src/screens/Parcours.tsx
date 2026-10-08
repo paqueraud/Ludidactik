@@ -12,6 +12,7 @@ import { LEVEL_META, MATIERE_META, MODALITY_META } from '@/content/meta';
 import type { ProviderContext } from '@/content/provider';
 import { CLASSES, type Classe, LEVELS, type Lesson, type Matiere } from '@/content/schemas';
 import { mastery } from '@/engine/score';
+import { periodeActuelle } from '@/meta/dates';
 import { gamesForLesson } from '@/games/registry';
 import {
   type Profile,
@@ -119,16 +120,6 @@ function MotsDeLaSemaine({ profile, classe }: { profile: Profile; classe: Classe
       </div>
     </section>
   );
-}
-
-/** Période scolaire actuelle (P1 rentrée → Toussaint … P5 mai-juin). */
-export function periodeActuelle(d = new Date()): number {
-  const m = d.getMonth() + 1;
-  if (m >= 9 && m <= 10) return 1;
-  if (m >= 11) return 2;
-  if (m <= 2) return 3;
-  if (m <= 4) return 4;
-  return 5;
 }
 
 /* ------------------------------------------------------------------ */
