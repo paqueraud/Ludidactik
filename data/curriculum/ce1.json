@@ -8,9 +8,9 @@
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Lecture / code",
-   "titre": "Les sons complexes (CGP) : ou, on, an/en, in/ain/ein, oi, eu/œu, au/eau, ch, gn, ill, ail/eil/euil, ph, -tion",
+   "titre": "Lire les sons complexes (ou, an, oi, gn, ill, ph…)",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Lecture / code",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Lecture : identifier les mots de manière de plus en plus aisée (décoder toutes les CGP)",
    "periodes": [
     1,
     2,
@@ -19,14 +19,15 @@
     5
    ],
    "niveaux": {
-    "facile": "CGP simples du CP",
-    "normal": "toutes CGP complexes, pseudo-mots (« doir, stag, choust, valin, cagnou »)",
-    "plus_loin": "mots rares, lettres muettes multiples"
+    "facile": "syllabes simples, sons proches deux par deux",
+    "normal": "tous les sons complexes, mots inventés (doir, stag, choust…)",
+    "plus_loin": "mots rares, lettres muettes, sons inattendus (oignon, monsieur, femme)"
    },
    "itemKinds": [
+    "classification",
+    "pairing",
     "oral_answer",
-    "spelling_word",
-    "classification"
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "perroquet-savant",
@@ -35,18 +36,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_lec_cgp"
+    "generator": "francais/lecture-cgp"
    },
-   "rappel": "Certains sons s’écrivent avec plusieurs lettres : ou, on, an, oi, ch… Je les repère bien avant d’écrire."
+   "rappel": "Certains sons s’écrivent avec plusieurs lettres (ou, an, oi, gn, ph…) : je les repère pour bien lire et bien écrire.",
+   "contenus": "Correspondances graphèmes-phonèmes complexes : ou, on, an/en, in/ain/ein, oi, eu/œu, au/eau, ch, gn, ill, ail/eil/euil, ph, -tion ; pseudo-mots du BO (doir, stag, choust, valin, cagnou)."
   },
   {
    "id": "CE1.FR.LEC.SC",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Lecture / code",
-   "titre": "s = [s]/[z], c = [k]/[s], g = [g]/[ʒ] (ge, gu, ç)",
+   "titre": "Les lettres s, c, g qui changent de son (ç, ge, gu)",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Lecture / code",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Lecture : listes analogiques ça / glaçon / garçon (valeurs positionnelles de c, g, s)",
    "periodes": [
     1,
     2,
@@ -55,14 +57,14 @@
     5
    ],
    "niveaux": {
-    "facile": "2 valeurs, mots courants",
-    "normal": "classement analogique",
-    "plus_loin": "règles ç/ge/gu en production"
+    "facile": "deux sons, mots courants",
+    "normal": "classement par analogie ; choisir ç, ge ou gu",
+    "plus_loin": "ç, ge, gu dans des mots plus rares, trois choix"
    },
    "itemKinds": [
-    "oral_answer",
-    "spelling_word",
-    "classification"
+    "classification",
+    "fill_blank",
+    "oral_answer"
    ],
    "jeuxSuggeres": [
     "perroquet-savant",
@@ -71,18 +73,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_lec_sc"
+    "generator": "francais/lecture-scg"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Entre deux voyelles, s fait [z] ; devant e, i, y, c fait [s] et g fait [j] ; ç, ge et gu gardent le bon son devant a, o, u.",
+   "contenus": "s = [s] ou [z], c = [k] ou [s], g = [g] ou [ʒ] ; ç, ge, gu ; paires poisson / poison, dessert / désert."
   },
   {
    "id": "CE1.FR.LEC.FLUENCE",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Lecture / code",
-   "titre": "Lire à voix haute (Karaoké)",
+   "titre": "Lire à voix haute avec fluidité",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Lecture / code",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Lecture : lire à voix haute un texte adapté avec une vitesse de 70 mots par minute",
    "periodes": [
     1,
     2,
@@ -91,11 +94,12 @@
     5
    ],
    "niveaux": {
-    "facile": "30-40 MCLM",
-    "normal": "70 MCLM, ponctuation respectée",
-    "plus_loin": "90 MCLM + expressivité"
+    "facile": "35 mots par minute, textes courts",
+    "normal": "70 mots par minute (attendu de fin de CE1), ponctuation respectée",
+    "plus_loin": "90 mots par minute (attendu du CE2), lecture expressive"
    },
    "itemKinds": [
+    "oral_answer",
     "read_aloud"
    ],
    "jeuxSuggeres": [
@@ -103,9 +107,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_lec_fluence"
+    "generator": "francais/lecture-fluence"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je lis par groupes de mots, je respire aux points et je mets le ton aux « ! » et aux « ? ».",
+   "contenus": "Karaoké de lecture sur des textes originaux (data/lecture/textes.json) ; groupes de souffle et ponctuation."
   },
   {
    "id": "CE1.FR.LEC.COMP",
@@ -114,7 +119,7 @@
    "domaine": "Lecture / code",
    "titre": "Comprendre un texte",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Lecture / code",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Lecture : comprendre en autonomie un texte narratif, informatif ou prescriptif d’une quinzaine de lignes",
    "periodes": [
     1,
     2,
@@ -123,9 +128,9 @@
     5
    ],
    "niveaux": {
-    "facile": "5 lignes, questions explicites",
-    "normal": "~15 lignes, inférences simples, anaphores, justifier",
-    "plus_loin": "textes documentaires/prescriptifs + titre/résumé"
+    "facile": "textes de 5 lignes, la réponse est écrite dans le texte",
+    "normal": "textes d’une quinzaine de lignes : inférences simples, reprises (il, elle, le…), justifier",
+    "plus_loin": "textes documentaires et règles du jeu : trouver un titre, choisir un résumé"
    },
    "itemKinds": [
     "mcq",
@@ -137,18 +142,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_lec_comp"
+    "generator": "francais/lecture-comprehension"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour répondre, je retourne dans le texte et je cherche la phrase qui me donne la preuve.",
+   "contenus": "Textes originaux narratifs, documentaires et prescriptifs ; questions explicites, inférences, chaîne anaphorique, preuve dans le texte ; ordre des étapes."
   },
   {
    "id": "CE1.FR.ORTH.MOTS_FREQ",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Orthographe lexicale (dictée)",
-   "titre": "Mots fréquents réguliers puis irréguliers",
+   "titre": "Les mots à savoir écrire",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Orthographe lexicale (dictée)",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Vocabulaire : mémoriser l’orthographe des mots réguliers et irréguliers fréquemment rencontrés",
    "periodes": [
     1,
     2,
@@ -157,11 +163,13 @@
     5
    ],
    "niveaux": {
-    "facile": "mots courts réguliers",
-    "normal": "liste CE1 (data/dictees/ce1_mots.json)",
-    "plus_loin": "mots CE2"
+    "facile": "mots courts et réguliers",
+    "normal": "listes de l’année : école, maison, corps, nature",
+    "plus_loin": "mots longs ou irréguliers (bibliothèque, rhinocéros…)"
    },
    "itemKinds": [
+    "pairing",
+    "classification",
     "spelling_word"
    ],
    "jeuxSuggeres": [
@@ -180,7 +188,8 @@
      "lessonId": "CE1.FR.ORTH.MOTS_FREQ"
     }
    },
-   "rappel": "J’écoute bien chaque syllabe, j’écris le mot, puis je le relis lettre par lettre."
+   "rappel": "J’écoute bien chaque syllabe, j’écris le mot, puis je le relis lettre par lettre.",
+   "contenus": "Listes data/dictees/ce1_mots.json (avec définitions pour les mots croisés) ; mot ↔ définition ; classement par thème."
   },
   {
    "id": "CE1.FR.ORTH.INVARIABLES",
@@ -347,9 +356,9 @@
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Grammaire & orthographe grammaticale",
-   "titre": "La phrase (majuscule, point) & groupes de mots",
+   "titre": "La phrase et ses groupes de mots",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Grammaire : identifier la phrase simple, groupe sujet, verbe et compléments ; manipulations",
    "periodes": [
     1,
     2,
@@ -358,13 +367,14 @@
     5
    ],
    "niveaux": {
-    "facile": "repérer majuscule/point",
-    "normal": "identifier groupe sujet, verbe, compléments (sans les distinguer)",
-    "plus_loin": "manipulations : déplacement/suppression"
+    "facile": "majuscule, point, remettre les mots dans l’ordre",
+    "normal": "groupe sujet, verbe, compléments ; déplacer et supprimer un groupe",
+    "plus_loin": "phrases plus longues, groupe déplacé en tête avec une virgule"
    },
    "itemKinds": [
     "ordering",
-    "mcq"
+    "mcq",
+    "classification"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
@@ -372,18 +382,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_gram_phrase"
+    "generator": "francais/grammaire-phrase"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Une phrase commence par une majuscule et finit par un point ; elle a un groupe sujet (de qui on parle) et un verbe (ce qu’il fait).",
+   "contenus": "Groupe sujet (GS), verbe et compléments sans les distinguer ; manipulations du BO : déplacement, suppression, substitution (« Elle mange tous les jours à la cantine → Tous les jours, elle mange à la cantine »)."
   },
   {
    "id": "CE1.FR.GRAM.TYPES",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Grammaire & orthographe grammaticale",
-   "titre": "Types de phrases : déclarative, interrogative, impérative ; formes négative, exclamative",
+   "titre": "Les types de phrases : informer, questionner, ordonner",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Grammaire : reconnaître les trois types de phrases, les formes négative et exclamative, effectuer des transformations",
    "periodes": [
     1,
     2,
@@ -392,13 +403,15 @@
     5
    ],
    "niveaux": {
-    "facile": "ponctuation ↔ type",
-    "normal": "transformer (négation ne…pas)",
-    "plus_loin": "ne…jamais / ne…plus, interrogation par inversion"
+    "facile": "ponctuation et type de phrase",
+    "normal": "transformer une phrase à la forme négative (ne… pas)",
+    "plus_loin": "ne… plus, ne… jamais ; question avec inversion du sujet"
    },
    "itemKinds": [
+    "mcq",
     "ordering",
-    "mcq"
+    "true_false",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
@@ -406,18 +419,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_gram_types"
+    "generator": "francais/grammaire-types"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "La phrase déclarative finit par un point, la phrase interrogative par un point d’interrogation ; à la forme négative, « ne… pas » encadre le verbe.",
+   "contenus": "Phrases déclaratives, interrogatives, impératives ; formes négative et exclamative ; ponctuation (Feu tricolore) ; transformations."
   },
   {
    "id": "CE1.FR.GRAM.CLASSES",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Grammaire & orthographe grammaticale",
-   "titre": "Classes de mots : déterminant, nom commun, nom propre, adjectif, verbe, pronom personnel sujet",
+   "titre": "Les classes de mots : nom, verbe, adjectif…",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Grammaire : différencier et nommer les principales classes de mots",
    "periodes": [
     1,
     2,
@@ -426,12 +440,14 @@
     5
    ],
    "niveaux": {
-    "facile": "nom/verbe",
-    "normal": "les 6 classes",
-    "plus_loin": "adverbe, préposition (CE2-CM)"
+    "facile": "nom ou verbe",
+    "normal": "les six classes du CE1 (déterminant, nom commun, nom propre, adjectif, verbe, pronom)",
+    "plus_loin": "avec l’adverbe et la préposition (CE2-CM)"
    },
    "itemKinds": [
-    "classification"
+    "classification",
+    "mcq",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "chef-orchestre",
@@ -439,9 +455,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_gram_classes"
+    "generator": "francais/grammaire-classes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Le nom désigne une personne, un animal ou une chose ; le verbe change avec le temps ; l’adjectif dit comment est le nom ; le déterminant se place devant le nom.",
+   "contenus": "Déterminant, nom commun, nom propre, adjectif, verbe, pronom personnel sujet ; mots donnés dans leur phrase (porte : nom ou verbe ?)."
   },
   {
    "id": "CE1.FR.GRAM.GN",
@@ -527,9 +544,9 @@
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Grammaire & orthographe grammaticale",
-   "titre": "Remplacer un GN par un pronom (Elle la raconte / leur)",
+   "titre": "Remplacer un groupe de mots par un pronom",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Grammaire & orthographe grammaticale",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Grammaire : manipulations de phrase, substitution (« Elle la raconte aux enfants → Elle leur raconte une histoire »)",
    "periodes": [
     1,
     2,
@@ -538,13 +555,15 @@
     5
    ],
    "niveaux": {
-    "facile": "il/elle/ils/elles",
-    "normal": "substitutions BO",
-    "plus_loin": "pronoms compléments le/la/leur"
+    "facile": "il, elle, ils, elles",
+    "normal": "le, la, les, lui, leur (exemples du BO)",
+    "plus_loin": "deux pronoms à la fois (Elle la leur raconte)"
    },
    "itemKinds": [
+    "fill_blank",
+    "mcq",
     "classification",
-    "fill_blank"
+    "pairing"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
@@ -553,9 +572,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_gram_subst"
+    "generator": "francais/grammaire-substitution"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Pour ne pas répéter, je remplace un groupe de mots par un pronom : il, elle, ils, elles, ou le, la, les, lui, leur devant le verbe.",
+   "contenus": "Substitution pronominale : « La maîtresse raconte une histoire aux enfants → Elle raconte une histoire aux enfants → Elle la raconte aux enfants → Elle leur raconte une histoire » (BO)."
   },
   {
    "id": "CE1.FR.GRAM.HOMOPHONES",
@@ -839,9 +859,9 @@
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Préfixes et suffixes (para-, multi-, anti-, in-, dé-, re- ; -eur/-euse, -er)",
+   "titre": "Préfixes et suffixes : fabriquer des mots",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Vocabulaire : s’appuyer sur la morphologie ; principaux affixes (para, multi, anti, eur/euse, er)",
    "periodes": [
     1,
     2,
@@ -850,14 +870,15 @@
     5
    ],
    "niveaux": {
-    "facile": "1 affixe connu",
-    "normal": "trier/apparier, déduire le sens",
-    "plus_loin": "créer des mots"
+    "facile": "le suffixe -eur (chanter → chanteur)",
+    "normal": "trier et associer re-, dé-, in-, para-, multi-, anti-, -eur/-euse, -ier ; déduire le sens",
+    "plus_loin": "-ette, -able, pré-, sous- ; retrouver le mot à partir de son sens"
    },
    "itemKinds": [
     "pairing",
     "mcq",
-    "classification"
+    "classification",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -866,18 +887,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_voc_affixes"
+    "generator": "francais/vocabulaire-affixes"
    },
-   "rappel": "Un préfixe se place avant le radical (re-faire), un suffixe après (jardin-ier)."
+   "rappel": "Un préfixe se place avant le radical (re-faire), un suffixe après (jardin-ier).",
+   "contenus": "BO : para (parapluie), multi (multicolore), anti (antivol), eur/euse (chanteur, coiffeuse), er (boulanger, boucher)."
   },
   {
    "id": "CE1.FR.VOC.CONTRAIRES",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Contraires (visible/invisible, ranger/déranger) & synonymes",
+   "titre": "Les contraires et les synonymes",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Vocabulaire : contraires construits avec in- ou dé- (visible/invisible, ranger/déranger) ; formulations de sens proche",
    "periodes": [
     1,
     2,
@@ -886,9 +908,9 @@
     5
    ],
    "niveaux": {
-    "facile": "images",
-    "normal": "mots + préfixes in-/dé-",
-    "plus_loin": "nuances"
+    "facile": "contraires simples (chaud / froid)",
+    "normal": "contraires avec in- et dé-, synonymes",
+    "plus_loin": "nuances (tiède, chaud, brûlant), contraires en il- et ir-"
    },
    "itemKinds": [
     "pairing",
@@ -902,18 +924,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_voc_contraires"
+    "generator": "francais/vocabulaire-contraires"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un contraire dit l’inverse (visible / invisible, ranger / déranger) ; un synonyme veut dire presque la même chose.",
+   "contenus": "Contraires, contraires par préfixe, synonymes (« poser une question / demander »), nuances d’intensité."
   },
   {
    "id": "CE1.FR.VOC.GENERIQUE",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Générique/spécifique (aliment > laitage > fromage > gruyère)",
+   "titre": "Du mot général au mot précis (fruit → pomme)",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Vocabulaire : hiérarchiser termes génériques, de base et spécifiques (aliment > laitage > fromage > gruyère)",
    "periodes": [
     1,
     2,
@@ -922,14 +945,15 @@
     5
    ],
    "niveaux": {
-    "facile": "2 niveaux",
-    "normal": "3-4 niveaux",
-    "plus_loin": "classements libres"
+    "facile": "deux niveaux : la catégorie et le mot",
+    "normal": "trois ou quatre niveaux : aliment > laitage > fromage > gruyère",
+    "plus_loin": "classements à quatre catégories, trouver l’intrus"
    },
    "itemKinds": [
-    "pairing",
+    "classification",
     "mcq",
-    "classification"
+    "pairing",
+    "ordering"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -938,18 +962,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_voc_generique"
+    "generator": "francais/vocabulaire-generique"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Un mot générique regroupe toute une catégorie (les fruits) ; un mot spécifique en fait partie (la pomme).",
+   "contenus": "Catégories (fruits, oiseaux, meubles, instruments…) ; chaînes du général au particulier ; intrus."
   },
   {
    "id": "CE1.FR.VOC.EXPRESSIONS",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Sens propre / figuré, expressions (avoir une peur bleue, prendre ses jambes à son cou)",
+   "titre": "Les expressions imagées (sens propre, sens figuré)",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Vocabulaire : comprendre la différence entre sens propre et sens figuré (avoir une peur bleue, prendre ses jambes à son cou)",
    "periodes": [
     1,
     2,
@@ -958,14 +983,15 @@
     5
    ],
    "niveaux": {
-    "facile": "image ↔ expression",
-    "normal": "sens",
-    "plus_loin": "réemploi en phrase"
+    "facile": "expressions courantes et leur sens",
+    "normal": "sens propre ou sens figuré ; expressions du BO",
+    "plus_loin": "réemployer une expression dans une phrase"
    },
    "itemKinds": [
     "pairing",
     "mcq",
-    "classification"
+    "classification",
+    "fill_blank"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -974,18 +1000,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_voc_expressions"
+    "generator": "francais/vocabulaire-expressions"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Une expression a souvent un sens figuré : « avoir une peur bleue », c’est avoir très peur.",
+   "contenus": "Expressions et locutions ; tri sens propre / sens figuré ; réemploi en contexte."
   },
   {
    "id": "CE1.FR.VOC.NIVEAUX",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Niveaux de langue : familier, courant, soutenu",
+   "titre": "Parler familier, courant ou soutenu",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Vocabulaire et oral : percevoir les niveaux de langue familier, courant et soutenu",
    "periodes": [
     1,
     2,
@@ -994,14 +1021,14 @@
     5
    ],
    "niveaux": {
-    "facile": "2 niveaux",
-    "normal": "3 niveaux",
-    "plus_loin": "transformer"
+    "facile": "familier ou courant",
+    "normal": "familier, courant, soutenu ; choisir selon la situation",
+    "plus_loin": "passer du langage courant au langage soutenu"
    },
    "itemKinds": [
+    "classification",
     "pairing",
-    "mcq",
-    "classification"
+    "mcq"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -1010,18 +1037,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_voc_niveaux"
+    "generator": "francais/vocabulaire-niveaux"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Je choisis mes mots selon la personne à qui je parle : familier avec les copains, courant avec tout le monde, soutenu dans les grandes occasions.",
+   "contenus": "Mots familiers, courants, soutenus ; situations (parler à un camarade, à un adulte inconnu)."
   },
   {
    "id": "CE1.FR.VOC.DICO",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Ordre alphabétique & dictionnaire",
+   "titre": "L’ordre alphabétique et le dictionnaire",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Vocabulaire : prendre l’habitude de consulter des articles de dictionnaire adapté",
    "periodes": [
     1,
     2,
@@ -1030,12 +1058,12 @@
     5
    ],
    "niveaux": {
-    "facile": "1re lettre",
-    "normal": "2e-3e lettre",
-    "plus_loin": "mots-repères"
+    "facile": "ranger selon la première lettre",
+    "normal": "même première lettre : regarder la deuxième",
+    "plus_loin": "deux lettres communes ; mots-repères en haut des pages"
    },
    "itemKinds": [
-    "pairing",
+    "ordering",
     "mcq",
     "classification"
    ],
@@ -1046,18 +1074,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_voc_dico"
+    "generator": "francais/vocabulaire-dictionnaire"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "Dans le dictionnaire, les mots sont rangés dans l’ordre alphabétique : si la 1re lettre est la même, je regarde la 2e, puis la 3e.",
+   "contenus": "Ordre alphabétique (1re, 2e, 3e lettre), avant / après un mot, mots-repères."
   },
   {
    "id": "CE1.FR.VOC.THEMES",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Vocabulaire",
-   "titre": "Corpus thématiques (émotions, école, corps, maison, nature, métiers…)",
+   "titre": "Les mots des thèmes (émotions, école, corps, maison…)",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Vocabulaire",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Vocabulaire : enrichir les réseaux de mots étudiés (cinq corpus par période ; jaloux, ambitieux)",
    "periodes": [
     1,
     2,
@@ -1066,14 +1095,14 @@
     5
    ],
    "niveaux": {
-    "facile": "images",
-    "normal": "mots + définitions",
-    "plus_loin": "mots moins fréquents (jaloux, ambitieux)"
+    "facile": "deux thèmes, mots courants",
+    "normal": "mots et définitions",
+    "plus_loin": "mots moins fréquents : jaloux, ambitieux, curieux…"
    },
    "itemKinds": [
+    "classification",
     "pairing",
-    "mcq",
-    "classification"
+    "mcq"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -1082,18 +1111,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_voc_themes"
+    "generator": "francais/vocabulaire-themes"
    },
-   "rappel": "TODO: règle en une phrase d’enfant"
+   "rappel": "J’apprends les mots par thème et je relie chaque mot à sa définition.",
+   "contenus": "Corpus : émotions, école, corps, maison, nature, métiers ; traits de caractère."
   },
   {
    "id": "CE1.FR.ORAL.ECOUTE",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Oral",
-   "titre": "Écouter une consigne/recette et l'exécuter",
+   "titre": "Écouter une consigne et la comprendre",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Oral",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Oral : écouter pour comprendre (réaliser l’action demandée par une consigne, une recette, une règle du jeu)",
    "periodes": [
     1,
     2,
@@ -1102,13 +1132,13 @@
     5
    ],
    "niveaux": {
-    "facile": "consigne courte (1 action)",
-    "normal": "consigne à 2-3 actions",
-    "plus_loin": "recette ou consigne longue"
+    "facile": "consigne courte (une action)",
+    "normal": "consigne à deux ou trois actions",
+    "plus_loin": "recette, règle du jeu ou consigne longue"
    },
    "itemKinds": [
-    "oral_answer",
-    "mcq"
+    "mcq",
+    "oral_answer"
    ],
    "jeuxSuggeres": [
     "perroquet-savant",
@@ -1117,19 +1147,19 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_oral_ecoute"
+    "generator": "francais/oral-ecoute"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "Robot codeur version consignes orales, Détective du texte (écoute)"
+   "rappel": "J’écoute la consigne jusqu’au bout, je retiens l’ordre des actions, puis je réponds.",
+   "contenus": "Consignes, recettes et règles du jeu entendues (🔊), sans texte écrit ; devinettes et inférences simples (« J’ai pris mon parapluie » → il pleut)."
   },
   {
    "id": "CE1.FR.ORAL.DIRE",
    "classe": "CE1",
    "matiere": "francais",
    "domaine": "Oral",
-   "titre": "Raconter avec connecteurs (d'abord, ensuite, enfin…)",
+   "titre": "Raconter dans l’ordre avec d’abord, ensuite, enfin",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2 — Oral",
+   "boRef": "BO n°41 du 31/10/2024 — Programme de français du cycle 2, CE1 — Oral : dire pour être compris (d’abord, pour commencer, ensuite, enfin, pour terminer)",
    "periodes": [
     1,
     2,
@@ -1138,13 +1168,14 @@
     5
    ],
    "niveaux": {
-    "facile": "2 images à raconter",
-    "normal": "3-4 étapes avec d’abord, ensuite, enfin",
-    "plus_loin": "récit libre avec connecteurs variés"
+    "facile": "trois étapes avec d’abord, ensuite, enfin",
+    "normal": "quatre étapes avec d’abord, ensuite, puis, enfin",
+    "plus_loin": "connecteurs variés : pour commencer, après cela, finalement"
    },
    "itemKinds": [
-    "oral_answer",
-    "mcq"
+    "ordering",
+    "fill_blank",
+    "oral_answer"
    ],
    "jeuxSuggeres": [
     "perroquet-savant",
@@ -1153,10 +1184,10 @@
    ],
    "source": {
     "kind": "generator",
-    "generator": "TODO:ce1_fr_oral_dire"
+    "generator": "francais/oral-dire"
    },
-   "rappel": "TODO: règle en une phrase d’enfant",
-   "contenus": "Puzzle de phrases oral, Perroquet"
+   "rappel": "Pour raconter, j’utilise des mots qui relient les étapes : d’abord, ensuite, puis, enfin.",
+   "contenus": "Remettre un récit dans l’ordre, choisir le bon connecteur, le dire à voix haute."
   },
   {
    "id": "CE1.MA.NUM.ECRIRE",

@@ -12,7 +12,7 @@
 ### Lecture
 | Id | Leçon | Facile | Normal | Plus loin |
 |---|---|---|---|---|
-| CM2.FR.LEC.FLUENCE | Lire avec fluidité (Karaoké) | 90 MCLM | **120 MCLM**, liaisons, ponctuation | 140 MCLM + expressivité |
+| CM2.FR.LEC.FLUENCE | Lire avec fluidité (Karaoké) | 90 MCLM | **120 MCLM**, liaisons, ponctuation | 130 MCLM + expressivité (attendu de 6e, recommandation BO) |
 | CM2.FR.LEC.COMP | Comprendre : explicite/implicite, inférences, genres littéraires | texte court | texte long, inférences | documents composites, comparer 2 documents |
 | CM2.FR.LEC.CULTURE | Culture littéraire : héros/héroïnes, merveilleux, morale (fables), poésie, autres vies, rapport aux autres | personnages célèbres | genres & œuvres | auteurs & citations courtes libres de droits (La Fontaine, Hugo…) |
 

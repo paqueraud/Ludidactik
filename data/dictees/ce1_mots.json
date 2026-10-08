@@ -13,66 +13,86 @@
    "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
    "mots": [
     {
-     "mot": "papa"
+     "mot": "papa",
+     "definition": "le père, dans la famille"
     },
     {
-     "mot": "maman"
+     "mot": "maman",
+     "definition": "la mère, dans la famille"
     },
     {
      "mot": "ami",
-     "phrase": "Mon ami joue avec moi."
+     "phrase": "Mon ami joue avec moi.",
+     "definition": "une personne qu’on aime bien"
     },
     {
-     "mot": "école"
+     "mot": "école",
+     "definition": "le lieu où l’on apprend"
     },
     {
-     "mot": "classe"
+     "mot": "classe",
+     "definition": "la salle où travaillent les élèves"
     },
     {
-     "mot": "livre"
+     "mot": "livre",
+     "definition": "des pages imprimées que l’on lit"
     },
     {
-     "mot": "table"
+     "mot": "table",
+     "definition": "un meuble pour manger ou travailler"
     },
     {
-     "mot": "porte"
+     "mot": "porte",
+     "definition": "on l’ouvre pour entrer"
     },
     {
-     "mot": "lune"
+     "mot": "lune",
+     "definition": "elle brille dans le ciel la nuit"
     },
     {
-     "mot": "vélo"
+     "mot": "vélo",
+     "definition": "il a deux roues et des pédales"
     },
     {
-     "mot": "moto"
+     "mot": "moto",
+     "definition": "un deux-roues avec un moteur"
     },
     {
-     "mot": "rue"
+     "mot": "rue",
+     "definition": "une route bordée de maisons"
     },
     {
      "mot": "lit",
-     "phrase": "Je dors dans mon lit."
+     "phrase": "Je dors dans mon lit.",
+     "definition": "le meuble où l’on dort"
     },
     {
-     "mot": "sac"
+     "mot": "sac",
+     "definition": "on y transporte ses affaires"
     },
     {
-     "mot": "bol"
+     "mot": "bol",
+     "definition": "on y boit son chocolat le matin"
     },
     {
-     "mot": "mur"
+     "mot": "mur",
+     "definition": "il est fait de briques ou de pierres"
     },
     {
-     "mot": "chat"
+     "mot": "chat",
+     "definition": "un animal qui miaule"
     },
     {
-     "mot": "robe"
+     "mot": "robe",
+     "definition": "un vêtement qui descend sur les jambes"
     },
     {
-     "mot": "pomme"
+     "mot": "pomme",
+     "definition": "un fruit rouge, jaune ou vert"
     },
     {
-     "mot": "jupe"
+     "mot": "jupe",
+     "definition": "un vêtement qui part de la taille"
     }
    ]
   },
@@ -233,50 +253,65 @@
    "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
    "mots": [
     {
-     "mot": "cahier"
+     "mot": "cahier",
+     "definition": "des pages pour écrire, avec une couverture"
     },
     {
-     "mot": "crayon"
+     "mot": "crayon",
+     "definition": "il sert à écrire ou à dessiner"
     },
     {
-     "mot": "cartable"
+     "mot": "cartable",
+     "definition": "le sac pour les affaires d’école"
     },
     {
-     "mot": "trousse"
+     "mot": "trousse",
+     "definition": "on y range ses crayons"
     },
     {
-     "mot": "gomme"
+     "mot": "gomme",
+     "definition": "elle efface le crayon"
     },
     {
      "mot": "règle",
-     "phrase": "J'utilise une règle pour tracer un trait."
+     "phrase": "J'utilise une règle pour tracer un trait.",
+     "definition": "elle sert à tracer des traits droits"
     },
     {
-     "mot": "stylo"
+     "mot": "stylo",
+     "definition": "il écrit à l’encre"
     },
     {
-     "mot": "maîtresse"
+     "mot": "maîtresse",
+     "definition": "elle fait la classe aux élèves"
     },
     {
-     "mot": "maître"
+     "mot": "maître",
+     "definition": "il fait la classe aux élèves"
     },
     {
-     "mot": "élève"
+     "mot": "élève",
+     "definition": "un enfant qui va à l’école"
     },
     {
-     "mot": "récréation"
+     "mot": "récréation",
+     "definition": "le moment où l’on joue dans la cour"
     },
     {
-     "mot": "cantine"
+     "mot": "cantine",
+     "definition": "on y déjeune à l’école"
     },
     {
-     "mot": "tableau"
+     "mot": "tableau",
+     "definition": "on y écrit devant toute la classe"
     },
     {
-     "mot": "lecture"
+     "mot": "lecture",
+     "definition": "l’action de lire"
     },
     {
-     "mot": "dictée"
+     "mot": "dictée",
+     "definition": "on écrit ce que l’on entend"
     }
    ]
   },
@@ -291,49 +326,64 @@
    "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
    "mots": [
     {
-     "mot": "maison"
+     "mot": "maison",
+     "definition": "un bâtiment où l’on habite"
     },
     {
-     "mot": "chambre"
+     "mot": "chambre",
+     "definition": "la pièce où l’on dort"
     },
     {
-     "mot": "cuisine"
+     "mot": "cuisine",
+     "definition": "la pièce où l’on prépare les repas"
     },
     {
-     "mot": "fenêtre"
+     "mot": "fenêtre",
+     "definition": "elle laisse entrer la lumière"
     },
     {
-     "mot": "escalier"
+     "mot": "escalier",
+     "definition": "des marches pour monter et descendre"
     },
     {
-     "mot": "jardin"
+     "mot": "jardin",
+     "definition": "un terrain où poussent fleurs et légumes"
     },
     {
-     "mot": "salon"
+     "mot": "salon",
+     "definition": "la pièce où l’on se repose ensemble"
     },
     {
-     "mot": "garage"
+     "mot": "garage",
+     "definition": "on y range la voiture"
     },
     {
-     "mot": "lampe"
+     "mot": "lampe",
+     "definition": "elle éclaire la pièce"
     },
     {
-     "mot": "chaise"
+     "mot": "chaise",
+     "definition": "un siège avec un dossier"
     },
     {
-     "mot": "porte"
+     "mot": "porte",
+     "definition": "on l’ouvre pour entrer"
     },
     {
-     "mot": "toit"
+     "mot": "toit",
+     "definition": "il couvre le haut de la maison"
     },
     {
-     "mot": "clé"
+     "mot": "clé",
+     "definition": "elle ouvre et ferme une serrure"
     },
     {
-     "mot": "lit"
+     "mot": "lit",
+     "definition": "le meuble où l’on dort"
     },
     {
-     "mot": "armoire"
+     "mot": "armoire",
+     "definition": "un grand meuble pour ranger les habits"
     }
    ]
   },
@@ -348,49 +398,64 @@
    "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
    "mots": [
     {
-     "mot": "tête"
+     "mot": "tête",
+     "definition": "le haut du corps, avec le visage"
     },
     {
-     "mot": "bras"
+     "mot": "bras",
+     "definition": "il relie l’épaule à la main"
     },
     {
-     "mot": "jambe"
+     "mot": "jambe",
+     "definition": "elle sert à marcher"
     },
     {
-     "mot": "main"
+     "mot": "main",
+     "definition": "elle a cinq doigts"
     },
     {
-     "mot": "pied"
+     "mot": "pied",
+     "definition": "il est au bout de la jambe"
     },
     {
-     "mot": "bouche"
+     "mot": "bouche",
+     "definition": "elle sert à manger et à parler"
     },
     {
-     "mot": "oreille"
+     "mot": "oreille",
+     "definition": "elle sert à entendre"
     },
     {
-     "mot": "cheveux"
+     "mot": "cheveux",
+     "definition": "ils poussent sur la tête"
     },
     {
-     "mot": "ventre"
+     "mot": "ventre",
+     "definition": "le devant du corps, sous la poitrine"
     },
     {
-     "mot": "genou"
+     "mot": "genou",
+     "definition": "le pli au milieu de la jambe"
     },
     {
-     "mot": "dent"
+     "mot": "dent",
+     "definition": "elle sert à croquer"
     },
     {
-     "mot": "nez"
+     "mot": "nez",
+     "definition": "il sert à sentir les odeurs"
     },
     {
-     "mot": "cou"
+     "mot": "cou",
+     "definition": "il relie la tête au reste du corps"
     },
     {
-     "mot": "dos"
+     "mot": "dos",
+     "definition": "l’arrière du corps"
     },
     {
-     "mot": "œil"
+     "mot": "œil",
+     "definition": "il sert à voir"
     }
    ]
   },
@@ -406,65 +471,85 @@
    "lessonId": "CE1.FR.LEC.CGP",
    "mots": [
     {
-     "mot": "oiseau"
+     "mot": "oiseau",
+     "definition": "un animal à plumes qui vole"
     },
     {
-     "mot": "château"
+     "mot": "château",
+     "definition": "la grande demeure d’un roi"
     },
     {
-     "mot": "chapeau"
+     "mot": "chapeau",
+     "definition": "on le porte sur la tête"
     },
     {
-     "mot": "bateau"
+     "mot": "bateau",
+     "definition": "il flotte et navigue sur l’eau"
     },
     {
-     "mot": "gâteau"
+     "mot": "gâteau",
+     "definition": "un dessert sucré"
     },
     {
      "mot": "poisson",
-     "phrase": "Le poisson nage dans l'eau."
+     "phrase": "Le poisson nage dans l'eau.",
+     "definition": "il vit dans l’eau et nage"
     },
     {
-     "mot": "maison"
+     "mot": "maison",
+     "definition": "un bâtiment où l’on habite"
     },
     {
-     "mot": "garçon"
+     "mot": "garçon",
+     "definition": "un enfant, le contraire d’une fille"
     },
     {
-     "mot": "montagne"
+     "mot": "montagne",
+     "definition": "un relief très haut"
     },
     {
-     "mot": "grenouille"
+     "mot": "grenouille",
+     "definition": "elle saute et coasse dans la mare"
     },
     {
-     "mot": "abeille"
+     "mot": "abeille",
+     "definition": "elle fabrique le miel"
     },
     {
-     "mot": "soleil"
+     "mot": "soleil",
+     "definition": "il brille et nous réchauffe"
     },
     {
-     "mot": "feuille"
+     "mot": "feuille",
+     "definition": "elle pousse sur les branches"
     },
     {
-     "mot": "fauteuil"
+     "mot": "fauteuil",
+     "definition": "un siège confortable avec des accoudoirs"
     },
     {
-     "mot": "citron"
+     "mot": "citron",
+     "definition": "un fruit jaune et acide"
     },
     {
-     "mot": "champignon"
+     "mot": "champignon",
+     "definition": "il pousse dans les bois après la pluie"
     },
     {
-     "mot": "éléphant"
+     "mot": "éléphant",
+     "definition": "un gros animal avec une trompe"
     },
     {
-     "mot": "photo"
+     "mot": "photo",
+     "definition": "une image prise avec un appareil"
     },
     {
-     "mot": "pharmacie"
+     "mot": "pharmacie",
+     "definition": "le magasin où l’on achète des médicaments"
     },
     {
-     "mot": "addition"
+     "mot": "addition",
+     "definition": "le calcul où l’on ajoute"
     }
    ]
   },
@@ -542,49 +627,64 @@
    "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
    "mots": [
     {
-     "mot": "lapin"
+     "mot": "lapin",
+     "definition": "un animal aux longues oreilles"
     },
     {
-     "mot": "cheval"
+     "mot": "cheval",
+     "definition": "on peut monter sur son dos"
     },
     {
-     "mot": "chien"
+     "mot": "chien",
+     "definition": "un animal qui aboie"
     },
     {
-     "mot": "mouton"
+     "mot": "mouton",
+     "definition": "il nous donne de la laine"
     },
     {
-     "mot": "vache"
+     "mot": "vache",
+     "definition": "elle nous donne du lait"
     },
     {
-     "mot": "cochon"
+     "mot": "cochon",
+     "definition": "un animal rose de la ferme"
     },
     {
-     "mot": "renard"
+     "mot": "renard",
+     "definition": "un animal roux à la queue touffue"
     },
     {
-     "mot": "forêt"
+     "mot": "forêt",
+     "definition": "un grand espace couvert d’arbres"
     },
     {
-     "mot": "arbre"
+     "mot": "arbre",
+     "definition": "une grande plante avec un tronc"
     },
     {
-     "mot": "fleur"
+     "mot": "fleur",
+     "definition": "elle a des pétales colorés"
     },
     {
-     "mot": "rivière"
+     "mot": "rivière",
+     "definition": "un cours d’eau"
     },
     {
-     "mot": "herbe"
+     "mot": "herbe",
+     "definition": "elle pousse dans les prés"
     },
     {
-     "mot": "pluie"
+     "mot": "pluie",
+     "definition": "de l’eau qui tombe des nuages"
     },
     {
-     "mot": "neige"
+     "mot": "neige",
+     "definition": "des flocons blancs et froids"
     },
     {
-     "mot": "nuage"
+     "mot": "nuage",
+     "definition": "il flotte dans le ciel"
     }
    ]
   },
@@ -600,40 +700,52 @@
    "lessonId": "CE1.FR.VOC.AFFIXES",
    "mots": [
     {
-     "mot": "parapluie"
+     "mot": "parapluie",
+     "definition": "il protège de la pluie"
     },
     {
-     "mot": "multicolore"
+     "mot": "multicolore",
+     "definition": "qui a plusieurs couleurs"
     },
     {
-     "mot": "antivol"
+     "mot": "antivol",
+     "definition": "il protège contre le vol"
     },
     {
-     "mot": "invisible"
+     "mot": "invisible",
+     "definition": "qu’on ne peut pas voir"
     },
     {
-     "mot": "déranger"
+     "mot": "déranger",
+     "definition": "mettre en désordre"
     },
     {
-     "mot": "démonter"
+     "mot": "démonter",
+     "definition": "défaire ce qui était monté"
     },
     {
-     "mot": "chanteur"
+     "mot": "chanteur",
+     "definition": "une personne qui chante"
     },
     {
-     "mot": "coiffeuse"
+     "mot": "coiffeuse",
+     "definition": "une femme qui coiffe"
     },
     {
-     "mot": "boulanger"
+     "mot": "boulanger",
+     "definition": "il fabrique le pain"
     },
     {
-     "mot": "boucher"
+     "mot": "boucher",
+     "definition": "il vend de la viande"
     },
     {
-     "mot": "danseur"
+     "mot": "danseur",
+     "definition": "un homme qui danse"
     },
     {
-     "mot": "danseuse"
+     "mot": "danseuse",
+     "definition": "une femme qui danse"
     }
    ]
   },
@@ -650,49 +762,64 @@
    "lessonId": "CE1.FR.ORTH.MOTS_FREQ",
    "mots": [
     {
-     "mot": "quelquefois"
+     "mot": "quelquefois",
+     "definition": "de temps en temps"
     },
     {
-     "mot": "longtemps"
+     "mot": "longtemps",
+     "definition": "pendant une longue durée"
     },
     {
-     "mot": "autrefois"
+     "mot": "autrefois",
+     "definition": "il y a très longtemps"
     },
     {
-     "mot": "anniversaire"
+     "mot": "anniversaire",
+     "definition": "le jour où l’on fête sa naissance"
     },
     {
-     "mot": "bibliothèque"
+     "mot": "bibliothèque",
+     "definition": "on y emprunte des livres"
     },
     {
-     "mot": "hippopotame"
+     "mot": "hippopotame",
+     "definition": "un gros animal qui vit près des fleuves d’Afrique"
     },
     {
-     "mot": "crocodile"
+     "mot": "crocodile",
+     "definition": "un reptile aux grandes mâchoires"
     },
     {
-     "mot": "kangourou"
+     "mot": "kangourou",
+     "definition": "il saute et porte son petit dans une poche"
     },
     {
-     "mot": "rhinocéros"
+     "mot": "rhinocéros",
+     "definition": "un gros animal avec une corne sur le nez"
     },
     {
-     "mot": "orchestre"
+     "mot": "orchestre",
+     "definition": "des musiciens qui jouent ensemble"
     },
     {
-     "mot": "automne"
+     "mot": "automne",
+     "definition": "la saison où les feuilles tombent"
     },
     {
-     "mot": "boulangerie"
+     "mot": "boulangerie",
+     "definition": "le magasin où l’on achète le pain"
     },
     {
-     "mot": "gymnase"
+     "mot": "gymnase",
+     "definition": "une grande salle pour faire du sport"
     },
     {
-     "mot": "cerise"
+     "mot": "cerise",
+     "definition": "un petit fruit rouge à noyau"
     },
     {
-     "mot": "garage"
+     "mot": "garage",
+     "definition": "on y range la voiture"
     }
    ]
   }

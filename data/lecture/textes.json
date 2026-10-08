@@ -1,12 +1,13 @@
 {
- "$comment": "Textes originaux écrits pour Ludidactik (libres de droits). Utilisés par le Détective du texte et le Karaoké de lecture. nbMots sert au calcul des MCLM.",
+ "$comment": "Textes originaux écrits pour Ludidactik (libres de droits), ou textes du domaine public (auteur et date indiqués). Utilisés par le Détective du texte et le Karaoké de lecture. nbMots = nombre de mots affichés (calcul des MCLM).",
  "textes": [
   {
    "id": "ce1-t1-le-cerf-volant",
    "classe": "CE1",
    "niveau": "facile",
    "titre": "Le cerf-volant de Léna",
-   "texte": "Léna a un cerf-volant rouge. Ce matin, le vent souffle fort. Elle court dans le pré avec son frère Malo. Le cerf-volant monte, monte, très haut dans le ciel. Soudain, la ficelle casse ! Le cerf-volant s'envole au-dessus des arbres. Léna est triste. Mais Malo sourit : il a vu où il est tombé.",
+   "texte": "Léna a un cerf-volant rouge. Ce matin, le vent souffle fort. Elle court dans le pré avec son frère Malo. Le cerf-volant monte, monte, très haut dans le ciel. Soudain, la ficelle casse ! Le cerf-volant s’envole au-dessus des arbres. Léna est triste. Mais Malo sourit : il a vu où il est tombé.",
+   "nbMots": 52,
    "questions": [
     {
      "type": "mcq",
@@ -21,7 +22,7 @@
     },
     {
      "type": "mcq",
-     "question": "Pourquoi le cerf-volant s'envole-t-il ?",
+     "question": "Pourquoi le cerf-volant s’envole-t-il ?",
      "choix": [
       "La ficelle casse.",
       "Léna le lâche.",
@@ -44,7 +45,7 @@
     },
     {
      "type": "mcq",
-     "question": "Comment se sent Léna à la fin, à ton avis ?",
+     "question": "Comment Léna va-t-elle se sentir, à ton avis ?",
      "choix": [
       "Elle va retrouver le sourire.",
       "Elle sera encore plus triste.",
@@ -53,23 +54,33 @@
      "bonne": 0,
      "preuve": "Mais Malo sourit : il a vu où il est tombé.",
      "notion": "inférence"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes de l’histoire dans l’ordre.",
+     "elements": [
+      "Le cerf-volant monte très haut.",
+      "La ficelle casse.",
+      "Le cerf-volant s’envole au-dessus des arbres.",
+      "Malo sourit : il sait où il est tombé."
+     ]
     }
-   ],
-   "nbMots": 54
+   ]
   },
   {
    "id": "ce1-t2-la-soupe",
    "classe": "CE1",
    "niveau": "normal",
    "titre": "La soupe de potiron (texte prescriptif)",
-   "texte": "Pour faire une soupe de potiron, il faut un morceau de potiron, une pomme de terre, un oignon et de l'eau. D'abord, demande à un adulte d'éplucher et de couper les légumes. Ensuite, mets-les dans une casserole et couvre-les d'eau. Fais cuire pendant vingt minutes. Enfin, mixe la soupe et ajoute une pincée de sel. Attention, c'est chaud !",
+   "texte": "Pour faire une soupe de potiron, il faut un morceau de potiron, une pomme de terre, un oignon et de l’eau. D’abord, demande à un adulte d’éplucher et de couper les légumes. Ensuite, mets-les dans une casserole et couvre-les d’eau. Fais cuire pendant vingt minutes. Enfin, mixe la soupe et ajoute une pincée de sel. Attention, c’est chaud !",
+   "nbMots": 58,
    "questions": [
     {
      "type": "ordering",
-     "question": "Remets les étapes dans l'ordre.",
+     "question": "Remets les étapes dans l’ordre.",
      "elements": [
       "Éplucher et couper les légumes",
-      "Mettre les légumes dans l'eau",
+      "Mettre les légumes dans l’eau",
       "Faire cuire vingt minutes",
       "Mixer et saler"
      ]
@@ -90,21 +101,21 @@
      "question": "Quel mot montre la dernière étape ?",
      "choix": [
       "Enfin",
-      "D'abord",
+      "D’abord",
       "Ensuite"
      ],
      "bonne": 0,
      "preuve": "Enfin, mixe la soupe"
     }
-   ],
-   "nbMots": 59
+   ]
   },
   {
    "id": "cm2-t1-le-phare",
    "classe": "CM2",
    "niveau": "normal",
    "titre": "Le gardien du phare",
-   "texte": "Depuis quarante ans, Anselme gardait le phare de l'île aux Mouettes. Chaque soir, il gravissait les deux cent douze marches de l'escalier en colimaçon, vérifiait la lampe, puis notait dans un grand registre la force du vent et l'état de la mer. Cette nuit-là, une tempête d'une violence inouïe s'abattit sur la côte. Vers minuit, la lumière vacilla et s'éteignit. Anselme comprit aussitôt : au large, le chalutier du vieux Corentin rentrait au port. Sans hésiter, il saisit sa lanterne de secours et remonta l'escalier quatre à quatre.",
+   "texte": "Depuis quarante ans, Anselme gardait le phare de l’île aux Mouettes. Chaque soir, il gravissait les deux cent douze marches de l’escalier en colimaçon, vérifiait la lampe, puis notait dans un grand registre la force du vent et l’état de la mer. Cette nuit-là, une tempête d’une violence inouïe s’abattit sur la côte. Vers minuit, la lumière vacilla et s’éteignit. Anselme comprit aussitôt : au large, le chalutier du vieux Corentin rentrait au port. Sans hésiter, il saisit sa lanterne de secours et remonta l’escalier quatre à quatre.",
+   "nbMots": 87,
    "questions": [
     {
      "type": "mcq",
@@ -124,7 +135,7 @@
      "choix": [
       "Un bateau risque de ne pas voir la côte.",
       "Il a oublié son registre.",
-      "Il a peur de l'orage.",
+      "Il a peur de l’orage.",
       "Il veut dormir."
      ],
      "bonne": 0,
@@ -136,7 +147,7 @@
      "question": "Que signifie « quatre à quatre » ?",
      "choix": [
       "très vite, en sautant des marches",
-      "en comptant jusqu'à quatre",
+      "en comptant jusqu’à quatre",
       "avec quatre personnes",
       "lentement"
      ],
@@ -155,19 +166,19 @@
      "bonne": 0,
      "notion": "conjugaison"
     }
-   ],
-   "nbMots": 88
+   ]
   },
   {
    "id": "cm2-t2-abeilles",
    "classe": "CM2",
    "niveau": "normal",
    "titre": "Pourquoi protéger les abeilles ? (texte documentaire)",
-   "texte": "Les abeilles ne fabriquent pas seulement du miel. En butinant les fleurs, elles transportent le pollen d'une plante à l'autre : c'est la pollinisation. Sans elle, de nombreux arbres fruitiers ne donneraient presque pas de fruits. Or, depuis plusieurs années, le nombre d'abeilles diminue. Les causes sont multiples : certains pesticides, la disparition des haies et des prairies fleuries, ou encore des parasites. Planter des fleurs mellifères et laisser pousser l'herbe dans un coin du jardin sont des gestes simples pour les aider.",
+   "texte": "Les abeilles ne fabriquent pas seulement du miel. En butinant les fleurs, elles transportent le pollen d’une plante à l’autre : c’est la pollinisation. Sans elle, de nombreux arbres fruitiers ne donneraient presque pas de fruits. Or, depuis plusieurs années, le nombre d’abeilles diminue. Les causes sont multiples : certains pesticides, la disparition des haies et des prairies fleuries, ou encore des parasites. Planter des fleurs mellifères et laisser pousser l’herbe dans un coin du jardin sont des gestes simples pour les aider.",
+   "nbMots": 81,
    "questions": [
     {
      "type": "mcq",
-     "question": "Comment s'appelle le transport du pollen par les abeilles ?",
+     "question": "Comment s’appelle le transport du pollen par les abeilles ?",
      "choix": [
       "la pollinisation",
       "la digestion",
@@ -175,13 +186,13 @@
       "la respiration"
      ],
      "bonne": 0,
-     "preuve": "c'est la pollinisation"
+     "preuve": "c’est la pollinisation"
     },
     {
      "type": "mcq",
      "question": "Que se passerait-il sans les abeilles ?",
      "choix": [
-      "Beaucoup d'arbres donneraient très peu de fruits.",
+      "Beaucoup d’arbres donneraient très peu de fruits.",
       "Il y aurait plus de miel.",
       "Les fleurs pousseraient plus vite.",
       "Rien ne changerait."
@@ -201,8 +212,1591 @@
      "bonne": 0,
      "notion": "conjugaison"
     }
+   ]
+  },
+  {
+   "id": "ce1-f2-gouter",
+   "classe": "CE1",
+   "niveau": "facile",
+   "titre": "Le goûter de Zoé",
+   "texte": "Zoé rentre de l’école. Elle a très faim. Sur la table, Mamie a posé un bol de lait et une tartine de confiture. Zoé se lave les mains, puis elle s’assoit. Elle croque dans sa tartine. Miam ! C’est de la confiture de fraises, sa préférée.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Qui a préparé le goûter ?",
+     "choix": [
+      "Mamie",
+      "Zoé",
+      "la maîtresse"
+     ],
+     "bonne": 0,
+     "preuve": "Sur la table, Mamie a posé un bol de lait et une tartine de confiture."
+    },
+    {
+     "type": "mcq",
+     "question": "Que fait Zoé avant de s’asseoir ?",
+     "choix": [
+      "Elle se lave les mains.",
+      "Elle fait ses devoirs.",
+      "Elle boit son lait."
+     ],
+     "bonne": 0,
+     "preuve": "Zoé se lave les mains, puis elle s’assoit."
+    },
+    {
+     "type": "mcq",
+     "question": "Quelle confiture Zoé préfère-t-elle ?",
+     "choix": [
+      "la confiture de fraises",
+      "la confiture d’abricots",
+      "la confiture de cerises"
+     ],
+     "bonne": 0,
+     "preuve": "C’est de la confiture de fraises, sa préférée."
+    },
+    {
+     "type": "mcq",
+     "question": "Dans « Elle croque dans sa tartine », qui est « Elle » ?",
+     "choix": [
+      "Zoé",
+      "Mamie",
+      "la tartine"
+     ],
+     "bonne": 0,
+     "preuve": "Elle croque dans sa tartine.",
+     "notion": "anaphore"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes de l’histoire dans l’ordre.",
+     "elements": [
+      "Zoé rentre de l’école.",
+      "Zoé se lave les mains.",
+      "Zoé s’assoit à table.",
+      "Zoé croque dans sa tartine."
+     ]
+    }
    ],
-   "nbMots": 83
+   "nbMots": 45
+  },
+  {
+   "id": "ce1-f3-pompon",
+   "classe": "CE1",
+   "niveau": "facile",
+   "titre": "Où est Pompon ?",
+   "texte": "Sacha cherche son chat Pompon. Il n’est pas dans le jardin. Il n’est pas sous le lit. Soudain, Sacha entend un petit miaulement. Il ouvre l’armoire : Pompon dort sur les pulls tout chauds ! Sacha rit et le prend dans ses bras.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Comment s’appelle le chat de Sacha ?",
+     "choix": [
+      "Pompon",
+      "Pirate",
+      "Caramel"
+     ],
+     "bonne": 0,
+     "preuve": "Sacha cherche son chat Pompon."
+    },
+    {
+     "type": "mcq",
+     "question": "Où Sacha trouve-t-il son chat ?",
+     "choix": [
+      "dans l’armoire",
+      "sous le lit",
+      "dans le jardin"
+     ],
+     "bonne": 0,
+     "preuve": "Il ouvre l’armoire : Pompon dort sur les pulls tout chauds !"
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’est-ce que Sacha entend ?",
+     "choix": [
+      "un petit miaulement",
+      "un gros aboiement",
+      "la sonnette"
+     ],
+     "bonne": 0,
+     "preuve": "Soudain, Sacha entend un petit miaulement."
+    },
+    {
+     "type": "mcq",
+     "question": "À ton avis, pourquoi Pompon dort-il dans l’armoire ?",
+     "choix": [
+      "Les pulls sont chauds et doux.",
+      "Il a peur de Sacha.",
+      "Il cherche à manger."
+     ],
+     "bonne": 0,
+     "preuve": "Il ouvre l’armoire : Pompon dort sur les pulls tout chauds !",
+     "notion": "inférence"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes de l’histoire dans l’ordre.",
+     "elements": [
+      "Sacha ne trouve pas son chat.",
+      "Sacha entend un miaulement.",
+      "Sacha ouvre l’armoire.",
+      "Sacha prend Pompon dans ses bras."
+     ]
+    }
+   ],
+   "nbMots": 41
+  },
+  {
+   "id": "ce1-f4-flaques",
+   "classe": "CE1",
+   "niveau": "facile",
+   "titre": "Les bottes de Nina",
+   "texte": "Aujourd’hui, il pleut. Nina met ses bottes jaunes et son grand manteau. Elle prend aussi son parapluie. Dans la rue, elle saute dans toutes les flaques. Plouf ! Plouf ! Pourtant, ses chaussettes restent bien sèches. Les bottes, c’est magique !",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Quel temps fait-il ?",
+     "choix": [
+      "Il pleut.",
+      "Il neige.",
+      "Il fait très chaud."
+     ],
+     "bonne": 0,
+     "preuve": "Aujourd’hui, il pleut."
+    },
+    {
+     "type": "mcq",
+     "question": "De quelle couleur sont les bottes de Nina ?",
+     "choix": [
+      "jaunes",
+      "rouges",
+      "bleues"
+     ],
+     "bonne": 0,
+     "preuve": "Nina met ses bottes jaunes et son grand manteau."
+    },
+    {
+     "type": "mcq",
+     "question": "Que fait Nina dans la rue ?",
+     "choix": [
+      "Elle saute dans les flaques.",
+      "Elle fait du vélo.",
+      "Elle court après un chien."
+     ],
+     "bonne": 0,
+     "preuve": "Dans la rue, elle saute dans toutes les flaques."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi les chaussettes de Nina restent-elles sèches ?",
+     "choix": [
+      "Ses bottes la protègent de l’eau.",
+      "Il ne pleut plus.",
+      "Nina reste à la maison."
+     ],
+     "bonne": 0,
+     "preuve": "Pourtant, ses chaussettes restent bien sèches.",
+     "notion": "inférence"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes de l’histoire dans l’ordre.",
+     "elements": [
+      "Nina s’habille pour la pluie.",
+      "Nina sort dans la rue.",
+      "Nina saute dans les flaques.",
+      "Nina voit que ses chaussettes sont sèches."
+     ]
+    }
+   ],
+   "nbMots": 38
+  },
+  {
+   "id": "ce1-f5-coccinelle",
+   "classe": "CE1",
+   "niveau": "facile",
+   "titre": "La coccinelle (texte documentaire)",
+   "texte": "La coccinelle est un petit insecte. Elle a six pattes et deux antennes. Son dos est souvent rouge avec des points noirs. Sous son dos, elle cache des ailes : elle peut voler. La coccinelle mange des pucerons, de minuscules insectes qui abîment les plantes. C’est l’amie des jardiniers !",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Combien de pattes a la coccinelle ?",
+     "choix": [
+      "six",
+      "quatre",
+      "huit"
+     ],
+     "bonne": 0,
+     "preuve": "Elle a six pattes et deux antennes."
+    },
+    {
+     "type": "mcq",
+     "question": "Que mange la coccinelle ?",
+     "choix": [
+      "des pucerons",
+      "des feuilles",
+      "des fraises"
+     ],
+     "bonne": 0,
+     "preuve": "La coccinelle mange des pucerons, de minuscules insectes qui abîment les plantes."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi la coccinelle est-elle l’amie des jardiniers ?",
+     "choix": [
+      "Elle mange les pucerons qui abîment les plantes.",
+      "Elle arrose les fleurs.",
+      "Elle fait du miel."
+     ],
+     "bonne": 0,
+     "preuve": "La coccinelle mange des pucerons, de minuscules insectes qui abîment les plantes.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Ce texte est :",
+     "choix": [
+      "un texte qui donne des informations",
+      "une histoire inventée",
+      "une recette"
+     ],
+     "bonne": 0,
+     "notion": "type de texte"
+    }
+   ],
+   "nbMots": 48
+  },
+  {
+   "id": "ce1-n3-velo",
+   "classe": "CE1",
+   "niveau": "normal",
+   "titre": "Le grand jour de Malik",
+   "texte": "Ce samedi, Papa a enlevé les petites roues du vélo de Malik. Malik a un peu peur. Il serre fort le guidon et pose les pieds sur les pédales. Papa tient la selle et court à côté de lui. « Pédale, pédale, regarde devant toi ! » crie-t-il. Malik pédale de plus en plus vite. Le vent siffle dans ses oreilles. Au bout de l’allée, il se retourne pour sourire à son papa. Mais Papa est resté loin derrière ! Il ne tenait plus la selle depuis longtemps. Malik freine, pose un pied par terre et lève les bras au ciel. « J’ai réussi ! Je roule tout seul ! » Le soir, au dîner, il raconte son exploit à sa grande sœur Awa. Elle lui promet une grande balade à vélo au bord du lac, le lendemain.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Qu’a fait Papa ce samedi ?",
+     "choix": [
+      "Il a enlevé les petites roues du vélo.",
+      "Il a acheté un vélo neuf.",
+      "Il a réparé la selle."
+     ],
+     "bonne": 0,
+     "preuve": "Ce samedi, Papa a enlevé les petites roues du vélo de Malik."
+    },
+    {
+     "type": "mcq",
+     "question": "Comment se sent Malik au début ?",
+     "choix": [
+      "Il a un peu peur.",
+      "Il est en colère.",
+      "Il s’ennuie."
+     ],
+     "bonne": 0,
+     "preuve": "Malik a un peu peur."
+    },
+    {
+     "type": "mcq",
+     "question": "Dans « Il ne tenait plus la selle depuis longtemps », qui est « Il » ?",
+     "choix": [
+      "Papa",
+      "Malik",
+      "le vent"
+     ],
+     "bonne": 0,
+     "preuve": "Il ne tenait plus la selle depuis longtemps.",
+     "notion": "anaphore"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi Malik lève-t-il les bras au ciel ?",
+     "choix": [
+      "Il est fier : il roule tout seul.",
+      "Il est tombé de son vélo.",
+      "Il veut que Papa le rattrape."
+     ],
+     "bonne": 0,
+     "preuve": "« J’ai réussi ! Je roule tout seul ! »",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Que vont faire Malik et Awa le lendemain ?",
+     "choix": [
+      "une balade à vélo au bord du lac",
+      "un gâteau au chocolat",
+      "un match de football"
+     ],
+     "bonne": 0,
+     "preuve": "Elle lui promet une grande balade à vélo au bord du lac, le lendemain."
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes de l’histoire dans l’ordre.",
+     "elements": [
+      "Papa enlève les petites roues.",
+      "Malik pédale de plus en plus vite.",
+      "Malik voit que Papa est loin derrière.",
+      "Malik raconte son exploit à Awa."
+     ]
+    }
+   ],
+   "nbMots": 130
+  },
+  {
+   "id": "ce1-n4-potager",
+   "classe": "CE1",
+   "niveau": "normal",
+   "titre": "Le potager de l’école",
+   "texte": "Au fond de la cour de notre école, il y a un petit potager. En mars, la classe de Madame Lopez a semé des graines de radis et de haricots. Chaque élève a reçu une mission : Inès et Hugo arrosent, Lou enlève les mauvaises herbes, Bilal note dans un cahier la taille des plantes. Au début, il ne se passait rien. Puis, un matin, de toutes petites feuilles vertes sont sorties de la terre. Les enfants étaient ravis ! En mai, les radis étaient prêts. Les élèves les ont lavés, puis ils les ont croqués avec un peu de beurre. Bilal a trouvé qu’ils piquaient un peu la langue. Maintenant, toute la classe attend les haricots avec impatience.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Quelle est la mission de Bilal ?",
+     "choix": [
+      "Il note la taille des plantes.",
+      "Il arrose le potager.",
+      "Il enlève les mauvaises herbes."
+     ],
+     "bonne": 0,
+     "preuve": "Bilal note dans un cahier la taille des plantes."
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’est-ce qui est sorti de la terre un matin ?",
+     "choix": [
+      "de toutes petites feuilles vertes",
+      "des radis bien rouges",
+      "des fleurs jaunes"
+     ],
+     "bonne": 0,
+     "preuve": "Puis, un matin, de toutes petites feuilles vertes sont sorties de la terre."
+    },
+    {
+     "type": "mcq",
+     "question": "« Les enfants étaient ravis » : que veut dire « ravis » ?",
+     "choix": [
+      "très contents",
+      "très fâchés",
+      "très fatigués"
+     ],
+     "bonne": 0,
+     "preuve": "Les enfants étaient ravis !",
+     "notion": "vocabulaire"
+    },
+    {
+     "type": "mcq",
+     "question": "Dans « Les élèves les ont lavés », que remplace le mot « les » ?",
+     "choix": [
+      "les radis",
+      "les enfants",
+      "les graines"
+     ],
+     "bonne": 0,
+     "preuve": "Les élèves les ont lavés, puis ils les ont croqués avec un peu de beurre.",
+     "notion": "anaphore"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi la classe attend-elle les haricots avec impatience ?",
+     "choix": [
+      "Les haricots ne sont pas encore prêts.",
+      "Les enfants n’aiment pas les radis.",
+      "Les haricots ont été mangés par les oiseaux."
+     ],
+     "bonne": 0,
+     "preuve": "Maintenant, toute la classe attend les haricots avec impatience.",
+     "notion": "inférence"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes de l’histoire dans l’ordre.",
+     "elements": [
+      "Les élèves sèment des graines.",
+      "De petites feuilles sortent de la terre.",
+      "Les radis sont prêts.",
+      "Les enfants croquent les radis."
+     ]
+    }
+   ],
+   "nbMots": 117
+  },
+  {
+   "id": "ce1-n5-herisson",
+   "classe": "CE1",
+   "niveau": "normal",
+   "titre": "Le hérisson (texte documentaire)",
+   "texte": "Le hérisson est un petit mammifère qui vit dans les haies, les bois et les jardins. Son dos est couvert de milliers de piquants. Quand il a peur, il se roule en boule : ses piquants le protègent alors des renards et des chiens. Le hérisson dort le jour et cherche sa nourriture la nuit. Il mange surtout des insectes, des vers de terre et des limaces. En automne, il construit un nid de feuilles. En hiver, il ne trouve plus assez à manger, alors il hiberne : il dort pendant plusieurs mois. Au printemps, il se réveille très maigre et affamé. Si tu as un jardin, tu peux l’aider : laisse un tas de feuilles dans un coin et ne mets pas de produits contre les limaces.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Que fait le hérisson quand il a peur ?",
+     "choix": [
+      "Il se roule en boule.",
+      "Il grimpe dans un arbre.",
+      "Il creuse un trou."
+     ],
+     "bonne": 0,
+     "preuve": "Quand il a peur, il se roule en boule : ses piquants le protègent alors des renards et des chiens."
+    },
+    {
+     "type": "mcq",
+     "question": "Quand le hérisson cherche-t-il sa nourriture ?",
+     "choix": [
+      "la nuit",
+      "le matin",
+      "à midi"
+     ],
+     "bonne": 0,
+     "preuve": "Le hérisson dort le jour et cherche sa nourriture la nuit."
+    },
+    {
+     "type": "mcq",
+     "question": "Que veut dire « il hiberne » ?",
+     "choix": [
+      "Il dort pendant tout l’hiver.",
+      "Il part dans un pays chaud.",
+      "Il mange beaucoup de limaces."
+     ],
+     "bonne": 0,
+     "preuve": "il hiberne : il dort pendant plusieurs mois",
+     "notion": "vocabulaire"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi ne faut-il pas mettre de produits contre les limaces ?",
+     "choix": [
+      "Le hérisson mange les limaces : le produit pourrait le rendre malade.",
+      "Les limaces sont les amies des fleurs.",
+      "Le hérisson n’aime pas les jardins."
+     ],
+     "bonne": 0,
+     "preuve": "Il mange surtout des insectes, des vers de terre et des limaces.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Ce texte est :",
+     "choix": [
+      "un texte qui donne des informations",
+      "une histoire inventée",
+      "une poésie"
+     ],
+     "bonne": 0,
+     "notion": "type de texte"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets la vie du hérisson dans l’ordre des saisons.",
+     "elements": [
+      "En automne, il construit un nid de feuilles.",
+      "En hiver, il hiberne dans son nid.",
+      "Au printemps, il se réveille affamé."
+     ]
+    }
+   ],
+   "nbMots": 125
+  },
+  {
+   "id": "ce1-n6-jeu-de-piste",
+   "classe": "CE1",
+   "niveau": "normal",
+   "titre": "La surprise de Mamie Rose",
+   "texte": "Chaque mercredi, Liam va chez sa grand-mère Rose. Aujourd’hui, elle l’attend devant la porte avec un drôle de sourire. « J’ai une surprise pour toi, mais d’abord, il faut la trouver ! » Elle lui tend un petit papier plié en quatre. Liam lit : « Va voir là où dorment les casseroles. » Il court dans la cuisine et ouvre le placard. Dans une casserole, il trouve un deuxième papier : « Cherche sous ce qui a quatre pieds mais ne marche jamais. » Liam réfléchit, puis il se met à quatre pattes sous la table. Une enveloppe est collée dessous ! À l’intérieur, il y a deux tickets pour le cirque. Liam saute au cou de sa grand-mère. « C’est le plus beau jeu de piste du monde ! »",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Quel jour Liam va-t-il chez sa grand-mère ?",
+     "choix": [
+      "le mercredi",
+      "le dimanche",
+      "le lundi"
+     ],
+     "bonne": 0,
+     "preuve": "Chaque mercredi, Liam va chez sa grand-mère Rose."
+    },
+    {
+     "type": "mcq",
+     "question": "« Là où dorment les casseroles », c’est :",
+     "choix": [
+      "le placard de la cuisine",
+      "le lit de Mamie",
+      "le jardin"
+     ],
+     "bonne": 0,
+     "preuve": "Il court dans la cuisine et ouvre le placard.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’est-ce qui « a quatre pieds mais ne marche jamais » ?",
+     "choix": [
+      "la table",
+      "le chat",
+      "la casserole"
+     ],
+     "bonne": 0,
+     "preuve": "Liam réfléchit, puis il se met à quatre pattes sous la table.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’y a-t-il dans l’enveloppe ?",
+     "choix": [
+      "deux tickets pour le cirque",
+      "une lettre de Papa",
+      "un billet de train"
+     ],
+     "bonne": 0,
+     "preuve": "À l’intérieur, il y a deux tickets pour le cirque."
+    },
+    {
+     "type": "mcq",
+     "question": "Comment se sent Liam à la fin ?",
+     "choix": [
+      "très heureux",
+      "déçu",
+      "inquiet"
+     ],
+     "bonne": 0,
+     "preuve": "Liam saute au cou de sa grand-mère.",
+     "notion": "inférence"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes de l’histoire dans l’ordre.",
+     "elements": [
+      "Mamie Rose donne un papier à Liam.",
+      "Liam ouvre le placard de la cuisine.",
+      "Liam regarde sous la table.",
+      "Liam découvre les tickets de cirque."
+     ]
+    }
+   ],
+   "nbMots": 119
+  },
+  {
+   "id": "ce1-p1-manchots",
+   "classe": "CE1",
+   "niveau": "plus_loin",
+   "titre": "Les manchots empereurs (texte documentaire)",
+   "texte": "Les manchots empereurs vivent en Antarctique, la région la plus froide de la Terre. Ce sont des oiseaux, mais ils ne savent pas voler. En revanche, ils nagent très bien : sous l’eau, leurs ailes leur servent de nageoires. Pour se nourrir, ils plongent dans l’océan et attrapent des poissons et des calamars. En hiver, la femelle pond un seul œuf. Elle le confie au mâle, puis elle part en mer pour manger. Pendant deux mois, le mâle garde l’œuf bien au chaud sur ses pattes, sous un repli de son ventre. Il ne mange rien ! Pour résister au vent glacé, les mâles se serrent les uns contre les autres. Quand le poussin sort de l’œuf, la femelle revient enfin pour le nourrir.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Les manchots empereurs savent-ils voler ?",
+     "choix": [
+      "Non, mais ils nagent très bien.",
+      "Oui, très haut dans le ciel.",
+      "Oui, mais seulement en été."
+     ],
+     "bonne": 0,
+     "preuve": "Ce sont des oiseaux, mais ils ne savent pas voler."
+    },
+    {
+     "type": "mcq",
+     "question": "Qui garde l’œuf pendant l’hiver ?",
+     "choix": [
+      "le mâle",
+      "la femelle",
+      "un autre poussin"
+     ],
+     "bonne": 0,
+     "preuve": "Pendant deux mois, le mâle garde l’œuf bien au chaud sur ses pattes, sous un repli de son ventre."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi les mâles se serrent-ils les uns contre les autres ?",
+     "choix": [
+      "pour avoir moins froid",
+      "pour se battre",
+      "pour attraper des poissons"
+     ],
+     "bonne": 0,
+     "preuve": "Pour résister au vent glacé, les mâles se serrent les uns contre les autres."
+    },
+    {
+     "type": "mcq",
+     "question": "Dans « Elle le confie au mâle », que remplace le mot « le » ?",
+     "choix": [
+      "l’œuf",
+      "le poisson",
+      "le vent"
+     ],
+     "bonne": 0,
+     "preuve": "Elle le confie au mâle, puis elle part en mer pour manger.",
+     "notion": "anaphore"
+    },
+    {
+     "type": "mcq",
+     "question": "Quel titre convient le mieux à ce texte ?",
+     "choix": [
+      "Le bébé manchot et ses parents",
+      "Un voyage en bateau",
+      "Les poissons de l’océan"
+     ],
+     "bonne": 0,
+     "notion": "titre"
+    },
+    {
+     "type": "mcq",
+     "question": "Quel est le meilleur résumé du texte ?",
+     "choix": [
+      "Les manchots vivent dans le grand froid ; le mâle garde l’œuf pendant que la femelle se nourrit en mer.",
+      "Les manchots volent jusqu’à la mer pour pondre leurs œufs dans le sable chaud.",
+      "Les manchots mangent des fruits et dorment dans des nids, en haut des arbres."
+     ],
+     "bonne": 0,
+     "notion": "résumé"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes dans l’ordre.",
+     "elements": [
+      "La femelle pond un œuf.",
+      "La femelle confie l’œuf au mâle.",
+      "Le mâle garde l’œuf sur ses pattes.",
+      "Le poussin sort de l’œuf."
+     ]
+    }
+   ],
+   "nbMots": 122
+  },
+  {
+   "id": "ce1-p2-un-deux-trois-soleil",
+   "classe": "CE1",
+   "niveau": "plus_loin",
+   "titre": "Un, deux, trois, soleil ! (règle du jeu)",
+   "texte": "Pour jouer à « Un, deux, trois, soleil », il faut au moins trois joueurs. On choisit d’abord un meneur. Il se place contre un mur, le dos tourné aux autres joueurs, qui se mettent en ligne au fond de la cour. Le meneur crie : « Un, deux, trois, soleil ! » Pendant qu’il parle, les joueurs avancent vers le mur. Dès qu’il a fini sa phrase, il se retourne. Les joueurs doivent alors s’immobiliser comme des statues. Si le meneur voit quelqu’un bouger, ce joueur retourne au point de départ. Le premier joueur qui touche le mur a gagné : il devient le nouveau meneur.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Combien de joueurs faut-il au minimum ?",
+     "choix": [
+      "trois",
+      "deux",
+      "dix"
+     ],
+     "bonne": 0,
+     "preuve": "il faut au moins trois joueurs"
+    },
+    {
+     "type": "mcq",
+     "question": "Que doivent faire les joueurs quand le meneur se retourne ?",
+     "choix": [
+      "s’immobiliser comme des statues",
+      "courir vers le mur",
+      "crier « soleil »"
+     ],
+     "bonne": 0,
+     "preuve": "Les joueurs doivent alors s’immobiliser comme des statues."
+    },
+    {
+     "type": "mcq",
+     "question": "Que se passe-t-il si le meneur voit un joueur bouger ?",
+     "choix": [
+      "Ce joueur retourne au point de départ.",
+      "Ce joueur a gagné.",
+      "Le meneur change de place."
+     ],
+     "bonne": 0,
+     "preuve": "Si le meneur voit quelqu’un bouger, ce joueur retourne au point de départ."
+    },
+    {
+     "type": "mcq",
+     "question": "Qui devient le nouveau meneur ?",
+     "choix": [
+      "le premier joueur qui touche le mur",
+      "le joueur le plus grand",
+      "le dernier joueur"
+     ],
+     "bonne": 0,
+     "preuve": "Le premier joueur qui touche le mur a gagné : il devient le nouveau meneur."
+    },
+    {
+     "type": "mcq",
+     "question": "Ce texte est :",
+     "choix": [
+      "une règle du jeu",
+      "une histoire inventée",
+      "une poésie"
+     ],
+     "bonne": 0,
+     "notion": "type de texte"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes du jeu dans l’ordre.",
+     "elements": [
+      "On choisit un meneur.",
+      "Le meneur se tourne vers le mur.",
+      "Les joueurs avancent pendant qu’il parle.",
+      "Les joueurs s’immobilisent quand il se retourne."
+     ]
+    }
+   ],
+   "nbMots": 100
+  },
+  {
+   "id": "ce1-p3-refuge",
+   "classe": "CE1",
+   "niveau": "plus_loin",
+   "titre": "Une nuit au refuge",
+   "texte": "Ce soir-là, Jade et son oncle Karim arrivent au refuge après une longue marche dans la montagne. La nuit tombe déjà. Dehors, de gros flocons commencent à tourbillonner. Karim allume un feu dans la cheminée pendant que Jade prépare deux bols de soupe. Soudain, on frappe à la porte. Jade sursaute. Karim ouvre : un randonneur couvert de neige se tient devant eux. « Pardon de vous déranger, dit-il en claquant des dents. Je me suis perdu dans la tempête. » Karim le fait entrer et lui tend une couverture. Jade, sans un mot, pose un troisième bol sur la table. Le randonneur s’appelle Paul. Toute la soirée, il raconte ses voyages autour du monde. Jade l’écoute, les yeux brillants. Le lendemain matin, le soleil est revenu. Paul les remercie et leur promet de leur envoyer une carte postale de chacun de ses voyages.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Où se passe cette histoire ?",
+     "choix": [
+      "dans un refuge, à la montagne",
+      "dans une école",
+      "sur un bateau"
+     ],
+     "bonne": 0,
+     "preuve": "Ce soir-là, Jade et son oncle Karim arrivent au refuge après une longue marche dans la montagne."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi Jade sursaute-t-elle ?",
+     "choix": [
+      "Quelqu’un frappe à la porte.",
+      "Le feu s’éteint.",
+      "La soupe est trop chaude."
+     ],
+     "bonne": 0,
+     "preuve": "Soudain, on frappe à la porte."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi le randonneur claque-t-il des dents ?",
+     "choix": [
+      "Il a très froid.",
+      "Il est très en colère.",
+      "Il a très faim."
+     ],
+     "bonne": 0,
+     "preuve": "un randonneur couvert de neige se tient devant eux",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Que veut montrer Jade en posant un troisième bol sur la table ?",
+     "choix": [
+      "Elle invite Paul à manger avec eux.",
+      "Elle a très faim.",
+      "Elle veut que Paul s’en aille."
+     ],
+     "bonne": 0,
+     "preuve": "Jade, sans un mot, pose un troisième bol sur la table.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Dans « Jade l’écoute », qui est « l’ » ?",
+     "choix": [
+      "Paul",
+      "Karim",
+      "le feu"
+     ],
+     "bonne": 0,
+     "preuve": "Jade l’écoute, les yeux brillants.",
+     "notion": "anaphore"
+    },
+    {
+     "type": "mcq",
+     "question": "Quel titre convient le mieux à ce texte ?",
+     "choix": [
+      "Un visiteur dans la tempête",
+      "Le pique-nique au soleil",
+      "Jade apprend à skier"
+     ],
+     "bonne": 0,
+     "notion": "titre"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes de l’histoire dans l’ordre.",
+     "elements": [
+      "Jade et Karim arrivent au refuge.",
+      "Un randonneur frappe à la porte.",
+      "Paul raconte ses voyages.",
+      "Paul les remercie et repart."
+     ]
+    }
+   ],
+   "nbMots": 141
+  },
+  {
+   "id": "cm2-f1-bouteille",
+   "classe": "CM2",
+   "niveau": "facile",
+   "titre": "Le message dans la bouteille",
+   "texte": "En se promenant sur la plage après la tempête, Elsa aperçut une bouteille verte coincée entre deux rochers. À l’intérieur, on devinait un papier roulé. Le bouchon résista longtemps, puis céda d’un coup. Le message, écrit à l’encre bleue, était à moitié effacé par l’eau de mer. Elsa parvint tout de même à lire : « Si tu trouves cette lettre, écris-moi ! Je m’appelle Tiago, j’ai onze ans et j’habite aux Açores. » Une adresse suivait. Le soir même, Elsa sortit sa plus belle feuille de papier et commença sa réponse. Elle se demandait combien de temps la bouteille avait voyagé.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Où Elsa trouve-t-elle la bouteille ?",
+     "choix": [
+      "entre deux rochers, sur la plage",
+      "dans le sable, près d’un château",
+      "dans le filet d’un pêcheur"
+     ],
+     "bonne": 0,
+     "preuve": "Elsa aperçut une bouteille verte coincée entre deux rochers"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi le message est-il à moitié effacé ?",
+     "choix": [
+      "L’eau de mer l’a abîmé.",
+      "Tiago a écrit au crayon.",
+      "Elsa l’a déchiré."
+     ],
+     "bonne": 0,
+     "preuve": "Le message, écrit à l’encre bleue, était à moitié effacé par l’eau de mer."
+    },
+    {
+     "type": "mcq",
+     "question": "« Le bouchon résista longtemps, puis céda d’un coup » : que veut dire « céda » ?",
+     "choix": [
+      "Il finit par s’ouvrir.",
+      "Il se cassa en mille morceaux.",
+      "Il tomba dans l’eau."
+     ],
+     "bonne": 0,
+     "preuve": "Le bouchon résista longtemps, puis céda d’un coup.",
+     "notion": "vocabulaire"
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’est-ce qui a sans doute poussé la bouteille jusqu’à la plage ?",
+     "choix": [
+      "les vagues de la tempête",
+      "un enfant de la plage",
+      "un oiseau marin"
+     ],
+     "bonne": 0,
+     "preuve": "En se promenant sur la plage après la tempête",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Que décide de faire Elsa ?",
+     "choix": [
+      "répondre à Tiago",
+      "jeter la bouteille",
+      "garder le secret"
+     ],
+     "bonne": 0,
+     "preuve": "Le soir même, Elsa sortit sa plus belle feuille de papier et commença sa réponse."
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes du récit dans l’ordre.",
+     "elements": [
+      "Elsa trouve une bouteille.",
+      "Elsa ouvre la bouteille.",
+      "Elsa lit le message de Tiago.",
+      "Elsa commence sa réponse."
+     ]
+    }
+   ],
+   "nbMots": 98
+  },
+  {
+   "id": "cm2-f2-arc-en-ciel",
+   "classe": "CM2",
+   "niveau": "facile",
+   "titre": "Comment naît un arc-en-ciel ? (texte documentaire)",
+   "texte": "Un arc-en-ciel apparaît quand le soleil brille pendant qu’il pleut. La lumière du soleil semble blanche, mais elle est en réalité composée de plusieurs couleurs. Lorsqu’elle traverse les gouttes de pluie, elle est déviée et ses couleurs se séparent : rouge, orange, jaune, vert, bleu, indigo et violet. Pour observer un arc-en-ciel, il faut avoir le soleil dans le dos et la pluie devant soi. C’est pour cette raison qu’on en voit souvent en fin d’après-midi, quand le soleil est bas. On peut aussi en fabriquer un : il suffit d’arroser le jardin avec un tuyau, par une journée ensoleillée, en tournant le dos au soleil.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Quand un arc-en-ciel apparaît-il ?",
+     "choix": [
+      "quand le soleil brille pendant qu’il pleut",
+      "quand il fait nuit",
+      "quand il neige très fort"
+     ],
+     "bonne": 0,
+     "preuve": "Un arc-en-ciel apparaît quand le soleil brille pendant qu’il pleut."
+    },
+    {
+     "type": "mcq",
+     "question": "Combien de couleurs le texte cite-t-il ?",
+     "choix": [
+      "sept",
+      "trois",
+      "dix"
+     ],
+     "bonne": 0,
+     "preuve": "rouge, orange, jaune, vert, bleu, indigo et violet"
+    },
+    {
+     "type": "mcq",
+     "question": "Où doit se trouver le soleil pour qu’on voie un arc-en-ciel ?",
+     "choix": [
+      "dans notre dos",
+      "juste devant nous",
+      "derrière un nuage"
+     ],
+     "bonne": 0,
+     "preuve": "il faut avoir le soleil dans le dos et la pluie devant soi"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi voit-on souvent des arcs-en-ciel en fin d’après-midi ?",
+     "choix": [
+      "Le soleil est bas dans le ciel.",
+      "Il pleut toujours le soir.",
+      "Les couleurs sont plus belles le soir."
+     ],
+     "bonne": 0,
+     "preuve": "C’est pour cette raison qu’on en voit souvent en fin d’après-midi, quand le soleil est bas."
+    },
+    {
+     "type": "mcq",
+     "question": "Quel est le but de ce texte ?",
+     "choix": [
+      "expliquer un phénomène",
+      "raconter une aventure",
+      "donner une recette"
+     ],
+     "bonne": 0,
+     "notion": "type de texte"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets l’explication dans l’ordre.",
+     "elements": [
+      "La lumière du soleil traverse les gouttes.",
+      "La lumière est déviée.",
+      "Les couleurs se séparent.",
+      "On voit un arc-en-ciel."
+     ]
+    }
+   ],
+   "nbMots": 104
+  },
+  {
+   "id": "cm2-f3-marche",
+   "classe": "CM2",
+   "niveau": "facile",
+   "titre": "Le bouquet du dimanche",
+   "texte": "Chaque dimanche matin, Ilyes accompagne son grand-père au marché. Ils partent tôt, avec un grand panier en osier. D’abord, ils s’arrêtent chez le maraîcher, qui leur garde toujours les plus belles tomates. Ensuite, ils passent devant le stand du fromager : Ilyes a le droit de goûter un morceau de comté. Enfin, son grand-père achète un bouquet de fleurs pour sa grand-mère. Ce matin-là, pourtant, le fleuriste n’est pas venu. Sur le chemin du retour, Ilyes a une idée : il cueille quelques coquelicots au bord du sentier. Quand sa grand-mère découvre le bouquet, elle éclate de rire : « Ce sont les plus belles fleurs que j’aie jamais reçues ! »",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Qu’achètent-ils chez le maraîcher ?",
+     "choix": [
+      "des tomates",
+      "du comté",
+      "des fleurs"
+     ],
+     "bonne": 0,
+     "preuve": "D’abord, ils s’arrêtent chez le maraîcher, qui leur garde toujours les plus belles tomates."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi Ilyes cueille-t-il des coquelicots ?",
+     "choix": [
+      "Le fleuriste est absent, mais il veut quand même offrir des fleurs.",
+      "Sa grand-mère n’aime pas les roses.",
+      "Le maraîcher le lui a demandé."
+     ],
+     "bonne": 0,
+     "preuve": "Ce matin-là, pourtant, le fleuriste n’est pas venu.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Que ressent la grand-mère en découvrant le bouquet ?",
+     "choix": [
+      "Elle est touchée et joyeuse.",
+      "Elle est déçue.",
+      "Elle est inquiète."
+     ],
+     "bonne": 0,
+     "preuve": "« Ce sont les plus belles fleurs que j’aie jamais reçues ! »",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Quel mot annonce la dernière étape des courses ?",
+     "choix": [
+      "Enfin",
+      "D’abord",
+      "Ensuite"
+     ],
+     "bonne": 0,
+     "preuve": "Enfin, son grand-père achète un bouquet de fleurs pour sa grand-mère."
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes du récit dans l’ordre.",
+     "elements": [
+      "Ils achètent des tomates.",
+      "Ilyes goûte un morceau de comté.",
+      "Ils découvrent que le fleuriste est absent.",
+      "Ilyes cueille des coquelicots."
+     ]
+    }
+   ],
+   "nbMots": 106
+  },
+  {
+   "id": "cm2-n3-le-nouveau",
+   "classe": "CM2",
+   "niveau": "normal",
+   "titre": "Le nouveau",
+   "texte": "Le jour de la rentrée, un garçon que personne ne connaissait attendait seul près du portail. Il serrait les bretelles d’un sac à dos beaucoup trop grand pour lui et fixait obstinément la pointe de ses chaussures. En classe, la maîtresse le présenta : « Voici Anton, il vient d’emménager dans le quartier. » Anton rougit jusqu’aux oreilles et alla s’asseoir au fond, près de la fenêtre. À la cantine, il mangea seul, au bout d’une longue table. Maëlys l’observait de loin. Elle avait remarqué qu’il ne lâchait jamais un vieux carnet à spirale. À la récréation, elle prit son courage à deux mains et s’approcha. Par-dessus son épaule, elle découvrit des dizaines de dragons, dessinés avec une précision incroyable : on distinguait chaque écaille, chaque griffe. « C’est toi qui as fait ça ? » demanda-t-elle. Anton hocha la tête sans oser la regarder. « Tu pourrais m’apprendre ? Moi, mes dragons ressemblent à des lézards ! » Pour la première fois de la journée, Anton éclata de rire. Le lendemain matin, il attendait encore près du portail. Mais cette fois, quand Maëlys arriva, il leva les yeux et lui fit un grand signe de la main.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Comment Anton se sent-il le jour de la rentrée ?",
+     "choix": [
+      "Il est intimidé et se sent seul.",
+      "Il est en colère contre ses parents.",
+      "Il est pressé de jouer au football."
+     ],
+     "bonne": 0,
+     "preuve": "Il serrait les bretelles d’un sac à dos beaucoup trop grand pour lui et fixait obstinément la pointe de ses chaussures.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Que signifie « elle prit son courage à deux mains » ?",
+     "choix": [
+      "Elle osa, malgré sa timidité.",
+      "Elle porta un objet très lourd.",
+      "Elle se cacha derrière un arbre."
+     ],
+     "bonne": 0,
+     "preuve": "À la récréation, elle prit son courage à deux mains et s’approcha.",
+     "notion": "expression"
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’y a-t-il dans le carnet d’Anton ?",
+     "choix": [
+      "des dessins de dragons",
+      "des photos de son ancienne école",
+      "des recettes de cuisine"
+     ],
+     "bonne": 0,
+     "preuve": "Par-dessus son épaule, elle découvrit des dizaines de dragons"
+    },
+    {
+     "type": "mcq",
+     "question": "Dans « Anton hocha la tête sans oser la regarder », qui est « la » ?",
+     "choix": [
+      "Maëlys",
+      "la maîtresse",
+      "la tête"
+     ],
+     "bonne": 0,
+     "preuve": "Anton hocha la tête sans oser la regarder.",
+     "notion": "anaphore"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi Anton éclate-t-il de rire ?",
+     "choix": [
+      "La remarque de Maëlys l’amuse et le met à l’aise.",
+      "Il se moque des dessins de Maëlys.",
+      "Il a entendu une blague à la cantine."
+     ],
+     "bonne": 0,
+     "preuve": "« Tu pourrais m’apprendre ? Moi, mes dragons ressemblent à des lézards ! »",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’est-ce qui a changé pour Anton le lendemain ?",
+     "choix": [
+      "Il a une amie : il ose lever les yeux et la saluer.",
+      "Il a changé d’école.",
+      "Il a perdu son carnet."
+     ],
+     "bonne": 0,
+     "preuve": "Mais cette fois, quand Maëlys arriva, il leva les yeux et lui fit un grand signe de la main.",
+     "notion": "inférence"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes du récit dans l’ordre.",
+     "elements": [
+      "Anton attend seul près du portail.",
+      "La maîtresse présente Anton à la classe.",
+      "Maëlys découvre les dragons d’Anton.",
+      "Anton fait un signe de la main à Maëlys."
+     ]
+    }
+   ],
+   "nbMots": 187
+  },
+  {
+   "id": "cm2-n4-castors",
+   "classe": "CM2",
+   "niveau": "normal",
+   "titre": "Le castor, ingénieur des rivières (texte documentaire)",
+   "texte": "Le castor est le plus gros rongeur d’Europe : il peut peser jusqu’à trente kilogrammes. Il vit en famille au bord des rivières et des lacs. Ses dents orange, qui ne cessent jamais de pousser, lui permettent d’abattre de jeunes arbres en quelques heures. Sa large queue plate lui sert de gouvernail quand il nage ; en cas de danger, il en frappe la surface de l’eau pour alerter les siens. Le castor est surtout connu pour ses barrages. Avec des branches, de la boue et des pierres, il retient l’eau de la rivière et crée un étang. Au milieu, il bâtit sa hutte, dont l’entrée se trouve sous l’eau : ainsi, les renards ne peuvent pas l’atteindre. Longtemps chassé pour sa fourrure, le castor avait presque disparu de France au début du XXe siècle. Protégé depuis, il a recolonisé de nombreuses rivières. Les scientifiques ont découvert que ses barrages sont utiles à tout un milieu : ils ralentissent les crues, filtrent l’eau et offrent un abri aux poissons, aux grenouilles et aux libellules.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "À quoi sert la queue du castor ?",
+     "choix": [
+      "à se diriger dans l’eau et à donner l’alerte",
+      "à creuser la terre",
+      "à porter les branches"
+     ],
+     "bonne": 0,
+     "preuve": "Sa large queue plate lui sert de gouvernail quand il nage ; en cas de danger, il en frappe la surface de l’eau pour alerter les siens."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi l’entrée de la hutte est-elle sous l’eau ?",
+     "choix": [
+      "pour que les renards ne puissent pas entrer",
+      "pour garder la hutte au frais",
+      "pour que les poissons puissent y vivre"
+     ],
+     "bonne": 0,
+     "preuve": "Au milieu, il bâtit sa hutte, dont l’entrée se trouve sous l’eau : ainsi, les renards ne peuvent pas l’atteindre."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi le castor avait-il presque disparu de France ?",
+     "choix": [
+      "On le chassait pour sa fourrure.",
+      "Les rivières étaient gelées.",
+      "Il manquait d’arbres."
+     ],
+     "bonne": 0,
+     "preuve": "Longtemps chassé pour sa fourrure, le castor avait presque disparu de France au début du XXe siècle."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi le titre compare-t-il le castor à un ingénieur ?",
+     "choix": [
+      "Il construit des barrages et des huttes.",
+      "Il étudie dans une école.",
+      "Il répare les bateaux."
+     ],
+     "bonne": 0,
+     "preuve": "Le castor est surtout connu pour ses barrages.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "« Il a recolonisé de nombreuses rivières » signifie :",
+     "choix": [
+      "Il est revenu vivre dans ces rivières.",
+      "Il a quitté ces rivières.",
+      "Il a pollué ces rivières."
+     ],
+     "bonne": 0,
+     "preuve": "Protégé depuis, il a recolonisé de nombreuses rivières.",
+     "notion": "vocabulaire"
+    },
+    {
+     "type": "mcq",
+     "question": "Selon les scientifiques, à quoi servent les barrages de castors ?",
+     "choix": [
+      "à ralentir les crues et à abriter d’autres animaux",
+      "à empêcher les poissons de nager",
+      "à assécher les rivières"
+     ],
+     "bonne": 0,
+     "preuve": "ils ralentissent les crues, filtrent l’eau et offrent un abri aux poissons, aux grenouilles et aux libellules"
+    }
+   ],
+   "nbMots": 170
+  },
+  {
+   "id": "cm2-n5-horloger",
+   "classe": "CM2",
+   "niveau": "normal",
+   "titre": "L’horloger de la ruelle",
+   "texte": "Dans la ruelle que Noé empruntait chaque jour pour rentrer de l’école, une boutique avait ouvert pendant la nuit. Sa vitrine poussiéreuse était remplie d’horloges de toutes tailles. Curieux, Noé poussa la porte ; une clochette tinta. Derrière le comptoir, un vieil homme aux lunettes rondes réparait une montre minuscule. « Tu arrives à point, dit-il sans lever la tête. Choisis une horloge, une seule. » Noé hésita, puis désigna une petite pendule bleue dont l’aiguille tournait à l’envers. L’horloger sourit mystérieusement. « Excellent choix. Elle te rendra une heure, mais une seule fois. Utilise-la bien. » Noé rentra chez lui, la pendule serrée contre son cœur, sans savoir s’il devait rire ou s’inquiéter. Le samedi suivant, son équipe perdit le match de handball d’un seul but. Le soir, dans son lit, Noé repensa à la pendule. Il tourna doucement la petite clé dorée. Le lendemain matin, il voulut retourner à la boutique pour remercier le vieil homme. Il ne trouva qu’un mur de briques couvert de lierre, comme s’il n’y avait jamais rien eu.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Qu’a d’étrange la pendule choisie par Noé ?",
+     "choix": [
+      "Son aiguille tourne à l’envers.",
+      "Elle sonne toutes les minutes.",
+      "Elle est invisible."
+     ],
+     "bonne": 0,
+     "preuve": "Noé hésita, puis désigna une petite pendule bleue dont l’aiguille tournait à l’envers."
+    },
+    {
+     "type": "mcq",
+     "question": "Que promet l’horloger à Noé ?",
+     "choix": [
+      "La pendule lui rendra une heure, une seule fois.",
+      "La pendule le rendra riche.",
+      "La pendule ne s’arrêtera jamais."
+     ],
+     "bonne": 0,
+     "preuve": "Elle te rendra une heure, mais une seule fois."
+    },
+    {
+     "type": "mcq",
+     "question": "Comment Noé se sent-il en rentrant chez lui ?",
+     "choix": [
+      "partagé entre l’amusement et l’inquiétude",
+      "très en colère",
+      "complètement indifférent"
+     ],
+     "bonne": 0,
+     "preuve": "sans savoir s’il devait rire ou s’inquiéter",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi Noé repense-t-il à la pendule le soir du match ?",
+     "choix": [
+      "Il voudrait revivre le match pour le gagner.",
+      "Il veut la rendre à l’horloger.",
+      "Il a peur qu’elle soit cassée."
+     ],
+     "bonne": 0,
+     "preuve": "Le samedi suivant, son équipe perdit le match de handball d’un seul but.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’est-ce qui rend la fin du récit si étrange ?",
+     "choix": [
+      "La boutique a disparu, comme si elle n’avait jamais existé.",
+      "Noé gagne enfin un match.",
+      "L’horloger lui offre une autre pendule."
+     ],
+     "bonne": 0,
+     "preuve": "Il ne trouva qu’un mur de briques couvert de lierre, comme s’il n’y avait jamais rien eu."
+    },
+    {
+     "type": "mcq",
+     "question": "À quel genre appartient ce récit ?",
+     "choix": [
+      "un récit où surgit l’étrange",
+      "un texte documentaire",
+      "une règle du jeu"
+     ],
+     "bonne": 0,
+     "notion": "genre"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes du récit dans l’ordre.",
+     "elements": [
+      "Une boutique ouvre dans la ruelle.",
+      "Noé choisit une pendule bleue.",
+      "L’équipe de Noé perd le match.",
+      "Noé ne trouve plus qu’un mur de briques."
+     ]
+    }
+   ],
+   "nbMots": 170
+  },
+  {
+   "id": "cm2-n6-corbeau-renard",
+   "classe": "CM2",
+   "niveau": "normal",
+   "titre": "Le Corbeau et le Renard (Jean de La Fontaine, Fables, 1668)",
+   "texte": "Maître Corbeau, sur un arbre perché,\nTenait en son bec un fromage.\nMaître Renard, par l’odeur alléché,\nLui tint à peu près ce langage :\n« Hé ! bonjour, Monsieur du Corbeau.\nQue vous êtes joli ! que vous me semblez beau !\nSans mentir, si votre ramage\nSe rapporte à votre plumage,\nVous êtes le Phénix des hôtes de ces bois. »\nÀ ces mots le Corbeau ne se sent pas de joie ;\nEt pour montrer sa belle voix,\nIl ouvre un large bec, laisse tomber sa proie.\nLe Renard s’en saisit, et dit : « Mon bon Monsieur,\nApprenez que tout flatteur\nVit aux dépens de celui qui l’écoute :\nCette leçon vaut bien un fromage, sans doute. »\nLe Corbeau, honteux et confus,\nJura, mais un peu tard, qu’on ne l’y prendrait plus.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Qu’est-ce qui attire le Renard ?",
+     "choix": [
+      "l’odeur du fromage",
+      "le chant du Corbeau",
+      "la couleur des plumes"
+     ],
+     "bonne": 0,
+     "preuve": "Maître Renard, par l’odeur alléché,"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi le Renard fait-il des compliments au Corbeau ?",
+     "choix": [
+      "pour lui faire lâcher le fromage",
+      "parce qu’il veut devenir son ami",
+      "parce qu’il aime sa voix"
+     ],
+     "bonne": 0,
+     "preuve": "Le Renard s’en saisit",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi le Corbeau ouvre-t-il le bec ?",
+     "choix": [
+      "pour montrer sa belle voix",
+      "pour manger le fromage",
+      "pour appeler ses amis"
+     ],
+     "bonne": 0,
+     "preuve": "Et pour montrer sa belle voix,"
+    },
+    {
+     "type": "mcq",
+     "question": "Que signifie « tout flatteur vit aux dépens de celui qui l’écoute » ?",
+     "choix": [
+      "Celui qui fait des compliments trompeurs profite de ceux qui le croient.",
+      "Il faut toujours écouter les compliments.",
+      "Les renards mangent du fromage."
+     ],
+     "bonne": 0,
+     "preuve": "Apprenez que tout flatteur",
+     "notion": "morale"
+    },
+    {
+     "type": "mcq",
+     "question": "Comment se sent le Corbeau à la fin ?",
+     "choix": [
+      "honteux d’avoir été trompé",
+      "fier de sa voix",
+      "content d’avoir aidé le Renard"
+     ],
+     "bonne": 0,
+     "preuve": "Le Corbeau, honteux et confus,"
+    },
+    {
+     "type": "mcq",
+     "question": "Ce texte est :",
+     "choix": [
+      "une fable, avec une morale",
+      "un texte documentaire",
+      "une recette"
+     ],
+     "bonne": 0,
+     "notion": "genre"
+    }
+   ],
+   "nbMots": 126
+  },
+  {
+   "id": "cm2-p1-loup",
+   "classe": "CM2",
+   "niveau": "plus_loin",
+   "titre": "Le retour du loup (deux documents)",
+   "texte": "Document 1 – Article d’une encyclopédie pour la jeunesse. Le loup gris avait disparu de France dans les années 1930. Il est revenu naturellement d’Italie au début des années 1990, en traversant les Alpes. C’est aujourd’hui une espèce protégée. Il vit en meute, un groupe familial de quatre à huit loups, et chasse surtout des chevreuils, des cerfs et des sangliers. Il peut parcourir plus de cinquante kilomètres en une nuit. Document 2 – Témoignage de Martine, bergère dans les Alpes. « Depuis que le loup est revenu, mon métier a changé. La nuit, je rentre mes brebis dans un enclos électrifié, et mes deux chiens patous montent la garde. L’an dernier, malgré tout, j’ai perdu six brebis. Je ne déteste pas le loup, mais j’aimerais que l’on comprenne combien notre travail est devenu difficile. »",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "D’où vient le loup qui est revenu en France ?",
+     "choix": [
+      "d’Italie, en traversant les Alpes",
+      "d’un zoo",
+      "d’Espagne, par les Pyrénées"
+     ],
+     "bonne": 0,
+     "preuve": "Il est revenu naturellement d’Italie au début des années 1990, en traversant les Alpes."
+    },
+    {
+     "type": "mcq",
+     "question": "Comment Martine protège-t-elle ses brebis ?",
+     "choix": [
+      "avec un enclos électrifié et des chiens de garde",
+      "en restant éveillée toute la nuit",
+      "en chassant les loups"
+     ],
+     "bonne": 0,
+     "preuve": "La nuit, je rentre mes brebis dans un enclos électrifié, et mes deux chiens patous montent la garde."
+    },
+    {
+     "type": "mcq",
+     "question": "Lequel des deux documents donne surtout des informations scientifiques ?",
+     "choix": [
+      "le document 1",
+      "le document 2",
+      "aucun des deux"
+     ],
+     "bonne": 0,
+     "notion": "nature du document"
+    },
+    {
+     "type": "mcq",
+     "question": "Quel est le point de vue de Martine sur le loup ?",
+     "choix": [
+      "Elle ne le déteste pas, mais son travail est plus difficile.",
+      "Elle veut qu’il disparaisse de France.",
+      "Elle est contente qu’il mange ses brebis."
+     ],
+     "bonne": 0,
+     "preuve": "Je ne déteste pas le loup, mais j’aimerais que l’on comprenne combien notre travail est devenu difficile."
+    },
+    {
+     "type": "mcq",
+     "question": "Qu’apprend-on en rapprochant les deux documents ?",
+     "choix": [
+      "Le loup, protégé, est revenu, et les bergers doivent mieux protéger leurs troupeaux.",
+      "Le loup ne mange que des brebis.",
+      "Les bergers ont fait revenir le loup d’Italie."
+     ],
+     "bonne": 0,
+     "notion": "comparer deux documents"
+    },
+    {
+     "type": "mcq",
+     "question": "Dans « Il est revenu naturellement », que veut dire « naturellement » ?",
+     "choix": [
+      "tout seul, sans être transporté par l’homme",
+      "en mangeant des plantes",
+      "très lentement"
+     ],
+     "bonne": 0,
+     "preuve": "Il est revenu naturellement d’Italie",
+     "notion": "vocabulaire"
+    }
+   ],
+   "nbMots": 132
+  },
+  {
+   "id": "cm2-p2-fete-science",
+   "classe": "CM2",
+   "niveau": "plus_loin",
+   "titre": "La fête de la science (affiche et message)",
+   "texte": "Affiche – Fête de la science à la médiathèque des Tilleuls, samedi 12 octobre. À 10 h : atelier « Fabrique ta fusée à eau », dès 8 ans, sur inscription. À 14 h : conférence « Les volcans d’Auvergne ». À 16 h : observation du Soleil au télescope, si le ciel est dégagé. Entrée gratuite. Message de Louise à Ibrahim – Salut Ibrahim ! Ma mère peut nous emmener à la médiathèque samedi, mais seulement l’après-midi : le matin, j’ai mon cours de natation. On va voir les volcans, puis le Soleil ? J’espère qu’il ne pleuvra pas ! À samedi, Louise.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Quelle activité Louise et Ibrahim ne pourront-ils pas faire ?",
+     "choix": [
+      "l’atelier « Fabrique ta fusée à eau »",
+      "la conférence sur les volcans",
+      "l’observation du Soleil"
+     ],
+     "bonne": 0,
+     "preuve": "Ma mère peut nous emmener à la médiathèque samedi, mais seulement l’après-midi",
+     "notion": "comparer deux documents"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi Louise espère-t-elle qu’il ne pleuvra pas ?",
+     "choix": [
+      "L’observation du Soleil n’a lieu que si le ciel est dégagé.",
+      "Elle n’a pas de parapluie.",
+      "La conférence se passe dehors."
+     ],
+     "bonne": 0,
+     "preuve": "À 16 h : observation du Soleil au télescope, si le ciel est dégagé.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "À quelle heure commence la conférence sur les volcans ?",
+     "choix": [
+      "à 14 h",
+      "à 10 h",
+      "à 16 h"
+     ],
+     "bonne": 0,
+     "preuve": "À 14 h : conférence « Les volcans d’Auvergne »."
+    },
+    {
+     "type": "mcq",
+     "question": "Combien faut-il payer pour entrer ?",
+     "choix": [
+      "rien : l’entrée est gratuite",
+      "huit euros",
+      "le prix n’est pas indiqué"
+     ],
+     "bonne": 0,
+     "preuve": "Entrée gratuite."
+    },
+    {
+     "type": "mcq",
+     "question": "Quel est le but du message de Louise ?",
+     "choix": [
+      "proposer à Ibrahim un programme pour samedi après-midi",
+      "annuler la sortie",
+      "inviter Ibrahim à la natation"
+     ],
+     "bonne": 0,
+     "notion": "nature du document"
+    }
+   ],
+   "nbMots": 91
+  },
+  {
+   "id": "cm2-p3-cosette",
+   "classe": "CM2",
+   "niveau": "plus_loin",
+   "titre": "Cosette dans la nuit (d’après Victor Hugo, Les Misérables, 1862)",
+   "texte": "C’était un soir de Noël, à Montfermeil. Cosette, une fillette de huit ans, vivait chez les Thénardier, des aubergistes qui la traitaient comme une servante. Ce soir-là, la Thénardier s’aperçut qu’il n’y avait plus d’eau pour les voyageurs. Elle tendit un seau énorme à la petite et lui ordonna d’aller le remplir à la source, au fond du bois. Il faisait nuit noire et glaciale. Cosette, les pieds nus dans de vieux sabots, traversa le village en serrant l’anse du seau. Plus elle s’éloignait des dernières maisons, plus l’obscurité devenait épaisse. Les arbres ressemblaient à des géants immobiles. Elle avait si peur qu’elle se mit à compter à voix haute pour se donner du courage. Arrivée à la source, elle plongea le seau dans l’eau froide. Une fois plein, il était si lourd qu’elle pouvait à peine le soulever. Elle avançait de quelques pas, posait le seau, repartait. Soudain, elle sentit que le seau ne pesait plus rien : une grande main venait de saisir l’anse à côté de la sienne. Un homme, qu’elle n’avait pas entendu approcher, marchait près d’elle sans rien dire.",
+   "questions": [
+    {
+     "type": "mcq",
+     "question": "Pourquoi Cosette doit-elle aller à la source ?",
+     "choix": [
+      "Il n’y a plus d’eau pour les voyageurs.",
+      "Elle veut se laver.",
+      "Elle cherche un cadeau de Noël."
+     ],
+     "bonne": 0,
+     "preuve": "Ce soir-là, la Thénardier s’aperçut qu’il n’y avait plus d’eau pour les voyageurs."
+    },
+    {
+     "type": "mcq",
+     "question": "Comment les Thénardier traitent-ils Cosette ?",
+     "choix": [
+      "comme une servante",
+      "comme leur propre fille",
+      "comme une invitée"
+     ],
+     "bonne": 0,
+     "preuve": "Cosette, une fillette de huit ans, vivait chez les Thénardier, des aubergistes qui la traitaient comme une servante."
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi Cosette compte-t-elle à voix haute ?",
+     "choix": [
+      "pour se donner du courage",
+      "pour compter les arbres",
+      "pour appeler quelqu’un"
+     ],
+     "bonne": 0,
+     "preuve": "Elle avait si peur qu’elle se mit à compter à voix haute pour se donner du courage."
+    },
+    {
+     "type": "mcq",
+     "question": "« Les arbres ressemblaient à des géants immobiles » : que montre cette comparaison ?",
+     "choix": [
+      "Cosette a peur : le bois lui semble menaçant.",
+      "Les arbres du bois sont très vieux.",
+      "Cosette aime les contes de géants."
+     ],
+     "bonne": 0,
+     "preuve": "Les arbres ressemblaient à des géants immobiles.",
+     "notion": "inférence"
+    },
+    {
+     "type": "mcq",
+     "question": "Pourquoi le seau ne pèse-t-il soudain plus rien ?",
+     "choix": [
+      "Un homme l’aide à le porter.",
+      "Le seau s’est vidé.",
+      "Cosette est devenue plus forte."
+     ],
+     "bonne": 0,
+     "preuve": "une grande main venait de saisir l’anse à côté de la sienne",
+     "notion": "inférence"
+    },
+    {
+     "type": "ordering",
+     "question": "Remets les étapes du récit dans l’ordre.",
+     "elements": [
+      "La Thénardier donne un seau à Cosette.",
+      "Cosette traverse le village dans la nuit.",
+      "Cosette remplit le seau à la source.",
+      "Un homme l’aide à porter le seau."
+     ]
+    }
+   ],
+   "nbMots": 183
   }
  ]
 }
