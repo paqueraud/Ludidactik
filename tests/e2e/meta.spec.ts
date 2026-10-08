@@ -182,4 +182,18 @@ test.describe('méta-jeu', () => {
     await page.getByRole('button', { name: 'Arrêter le duel' }).click();
     await expect(page.getByRole('heading', { name: 'Vrai ou Faux en duel' })).toBeVisible();
   });
+
+  test('duel Grand Prix : chaque moitié tient sans défilement', async ({ page }) => {
+    test.setTimeout(90_000);
+    await creerProfil(page, 'Lou');
+    await page.getByRole('button', { name: /Duel à deux/ }).click();
+    await page.getByRole('button', { name: /Grand Prix à deux/ }).click();
+    await page.getByRole('button', { name: 'C’est parti !' }).click();
+    await expect(page.getByRole('group', { name: 'Pavé de Lou' })).toBeVisible();
+    for (const nom of ['Lou', 'Invité']) {
+      const moitie = page.getByRole('region', { name: `Moitié de ${nom}` });
+      const debord = await moitie.evaluate((el) => el.scrollHeight - el.clientHeight);
+      expect(debord, `la moitié de ${nom} ne doit pas défiler`).toBeLessThanOrEqual(1);
+    }
+  });
 });
