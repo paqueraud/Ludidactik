@@ -89,9 +89,9 @@ function ProgressionDuProfil({ profile }: { profile: Profile }) {
             <BarresJours jours={jours} limiteMin={limiteDe(profile)} />
           </div>
         </div>
-        <h3 className="mb-2 mt-4 text-xl">Étoiles par niveau</h3>
+        {lecons.length > 0 && <h3 className="mb-2 mt-4 text-xl">Étoiles par niveau</h3>}
         <div className="flex flex-col gap-2">
-          {LEVELS.map((lv) => (
+          {(lecons.length ? LEVELS : []).map((lv) => (
             <BarreProportion
               key={lv}
               label={`${LEVEL_META[lv].icone} ${LEVEL_META[lv].label}`}

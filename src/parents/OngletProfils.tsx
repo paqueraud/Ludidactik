@@ -56,7 +56,7 @@ function CarteProfil({ profile }: { profile: Profile }) {
             {new Date(profile.creeLe).toLocaleDateString('fr-FR')}
           </div>
         </div>
-        <label className="flex items-center gap-2 font-bold">
+        <label className="flex w-full items-center gap-2 font-bold sm:w-auto">
           Classe
           <select
             className={`${champ} w-auto bg-card`}

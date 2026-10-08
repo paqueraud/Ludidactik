@@ -65,8 +65,13 @@ function MotsDeLaSemaine({ profile, classe }: { profile: Profile; classe: Classe
   const nouveaux = useNouveauxMots(profile, classe, ctx);
   const lesson = getLesson(lessonListesParents(classe));
   if (!lesson || !ctx.parentLists.length) return null;
-  const jeux = gamesForLesson(lesson, ctx);
-  if (!jeux.length) return null;
+  const tous = gamesForLesson(lesson, ctx);
+  if (!tous.length) return null;
+  // les jeux d'orthographe « natifs » d'abord (Ascension, Appareil photo…), 4 au plus : l'écran reste court
+  const jeux = [
+    ...tous.filter((j) => j.game.accepts[0] === 'spelling_word'),
+    ...tous.filter((j) => j.game.accepts[0] !== 'spelling_word'),
+  ].slice(0, 4);
   const nbMots = new Set(ctx.parentLists.flatMap((l) => l.mots.map((m) => m.mot.toLowerCase()))).size;
   const lessonUrl = `/jouer/${classe}/${lesson.matiere}/${encodeURIComponent(lesson.id)}`;
   return (
@@ -90,7 +95,7 @@ function MotsDeLaSemaine({ profile, classe }: { profile: Profile; classe: Classe
           {nbMots} mot{nbMots > 1 ? 's' : ''} préparé{nbMots > 1 ? 's' : ''} par tes parents
         </span>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
         {jeux.map(({ game }) => (
           <button
             key={game.id}
@@ -99,7 +104,7 @@ function MotsDeLaSemaine({ profile, classe }: { profile: Profile; classe: Classe
               sfx.play('pop');
               navigate(`/partie/${encodeURIComponent(lesson.id)}/${game.id}/normal`);
             }}
-            className="btn-3d flex min-h-btn items-center gap-2 bg-card px-4 text-lg"
+            className="btn-3d flex min-h-btn items-center gap-2 bg-card px-3 text-left text-base leading-tight sm:px-4 sm:text-lg"
           >
             <span aria-hidden>{game.icone}</span>
             {game.titre}
@@ -107,9 +112,9 @@ function MotsDeLaSemaine({ profile, classe }: { profile: Profile; classe: Classe
         ))}
         <Link
           to={lessonUrl}
-          className="flex min-h-btn items-center rounded-btn px-4 font-bold text-ink-soft underline"
+          className="col-span-2 flex min-h-btn items-center rounded-btn px-4 font-bold text-ink-soft underline"
         >
-          Choisir le niveau
+          {tous.length > jeux.length ? `Les ${tous.length} jeux et les niveaux` : 'Choisir le niveau'}
         </Link>
       </div>
     </section>

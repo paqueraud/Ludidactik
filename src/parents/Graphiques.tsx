@@ -18,9 +18,9 @@ export function BarresJours({
 }) {
   const minutes = jours.map((j) => Math.round(j.ms / 60_000));
   const max = Math.max(10, limiteMin ?? 0, ...minutes);
-  const W = 560;
-  const H = 200;
-  const bas = 170;
+  const W = 420;
+  const H = 210;
+  const bas = 176;
   const haut = 24;
   const pas = W / jours.length;
   const largeur = Math.min(44, pas * 0.6);
@@ -49,7 +49,7 @@ export function BarresJours({
               strokeWidth={2}
               strokeDasharray="6 5"
             />
-            <text x={W - 4} y={y(limiteMin) - 6} textAnchor="end" fontSize={13} fill="rgb(var(--c-ink-soft))">
+            <text x={W - 4} y={y(limiteMin) - 6} textAnchor="end" fontSize={15} fill="rgb(var(--c-ink-soft))">
               limite {limiteMin} min
             </text>
           </g>
@@ -74,7 +74,7 @@ export function BarresJours({
                 x={x + largeur / 2}
                 y={Math.min(top, bas) - 6}
                 textAnchor="middle"
-                fontSize={14}
+                fontSize={16}
                 fontWeight={700}
                 fill="rgb(var(--c-ink))"
               >
@@ -82,9 +82,9 @@ export function BarresJours({
               </text>
               <text
                 x={x + largeur / 2}
-                y={bas + 20}
+                y={bas + 24}
                 textAnchor="middle"
-                fontSize={13}
+                fontSize={15}
                 fill="rgb(var(--c-ink-soft))"
               >
                 {aujourdhui ? 'auj.' : jourCourt(j.day)}
