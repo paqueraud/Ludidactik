@@ -1,5 +1,5 @@
 {
- "$comment": "Questions d'histoire CM2 (programme 2020 en vigueur + programme 2026 pour 2027 + rappel CM1). 'bonne' = index de la bonne réponse AVANT mélange (le jeu mélange les choix). guillotine=false : thèmes sensibles, jamais joués en mode Guillotine. À relire par l'agent pedagogue.",
+ "$comment": "Questions d’histoire CM2 (programme 2020 en vigueur + programme 2026 pour 2027 + rappel CM1). « bonne » = index de la bonne réponse AVANT mélange (le jeu mélange les choix). guillotine=false : thèmes sensibles (guerres, Shoah, esclavage, exécutions, colonisation, travail des enfants), jamais joués en mode Guillotine. Complète les fiches du module src/content/modules/monde-cm2 (frises, Qui suis-je ?, vrai/faux, cartes).",
  "questions": [
   {
    "id": "q001",
@@ -145,16 +145,16 @@
     "1799"
    ],
    "bonne": 0,
-   "explication": "Louis XVI est guillotiné le 21 janvier 1793.",
+   "explication": "Louis XVI est exécuté le 21 janvier 1793.",
    "guillotine": false
   },
   {
    "id": "q010",
    "lessonId": "CM2.HI.RAPPEL_CM1.REVOLUTION",
    "programme": "2020",
-   "niveau": "plus_loin",
+   "niveau": "facile",
    "type": "mcq",
-   "question": "Quelle est la devise de la République, née pendant la Révolution ?",
+   "question": "Quelle est la devise de la République, dont l’idée est née pendant la Révolution ?",
    "choix": [
     "Liberté, Égalité, Fraternité",
     "Paix, Travail, Patrie",
@@ -508,7 +508,7 @@
     "Oui, parfois très jeunes",
     "Non, jamais",
     "Seulement le dimanche",
-    "Seulement les rois"
+    "Seulement pendant les vacances"
    ],
    "bonne": 0,
    "explication": "Beaucoup d'enfants travaillaient dans les mines et les usines ; des lois ont peu à peu limité ce travail.",
@@ -737,7 +737,7 @@
    "programme": "2026",
    "niveau": "normal",
    "type": "mcq",
-   "question": "Quel recueil de lois Napoléon fait-il rédiger en 1804 ?",
+   "question": "Quel recueil de lois, publié en 1804, Napoléon Bonaparte fait-il rédiger ?",
    "choix": [
     "Le Code civil",
     "La Déclaration des droits de l'homme",
@@ -814,6 +814,363 @@
    ],
    "bonne": 0,
    "explication": "Le préfet, créé en 1800, représente l'État dans chaque département.",
+   "guillotine": true
+  },
+  {
+   "id": "q050",
+   "lessonId": "CM2.HI20.T2.VILLE",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Où les paysans qui quittent la campagne vont-ils travailler ?",
+   "choix": [
+    "À l’usine, en ville",
+    "Au château",
+    "Sur un bateau de pêche",
+    "Au monastère"
+   ],
+   "bonne": 0,
+   "explication": "Les usines des villes embauchent beaucoup d’ouvriers.",
+   "guillotine": true
+  },
+  {
+   "id": "q051",
+   "lessonId": "CM2.HI20.T2.VILLE",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel nouveau moyen de transport relie les villes et les campagnes au XIXe siècle ?",
+   "choix": [
+    "Le chemin de fer",
+    "L’avion",
+    "Le TGV",
+    "La trottinette"
+   ],
+   "bonne": 0,
+   "explication": "Le chemin de fer facilite les voyages et le transport des marchandises.",
+   "guillotine": true
+  },
+  {
+   "id": "q052",
+   "lessonId": "CM2.HI20.T2.ENERGIES",
+   "programme": "2020",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel métal, fabriqué grâce au charbon, sert à construire les rails et la tour Eiffel ?",
+   "choix": [
+    "Le fer",
+    "L’or",
+    "L’argent",
+    "Le plomb"
+   ],
+   "bonne": 0,
+   "explication": "Le fer (puis l’acier) est le métal de l’âge industriel.",
+   "guillotine": true
+  },
+  {
+   "id": "q053",
+   "lessonId": "CM2.HI20.T1.FERRY",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Avec les lois Ferry, l’école publique devient…",
+   "choix": [
+    "gratuite",
+    "payante",
+    "interdite aux filles",
+    "réservée aux riches"
+   ],
+   "bonne": 0,
+   "explication": "Avec les lois Ferry, l’école primaire publique est gratuite, laïque et obligatoire.",
+   "guillotine": true
+  },
+  {
+   "id": "q054",
+   "lessonId": "CM2.HI20.T1.CITOYENS",
+   "programme": "2020",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Qui peut voter en France aujourd’hui ?",
+   "choix": [
+    "Les citoyens de 18 ans et plus",
+    "Seulement les hommes",
+    "Seulement les maires",
+    "Les enfants de 10 ans"
+   ],
+   "bonne": 0,
+   "explication": "Les femmes et les hommes de nationalité française votent dès 18 ans.",
+   "guillotine": true
+  },
+  {
+   "id": "q055",
+   "lessonId": "CM2.HI26.T2",
+   "programme": "2026",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Qui obtient le droit de vote en 1848 ?",
+   "choix": [
+    "Tous les hommes adultes",
+    "Toutes les femmes",
+    "Seulement le roi",
+    "Les enfants"
+   ],
+   "bonne": 0,
+   "explication": "En 1848, c’est le suffrage universel masculin.",
+   "guillotine": true
+  },
+  {
+   "id": "q056",
+   "lessonId": "CM2.HI26.T2",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Que dit la loi du 9 décembre 1905 ?",
+   "choix": [
+    "Les Églises et l’État sont séparés",
+    "L’école devient payante",
+    "Le roi revient au pouvoir",
+    "Les femmes peuvent voter"
+   ],
+   "bonne": 0,
+   "explication": "C’est la loi de séparation des Églises et de l’État, fondement de la laïcité.",
+   "guillotine": true
+  },
+  {
+   "id": "q057",
+   "lessonId": "CM2.HI26.T2",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Quel régime politique la France a-t-elle de 1870 à 1940 ?",
+   "choix": [
+    "La IIIe République",
+    "L’Empire",
+    "La monarchie absolue",
+    "La Ve République"
+   ],
+   "bonne": 0,
+   "explication": "La IIIe République commence en 1870.",
+   "guillotine": true
+  },
+  {
+   "id": "q058",
+   "lessonId": "CM2.HI26.T2",
+   "programme": "2026",
+   "niveau": "plus_loin",
+   "type": "mcq",
+   "question": "Dans quelles parties du monde se trouvent la plupart des colonies françaises vers 1914 ?",
+   "choix": [
+    "En Afrique et en Asie",
+    "En Amérique du Nord",
+    "En Europe du Nord",
+    "En Antarctique"
+   ],
+   "bonne": 0,
+   "explication": "L’empire colonial français s’étend surtout en Afrique et en Asie (Indochine).",
+   "guillotine": false
+  },
+  {
+   "id": "q059",
+   "lessonId": "CM2.HI26.T3",
+   "programme": "2026",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Où travaillent les mineurs ?",
+   "choix": [
+    "Dans les mines de charbon",
+    "Dans les grands magasins",
+    "Dans les écoles",
+    "Dans les châteaux"
+   ],
+   "bonne": 0,
+   "explication": "Les mineurs extraient le charbon au fond des mines.",
+   "guillotine": true
+  },
+  {
+   "id": "q060",
+   "lessonId": "CM2.HI26.T3",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Qui invente la locomotive au début du XIXe siècle ?",
+   "choix": [
+    "George Stephenson",
+    "Louis Pasteur",
+    "Jules Ferry",
+    "Gustave Eiffel"
+   ],
+   "bonne": 0,
+   "explication": "L’Anglais George Stephenson construit des locomotives à vapeur.",
+   "guillotine": true
+  },
+  {
+   "id": "q061",
+   "lessonId": "CM2.HI26.T3",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Contre quelle maladie Louis Pasteur met-il au point un vaccin à la fin du XIXe siècle ?",
+   "choix": [
+    "La rage",
+    "La grippe",
+    "La varicelle",
+    "Le rhume"
+   ],
+   "bonne": 0,
+   "explication": "Louis Pasteur met au point le vaccin contre la rage.",
+   "guillotine": true
+  },
+  {
+   "id": "q062",
+   "lessonId": "CM2.HI26.T4",
+   "programme": "2026",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Quelles sont les dates de la Première Guerre mondiale ?",
+   "choix": [
+    "1914-1918",
+    "1939-1945",
+    "1789-1799",
+    "1870-1871"
+   ],
+   "bonne": 0,
+   "explication": "La Première Guerre mondiale dure de 1914 à 1918.",
+   "guillotine": false
+  },
+  {
+   "id": "q063",
+   "lessonId": "CM2.HI26.T4",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Comment s’appellent les longs fossés où vivaient les soldats ?",
+   "choix": [
+    "Les tranchées",
+    "Les casernes",
+    "Les tunnels du métro",
+    "Les remparts"
+   ],
+   "bonne": 0,
+   "explication": "Les soldats vivaient dans les tranchées, dans la boue et le froid.",
+   "guillotine": false
+  },
+  {
+   "id": "q064",
+   "lessonId": "CM2.HI26.T4",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "En quelle année a lieu la bataille de Verdun ?",
+   "choix": [
+    "1916",
+    "1789",
+    "1944",
+    "1870"
+   ],
+   "bonne": 0,
+   "explication": "La bataille de Verdun dure de février à décembre 1916.",
+   "guillotine": false
+  },
+  {
+   "id": "q065",
+   "lessonId": "CM2.HI26.T5",
+   "programme": "2026",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Quelles sont les dates de la Seconde Guerre mondiale ?",
+   "choix": [
+    "1939-1945",
+    "1914-1918",
+    "1848-1852",
+    "1789-1799"
+   ],
+   "bonne": 0,
+   "explication": "La Seconde Guerre mondiale dure de 1939 à 1945.",
+   "guillotine": false
+  },
+  {
+   "id": "q066",
+   "lessonId": "CM2.HI26.T5",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Qui dirige le régime de Vichy ?",
+   "choix": [
+    "Philippe Pétain",
+    "Charles de Gaulle",
+    "Jean Moulin",
+    "Jules Ferry"
+   ],
+   "bonne": 0,
+   "explication": "Le maréchal Pétain dirige le régime de Vichy, qui collabore avec l’occupant.",
+   "guillotine": false
+  },
+  {
+   "id": "q067",
+   "lessonId": "CM2.HI26.T5",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Qui sont les résistants ?",
+   "choix": [
+    "Des personnes qui luttent contre l’occupant nazi",
+    "Des soldats de Napoléon",
+    "Des ouvriers en grève",
+    "Des explorateurs"
+   ],
+   "bonne": 0,
+   "explication": "Les résistants luttent contre l’occupant et le régime de Vichy, souvent au péril de leur vie.",
+   "guillotine": false
+  },
+  {
+   "id": "q068",
+   "lessonId": "CM2.HI26.T6",
+   "programme": "2026",
+   "niveau": "facile",
+   "type": "mcq",
+   "question": "Qui fonde la Ve République ?",
+   "choix": [
+    "Le général de Gaulle",
+    "Napoléon",
+    "Louis XVI",
+    "Jules Ferry"
+   ],
+   "bonne": 0,
+   "explication": "Le général de Gaulle fonde la Ve République en 1958.",
+   "guillotine": true
+  },
+  {
+   "id": "q069",
+   "lessonId": "CM2.HI26.T6",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Que crée le traité de Rome en 1957 ?",
+   "choix": [
+    "La Communauté économique européenne (CEE)",
+    "La Ve République",
+    "La Sécurité sociale",
+    "L’euro"
+   ],
+   "bonne": 0,
+   "explication": "Le traité de Rome crée la CEE avec six pays.",
+   "guillotine": true
+  },
+  {
+   "id": "q070",
+   "lessonId": "CM2.HI26.T6",
+   "programme": "2026",
+   "niveau": "normal",
+   "type": "mcq",
+   "question": "Depuis quand les femmes votent-elles en France ?",
+   "choix": [
+    "Depuis 1944",
+    "Depuis 1789",
+    "Depuis 1848",
+    "Depuis 2000"
+   ],
+   "bonne": 0,
+   "explication": "Les Françaises obtiennent le droit de vote en 1944.",
    "guillotine": true
   }
  ]
