@@ -9,6 +9,7 @@ import { playerLevel } from '@/engine/score';
 import { PastilleFlamme } from '@/meta/IconeFlamme';
 import { useCurrentProfile } from '@/services/profiles';
 import { sfx } from '@/services/sfx';
+import { BoutonMusique } from './BoutonMusique';
 import { LudiCoin, SpeakButton } from './ui';
 
 export { Sky };
@@ -77,6 +78,7 @@ export function Screen({
             {titre && <SpeakButton text={aLire ?? titre} size={40} />}
           </div>
           {actions}
+          {profile && <BoutonMusique />}
           {profile && <PastilleFlamme profileId={profile.id} />}
           {profile && lvl && (
             <Link

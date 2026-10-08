@@ -31,6 +31,17 @@
     color-scheme: light;
   }
 
+  /* Mode sombre : automatique (réglage de l'appareil) ou forcé par le réglage parent « Apparence » */
+  :root[data-theme='sombre'] {
+    --c-ink: 236 240 250;
+    --c-ink-soft: 176 186 210;
+    --c-cream: 22 28 46;
+    --c-cream-deep: 30 38 62;
+    --c-card: 36 46 72;
+    --c-sky-dark: 110 180 255;
+    color-scheme: dark;
+  }
+
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme='clair']) {
       --c-ink: 236 240 250;

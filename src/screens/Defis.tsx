@@ -30,7 +30,7 @@ import {
   useFlamme,
   useJoursActifs,
 } from '@/services/meta';
-import { sfx } from '@/services/sfx';
+import { sfx, vibrate } from '@/services/sfx';
 import type { CoffreContenu, DefiRow, Profile } from '@/services/storage/db';
 import { useSettings } from '@/stores/settings';
 import { AvecProfil } from './Parcours';
@@ -190,6 +190,7 @@ function DefisInner({ profile }: { profile: Profile }) {
                   const c = await ouvrirCoffre(profile.id, today);
                   if (c) {
                     sfx.play('fanfare');
+                    vibrate([50, 50, 50, 50, 150]);
                     setCoffre(c);
                   }
                 }}

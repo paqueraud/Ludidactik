@@ -1,7 +1,8 @@
 /** Réglages de l'appareil (modifiés depuis l'espace parents), persistés dans IndexedDB. */
 import { create } from 'zustand';
 import type { ProgrammeHG } from '@/content';
-import { sfx } from '@/services/sfx';
+import { musique } from '@/services/musique';
+import { haptique, sfx } from '@/services/sfx';
 import { speech } from '@/services/speech';
 import { db } from '@/services/storage/db';
 
@@ -19,6 +20,14 @@ export interface Settings {
   departement: string | null;
   /** Afficher les questions de sciences sur la puberté (items `meta.puberte`) — masquées par défaut. */
   puberte: boolean;
+  /** Musique de fond douce (désactivée par défaut). */
+  musique: boolean;
+  /** Garder la musique pendant les parties (sinon elle s'efface pendant le jeu). */
+  musiqueEnJeu: boolean;
+  /** Vibrations aux moments clés (appareils compatibles). */
+  vibrations: boolean;
+  /** Apparence : automatique (réglage de l'appareil), claire ou sombre. */
+  theme: 'auto' | 'clair' | 'sombre';
   /** Classements entre les profils de l'appareil (sinon : chacun contre ses propres records). */
   competition: boolean;
 }
@@ -33,7 +42,14 @@ export const DEFAULT_SETTINGS: Settings = {
   departement: null,
   puberte: false,
   competition: true,
+  musique: false,
+  musiqueEnJeu: false,
+  vibrations: true,
+  theme: 'auto',
 };
+
+/** Couleur de la barre du navigateur selon le thème effectif. */
+const THEME_COLOR = { clair: '#4FC3F7', sombre: '#16243A' };
 
 interface SettingsState extends Settings {
   loaded: boolean;
@@ -41,10 +57,28 @@ interface SettingsState extends Settings {
   update(patch: Partial<Settings>): Promise<void>;
 }
 
-function apply(s: Settings) {
+export function apply(s: Settings) {
   sfx.enabled = s.sons;
   speech.rate = s.debitVoix;
-  if (typeof document !== 'undefined') document.documentElement.dataset.font = s.police;
+  haptique.enabled = s.vibrations;
+  musique.enabled = s.musique;
+  if (typeof document === 'undefined') return;
+  const root = document.documentElement;
+  root.dataset.font = s.police;
+  if (s.theme === 'auto') delete root.dataset.theme;
+  else root.dataset.theme = s.theme;
+  // barre du navigateur : on fixe la couleur si le thème est forcé, sinon les balises media d'index.html
+  for (const m of document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')) {
+    m.dataset.media ??= m.getAttribute('media') ?? '';
+    const media = m.dataset.media;
+    if (s.theme === 'auto') {
+      if (media) m.setAttribute('media', media);
+      m.content = media.includes('dark') ? THEME_COLOR.sombre : THEME_COLOR.clair;
+    } else {
+      m.removeAttribute('media');
+      m.content = THEME_COLOR[s.theme];
+    }
+  }
 }
 
 export const useSettings = create<SettingsState>((set, get) => ({

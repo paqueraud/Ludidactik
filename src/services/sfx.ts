@@ -114,8 +114,16 @@ class SfxService {
 export const sfx = new SfxService();
 export type { SfxService };
 
-/** Vibration légère (mobile), si disponible. */
+/** Réglage « Vibrations » (espace parents). */
+export const haptique = { enabled: true };
+
+/**
+ * Vibration légère aux moments clés (mobile Android) : sans effet si le réglage est coupé,
+ * si l'appareil ne sait pas vibrer (iOS, ordinateur) ou si l'utilisateur préfère moins d'animations.
+ */
 export function vibrate(pattern: number | number[] = 30) {
+  if (!haptique.enabled || typeof navigator === 'undefined' || typeof navigator.vibrate !== 'function')
+    return;
   try {
     navigator.vibrate?.(pattern);
   } catch {

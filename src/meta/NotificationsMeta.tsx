@@ -1,13 +1,22 @@
 /** Notifications douces du bilan : défi du jour réussi, nouvelle gemme pour l'île, nouveaux badges. */
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { LudiCoin, SpeakButton } from '@/components/ui';
 import { getLesson } from '@/content';
 import type { ApresPartie } from '@/services/meta';
+import { vibrate } from '@/services/sfx';
 import { getBadge } from './badges';
 import { quartierDe } from './ile';
 
 export function NotificationsMeta({ meta }: { meta: ApresPartie }) {
+  // nouveau badge : petite vibration après la fanfare du bilan
+  const nbBadges = meta.badges.length;
+  useEffect(() => {
+    if (!nbBadges) return;
+    const t = setTimeout(() => vibrate([30, 40, 30, 40, 90]), 1200);
+    return () => clearTimeout(t);
+  }, [nbBadges]);
   const lignes: { cle: string; icone: string; texte: string; lien?: { to: string; label: string } }[] = [];
   if (meta.defi) {
     const tous = meta.defi.faits === meta.defi.total;

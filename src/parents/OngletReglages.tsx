@@ -1,4 +1,4 @@
-/** Réglages de l'appareil (useSettings) : programme, micro, police, sons, voix, département, contenus. */
+/** Réglages de l'appareil (useSettings) : programme, micro, police, sons, musique, vibrations, apparence, voix, département, contenus. */
 import { Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { speech } from '@/services/speech';
@@ -170,6 +170,35 @@ export function OngletReglages() {
           onChange={(v) => void update({ sons: v })}
           label="Sons du jeu"
           description="Les sons ont toujours un équivalent visuel."
+        />
+        <Interrupteur
+          checked={s.musique}
+          onChange={(v) => void update({ musique: v })}
+          label="Musique de fond"
+          description="Une boucle douce et discrète, qui s’efface quand l’application parle. L’enfant peut aussi la couper avec le bouton 🎵."
+        />
+        <Interrupteur
+          checked={s.musiqueEnJeu}
+          onChange={(v) => void update({ musiqueEnJeu: v })}
+          label="Garder la musique pendant les parties"
+          description="Désactivé (recommandé), la musique s’arrête pendant les jeux pour aider à se concentrer."
+        />
+        <Interrupteur
+          checked={s.vibrations}
+          onChange={(v) => void update({ vibrations: v })}
+          label="Vibrations"
+          description="Petite vibration aux moments clés (bonne réponse au bilan, coffre, badge), sur les appareils qui le permettent."
+        />
+        <Choix
+          name="theme"
+          legende="Apparence"
+          value={s.theme}
+          onChange={(v) => void update({ theme: v })}
+          options={[
+            { v: 'auto', label: 'Automatique', detail: 'Suit le réglage clair/sombre de l’appareil.' },
+            { v: 'clair', label: 'Clair' },
+            { v: 'sombre', label: 'Sombre', detail: 'Plus doux le soir.' },
+          ]}
         />
         <Interrupteur
           checked={s.police === 'dyslexie'}
