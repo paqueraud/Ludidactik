@@ -225,7 +225,7 @@ const MESSAGES: Message[] = [
     quoi: 'l’interview',
     titre: 'Interview d’un jeune dessinateur',
     texte:
-      '— Bonjour Lucas, tu as gagné le concours de dessin de ta ville. Qu’as-tu dessiné ? — J’ai dessiné le port, avec les bateaux de pêche qui rentrent le soir. — Combien de temps t’a-t-il fallu ? — Trois semaines ! J’allais au port tous les mercredis avec mon grand-père.',
+      'La journaliste : Bonjour Lucas, tu as gagné le concours de dessin de ta ville. Qu’as-tu dessiné ? Lucas : J’ai dessiné le port, avec les bateaux de pêche qui rentrent le soir. La journaliste : Combien de temps t’a-t-il fallu ? Lucas : Trois semaines ! J’allais au port tous les mercredis avec mon grand-père.',
     questions: [
       [
         'Quel genre de message entends-tu ?',
@@ -244,7 +244,7 @@ const MESSAGES: Message[] = [
       [
         'Pourquoi Lucas allait-il au port le mercredi ?',
         'pour dessiner le port',
-        ['pour pêcher', 'pour prendre le bateau', 'pour acheter du poisson'],
+        ['pour voir sa sœur', 'pour prendre le bateau', 'pour acheter du poisson'],
         'On le devine : Lucas a mis trois semaines à dessiner le port, il y allait pour le dessiner.',
         'J’allais au port tous les mercredis avec mon grand-père.',
       ],
@@ -266,7 +266,7 @@ const MESSAGES: Message[] = [
         'Quel est le sujet de ce reportage ?',
         'les abeilles',
         ['les fleurs du jardin', 'le miel', 'les fruits'],
-        'Le reportage parle des abeilles, de leur rôle et de leur disparition.',
+        'Le reportage parle des abeilles, de leur rôle et de leur diminution.',
         'Les abeilles sont indispensables : en allant de fleur en fleur, elles transportent le pollen, ce qui permet aux plantes de donner des fruits.',
       ],
       [
@@ -446,7 +446,7 @@ const MESSAGES: Message[] = [
     quoi: 'l’interview',
     titre: 'Interview d’une médecin',
     texte:
-      '— Docteure, combien d’heures un enfant de dix ans doit-il dormir ? — Entre neuf et douze heures. Pendant le sommeil, le corps grandit et le cerveau range ce qu’on a appris dans la journée. — Et les écrans, le soir ? — Leur lumière trompe le cerveau, qui croit qu’il fait encore jour. Mieux vaut les éteindre une heure avant le coucher.',
+      'Le journaliste : Docteure, combien d’heures un enfant de dix ans doit-il dormir ? La médecin : Entre neuf et douze heures. Pendant le sommeil, le corps grandit et le cerveau range ce qu’on a appris dans la journée. Le journaliste : Et les écrans, le soir ? La médecin : Leur lumière trompe le cerveau, qui croit qu’il fait encore jour. Mieux vaut les éteindre une heure avant le coucher.',
     questions: [
       [
         'Qui répond aux questions ?',
@@ -544,7 +544,7 @@ const MESSAGES: Message[] = [
       [
         'Pourquoi offre-t-on un bon de repas ?',
         'pour faire patienter',
-        ['le vol est annulé', 'c’est l’heure du goûter', 'les repas sont gratuits'],
+        ['le vol est annulé', 'c’est l’heure du goûter', 'pour fêter le départ'],
         'On le devine : les passagers doivent attendre deux heures de plus, le repas les aide à patienter.',
         'Un bon de repas est disponible au comptoir d’information.',
       ],
@@ -567,7 +567,7 @@ const MESSAGES: Message[] = [
     quoi: 'le débat',
     titre: 'Débat en classe',
     texte:
-      '— Moi, je pense qu’il faudrait interdire les voitures devant l’école : l’air serait moins pollué et ce serait moins dangereux. — Je ne suis pas d’accord : certains parents habitent loin et n’ont pas d’autre moyen pour venir. — Alors, on pourrait organiser un pédibus : les enfants viendraient à pied, en groupe, accompagnés par des adultes.',
+      'Emma : Moi, je pense qu’il faudrait interdire les voitures devant l’école : l’air serait moins pollué et ce serait moins dangereux. Yanis : Je ne suis pas d’accord : certains parents habitent loin et n’ont pas d’autre moyen pour venir. Chloé : Alors, on pourrait organiser un pédibus : les enfants viendraient à pied, en groupe, accompagnés par des adultes.',
     questions: [
       [
         'De quoi les élèves discutent-ils ?',
@@ -653,10 +653,10 @@ function poolVraiFaux(level: Level, _rng: Rng, ctx: GenContext): Item[] {
 /** [ce qu'on entend, réponse, variantes acceptées, explication, niveau]. */
 const ORAL: [string, string, string[], string, Niv][] = [
   [
-    'Écoute l’annonce : « Le train pour Lyon partira du quai numéro 3. » Vers quelle ville part le train ?',
-    'Lyon',
-    ['Lyon', 'à Lyon', 'pour Lyon', 'vers Lyon'],
-    'L’annonce dit : « le train pour Lyon ».',
+    'Écoute l’annonce : « Le train pour Lyon partira à dix heures. » À quelle heure part le train ?',
+    'à 10 heures',
+    ['à 10 heures', '10 heures', 'dix heures', 'à dix heures', '10 h'],
+    'L’annonce dit : « à dix heures ».',
     'f',
   ],
   [
@@ -668,7 +668,7 @@ const ORAL: [string, string, string[], string, Niv][] = [
   ],
   [
     'Écoute la météo : « Demain, il neigera sur les Alpes. » Quel temps fera-t-il sur les Alpes ?',
-    'il neigera',
+    'de la neige',
     ['neige', 'la neige', 'il neigera', 'il va neiger', 'de la neige'],
     'Le bulletin annonce de la neige sur les Alpes.',
     'f',
@@ -718,15 +718,15 @@ const ORAL: [string, string, string[], string, Niv][] = [
   [
     'Écoute : « Malo regarde l’heure, soupire, puis regarde encore l’heure : le bus n’est toujours pas là. » Comment se sent Malo ?',
     'impatient',
-    ['impatient', 'il est impatient', 'il s’impatiente', 'énervé', 'agacé', 'inquiet'],
+    ['impatient', 'il est impatient', 'il s’impatiente', 'énervé', 'agacé'],
     'Regarder l’heure et soupirer en attendant : Malo est impatient.',
     'p',
   ],
   [
-    'Écoute : « Rien ne sert de courir ; il faut partir à point. » Quel genre de texte se termine par une leçon comme celle-ci ?',
+    'Écoute : « Rien ne sert de courir ; il faut partir à point. » Quel genre de texte contient une leçon, une morale, comme celle-ci ?',
     'une fable',
     ['fable', 'une fable', 'la fable', 'une fable de La Fontaine'],
-    'Une fable se termine souvent par une morale, une leçon de vie.',
+    'Une fable donne une leçon de vie, la morale, au début ou à la fin.',
     'p',
   ],
   [
@@ -762,8 +762,9 @@ function poolOral(level: Level, _rng: Rng, ctx: GenContext): Item[] {
   return ORAL.filter(([, , , , n]) => NIVEAUX[level].includes(n) || (level === 'normal' && n === 'f')).map(
     ([entendu, rep, acc, expl, n]) =>
       oral(ctx, `ecoute-${hash(entendu)}`, {
-        prompt: '🔊 Écoute (touche le haut-parleur), puis réponds à voix haute.',
-        spoken: entendu,
+        // Le message et la question s'écoutent avec le haut-parleur (consigne lue) ; `spoken` = réponse modèle
+        prompt: `🔊 ${entendu} Réponds à voix haute.`,
+        spoken: rep,
         answer: rep,
         accepted: acc,
         explication: expl,
@@ -786,8 +787,8 @@ const INTONATIONS: [string, '.' | '?' | '!', Niv][] = [
   ['Comme ce gâteau est bon', '!', 'f'],
   ['Tu as fini tes devoirs', '?', 'n'],
   ['Tu as fini tes devoirs', '.', 'n'],
-  ['Il est déjà huit heures', '?', 'n'],
-  ['Il est déjà huit heures', '.', 'n'],
+  ['Il est déjà huit heures', '?', 'p'],
+  ['Il est déjà huit heures', '.', 'p'],
   ['Que ce paysage est beau', '!', 'n'],
   ['Vous partez demain matin', '?', 'p'],
   ['Vous partez demain matin', '.', 'p'],

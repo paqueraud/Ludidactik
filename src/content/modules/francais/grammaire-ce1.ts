@@ -808,8 +808,11 @@ function genSubstQcm(level: Level, rng: Rng, ctx: GenContext): Item {
 }
 
 function genSubstClasser(level: Level, rng: Rng, ctx: GenContext): Item {
-  if (level !== 'facile' && rng.chance(0.5)) {
-    const p = rng.pick(PHRASES.filter((x) => x.c.some(([, , pr]) => pr)));
+  // Facile : le Labo aussi, avec des phrases à un seul complément
+  if (rng.chance(level === 'facile' ? 0.35 : 0.5)) {
+    const avecPronom = PHRASES.filter((x) => x.c.some(([, , pr]) => pr));
+    const courtes = avecPronom.filter((x) => x.c.length === 1);
+    const p = rng.pick(level === 'facile' && courtes.length ? courtes : avecPronom);
     return labo(ctx, rng, level, p, 'Trouve la place de chaque groupe, puis remplace-le par un pronom.');
   }
   const n = parNiv(level, { facile: 1, normal: 2, plus_loin: 2 });

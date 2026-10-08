@@ -206,7 +206,9 @@ const ETAPES_CONTES: [string, string[]][] = [
       'Sa mère l’envoie porter une galette à sa grand-mère.',
       'Elle rencontre le loup dans le bois.',
       'Le loup arrive le premier chez la grand-mère.',
+      'Le loup se couche dans le lit de la grand-mère.',
       'Le Petit Chaperon rouge frappe à la porte de la maison.',
+      'Elle s’étonne : « Que vous avez de grandes dents ! »',
     ],
   ],
   [
@@ -214,7 +216,9 @@ const ETAPES_CONTES: [string, string[]][] = [
     [
       'Les parents, trop pauvres, laissent leurs enfants dans la forêt.',
       'Le Petit Poucet retrouve le chemin grâce aux cailloux.',
+      'La deuxième fois, les oiseaux mangent les miettes de pain.',
       'Les enfants arrivent chez l’ogre.',
+      'Le Petit Poucet échange les bonnets de ses frères contre les couronnes des filles de l’ogre.',
       'Le Petit Poucet prend les bottes de sept lieues.',
     ],
   ],
@@ -223,7 +227,9 @@ const ETAPES_CONTES: [string, string[]][] = [
     [
       'Cendrillon vit avec sa belle-mère et ses demi-sœurs.',
       'Sa marraine la fée la prépare pour le bal.',
+      'Au bal, le prince danse avec elle.',
       'Elle perd une pantoufle de verre en partant à minuit.',
+      'Le prince fait essayer la pantoufle à toutes les jeunes filles.',
       'Le prince retrouve Cendrillon grâce à la pantoufle.',
     ],
   ],
@@ -231,8 +237,10 @@ const ETAPES_CONTES: [string, string[]][] = [
     'Le Lièvre et la Tortue',
     [
       'La Tortue lance un défi au Lièvre.',
+      'Le Lièvre se moque et laisse partir la Tortue.',
       'Le Lièvre, sûr de gagner, prend son temps.',
       'La Tortue avance sans s’arrêter.',
+      'Le Lièvre part enfin, à toute vitesse.',
       'La Tortue arrive la première.',
     ],
   ],
@@ -336,7 +344,8 @@ function genCultureOrdre(level: Level, rng: Rng, ctx: GenContext): Item {
   const [titre, etapes] = rng.pick(ETAPES_CONTES);
   return ordre(ctx, `etapes-${titre}`, {
     prompt: `Remets dans l’ordre les étapes de l’histoire « ${titre} ».`,
-    elements: level === 'facile' ? etapes.slice(0, 3) : etapes,
+    // Facile : 4 étapes ; Normal : 5 ; Plus loin : les 6 (audit du 08/10/2026)
+    elements: etapes.slice(0, parNiv(level, { facile: 4, normal: 5, plus_loin: 6 })),
     mode: 'etapes',
     explication: `On se rappelle l’histoire « ${titre} » : chaque étape entraîne la suivante.`,
     difficulty: diff(level, rng.next()),

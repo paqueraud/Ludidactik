@@ -1700,7 +1700,7 @@ const GE26_T1: Fiche = {
       niv: 'n',
       s: 'Strasbourg est la capitale de la Nouvelle-Aquitaine.',
       v: false,
-      e: 'Strasbourg est la capitale du Grand Est ; Bordeaux est celle de la Nouvelle-Aquitaine.',
+      e: 'Strasbourg est la capitale (le chef-lieu) de la région Grand Est ; Bordeaux est celle de la Nouvelle-Aquitaine.',
     },
     {
       id: 'outre-mer',

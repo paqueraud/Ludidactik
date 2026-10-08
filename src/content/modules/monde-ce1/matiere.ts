@@ -635,7 +635,7 @@ const ELEC_ORDRES: Ordre[] = [
     ex: 'Il faut une boucle complète : pile → fil → ampoule → fil → pile.',
   },
   {
-    n: 'p',
+    n: 'n',
     id: 'interrupteur',
     prompt: 'Remets dans l’ordre ce qui se passe quand on ouvre l’interrupteur.',
     el: [
@@ -646,6 +646,33 @@ const ELEC_ORDRES: Ordre[] = [
     ],
     mode: 'etapes',
     ex: 'L’interrupteur ouvert coupe la boucle : le courant ne passe plus.',
+  },
+  // compléments du 08/10/2026 (Puzzle au Plus loin)
+  {
+    n: 'p',
+    id: 'circuit-interrupteur',
+    prompt: 'Remets dans l’ordre : construire un circuit avec un interrupteur.',
+    el: [
+      'je relie la pile à l’ampoule avec un fil',
+      'je relie l’ampoule à l’interrupteur avec un deuxième fil',
+      'je relie l’interrupteur à l’autre borne de la pile',
+      'je ferme l’interrupteur : l’ampoule s’allume',
+    ],
+    mode: 'etapes',
+    ex: 'L’interrupteur fait partie de la boucle : fermé, il laisse passer le courant.',
+  },
+  {
+    n: 'p',
+    id: 'pile-usee',
+    prompt: 'Remets dans l’ordre : la lampe de poche n’éclaire plus.',
+    el: [
+      'j’appuie sur le bouton, rien ne s’allume',
+      'je vérifie le sens des piles',
+      'je remplace les piles usées',
+      'je rapporte les piles usées au bac de collecte',
+    ],
+    mode: 'etapes',
+    ex: 'Une pile usée ne donne plus d’électricité ; elle ne va pas à la poubelle mais au bac de collecte.',
   },
 ];
 

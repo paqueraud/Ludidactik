@@ -44,7 +44,7 @@ const OEUVRES: Oeuvre[] = [
     indices: [
       'Je porte une galette à ma grand-mère.',
       'Je rencontre un loup dans le bois.',
-      'On m’appelle ainsi à cause de mon petit chapeau rouge.',
+      'On m’appelle ainsi à cause de ma petite capuche rouge.',
     ],
     objet: 'la galette',
     etapes: [
@@ -120,7 +120,7 @@ const OEUVRES: Oeuvre[] = [
     auteur: 'Charles Perrault',
     heros: 'le Petit Poucet',
     indices: [
-      'Je suis le plus jeune de sept frères.',
+      'Je suis le plus jeune de sept garçons.',
       'Je sème des cailloux blancs pour retrouver le chemin.',
       'Je prends les bottes de sept lieues de l’ogre.',
     ],
@@ -292,7 +292,7 @@ const OEUVRES: Oeuvre[] = [
     auteur: 'Jean de La Fontaine',
     heros: 'le Rat',
     indices: [
-      'Je suis tout petit, mais un roi des animaux m’a laissé partir.',
+      'Je suis tout petit, mais le roi des animaux m’a laissé partir.',
       'Ce roi se retrouve pris dans un filet.',
       'Je ronge les mailles du filet pour libérer le Lion.',
     ],
@@ -339,7 +339,7 @@ const MORALES: [string, string][] = [
 
 const GENRES = {
   conte:
-    'un conte : une histoire merveilleuse, avec des fées, des ogres ou des princes, qui commence souvent par « Il était une fois »',
+    'un conte : une histoire merveilleuse, souvent avec des fées, des ogres ou des princes, qui commence souvent par « Il était une fois »',
   fable:
     'une fable : une courte histoire, souvent en vers, où des animaux parlent et qui donne une leçon (la morale)',
   comptine: 'une comptine : un petit poème qu’on chante ou qu’on récite, avec des rimes',
@@ -497,7 +497,7 @@ const VF: [string, boolean, string, Niv][] = [
     'n',
   ],
   [
-    'Dans « le Lièvre et la Tortue », c’est le Lièvre qui gagne la course.',
+    'Dans « Le Lièvre et la Tortue », c’est le Lièvre qui gagne la course.',
     false,
     'C’est la Tortue qui gagne : elle est partie tout de suite, sans s’arrêter.',
     'n',
@@ -523,17 +523,17 @@ const VF: [string, boolean, string, Niv][] = [
   [
     'Charles Perrault a écrit « Cendrillon ».',
     true,
-    'Charles Perrault a écrit « Cendrillon », « le Petit Poucet » et « le Chat botté ».',
+    'Charles Perrault a écrit « Cendrillon », « Le Petit Poucet » et « Le Chat botté ».',
     'p',
   ],
   [
-    'Jean de La Fontaine a écrit « la Petite Sirène ».',
+    'Jean de La Fontaine a écrit « La Petite Sirène ».',
     false,
     '« La Petite Sirène » est un conte d’Andersen ; La Fontaine a écrit des fables.',
     'p',
   ],
   [
-    'Dans « le Lion et le Rat », le Rat libère le Lion pris dans un filet.',
+    'Dans « Le Lion et le Rat », le Rat libère le Lion pris dans un filet.',
     true,
     'Le petit Rat ronge les mailles du filet : on a souvent besoin d’un plus petit que soi.',
     'p',
@@ -694,7 +694,7 @@ function poolOral(level: Level, _rng: Rng, ctx: GenContext): Item[] {
 /** Mots des contes à savoir écrire (jeux d'écriture). */
 const MOTS: M[] = [
   ['loup', 'animal sauvage qui fait peur dans beaucoup de contes', 'f'],
-  ['fée', 'personnage magique qui a une baguette', 'f'],
+  ['fée', 'personnage magique et gentil, avec une baguette, qui exauce les vœux', 'f'],
   ['roi', 'il porte une couronne et règne sur un royaume', 'f'],
   ['reine', 'femme qui règne, ou épouse du roi', 'f'],
   ['ogre', 'géant des contes qui veut manger les enfants', 'f'],
@@ -710,7 +710,7 @@ const MOTS: M[] = [
   ['conte', 'histoire merveilleuse qui commence souvent par « Il était une fois »', 'n'],
   ['fable', 'courte histoire où des animaux parlent, avec une morale', 'p'],
   ['comptine', 'petite chanson ou petit poème qu’on récite en rythme', 'p'],
-  ['baguette', 'la fée s’en sert pour faire de la magie', 'p'],
+  ['baguette', 'la fée s’en sert pour faire de la magie', 'n'],
   ['marraine', 'la ___ de Cendrillon est une fée', 'p'],
   ['personnage', 'héros ou héroïne d’une histoire', 'p'],
 ];

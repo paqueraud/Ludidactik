@@ -642,6 +642,8 @@ const T3: Fiche = {
       niv: 'n',
       nivAnnee: 'p',
       label: 'Loi sur la liberté syndicale',
+      // jamais avec Pasteur (1885) : deux dates trop proches pour une frise (audit du 08/10/2026)
+      excl: 'fin-xix',
       date: 'seconde moitié du XIXe siècle, 1884',
       t: 1884.03,
       e: 'Dans la seconde moitié du XIXe siècle, une loi autorise les syndicats (1884).',
@@ -651,6 +653,7 @@ const T3: Fiche = {
       niv: 'n',
       nivAnnee: 'p',
       label: 'Vaccin contre la rage de Louis Pasteur',
+      excl: 'fin-xix',
       date: 'fin du XIXe siècle, 1885',
       t: 1885.07,
       e: 'À la fin du XIXe siècle, Louis Pasteur met au point le vaccin contre la rage (1885).',

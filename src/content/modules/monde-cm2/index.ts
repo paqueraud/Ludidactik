@@ -12,10 +12,12 @@ import { EMC } from './emc';
 import { GEOGRAPHIE } from './geographie';
 import { HISTOIRE_2020 } from './histoire2020';
 import { HISTOIRE_2026 } from './histoire2026';
+import { completer } from './complements';
 import { MOTS_CM2 } from './mots-cles';
 import { type Fiche, contenuDe } from './outils';
 import { SCIENCES } from './sciences';
 
+/** Fiches des leçons, avec les compléments du 08/10/2026 (`complements.ts`). */
 export const FICHES: Fiche[] = [
   ...HISTOIRE_2020,
   ...HISTOIRE_2026,
@@ -23,7 +25,7 @@ export const FICHES: Fiche[] = [
   ...SCIENCES,
   ...EMC,
   ...ANGLAIS,
-];
+].map(completer);
 
 /** Contenu d'une fiche, avec ses mots-clés à écrire s'il y en a. */
 function contenuAvecMots(f: Fiche): LessonContent {
