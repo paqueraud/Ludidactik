@@ -12,10 +12,10 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Lightbulb } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, SpeakButton } from '@/components/ui';
-import type { Item, Level, McqItem } from '@/content/schemas';
+import type { Level, McqItem } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
-import { parNiveau, useGameSession } from '../_kit/session';
+import { itemSuivant, parNiveau, useGameSession } from '../_kit/session';
 import { ChoiceGrid, Feedback, Hud } from '../_kit/ui';
 import { useRng } from '../_monde-commun/hooks';
 import { insecable, reduireChoix } from '../_monde-commun/outils';
@@ -117,10 +117,12 @@ export default function QuiSuisJe({
     let repli: McqItem | null = null;
     const essais = Math.max(12, Math.min(60, (stream.size ?? 20) * 2));
     for (let i = 0; i < essais; i++) {
-      const it: Item = stream.next();
+      const it = itemSuivant(stream);
+      if (!it) break;
       if (!estDevinette(it) || it.kind !== 'mcq') continue;
-      // EMC : une situation de vie n'est pas une devinette — seulement les vraies devinettes à indices
-      if (lesson.matiere === 'emc' && !it.hints?.length) continue;
+      // EMC, français : une situation de vie ou une question de grammaire n'est pas une devinette —
+      // seulement les vraies devinettes à indices
+      if ((lesson.matiere === 'emc' || lesson.matiere === 'francais') && !it.hints?.length) continue;
       if (it.id === dernier.current && (stream.size ?? 2) > 1) continue;
       if (it.hints?.length) {
         repli = it;

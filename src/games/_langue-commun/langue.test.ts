@@ -14,7 +14,7 @@ import {
 } from './lecture';
 import { comparerOral, motsProches, phonetiser } from './oral';
 import { collecterPaires, colonnesMemory, estLaPaire, genererMancheDobble, preparerMemory } from './paires';
-import { assembler, premiereErreur, versFeu, versPuzzle } from './phrases';
+import { assembler, premiereErreur, suiteRangee, versFeu, versPuzzle } from './phrases';
 import { decouperMots, decouperPhrases, indexPreuve } from './texte';
 
 const tous = Object.values(LANGUE_FIXTURES).flat() as Item[];
@@ -200,6 +200,20 @@ describe('phrases : feu tricolore et puzzle', () => {
     expect(assembler(['l’', 'arbre'])).toBe('l’arbre');
     expect(premiereErreur(['a', 'c', 'b'], ['a', 'b', 'c'])).toBe(1);
     expect(premiereErreur(['a', 'b'], ['a', 'b'])).toBe(-1);
+  });
+  it('range des nombres (croissant / décroissant) ou des mots, mais pas une frise', () => {
+    const base = { kind: 'ordering' as const, id: 'r', lessonId: 'L', prompt: 'Range.', explication: 'xxx' };
+    const c = versPuzzle({ ...base, elements: ['98', '305', '1 250', '3,5'], mode: 'croissant' })!;
+    expect(c.mode).toBe('rang');
+    expect(c.separateur).toBe('<');
+    expect(c.ponctuation).toBeNull();
+    expect(suiteRangee(c.etiquettes, c.separateur)).toBe('98 < 305 < 1 250 < 3,5');
+    expect(versPuzzle({ ...base, elements: ['9', '4', '1'], mode: 'decroissant' })!.separateur).toBe('>');
+    expect(versPuzzle({ ...base, elements: ['âne', 'chat', 'zèbre'], mode: 'croissant' })!.separateur).toBe(
+      '→',
+    );
+    expect(versPuzzle({ ...base, elements: ['1789', '1804'], mode: 'chrono' })).toBeNull();
+    expect(versPuzzle({ ...base, elements: ['1', '1'], mode: 'croissant' })).toBeNull();
   });
 });
 

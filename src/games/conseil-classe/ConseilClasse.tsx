@@ -14,7 +14,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, SpeakButton } from '@/components/ui';
 import type { Item, Level, McqItem, TrueFalseItem } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
-import { parNiveau, useGameSession } from '../_kit/session';
+import { itemSuivant, parNiveau, useGameSession } from '../_kit/session';
 import { ChoiceGrid, Hud } from '../_kit/ui';
 import { useRng } from '../_monde-commun/hooks';
 import { insecable, reduireChoix } from '../_monde-commun/outils';
@@ -52,7 +52,8 @@ export default function ConseilClasse({
     const essais = Math.max(12, Math.min(60, (stream.size ?? 20) * 2));
     let it: Item | null = null;
     for (let i = 0; i < essais; i++) {
-      const x = stream.next();
+      const x = itemSuivant(stream);
+      if (!x) break;
       if (!estSituation(x)) continue;
       it = x;
       if (x.id !== dernier.current || (stream.size ?? 2) < 2) break;

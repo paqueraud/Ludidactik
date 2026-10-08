@@ -89,7 +89,28 @@ export function misspellings(word: string, rng: Rng, count = 3): string[] {
 
 const sayNumber = (n: number) => formatNumber(n).replace(/ /g, ' ').replace(',', ' virgule ');
 
-function numericToMcq(it: NumericItem, rng: Rng): McqItem {
+/** `meta` de calcul dont l'énoncé écrit se suffit à lui-même (rien à afficher à côté). */
+const META_AUTONOMES = new Set([
+  'complement',
+  'glisse',
+  'posee',
+  'termes',
+  'algorithme',
+  'suite',
+  'programme',
+  'tableau',
+]);
+
+/**
+ * L'énoncé d'un calcul se comprend-il sans support (règle, quadrillage, graphique, balance, dictée…) ?
+ * Sinon on ne le dérive pas : un QCM « Mesure le crayon avec la règle » sans règle n'a pas de sens.
+ */
+export function enonceAutonome(it: NumericItem): boolean {
+  return Object.keys(it.meta ?? {}).every((k) => META_AUTONOMES.has(k));
+}
+
+function numericToMcq(it: NumericItem, rng: Rng): McqItem | null {
+  if (!enonceAutonome(it)) return null;
   const good = formatNumber(it.answer);
   const choices = rng.shuffle([good, ...numericDistractors(it, rng, 3).map((d) => formatNumber(d))]);
   return {
@@ -107,6 +128,7 @@ function numericToMcq(it: NumericItem, rng: Rng): McqItem {
 }
 
 function numericToTrueFalse(it: NumericItem, rng: Rng): TrueFalseItem | null {
+  if (!enonceAutonome(it)) return null;
   if (/…|\?/.test(it.prompt)) return null; // énoncé à trou : pas d'égalité simple à juger
   const truth = rng.chance(0.5);
   const shown = truth ? it.answer : (numericDistractors(it, rng, 1)[0] ?? it.answer + 1);
@@ -123,7 +145,8 @@ function numericToTrueFalse(it: NumericItem, rng: Rng): TrueFalseItem | null {
   };
 }
 
-function numericToOral(it: NumericItem): OralItem {
+function numericToOral(it: NumericItem): OralItem | null {
+  if (!enonceAutonome(it)) return null;
   const a = it.answer;
   const accepted = [String(a), formatNumber(a).replace(/ /g, ' '), String(a).replace('.', ',')];
   if (Number.isInteger(a) && a >= 0 && a <= 999_999_999) accepted.push(...graphiesNombre(a));
@@ -145,6 +168,8 @@ function numericsToPairing(items: NumericItem[], lessonId: string): PairingItem 
   const seenR = new Set<string>();
   const pairs: PairingItem['pairs'] = [];
   for (const it of items) {
+    // carte de Memory / Dobble : énoncé autonome et court
+    if (!enonceAutonome(it) || it.prompt.length > 40) continue;
     const l = it.prompt;
     const r = formatNumber(it.answer);
     if (seenL.has(l) || seenR.has(r)) continue;
@@ -165,7 +190,14 @@ function numericsToPairing(items: NumericItem[], lessonId: string): PairingItem 
   };
 }
 
-function mcqToTrueFalse(it: McqItem, rng: Rng): TrueFalseItem {
+/**
+ * QCM qui n'a de sens qu'avec un support affiché à côté (texte de compréhension) : on ne le
+ * transforme pas en vrai/faux, paires ou réponse orale, qui ne savent pas afficher ce support.
+ */
+const avecSupport = (it: McqItem) => it.meta?.texte !== undefined;
+
+function mcqToTrueFalse(it: McqItem, rng: Rng): TrueFalseItem | null {
+  if (avecSupport(it)) return null;
   const truth = rng.chance(0.5);
   const wrong = it.choices.filter((_, i) => i !== it.answerIndex);
   const shown = truth || !wrong.length ? it.choices[it.answerIndex]! : rng.pick(wrong);
@@ -195,7 +227,7 @@ const ARTICLE = /^(?:(?:le|la|les|un|une|des|du|de la|au|aux)\s+|l'|de l')/i;
  * Les choix restent visibles (`meta.choix`) : l'enfant dit la bonne réponse à voix haute.
  */
 export function mcqToOral(it: McqItem): OralItem | null {
-  if (ORAL_DEPUIS_QCM_EXCLU.test(it.lessonId)) return null;
+  if (ORAL_DEPUIS_QCM_EXCLU.test(it.lessonId) || avecSupport(it)) return null;
   if (it.lang && !it.lang.startsWith('fr')) return null;
   if (!it.guillotine || it.meta?.sensible) return null;
   const rep = normalizeText(it.choices[it.answerIndex] ?? '').replace(/[.!…]+$/u, '');
@@ -226,6 +258,7 @@ function mcqsToPairing(items: McqItem[], lessonId: string): PairingItem | null {
   const seenR = new Set<string>();
   let sensible = false;
   for (const it of items) {
+    if (avecSupport(it)) continue;
     const r = it.choices[it.answerIndex]!;
     if (it.question.length > 70 || r.length > 40 || seenL.has(it.question) || seenR.has(r)) continue;
     seenL.add(it.question);

@@ -6,6 +6,7 @@
 import type { ItemStream } from '@/content/provider';
 import type { Item, SpellingItem } from '@/content/schemas';
 import { normalizeText, stripAccents } from '@/engine/answer';
+import { itemSuivant } from '../_kit/session';
 
 /** Découpe un mot en lettres (caractères Unicode NFC, apostrophes droites). */
 export function lettres(mot: string): string[] {
@@ -37,7 +38,8 @@ export function tirerItem(stream: ItemStream, ok: (it: Item) => boolean): Item |
 export function tirerItem(stream: ItemStream, ok: (it: Item) => boolean): Item | null {
   const essais = Math.max(12, Math.min(80, (stream.size ?? 20) * 2));
   for (let i = 0; i < essais; i++) {
-    const it = stream.next();
+    const it = itemSuivant(stream);
+    if (!it) return null;
     if (ok(it)) return it;
   }
   return null;
@@ -55,7 +57,8 @@ export function collecterMots(
   const vus = new Map<string, SpellingItem>();
   const tirages = Math.min(120, Math.max(stream.size ?? 30, 12) * 2);
   for (let i = 0; i < tirages && vus.size < max; i++) {
-    const it = stream.next();
+    const it = itemSuivant(stream);
+    if (!it) break;
     if (!ok(it)) continue;
     const cle = normalizeText(it.word).toLowerCase();
     if (!vus.has(cle)) vus.set(cle, it);

@@ -10,6 +10,7 @@ import type { ItemStream } from '@/content/provider';
 import type { Item, NumericItem } from '@/content/schemas';
 import { formatNumber } from '@/engine/answer';
 import { type Rng, createRng } from '@/engine/rng';
+import { itemSuivant } from '../_kit/session';
 
 /**
  * Tire l'item suivant qui satisfait `ok` (le Labo et certains flux générés ne filtrent pas).
@@ -22,7 +23,8 @@ export function tirer<T extends Item>(
   essais = 30,
 ): T | null {
   for (let i = 0; i < essais; i++) {
-    const it = stream.next(target);
+    const it = itemSuivant(stream, target);
+    if (!it) return null;
     if (ok(it)) return it;
   }
   return null;

@@ -16,7 +16,7 @@ import { Button, SpeakButton } from '@/components/ui';
 import type { ClassificationItem, Item, Level, OrderingItem } from '@/content/schemas';
 import type { GameProps } from '@/engine/GameModule';
 import { vibrate } from '@/services/sfx';
-import { parNiveau, useEnterKey, useGameSession } from '../_kit/session';
+import { itemSuivant, parNiveau, useEnterKey, useGameSession } from '../_kit/session';
 import { Feedback, Hud } from '../_kit/ui';
 import { PlateauOrdre } from '../_monde-commun/PlateauOrdre';
 import { useChronometre, useOrdre, useRng } from '../_monde-commun/hooks';
@@ -57,7 +57,8 @@ export default function Laboratoire({
     const essais = Math.max(12, Math.min(60, (stream.size ?? 20) * 2));
     let trouve: Item | null = null;
     for (let i = 0; i < essais; i++) {
-      const it = stream.next();
+      const it = itemSuivant(stream);
+      if (!it) break;
       if (!estExperience(it)) continue;
       trouve = it;
       if (it.id !== dernier.current || (stream.size ?? 2) < 2) break;

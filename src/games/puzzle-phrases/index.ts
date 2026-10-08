@@ -17,7 +17,8 @@ const jeu: GameModule = {
   classes: ['CE1', 'CE2', 'CM1', 'CM2'],
   dureeCible: 240,
   minItems: 3,
-  // Mots d'une phrase (mode « phrase ») ou étapes d'une procédure (mode « etapes ») ; pas les frises ni les nombres
+  // Mots d'une phrase (mode « phrase »), étapes d'une procédure (« etapes »), nombres ou mots à ranger
+  // (« croissant », « decroissant ») ; pas les frises (Machine à remonter le temps)
   filterItem: (item) => versPuzzle(item) !== null,
   component: lazy(() => import('./PuzzlePhrases')),
 };
