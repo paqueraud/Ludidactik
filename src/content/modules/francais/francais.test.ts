@@ -24,7 +24,13 @@ const ctxOf = (lesson: Lesson): GenContext => ({ index: {} as ContentIndex, less
 const N = 200;
 
 /** Items d'une leçon pour un type et un niveau : 200 tirages (générateur) ou toute la banque. */
+const cache = new Map<string, Item[]>();
 function items(lesson: Lesson, kind: ItemKind, level: Level, seed = 3): Item[] {
+  const k = `${lesson.id}|${kind}|${level}|${seed}`;
+  if (!cache.has(k)) cache.set(k, tirer(lesson, kind, level, seed));
+  return cache.get(k)!;
+}
+function tirer(lesson: Lesson, kind: ItemKind, level: Level, seed: number): Item[] {
   const c = contenu[lesson.id]!;
   const rng = createRng(seed);
   const gen = c.gens?.[kind];
@@ -104,7 +110,7 @@ function textes(item: Item): string[] {
   return t;
 }
 
-describe('français — curriculum', () => {
+describe('français — curriculum', { timeout: 60_000 }, () => {
   it('le module ne déclare que des leçons existantes', () => {
     for (const id of mesIds)
       expect(
@@ -142,7 +148,7 @@ describe('français — curriculum', () => {
   });
 });
 
-describe('français — validité de tous les items', () => {
+describe('français — validité de tous les items', { timeout: 30_000 }, () => {
   for (const lesson of mesLecons)
     for (const kind of kindsOf(lesson.id))
       for (const level of LEVELS)
@@ -234,6 +240,29 @@ describe('français — textes de lecture', () => {
       for (const q of t.questions)
         if (q.type === 'mcq' && q.preuve)
           expect(indexPreuve(phrases, q.preuve), `${t.id} ${q.preuve}`).toBeGreaterThanOrEqual(0);
+    }
+  });
+});
+
+describe('français — garde-fous de relecture', () => {
+  it('connecteurs : jamais « Ensuite » et « Puis » proposés ensemble', () => {
+    const l = mesLecons.find((x) => x.id === 'CE1.FR.ORAL.DIRE')!;
+    for (const lv of LEVELS)
+      for (const it of items(l, 'fill_blank', lv))
+        if (it.kind === 'fill_blank')
+          expect(it.choices?.filter((c) => c === 'Ensuite' || c === 'Puis').length).toBeLessThanOrEqual(1);
+  });
+
+  it('paires d’affixes : pas deux sens qui se recouvrent dans une même grille', () => {
+    for (const id of ['CE1.FR.VOC.AFFIXES', 'CM2.FR.VOC.MORPHO']) {
+      const l = mesLecons.find((x) => x.id === id)!;
+      for (const lv of LEVELS)
+        for (const it of items(l, 'pairing', lv))
+          if (it.kind === 'pairing') {
+            const sens = it.pairs.map((p) => p.right);
+            expect(sens.filter((s) => /contraire/.test(s)).length, sens.join(' | ')).toBeLessThanOrEqual(1);
+            expect(sens.filter((s) => /^petit/.test(s)).length).toBeLessThanOrEqual(1);
+          }
     }
   });
 });

@@ -132,7 +132,7 @@ const INVARIABLES_CM2: [string, string[]][] = [
     ['désormais', 'dorénavant', 'auparavant', 'autrefois', 'longtemps', 'parfois', 'aussitôt', 'quelquefois'],
   ],
   ['l’opposition', ['cependant', 'pourtant', 'néanmoins', 'toutefois', 'malgré']],
-  ['la quantité', ['davantage', 'environ', 'presque', 'plusieurs', 'beaucoup']],
+  ['la quantité', ['davantage', 'environ', 'plusieurs', 'beaucoup']],
   ['la cause', ['puisque']],
 ];
 
@@ -158,8 +158,8 @@ function classerRegularitesCm2(level: Level, rng: Rng, ctx: GenContext): Item {
     elements: familles.flatMap(([, m], i) => tirer(rng, m, 3).map((x): [string, number] => [x, i])),
     explication:
       level === 'plus_loin'
-        ? 'Beaucoup de mots doublent leur consonne après le préfixe (ap-, com-, dif-, im-, of-) : je les apprends par familles.'
-        : 'On entend [sion] dans tous ces mots, mais il s’écrit -tion, -sion ou -ssion : je les classe pour les mémoriser.',
+        ? 'Certains mots doublent la consonne après un préfixe (ap-, com-, dif-, im-, of-) ; d’autres sont à mémoriser (personne, bouteille) : je les apprends par familles.'
+        : 'On entend [sion] dans -tion et -ssion, et [zion] dans -sion (télévision) : je les classe pour les mémoriser.',
     difficulty: diff(level, rng.next()),
   });
 }

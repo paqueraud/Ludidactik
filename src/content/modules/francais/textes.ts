@@ -23,6 +23,9 @@ function textesDe(classe: Classe, level: Level, pourLecture = false): Texte[] {
   return TEXTES.filter((t) => t.classe === classe && niveaux.includes(t.niveau));
 }
 
+/** Citation entre guillemets, sans doubler ceux d'une réplique déjà guillemetée. */
+const cite = (s: string) => (s.trim().startsWith('«') ? s.trim() : g(s));
+
 /** Explication d'une réponse : on renvoie toujours au texte (justifier par un retour au texte). */
 function explicationQuestion(bonne: string, preuve: string | undefined, notion: string | undefined): string {
   if (!preuve) {
@@ -37,11 +40,12 @@ function explicationQuestion(bonne: string, preuve: string | undefined, notion: 
     return `On relit le passage : la bonne réponse est « ${bonne} ».`;
   }
   if (notion === 'inférence')
-    return `Le texte ne le dit pas directement : on le devine grâce à cette phrase : ${g(preuve)}`;
-  if (notion === 'anaphore') return `On cherche de qui (ou de quoi) on parle juste avant : ${g(preuve)}`;
+    return `Le texte ne le dit pas directement : on le devine grâce à cette phrase : ${cite(preuve)}`;
+  if (notion === 'anaphore') return `On cherche de qui (ou de quoi) on parle juste avant : ${cite(preuve)}`;
   if (notion === 'vocabulaire' || notion === 'expression')
-    return `Le sens se devine grâce à la phrase : ${g(preuve)}`;
-  return `La réponse est écrite dans le texte : ${g(preuve)}`;
+    return `Le sens se devine grâce à la phrase : ${cite(preuve)}`;
+  if (notion === 'morale') return `On interprète la morale de la fable : ${cite(preuve)}`;
+  return `La réponse est écrite dans le texte : ${cite(preuve)}`;
 }
 
 /** Questions de compréhension (QCM « Détective ») des textes d'une classe et d'un niveau. */
@@ -79,7 +83,7 @@ export function poolEtapes(classe: Classe): ItemPool {
                 elements: qu.elements,
                 mode: 'etapes',
                 explication:
-                  'Dans un récit, chaque étape entraîne la suivante : on cherche ce qui arrive d’abord, puis ensuite, et enfin.',
+                  'Je cherche ce qui se passe d’abord, puis ensuite, et enfin : chaque étape entraîne la suivante.',
                 difficulty: diff(level, 0.5),
               }),
             ]

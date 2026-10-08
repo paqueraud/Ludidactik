@@ -260,7 +260,7 @@ function genPhraseQcm(level: Level, rng: Rng, ctx: GenContext): Item {
       good: String(n),
       wrong: ['1', '2', '3', '4', '5'],
       fixedOrder: ['1', '2', '3', '4', '5'],
-      explication: 'Pour compter les phrases, je compte les majuscules du début et les points de la fin.',
+      explication: 'Pour compter les phrases, je compte les points de fin de phrase (. ? !).',
       difficulty: d,
     });
   }
@@ -268,7 +268,11 @@ function genPhraseQcm(level: Level, rng: Rng, ctx: GenContext): Item {
     const tete = p.gs.split(' ').slice(-1)[0]!;
     const wrong =
       type === 'sujet'
-        ? [p.v, ...p.c.map(([t]) => t), tete !== p.gs ? tete : `${p.gs} ${p.v}`]
+        ? [
+            p.v,
+            ...p.c.map(([t]) => t),
+            ...(level === 'facile' ? [] : [tete !== p.gs ? tete : `${p.gs} ${p.v}`]),
+          ]
         : [p.gs, ...p.c.map(([t]) => t)];
     return qcm(ctx, rng, `${type}-${ph}`, {
       question:
@@ -302,7 +306,7 @@ function genPhraseQcm(level: Level, rng: Rng, ctx: GenContext): Item {
     question: `On déplace le groupe ${g(cc)} au début de la phrase ${g(ph)}. Quelle phrase obtient-on ?`,
     good: bonne,
     wrong: [
-      `${maj(cc)} ${[minus(p.gs), p.v, ...reste].join(' ')}.`,
+      `${maj(cc)} ${[p.v + ',', minus(p.gs), ...reste].join(' ')}.`,
       `${[p.gs, cc, p.v, ...reste].join(' ')}.`,
       `${maj(cc)}, ${[p.v, minus(p.gs), ...reste].join(' ')}.`,
     ],

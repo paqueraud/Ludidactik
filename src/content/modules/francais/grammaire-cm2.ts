@@ -404,12 +404,12 @@ export const PHRASES_CM2: PhraseAnalysee[] = [
     n: 'p',
   },
   {
-    p: 'Pour son anniversaire, Zoé a reçu un vélo.',
-    v: 'a reçu',
+    p: 'Par curiosité, Zoé a ouvert la boîte.',
+    v: 'a ouvert',
     g: [
-      ['Pour son anniversaire', 'CCC', 'GNP'],
+      ['Par curiosité', 'CCC', 'GNP'],
       ['Zoé', 'S', 'nom propre'],
-      ['un vélo', 'COD', 'GN'],
+      ['la boîte', 'COD', 'GN'],
     ],
     n: 'p',
   },
@@ -464,10 +464,16 @@ function genLabo(
 }
 
 /** QCM « Quelle est la fonction de … ? ». */
-function genFonctionQcm(visees: Fonction[], choix: (level: Level) => Fonction[]) {
+function genFonctionQcm(
+  visees: Fonction[],
+  choix: (level: Level) => Fonction[],
+  filtre: (x: PhraseAnalysee, level: Level) => boolean = () => true,
+) {
   return (level: Level, rng: Rng, ctx: GenContext): Item => {
-    const x = rng.pick(phrasesDispo(level).filter((y) => y.g.some(([, f]) => visees.includes(f))));
-    const [t, f] = rng.pick(x.g.filter(([, k]) => visees.includes(k) || choix(level).includes(k)));
+    const x = rng.pick(
+      phrasesDispo(level).filter((y) => y.g.some(([, f]) => visees.includes(f)) && filtre(y, level)),
+    );
+    const [t, f] = rng.pick(x.g.filter(([, k]) => visees.includes(k)));
     return qcm(ctx, rng, `fct-${x.p}-${t}`, {
       question: `Dans la phrase ${g(x.p)}, quelle est la fonction de ${g(t)} ?`,
       good: NOMS_FONCTIONS[f],
@@ -638,7 +644,7 @@ function genTypesCm2Ordre(level: Level, rng: Rng, ctx: GenContext): Item {
     mode: 'phrase',
     explication:
       k === 0
-        ? 'Dans une question, le sujet peut être placé après le verbe, relié par un trait d’union.'
+        ? 'Une question se termine par « ? » ; elle peut commencer par un mot interrogatif (qui, quand, pourquoi…) ou par « est-ce que », ou placer le sujet après le verbe.'
         : 'Une phrase exclamative commence souvent par quel, comme ou que et se termine par « ! ».',
     difficulty: diff(level, 0.5),
   });
@@ -665,11 +671,12 @@ function genTypesCm2Vf(level: Level, rng: Rng, ctx: GenContext): Item {
 
 function genTypesCm2Paires(level: Level, rng: Rng, ctx: GenContext): Item {
   const courtes: Record<string, string[]> = {
-    'phrase déclarative': ['Le soleil se couche.', 'Nous partons demain.', 'Il neige sur la ville.'],
-    'phrase interrogative': ['Viendras-tu ce soir ?', 'Où habite Léon ?', 'Est-ce fini ?'],
-    'phrase impérative': ['Fermez la porte.', 'Viens vite ici.', 'Lisez ce texte.'],
-    'forme négative': ['Je ne sais rien.', 'Il ne pleut plus.', 'Elle n’a pas peur.'],
+    'déclarative affirmative': ['Le soleil se couche.', 'Nous partons demain.', 'Il neige sur la ville.'],
+    interrogative: ['Viendras-tu ce soir ?', 'Où habite Léon ?', 'Est-ce fini ?'],
+    impérative: ['Fermez la porte.', 'Viens vite ici.', 'Lisez ce texte.'],
+    'déclarative négative': ['Je ne sais rien.', 'Il ne pleut plus.', 'Elle n’a pas peur.'],
   };
+  if (level === 'facile') delete courtes['déclarative négative'];
   const pairs = Object.entries(courtes).map(([right, l]) => ({ left: rng.pick(l), right }));
   return paires(ctx, `paires-${pairs.map((p) => p.left).join('|')}`, {
     prompt: 'Associe chaque phrase à ce qui la caractérise.',
@@ -898,7 +905,7 @@ const CC_BANQUE: [string, Fonction, string][] = [
   ['sous le pont', 'CCL', 'Les canards nagent sous le pont.'],
   ['dans la cour', 'CCL', 'Les élèves jouent dans la cour.'],
   ['au sommet', 'CCL', 'Au sommet, la vue est magnifique.'],
-  ['près de la mer', 'CCL', 'Mes grands-parents habitent près de la mer.'],
+  ['près de la mer', 'CCL', 'Mes grands-parents se promènent près de la mer.'],
   ['à cause de la pluie', 'CCC', 'À cause de la pluie, le pique-nique est annulé.'],
   ['grâce à ton aide', 'CCC', 'Grâce à ton aide, j’ai réussi.'],
   ['parce qu’il pleut', 'CCC', 'Nous restons à l’intérieur parce qu’il pleut.'],
@@ -1035,7 +1042,7 @@ function genNatureFonctionQcm(level: Level, rng: Rng, ctx: GenContext): Item {
       wrong: [
         `${NOMS_NATURES[nat]}, ${NOMS_FONCTIONS[rng.pick(autresF)]}`,
         `${NOMS_NATURES[rng.pick(autresN)]}, ${NOMS_FONCTIONS[f]}`,
-        `${NOMS_FONCTIONS[f]}, ${NOMS_NATURES[nat]}`,
+        `${NOMS_NATURES[rng.pick(autresN)]}, ${NOMS_FONCTIONS[rng.pick(autresF)]}`,
       ],
       explication: `${g(t)} est un ${NOMS_NATURES[nat]} (sa nature) qui joue le rôle de ${NOMS_FONCTIONS[f]} (sa fonction). ${REGLE_NF}`,
       difficulty: diff(level, 0.8),
@@ -1152,7 +1159,7 @@ function genClassesCm2Classer(level: Level, rng: Rng, ctx: GenContext): Item {
       categories: ['pronom personnel sujet', 'pronom personnel complément'],
       elements: choisis.map(([m, c]): [string, number] => [m, c]),
       explication:
-        'Le pronom personnel change de forme selon sa fonction : je, tu, il sont sujets ; me, te, le, la, lui, leur sont compléments.',
+        'Le pronom personnel change de forme selon sa fonction : je, tu, il sont sujets ; me, te, le, la, lui, leur sont compléments (nous et vous peuvent être l’un ou l’autre).',
       difficulty: diff(level, rng.next()),
       meta: { contextes: Object.fromEntries(choisis.map(([m, , p]) => [m, p])) },
     });
@@ -1407,7 +1414,7 @@ const PHRASES_VERBES: [string, number, ('juxt' | 'coord' | 'sub')?][] = [
   ['Nous allons visiter le musée.', 1],
   ['Il pleut, je reste.', 2, 'juxt'],
   ['Il pleut mais je sors.', 2, 'coord'],
-  ['Il pleut donc je reste.', 2, 'coord'],
+  ['Il pleut et je reste au chaud.', 2, 'coord'],
   ['Je reste parce qu’il pleut.', 2, 'sub'],
   ['Quand il neige, je fais de la luge.', 2, 'sub'],
   ['Léa chante et Tom danse.', 2, 'coord'],
@@ -1531,7 +1538,7 @@ export const GRAMMAIRE_CM2: ContentModule = {
       classification: (level, rng, ctx) =>
         genLabo(level === 'facile' ? ['COD'] : ['COD', 'COI'], fonctionsObjets)(level, rng, ctx),
       mcq: (level, rng, ctx) =>
-        genFonctionQcm(level === 'facile' ? ['COD'] : ['COD', 'COI'], fonctionsObjets)(level, rng, ctx),
+        genFonctionQcm(level === 'facile' ? ['COD', 'S'] : ['COD', 'COI'], fonctionsObjets)(level, rng, ctx),
       fill_blank: genCodCoiTrou,
     },
     pools: { pairing: aucun },
@@ -1539,7 +1546,16 @@ export const GRAMMAIRE_CM2: ContentModule = {
   'CM2.FR.GRAM.ATTRIBUT': {
     gens: {
       classification: genAttributClasser,
-      mcq: genFonctionQcm(['ATT', 'COD'], () => ['S', 'COD', 'ATT', 'COI']),
+      mcq: genFonctionQcm(
+        ['ATT', 'COD'],
+        () => ['S', 'COD', 'ATT', 'COI'],
+        (x, lv) =>
+          parNiv(lv, {
+            facile: /^(est|sont)$/.test(x.v),
+            normal: true,
+            plus_loin: x.g.some(([, f]) => f === 'COD') || !/^(est|sont)$/.test(x.v),
+          }),
+      ),
     },
     pools: { pairing: aucun },
   },

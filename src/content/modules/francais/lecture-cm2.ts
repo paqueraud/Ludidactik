@@ -25,7 +25,7 @@ const LIAISONS: [string, string, 'f' | 'n' | 'p'][] = [
   ['un grand homme', 'On fait la liaison : grand‿homme se dit « gran-t-homme ».', 'n'],
   ['c’est important', 'On fait la liaison : c’est‿important se dit « cé-t-important ».', 'n'],
   ['quand il pleut', 'On fait la liaison : quand‿il se dit « quan-t-il ».', 'n'],
-  ['les petits oiseaux', 'Deux liaisons : les petits‿oiseaux se dit « lé peti-z-oiseaux ».', 'n'],
+  ['les petits oiseaux', 'Une liaison : les petits‿oiseaux se dit « lé peti-z-oiseaux ».', 'n'],
   ['très intéressant', 'On fait la liaison : très‿intéressant se dit « tré-z-intéressant ».', 'n'],
   ['les héros', 'Devant un h aspiré, on ne fait pas de liaison : les | héros.', 'p'],
   ['un hibou', 'Devant un h aspiré, pas de liaison : un | hibou.', 'p'],
@@ -212,7 +212,7 @@ const ETAPES_CONTES: [string, string[]][] = [
   [
     'Le Petit Poucet',
     [
-      'Les parents perdent leurs enfants dans la forêt.',
+      'Les parents, trop pauvres, laissent leurs enfants dans la forêt.',
       'Le Petit Poucet retrouve le chemin grâce aux cailloux.',
       'Les enfants arrivent chez l’ogre.',
       'Le Petit Poucet prend les bottes de sept lieues.',
@@ -255,7 +255,7 @@ function genCultureQcm(level: Level, rng: Rng, ctx: GenContext): Item {
       wrong: MYSTERES.map(([p]) => p),
       max: 4,
       hints: indices,
-      explication: `C’est ${perso}, personnage de « ${oeuvre} ».`,
+      explication: `C’est ${perso}, personnage de l’œuvre « ${oeuvre} ».`,
       difficulty: diff(level, rng.next()),
     });
   }
@@ -266,7 +266,7 @@ function genCultureQcm(level: Level, rng: Rng, ctx: GenContext): Item {
       good: fable,
       wrong: MORALES.map(([, f]) => f),
       max: 3,
-      explication: `Cette morale termine (ou ouvre) la fable « ${fable} » de Jean de La Fontaine.`,
+      explication: `Cette morale se trouve dans la fable « ${fable} » de Jean de La Fontaine.`,
       difficulty: diff(level, 0.7),
     });
   }
@@ -285,7 +285,10 @@ function genCultureQcm(level: Level, rng: Rng, ctx: GenContext): Item {
     good: auteur,
     wrong: [...new Set(OEUVRES.map(([, a]) => a))],
     max: level === 'facile' ? 3 : 4,
-    explication: `« ${titre} » a été écrit par ${auteur}.`,
+    explication:
+      auteur === 'les frères Grimm'
+        ? `« ${titre} » a été recueilli par les frères Grimm.`
+        : `« ${titre} » a été écrit par ${auteur}.`,
     difficulty: diff(level, rng.next()),
   });
 }
@@ -332,7 +335,7 @@ function genCultureClasser(level: Level, rng: Rng, ctx: GenContext): Item {
 function genCultureOrdre(level: Level, rng: Rng, ctx: GenContext): Item {
   const [titre, etapes] = rng.pick(ETAPES_CONTES);
   return ordre(ctx, `etapes-${titre}`, {
-    prompt: `Remets dans l’ordre les étapes de « ${titre} ».`,
+    prompt: `Remets dans l’ordre les étapes de l’histoire « ${titre} ».`,
     elements: level === 'facile' ? etapes.slice(0, 3) : etapes,
     mode: 'etapes',
     explication: `On se rappelle l’histoire de « ${titre} » : chaque étape entraîne la suivante.`,

@@ -67,7 +67,7 @@ const POLYSEMES: { mot: string; sens: [string, string][]; n: Niv }[] = [
     mot: 'racine',
     sens: [
       ['partie d’une plante sous la terre', 'Les racines boivent l’eau.'],
-      ['partie commune d’une famille de mots', 'Terrain a pour racine « terr ».'],
+      ['partie commune d’une famille de mots', '« terr- » : racine de terrain.'],
     ],
     n: 'n',
   },
@@ -214,7 +214,7 @@ const FAMILLES: { radical: string; mots: string[]; intrus: string; n: Niv }[] = 
     intrus: 'terrible',
     n: 'f',
   },
-  { radical: 'dent', mots: ['dentiste', 'dentifrice', 'dentition', 'édenté'], intrus: 'dentelle', n: 'f' },
+  { radical: 'dent', mots: ['dentiste', 'dentifrice', 'dentition', 'édenté'], intrus: 'identique', n: 'f' },
   { radical: 'mer', mots: ['marin', 'maritime', 'amerrir', 'marée'], intrus: 'merle', n: 'n' },
   { radical: 'lait', mots: ['laitier', 'laitage', 'allaiter', 'laiterie'], intrus: 'laid', n: 'f' },
   { radical: 'nuit', mots: ['nocturne', 'minuit', 'nuitée'], intrus: 'nuire', n: 'p' },
@@ -225,12 +225,12 @@ const FAMILLES: { radical: string; mots: string[]; intrus: string; n: Niv }[] = 
 /** Affixes : [affixe, sens, exemple, niveau]. */
 const AFFIXES: [string, string, string, Niv][] = [
   ['re-', 'de nouveau', 'relire', 'f'],
-  ['dé-', 'le contraire', 'démonter', 'f'],
-  ['in- / im-', 'pas, le contraire', 'impossible', 'f'],
+  ['dé-', 'défaire, faire l’inverse d’une action', 'démonter', 'f'],
+  ['in- / im-', 'pas (adjectif contraire)', 'impossible', 'f'],
   ['pré-', 'avant', 'prévoir', 'n'],
   ['sous-', 'en dessous', 'sous-sol', 'n'],
   ['-able', 'qu’on peut', 'lavable', 'n'],
-  ['-eur', 'celui qui fait', 'nageur', 'f'],
+  ['-eur', 'celui ou celle qui fait', 'nageur', 'f'],
   ['-ette', 'petit', 'fillette', 'n'],
   ['-ment', 'de façon…', 'lentement', 'n'],
   ['-age', 'l’action de', 'lavage', 'n'],
@@ -241,7 +241,7 @@ const AFFIXES: [string, string, string, Niv][] = [
   ['télé-', 'loin (grec)', 'téléphone', 'p'],
   ['-vore', 'qui mange (latin)', 'herbivore', 'p'],
   ['aqua-', 'eau (latin)', 'aquarium', 'p'],
-  ['micro-', 'petit (grec)', 'microscope', 'p'],
+  ['chrono-', 'temps (grec)', 'chronomètre', 'p'],
 ];
 /** Formation : [mot, catégorie]. 0 = simple, 1 = dérivé, 2 = composé. */
 const FORMATION: [string, 0 | 1 | 2][] = [
@@ -557,7 +557,7 @@ function genDicoCm2Qcm(level: Level, rng: Rng, ctx: GenContext): Item {
       good: sens,
       wrong: ABREVIATIONS.map(([, s]) => s),
       max: 4,
-      explication: `${g(ab)} veut dire « ${sens} ». ${REGLE_DICO_CM2.split(' ; ')[1]}`,
+      explication: `${g(ab)} veut dire « ${sens} ». Chaque article ${REGLE_DICO_CM2.split(' ; chaque article ')[1]}`,
       difficulty: diff(level, rng.next()),
     });
   }
@@ -631,6 +631,17 @@ const REGLE_SYN =
   'Des synonymes ont presque le même sens et la même classe (rapide / véloce) ; des antonymes ont des sens contraires (généreux / avare).';
 
 function genSynPaires(level: Level, rng: Rng, ctx: GenContext): Item {
+  if (level === 'plus_loin' && rng.chance(0.5)) {
+    const choisis = tirer(rng, REGISTRES_CM2, 4);
+    return paires(ctx, `reg-${choisis.map(([, c]) => c).join('|')}`, {
+      prompt: 'Associe chaque mot courant à son synonyme de registre soutenu.',
+      pairs: choisis.map(([, c, s]) => ({ left: c, right: s })),
+      relation: 'courant → soutenu',
+      explication:
+        'Ces mots ont le même sens mais pas le même registre : courant au quotidien, soutenu à l’écrit ou dans les grandes occasions.',
+      difficulty: diff(level, 0.8),
+    });
+  }
   const ant = rng.chance(0.5);
   const choisis = tirer(rng, ant ? ANT : SYN, parNiv(level, { facile: 4, normal: 5, plus_loin: 6 }));
   return paires(ctx, `${ant ? 'ant' : 'syn'}-${choisis.map(([a]) => a).join('|')}`, {

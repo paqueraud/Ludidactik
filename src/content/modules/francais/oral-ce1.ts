@@ -259,10 +259,10 @@ const RECITS: Record<Level, string[][]> = {
       'Enfin, je mange mon omelette.',
     ],
     [
-      'D’abord, je me brosse les dents.',
-      'Ensuite, j’enfile mon pyjama.',
-      'Puis, je lis une histoire.',
-      'Enfin, j’éteins la lumière.',
+      'D’abord, je remplis la baignoire.',
+      'Ensuite, je me lave.',
+      'Puis, je me sèche avec une serviette.',
+      'Enfin, j’enfile mon pyjama.',
     ],
     [
       'D’abord, je plante une graine.',
@@ -280,9 +280,9 @@ const RECITS: Record<Level, string[][]> = {
   plus_loin: [
     [
       'Pour commencer, Inès sort son vélo du garage.',
-      'Après, elle vérifie ses freins.',
-      'Ensuite, elle met son casque.',
-      'Pour finir, elle part chez sa cousine.',
+      'Après, elle gonfle ses pneus à plat.',
+      'Ensuite, elle roule jusqu’au parc.',
+      'Pour finir, elle range son vélo au retour.',
     ],
     [
       'Tout d’abord, on choisit un livre.',
@@ -291,10 +291,10 @@ const RECITS: Record<Level, string[][]> = {
       'Pour conclure, on le présente à la classe.',
     ],
     [
-      'Pour commencer, Hugo découpe le carton.',
-      'Après cela, il peint les murs de la maquette.',
-      'Ensuite, il colle le toit.',
-      'Finalement, il installe de petits arbres.',
+      'Pour commencer, Hugo découpe les murs dans le carton.',
+      'Après cela, il colle les murs ensemble.',
+      'Ensuite, il pose le toit sur les murs.',
+      'Finalement, il peint sa maquette terminée.',
     ],
   ],
 };
@@ -317,7 +317,12 @@ function genDireTrou(level: Level, rng: Rng, ctx: GenContext): Item {
   const i = rng.int(0, recit.length - 1);
   const [connecteur, ...reste] = recit[i]!.split(', ');
   const phrase = recit.map((p, k) => (k === i ? `___, ${reste.join(', ')}` : p)).join(' ');
-  const choix = [...new Set([connecteur!, ...CONNECTEURS, ...(recit.length > 3 ? ['Puis'] : [])])];
+  // un seul connecteur « du milieu » parmi les choix : Ensuite et Puis seraient tous deux corrects
+  const milieu = (c: string) => c === 'Ensuite' || c === 'Puis';
+  const choix = [
+    connecteur!,
+    ...CONNECTEURS.filter((c) => c !== connecteur && !(milieu(c) && milieu(connecteur!))),
+  ];
   return trou(ctx, rng, `connecteur-${recit[0]}-${i}`, {
     sentence: phrase,
     answer: connecteur!,
