@@ -40,3 +40,14 @@ export function mergeModules(...modules: ContentModule[]): ContentModule {
     }
   return out;
 }
+
+/**
+ * Contenu chargé à la demande (par classe, voir `chargerClasses` dans `index.ts`) : c'est ce registre
+ * que lit le fournisseur d'items. Son contenu est remplacé en place à chaque chargement.
+ */
+export const CONTENU_CHARGE: ContentModule = {};
+
+export function remplacerContenuCharge(mod: ContentModule) {
+  for (const k of Object.keys(CONTENU_CHARGE)) delete CONTENU_CHARGE[k];
+  Object.assign(CONTENU_CHARGE, mod);
+}

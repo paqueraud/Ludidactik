@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import { Play, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Sky } from '@/components/Layout';
+import { Sky } from '@/components/Sky';
 import { Ludo } from '@/components/Ludo';
 import { Button, SpeakButton } from '@/components/ui';
 import { useSession } from '@/stores/session';

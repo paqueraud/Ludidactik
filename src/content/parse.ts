@@ -3,7 +3,7 @@
  * (fichiers importés par Vite) et par `npm run validate:content` (fichiers lus sur disque).
  */
 import type { z } from 'zod';
-import { CONTENU } from './modules';
+import type { ContentModule } from './registry';
 import {
   type Classe,
   type Curriculum,
@@ -39,7 +39,14 @@ function formatZod(file: string, err: z.ZodError): ContentIssue[] {
   return err.issues.map((i) => ({ file, severity: 'erreur', message: `${i.path.join('.')} : ${i.message}` }));
 }
 
-export function parseContent(files: RawFiles): { index: ContentIndex; issues: ContentIssue[] } {
+/**
+ * `contenu` (facultatif) : modules de contenu pour vérifier qu'une leçon est jouable. L'application
+ * charge les modules à la demande et ne les passe pas ; `npm run validate:content` les passe tous.
+ */
+export function parseContent(
+  files: RawFiles,
+  contenu?: ContentModule,
+): { index: ContentIndex; issues: ContentIssue[] } {
   const issues: ContentIssue[] = [];
   const index: ContentIndex = {
     curricula: {},
@@ -76,16 +83,18 @@ export function parseContent(files: RawFiles): { index: ContentIndex; issues: Co
     }
   }
 
-  issues.push(...crossCheck(index, files));
+  issues.push(...crossCheck(index, files, contenu));
   return { index, issues };
 }
 
 /** Vérifications croisées : références entre fichiers, générateurs, rappels manquants. */
-function crossCheck(index: ContentIndex, files: RawFiles): ContentIssue[] {
+function crossCheck(index: ContentIndex, files: RawFiles, contenu?: ContentModule): ContentIssue[] {
   const issues: ContentIssue[] = [];
+  const CONTENU = contenu ?? {};
   for (const l of index.lessons.values()) {
     const file = `data/curriculum/${l.classe.toLowerCase()}.json`;
     const jouable =
+      !contenu ||
       !!CONTENU[l.id] ||
       l.source.kind === 'parents' ||
       index.wordLists.some((w) => w.lessonId === l.id) ||
