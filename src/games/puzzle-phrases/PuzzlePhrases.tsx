@@ -2,7 +2,9 @@
  * Le Puzzle de phrases (CATALOGUE n° 42) — la phrase, son ordre, sa ponctuation.
  * Les étiquettes-mots (item `ordering`, mode « phrase ») sont mélangées : on les touche dans l'ordre
  * pour construire la phrase, puis on choisit la ponctuation finale (. ? !). Mode « etapes » : on remet
- * les étapes d'une procédure dans l'ordre. Chaque phrase juste dévoile une pièce du tableau.
+ * les étapes d'une procédure dans l'ordre. Mode « rang » (items `croissant` / `decroissant`) : on range
+ * des nombres (« < » ou « > » s'affichent entre eux) ou des mots (ordre alphabétique).
+ * Chaque réponse juste dévoile une pièce du tableau.
  * Facile : le premier mot est posé, 2 essais. Normal : 1 indice (pose le mot suivant), 2 essais.
  * Plus loin : chrono, 1 essai, sans indice.
  * Clavier : 1-9 (et 0) = étiquettes, Retour arrière = enlever, . ? ! = ponctuation, Entrée = vérifier.
@@ -22,6 +24,7 @@ import {
   type Signe,
   assembler,
   premiereErreur,
+  suiteRangee,
   versPuzzle,
 } from '../_langue-commun/phrases';
 import { tirerItem } from '../_langue-commun/tirage';
@@ -190,7 +193,9 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
         setErreurA(err === -1 ? attendu.length : err);
         return;
       }
-      session.answer(pz.item, juste, assembler(propose, signe), assembler(attendu, pz.ponctuation));
+      const ecrire = (x: string[], s: Signe | null) =>
+        pz.mode === 'rang' ? suiteRangee(x, pz.separateur) : assembler(x, s);
+      session.answer(pz.item, juste, ecrire(propose, signe), ecrire(attendu, pz.ponctuation));
       if (juste) {
         sfx.play('juste');
         setPieces((p) => p + 1);
@@ -281,9 +286,14 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
   }
 
   const etapes = pz.mode === 'etapes';
+  const rang = pz.mode === 'rang';
   const signeFinal = etat === 'juste' && signe ? signe : pz.ponctuation;
-  const solution = etapes ? attendu.join(' → ') : assembler(attendu, signeFinal);
-  const lu = etapes ? attendu.join('. ') : assembler(attendu, signeFinal);
+  const solution = etapes
+    ? attendu.join(' → ')
+    : rang
+      ? suiteRangee(attendu, pz.separateur)
+      : assembler(attendu, signeFinal);
+  const lu = etapes || rang ? attendu.join(', ') : assembler(attendu, signeFinal);
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-3 px-3 pb-6 pt-2 sm:px-6 lg:flex-row">
@@ -317,16 +327,29 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
                   : 'border-sky/60 bg-cream'
             } ${etapes ? 'flex-col items-stretch' : ''}`}
             role="group"
-            aria-label={etapes ? 'Les étapes dans l’ordre' : 'Ta phrase'}
+            aria-label={etapes ? 'Les étapes dans l’ordre' : rang ? 'Ton rangement' : 'Ta phrase'}
           >
             {pose.length === 0 && (
               <span className="px-2 text-ink-soft">
-                {etapes ? 'Touche les étapes dans l’ordre…' : 'Touche les mots dans l’ordre…'}
+                {etapes
+                  ? 'Touche les étapes dans l’ordre…'
+                  : rang
+                    ? 'Touche les étiquettes dans l’ordre…'
+                    : 'Touche les mots dans l’ordre…'}
               </span>
             )}
             {pose.map((i, k) => {
               const faux = erreurA !== null && k >= erreurA;
-              return (
+              return [
+                rang && k > 0 && (
+                  <span
+                    key={`sep-${k}`}
+                    className="font-titre text-2xl font-extrabold text-grape-dark"
+                    aria-hidden
+                  >
+                    {pz.separateur}
+                  </span>
+                ),
                 <motion.button
                   layout={!reduite}
                   layoutId={reduite ? undefined : `et-${manche}-${i}`}
@@ -341,8 +364,8 @@ export default function PuzzlePhrases({ level, stream, paused, onAnswer, onEnd, 
                 >
                   {etapes && <span className="mr-2 text-ink-soft">{k + 1}.</span>}
                   {attendu[i]}
-                </motion.button>
-              );
+                </motion.button>,
+              ];
             })}
             {pz.ponctuation && (
               <span

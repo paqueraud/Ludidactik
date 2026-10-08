@@ -3,7 +3,7 @@
  * équerre (tracer un angle droit), et tracé d'un rectangle sur papier quadrillé au centimètre.
  */
 import { motion, useReducedMotion } from 'framer-motion';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui';
 import { cle } from '../_geometrie-commun/grille';
 import { Indice } from '../_geometrie-commun/ui';
@@ -285,23 +285,36 @@ function AtelierCompas({ rayon, level, actif, phase, sfx, onValider }: PropsAtel
     },
     [actif, trace, sfx],
   );
+  // Le tracé dure ~1,3 s avant le verdict ; la pause fige ce délai (on reprend le temps restant).
+  const [enTrace, setEnTrace] = useState(false);
+  const restant = useRef(0);
+  const conclure = useRef(() => {});
+  conclure.current = () => {
+    setEnTrace(false);
+    if (ouverture === rayon) onValider(true, `${ouverture} cm`, `${rayon} cm`);
+    else if (essais > 1) {
+      setEssais((e) => e - 1);
+      setMessage(`Ton cercle ne passe pas par A : l’écartement était de ${ouverture} cm.`);
+      setTrace(false);
+      sfx.play('faux');
+    } else onValider(false, `${ouverture} cm`, `${rayon} cm`);
+  };
+  useEffect(() => {
+    if (!enTrace || !actif) return;
+    const debut = performance.now();
+    const t = setTimeout(() => conclure.current(), restant.current);
+    return () => {
+      clearTimeout(t);
+      restant.current = Math.max(0, restant.current - (performance.now() - debut));
+    };
+  }, [enTrace, actif]);
   const tracer = useCallback(() => {
     if (!actif || trace) return;
     setTrace(true);
     sfx.play('glisse');
-    setTimeout(
-      () => {
-        if (ouverture === rayon) onValider(true, `${ouverture} cm`, `${rayon} cm`);
-        else if (essais > 1) {
-          setEssais((e) => e - 1);
-          setMessage(`Ton cercle ne passe pas par A : l’écartement était de ${ouverture} cm.`);
-          setTrace(false);
-          sfx.play('faux');
-        } else onValider(false, `${ouverture} cm`, `${rayon} cm`);
-      },
-      reduce ? 200 : 1300,
-    );
-  }, [actif, trace, sfx, ouverture, rayon, essais, onValider, reduce]);
+    restant.current = reduce ? 200 : 1300;
+    setEnTrace(true);
+  }, [actif, trace, sfx, reduce]);
   const touches = useMemo(
     () => ({
       ArrowLeft: () => changer(ouverture - 1),

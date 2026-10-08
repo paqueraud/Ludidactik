@@ -3,12 +3,13 @@
  * Même mot dicté pour les deux (voix du parent prioritaire), chacun écrit sur son propre clavier
  * à l'écran ; le premier qui écrit le mot sans faute marque le point.
  * Tablette / téléphone : écran partagé haut / bas, le joueur du haut a son côté retourné (face à
- * face). Ordinateur : côte à côte. Le clavier physique écrit pour le joueur 1.
+ * face). Ordinateur : côte à côte ; le clavier physique écrit pour le joueur qui l'a pris (bouton
+ * « Je joue au clavier » de son côté) : personne ne l'a au départ, pas d'avantage implicite.
  * Facile : 1re lettre donnée, 3 essais, écoute illimitée. Normal : 2 essais, 3 écoutes.
  * Plus loin : 1 seul essai, 2 écoutes.
  */
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpDown, Ear, Trophy } from 'lucide-react';
+import { ArrowUpDown, Ear, Keyboard, Trophy } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { LetterKeyboard, usePhysicalKeyboard } from '@/components/Keypads';
 import { Button, SpeakButton } from '@/components/ui';
@@ -50,6 +51,8 @@ function PanneauJoueur({
   onDelete,
   onSubmit,
   disabled,
+  auClavier,
+  onClavier,
 }: {
   nom: string;
   couleur: 'sky' | 'coral';
@@ -63,6 +66,9 @@ function PanneauJoueur({
   onDelete(): void;
   onSubmit(): void;
   disabled: boolean;
+  /** Ordinateur : ce joueur écrit avec le clavier physique ? (undefined = pas de clavier physique) */
+  auClavier?: boolean;
+  onClavier?(): void;
 }) {
   const reduce = useReducedMotion();
   const restants = maxEssais - j.essais;
@@ -77,6 +83,17 @@ function PanneauJoueur({
         <span className={`rounded-full px-3 py-1 font-titre text-lg font-bold text-white ${fond}`}>
           {nom}
         </span>
+        {onClavier && (
+          <Button
+            variant={auClavier ? 'grape' : 'blanc'}
+            icon={<Keyboard aria-hidden />}
+            onClick={onClavier}
+            aria-pressed={!!auClavier}
+            className="text-sm"
+          >
+            {auClavier ? 'Au clavier' : 'Je joue au clavier'}
+          </Button>
+        )}
         <span className="text-sm font-bold text-ink-soft">
           {j.juste
             ? 'Juste !'
@@ -147,6 +164,9 @@ export default function DicteeDuel({
     () => typeof window !== 'undefined' && !!window.matchMedia?.('(min-width: 1024px)').matches,
   );
   const rapporte = useRef(false);
+  /** Joueur qui écrit avec le clavier physique (ordinateur) ; personne au départ. */
+  const [clavier, setClavier] = useState<0 | 1 | null>(null);
+  const [avisClavier, setAvisClavier] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia?.('(min-width: 1024px)');
@@ -261,16 +281,21 @@ export default function DicteeDuel({
     });
   };
 
-  // Clavier physique : joueur 1 (ou « Mot suivant » quand le mot est révélé)
+  // Clavier physique : le joueur qui l'a pris (ou « Mot suivant » quand le mot est révélé)
+  const sansClavier = () => setAvisClavier(true);
   usePhysicalKeyboard(
     {
-      onKey: ecrire(0),
-      onDelete: effacer(0),
-      onSubmit: () => (revele ? suivant() : valider(0)),
+      onKey: (k) => (clavier === null ? sansClavier() : ecrire(clavier)(k)),
+      onDelete: () => (clavier === null ? sansClavier() : effacer(clavier)()),
+      onSubmit: () => (revele ? suivant() : clavier === null ? sansClavier() : valider(clavier)),
       disabled: paused || fini,
     },
     TOUCHES,
   );
+  const prendreClavier = (p: 0 | 1) => {
+    setClavier((c) => (c === p ? null : p));
+    setAvisClavier(false);
+  };
 
   const reecouter = () => {
     if (ecoutes >= ECOUTES[level] || paused) return;
@@ -294,6 +319,8 @@ export default function DicteeDuel({
       onDelete={effacer(p)}
       onSubmit={() => valider(p)}
       disabled={paused || fini || revele || bloque(p)}
+      auClavier={clavier === p}
+      onClavier={() => prendreClavier(p)}
     />
   );
 
@@ -379,10 +406,14 @@ export default function DicteeDuel({
           </motion.div>
         )}
       </AnimatePresence>
-      {!revele && large && (
-        <p className="text-sm text-ink-soft">
-          Le clavier de l’ordinateur écrit pour {noms[0]} : pour un duel équitable, chacun peut aussi jouer
-          avec son clavier à l’écran.
+      {!revele && (
+        <p
+          className={`text-center text-sm ${avisClavier && clavier === null ? 'font-bold text-coral-dark' : 'text-ink-soft'}`}
+          role="status"
+        >
+          {clavier === null
+            ? 'Qui écrit avec le clavier de l’ordinateur ? Touche « Je joue au clavier » de ton côté. L’autre joueur écrit avec son clavier à l’écran.'
+            : `Le clavier de l’ordinateur écrit pour ${noms[clavier]} ; l’autre joueur écrit avec son clavier à l’écran.`}
         </p>
       )}
     </section>

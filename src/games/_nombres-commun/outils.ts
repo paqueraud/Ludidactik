@@ -10,6 +10,7 @@ import type { ItemStream } from '@/content/provider';
 import type { Item, NumericItem } from '@/content/schemas';
 import { formatNumber } from '@/engine/answer';
 import { type Rng, createRng } from '@/engine/rng';
+import { itemSuivant } from '../_kit/session';
 
 /**
  * Tire l'item suivant qui satisfait `ok` (le Labo et certains flux générés ne filtrent pas).
@@ -22,7 +23,8 @@ export function tirer<T extends Item>(
   essais = 30,
 ): T | null {
   for (let i = 0; i < essais; i++) {
-    const it = stream.next(target);
+    const it = itemSuivant(stream, target);
+    if (!it) return null;
     if (ok(it)) return it;
   }
   return null;
@@ -86,7 +88,8 @@ export function useBoucle(actif: boolean, tick: (dt: number) => void) {
     let last = performance.now();
     let raf = 0;
     const loop = (now: number) => {
-      const dt = Math.min(0.1, (now - last) / 1000);
+      // l'horodatage de requestAnimationFrame peut précéder performance.now() : jamais de dt négatif
+      const dt = Math.max(0, Math.min(0.1, (now - last) / 1000));
       last = now;
       ref.current(dt);
       raf = requestAnimationFrame(loop);

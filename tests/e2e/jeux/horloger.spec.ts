@@ -1,19 +1,13 @@
-/**
- * Test de fumée : L'Horloger (n° 12). Premier item du Labo : « Le film commence à 14 h 20 et dure
- * 45 min. À quelle heure finit-il ? » (15 h 05).
- */
+/** Test de fumée : L'Horloger (n° 12). Premier item du Labo : « Quelle heure est-il ? » (3 h 15). */
 import { expect, test } from '@playwright/test';
 import { surveillerErreurs } from './_calcul';
 
-test('Horloger (facile) : calculer l’heure de fin au clavier', async ({ page }) => {
+test('Horloger (facile) : choisir la bonne heure', async ({ page }) => {
   const erreurs = surveillerErreurs(page);
   await page.goto('/labo/horloger?niveau=facile');
-  await expect(page.getByText('Départ : 14 h 20')).toBeVisible();
-  await expect(page.getByText(/On avance par sauts/)).toBeVisible();
-  await page.keyboard.type('15');
-  await page.keyboard.type('05');
-  await page.keyboard.press('Enter');
-  await expect(page.getByText(/Exact, bon voyage/)).toBeVisible();
+  await expect(page.getByText('Quelle heure est-il ?')).toBeVisible();
+  await page.getByRole('button', { name: '3 h 15' }).click();
+  await expect(page.getByText(/Bravo, tu sais lire l’heure|Horloge 2 \//).first()).toBeVisible();
   expect(erreurs).toEqual([]);
 });
 
@@ -21,24 +15,22 @@ test('Horloger (normal) : saisie au pavé et correction', async ({ page }) => {
   const erreurs = surveillerErreurs(page);
   await page.goto('/labo/horloger?niveau=normal');
   const pave = page.getByRole('group', { name: 'Pavé numérique' });
-  await pave.getByRole('button', { name: '1', exact: true }).click();
-  await pave.getByRole('button', { name: '5', exact: true }).click();
+  await pave.getByRole('button', { name: '9', exact: true }).click();
   await pave.getByRole('button', { name: 'Valider' }).click();
   await expect(page.getByText(/Presque/).first()).toBeVisible();
-  await expect(page.getByText('15 h 05').first()).toBeVisible();
+  await expect(page.getByText('3 h 15').first()).toBeVisible();
   await page.keyboard.press('Enter');
   await expect(page.getByText(/Horloge 2 \//)).toBeVisible();
   expect(erreurs).toEqual([]);
 });
 
-test('Horloger (plus loin) : une erreur montre la bonne heure', async ({ page }) => {
+test('Horloger (plus loin) : lire l’heure au clavier', async ({ page }) => {
   const erreurs = surveillerErreurs(page);
   await page.goto('/labo/horloger?niveau=plus_loin');
-  await expect(page.getByText('Départ : 14 h 20')).toBeVisible();
-  await expect(page.getByText(/On avance par sauts/)).toHaveCount(0);
-  await page.keyboard.type('9');
+  await expect(page.getByText('Quelle heure est-il ?')).toBeVisible();
+  await page.keyboard.type('03');
+  await page.keyboard.type('15');
   await page.keyboard.press('Enter');
-  await expect(page.getByText(/Presque/).first()).toBeVisible();
-  await expect(page.getByText('15 h 05').first()).toBeVisible();
+  await expect(page.getByText(/Bravo|Exact|Horloge 2 \//).first()).toBeVisible();
   expect(erreurs).toEqual([]);
 });

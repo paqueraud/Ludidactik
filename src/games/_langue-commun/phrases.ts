@@ -78,13 +78,30 @@ export interface Puzzle {
   ponctuation: Signe | null;
   /** Signes acceptés (la ponctuation attendue + `meta.ponctuationsAcceptees`). */
   ponctuationsOk: Signe[];
-  mode: 'phrase' | 'etapes';
+  /** rang = ranger des nombres ou des mots (modes `croissant` / `decroissant` de l'item). */
+  mode: 'phrase' | 'etapes' | 'rang';
+  /** Mode rang : séparateur affiché entre deux étiquettes (« < », « > », ou « → » pour des mots). */
+  separateur: string;
+}
+
+/** Les étiquettes sont-elles toutes des nombres (« 3,5 », « 1 250 », « 3/4 ») ? */
+const estNombre = (s: string) => /^[−-]?\d[\d\s\u00a0\u202f]*(?:[,.]\d+)?(?:\/\d+)?$/.test(s.trim());
+
+/** Écriture d'une suite rangée : « 98 < 305 < 350 » (nombres) ou « âne → chat → zèbre » (mots). */
+export function suiteRangee(etiquettes: string[], separateur: string): string {
+  return etiquettes.join(` ${separateur} `);
 }
 
 /** Item `ordering` en mode `phrase` (mots) ou `etapes` (procédure, cycle…). null sinon. */
 export function versPuzzle(item: Item): Puzzle | null {
-  if (item.kind !== 'ordering' || (item.mode !== 'phrase' && item.mode !== 'etapes')) return null;
+  if (item.kind !== 'ordering' || item.mode === 'chrono') return null;
   const etiquettes = [...item.elements];
+  if (item.mode === 'croissant' || item.mode === 'decroissant') {
+    if (etiquettes.length < 2 || new Set(etiquettes).size !== etiquettes.length) return null;
+    const nombres = etiquettes.every(estNombre);
+    const separateur = !nombres ? '→' : item.mode === 'croissant' ? '<' : '>';
+    return { item, etiquettes, ponctuation: null, ponctuationsOk: [], mode: 'rang', separateur };
+  }
   let ponctuation: Signe | null = null;
   if (item.mode === 'phrase') {
     const dernier = normalizeText(etiquettes[etiquettes.length - 1] ?? '');
@@ -106,7 +123,7 @@ export function versPuzzle(item: Item): Puzzle | null {
     ? meta.filter((s): s is Signe => typeof s === 'string' && estSigne(s))
     : [];
   const ponctuationsOk = ponctuation ? [...new Set<Signe>([ponctuation, ...autres])] : [];
-  return { item, etiquettes, ponctuation, ponctuationsOk, mode: item.mode };
+  return { item, etiquettes, ponctuation, ponctuationsOk, mode: item.mode, separateur: '' };
 }
 
 /** Assemble des étiquettes-mots en phrase (pas d'espace après une apostrophe). */

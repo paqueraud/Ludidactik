@@ -1,17 +1,20 @@
-/**
- * Test de fumée : la Station météo dans le Labo. Les exemples partagés du Labo n'ont pas encore d'item
- * `meta.graphique` (exemples prêts dans src/games/_geometrie-commun/fixtures.ts) : état propre attendu.
- */
+/** Test de fumée : la Station météo dans le Labo. Premier exemple : un diagramme en barres (`meta.graphique`). */
 import { expect, test } from '@playwright/test';
-import { surveillerErreurs } from './_geometrie';
+import { REPONDU, surveillerErreurs } from './_geometrie';
 
-for (const niveau of ['facile', 'plus_loin']) {
-  test(`Station météo (${niveau}) : état propre sans item adapté, aucune erreur`, async ({ page }) => {
+for (const [niveau, reponse] of [
+  ['facile', '5'],
+  ['plus_loin', '3'],
+] as const) {
+  test(`Station météo (${niveau}) : lire un diagramme en barres`, async ({ page }) => {
     const erreurs = surveillerErreurs(page);
     await page.goto(`/labo/station-meteo?niveau=${niveau}`);
-    await expect(page.getByText(/n’a pas de données/)).toBeVisible();
-    await page.getByRole('button', { name: 'Terminer' }).click();
-    await expect(page.getByTestId('labo-fin')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Les déchets ramassés dans la cour' })).toBeVisible();
+    await expect(page.getByText('Combien de déchets pour « bouteilles » ?')).toBeVisible();
+    const pave = page.getByRole('group', { name: 'Pavé numérique' });
+    await pave.getByRole('button', { name: reponse, exact: true }).click();
+    await pave.getByRole('button', { name: 'Valider' }).click();
+    await expect(page.getByText(REPONDU).first()).toBeVisible();
     expect(erreurs).toEqual([]);
   });
 }

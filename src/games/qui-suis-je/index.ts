@@ -19,7 +19,9 @@ const jeu: GameModule = {
   minItems: 4,
   filterItem: estDevinette,
   // Personnages historiques, animaux, monuments, symboles : histoire-géo, sciences, QLM, EMC.
-  lessons: (l) => ['histoire', 'geographie', 'sciences', 'questionner_le_monde', 'emc'].includes(l.matiere),
+  // Français : leçons dont les QCM portent des indices (personnages mystères de la culture littéraire).
+  lessons: (l) =>
+    ['histoire', 'geographie', 'sciences', 'questionner_le_monde', 'emc', 'francais'].includes(l.matiere),
   component: lazy(() => import('./QuiSuisJe')),
 };
 

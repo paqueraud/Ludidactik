@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
+import { sansDessin } from '../_kit/dessin';
 
 const jeu: GameModule = {
   id: 'vrai-faux',
@@ -17,7 +18,7 @@ const jeu: GameModule = {
   minItems: 4,
   // Toutes les matières : les adaptateurs fabriquent des vrai/faux à partir des QCM, calculs et mots.
   // Un thème sensible (guerres, Shoah, esclavage) ne se joue pas en sprint chronométré : `meta.sensible`.
-  filterItem: (it) => it.kind === 'true_false' && it.meta?.sensible !== true,
+  filterItem: (it) => it.kind === 'true_false' && it.meta?.sensible !== true && sansDessin(it),
   component: lazy(() => import('./VraiFaux')),
 };
 

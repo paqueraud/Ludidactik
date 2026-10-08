@@ -83,8 +83,12 @@ export default function Chocolatier(props: GameProps) {
   });
   const { courant, manche, total, etat, fini, repondre, suivant, bonnes } = jeu;
   const item = courant?.valeur ?? null;
-  const f: Frac = item ? { n: item.numerator, d: item.denominator } : { n: 0, d: 1 };
-  const o: Frac | null = item?.other ? { n: item.other.numerator, d: item.other.denominator } : null;
+  // fractions stables d'un rendu à l'autre (dépendances des hooks ci-dessous)
+  const f: Frac = useMemo(() => (item ? { n: item.numerator, d: item.denominator } : { n: 0, d: 1 }), [item]);
+  const o: Frac | null = useMemo(
+    () => (item?.other ? { n: item.other.numerator, d: item.other.denominator } : null),
+    [item],
+  );
   const k = unitesNecessaires(f);
   const papier = PAPIERS[manche % PAPIERS.length]!;
 
@@ -94,17 +98,17 @@ export default function Chocolatier(props: GameProps) {
   const [message, setMessage] = useState<string | undefined>();
   const [noteMoule, setNoteMoule] = useState<string | null>(null);
 
-  const listeMoules = useMemo(() => moules(f.d, manche + f.n), [item, manche]); // eslint-disable-line react-hooks/exhaustive-deps
+  const listeMoules = useMemo(() => moules(f.d, manche + f.n), [f, manche]);
   const propositions = useMemo(() => {
     if (!item || item.task !== 'lire') return [];
     const p = propositionsFraction(f, 3);
     const r = (manche + f.d) % p.length;
     return [...p.slice(r), ...p.slice(0, r)];
-  }, [item, manche]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [item, f, manche]);
   const choixComparer = useMemo(
     () => (o ? [`A : ${formatFrac(f)}`, `B : ${formatFrac(o)}`, 'Autant'] : []),
-    [item],
-  ); // eslint-disable-line react-hooks/exhaustive-deps
+    [f, o],
+  );
 
   useEffect(() => {
     if (!item) return;

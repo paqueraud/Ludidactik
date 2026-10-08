@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
+import { sansDessin } from '../_kit/dessin';
 
 const jeu: GameModule = {
   id: 'grand-prix',
@@ -17,6 +18,8 @@ const jeu: GameModule = {
   supportsDuel: true,
   minItems: 1,
   signature: true,
+  // jeu générique : pas d'item qui a besoin d'un dessin (règle, graphique…)
+  filterItem: sansDessin,
   component: lazy(() => import('./GrandPrix')),
 };
 

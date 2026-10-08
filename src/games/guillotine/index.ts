@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
+import { pasSensible } from '../_kit/sensible';
 
 const jeu: GameModule = {
   id: 'guillotine',
@@ -16,7 +17,7 @@ const jeu: GameModule = {
   dureeCible: 180,
   minItems: 4,
   // Les thèmes sensibles (guerres, esclavage, exécutions…) ne sont jamais joués ici.
-  filterItem: (item) => item.kind === 'mcq' && item.guillotine,
+  filterItem: (item) => item.kind === 'mcq' && item.guillotine && pasSensible(item),
   // Quiz d'histoire et du temps (catalogue n°49) ; EMC en CE1 (symboles de la République)
   lessons: (l) => ['histoire', 'emc'].includes(l.matiere) || l.id.startsWith('CE1.QLM.TEMPS'),
   signature: true,

@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import type { GameModule } from '@/engine/GameModule';
+import { sansDessin } from '../_kit/dessin';
 
 const jeu: GameModule = {
   id: 'tables-ninja',
@@ -16,6 +17,8 @@ const jeu: GameModule = {
   dureeCible: 180,
   minItems: 1,
   lessons: (l) => l.matiere === 'maths',
+  // jeu générique : pas d'item qui a besoin d'un dessin (règle, graphique…)
+  filterItem: sansDessin,
   component: lazy(() => import('./TablesNinja')),
 };
 

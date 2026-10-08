@@ -4,6 +4,7 @@
  */
 import type { ItemStream } from '@/content/provider';
 import type { Item } from '@/content/schemas';
+import { itemSuivant } from '../_kit/session';
 import { tirerItem } from '../_orthographe-commun/lettres';
 
 export { tirerItem };
@@ -23,7 +24,8 @@ export function collecterItems(stream: ItemStream, ok: (it: Item) => boolean, ma
   const tirages = Math.min(200, Math.max(24, (stream.size ?? 40) * 2 + max));
   let dejaVus = 0;
   for (let i = 0; i < tirages && vus.size < max; i++) {
-    const it = stream.next();
+    const it = itemSuivant(stream);
+    if (!it) break;
     if (!ok(it)) continue;
     if (vus.has(it.id)) {
       // flux fini qui recommence : inutile d'insister longtemps

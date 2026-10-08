@@ -1,8 +1,20 @@
 /** Hooks communs à tous les mini-jeux : suivi de partie, lecture automatique, objectifs par niveau. */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { itemKey } from '@/content/provider';
+import { type ItemStream, itemKey } from '@/content/provider';
 import type { Item, Level } from '@/content/schemas';
 import type { GameProps, GameSummary } from '@/engine/GameModule';
+
+/**
+ * Item suivant d'un flux, ou null si le flux n'en fournit plus : un flux dérivé par adaptateur peut
+ * échouer (aucune dérivation possible à ce niveau). Le jeu affiche alors un état calme, sans planter.
+ */
+export function itemSuivant(stream: ItemStream, target?: number): Item | null {
+  try {
+    return stream.next(target);
+  } catch {
+    return null;
+  }
+}
 
 /** Nombre de manches / bonnes réponses visées selon le niveau. */
 export const parNiveau = <T>(level: Level, v: Record<Level, T>): T => v[level];

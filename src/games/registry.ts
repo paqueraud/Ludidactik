@@ -4,9 +4,9 @@
  */
 import { content } from '@/content';
 import { type ProviderContext, availableKinds, countItems } from '@/content/provider';
-import type { ItemKind, Lesson } from '@/content/schemas';
+import type { ItemKind, Lesson, Level } from '@/content/schemas';
 import type { GameModule } from '@/engine/GameModule';
-import { createRng } from '@/engine/rng';
+import { type Rng, createRng } from '@/engine/rng';
 
 const modules = import.meta.glob<GameModule>(['./*/index.ts', '!./_*/**'], {
   eager: true,
@@ -22,6 +22,28 @@ export interface PlayableGame {
   kind: ItemKind;
 }
 
+/** Items disponibles pour un jeu ; un flux dérivé qui ne produit rien pour ce jeu compte pour 0. */
+function compter(
+  lesson: Lesson,
+  kind: ItemKind,
+  rng: Rng,
+  ctx: ProviderContext,
+  game: GameModule,
+  level: Level = 'normal',
+) {
+  try {
+    return countItems(content, lesson, kind, level, rng, ctx, game.filterItem);
+  } catch {
+    return 0;
+  }
+}
+
+/** Contenu suffisant au niveau Normal, et au moins un exercice en Facile et en Plus loin. */
+const jouable = (lesson: Lesson, kind: ItemKind, rng: Rng, ctx: ProviderContext, game: GameModule) =>
+  compter(lesson, kind, rng, ctx, game) >= game.minItems &&
+  compter(lesson, kind, rng, ctx, game, 'facile') > 0 &&
+  compter(lesson, kind, rng, ctx, game, 'plus_loin') > 0;
+
 /** Jeux jouables pour une leçon : type d'item accepté (natif ou dérivé) ET contenu suffisant. */
 export function gamesForLesson(lesson: Lesson, ctx: ProviderContext): PlayableGame[] {
   const kinds = availableKinds(content, lesson, ctx);
@@ -33,7 +55,7 @@ export function gamesForLesson(lesson: Lesson, ctx: ProviderContext): PlayableGa
     // ordre de préférence = ordre de `accepts` ; on prend le premier type disponible et suffisant
     for (const kind of game.accepts) {
       if (!kinds.includes(kind)) continue;
-      if (countItems(content, lesson, kind, 'normal', rng, ctx, game.filterItem) < game.minItems) continue;
+      if (!jouable(lesson, kind, rng, ctx, game)) continue;
       out.push({ game, kind });
       break;
     }

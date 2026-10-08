@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { parseNumber } from '@/engine/answer';
 import type { GameModule } from '@/engine/GameModule';
+import { sansDessin } from '../_kit/dessin';
 
 const jeu: GameModule = {
   id: 'robot-calculateur',
@@ -20,8 +21,9 @@ const jeu: GameModule = {
   minItems: 1,
   // Seulement les réponses orales qui sont des nombres (pas la lecture de pseudo-mots ou l'anglais).
   filterItem: (it) =>
-    it.kind === 'numeric_answer' ||
-    (it.kind === 'oral_answer' && parseNumber(it.answer) !== null && !it.lang),
+    sansDessin(it) &&
+    (it.kind === 'numeric_answer' ||
+      (it.kind === 'oral_answer' && parseNumber(it.answer) !== null && !it.lang)),
   lessons: (l) => l.matiere === 'maths',
   component: lazy(() => import('./RobotCalculateur')),
 };

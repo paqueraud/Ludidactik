@@ -1,7 +1,54 @@
 /** Composants communs des mini-jeux (mise en page, choix, retour d'erreur bienveillant). */
 import { AnimatePresence, motion } from 'framer-motion';
-import { type ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Button, SpeakButton } from '@/components/ui';
+
+/** Côté minimal (px) d'une case de quadrillage ou de grille touchée du doigt. */
+export const CASE_TACTILE = 44;
+
+/**
+ * Quadrillage trop fin pour un petit écran (12 colonnes à 360 px = cases de 26 px) : on lui donne une
+ * largeur minimale (cases ≥ CASE_TACTILE) et il défile horizontalement DANS son cadre — jamais la page —
+ * avec un rappel « Fais glisser ». Sur grand écran, rien ne change.
+ */
+export function DefilementGrille({
+  largeurMin,
+  children,
+  className = '',
+}: {
+  largeurMin: number;
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [deborde, setDeborde] = useState(false);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const mesurer = () => setDeborde(el.scrollWidth > el.clientWidth + 2);
+    mesurer();
+    if (typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(mesurer);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [largeurMin]);
+  return (
+    <div className={`w-full min-w-0 ${className}`}>
+      <div
+        ref={ref}
+        className="w-full overflow-x-auto overscroll-x-contain"
+        data-defilement={deborde ? 'oui' : 'non'}
+      >
+        <div style={{ minWidth: Math.round(largeurMin) }}>{children}</div>
+      </div>
+      {deborde && (
+        <p className="mt-1 text-center text-sm font-bold text-ink-soft">
+          ↔ Fais glisser le quadrillage pour tout voir
+        </p>
+      )}
+    </div>
+  );
+}
 
 /** Mise en page standard : scène (illustration du jeu) + panneau de jeu. Empilés sur mobile. */
 export function GameLayout({

@@ -5,6 +5,7 @@
  */
 import type { ItemStream } from '@/content/provider';
 import type { Item } from '@/content/schemas';
+import { itemSuivant } from '../_kit/session';
 
 /**
  * Tire le prochain item qui convient (en évitant si possible ceux déjà vus récemment).
@@ -19,7 +20,8 @@ export function tirerItem<T>(
   const essais = Math.max(12, Math.min(80, (stream.size ?? 20) * 3));
   let secours: { item: Item; valeur: T } | null = null;
   for (let i = 0; i < essais; i++) {
-    const it = stream.next(cible);
+    const it = itemSuivant(stream, cible);
+    if (!it) break;
     const v = convertir(it);
     if (v === null) continue;
     if (!dejaVus || !dejaVus.has(it.id)) {

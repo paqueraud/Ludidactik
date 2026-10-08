@@ -33,6 +33,9 @@ const FLASH_MS = 3000;
 
 type Etat = 'lire' | 'ecoute' | 'repete' | 'pasCompris' | 'autoEval' | 'juste' | 'faux';
 
+/** Ce que lit le bouton 🔊 : la consigne, et les choix pour une question. */
+const aLireConsigne = (q: ALire) => (q.choix ? `${q.consigne} ${q.choix.join(', ')}.` : q.consigne);
+
 export default function PerroquetSavant({
   level,
   stream,
@@ -78,7 +81,7 @@ export default function PerroquetSavant({
     setCache(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q]);
-  useAutoSpeak(speech, q ? q.consigne : null, q, lectureAuto && !paused);
+  useAutoSpeak(speech, q ? aLireConsigne(q) : null, q, lectureAuto && !paused);
 
   // Plus loin : lecture flash, la carte se cache après 3 s (figé pendant la pause)
   useEffect(() => {
@@ -293,9 +296,33 @@ export default function PerroquetSavant({
 
       <section className="carte flex min-w-0 flex-1 flex-col items-center gap-4 p-4 sm:p-6">
         <div className="flex items-start justify-center gap-3">
-          <SpeakButton text={q.consigne} label="Écouter la consigne" />
-          <p className="text-center font-titre text-2xl font-extrabold">{q.consigne}</p>
+          <SpeakButton text={aLireConsigne(q)} label="Écouter la consigne" />
+          <p className="whitespace-pre-line text-center font-titre text-2xl font-extrabold">
+            {q.image && (
+              <span className="mr-2" aria-hidden>
+                {q.image}
+              </span>
+            )}
+            {q.consigne}
+          </p>
         </div>
+
+        {/* Question venue d'un QCM : les réponses possibles, à dire à voix haute */}
+        {q.choix && (
+          <div className="flex w-full flex-col items-center gap-2">
+            <p className="font-bold text-ink-soft">Dis la bonne réponse à voix haute&nbsp;:</p>
+            <ul className="flex flex-wrap justify-center gap-2" aria-label="Réponses possibles">
+              {q.choix.map((c) => (
+                <li
+                  key={c}
+                  className="rounded-2xl border-2 border-grass bg-cream px-4 py-2 text-center font-titre text-xl font-extrabold"
+                >
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* La carte à lire */}
         {q.motALire && (
@@ -331,7 +358,9 @@ export default function PerroquetSavant({
                 >
                   <Mic size={44} aria-hidden />
                 </motion.button>
-                <p className="text-sm font-bold text-ink-soft">Touche le micro (ou M) et lis à voix haute</p>
+                <p className="text-sm font-bold text-ink-soft">
+                  Touche le micro (ou M) et {q.choix ? 'réponds' : 'lis'} à voix haute
+                </p>
                 <Button variant="blanc" onClick={() => void jeLaiDit()} className="text-base">
                   Sans micro : je l’ai dit !
                 </Button>
@@ -347,9 +376,7 @@ export default function PerroquetSavant({
                   Je l’ai dit !
                 </Button>
                 <p className="max-w-sm text-center text-sm font-bold text-ink-soft">
-                  {microAutorise
-                    ? 'Lis bien fort, puis touche « Je l’ai dit ! » : le perroquet te dira le modèle.'
-                    : 'Lis à voix haute, puis touche « Je l’ai dit ! » : le perroquet te dira le modèle.'}
+                  {`${q.choix ? 'Réponds' : 'Lis'} ${microAutorise ? 'bien fort' : 'à voix haute'}, puis touche « Je l’ai dit ! » : le perroquet te dira ${q.choix ? 'la bonne réponse' : 'le modèle'}.`}
                 </p>
               </>
             )}
@@ -397,11 +424,11 @@ export default function PerroquetSavant({
             role="status"
           >
             <p className="font-titre text-xl font-extrabold">
-              Le perroquet dit : « {q.reponse} ». As-tu lu pareil&nbsp;?
+              Le perroquet dit : « {q.reponse} ». {q.choix ? 'As-tu dit pareil' : 'As-tu lu pareil'}&nbsp;?
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               <Button variant="grass" icon={<Check aria-hidden />} onClick={() => autoEvaluer(true)}>
-                J’ai bien lu
+                {q.choix ? 'J’ai bien répondu' : 'J’ai bien lu'}
               </Button>
               <Button variant="blanc" icon={<RotateCcw aria-hidden />} onClick={() => autoEvaluer(false)}>
                 {essais + 1 >= maxEssais ? 'Pas tout à fait' : 'Je réessaie'}
@@ -426,7 +453,7 @@ export default function PerroquetSavant({
           ouvert={etat === 'faux'}
           titre="Presque ! Écoute bien le perroquet."
           bonne={q.reponse}
-          aDire={`On lit : ${q.reponse}. ${q.item.explication}`}
+          aDire={`${q.choix ? 'La bonne réponse' : 'On lit'} : ${q.reponse}. ${q.item.explication}`}
           explication={q.item.explication}
           onContinuer={suivant}
         />

@@ -1,17 +1,18 @@
-/**
- * Test de fumée : le Mesureur dans le Labo. Les exemples partagés du Labo n'ont pas encore d'item
- * `meta.mesure` / `meta.balance` (exemples prêts dans src/games/_geometrie-commun/fixtures.ts) : état propre.
- */
+/** Test de fumée : le Mesureur dans le Labo. Premier exemple : mesurer le crayon (`meta.mesure`). */
 import { expect, test } from '@playwright/test';
-import { surveillerErreurs } from './_geometrie';
+import { REPONDU, surveillerErreurs } from './_geometrie';
 
 for (const niveau of ['facile', 'plus_loin']) {
-  test(`Mesureur (${niveau}) : état propre sans item adapté, aucune erreur`, async ({ page }) => {
+  test(`Mesureur (${niveau}) : mesurer un objet avec la règle`, async ({ page }) => {
     const erreurs = surveillerErreurs(page);
     await page.goto(`/labo/mesureur?niveau=${niveau}`);
-    await expect(page.getByText(/n’a pas de mesure/)).toBeVisible();
-    await page.getByRole('button', { name: 'Terminer' }).click();
-    await expect(page.getByTestId('labo-fin')).toBeVisible();
+    await expect(page.getByText('Mesure le crayon avec la règle.')).toBeVisible();
+    await page.getByRole('button', { name: 'Glisser la règle vers la gauche' }).click();
+    const pave = page.getByRole('group', { name: 'Pavé numérique' });
+    await pave.getByRole('button', { name: '1', exact: true }).click();
+    await pave.getByRole('button', { name: '2', exact: true }).click();
+    await pave.getByRole('button', { name: 'Valider' }).click();
+    await expect(page.getByText(REPONDU).first()).toBeVisible();
     expect(erreurs).toEqual([]);
   });
 }

@@ -12,4 +12,6 @@ export const estDevinette = (it: Item): boolean =>
   it.meta?.phrase === undefined &&
   it.meta?.texte === undefined &&
   it.meta?.graphique === undefined &&
-  it.meta?.lettres === undefined;
+  it.meta?.lettres === undefined &&
+  // français : seulement les vraies devinettes à indices (personnages mystères…), pas la grammaire
+  (!/^[A-Z0-9]+\.FR\./.test(it.lessonId) || (it.hints?.length ?? 0) >= 2);
