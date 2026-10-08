@@ -94,7 +94,7 @@ const EST: Serie = {
     ),
     ...ph(
       'et',
-      'Un chat ___ un chien.',
+      'Un chat ___ un chien jouent dans le jardin.',
       'Papa ___ maman chantent.',
       'Tom ___ Léa jouent au ballon.',
       'J’ai un chat ___ un chien.',

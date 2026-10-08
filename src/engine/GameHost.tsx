@@ -7,6 +7,7 @@ import { Pause, Play, RotateCcw, X } from 'lucide-react';
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Confetti } from '@/components/Confetti';
+import { PauseDouce } from '@/components/PauseDouce';
 import { Sky } from '@/components/Layout';
 import { Ludo } from '@/components/Ludo';
 import { Button, LudiCoin, SpeakButton, Stars } from '@/components/ui';
@@ -17,6 +18,7 @@ import { LEVELS, type Level } from '@/content/schemas';
 import { gamesForLesson, getGame } from '@/games/registry';
 import { useCurrentProfile } from '@/services/profiles';
 import { type SavedResult, dueItems, saveGameResult, updateLeitner } from '@/services/results';
+import { addPlayTime, useLimitStatus } from '@/services/screenTime';
 import { sfx } from '@/services/sfx';
 import { speech } from '@/services/speech';
 import { type ParentWordList, type RecordRow, db, progressKey } from '@/services/storage/db';
@@ -33,6 +35,8 @@ export function GameHost() {
   const navigate = useNavigate();
   const profile = useCurrentProfile();
   const lectureAutoSetting = useSettings((s) => s.lectureAuto);
+  const afficherPuberte = useSettings((s) => s.puberte);
+  const limite = useLimitStatus(profile);
   const lesson = getLesson(lessonId);
   const game = getGame(gameId);
   const level = (LEVELS as readonly string[]).includes(levelParam) ? (levelParam as Level) : 'normal';
@@ -66,7 +70,7 @@ export function GameHost() {
       const aRevoir = await dueItems(profile.id);
       const rec = (await db.records.get(progressKey(profile.id, lesson.id, game.id, level))) ?? null;
       if (cancelled) return;
-      setCtx({ parentLists: lists, aRevoir });
+      setCtx({ parentLists: lists, aRevoir, masquerPuberte: !afficherPuberte });
       setRecord(rec);
       setPhase((p) => (p === 'chargement' ? 'consigne' : p));
     })();
@@ -74,7 +78,7 @@ export function GameHost() {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile?.id, lesson?.id, game?.id, level, partie]);
+  }, [profile?.id, lesson?.id, game?.id, level, partie, afficherPuberte]);
 
   const kind = useMemo(
     () => (lesson && ctx ? gamesForLesson(lesson, ctx).find((g) => g.game.id === gameId)?.kind : undefined),
@@ -166,6 +170,40 @@ export function GameHost() {
   );
 
   const target = useCallback(() => adaptivity.current.target, []);
+
+  // Temps d'écran : on compte le temps de jeu réel (hors pause, hors onglet masqué).
+  const profileId = profile?.id;
+  const actif = phase === 'jeu' && !paused && !!profileId;
+  useEffect(() => {
+    if (!actif || !profileId) return;
+    let last = document.visibilityState === 'visible' ? Date.now() : null;
+    const flush = () => {
+      if (last === null) return;
+      const now = Date.now();
+      // plafond de sécurité (veille de l'appareil entre deux relevés)
+      void addPlayTime(profileId, Math.min(now - last, 60_000));
+      last = now;
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') last = Date.now();
+      else {
+        flush();
+        last = null;
+      }
+    };
+    const t = setInterval(flush, 15_000);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      clearInterval(t);
+      document.removeEventListener('visibilitychange', onVisibility);
+      flush();
+    };
+  }, [actif, profileId]);
+
+  // Limite atteinte : jamais de coupure en pleine partie, la pause douce s'affiche avant la suivante.
+  const limiteAtteinte = !!limite?.reached;
+  if (profile && limiteAtteinte && (phase === 'chargement' || phase === 'consigne'))
+    return <PauseDouce profile={profile} usedMs={limite?.usedMs ?? 0} onQuit={() => navigate('/')} />;
 
   if (!lesson || !game) {
     return (
@@ -279,6 +317,8 @@ export function GameHost() {
         <Bilan
           {...bilan}
           level={level}
+          limiteAtteinte={limiteAtteinte}
+          onPauseDouce={() => setPhase('consigne')}
           onReplay={() => {
             setBilan(null);
             setPartie((p) => p + 1);
@@ -316,17 +356,19 @@ export function GameHost() {
             >
               Reprendre
             </Button>
-            <Button
-              variant="sun"
-              icon={<RotateCcw aria-hidden />}
-              onClick={() => {
-                setPaused(false);
-                setPartie((p) => p + 1);
-                startGame();
-              }}
-            >
-              Recommencer
-            </Button>
+            {!limiteAtteinte && (
+              <Button
+                variant="sun"
+                icon={<RotateCcw aria-hidden />}
+                onClick={() => {
+                  setPaused(false);
+                  setPartie((p) => p + 1);
+                  startGame();
+                }}
+              >
+                Recommencer
+              </Button>
+            )}
             <Button variant="blanc" icon={<X aria-hidden />} onClick={() => navigate(backUrl)}>
               Quitter la partie
             </Button>
@@ -342,6 +384,8 @@ function Bilan({
   saved,
   erreurs,
   level,
+  limiteAtteinte,
+  onPauseDouce,
   onReplay,
   onNextLevel,
   onQuit,
@@ -350,6 +394,8 @@ function Bilan({
   saved: SavedResult;
   erreurs: AnswerEvent[];
   level: Level;
+  limiteAtteinte: boolean;
+  onPauseDouce(): void;
   onReplay(): void;
   onNextLevel?: () => void;
   onQuit(): void;
@@ -442,19 +488,28 @@ function Bilan({
           </ul>
         </div>
       )}
-      <div className="flex flex-wrap justify-center gap-3">
-        <Button variant="grass" size="lg" icon={<RotateCcw aria-hidden />} onClick={onReplay}>
-          Rejouer
-        </Button>
-        {onNextLevel && (
-          <Button variant="grape" size="lg" onClick={onNextLevel}>
-            {LEVEL_META[LEVELS[LEVELS.indexOf(level) + 1]!].icone} Niveau suivant ?
+      {limiteAtteinte ? (
+        <div className="flex flex-col items-center gap-3">
+          <p className="text-lg font-bold">Tu as bien joué aujourd’hui : c’était la dernière partie !</p>
+          <Button variant="grass" size="lg" onClick={onPauseDouce}>
+            Continuer
           </Button>
-        )}
-        <Button variant="blanc" size="lg" onClick={onQuit}>
-          Autres jeux
-        </Button>
-      </div>
+        </div>
+      ) : (
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button variant="grass" size="lg" icon={<RotateCcw aria-hidden />} onClick={onReplay}>
+            Rejouer
+          </Button>
+          {onNextLevel && (
+            <Button variant="grape" size="lg" onClick={onNextLevel}>
+              {LEVEL_META[LEVELS[LEVELS.indexOf(level) + 1]!].icone} Niveau suivant ?
+            </Button>
+          )}
+          <Button variant="blanc" size="lg" onClick={onQuit}>
+            Autres jeux
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

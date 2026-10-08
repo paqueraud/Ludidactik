@@ -1932,7 +1932,7 @@ const CAN_HAVE_GOT: Fiche = {
     {
       id: 'can',
       niv: 'f',
-      prompt: 'Simon says… montre ce que tu sais faire !',
+      prompt: 'Associe chaque action à son image.',
       relation: 'action → image',
       consigne: 'show me how you {mot}',
       pairs: [
@@ -2173,7 +2173,7 @@ const CULTURE: Fiche = {
     {
       id: 'londres',
       niv: 'n',
-      prompt: 'Écoute et touche le symbole de Londres.',
+      prompt: 'Écoute et touche le symbole de Londres et du Royaume-Uni.',
       relation: 'mot → image',
       consigne: 'point to {mot}',
       pairs: [
@@ -2184,7 +2184,7 @@ const CULTURE: Fiche = {
         ['the royal guard', '💂'],
         ['Big Ben', '🕰️'],
       ],
-      e: 'Le bus à deux étages, le taxi noir, la tasse de thé, le fish and chips, le garde royal et Big Ben sont des symboles de Londres.',
+      e: 'Le bus à deux étages, le taxi noir, la tasse de thé, le fish and chips, le garde royal et Big Ben sont des symboles de Londres et du Royaume-Uni.',
     },
   ],
   qcm: [

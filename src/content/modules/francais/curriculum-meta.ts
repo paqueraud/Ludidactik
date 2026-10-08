@@ -38,7 +38,7 @@ export const META: Record<string, MetaLecon> = {
   'CE1.FR.LEC.SC': {
     titre: 'Les lettres s, c, g qui changent de son (ç, ge, gu)',
     rappel:
-      'Entre deux voyelles, s fait [z] ; devant e, i, y, c fait [s] et g fait [j] ; ç, ge et gu gardent le bon son devant a, o, u.',
+      'Entre deux voyelles, s fait [z] ; devant e, i, y, c fait [s] et g fait « j » ; ç, ge et gu gardent le bon son devant a, o, u.',
     niveaux: {
       facile: 'deux sons, mots courants',
       normal: 'classement par analogie ; choisir ç, ge ou gu',
@@ -46,7 +46,7 @@ export const META: Record<string, MetaLecon> = {
     },
     boRef: `${BO_CE1} — Lecture : listes analogiques ça / glaçon / garçon (valeurs positionnelles de c, g, s)`,
     contenus:
-      's = [s] ou [z], c = [k] ou [s], g = [g] ou [ʒ] ; ç, ge, gu ; paires poisson / poison, dessert / désert.',
+      's = [s] ou [z], c = [k] ou [s], g = [g] ou « j » ; ç, ge, gu ; paires poisson / poison, dessert / désert.',
     generateur: 'francais/lecture-scg',
   },
   'CE1.FR.LEC.FLUENCE': {

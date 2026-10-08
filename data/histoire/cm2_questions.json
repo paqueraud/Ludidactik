@@ -54,13 +54,13 @@
    "type": "mcq",
    "question": "Quel texte est adopté le 26 août 1789 ?",
    "choix": [
-    "La Déclaration des droits de l'homme et du citoyen",
+    "La Déclaration des droits de l’homme et du citoyen",
     "Le Code civil",
-    "La loi de séparation des Églises et de l'État",
+    "La loi de séparation des Églises et de l’État",
     "Le traité de Rome"
    ],
    "bonne": 0,
-   "explication": "La Déclaration des droits de l'homme et du citoyen affirme que « les hommes naissent et demeurent libres et égaux en droits ».",
+   "explication": "La Déclaration des droits de l’homme et du citoyen affirme que « les hommes naissent et demeurent libres et égaux en droits ».",
    "guillotine": true
   },
   {
@@ -71,10 +71,10 @@
    "type": "mcq",
    "question": "Que se passe-t-il dans la nuit du 4 août 1789 ?",
    "choix": [
-    "L'abolition des privilèges",
+    "L’abolition des privilèges",
     "Le sacre de Napoléon",
     "La prise de la Bastille",
-    "L'exécution du roi"
+    "L’exécution du roi"
    ],
    "bonne": 0,
    "explication": "Dans la nuit du 4 août 1789, les députés abolissent les privilèges de la noblesse et du clergé.",
@@ -94,7 +94,7 @@
     "Soldats, marchands, artisans"
    ],
    "bonne": 0,
-   "explication": "La société d'Ancien Régime comprenait le clergé, la noblesse et le tiers état (la grande majorité de la population).",
+   "explication": "La société d’Ancien Régime comprenait le clergé, la noblesse et le tiers état (la grande majorité de la population).",
    "guillotine": true
   },
   {
@@ -179,7 +179,7 @@
     "Le serment de Versailles"
    ],
    "bonne": 0,
-   "explication": "Au Jeu de paume, ils jurent de ne pas se séparer avant d'avoir donné une Constitution à la France.",
+   "explication": "Au Jeu de paume, ils jurent de ne pas se séparer avant d’avoir donné une Constitution à la France.",
    "guillotine": true
   },
   {
@@ -218,7 +218,7 @@
    "programme": "2020",
    "niveau": "normal",
    "type": "mcq",
-   "question": "Comment s'appelle la femme qui symbolise la République ?",
+   "question": "Comment s’appelle la femme qui symbolise la République ?",
    "choix": [
     "Marianne",
     "Jeanne",
@@ -226,7 +226,7 @@
     "Marie-Antoinette"
    ],
    "bonne": 0,
-   "explication": "Marianne, coiffée d'un bonnet phrygien, symbolise la République.",
+   "explication": "Marianne, coiffée d’un bonnet phrygien, symbolise la République.",
    "guillotine": true
   },
   {
@@ -235,15 +235,15 @@
    "programme": "2020",
    "niveau": "normal",
    "type": "mcq",
-   "question": "Quel est le nom de l'hymne national français ?",
+   "question": "Quel est le nom de l’hymne national français ?",
    "choix": [
     "La Marseillaise",
     "La Carmagnole",
-    "L'Internationale",
+    "L’Internationale",
     "Le Chant du départ"
    ],
    "bonne": 0,
-   "explication": "La Marseillaise, composée en 1792 par Rouget de Lisle, est l'hymne national.",
+   "explication": "La Marseillaise, composée en 1792 par Rouget de Lisle, est l’hymne national.",
    "guillotine": true
   },
   {
@@ -286,13 +286,13 @@
    "programme": "2020",
    "niveau": "facile",
    "type": "mcq",
-   "question": "Qui a rendu l'école gratuite, laïque et obligatoire ?",
+   "question": "Qui a rendu l’école gratuite, laïque et obligatoire ?",
    "choix": [
     "Jules Ferry",
     "Napoléon"
    ],
    "bonne": 0,
-   "explication": "Les lois de Jules Ferry (1881-1882) rendent l'école primaire gratuite, laïque et obligatoire.",
+   "explication": "Les lois de Jules Ferry (1881-1882) rendent l’école primaire gratuite, laïque et obligatoire.",
    "guillotine": true
   },
   {
@@ -301,7 +301,7 @@
    "programme": "2020",
    "niveau": "normal",
    "type": "mcq",
-   "question": "Les lois Ferry rendent l'école…",
+   "question": "Les lois Ferry rendent l’école…",
    "choix": [
     "gratuite, laïque et obligatoire",
     "payante et facultative",
@@ -318,7 +318,7 @@
    "programme": "2020",
    "niveau": "normal",
    "type": "mcq",
-   "question": "En 1882, l'école devient obligatoire pour les enfants de…",
+   "question": "En 1882, l’école devient obligatoire pour les enfants de…",
    "choix": [
     "6 à 13 ans",
     "3 à 16 ans",
@@ -326,7 +326,7 @@
     "5 à 8 ans"
    ],
    "bonne": 0,
-   "explication": "L'instruction est obligatoire de 6 à 13 ans.",
+   "explication": "L’instruction est obligatoire de 6 à 13 ans.",
    "guillotine": true
   },
   {
@@ -335,15 +335,15 @@
    "programme": "2020",
    "niveau": "plus_loin",
    "type": "mcq",
-   "question": "Quel diplôme les élèves pouvaient-ils obtenir à la fin de l'école primaire ?",
+   "question": "Quel diplôme les élèves pouvaient-ils obtenir à la fin de l’école primaire ?",
    "choix": [
-    "Le certificat d'études",
+    "Le certificat d’études",
     "Le baccalauréat",
     "Le brevet des collèges",
     "La licence"
    ],
    "bonne": 0,
-   "explication": "Le certificat d'études primaires récompensait la fin de la scolarité primaire.",
+   "explication": "Le certificat d’études primaires récompensait la fin de la scolarité primaire.",
    "guillotine": true
   },
   {
@@ -371,13 +371,13 @@
    "type": "mcq",
    "question": "En 1848, la IIe République adopte le suffrage universel masculin et…",
    "choix": [
-    "l'abolition de l'esclavage",
+    "l’abolition de l’esclavage",
     "le droit de vote des femmes",
-    "l'euro",
-    "l'école obligatoire"
+    "l’euro",
+    "l’école obligatoire"
    ],
    "bonne": 0,
-   "explication": "L'esclavage est aboli définitivement en 1848, grâce notamment à Victor Schœlcher.",
+   "explication": "L’esclavage est aboli définitivement en 1848, grâce notamment à Victor Schœlcher.",
    "guillotine": false
   },
   {
@@ -388,13 +388,13 @@
    "type": "mcq",
    "question": "Que dit la loi de 1905 ?",
    "choix": [
-    "Les Églises et l'État sont séparés",
+    "Les Églises et l’État sont séparés",
     "Le roi revient au pouvoir",
-    "L'école devient payante",
+    "L’école devient payante",
     "Les femmes peuvent voter"
    ],
    "bonne": 0,
-   "explication": "La loi de 1905 sépare les Églises et l'État : c'est un pilier de la laïcité.",
+   "explication": "La loi de 1905 sépare les Églises et l’État : c’est un pilier de la laïcité.",
    "guillotine": true
   },
   {
@@ -443,7 +443,7 @@
     "Le soleil"
    ],
    "bonne": 0,
-   "explication": "Le charbon chauffe l'eau, qui produit la vapeur qui fait tourner les machines.",
+   "explication": "Le charbon chauffe l’eau, qui produit la vapeur qui fait tourner les machines.",
    "guillotine": true
   },
   {
@@ -455,7 +455,7 @@
    "question": "Quel moyen de transport se développe au XIXe siècle grâce à la machine à vapeur ?",
    "choix": [
     "Le train",
-    "L'avion",
+    "L’avion",
     "La trottinette",
     "La fusée"
    ],
@@ -511,7 +511,7 @@
     "Seulement pendant les vacances"
    ],
    "bonne": 0,
-   "explication": "Beaucoup d'enfants travaillaient dans les mines et les usines ; des lois ont peu à peu limité ce travail.",
+   "explication": "Beaucoup d’enfants travaillaient dans les mines et les usines ; des lois ont peu à peu limité ce travail.",
    "guillotine": false
   },
   {
@@ -525,7 +525,7 @@
     "Arrêter le travail pour réclamer de meilleures conditions",
     "Ne jamais travailler",
     "Choisir son roi",
-    "Ne pas aller à l'école"
+    "Ne pas aller à l’école"
    ],
    "bonne": 0,
    "explication": "La grève est un arrêt collectif du travail pour défendre des revendications.",
@@ -539,13 +539,13 @@
    "type": "mcq",
    "question": "Comment appelle-t-on le départ des habitants des campagnes vers les villes ?",
    "choix": [
-    "L'exode rural",
+    "L’exode rural",
     "Le tourisme",
     "La colonisation",
     "La migration des oiseaux"
    ],
    "bonne": 0,
-   "explication": "Avec l'industrie, beaucoup de paysans partent travailler en ville : c'est l'exode rural.",
+   "explication": "Avec l’industrie, beaucoup de paysans partent travailler en ville : c’est l’exode rural.",
    "guillotine": true
   },
   {
@@ -586,7 +586,7 @@
    "programme": "2020",
    "niveau": "normal",
    "type": "mcq",
-   "question": "Quel jour est signé l'armistice de la Première Guerre mondiale ?",
+   "question": "Quel jour est signé l’armistice de la Première Guerre mondiale ?",
    "choix": [
     "11 novembre 1918",
     "14 juillet 1918",
@@ -594,7 +594,7 @@
     "6 juin 1944"
    ],
    "bonne": 0,
-   "explication": "L'armistice est signé le 11 novembre 1918 ; ce jour est commémoré chaque année.",
+   "explication": "L’armistice est signé le 11 novembre 1918 ; ce jour est commémoré chaque année.",
    "guillotine": false
   },
   {
@@ -603,7 +603,7 @@
    "programme": "2020",
    "niveau": "normal",
    "type": "mcq",
-   "question": "Qui lance l'appel du 18 juin 1940 à la radio de Londres ?",
+   "question": "Qui lance l’appel du 18 juin 1940 à la radio de Londres ?",
    "choix": [
     "Le général de Gaulle",
     "Napoléon",
@@ -662,7 +662,7 @@
     "18 juin 1940"
    ],
    "bonne": 0,
-   "explication": "L'Allemagne nazie capitule le 8 mai 1945.",
+   "explication": "L’Allemagne nazie capitule le 8 mai 1945.",
    "guillotine": false
   },
   {
@@ -690,7 +690,7 @@
    "type": "mcq",
    "question": "Quelle monnaie utilise-t-on en France depuis 2002 ?",
    "choix": [
-    "L'euro",
+    "L’euro",
     "Le franc",
     "Le dollar",
     "La livre"
@@ -705,15 +705,15 @@
    "programme": "2020",
    "niveau": "plus_loin",
    "type": "mcq",
-   "question": "Lequel de ces pays n'est PAS un des 6 pays fondateurs ?",
+   "question": "Lequel de ces pays n’est PAS un des 6 pays fondateurs ?",
    "choix": [
-    "L'Espagne",
-    "L'Italie",
+    "L’Espagne",
+    "L’Italie",
     "La Belgique",
     "Le Luxembourg"
    ],
    "bonne": 0,
-   "explication": "Les 6 fondateurs : France, Allemagne (RFA), Italie, Belgique, Pays-Bas, Luxembourg. L'Espagne entre en 1986.",
+   "explication": "Les 6 fondateurs : France, Allemagne (RFA), Italie, Belgique, Pays-Bas, Luxembourg. L’Espagne entre en 1986.",
    "guillotine": true
   },
   {
@@ -722,7 +722,7 @@
    "programme": "2026",
    "niveau": "facile",
    "type": "mcq",
-   "question": "Comment s'appelle l'empereur des Français sacré en 1804 ?",
+   "question": "Comment s’appelle l’empereur des Français sacré en 1804 ?",
    "choix": [
     "Napoléon Ier",
     "Louis XIV"
@@ -740,7 +740,7 @@
    "question": "Quel recueil de lois, publié en 1804, Napoléon Bonaparte fait-il rédiger ?",
    "choix": [
     "Le Code civil",
-    "La Déclaration des droits de l'homme",
+    "La Déclaration des droits de l’homme",
     "Les lois Ferry",
     "Le Code de la route"
    ],
@@ -754,7 +754,7 @@
    "programme": "2026",
    "niveau": "normal",
    "type": "mcq",
-   "question": "En quelle année l'esclavage est-il aboli pour la première fois dans les colonies françaises ?",
+   "question": "En quelle année l’esclavage est-il aboli pour la première fois dans les colonies françaises ?",
    "choix": [
     "1794",
     "1848",
@@ -776,7 +776,7 @@
     "La Marseillaise",
     "Frère Jacques",
     "Au clair de la lune",
-    "L'Internationale"
+    "L’Internationale"
    ],
    "bonne": 0,
    "explication": "La Marseillaise est composée par Rouget de Lisle en avril 1792.",
@@ -810,10 +810,10 @@
     "Le préfet",
     "Le maire",
     "Le seigneur",
-    "L'intendant"
+    "L’intendant"
    ],
    "bonne": 0,
-   "explication": "Le préfet, créé en 1800, représente l'État dans chaque département.",
+   "explication": "Le préfet, créé en 1800, représente l’État dans chaque département.",
    "guillotine": true
   },
   {

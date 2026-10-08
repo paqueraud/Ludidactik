@@ -892,7 +892,7 @@ const HARCELEMENT: Fiche = {
       niv: 'f',
       s: 'Se moquer d’un camarade tous les jours, c’est juste un jeu.',
       v: false,
-      e: 'C’est du harcèlement, et cela fait souffrir.',
+      e: 'C’est du harcèlement, et cela fait souffrir. Si tu le vis ou si tu le vois, parles-en à un adulte (numéro gratuit : 3018).',
     },
     {
       id: 'cyber',
@@ -1086,7 +1086,7 @@ const NUMERIQUE: Fiche = {
       niv: 'f',
       s: 'Je peux donner mon mot de passe à mes amis.',
       v: false,
-      e: 'Un mot de passe reste secret.',
+      e: 'Un mot de passe reste secret : on peut seulement le confier à ses parents.',
     },
     {
       id: 'tout-vrai',

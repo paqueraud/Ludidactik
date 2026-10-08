@@ -75,8 +75,8 @@
     "kind": "generator",
     "generator": "francais/lecture-scg"
    },
-   "rappel": "Entre deux voyelles, s fait [z] ; devant e, i, y, c fait [s] et g fait [j] ; ç, ge et gu gardent le bon son devant a, o, u.",
-   "contenus": "s = [s] ou [z], c = [k] ou [s], g = [g] ou [ʒ] ; ç, ge, gu ; paires poisson / poison, dessert / désert."
+   "rappel": "Entre deux voyelles, s fait [z] ; devant e, i, y, c fait [s] et g fait « j » ; ç, ge et gu gardent le bon son devant a, o, u.",
+   "contenus": "s = [s] ou [z], c = [k] ou [s], g = [g] ou « j » ; ç, ge, gu ; paires poisson / poison, dessert / désert."
   },
   {
    "id": "CE1.FR.LEC.FLUENCE",
@@ -584,7 +584,7 @@
    "domaine": "Grammaire & orthographe grammaticale",
    "titre": "a ou à ? et ou est ? son ou sont ? on ou ont ?",
    "programme": "2024",
-   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : orthographe grammaticale, relation sujet-verbe, être et avoir au présent (les homophones ne sont pas nommés par le programme)",
+   "boRef": "BO n°41 du 31/10/2024 — Français, cycle 2, CE1 : orthographe grammaticale — identifier la relation sujet-verbe, conjuguer être et avoir au présent (a / à, est / et, sont / son, ont / on)",
    "periodes": [
     1,
     2,
@@ -1437,7 +1437,7 @@
    "niveaux": {
     "facile": "1/2, 1/4",
     "normal": "dénom. 2-10",
-    "plus_loin": "fraction d'une collection"
+    "plus_loin": "fraction d’une collection"
    },
    "itemKinds": [
     "visual_fraction",
@@ -1579,7 +1579,7 @@
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Tables d'addition",
+   "titre": "Tables d’addition",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1592,12 +1592,10 @@
    "niveaux": {
     "facile": "≤ 10",
     "normal": "égalités à trous (4 + … = 12) — 12 en 1 min",
-    "plus_loin": "≤ 20 rapides"
+    "plus_loin": "résultats de 11 à 18 et trois nombres (≤ 20), plus vite"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1618,7 +1616,7 @@
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Compléments à 10, 100, dizaine sup.",
+   "titre": "Les compléments à 10, à 100 et à la dizaine",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1634,9 +1632,7 @@
     "plus_loin": "à 1 000 avec retenues"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1650,14 +1646,15 @@
     "kind": "generator",
     "generator": "ce1.ma.cm.complements"
    },
-   "rappel": "Le complément, c’est ce qu’il manque pour arriver au nombre rond : 7 + 3 = 10 et 60 + 40 = 100."
+   "rappel": "Le complément, c’est ce qu’il manque pour arriver au nombre rond : 7 + 3 = 10 et 60 + 40 = 100.",
+   "contenus": "Compléments à 10, 100, 1 000 et à la dizaine supérieure (procédures BO)."
   },
   {
    "id": "CE1.MA.CM.DOUBLES_MOITIES",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Doubles et moitiés (liste BO ci-dessus) + multiples de 25",
+   "titre": "Les doubles et les moitiés",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1669,13 +1666,11 @@
    ],
    "niveaux": {
     "facile": "≤ 10",
-    "normal": "liste BO",
-    "plus_loin": "moitié de 470 par décomposition"
+    "normal": "liste du BO et moitié par décomposition (moitié de 470)",
+    "plus_loin": "moitié d’un nombre pair à 3 chiffres (974), double d’un nombre à 2 chiffres"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1689,14 +1684,15 @@
     "kind": "generator",
     "generator": "ce1.ma.cm.doubles_moities"
    },
-   "rappel": "Le double, c’est 2 fois le nombre ; la moitié, c’est partager en 2 parts égales."
+   "rappel": "Le double, c’est 2 fois le nombre ; la moitié, c’est partager en 2 parts égales.",
+   "contenus": "Doubles de 1 à 15, de 20 à 50 (de 5 en 5), de 100, 150, 200, 250, 300, 500 ; moitiés des nombres pairs de 2 à 30, des dizaines de 40 à 100, des centaines de 200 à 600 et de 1 000 ; 1 × 25 à 4 × 25 ; moitié d’un nombre pair par décomposition (470)."
   },
   {
    "id": "CE1.MA.CM.TABLES_MULT",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Tables de multiplication (étalées sur l'année : ×2, ×5, ×10, ×3, ×4 puis ×6-×9)",
+   "titre": "Les tables de multiplication",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1712,9 +1708,7 @@
     "plus_loin": "toutes + inverses"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1728,14 +1722,15 @@
     "kind": "generator",
     "generator": "ce1.ma.cm.tables_mult"
    },
-   "rappel": "4 × 3, c’est 4 fois 3 : 3 + 3 + 3 + 3 = 12. Et 3 × 4 donne le même résultat !"
+   "rappel": "4 × 3, c’est 4 fois 3 : 3 + 3 + 3 + 3 = 12. Et 3 × 4 donne le même résultat !",
+   "contenus": "Tables étalées sur l’année : ×2, ×5, ×10, ×3, ×4 puis ×6 à ×9 (8 égalités en 1 min en fin de CE1)."
   },
   {
    "id": "CE1.MA.CM.DIZ_CENT",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Ajouter/soustraire des dizaines et centaines (234+60 ; 765−200 ; 746+80)",
+   "titre": "Ajouter ou enlever des dizaines et des centaines",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1751,9 +1746,7 @@
     "plus_loin": "2 étapes"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1767,14 +1760,15 @@
     "kind": "generator",
     "generator": "ce1.ma.cm.diz_cent"
    },
-   "rappel": "Pour ajouter des dizaines, je compte les dizaines : 234 + 60 → 3 dizaines + 6 dizaines = 9 dizaines, donc 294."
+   "rappel": "Pour ajouter des dizaines, je compte les dizaines : 234 + 60 → 3 dizaines + 6 dizaines = 9 dizaines, donc 294.",
+   "contenus": "Exemples du BO : 234 + 60 ; 765 − 200 ; 746 + 80."
   },
   {
    "id": "CE1.MA.CM.X10",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Multiplier par 10 (glisse-nombres)",
+   "titre": "Multiplier par 10",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1800,14 +1794,15 @@
     "kind": "generator",
     "generator": "ce1.ma.cm.x10"
    },
-   "rappel": "Multiplier par 10, c’est transformer les unités en dizaines : 23 × 10 = 230."
+   "rappel": "Multiplier par 10, c’est transformer les unités en dizaines : 23 × 10 = 230.",
+   "contenus": "Glisse-nombres : chaque unité devient une dizaine."
   },
   {
    "id": "CE1.MA.CM.PLUS9",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "+9, +19, +29 (ajouter 10/20/30 puis −1) ; −9",
+   "titre": "Ajouter ou enlever 9, 19, 29",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1823,9 +1818,7 @@
     "plus_loin": "+99"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1839,14 +1832,15 @@
     "kind": "generator",
     "generator": "ce1.ma.cm.plus9"
    },
-   "rappel": "Ajouter 9, c’est ajouter 10 puis enlever 1 : 47 + 9 → 57 − 1 = 56."
+   "rappel": "Ajouter 9, c’est ajouter 10 puis enlever 1 : 47 + 9 → 57 − 1 = 56.",
+   "contenus": "+ 9 = + 10 puis − 1 ; + 19, + 29 ; − 9 = − 10 puis + 1."
   },
   {
    "id": "CE1.MA.CM.MOINS_PETIT",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "Soustraire < 9 avec passage de dizaine (523 − 7 = 516)",
+   "titre": "Enlever un petit nombre en passant la dizaine",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1862,9 +1856,7 @@
     "plus_loin": "−11, −12"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1878,14 +1870,15 @@
     "kind": "generator",
     "generator": "ce1.ma.cm.moins_petit"
    },
-   "rappel": "Pour 523 − 7, je descends d’abord à la dizaine : 523 − 3 = 520, puis 520 − 4 = 516."
+   "rappel": "Pour 523 − 7, je descends d’abord à la dizaine : 523 − 3 = 520, puis 520 − 4 = 516.",
+   "contenus": "Soustraire un nombre inférieur à 10 avec passage de la dizaine (523 − 7 = 516)."
   },
   {
    "id": "CE1.MA.CM.DISTRIB",
    "classe": "CE1",
    "matiere": "maths",
    "domaine": "Calcul mental",
-   "titre": "13 × 7 = 10×7 + 3×7 (11-19 × un chiffre)",
+   "titre": "Multiplier 13 × 7 en coupant le nombre",
    "programme": "2024",
    "boRef": "BO n°41 du 31/10/2024 — Programme de mathématiques du cycle 2 — Calcul mental (procédures BO)",
    "periodes": [
@@ -1901,9 +1894,7 @@
     "plus_loin": "21-29 × < 10"
    },
    "itemKinds": [
-    "numeric_answer",
-    "oral_answer",
-    "true_false"
+    "numeric_answer"
    ],
    "jeuxSuggeres": [
     "grand-prix",
@@ -1917,7 +1908,8 @@
     "kind": "generator",
     "generator": "ce1.ma.cm.distrib"
    },
-   "rappel": "Pour 13 × 7, je calcule 10 × 7 = 70 et 3 × 7 = 21, puis j’ajoute : 70 + 21 = 91."
+   "rappel": "Pour 13 × 7, je calcule 10 × 7 = 70 et 3 × 7 = 21, puis j’ajoute : 70 + 21 = 91.",
+   "contenus": "13 × 7 = 10 × 7 + 3 × 7 (nombres de 11 à 19 × un chiffre)."
   },
   {
    "id": "CE1.MA.CP.ADD",
@@ -2413,7 +2405,9 @@
     "geometry_shape",
     "mcq",
     "ordering",
-    "numeric_answer"
+    "numeric_answer",
+    "true_false",
+    "pairing"
    ],
    "jeuxSuggeres": [
     "geometre",
@@ -2647,7 +2641,7 @@
    "niveaux": {
     "facile": "3 images",
     "normal": "frise familiale",
-    "plus_loin": "frise d'objets d'autrefois"
+    "plus_loin": "frise d’objets d’autrefois"
    },
    "itemKinds": [
     "mcq",
@@ -2686,7 +2680,7 @@
     5
    ],
    "niveaux": {
-    "facile": "aujourd'hui/autrefois",
+    "facile": "aujourd’hui/autrefois",
     "normal": "trier par époque",
     "plus_loin": "dater approximativement"
    },
@@ -2708,13 +2702,13 @@
     "generator": "monde-ce1/temps-autrefois"
    },
    "rappel": "Autrefois, il n’y avait pas d’électricité partout, ni voiture, ni téléphone portable : les objets changent avec le temps.",
-   "contenus": "Évolution des modes de vie (école, transports, maison, objets d'autrefois)"
+   "contenus": "Évolution des modes de vie (école, transports, maison, objets d’autrefois)"
   },
   {
    "id": "CE1.QLM.ESPACE.PLANS",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
-   "domaine": "L'espace",
+   "domaine": "L’espace",
    "titre": "Se repérer : gauche, droite et plans",
    "programme": "2020",
    "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans l’espace",
@@ -2752,7 +2746,7 @@
    "id": "CE1.QLM.ESPACE.MONDE",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
-   "domaine": "L'espace",
+   "domaine": "L’espace",
    "titre": "Le globe : continents, océans et la France",
    "programme": "2020",
    "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans l’espace",
@@ -2791,7 +2785,7 @@
    "id": "CE1.QLM.ESPACE.PAYSAGES",
    "classe": "CE1",
    "matiere": "questionner_le_monde",
-   "domaine": "L'espace",
+   "domaine": "L’espace",
    "titre": "Les paysages : ville, campagne, montagne, littoral",
    "programme": "2020",
    "boRef": "BO n°31 du 30/07/2020 — Programme consolidé du cycle 2 — Questionner le monde (programme 2020, en vigueur au CE1 en 2026-2027) : se situer dans l’espace",
@@ -2963,7 +2957,7 @@
    ],
    "niveaux": {
     "facile": "bons/mauvais gestes",
-    "normal": "familles d'aliments",
+    "normal": "familles d’aliments",
     "plus_loin": "squelette, articulations"
    },
    "itemKinds": [
@@ -3024,7 +3018,7 @@
     "generator": "monde-ce1/matiere-eau"
    },
    "rappel": "L’eau peut être solide (la glace), liquide ou gazeuse (la vapeur) : la glace fond quand il fait chaud, l’eau gèle quand il fait très froid.",
-   "contenus": "États de l'eau (solide/liquide/gazeux), changements d'état"
+   "contenus": "États de l’eau (solide/liquide/gazeux), changements d’état"
   },
   {
    "id": "CE1.QLM.OBJETS.ELEC",
@@ -3112,7 +3106,7 @@
    "domaine": "Vivre ensemble",
    "titre": "Les règles de vie de la classe",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -3142,7 +3136,7 @@
     "generator": "monde-ce1/emc-regles"
    },
    "rappel": "Les règles nous permettent de bien vivre ensemble : j’ai des droits, et aussi des devoirs.",
-   "contenus": "Règles de vie, droits & devoirs à l'école — situations, choix respectueux"
+   "contenus": "Règles de vie, droits & devoirs à l’école — situations, choix respectueux"
   },
   {
    "id": "CE1.EMC.EMOTIONS",
@@ -3151,7 +3145,7 @@
    "domaine": "Vivre ensemble",
    "titre": "Mes émotions",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -3191,7 +3185,7 @@
    "domaine": "Vivre ensemble",
    "titre": "Les symboles de la République",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -3230,7 +3224,7 @@
    "domaine": "Vivre ensemble",
    "titre": "Respecter les autres",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -3260,7 +3254,7 @@
     "generator": "monde-ce1/emc-respect"
    },
    "rappel": "Si quelqu’un m’embête, je dis « stop » et j’en parle à un adulte de confiance. Les filles et les garçons ont les mêmes droits.",
-   "contenus": "Respect d'autrui, harcèlement (dire stop, en parler à un adulte), égalité filles-garçons — Conseil de la classe"
+   "contenus": "Respect d’autrui, harcèlement (dire stop, en parler à un adulte), égalité filles-garçons — Conseil de la classe"
   },
   {
    "id": "CE1.EMC.ENVIRONNEMENT",
@@ -3269,7 +3263,7 @@
    "domaine": "Vivre ensemble",
    "titre": "Protéger la planète : trier ses déchets",
    "programme": "en_vigueur",
-   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, ou refonte publiée en 2024 : version en vigueur à confirmer)",
+   "boRef": "Programme d’enseignement moral et civique du cycle 2 (programme de 2018, BO n°30 du 26/07/2018, consolidé au BO n°31 du 30/07/2020)",
    "periodes": [
     1,
     2,
@@ -3308,7 +3302,7 @@
    "domaine": "Anglais",
    "titre": "Hello! Saluer et se présenter",
    "programme": "en_vigueur",
-   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -3347,7 +3341,7 @@
    "domaine": "Anglais",
    "titre": "Numbers : compter de 1 à 20",
    "programme": "en_vigueur",
-   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -3386,7 +3380,7 @@
    "domaine": "Anglais",
    "titre": "Colours : les couleurs",
    "programme": "en_vigueur",
-   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -3397,7 +3391,7 @@
    "niveaux": {
     "facile": "5",
     "normal": "10",
-    "plus_loin": "phrases (It's red)"
+    "plus_loin": "phrases (It’s red)"
    },
    "itemKinds": [
     "mcq",
@@ -3425,7 +3419,7 @@
    "domaine": "Anglais",
    "titre": "Animals : les animaux",
    "programme": "en_vigueur",
-   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -3436,7 +3430,7 @@
    "niveaux": {
     "facile": "6",
     "normal": "15",
-    "plus_loin": "I like… / I don't like…"
+    "plus_loin": "I like… / I don’t like…"
    },
    "itemKinds": [
     "mcq",
@@ -3464,7 +3458,7 @@
    "domaine": "Anglais",
    "titre": "Simon says : les parties du corps",
    "programme": "en_vigueur",
-   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -3503,7 +3497,7 @@
    "domaine": "Anglais",
    "titre": "Jours, mois et météo",
    "programme": "en_vigueur",
-   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,
@@ -3542,7 +3536,7 @@
    "domaine": "Anglais",
    "titre": "La famille, les vêtements, la nourriture",
    "programme": "en_vigueur",
-   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme BO n°12 du 19/03/2026 : date d’application à confirmer)",
+   "boRef": "Langues vivantes cycle 2 — attendus de fin de CE1 (programme de langues vivantes BO n°12 du 19/03/2026)",
    "periodes": [
     1,
     2,

@@ -1615,7 +1615,7 @@ const ENV_PAIRES: Record<Level, Appariement[]> = (() => {
       { l: 'trier ses déchets', r: '♻️', n },
       { l: 'venir à vélo', r: '🚲', n },
       { l: 'planter un arbre', r: '🌳', n },
-      { l: 'ramasser les déchets', r: '🗑️', n },
+      { l: 'ramasser les déchets', r: '🧤', n },
       { l: 'faire un compost', r: '🪱', n },
     ],
     ex: 'Ces gestes économisent l’eau et l’énergie et réduisent les déchets.',

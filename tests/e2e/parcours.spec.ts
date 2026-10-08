@@ -111,7 +111,7 @@ test.describe('parcours principal', () => {
   test('Guillotine CM2 : on joue jusqu’au verdict', async ({ page }) => {
     test.setTimeout(120_000);
     await creerProfil(page, 'Nour', 'CM2');
-    await ouvrirJeu(page, 'CM2', /Histoire/, /Rappel CM1/, /La Guillotine/, /^Normal/);
+    await ouvrirJeu(page, 'CM2', /Histoire/, /Rappel du CM1/, /La Guillotine/, /^Normal/);
     for (let i = 0; i < 40; i++) {
       if (await page.getByRole('button', { name: 'Rejouer' }).isVisible()) break;
       const cont = page.getByRole('button', { name: 'Continuer' });

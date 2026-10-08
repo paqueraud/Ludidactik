@@ -243,7 +243,7 @@ const GRAPHIES: [string, string, 'f' | 'n' | 'p'][] = [
   ['gn', '[gn]', 'n'],
   ['ê', '[è]', 'n'],
   ['et (à la fin de « jouet »)', '[è]', 'p'],
-  ['ge (dans « pigeon »)', '[j]', 'p'],
+  ['ge (dans « pigeon »)', '« j »', 'p'],
   ['gu (dans « guitare »)', '[g]', 'p'],
   ['s (dans « rose »)', '[z]', 'p'],
   ['c (dans « citron »)', '[s]', 'p'],
@@ -379,12 +379,12 @@ type Lettre = 's' | 'c' | 'g';
 const VALEURS: Record<Lettre, [string, string]> = {
   s: ['« s » fait [s] comme dans « sac »', '« s » fait [z] comme dans « rose »'],
   c: ['« c » fait [k] comme dans « car »', '« c » ou « ç » fait [s] comme dans « ciel »'],
-  g: ['« g » fait [g] comme dans « gomme »', '« g » fait [j] comme dans « girafe »'],
+  g: ['« g » fait [g] comme dans « gomme »', '« g » fait « j » comme dans « girafe »'],
 };
 const REGLES: Record<Lettre, string> = {
   s: 'Entre deux voyelles, un seul « s » chante [z] (rose) ; « ss » ou « s » au début du mot fait [s] (poisson, sac).',
   c: 'Devant e, i, y, le « c » fait [s] (ciel) ; devant a, o, u, il fait [k] (car), sauf avec une cédille : ç (garçon).',
-  g: 'Devant e, i, y, le « g » fait [j] (girafe) ; devant a, o, u, il fait [g] (gomme). Avec « gu », on entend [g] (guitare).',
+  g: 'Devant e, i, y, le « g » fait « j » (girafe) ; devant a, o, u, il fait [g] (gomme). Avec « gu », on entend [g] (guitare).',
 };
 
 /** [mot, index de la valeur (0 ou 1), niveau minimal]. Aucun mot ne mélange les deux valeurs. */
@@ -512,12 +512,12 @@ const CHOIX_SCG: Record<'c' | 'ge' | 'gu', [string[], string[], string]> = {
   ge: [
     ['g', 'ge'],
     ['g', 'ge', 'j'],
-    'Devant a, o, u, le « g » fait [g] : pour entendre [j], j’ajoute un « e » (ge).',
+    'Devant a, o, u, le « g » fait [g] : pour entendre « j », j’ajoute un « e » (ge).',
   ],
   gu: [
     ['g', 'gu'],
     ['g', 'gu', 'j'],
-    'Devant e, i, le « g » fait [j] : pour entendre [g], j’ajoute un « u » (gu).',
+    'Devant e, i, le « g » fait « j » : pour entendre [g], j’ajoute un « u » (gu).',
   ],
 };
 
@@ -530,7 +530,7 @@ function genTrouScg(level: Level, rng: Rng, ctx: GenContext): Item {
     rep === 'c'
       ? `devant « ${suite} », le « c » fait déjà ${/[eiy]/.test(suite) ? '[s]' : '[k]'} : pas de cédille`
       : rep === 'g' && fam === 'ge'
-        ? `devant « ${suite} », le « g » fait déjà [j] : pas besoin d’ajouter « e »`
+        ? `devant « ${suite} », le « g » fait déjà « j » : pas besoin d’ajouter « e »`
         : rep === 'g'
           ? `devant « ${suite} », le « g » fait déjà [g] : pas besoin d’ajouter « u »`
           : null;
@@ -549,7 +549,7 @@ function genTrouScg(level: Level, rng: Rng, ctx: GenContext): Item {
 const LIRE_SCG: [string, string, 'f' | 'n' | 'p'][] = [
   ['rose', 'Entre deux voyelles, un seul « s » fait [z] : rose.', 'f'],
   ['glace', 'Devant « e », le « c » fait [s] : glace.', 'f'],
-  ['girafe', 'Devant « i », le « g » fait [j] : girafe.', 'f'],
+  ['girafe', 'Devant « i », le « g » fait « j » : girafe.', 'f'],
   ['garçon', 'La cédille fait chanter le « c » [s] devant « o » : garçon.', 'f'],
   ['poisson', 'Avec deux « s », on entend [s] : poisson.', 'n'],
   ['poison', 'Un seul « s » entre deux voyelles fait [z] : poison.', 'n'],
@@ -558,9 +558,9 @@ const LIRE_SCG: [string, string, 'f' | 'n' | 'p'][] = [
   ['coussin', 'Avec deux « s », on entend [s] : coussin.', 'n'],
   ['cousin', 'Un seul « s » entre deux voyelles fait [z] : cousin.', 'n'],
   ['guitare', 'Avec « gu », on entend [g] : guitare.', 'n'],
-  ['pigeon', 'Avec « ge » devant « o », on entend [j] : pigeon.', 'n'],
-  ['nageoire', 'Avec « ge » devant « oi », on entend [j] : na-geoire.', 'p'],
-  ['bourgeon', 'Avec « ge » devant « on », on entend [j] : bour-geon.', 'p'],
+  ['pigeon', 'Avec « ge » devant « o », on entend « j » : pigeon.', 'n'],
+  ['nageoire', 'Avec « ge » devant « oi », on entend « j » : na-geoire.', 'p'],
+  ['bourgeon', 'Avec « ge » devant « on », on entend « j » : bour-geon.', 'p'],
   ['guirlande', 'Avec « gu », on entend [g] : guir-lande.', 'p'],
   ['balançoire', 'La cédille fait chanter le « c » [s] : ba-lan-çoire.', 'p'],
 ];

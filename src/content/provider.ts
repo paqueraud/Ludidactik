@@ -18,7 +18,12 @@ export interface ProviderContext {
   parentLists: ParentWordList[];
   /** Clés d'items à revoir en priorité (Leitner). */
   aRevoir?: Set<string>;
+  /** Réglage parent : masquer les items sur la puberté (`meta.puberte`). */
+  masquerPuberte?: boolean;
 }
+
+/** Item autorisé par les réglages parents (filtre « puberté »). */
+const autorise = (ctx: ProviderContext) => (it: Item) => !(ctx.masquerPuberte && it.meta?.puberte === true);
 
 /** Flux d'items : infini (générateur) ou cyclique (liste). */
 export interface ItemStream {
@@ -176,7 +181,7 @@ function nativeSource(
         for (let i = 0; i < 8; i++) {
           const cand = gen(level, rng, gctx);
           const key = itemKey(cand);
-          if (recent.includes(key)) continue;
+          if (recent.includes(key) || !autorise(ctx)(cand)) continue;
           const d = (c: Item) => Math.abs((c.difficulty ?? 0.5) - target);
           if (!best || d(cand) < d(best)) best = cand;
         }
@@ -191,7 +196,8 @@ function nativeSource(
   if (kind === 'spelling_word') pool.push(...spellingPool(index, lesson, level, ctx));
   if (kind === 'mcq') pool.push(...mcqPool(index, lesson, level, rng));
   if (kind === 'true_false') pool.push(...trueFalsePool(index, lesson, level));
-  return pool.length ? { pool: [...new Map(pool.map((p) => [p.id, p])).values()] } : null;
+  const permis = pool.filter(autorise(ctx));
+  return permis.length ? { pool: [...new Map(permis.map((p) => [p.id, p])).values()] } : null;
 }
 
 /** Types natifs présents pour une leçon (sans adaptateur). */

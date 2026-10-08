@@ -513,7 +513,7 @@ const FERRY: Fiche = {
     {
       id: 'goblet',
       niv: 'p',
-      label: 'Loi Goblet : les maîtres des écoles publiques sont tous laïcs',
+      label: 'Loi Goblet : les maîtres des écoles publiques doivent désormais être laïcs',
       date: '1886',
       t: 1886.1,
     },
