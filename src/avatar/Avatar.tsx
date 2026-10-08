@@ -218,6 +218,69 @@ function accessory(c: AvatarConfig) {
           <circle cx="100" cy="47" r="4" fill="#FFF59D" />
         </g>
       );
+    case 'toque_pizzaiolo':
+      return (
+        <g stroke="#D9D4CC" strokeWidth="3">
+          <path
+            d="M60 60 C42 36 66 10 86 24 C92 4 120 6 122 24 C142 12 162 36 140 60 Z"
+            fill="#fff"
+            strokeLinejoin="round"
+          />
+          <rect x="60" y="54" width="80" height="22" rx="6" fill="#fff" />
+          <rect x="62" y="62" width="25" height="6" fill="#2E8C48" stroke="none" />
+          <rect x="87" y="62" width="26" height="6" fill="#fff" stroke="none" />
+          <rect x="113" y="62" width="25" height="6" fill="#D7372F" stroke="none" />
+        </g>
+      );
+    case 'casque_jockey':
+      return (
+        <g>
+          <path d="M48 76 C48 30 152 30 152 76 Z" fill="#8E7CFF" />
+          <path d="M100 30 C76 30 58 44 52 62 L100 62 Z" fill="#FFD45C" />
+          <path d="M100 30 C124 30 142 44 148 62 L100 62 Z" fill="#FF7A6B" opacity="0.9" />
+          <path d="M52 62 L148 62 L152 76 L48 76 Z" fill="#8E7CFF" />
+          <path d="M120 72 C146 70 172 74 176 82 C156 84 134 82 118 80 Z" fill="#24304A" />
+          <circle cx="100" cy="30" r="6" fill="#fff" stroke="#24304A" strokeWidth="2" />
+        </g>
+      );
+    case 'chapeau_magicien':
+      return (
+        <g>
+          <path d="M56 70 L104 4 L146 70 Z" fill="#5E35B1" strokeLinejoin="round" />
+          <ellipse cx="100" cy="70" rx="60" ry="11" fill="#4527A0" />
+          <path
+            d="M100 30 L103 38 L111 38 L105 43 L107 51 L100 46 L93 51 L95 43 L89 38 L97 38 Z"
+            fill="#FFD45C"
+          />
+          <circle cx="122" cy="56" r="3" fill="#FFF59D" />
+          <circle cx="80" cy="58" r="2.5" fill="#FFF59D" />
+        </g>
+      );
+    case 'fleur':
+      return (
+        <g transform="translate(142 56)">
+          {[0, 72, 144, 216, 288].map((a) => (
+            <ellipse key={a} cx="0" cy="-11" rx="7" ry="11" fill="#F48FB1" transform={`rotate(${a})`} />
+          ))}
+          <circle r="7" fill="#FFD45C" />
+          <path d="M-14 12 Q-6 4 0 8" stroke="#2E8C48" strokeWidth="4" fill="none" strokeLinecap="round" />
+        </g>
+      );
+    case 'antennes':
+      return (
+        <g>
+          <path d="M80 50 Q72 30 64 16 M120 50 Q128 30 136 16" stroke={INK} strokeWidth="4" fill="none" />
+          <circle cx="64" cy="14" r="9" fill="#FFD45C" stroke={INK} strokeWidth="3" />
+          <circle cx="136" cy="14" r="9" fill="#FFD45C" stroke={INK} strokeWidth="3" />
+          <path
+            d="M50 74 C56 40 144 40 150 74"
+            stroke={INK}
+            strokeWidth="7"
+            fill="none"
+            strokeLinecap="round"
+          />
+        </g>
+      );
     default:
       return null;
   }
@@ -299,6 +362,28 @@ export function CompanionSvg({
           <circle cx="25" cy="30" r="16" fill="#F5F5F5" stroke="#E0E0E0" />
           {eyesSmall}
           <path d="M23 35 L27 35 L25 38 Z" fill="#FF8FA3" />
+        </g>
+      );
+    case 'tortue':
+      return (
+        <g transform={t}>
+          <circle cx="40" cy="30" r="8" fill="#9CCC65" />
+          <ellipse cx="12" cy="42" rx="5" ry="3.5" fill="#9CCC65" />
+          <ellipse cx="34" cy="43" rx="5" ry="3.5" fill="#9CCC65" />
+          <path d="M4 40 C4 18 40 18 40 40 Z" fill="#2E8C48" />
+          <path d="M12 38 L16 28 L28 28 L32 38 Z" fill="#7BD389" />
+          <circle cx="42" cy="28" r="2" fill={INK} />
+        </g>
+      );
+    case 'poussin':
+      return (
+        <g transform={t}>
+          <circle cx="25" cy="30" r="17" fill="#FFE066" />
+          <path d="M22 6 Q25 12 28 6 Q27 12 25 14 Q23 12 22 6 Z" fill="#FFD45C" />
+          {eyesSmall}
+          <path d="M21 33 L29 33 L25 39 Z" fill="#FFA726" />
+          <path d="M8 30 Q2 34 8 38" stroke="#F2C230" strokeWidth="3" fill="none" />
+          <path d="M42 30 Q48 34 42 38" stroke="#F2C230" strokeWidth="3" fill="none" />
         </g>
       );
   }

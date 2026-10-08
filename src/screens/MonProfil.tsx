@@ -7,6 +7,7 @@ import { Screen } from '@/components/Layout';
 import { Button, LudiCoin } from '@/components/ui';
 import { playerLevel } from '@/engine/score';
 import { downloadBackup, exportBackup } from '@/services/backup';
+import { useInventaire } from '@/services/meta';
 import { updateProfile } from '@/services/profiles';
 import { useSession } from '@/stores/session';
 import { AvecProfil } from './Parcours';
@@ -21,10 +22,11 @@ function MonProfilInner({ profile }: { profile: import('@/services/storage/db').
   const [avatar, setAvatar] = useState<AvatarConfig>(profile.avatar);
   const [message, setMessage] = useState<string | null>(null);
   const lvl = playerLevel(profile.xp);
+  const possedes = useInventaire(profile.id) ?? [];
   const modifie = JSON.stringify(avatar) !== JSON.stringify(profile.avatar);
 
   return (
-    <Screen titre={`Mon profil : ${profile.prenom}`} retour="/jouer" large>
+    <Screen titre={`Mon profil : ${profile.prenom}`} retour="/accueil" large>
       <div className="carte mb-5 flex flex-wrap items-center gap-4 p-4">
         <div className="flex-1">
           <div className="font-titre text-2xl font-extrabold">
@@ -53,7 +55,11 @@ function MonProfilInner({ profile }: { profile: import('@/services/storage/db').
       </div>
 
       <h2 className="mb-2 text-2xl">Mon avatar</h2>
-      <AvatarEditor value={avatar} onChange={setAvatar} />
+      <AvatarEditor value={avatar} onChange={setAvatar} possedes={possedes} />
+      <p className="mt-2 text-center text-sm text-ink-soft">
+        Les pièces avec un cadenas s’achètent avec tes Ludis dans la boutique, ou se trouvent dans le coffre
+        des défis du jour.
+      </p>
       <div className="mt-4 flex flex-wrap justify-center gap-3">
         <Button
           variant="grass"

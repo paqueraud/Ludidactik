@@ -69,6 +69,10 @@ export async function deleteProfile(id: string, base: LudidactikDB = db): Promis
       base.screenTime,
       base.wordLists,
       base.audio,
+      base.dailyChallenges,
+      base.inventory,
+      base.badges,
+      base.gems,
     ],
     async () => {
       await base.progress.where('profileId').equals(id).delete();
@@ -76,6 +80,8 @@ export async function deleteProfile(id: string, base: LudidactikDB = db): Promis
       await base.attempts.where('profileId').equals(id).delete();
       await base.leitner.where('profileId').equals(id).delete();
       await base.screenTime.where('profileId').equals(id).delete();
+      for (const t of [base.dailyChallenges, base.inventory, base.badges, base.gems])
+        await t.where('profileId').equals(id).delete();
       for (const l of await base.wordLists.toArray()) {
         if (!l.profileIds.includes(id)) continue;
         const reste = l.profileIds.filter((p) => p !== id);

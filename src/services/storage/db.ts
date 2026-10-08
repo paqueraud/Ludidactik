@@ -3,7 +3,7 @@
  * Rien ne quitte l'appareil : export/import JSON pour changer d'appareil.
  */
 import Dexie, { type EntityTable } from 'dexie';
-import type { AvatarConfig } from '@/avatar/parts';
+import { type AvatarConfig, PIECES_VERROUILLEES } from '@/avatar/parts';
 import type { Classe, Level } from '@/content/schemas';
 
 export interface ProfileAuth {
@@ -66,6 +66,12 @@ export interface AttemptRow {
   correct: number;
   total: number;
   durationMs: number;
+  /** XP gagnée (v3 ; absente des parties plus anciennes : on l'estime à 10 par bonne réponse). */
+  xp?: number;
+  /** Étoiles de la partie (v3). */
+  stars?: number;
+  /** Objectif du jeu atteint (v3 : badges « Sommet atteint », « Tête bien sur les épaules »…). */
+  won?: boolean;
 }
 
 /** Répétition espacée (Leitner, 5 boîtes). */
@@ -75,6 +81,8 @@ export interface LeitnerRow {
   itemKey: string; // « mot:chocolat », « calc:7×8 »
   box: number; // 1..5
   due: number;
+  /** Leçon où l'item a été rencontré (v3 : défi « items à revoir »). */
+  lessonId?: string;
 }
 
 export interface ParentWord {
@@ -106,6 +114,63 @@ export interface ScreenTimeRow {
   bonusMs: number;
 }
 
+/* ---------------- Phase 5 : méta-jeu (v3) ---------------- */
+
+/** Un défi du jour : une vraie partie (leçon × jeu × niveau), validée à ≥ 1 étoile. */
+export interface DefiRow {
+  lessonId: string;
+  gameId: string;
+  level: Level;
+  /** Pourquoi ce défi : leçon en cours, items à revoir (Leitner), révision ancienne. */
+  motif: 'en_cours' | 'revoir' | 'ancienne';
+  /** Famille de modalité visée : écrire, écouter/parler, regarder/manipuler. */
+  famille: 'ecrit' | 'oral' | 'visuel';
+  fait: boolean;
+  stars: number;
+}
+
+export interface CoffreContenu {
+  ludis: number;
+  /** Objet d'avatar gagné (id de pièce) ; null si tout était déjà gagné. */
+  objet: string | null;
+}
+
+/** Défis du jour d'un profil (tirage déterministe par profil et date). */
+export interface DailyChallengeRow {
+  key: string; // `${profileId}|${AAAA-MM-JJ}`
+  profileId: string;
+  day: string;
+  defis: DefiRow[];
+  /** Coffre ouvert (les 3 défis réussis). */
+  coffre?: CoffreContenu;
+  /** Défi bonus du week-end (le Dragon des tables) vaincu. */
+  boss?: { gagne: boolean; date: number };
+}
+
+/** Objet d'avatar possédé (acheté en boutique ou gagné dans un coffre). */
+export interface InventoryRow {
+  key: string; // `${profileId}|${itemId}`
+  profileId: string;
+  itemId: string;
+  source: 'boutique' | 'coffre' | 'migration';
+  date: number;
+}
+
+export interface BadgeRow {
+  key: string; // `${profileId}|${badgeId}`
+  profileId: string;
+  badgeId: string;
+  date: number;
+}
+
+/** Gemme de maîtrise (leçon maîtrisée à 80 %) : construit un bâtiment de « Mon île ». */
+export interface GemRow {
+  key: string; // `${profileId}|${lessonId}`
+  profileId: string;
+  lessonId: string;
+  date: number;
+}
+
 export interface AudioRow {
   key: string;
   blob: Blob;
@@ -130,6 +195,10 @@ export class LudidactikDB extends Dexie {
   audio!: EntityTable<AudioRow, 'key'>;
   settings!: EntityTable<SettingRow, 'key'>;
   screenTime!: EntityTable<ScreenTimeRow, 'key'>;
+  dailyChallenges!: EntityTable<DailyChallengeRow, 'key'>;
+  inventory!: EntityTable<InventoryRow, 'key'>;
+  badges!: EntityTable<BadgeRow, 'key'>;
+  gems!: EntityTable<GemRow, 'key'>;
 
   constructor(name = 'ludidactik') {
     super(name);
@@ -159,6 +228,30 @@ export class LudidactikDB extends Dexie {
           .modify((l: ParentWordList) => {
             l.modifieLe ??= l.creeLe;
           });
+      });
+    // v3 (Phase 5, méta-jeu) : défis du jour, inventaire d'avatar, badges, gemmes de l'île.
+    this.version(3)
+      .stores({
+        dailyChallenges: 'key, profileId, [profileId+day]',
+        inventory: 'key, profileId',
+        badges: 'key, profileId',
+        gems: 'key, profileId',
+      })
+      .upgrade(async (tx) => {
+        // Une pièce « boutique » déjà portée (profil importé, ancienne version) reste acquise.
+        const profiles = (await tx.table('profiles').toArray()) as Profile[];
+        const rows: InventoryRow[] = [];
+        for (const p of profiles)
+          for (const piece of [p.avatar.accessoire, p.avatar.compagnon])
+            if (PIECES_VERROUILLEES.has(piece))
+              rows.push({
+                key: `${p.id}|${piece}`,
+                profileId: p.id,
+                itemId: piece,
+                source: 'migration',
+                date: Date.now(),
+              });
+        if (rows.length) await tx.table('inventory').bulkPut(rows);
       });
   }
 }

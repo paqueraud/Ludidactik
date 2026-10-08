@@ -31,7 +31,7 @@ export function Connexion() {
       sfx.play('juste');
       await db.profiles.update(profile.id, { derniereConnexion: Date.now() });
       login(profile.id);
-      navigate('/jouer', { replace: true });
+      navigate('/accueil', { replace: true });
     } else {
       sfx.play('faux');
       setErreur(true);

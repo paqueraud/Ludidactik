@@ -13,6 +13,7 @@ import {
   COULEURS_CHEVEUX,
   COULEURS_HAUT,
   LIBELLES,
+  PIECES_VERROUILLEES,
   TEINTS,
   VISAGES,
   YEUX,
@@ -84,7 +85,7 @@ export function AvatarEditor({ value, onChange, possedes = [] }: Props) {
     <div role="radiogroup" aria-label={String(k)} className="grid grid-cols-3 gap-2 sm:grid-cols-4">
       {options.map((o) => {
         const prix = BOUTIQUE[o as keyof typeof BOUTIQUE];
-        const verrou = prix !== undefined && !possedes.includes(String(o));
+        const verrou = PIECES_VERROUILLEES.has(String(o)) && !possedes.includes(String(o));
         return (
           <button
             key={String(o)}
@@ -92,6 +93,13 @@ export function AvatarEditor({ value, onChange, possedes = [] }: Props) {
             role="radio"
             aria-checked={value[k] === o}
             disabled={verrou}
+            title={
+              verrou
+                ? prix !== undefined
+                  ? `À acheter dans la boutique (${prix} Ludis)`
+                  : 'Un trésor à trouver dans le coffre des défis du jour'
+                : undefined
+            }
             className={`relative flex min-h-[88px] flex-col items-center justify-center gap-1 rounded-2xl border-4 bg-cream p-1 text-sm font-bold ${
               value[k] === o ? 'border-grape' : 'border-transparent'
             } ${verrou ? 'opacity-60' : ''}`}
@@ -104,7 +112,14 @@ export function AvatarEditor({ value, onChange, possedes = [] }: Props) {
             <span>{LIBELLES[String(o)] ?? String(o)}</span>
             {verrou && (
               <span className="absolute right-1 top-1 flex items-center gap-0.5 rounded-full bg-ink/80 px-1.5 text-xs text-white">
-                <Lock size={11} aria-hidden /> {prix} <LudiCoin size={12} />
+                <Lock size={11} aria-hidden />
+                {prix !== undefined ? (
+                  <>
+                    {prix} <LudiCoin size={12} />
+                  </>
+                ) : (
+                  <span aria-label="trésor du coffre">🎁</span>
+                )}
               </span>
             )}
           </button>

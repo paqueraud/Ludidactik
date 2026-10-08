@@ -5,7 +5,7 @@ import { MATIERE_META } from '@/content/meta';
 import type { Classe } from '@/content/schemas';
 import { type Profile, updateProfile } from '@/services/profiles';
 import { useSettings } from '@/stores/settings';
-import { periodeActuelle } from '@/screens/Parcours';
+import { periodeActuelle } from '@/meta/dates';
 import { ChoixProfil, Section } from './ui';
 
 export function OngletLecons({ profiles, profil, setProfil }: OngletProfilProps) {

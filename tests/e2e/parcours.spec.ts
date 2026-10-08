@@ -32,6 +32,9 @@ async function creerProfil(page: Page, prenom: string, classe: 'CE1' | 'CM2') {
   await page.getByLabel(/Mot de passe \(4/).fill('soleil');
   await page.getByLabel('Encore une fois').fill('soleil');
   await page.getByRole('button', { name: 'Créer mon profil' }).click();
+  await expect(page).toHaveURL(/\/accueil$/);
+  // tableau de bord de l'enfant → ses leçons
+  await page.getByRole('button', { name: /Mes leçons/ }).click();
   await expect(page).toHaveURL(/\/jouer$/);
 }
 
@@ -82,7 +85,7 @@ test.describe('parcours principal', () => {
   test('Ascension : une faute → différence + copie active → mot suivant', async ({ page }) => {
     test.setTimeout(120_000);
     await creerProfil(page, 'Tom', 'CE1');
-    await ouvrirJeu(page, 'CE1', /Français/, /Mots fréquents/, /L'Ascension/, /^Normal/);
+    await ouvrirJeu(page, 'CE1', /Français/, /Les mots à savoir écrire/, /L'Ascension/, /^Normal/);
     await expect(page.getByText(/Écris le mot que tu entends/)).toBeVisible({ timeout: 10_000 });
     await page.keyboard.type('zzz');
     await page.keyboard.press('Enter');

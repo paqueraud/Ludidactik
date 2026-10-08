@@ -68,6 +68,9 @@ export async function saveGameResult(
       correct: summary.correct,
       total: summary.total,
       durationMs: summary.durationMs,
+      xp,
+      stars,
+      won: summary.won,
     });
 
     const ludis = ludisForGame(stars, summary.won, newRecord && !!rec);
@@ -87,6 +90,7 @@ export async function updateLeitner(
   itemKey: string,
   correct: boolean,
   db: LudidactikDB = defaultDb,
+  lessonId?: string,
 ) {
   const key = `${profileId}|${itemKey}`;
   const row = await db.leitner.get(key);
@@ -99,6 +103,7 @@ export async function updateLeitner(
     itemKey,
     box,
     due: Date.now() + LEITNER_DELAIS_JOURS[box - 1]! * 86_400_000,
+    lessonId: lessonId ?? row?.lessonId,
   });
 }
 
