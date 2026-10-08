@@ -73,7 +73,7 @@ const CARACT_TRIS: Record<Level, Tri[]> = {
         { label: 'le nuage', c: NV, n: 'n', img: '☁️' },
         { label: 'le feu', c: NV, n: 'n', img: '🔥' },
       ],
-      ex: 'Les animaux et les végétaux sont vivants. Le robot bouge et le feu grandit, mais ils ne naissent pas et ne se reproduisent pas : ils ne sont pas vivants.',
+      ex: 'Les animaux et les végétaux sont vivants : ils naissent, grandissent, se nourrissent, se reproduisent et meurent. Une pierre, un robot ou le feu ne naissent pas et ne se reproduisent pas : ils ne sont pas vivants.',
       nb: 8,
     },
   ],
@@ -149,7 +149,7 @@ const CARACT_ORDRES: Ordre[] = [
       'le chaton naît',
       'il boit le lait de sa mère',
       'il grandit et mange des croquettes',
-      'la chatte adulte a des petits',
+      'devenu adulte, le chat peut avoir des petits',
     ],
     mode: 'etapes',
     ex: 'Le chaton naît, tète sa mère, grandit et, adulte, peut avoir des petits.',
@@ -1386,7 +1386,7 @@ const ALIM_PAIRES: Record<Level, Appariement[]> = (() => {
     prompt: 'Associe chaque animal à ce qu’il mange.',
     relation: 'animal → nourriture',
     duos: duos(n),
-    ex: 'Chaque animal a son régime alimentaire : la chouette chasse les souris, l’écureuil croque des noisettes…',
+    ex: 'Chaque animal a son régime alimentaire : certains mangent des plantes, d’autres mangent d’autres animaux, d’autres mangent un peu des deux.',
     nb,
   });
   return { facile: [a('f', 4)], normal: [a('n', 6)], plus_loin: [a('p', 8)] };

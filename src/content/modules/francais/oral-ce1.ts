@@ -353,7 +353,7 @@ const DIRE_ORAL: [string, string, string[], string][] = [
     'Au milieu d’un récit, on dit « ensuite » ou « puis ».',
   ],
   [
-    'Remplace « et après » par un meilleur mot : « Je me lève et après je déjeune. »',
+    'Remplace « et après » par un autre mot : « Je me lève et après je prends mon petit-déjeuner. »',
     'ensuite',
     ['ensuite', 'puis'],
     'Au lieu de répéter « et après », on dit « ensuite » ou « puis ».',

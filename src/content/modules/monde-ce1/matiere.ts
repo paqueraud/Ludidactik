@@ -604,7 +604,7 @@ const ELEC_ORDRES: Ordre[] = [
     n: 'f',
     id: 'fil-abime',
     prompt: 'Tu vois un fil électrique abîmé. Remets les bons gestes dans l’ordre.',
-    el: ['je vois le fil abîmé', 'je n’y touche pas', 'je préviens un adulte'],
+    el: ['je vois le fil abîmé', 'je m’en éloigne sans le toucher', 'je préviens un adulte'],
     mode: 'etapes',
     ex: 'On ne touche jamais un fil abîmé : on prévient tout de suite un adulte.',
   },
@@ -955,7 +955,7 @@ const NUM_TRIS: Record<Level, Tri[]> = {
         { label: 'jouer à un jeu que mes parents ont choisi', c: SEUL, n: 'n', img: '🎮' },
         { label: 'faire une pause loin des écrans', c: SEUL, n: 'n', img: '🌳' },
       ],
-      ex: 'Sur internet, on ne donne rien de personnel et on ne clique pas sur les publicités : on demande toujours à un adulte.',
+      ex: 'Sur internet, on ne donne rien de personnel, on n’achète rien et on n’installe rien seul : on demande d’abord à un adulte. Faire une pause ou éteindre l’écran, je peux le faire seul.',
     },
   ],
   plus_loin: [
