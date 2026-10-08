@@ -20,6 +20,7 @@ Source : Annexe 3 — Programme de français du cycle 2 (PDF dans `resources/edu
 | CE1.FR.LEC.SC | s = [s]/[z], c = [k]/[s], g = [g]/[ʒ] (ge, gu, ç) | deux sons, mots courants | classement par analogie ; choisir ç, ge ou gu | ç, ge, gu dans des mots plus rares, trois choix |
 | CE1.FR.LEC.FLUENCE | Lire à voix haute (Karaoké) | 35 mots par minute, textes courts | 70 mots par minute (attendu de fin de CE1), ponctuation respectée | 90 mots par minute (attendu du CE2), lecture expressive |
 | CE1.FR.LEC.COMP | Comprendre un texte | textes de 5 lignes, la réponse est écrite dans le texte | textes d’une quinzaine de lignes : inférences simples, reprises (il, elle, le…), justifier | textes documentaires et règles du jeu : trouver un titre, choisir un résumé |
+| CE1.FR.LEC.CULTURE | Devenir lecteur (BO n°41 du 31/10/2024, CE1 : lire des œuvres du patrimoine — contes, fables, poèmes — ; reconnaître les caractéristiques d’un conte, d’une fable, d’un poème ; contes de Perrault, des frères Grimm, d’Andersen, fables de La Fontaine cités par le programme) — ajout du 08/10/2026 | contes très connus (le Petit Chaperon rouge, Cendrillon…) et comptines | contes de Perrault et des frères Grimm, fables de La Fontaine ; conte, fable ou comptine ? | auteurs, contes d’Andersen, morales des fables |
 
 ### Orthographe lexicale (dictée)
 | Id | Leçon | Facile | Normal | Plus loin |

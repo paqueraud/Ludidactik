@@ -15,6 +15,34 @@ import { type Appariement, type Q, type Tri, type VF, paireGen, qcmPool, triGen,
 /* ------------------------------------------------------------------ */
 
 const REGLES_QCM: Q[] = [
+  // Réponses courtes (Attrape-Bulles au Facile) — compléments du 08/10/2026
+  {
+    n: 'f',
+    id: 'merci-court',
+    q: 'Un camarade te prête sa gomme. Que dis-tu ?',
+    ok: 'merci',
+    ko: ['rien du tout', 'donne-la-moi'],
+    img: '🙂',
+    ex: 'On dit merci quand quelqu’un nous rend service : c’est la politesse.',
+  },
+  {
+    n: 'f',
+    id: 'bonjour-court',
+    q: 'Le matin, tu arrives en classe. Que dis-tu à la maîtresse ?',
+    ok: 'bonjour',
+    ko: ['au revoir', 'rien'],
+    img: '👋',
+    ex: 'Dire bonjour en arrivant, c’est une règle de politesse.',
+  },
+  {
+    n: 'f',
+    id: 'rang-court',
+    q: 'La cloche sonne la fin de la récréation. Que fais-tu ?',
+    ok: 'je me mets en rang',
+    ko: ['je continue à jouer', 'je me cache'],
+    img: '🔔',
+    ex: 'Quand la cloche sonne, on se range calmement pour rentrer en classe.',
+  },
   {
     n: 'f',
     id: 'parole',
@@ -1218,6 +1246,28 @@ const RESP_VF: VF[] = [
     v: false,
     sensible: true,
     ex: 'Ce n’est jamais la faute de la victime : il faut l’aider et prévenir un adulte.',
+  },
+  // compléments du 08/10/2026 (Vrai ou faux au Plus loin)
+  {
+    n: 'p',
+    id: 'avis',
+    s: 'On peut ne pas être d’accord avec quelqu’un et le lui dire poliment.',
+    v: true,
+    ex: 'On a le droit d’avoir un autre avis : on le dit calmement, sans se moquer.',
+  },
+  {
+    n: 'p',
+    id: 'metiers',
+    s: 'Certains métiers sont interdits aux filles.',
+    v: false,
+    ex: 'Filles et garçons peuvent choisir tous les métiers : pompière, infirmier, pilote…',
+  },
+  {
+    n: 'p',
+    id: 'langue',
+    s: 'Un enfant qui parle une autre langue à la maison mérite le même respect que les autres.',
+    v: true,
+    ex: 'Chacun mérite le respect, quelle que soit sa langue ou son origine.',
   },
 ];
 

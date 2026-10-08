@@ -73,8 +73,9 @@ export function poolComprehension(classe: Classe): ItemPool {
 
 /** Étapes d'un récit ou d'une recette à remettre dans l'ordre. */
 export function poolEtapes(classe: Classe): ItemPool {
+  // Plus loin : les étapes des textes Normal s'ajoutent (peu de textes Plus loin ont des étapes)
   return (level, _rng, ctx) =>
-    textesDe(classe, level).flatMap((t) =>
+    textesDe(classe, level, true).flatMap((t) =>
       t.questions.flatMap((qu, iq): Item[] =>
         qu.type === 'ordering'
           ? [

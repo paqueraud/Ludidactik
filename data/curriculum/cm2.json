@@ -28,7 +28,8 @@
     "read_aloud"
    ],
    "jeuxSuggeres": [
-    "karaoke-lecture"
+    "karaoke-lecture",
+    "perroquet-savant"
    ],
    "source": {
     "kind": "generator",
@@ -63,7 +64,7 @@
    ],
    "jeuxSuggeres": [
     "detective-texte",
-    "qui-suis-je"
+    "machine-temps"
    ],
    "source": {
     "kind": "generator",
@@ -99,8 +100,9 @@
     "ordering"
    ],
    "jeuxSuggeres": [
-    "detective-texte",
-    "qui-suis-je"
+    "chef-orchestre",
+    "puzzle-phrases",
+    "dobble-mots"
    ],
    "source": {
     "kind": "generator",
@@ -108,6 +110,45 @@
    },
    "rappel": "Je reconnais les grandes œuvres, leurs auteurs et leur genre : conte, fable, roman, poème, théâtre.",
    "contenus": "Œuvres du domaine public (La Fontaine, Perrault, Grimm, Andersen, Verne, Hugo, Carroll, Collodi, Homère, Molière) ; personnages mystères (indices)."
+  },
+  {
+   "id": "CM2.FR.ORAL.ECOUTE",
+   "classe": "CM2",
+   "matiere": "francais",
+   "domaine": "Oral",
+   "titre": "Écouter pour comprendre : annonces, interviews, reportages",
+   "programme": "2025",
+   "boRef": "BO n°16 du 17/04/2025 — Programme de français du cycle 3, CM2 — Oral : écouter pour comprendre (comprendre un message oral provenant d’un tiers ou d’un média, manifester sa compréhension des textes entendus, identifier les caractéristiques des différents genres de discours)",
+   "periodes": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "niveaux": {
+    "facile": "message court : retrouver une information dite (lieu, heure, raison)",
+    "normal": "bulletin météo, interview, reportage, conte : informations, genre du message, inférences simples",
+    "plus_loin": "messages longs : intention de celui qui parle, implicite, arguments d’un débat, fable"
+   },
+   "itemKinds": [
+    "mcq",
+    "oral_answer",
+    "true_false"
+   ],
+   "jeuxSuggeres": [
+    "attrape-bulles",
+    "vrai-faux",
+    "perroquet-savant",
+    "feu-ponctuation",
+    "detective-texte"
+   ],
+   "source": {
+    "kind": "generator",
+    "generator": "francais/oral-ecoute-cm2"
+   },
+   "rappel": "J’écoute jusqu’au bout en sachant ce que je cherche ; je repère qui parle, de quoi, et ce qu’on veut me faire comprendre sans le dire.",
+   "contenus": "Messages entendus (🔊), sans texte écrit : annonces (gare, aéroport, école), consignes, bulletins météo, interviews, reportages, conte, fable de La Fontaine, débat ; questions sur l’explicite, l’implicite et le genre ; intonation (question, information, exclamation) ; transcription pour le Détective du texte."
   },
   {
    "id": "CM2.FR.GRAM.TYPES",
@@ -133,11 +174,13 @@
     "mcq",
     "ordering",
     "true_false",
-    "pairing"
+    "pairing",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
-    "feu-ponctuation"
+    "feu-ponctuation",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -168,12 +211,13 @@
    },
    "itemKinds": [
     "classification",
-    "mcq"
+    "mcq",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
-    "puzzle-phrases",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -204,12 +248,13 @@
    },
    "itemKinds": [
     "classification",
-    "mcq"
+    "mcq",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
-    "puzzle-phrases",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -241,12 +286,13 @@
    "itemKinds": [
     "classification",
     "mcq",
-    "fill_blank"
+    "fill_blank",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
-    "puzzle-phrases",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -277,12 +323,13 @@
    },
    "itemKinds": [
     "classification",
-    "mcq"
+    "mcq",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
-    "puzzle-phrases",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -313,12 +360,13 @@
    },
    "itemKinds": [
     "classification",
-    "mcq"
+    "mcq",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "labo-fonctions",
-    "puzzle-phrases",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -349,11 +397,13 @@
    },
    "itemKinds": [
     "classification",
-    "mcq"
+    "mcq",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "chef-orchestre",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -385,11 +435,13 @@
    "itemKinds": [
     "classification",
     "mcq",
-    "pairing"
+    "pairing",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "chef-orchestre",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -421,10 +473,10 @@
    "itemKinds": [
     "classification",
     "mcq",
-    "fill_blank"
+    "fill_blank",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
-    "train-des-accords",
     "peche-homophones",
     "ascension"
    ],
@@ -457,12 +509,12 @@
    },
    "itemKinds": [
     "mcq",
-    "classification"
+    "classification",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
-    "labo-fonctions",
-    "puzzle-phrases",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -540,7 +592,6 @@
    "jeuxSuggeres": [
     "train-accords",
     "attrape-bulles",
-    "chef-orchestre",
     "memory-familles"
    ],
    "source": {
@@ -579,7 +630,6 @@
    "jeuxSuggeres": [
     "train-accords",
     "attrape-bulles",
-    "chef-orchestre",
     "memory-familles"
    ],
    "source": {
@@ -657,7 +707,6 @@
     "appareil-photo",
     "lettres-en-vrac",
     "bonhomme-de-neige",
-    "wordle",
     "mots-croises",
     "dictee-duel"
    ],
@@ -1137,7 +1186,6 @@
     "classification"
    ],
    "jeuxSuggeres": [
-    "dobble-mots",
     "memory-familles",
     "vrai-faux"
    ],
@@ -1212,9 +1260,9 @@
     "spelling_word"
    ],
    "jeuxSuggeres": [
-    "dobble-mots",
     "memory-familles",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -1318,7 +1366,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1326,7 +1375,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1359,7 +1409,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1367,7 +1418,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1400,7 +1452,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1408,7 +1461,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1441,7 +1495,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -1450,7 +1505,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1483,7 +1539,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -1492,7 +1549,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1525,7 +1583,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1533,7 +1592,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1566,13 +1626,15 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
     "machine-temps",
     "qui-suis-je",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1605,7 +1667,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1614,7 +1677,8 @@
     "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1646,7 +1710,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1654,7 +1719,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1686,7 +1752,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1694,7 +1761,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1727,7 +1795,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1736,7 +1805,8 @@
     "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1768,7 +1838,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1776,7 +1847,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1808,13 +1880,15 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
     "machine-temps",
     "qui-suis-je",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1846,13 +1920,15 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
     "machine-temps",
     "qui-suis-je",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1884,7 +1960,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -1892,7 +1969,8 @@
     "machine-temps",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "static",
@@ -1925,7 +2003,8 @@
     "map_point",
     "mcq",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -1933,7 +2012,8 @@
     "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -1962,14 +2042,16 @@
     "map_point",
     "mcq",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
     "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -1999,13 +2081,15 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2038,7 +2122,8 @@
     "map_point",
     "mcq",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -2046,7 +2131,8 @@
     "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2076,7 +2162,8 @@
     "map_point",
     "mcq",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -2084,7 +2171,8 @@
     "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2115,7 +2203,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -2123,7 +2212,8 @@
     "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2153,7 +2243,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -2161,7 +2252,8 @@
     "tour-de-france",
     "qui-suis-je",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2195,7 +2287,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
@@ -2205,7 +2298,8 @@
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2239,7 +2333,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
@@ -2249,7 +2344,8 @@
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2283,7 +2379,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -2291,7 +2388,8 @@
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2325,14 +2423,16 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2366,7 +2466,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -2374,7 +2475,8 @@
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2408,7 +2510,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
@@ -2418,7 +2521,8 @@
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2452,7 +2556,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
@@ -2462,7 +2567,8 @@
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2496,7 +2602,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "puzzle-phrases",
@@ -2505,7 +2612,8 @@
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2539,7 +2647,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "dobble-mots",
@@ -2548,7 +2657,8 @@
     "qui-suis-je",
     "laboratoire",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -2702,7 +2812,6 @@
    "jeuxSuggeres": [
     "pizzaiolo",
     "chocolatier",
-    "funambule",
     "crocodiles",
     "grand-prix"
    ],
@@ -2740,8 +2849,6 @@
     "true_false"
    ],
    "jeuxSuggeres": [
-    "pizzaiolo",
-    "chocolatier",
     "funambule",
     "crocodiles",
     "grand-prix"
@@ -2782,9 +2889,7 @@
    "jeuxSuggeres": [
     "pizzaiolo",
     "chocolatier",
-    "funambule",
-    "crocodiles",
-    "grand-prix"
+    "crocodiles"
    ],
    "source": {
     "kind": "generator",
@@ -2822,7 +2927,6 @@
    "jeuxSuggeres": [
     "pizzaiolo",
     "chocolatier",
-    "funambule",
     "crocodiles",
     "grand-prix"
    ],
@@ -3356,8 +3460,9 @@
     "true_false"
    ],
    "jeuxSuggeres": [
-    "grand-huit-operations",
-    "grand-prix"
+    "grand-prix",
+    "tables-ninja",
+    "robot-calculateur"
    ],
    "source": {
     "kind": "generator",
@@ -3393,8 +3498,9 @@
     "true_false"
    ],
    "jeuxSuggeres": [
-    "grand-huit-operations",
-    "grand-prix"
+    "grand-prix",
+    "tables-ninja",
+    "robot-calculateur"
    ],
    "source": {
     "kind": "generator",
@@ -3504,7 +3610,6 @@
    ],
    "jeuxSuggeres": [
     "detective-problemes",
-    "patissier",
     "robot-calculateur"
    ],
    "source": {
@@ -3542,7 +3647,6 @@
    ],
    "jeuxSuggeres": [
     "detective-problemes",
-    "patissier",
     "robot-calculateur"
    ],
    "source": {
@@ -3580,7 +3684,6 @@
    ],
    "jeuxSuggeres": [
     "detective-problemes",
-    "patissier",
     "robot-calculateur"
    ],
    "source": {
@@ -3618,7 +3721,6 @@
    ],
    "jeuxSuggeres": [
     "detective-problemes",
-    "patissier",
     "robot-calculateur"
    ],
    "source": {
@@ -3656,7 +3758,6 @@
    ],
    "jeuxSuggeres": [
     "detective-problemes",
-    "patissier",
     "robot-calculateur"
    ],
    "source": {
@@ -3693,8 +3794,9 @@
     "true_false"
    ],
    "jeuxSuggeres": [
-    "machine-programmes",
-    "compte-est-bon"
+    "compte-est-bon",
+    "grand-prix",
+    "tables-ninja"
    ],
    "source": {
     "kind": "generator",
@@ -3987,10 +4089,6 @@
    ],
    "jeuxSuggeres": [
     "geometre",
-    "miroir-magique",
-    "tangram",
-    "usine-patrons",
-    "robot-codeur",
     "vrai-faux"
    ],
    "source": {
@@ -4027,10 +4125,7 @@
    ],
    "jeuxSuggeres": [
     "geometre",
-    "miroir-magique",
     "tangram",
-    "usine-patrons",
-    "robot-codeur",
     "vrai-faux"
    ],
    "source": {
@@ -4067,10 +4162,6 @@
    ],
    "jeuxSuggeres": [
     "geometre",
-    "miroir-magique",
-    "tangram",
-    "usine-patrons",
-    "robot-codeur",
     "vrai-faux"
    ],
    "source": {
@@ -4105,11 +4196,7 @@
     "true_false"
    ],
    "jeuxSuggeres": [
-    "geometre",
     "miroir-magique",
-    "tangram",
-    "usine-patrons",
-    "robot-codeur",
     "vrai-faux"
    ],
    "source": {
@@ -4145,11 +4232,7 @@
     "true_false"
    ],
    "jeuxSuggeres": [
-    "geometre",
-    "miroir-magique",
-    "tangram",
     "usine-patrons",
-    "robot-codeur",
     "vrai-faux"
    ],
    "source": {
@@ -4186,10 +4269,6 @@
     "true_false"
    ],
    "jeuxSuggeres": [
-    "geometre",
-    "miroir-magique",
-    "tangram",
-    "usine-patrons",
     "robot-codeur",
     "vrai-faux"
    ],
@@ -4228,7 +4307,6 @@
    ],
    "jeuxSuggeres": [
     "station-meteo",
-    "roue-probabilites",
     "vrai-faux"
    ],
    "source": {
@@ -4264,7 +4342,6 @@
     "true_false"
    ],
    "jeuxSuggeres": [
-    "station-meteo",
     "roue-probabilites",
     "vrai-faux"
    ],
@@ -4298,7 +4375,8 @@
    "itemKinds": [
     "mcq",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -4306,7 +4384,8 @@
     "qui-suis-je",
     "conseil-classe",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -4339,7 +4418,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -4347,7 +4427,8 @@
     "qui-suis-je",
     "conseil-classe",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -4380,7 +4461,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -4388,7 +4470,8 @@
     "qui-suis-je",
     "conseil-classe",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -4420,13 +4503,15 @@
    "itemKinds": [
     "mcq",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
     "qui-suis-je",
     "conseil-classe",
-    "vrai-faux"
+    "vrai-faux",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -4459,7 +4544,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -4467,7 +4553,8 @@
     "qui-suis-je",
     "conseil-classe",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",
@@ -4500,7 +4587,8 @@
     "mcq",
     "ordering",
     "pairing",
-    "true_false"
+    "true_false",
+    "spelling_word"
    ],
    "jeuxSuggeres": [
     "memory-familles",
@@ -4508,7 +4596,8 @@
     "qui-suis-je",
     "conseil-classe",
     "vrai-faux",
-    "attrape-bulles"
+    "attrape-bulles",
+    "ascension"
    ],
    "source": {
     "kind": "generator",

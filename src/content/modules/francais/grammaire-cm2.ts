@@ -710,7 +710,8 @@ const SUJETS: [string, Nature, string][] = [
 const NATURES_SUJET: Nature[] = ['GN', 'pronom', 'nom propre', 'infinitif'];
 
 function genSujetClasser(level: Level, rng: Rng, ctx: GenContext): Item {
-  if (level !== 'facile' && rng.chance(0.6))
+  // Facile : le Labo aussi, avec des phrases où le sujet est devant le verbe
+  if (rng.chance(level === 'facile' ? 0.4 : 0.6))
     return genLabo(
       ['S'],
       (lv) => (lv === 'plus_loin' ? ['S', 'COD', 'CCL', 'CCT'] : ['S', 'CCL', 'CCT']),
@@ -871,12 +872,30 @@ function genCodCoiTrou(level: Level, rng: Rng, ctx: GenContext): Item {
 
 const VERBES_ETAT = ['être', 'sembler', 'paraître', 'devenir', 'rester', 'demeurer', 'avoir l’air'];
 const AUTRES_VERBES = ['regarder', 'manger', 'porter', 'raconter', 'trouver', 'aimer', 'construire'];
+/** Facile : formes conjuguées du verbe être face à des verbes d'action conjugués. */
+const FORMES_ETRE = ['est', 'sont', 'était', 'sera', 'sommes', 'êtes'];
+const FORMES_ACTION = ['mange', 'regarde', 'porte', 'raconte', 'trouvent', 'aiment', 'construit'];
 
 function genAttributClasser(level: Level, rng: Rng, ctx: GenContext): Item {
-  if (level === 'facile' || rng.chance(0.65)) {
+  if (rng.chance(level === 'facile' ? 0.7 : 0.65)) {
     const filtre = (x: PhraseAnalysee, lv: Level) =>
       lv === 'facile' ? x.g.some(([, f]) => f === 'ATT') && /\b(est|sont)\b/.test(x.v) : true;
     return genLabo(['ATT', 'COD'], () => ['S', 'COD', 'ATT'], filtre)(level, rng, ctx);
+  }
+  if (level === 'facile') {
+    // Facile : le verbe être (verbe d'état) face à des verbes d'action
+    const els: [string, number][] = [
+      ...tirer(rng, FORMES_ETRE, 4).map((v): [string, number] => [v, 0]),
+      ...tirer(rng, FORMES_ACTION, 4).map((v): [string, number] => [v, 1]),
+    ];
+    return classer(ctx, rng, 'etre-ou-action', {
+      prompt: 'Range chaque verbe : est-ce le verbe être (verbe d’état) ou un autre verbe ?',
+      categories: ['verbe être', 'autre verbe'],
+      elements: els,
+      explication:
+        'Le verbe être relie le sujet à son attribut : « Le ciel est bleu ». Les autres verbes disent une action.',
+      difficulty: diff(level, rng.next()),
+    });
   }
   const els: [string, number][] = [
     ...tirer(rng, VERBES_ETAT, 4).map((v): [string, number] => [v, 0]),
@@ -1226,7 +1245,8 @@ const NOMS_GN: Record<FctGn, string> = {
   EPI: 'épithète',
   CDN: 'complément du nom',
   ATT: 'attribut du sujet',
-  REL: 'proposition relative',
+  // une fonction (et non une nature) : la relative complète son antécédent (audit BO du 08/10/2026)
+  REL: 'complément de l’antécédent (relative)',
 };
 const DEF_GN: Record<FctGn, string> = {
   EPI: 'L’adjectif épithète est placé à côté du nom, dans le groupe nominal ; on peut le supprimer.',
@@ -1331,12 +1351,12 @@ function genGnClasser(level: Level, rng: Rng, ctx: GenContext): Item {
     normal: ['EPI', 'CDN', 'ATT'],
     plus_loin: ['EPI', 'CDN', 'ATT', 'REL'],
   });
-  if (level !== 'facile' && rng.chance(0.55)) {
-    const x = rng.pick(
-      PHRASES_GN.filter(
-        (y) => (level === 'plus_loin' || y.n !== 'p') && y.g.every(([, f]) => fcts.includes(f)),
-      ),
-    );
+  const phrasesGn = PHRASES_GN.filter(
+    (y) => (level === 'plus_loin' || y.n !== 'p') && y.g.every(([, f]) => fcts.includes(f)),
+  );
+  // Facile : le Labo aussi, avec des phrases à épithètes et compléments du nom seulement
+  if (phrasesGn.length && rng.chance(level === 'facile' ? 0.4 : 0.55)) {
+    const x = rng.pick(phrasesGn);
     const cats = fcts.filter((f) => f !== 'REL' || x.g.some(([, k]) => k === 'REL'));
     return classer(ctx, rng, `gn-${x.p}`, {
       prompt: 'Trouve la fonction de chaque expansion du nom (ou de l’attribut).',

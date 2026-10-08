@@ -16,6 +16,11 @@
 | CM2.FR.LEC.COMP | Comprendre : explicite/implicite, inférences, genres littéraires | textes courts, informations explicites et premières inférences | textes longs (récit, documentaire, fable) : implicite, inférences, reprises | documents composites : rapprocher deux documents |
 | CM2.FR.LEC.CULTURE | Culture littéraire : héros/héroïnes, merveilleux, morale (fables), poésie, autres vies, rapport aux autres | personnages et contes célèbres | genres, œuvres et auteurs ; morales de La Fontaine | théâtre, poésie, romans d’aventure ; citations |
 
+### Oral (ajout du 08/10/2026)
+| Id | Leçon | Facile | Normal | Plus loin |
+|---|---|---|---|---|
+| CM2.FR.ORAL.ECOUTE | Écouter pour comprendre (BO n°16 du 17/04/2025, CM2 : comprendre un message oral provenant d’un tiers ou d’un média, manifester sa compréhension des textes entendus, identifier les caractéristiques des genres de discours) | message court : retrouver une information dite (lieu, heure, raison) | bulletin météo, interview, reportage, conte : informations, genre du message, inférences simples | messages longs : intention de celui qui parle, implicite, arguments d’un débat, fable |
+
 ### Grammaire
 | Id | Leçon | Facile | Normal | Plus loin |
 |---|---|---|---|---|

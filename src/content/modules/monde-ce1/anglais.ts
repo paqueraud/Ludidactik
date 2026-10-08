@@ -56,8 +56,12 @@ interface Lecon {
   partSpecial?: Record<Level, number>;
 }
 
-const NIVEAUX_MOTS: Record<Level, Niv[]> = { facile: ['f'], normal: ['f', 'n'], plus_loin: ['f', 'n', 'p'] };
-const motsDe = (t: Theme, level: Level) => t.mots.filter((m) => NIVEAUX_MOTS[level].includes(m.n));
+// Plus loin : sans les mots du Facile (« fish », « Monday »…), sauf si le thème en a trop peu (audit du 08/10/2026)
+const NIVEAUX_MOTS: Record<Level, Niv[]> = { facile: ['f'], normal: ['f', 'n'], plus_loin: ['n', 'p'] };
+const motsDe = (t: Theme, level: Level) => {
+  const m = t.mots.filter((x) => NIVEAUX_MOTS[level].includes(x.n));
+  return level === 'plus_loin' && m.length < 4 ? t.mots : m;
+};
 const NB_CHOIX: Record<Level, number> = { facile: 3, normal: 4, plus_loin: 4 };
 const difficulte = (level: Level) => (level === 'facile' ? 0.2 : level === 'normal' ? 0.5 : 0.8);
 
