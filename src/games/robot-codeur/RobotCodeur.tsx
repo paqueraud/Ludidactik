@@ -341,7 +341,7 @@ function Manche({
   }, [actif, plan, ajouter, effacer, lancer, boucleOuverte, fermerBoucle]);
 
   // Position affichée du robot
-  const pasCourant = execution ? Math.min(nbPas, Math.floor(execution.t)) : 0;
+  const pasCourant = execution ? Math.max(0, Math.min(nbPas, Math.floor(execution.t))) : 0;
   const frac = execution ? Math.min(1, execution.t - pasCourant) : 0;
   const etats = execution?.sim.pas ?? [{ x: plan.depart[0], y: plan.depart[1], d: plan.orientation }];
   const a = etats[pasCourant]!;

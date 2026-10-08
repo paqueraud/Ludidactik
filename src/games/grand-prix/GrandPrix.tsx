@@ -90,7 +90,7 @@ export default function GrandPrix({
     let last = performance.now();
     let raf = 0;
     const loop = (now: number) => {
-      const dt = Math.min(100, now - last);
+      const dt = Math.max(0, Math.min(100, now - last));
       last = now;
       if (running.current && !paused && !done) clock.current += dt;
       setFrame((f) => (f + 1) % 1_000_000);

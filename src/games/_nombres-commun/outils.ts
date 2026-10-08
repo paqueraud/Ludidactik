@@ -88,7 +88,8 @@ export function useBoucle(actif: boolean, tick: (dt: number) => void) {
     let last = performance.now();
     let raf = 0;
     const loop = (now: number) => {
-      const dt = Math.min(0.1, (now - last) / 1000);
+      // l'horodatage de requestAnimationFrame peut précéder performance.now() : jamais de dt négatif
+      const dt = Math.max(0, Math.min(0.1, (now - last) / 1000));
       last = now;
       ref.current(dt);
       raf = requestAnimationFrame(loop);
