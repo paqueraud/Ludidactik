@@ -66,7 +66,7 @@ test.describe('parcours principal', () => {
   test('profil CE1 → Grand Prix facile jusqu’à l’arrivée → bilan', async ({ page }) => {
     test.setTimeout(120_000);
     await creerProfil(page, 'Léa', 'CE1');
-    await ouvrirJeu(page, 'CE1', /Mathématiques/, /Tables d'addition/, /Le Grand Prix/, /^Facile/);
+    await ouvrirJeu(page, 'CE1', /Mathématiques/, /Tables d['’]addition/, /Le Grand Prix/, /^Facile/);
     for (let i = 0; i < 6; i++) {
       const prompt = page.locator('p.font-titre').first();
       await expect(prompt).toBeVisible({ timeout: 10_000 });

@@ -31,6 +31,17 @@
     color-scheme: light;
   }
 
+  /* Mode sombre : automatique (réglage de l'appareil) ou forcé par le réglage parent « Apparence » */
+  :root[data-theme='sombre'] {
+    --c-ink: 236 240 250;
+    --c-ink-soft: 176 186 210;
+    --c-cream: 22 28 46;
+    --c-cream-deep: 30 38 62;
+    --c-card: 36 46 72;
+    --c-sky-dark: 110 180 255;
+    color-scheme: dark;
+  }
+
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme='clair']) {
       --c-ink: 236 240 250;
@@ -103,5 +114,28 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Contrastes AA : texte foncé sur le vert clair « facile » */
+.bg-facile.text-white {
+  color: rgb(36 48 74);
+}
+
+/* Mode sombre : sur les surfaces vives (jaune, vert, bleu ciel), le texte « encre » reste foncé. */
+:root[data-theme='sombre'] .bg-sun.text-ink,
+:root[data-theme='sombre'] .to-sun.text-ink,
+:root[data-theme='sombre'] .bg-grass.text-ink,
+:root[data-theme='sombre'] .bg-sky.text-ink,
+:root[data-theme='sombre'] .bg-facile.text-ink {
+  color: rgb(36 48 74);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='clair']) .bg-sun.text-ink,
+  :root:not([data-theme='clair']) .to-sun.text-ink,
+  :root:not([data-theme='clair']) .bg-grass.text-ink,
+  :root:not([data-theme='clair']) .bg-sky.text-ink,
+  :root:not([data-theme='clair']) .bg-facile.text-ink {
+    color: rgb(36 48 74);
   }
 }

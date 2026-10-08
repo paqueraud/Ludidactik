@@ -49,18 +49,18 @@ export function DuelEcran({
 
 function EnTete({ j }: { j: Joueur }) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex shrink-0 items-center gap-2">
       {j.avatar ? (
-        <Avatar config={j.avatar} size={36} compagnon={false} fond="rgb(255 255 255 / 0.6)" />
+        <Avatar config={j.avatar} size={28} compagnon={false} fond="rgb(255 255 255 / 0.6)" />
       ) : (
         <span
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-white/60 text-xl"
+          className="flex h-7 w-7 items-center justify-center rounded-full bg-white/60 text-lg"
           aria-hidden
         >
           🙂
         </span>
       )}
-      <span className="font-titre text-lg font-extrabold">{j.nom}</span>
+      <span className="font-titre text-base font-extrabold lg:text-lg">{j.nom}</span>
     </div>
   );
 }
@@ -81,10 +81,13 @@ export function PaveCompact({
   decimal?: boolean;
   nom: string;
 }) {
-  const touches = ['7', '8', '9', '4', '5', '6', '1', '2', '3', decimal ? ',' : '⌫', '0', 'OK'];
+  // Avec la virgule : 4 colonnes (⌫ et virgule à droite), toujours 4 rangées pour tenir dans une demi-page
+  const touches = decimal
+    ? ['7', '8', '9', '⌫', '4', '5', '6', ',', '1', '2', '3', '0', 'OK']
+    : ['7', '8', '9', '4', '5', '6', '1', '2', '3', '⌫', '0', 'OK'];
   return (
     <div
-      className="mx-auto grid w-full max-w-[17rem] grid-cols-3 gap-1.5"
+      className={`mx-auto grid w-full gap-1.5 ${decimal ? 'max-w-[19rem] grid-cols-4' : 'max-w-[17rem] grid-cols-3'}`}
       role="group"
       aria-label={`Pavé de ${nom}`}
     >
@@ -95,21 +98,11 @@ export function PaveCompact({
           disabled={disabled}
           aria-label={t === '⌫' ? 'Effacer' : t === 'OK' ? 'Valider' : t === ',' ? 'virgule' : t}
           onClick={() => (t === 'OK' ? onSubmit() : t === '⌫' ? onDelete() : onKey(t))}
-          className={`btn-3d h-12 text-2xl shadow-pop-sm ${t === 'OK' ? 'bg-grass-dark text-white' : t === '⌫' ? 'bg-coral/20' : 'bg-card'}`}
+          className={`btn-3d h-12 text-2xl shadow-pop-sm ${t === 'OK' ? `bg-grass-dark text-white ${decimal ? 'col-span-4' : ''}` : t === '⌫' ? 'bg-coral/20' : 'bg-card'}`}
         >
           {t}
         </button>
       ))}
-      {decimal && (
-        <button
-          type="button"
-          disabled={disabled}
-          onClick={onDelete}
-          className="btn-3d col-span-3 h-12 bg-coral/20 text-lg shadow-pop-sm"
-        >
-          Effacer
-        </button>
-      )}
     </div>
   );
 }

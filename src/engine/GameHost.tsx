@@ -21,7 +21,8 @@ import { type ApresPartie, apresPartie } from '@/services/meta';
 import { useCurrentProfile } from '@/services/profiles';
 import { type SavedResult, dueItems, saveGameResult, updateLeitner } from '@/services/results';
 import { addPlayTime, useLimitStatus } from '@/services/screenTime';
-import { sfx } from '@/services/sfx';
+import { musique } from '@/services/musique';
+import { sfx, vibrate } from '@/services/sfx';
 import { speech } from '@/services/speech';
 import { type ParentWordList, type RecordRow, db, progressKey } from '@/services/storage/db';
 import { useSettings } from '@/stores/settings';
@@ -103,6 +104,13 @@ export function GameHost() {
     setStream(createStream(content, lesson, kind, level, createRng(Date.now()), ctx, game.filterItem));
     setPhase('decompte');
   }, [lesson, game, ctx, kind, level]);
+
+  // Musique de fond : s'efface pendant la partie (sauf réglage « Garder la musique pendant les parties »)
+  const musiqueEnJeu = useSettings((s) => s.musiqueEnJeu);
+  useEffect(() => {
+    musique.silence('partie', !musiqueEnJeu);
+    return () => musique.silence('partie', false);
+  }, [musiqueEnJeu]);
 
   // Consigne lue automatiquement
   useEffect(() => {
@@ -420,7 +428,10 @@ function Bilan({
 }) {
   const [shown, setShown] = useState(0);
   useEffect(() => {
-    if (summary.won || saved.stars > 0) sfx.play('fanfare');
+    if (summary.won || saved.stars > 0) {
+      sfx.play('fanfare');
+      vibrate([60, 60, 120]);
+    }
     let i = 0;
     const t = setInterval(() => {
       i++;

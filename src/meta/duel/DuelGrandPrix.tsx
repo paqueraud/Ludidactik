@@ -107,7 +107,7 @@ export function DuelGrandPrix({
             </p>
             <div className="flex min-h-[3rem] flex-wrap items-center justify-center gap-2 text-center">
               {e.correction ? (
-                <p className="font-titre text-2xl font-extrabold" role="status">
+                <p className="font-titre text-lg font-extrabold leading-tight sm:text-2xl" role="status">
                   Presque ! {e.correction.prompt} →{' '}
                   <span className="text-grass-dark">{formatNumber(e.correction.answer)}</span>
                 </p>

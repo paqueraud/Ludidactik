@@ -8,9 +8,8 @@ import type { Rng } from '@/engine/rng';
 import type { ParentWordList } from '@/services/storage/db';
 import { DERIVATIONS } from './adapters';
 import type { Item, McqItem, SpellingItem, TrueFalseItem } from './items';
-import { CONTENU } from './modules';
+import { CONTENU_CHARGE as CONTENU, type GenContext } from './registry';
 import type { ContentIndex } from './parse';
-import type { GenContext } from './registry';
 import type { ItemKind, Lesson, Level } from './schemas';
 
 export interface ProviderContext {

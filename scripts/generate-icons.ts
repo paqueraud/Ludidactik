@@ -14,6 +14,10 @@ const targets = [
   { file: 'icon-512.png', size: 512, padding: 0 },
   // « maskable » : marge de sécurité de 10 % sur fond plein
   { file: 'icon-maskable-512.png', size: 512, padding: 0.1 },
+  { file: 'icon-maskable-192.png', size: 192, padding: 0.1 },
+  // iOS : écran d'accueil (fond opaque obligatoire, coins arrondis par le système)
+  { file: 'apple-touch-icon.png', size: 180, padding: 0.08 },
+  { file: 'favicon-32.png', size: 32, padding: 0 },
 ];
 
 const browser = await chromium.launch();

@@ -4,6 +4,7 @@
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { CONTENU } from '../src/content/modules';
 import { parseContent } from '../src/content/parse';
 
 const root = join(import.meta.dirname, '..');
@@ -26,7 +27,7 @@ for (const p of walk(join(root, 'data'))) {
   }
 }
 
-const { index, issues } = parseContent(files);
+const { index, issues } = parseContent(files, CONTENU);
 const errors = issues.filter((i) => i.severity === 'erreur');
 const warnings = issues.filter((i) => i.severity === 'avertissement');
 

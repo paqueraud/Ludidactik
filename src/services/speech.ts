@@ -4,6 +4,7 @@
  * - STT : SpeechRecognition (opt-in parent), avec repli gracieux si indisponible.
  * - Voix du parent enregistrée : prioritaire sur le TTS pour les listes parentales.
  */
+import { musique } from './musique';
 import { db } from './storage/db';
 
 const PREFERRED = [
@@ -87,8 +88,10 @@ class SpeechService {
       u.pitch = 1.05;
       // sécurité : certains navigateurs n'émettent jamais « end »
       const timeout = setTimeout(resolve, 1500 + text.length * 120);
+      this.voixDebut();
       const done = () => {
         clearTimeout(timeout);
+        this.voixFin();
         resolve();
       };
       u.onend = done;
@@ -117,13 +120,26 @@ class SpeechService {
     const url = URL.createObjectURL(row.blob);
     const audio = new Audio(url);
     this.currentAudio = audio;
+    this.voixDebut();
     await new Promise<void>((resolve) => {
       audio.onended = () => resolve();
       audio.onerror = () => resolve();
       audio.play().catch(() => resolve());
     });
+    this.voixFin();
     URL.revokeObjectURL(url);
     return true;
+  }
+
+  /** Lectures en cours : la musique de fond s'efface pendant la voix. */
+  private voixEnCours = 0;
+  private voixDebut() {
+    this.voixEnCours++;
+    musique.silence('voix', true);
+  }
+  private voixFin() {
+    this.voixEnCours = Math.max(0, this.voixEnCours - 1);
+    if (!this.voixEnCours) musique.silence('voix', false);
   }
 
   stop() {
