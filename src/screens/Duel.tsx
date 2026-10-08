@@ -13,7 +13,8 @@ import { Ludo } from '@/components/Ludo';
 import { Button, SpeakButton } from '@/components/ui';
 import { content, getLesson, lessonsOf } from '@/content';
 import { LEVEL_META, MATIERE_META } from '@/content/meta';
-import { type ItemStream, type ProviderContext, createStream } from '@/content/provider';
+import type { Item } from '@/content/items';
+import { type ItemStream, type ProviderContext, countItems, createStream } from '@/content/provider';
 import { LEVELS, type Level } from '@/content/schemas';
 import { createRng } from '@/engine/rng';
 import { gamesForLesson, getGame } from '@/games/registry';
@@ -124,13 +125,19 @@ function DuelInner({ profile, jeu, titre }: { profile: Profile; jeu: string; tit
   const ctx = useCtx(profile);
   const profils = useProfiles() ?? [];
   const game = getGame(jeu)!;
+  // En duel, l'énoncé doit se lire à l'écran (pas de dictée de nombres : un seul haut-parleur pour deux).
+  const filtre = useMemo(
+    () => (it: Item) =>
+      (!game.filterItem || game.filterItem(it)) && (it.kind !== 'numeric_answer' || /\d/.test(it.prompt)),
+    [game],
+  );
 
   const lecons = useMemo(
     () =>
       lessonsOf(profile.classe, programmeHG)
         .map((l) => ({ l, kind: gamesForLesson(l, ctx).find((g) => g.game.id === jeu)?.kind }))
-        .filter((x) => !!x.kind),
-    [profile.classe, programmeHG, ctx, jeu],
+        .filter((x) => !!x.kind && countItems(content, x.l, x.kind, 'normal', createRng(1), ctx, filtre) > 0),
+    [profile.classe, programmeHG, ctx, jeu, filtre],
   );
   const [lessonId, setLessonId] = useState<string | null>(null);
   const [level, setLevel] = useState<Level>('normal');
@@ -159,8 +166,7 @@ function DuelInner({ profile, jeu, titre }: { profile: Profile; jeu: string; tit
 
   const streams = useMemo(() => {
     if (phase.etape !== 'jeu' || !choix?.kind) return null;
-    const mk = () =>
-      createStream(content, choix.l, choix.kind!, level, createRng(phase.graine), ctx, game.filterItem);
+    const mk = () => createStream(content, choix.l, choix.kind!, level, createRng(phase.graine), ctx, filtre);
     const a = mk();
     const b = mk();
     return a && b ? ([a, b] as [ItemStream, ItemStream]) : null;

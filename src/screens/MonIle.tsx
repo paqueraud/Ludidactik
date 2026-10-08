@@ -21,15 +21,49 @@ export function MonIle() {
   return <AvecProfil>{(profile) => <IleInner key={profile.id} profile={profile} />}</AvecProfil>;
 }
 
-/** Emplacement des quartiers sur la carte (viewBox 800 × 500). */
-const PLACES: Record<string, { x: number; y: number }> = {
-  nombres: { x: 205, y: 165 },
-  mots: { x: 410, y: 120 },
-  histoire: { x: 610, y: 170 },
-  cartes: { x: 195, y: 335 },
-  sciences: { x: 405, y: 295 },
-  langues: { x: 620, y: 345 },
-  ensemble: { x: 405, y: 430 },
+type Place = { x: number; y: number };
+/** Emplacement des quartiers sur la carte (viewBox 800 × 500), selon leur nombre dans la classe. */
+const DISPOSITIONS: Record<number, Place[]> = {
+  1: [{ x: 400, y: 260 }],
+  2: [
+    { x: 260, y: 260 },
+    { x: 540, y: 260 },
+  ],
+  3: [
+    { x: 240, y: 190 },
+    { x: 560, y: 190 },
+    { x: 400, y: 370 },
+  ],
+  4: [
+    { x: 240, y: 180 },
+    { x: 560, y: 180 },
+    { x: 240, y: 370 },
+    { x: 560, y: 370 },
+  ],
+  5: [
+    { x: 220, y: 165 },
+    { x: 580, y: 165 },
+    { x: 400, y: 285 },
+    { x: 220, y: 395 },
+    { x: 580, y: 395 },
+  ],
+  6: [
+    { x: 205, y: 170 },
+    { x: 405, y: 130 },
+    { x: 605, y: 170 },
+    { x: 205, y: 370 },
+    { x: 405, y: 330 },
+    { x: 605, y: 370 },
+  ],
+  7: [
+    { x: 205, y: 165 },
+    { x: 410, y: 120 },
+    { x: 610, y: 170 },
+    { x: 195, y: 335 },
+    { x: 405, y: 295 },
+    { x: 620, y: 345 },
+    { x: 405, y: 430 },
+  ],
 };
 /** Bâtiments : 2 rangées de 3 sur la parcelle. */
 const SLOTS = [
@@ -78,13 +112,14 @@ function IleInner({ profile }: { profile: Profile }) {
         <SpeakButton text={intro} />
       </div>
 
-      <div className="carte mb-4 overflow-hidden bg-sky/30 p-1">
+      <div className="carte mx-auto mb-4 max-w-3xl overflow-hidden bg-sky/30 p-1">
         <svg viewBox="0 0 800 500" className="h-auto w-full" role="group" aria-label="Carte de mon île">
           <CarteFond />
-          {ile.map((q) => (
+          {ile.map((q, i) => (
             <Quartier
               key={q.def.id}
               q={q}
+              place={DISPOSITIONS[ile.length]?.[i] ?? { x: 400, y: 250 }}
               actif={choisi === q.def.id}
               onChoisir={() => setChoisi(choisi === q.def.id ? null : q.def.id)}
             />
@@ -173,8 +208,17 @@ function CarteFond() {
   );
 }
 
-function Quartier({ q, actif, onChoisir }: { q: QuartierEtat; actif: boolean; onChoisir(): void }) {
-  const place = PLACES[q.def.id] ?? { x: 400, y: 250 };
+function Quartier({
+  q,
+  place,
+  actif,
+  onChoisir,
+}: {
+  q: QuartierEtat;
+  place: Place;
+  actif: boolean;
+  onChoisir(): void;
+}) {
   const label = `${q.def.nom} : ${q.gemmes} gemme${q.gemmes > 1 ? 's' : ''} sur ${q.lecons} leçons`;
   return (
     <g

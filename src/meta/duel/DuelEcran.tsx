@@ -25,20 +25,20 @@ export function DuelEcran({
   return (
     <div className="fixed inset-0 z-30 grid grid-rows-2 bg-cream lg:grid-cols-2 lg:grid-rows-1">
       <section
-        className={`relative flex rotate-180 flex-col overflow-hidden p-2 lg:order-2 lg:rotate-0 lg:p-6 ${joueurs[1].couleur}`}
+        className={`relative flex rotate-180 flex-col overflow-y-auto p-2 lg:order-2 lg:rotate-0 lg:p-6 ${joueurs[1].couleur}`}
         aria-label={`Moitié de ${joueurs[1].nom}`}
       >
         <EnTete j={joueurs[1]} />
         {rendu(1)}
       </section>
       <section
-        className={`relative flex flex-col overflow-hidden p-2 lg:order-1 lg:p-6 ${joueurs[0].couleur}`}
+        className={`relative flex flex-col overflow-y-auto p-2 lg:order-1 lg:p-6 ${joueurs[0].couleur}`}
         aria-label={`Moitié de ${joueurs[0].nom}`}
       >
         <EnTete j={joueurs[0]} />
         {rendu(0)}
       </section>
-      <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2 justify-center lg:inset-x-auto lg:left-1/2 lg:top-4 lg:-translate-x-1/2 lg:translate-y-0">
+      <div className="pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2 justify-center lg:inset-x-auto lg:bottom-6 lg:left-1/2 lg:top-auto lg:-translate-x-1/2 lg:translate-y-0">
         <div className="pointer-events-auto flex items-center gap-2 rounded-full bg-card px-2 py-1 shadow-soft">
           {centre}
         </div>

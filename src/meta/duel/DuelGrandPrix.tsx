@@ -78,10 +78,10 @@ export function DuelGrandPrix({
   const piste = (moi: 0 | 1) => (
     <div className="mb-1 flex flex-col gap-1" aria-hidden>
       {([moi, moi === 0 ? 1 : 0] as const).map((j) => (
-        <div key={j} className={`relative h-7 rounded-full ${j === moi ? 'bg-white/80' : 'bg-white/40'}`}>
+        <div key={j} className={`relative h-6 rounded-full ${j === moi ? 'bg-white/80' : 'bg-white/40'}`}>
           <div className="absolute inset-y-0 right-2 w-1 bg-[repeating-linear-gradient(0deg,#24304A_0_4px,#fff_4px_8px)]" />
           <motion.span
-            className="absolute top-0 text-2xl leading-7"
+            className="absolute top-0 text-xl leading-6"
             initial={false}
             animate={{ left: `${(etats[j].avance / ARRIVEE) * 88}%` }}
             transition={{ type: 'spring', stiffness: 120, damping: 16 }}
@@ -113,7 +113,7 @@ export function DuelGrandPrix({
                 </p>
               ) : e.item ? (
                 <>
-                  <span className="font-titre text-3xl font-extrabold">{e.item.prompt}</span>
+                  <span className="font-titre text-2xl font-extrabold sm:text-3xl">{e.item.prompt}</span>
                   <output
                     className="flex h-12 min-w-[5.5rem] items-center justify-center rounded-2xl border-4 border-sky bg-card px-3 font-titre text-3xl font-extrabold"
                     aria-label={`Réponse de ${joueurs[i].nom}`}

@@ -102,7 +102,7 @@ export function Screen({
     <div className="min-h-dvh pb-28">
       <Sky hills={hills} />
       <header className="sticky top-0 z-20 px-3 pt-[max(0.75rem,env(safe-area-inset-top))] sm:px-6">
-        <div className="mx-auto flex max-w-6xl items-center gap-2 rounded-card bg-card/85 p-2 shadow-soft backdrop-blur">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 rounded-card bg-card/85 p-2 shadow-soft backdrop-blur sm:flex-nowrap">
           {retour ? (
             <button
               type="button"
@@ -125,7 +125,11 @@ export function Screen({
               <Home size={24} aria-hidden />
             </Link>
           )}
-          <div className="flex min-w-0 flex-1 items-center gap-2">
+          {/* Sur téléphone, avec la flamme et le profil, le titre passe sur sa propre ligne. */}
+          {profile && titre && <span className="flex-1 sm:hidden" aria-hidden />}
+          <div
+            className={`flex min-w-0 flex-1 items-center gap-2 ${profile && titre ? 'max-sm:order-last max-sm:basis-full max-sm:pl-1' : ''}`}
+          >
             {titre && <h1 className="truncate text-xl sm:text-2xl">{titre}</h1>}
             {titre && <SpeakButton text={aLire ?? titre} size={40} />}
           </div>

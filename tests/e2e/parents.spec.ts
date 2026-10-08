@@ -14,7 +14,7 @@ async function creerProfil(page: Page, prenom: string) {
   await page.getByLabel(/Mot de passe \(4/).fill('soleil');
   await page.getByLabel('Encore une fois').fill('soleil');
   await page.getByRole('button', { name: 'Créer mon profil' }).click();
-  await expect(page).toHaveURL(/\/jouer$/);
+  await expect(page).toHaveURL(/\/accueil$/);
 }
 
 /** Résout la question « adulte » affichée (« Combien font 7 × 8 + 13 ? »). */
@@ -93,7 +93,7 @@ test.describe('espace parents', () => {
     await page.getByRole('button', { name: /Inès/ }).click();
     await page.getByLabel('Mot de passe').fill('lune22');
     await page.getByRole('button', { name: 'Entrer' }).click();
-    await expect(page).toHaveURL(/\/jouer$/);
+    await expect(page).toHaveURL(/\/accueil$/);
 
     // 7. Écran des matières : « Mes mots de la semaine » en tête → L'Ascension en 2 touches
     await page.goto('/jouer/CE1');
