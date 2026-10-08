@@ -8,7 +8,16 @@ import { type LudidactikDB, db as defaultDb } from './storage/db';
 const FORMAT = 'ludidactik-sauvegarde';
 const VERSION = 1;
 
-const TABLES = ['profiles', 'progress', 'records', 'attempts', 'leitner', 'wordLists', 'settings'] as const;
+const TABLES = [
+  'profiles',
+  'progress',
+  'records',
+  'attempts',
+  'leitner',
+  'wordLists',
+  'settings',
+  'screenTime',
+] as const;
 
 const BackupSchema = z.object({
   format: z.literal(FORMAT),

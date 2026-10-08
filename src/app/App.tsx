@@ -29,6 +29,7 @@ export function App() {
           <Route path="/profils/:profileId/connexion" element={<Connexion />} />
           <Route path="/profil" element={<MonProfil />} />
           <Route path="/parents" element={<Parents />} />
+          <Route path="/parents/:onglet" element={<Parents />} />
           <Route path="/jouer" element={<Classes />} />
           <Route path="/jouer/:classe" element={<Matieres />} />
           <Route path="/jouer/:classe/:matiere" element={<Lecons />} />

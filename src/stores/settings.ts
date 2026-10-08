@@ -15,6 +15,12 @@ export interface Settings {
   micro: boolean;
   /** Lecture automatique des questions : « auto » = activée pour le CP-CE1. */
   lectureAuto: 'auto' | 'oui' | 'non';
+  /** Département de l'élève (code « 75 », « 2A », « 971 »…), pour la géographie de proximité. */
+  departement: string | null;
+  /** Afficher les questions de sciences sur la puberté (items `meta.puberte`) — masquées par défaut. */
+  puberte: boolean;
+  /** Classements entre les profils de l'appareil (sinon : chacun contre ses propres records). */
+  competition: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -24,6 +30,9 @@ export const DEFAULT_SETTINGS: Settings = {
   debitVoix: 0.9,
   micro: false,
   lectureAuto: 'auto',
+  departement: null,
+  puberte: false,
+  competition: true,
 };
 
 interface SettingsState extends Settings {
