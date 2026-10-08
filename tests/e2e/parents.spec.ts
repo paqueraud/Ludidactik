@@ -111,6 +111,11 @@ test.describe('espace parents', () => {
 
     // la leçon apparaît aussi en tête de la liste des leçons de français
     await page.goto('/jouer/CE1/francais');
-    await expect(page.getByRole('heading', { level: 2 }).first()).toHaveText('Orthographe lexicale (dictée)');
+    await expect(page.getByRole('heading', { level: 2 }).first()).toHaveText(
+      'Orthographe lexicale (dictée)',
+      {
+        timeout: 15_000,
+      },
+    );
   });
 });

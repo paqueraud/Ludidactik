@@ -7,7 +7,8 @@ import { speech } from '@/services/speech';
 type Variant = 'sky' | 'grass' | 'sun' | 'coral' | 'grape' | 'blanc' | 'fantome';
 
 const VARIANTS: Record<Variant, string> = {
-  sky: 'bg-sky text-white [text-shadow:0_2px_0_rgb(0_0_0/0.15)]',
+  // bleu foncé : contraste AA avec le texte blanc
+  sky: 'bg-sky-dark text-white [text-shadow:0_2px_0_rgb(0_0_0/0.15)]',
   grass: 'bg-grass-dark text-white',
   sun: 'bg-sun text-ink',
   coral: 'bg-coral text-white',

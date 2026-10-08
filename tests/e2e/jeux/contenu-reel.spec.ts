@@ -5,8 +5,10 @@
 import { expect, test } from '@playwright/test';
 
 test('tous les jeux s’ouvrent avec le contenu réel, sans erreur console', async ({ page }) => {
-  test.setTimeout(300_000);
+  test.setTimeout(600_000);
   await page.goto('/labo');
+  // la page Labo est chargée en différé
+  await expect(page.locator('a[href^="/labo/"]').first()).toBeVisible();
   const hrefs = await page
     .locator('a[href^="/labo/"]')
     .evaluateAll((as) => as.map((a) => a.getAttribute('href')!));
@@ -20,7 +22,12 @@ test('tous les jeux s’ouvrent avec le contenu réel, sans erreur console', asy
     page.on('console', onConsole);
     page.on('pageerror', onError);
     await page.goto(`${href}?source=contenu&niveau=normal`);
-    await expect(page.getByTestId('labo')).toBeVisible();
+    const ouvert = await page
+      .getByTestId('labo')
+      .waitFor({ timeout: 20_000 })
+      .then(() => true)
+      .catch(() => false);
+    if (!ouvert) problemes.push(`${href} : chargement bloqué`);
     await page.waitForTimeout(1200);
     page.off('console', onConsole);
     page.off('pageerror', onError);

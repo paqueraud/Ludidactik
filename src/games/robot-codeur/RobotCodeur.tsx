@@ -534,7 +534,7 @@ function Manche({
               onClick={() => ajouter(i)}
               disabled={!actif}
               className={`btn-3d flex min-h-btn min-w-[4.5rem] flex-col items-center justify-center px-3 py-1 ${
-                plan.relatif ? 'bg-sky text-white' : 'bg-grass-dark text-white'
+                plan.relatif ? 'bg-sky-dark text-white' : 'bg-grass-dark text-white'
               }`}
               aria-label={`${LIBELLES[i].long} (touche ${LIBELLES[i].touche})`}
             >
