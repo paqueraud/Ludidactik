@@ -20,11 +20,22 @@ import { Hud } from '@/games/_kit/ui';
 import { vibrate } from '@/services/sfx';
 import { bravo, dansUnChamp, direNombre, estNumerique, tirer, useRng } from '../_nombres-commun/outils';
 import { Bandeau, Correction, PasDeQuestion } from '../_nombres-commun/ui';
-import { cible, enUnites, nomRang, phraseDecomposition, rangsDe, valeur, valeurPiece } from './materiel';
+import {
+  lireEnTout as lireEnToutMax,
+  cible,
+  enUnites,
+  nomRang,
+  phraseDecomposition,
+  rangsDe,
+  valeur,
+  valeurPiece,
+} from './materiel';
 import { Piece } from './Pieces';
 
 const MANCHES: Record<Level, number> = { facile: 5, normal: 8, plus_loin: 8 };
-const MAX_PIECES = 19;
+/** Pièces par ligne : assez pour les groupements non canoniques (« 52 dizaines », « 83 dizaines en tout »). */
+const MAX_PIECES = 99;
+const lireEnTout = (it: NumericItem) => lireEnToutMax(it.prompt, it.answer, MAX_PIECES);
 
 type Comptes = Record<number, number>;
 
@@ -53,7 +64,10 @@ export default function Batisseur({
   );
 
   const [item, setItem] = useState<NumericItem | null>(() => nouvelle());
-  const rangs = useMemo(() => (item ? rangsDe(item.answer) : [0]), [item]);
+  const enTout = useMemo(() => (item ? lireEnTout(item) : null), [item]);
+  /** Nombre à construire (le nombre de la question « en tout », sinon la réponse). */
+  const aConstruire = enTout ? enTout.nombre : (item?.answer ?? 0);
+  const rangs = useMemo(() => rangsDe(aConstruire), [aConstruire]);
   const lo = rangs[rangs.length - 1]!;
   const depart = useCallback(
     (rs: number[]): Comptes => {
@@ -127,15 +141,35 @@ export default function Batisseur({
   const valider = useCallback(() => {
     if (!item || !actif || verrou.current) return;
     verrou.current = true;
-    const juste = enUnites(comptes, lo) === cible(item.answer, lo);
-    answer(item, juste, formatNumber(valeur(comptes, lo)), formatNumber(item.answer));
+    const bonNombre = enUnites(comptes, lo) === cible(aConstruire, lo);
+    if (enTout && bonNombre) {
+      // le nombre est juste : il faut encore que toutes les grosses pièces soient cassées
+      const plusGrosses = rangs.some((r) => r > enTout.rang && (comptes[r] ?? 0) > 0);
+      if (plusGrosses) {
+        verrou.current = false;
+        setMessage(
+          `${formatNumber(aConstruire)} est bien construit ! Casse maintenant les grosses pièces pour compter toutes les ${nomRang(enTout.rang, 2)}.`,
+        );
+        sfx.play('pop');
+        return;
+      }
+    }
+    const juste = enTout ? bonNombre && (comptes[enTout.rang] ?? 0) === item.answer : bonNombre;
+    answer(
+      item,
+      juste,
+      enTout ? String(comptes[enTout.rang] ?? 0) : formatNumber(valeur(comptes, lo)),
+      formatNumber(item.answer),
+    );
     if (juste) {
       const desordre = rangs.some((r) => (comptes[r] ?? 0) >= 10);
       sfx.play('etoile');
       setMessage(
-        desordre
-          ? `${bravo(rng)} Astuce : 10 pièces pareilles s’échangent contre une plus grosse.`
-          : `${bravo(rng)} Le nombre est bien construit !`,
+        enTout
+          ? `${bravo(rng)} ${formatNumber(aConstruire)}, c’est ${item.answer} ${nomRang(enTout.rang, item.answer)} en tout !`
+          : desordre
+            ? `${bravo(rng)} Astuce : 10 pièces pareilles s’échangent contre une plus grosse.`
+            : `${bravo(rng)} Le nombre est bien construit !`,
       );
       setEtat('juste');
     } else {
@@ -143,7 +177,7 @@ export default function Batisseur({
       vibrate(60);
       setEtat('faux');
     }
-  }, [item, actif, comptes, lo, rangs, answer, sfx, rng]);
+  }, [item, actif, comptes, lo, rangs, answer, sfx, rng, enTout, aConstruire]);
 
   const suivant = useCallback(() => {
     if (manche >= N) {
@@ -161,7 +195,8 @@ export default function Batisseur({
     }
     const it = nouvelle();
     setItem(it);
-    setComptes(depart(it ? rangsDe(it.answer) : [0]));
+    const et = it ? lireEnTout(it) : null;
+    setComptes(depart(rangsDe(et ? et.nombre : (it?.answer ?? 0))));
     setLigne(0);
     setManche((m) => m + 1);
     setMessage('');
@@ -218,8 +253,9 @@ export default function Batisseur({
   }
 
   const total = valeur(comptes, lo);
-  const consigne =
-    item.meta?.construire === true
+  const consigne = enTout
+    ? `${item.prompt} Construis ${formatNumber(enTout.nombre)}, casse les grosses pièces et compte les ${nomRang(enTout.rang, 2)}.`
+    : item.meta?.construire === true
       ? item.prompt
       : `Construis : ${item.prompt.replace(/\s*=\s*(\?|…)\s*$/, '')}`;
 
@@ -261,7 +297,7 @@ export default function Batisseur({
               return (
                 <div
                   key={r}
-                  className={`grid grid-cols-[auto_1fr] items-center gap-2 rounded-2xl bg-white/85 p-2 sm:grid-cols-[150px_1fr_auto] ${
+                  className={`grid grid-cols-[auto_1fr] items-center gap-2 rounded-2xl bg-card p-2 sm:grid-cols-[150px_1fr_auto] ${
                     choisie ? 'ring-4 ring-sky' : ''
                   }`}
                   onClick={() => setLigne(i)}
@@ -310,60 +346,84 @@ export default function Batisseur({
                           transition={{ type: 'spring', stiffness: 380, damping: 22 }}
                           className="inline-flex"
                         >
-                          <Piece k={k} etiquette={valeurPiece(r)} taille={k >= 2 && k <= 3 ? 0.75 : 1} />
+                          <Piece
+                            k={k}
+                            etiquette={valeurPiece(r)}
+                            taille={(k >= 2 && k <= 3 ? 0.75 : 1) * (n > 40 ? 0.5 : n > 20 ? 0.65 : 1)}
+                          />
                         </motion.span>
                       ))}
                     </AnimatePresence>
                   </div>
 
-                  {/* commandes */}
+                  {/* commandes : les échanges sont à GAUCHE du −, leur place est toujours réservée
+                      (aucun bouton ne se glisse sous le doigt pendant qu'on tape sur + ou −) */}
                   <div className="col-span-2 flex flex-wrap items-center justify-end gap-2 sm:col-span-1">
                     <button
                       type="button"
-                      className="btn-3d flex h-12 w-12 items-center justify-center bg-coral/20"
+                      className={`btn-3d min-h-12 bg-card px-3 text-sm ${n >= 1 && rangs.includes(r - 1) && (comptes[r - 1] ?? 0) + 10 <= MAX_PIECES && (level !== 'facile' || !!enTout) ? '' : 'invisible'}`}
+                      onClick={() => casser(r)}
+                      disabled={
+                        !actif ||
+                        !(
+                          n >= 1 &&
+                          rangs.includes(r - 1) &&
+                          (comptes[r - 1] ?? 0) + 10 <= MAX_PIECES &&
+                          (level !== 'facile' || !!enTout)
+                        )
+                      }
+                      aria-hidden={
+                        !(
+                          n >= 1 &&
+                          rangs.includes(r - 1) &&
+                          (comptes[r - 1] ?? 0) + 10 <= MAX_PIECES &&
+                          (level !== 'facile' || !!enTout)
+                        )
+                      }
+                      tabIndex={
+                        n >= 1 &&
+                        rangs.includes(r - 1) &&
+                        (comptes[r - 1] ?? 0) + 10 <= MAX_PIECES &&
+                        (level !== 'facile' || !!enTout)
+                          ? 0
+                          : -1
+                      }
+                    >
+                      Casser en 10
+                    </button>
+                    <button
+                      type="button"
+                      className={`btn-3d min-h-12 bg-sun px-3 text-sm text-ink ${n >= 10 && rangs.includes(r + 1) ? '' : 'invisible'}`}
+                      onClick={() => echanger(r)}
+                      disabled={!actif || !(n >= 10 && rangs.includes(r + 1))}
+                      aria-hidden={!(n >= 10 && rangs.includes(r + 1))}
+                      tabIndex={n >= 10 && rangs.includes(r + 1) ? 0 : -1}
+                    >
+                      10 → 1 {nomRang(r + 1, 1)}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-3d flex h-12 w-12 items-center justify-center bg-coral-dark text-white"
                       onClick={() => modifier(r, -1)}
                       disabled={!actif || n === 0}
                       aria-label={`Enlever 1 ${nomRang(r, 1)}`}
                     >
-                      <Minus aria-hidden />
+                      <Minus aria-hidden strokeWidth={3} />
                     </button>
                     {level !== 'plus_loin' && (
-                      <span className="w-8 text-center font-titre text-2xl font-extrabold" aria-hidden>
+                      <span className="w-10 text-center font-titre text-2xl font-extrabold" aria-hidden>
                         {n}
                       </span>
                     )}
                     <button
                       type="button"
-                      className="btn-3d flex h-12 w-12 items-center justify-center bg-grass/30"
+                      className="btn-3d flex h-12 w-12 items-center justify-center bg-grass-dark text-white"
                       onClick={() => modifier(r, 1)}
                       disabled={!actif || n >= MAX_PIECES}
                       aria-label={`Ajouter 1 ${nomRang(r, 1)}`}
                     >
-                      <Plus aria-hidden />
+                      <Plus aria-hidden strokeWidth={3} />
                     </button>
-                    {n >= 10 && rangs.includes(r + 1) && (
-                      <button
-                        type="button"
-                        className="btn-3d min-h-12 bg-sun px-3 text-sm"
-                        onClick={() => echanger(r)}
-                        disabled={!actif}
-                      >
-                        10 → 1 {nomRang(r + 1, 1)}
-                      </button>
-                    )}
-                    {n >= 1 &&
-                      rangs.includes(r - 1) &&
-                      (comptes[r - 1] ?? 0) + 10 <= MAX_PIECES &&
-                      level !== 'facile' && (
-                        <button
-                          type="button"
-                          className="btn-3d min-h-12 bg-card px-3 text-sm"
-                          onClick={() => casser(r)}
-                          disabled={!actif}
-                        >
-                          Casser en 10
-                        </button>
-                      )}
                   </div>
                 </div>
               );
@@ -378,6 +438,11 @@ export default function Batisseur({
                 Glisse une pièce sur sa ligne ou utilise + et −. Au clavier : ↑ ↓ choisir la ligne, + −
                 ajouter ou enlever, E échanger, C casser, Entrée valider.
               </p>
+              {message && (
+                <p className="text-center font-bold text-sky-dark" role="status">
+                  {message}
+                </p>
+              )}
               <Button variant="grass" size="lg" onClick={valider} disabled={paused}>
                 🏗️ C’est construit !
               </Button>
@@ -391,12 +456,27 @@ export default function Batisseur({
           <Correction
             ouvert={etat === 'faux'}
             bonne={formatNumber(item.answer)}
-            aDire={`Il fallait construire ${direNombre(item.answer)}. ${phraseDecomposition(item.answer, rangs)} ${item.explication}`}
-            explication={`${phraseDecomposition(item.answer, rangs)} ${item.explication}`}
+            aDire={
+              enTout
+                ? `La bonne réponse est ${direNombre(item.answer)}. ${item.explication}`
+                : `Il fallait construire ${direNombre(item.answer)}. ${phraseDecomposition(item.answer, rangs)} ${item.explication}`
+            }
+            explication={
+              enTout ? item.explication : `${phraseDecomposition(item.answer, rangs)} ${item.explication}`
+            }
             onContinuer={suivant}
           >
             <p className="mt-1">
-              Ta construction valait <strong>{formatNumber(total)}</strong>.
+              {enTout ? (
+                <>
+                  Tu as compté <strong>{comptes[enTout.rang] ?? 0}</strong> {nomRang(enTout.rang, 2)} (ta
+                  construction valait <strong>{formatNumber(total)}</strong>).
+                </>
+              ) : (
+                <>
+                  Ta construction valait <strong>{formatNumber(total)}</strong>.
+                </>
+              )}
             </p>
           </Correction>
         </div>

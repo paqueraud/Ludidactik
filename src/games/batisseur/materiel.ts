@@ -85,3 +85,22 @@ export function phraseDecomposition(n: number, rangs: number[]): string {
       : morceaux[0];
   return `${formatNumber(n)} = ${fin}.`;
 }
+
+/**
+ * « Combien y a-t-il de dizaines en tout dans 348 ? » : on construit 348, on casse les grosses pièces,
+ * puis on compte les barres (348 = 34 dizaines et 8 unités). Réservé aux réponses ≤ maxPieces.
+ */
+export function lireEnTout(
+  prompt: string,
+  reponse: number,
+  maxPieces: number,
+): { nombre: number; rang: number } | null {
+  const m = prompt.match(
+    /^Combien y a-t-il de (\p{L}+(?: de \p{L}+)?) en tout dans ([\d\s\u00A0\u202F]+) \?$/u,
+  );
+  if (!m) return null;
+  const rang = Object.entries(NOM_RANG).find(([, [, pl]]) => pl === m[1])?.[0];
+  const nombre = Number(m[2]!.replace(/[\s\u00A0\u202F]/g, ''));
+  if (rang === undefined || !Number.isFinite(nombre) || reponse > maxPieces) return null;
+  return { nombre, rang: Number(rang) };
+}

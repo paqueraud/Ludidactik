@@ -20,7 +20,9 @@ const jeu: GameModule = {
     it.answer >= 0 &&
     it.answer <= 999_999_999 &&
     (it.meta?.construire === true ||
-      (/\.NUM\.(DECOMP|ECRIRE|GRANDS)/.test(it.lessonId) && Number.isInteger(it.answer))),
+      it.meta?.dictee === true ||
+      // « Combien de dizaines en tout dans 348 ? » : on construit 348 (au plus 99 pièces à compter)
+      (/^Combien y a-t-il de .+ en tout dans /.test(it.prompt) && it.answer <= 99)),
   lessons: (l) => /\.NUM\.(DECOMP|ECRIRE|GRANDS)/.test(l.id) || l.jeuxSuggeres.includes('batisseur'),
   component: lazy(() => import('./Batisseur')),
 };

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cible, decomposition, enUnites, phraseDecomposition, rangsDe, valeur } from './materiel';
+import { cible, decomposition, enUnites, phraseDecomposition, rangsDe, valeur, lireEnTout } from './materiel';
 
 describe('Bâtisseur — matériel', () => {
   it('rangs utiles d’un entier et d’un décimal', () => {
@@ -22,5 +22,20 @@ describe('Bâtisseur — matériel', () => {
     expect(phraseDecomposition(635, [2, 1, 0])).toBe('635 = 6 centaines, 3 dizaines et 5 unités.');
     expect(phraseDecomposition(110, [2, 1, 0])).toBe('110 = 1 centaine et 1 dizaine.');
     expect(phraseDecomposition(3.25, [0, -1, -2])).toBe('3,25 = 3 unités, 2 dixièmes et 5 centièmes.');
+  });
+});
+
+describe('questions « en tout »', () => {
+  it('lit le nombre à construire et le rang à compter', () => {
+    expect(lireEnTout('Combien y a-t-il de dizaines en tout dans 348 ?', 34, 99)).toEqual({
+      nombre: 348,
+      rang: 1,
+    });
+    expect(lireEnTout('Combien y a-t-il de centaines en tout dans 4\u202F578 ?', 45, 99)).toEqual({
+      nombre: 4578,
+      rang: 2,
+    });
+    expect(lireEnTout('Combien y a-t-il de milliers en tout dans 65 000 335 ?', 65000, 99)).toBeNull();
+    expect(lireEnTout('Écris le nombre.', 3, 99)).toBeNull();
   });
 });
